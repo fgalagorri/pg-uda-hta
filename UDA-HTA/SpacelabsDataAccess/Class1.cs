@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace SpacelabsDataAccess
 {
-    public class Class1 : IDeviceDataAccess
+    public class Class1
     {
     }
 }

@@ -12,7 +12,7 @@ namespace Interfaces
 
         ICollection<Report> ListReports();
 
-        ICollection<> GetReportById
+        ICollection<Report> GetReportById();
 
 
     }

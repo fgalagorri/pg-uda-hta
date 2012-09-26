@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDA-HTA", "UDA-HTA\UDA-HTA.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{EC3E828B-0F5F-4F3C-8568-01F96C833040}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaPrueba", "ConsoleApplication1\ConsolaPrueba.csproj", "{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -63,6 +65,16 @@ Global
 		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Debug|x86.ActiveCfg = Debug|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Debug|x86.Build.0 = Debug|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|Any CPU.ActiveCfg = Release|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|x86.ActiveCfg = Release|x86
+		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
