@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacelabsDataAccess", "Spac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDA-HTA", "UDA-HTA\UDA-HTA.csproj", "{9C605C83-F048-4F2B-888A-49DEA3A6A93A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{EC3E828B-0F5F-4F3C-8568-01F96C833040}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -51,6 +53,16 @@ Global
 		{9C605C83-F048-4F2B-888A-49DEA3A6A93A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{9C605C83-F048-4F2B-888A-49DEA3A6A93A}.Release|x86.ActiveCfg = Release|x86
 		{9C605C83-F048-4F2B-888A-49DEA3A6A93A}.Release|x86.Build.0 = Release|x86
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EC3E828B-0F5F-4F3C-8568-01F96C833040}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
