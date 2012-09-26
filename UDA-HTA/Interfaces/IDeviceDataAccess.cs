@@ -8,21 +8,11 @@ namespace Interfaces
     public interface IDeviceDataAccess
     {
 
-        #region list members
+        ICollection<Patient> ListPatients();
 
-        ICollection<Patient> ListPatients()
-        {
+        ICollection<Report> ListReports();
 
-        }
-
-        ICollection<Report> ListReports()
-        {
-
-        }
-
-        #endregion
-
-
+        ICollection<> GetReportById
 
 
     }
