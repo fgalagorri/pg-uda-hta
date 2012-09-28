@@ -2,5 +2,41 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <Grid></Grid>
+    <Grid>
+        <GroupBox Header="groupBox1" Height="93" HorizontalAlignment="Left" Name="groupBox1" VerticalAlignment="Top" Width="503">
+            <Grid>
+                <TabControl Height="70" HorizontalAlignment="Left" Name="tabControl2" VerticalAlignment="Top" Width="491">
+                    <TabItem Header="Usuario" Name="tabItem2">
+                        <Grid>
+                            <Button Content="Button" Height="26" HorizontalAlignment="Left" Margin="6,6,0,0" Name="button1" VerticalAlignment="Top" Width="41" />
+                            <Button Content="Button" Height="26" HorizontalAlignment="Left" Margin="53,6,0,0" Name="button2" VerticalAlignment="Top" Width="41" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Paciente" Name="tabItem3">
+                        <Grid />
+                    </TabItem>
+                    <TabItem Header="Estudio" Name="tabItem4">
+                        <Grid />
+                    </TabItem>
+                    <TabItem Header="Investigación" Name="tabItem5">
+                        <Grid />
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="groupBox2" Height="229" HorizontalAlignment="Left" Margin="6,82,0,0" Name="groupBox2" VerticalAlignment="Top" Width="122">
+            <Grid>
+                <TreeView Height="223" HorizontalAlignment="Left" Name="treeView1" VerticalAlignment="Top" Width="110" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="groupBox3" Height="229" HorizontalAlignment="Left" Margin="134,82,0,0" Name="groupBox3" VerticalAlignment="Top" Width="369">
+            <Grid>
+                <TabControl Height="194" HorizontalAlignment="Left" Margin="6,6,0,0" Name="tabControl1" VerticalAlignment="Top" Width="345">
+                    <TabItem Header="tabItem1" Name="tabItem1">
+                        <Grid />
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </GroupBox>
+    </Grid>
 </Window>
