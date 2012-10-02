@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.PatientViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="1024">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TreeView VerticalAlignment="Stretch">
+            <TreeViewItem IsExpanded="True">
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\Images\tree_user.png" />
+                        <Label>Juan Alberto Pérez Manzanares</Label>
+                    </StackPanel>
+                </TreeViewItem.Header>
+                <TreeViewItem.Items>
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="..\Images\tree_study.png" />
+                                <Label>21/5/2012</Label>
+                            </StackPanel>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+                </TreeViewItem.Items>
+            </TreeViewItem>
+        </TreeView>
+
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Name="gridSplitter" VerticalAlignment="Stretch" Width="5" />
+
+        <TabControl Grid.Column="1" VerticalAlignment="Stretch">
+            <TabItem Header="Promedios">
+                Acá va la vista de promedios del análisis
+            </TabItem>
+
+            <TabItem Header="Mediciones">
+                Acá van los datos crudos
+            </TabItem>
+
+            <TabItem Header="Gráficos">
+                Acá gráficos con las mediciones, etc.
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</UserControl>
