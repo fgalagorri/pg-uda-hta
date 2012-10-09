@@ -7,14 +7,20 @@ using java.sql;
 
 namespace HMSDataAccess
 {
-    public class Class1 : IDeviceDataAccess
+    public class HMS : IDeviceDataAccess
     {
+        private Statement stat;
+        private Connection conn;
+
+        public HMS()
+        { 
+        }
 
         public void connectHMSDataBase()
         {
             org.h2.Driver.load();
-            Connection conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
-            Statement stat = conn.createStatement();
+            conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
+            stat = conn.createStatement();
             ResultSet rs = stat.executeQuery("SELECT 'Hello World'");
             while (rs.next())
             {
@@ -23,8 +29,22 @@ namespace HMSDataAccess
 
         }
 
+        public void closeConnectionHMSDataBase()
+        {
+            conn.close();
+        }
+
+
         public ICollection<Patient> ListPatients()
         {
+            ResultSet rs = stat.executeQuery("SELECT PATIENTID FROM PATIENT");
+            ICollection<string> patientIDList = new List<string>();
+            while (rs.next())
+            {
+                patientIDList.Add(rs.getString(1));
+                Console.WriteLine(rs.getString(1));
+            }
+
             return null;
         }
 
