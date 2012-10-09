@@ -11,7 +11,11 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            new Class1().connectHMSDataBase();
+            HMS hms = new HMS();
+            hms.connectHMSDataBase();
+            ICollection<Patient> patientList = hms.ListPatients();
+            hms.closeConnectionHMSDataBase();
+            
 
         }
     }
