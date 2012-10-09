@@ -8,6 +8,10 @@ namespace Interfaces
     public interface IDeviceDataAccess
     {
 
+        void connectToDataBase();
+
+        void closeConnectionDataBase();
+
         ICollection<Patient> ListPatients();
 
         ICollection<Report> ListReports();

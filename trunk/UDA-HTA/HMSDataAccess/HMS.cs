@@ -16,7 +16,7 @@ namespace HMSDataAccess
         { 
         }
 
-        public void connectHMSDataBase()
+        public void connectToDataBase()
         {
             org.h2.Driver.load();
             conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
@@ -29,7 +29,7 @@ namespace HMSDataAccess
 
         }
 
-        public void closeConnectionHMSDataBase()
+        public void closeConnectionDataBase()
         {
             conn.close();
         }
