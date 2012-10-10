@@ -12,21 +12,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UDA_HTA
+namespace UDA_HTA.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Lookup.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Lookup : UserControl
     {
-        public MainWindow()
+        public Lookup()
         {
             InitializeComponent();
-        }
-
-        private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
