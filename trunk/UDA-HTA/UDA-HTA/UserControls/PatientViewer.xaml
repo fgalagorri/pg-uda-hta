@@ -6,11 +6,11 @@
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="1024">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220*" />
+            <ColumnDefinition Width="804*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView VerticalAlignment="Stretch">
+        <TreeView VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TreeViewItem IsExpanded="True">
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -31,9 +31,9 @@
             </TreeViewItem>
         </TreeView>
 
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Name="gridSplitter" VerticalAlignment="Stretch" Width="5" />
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Name="gridSplitter" VerticalAlignment="Stretch" Width="10" />
 
-        <TabControl Grid.Column="1" VerticalAlignment="Stretch">
+        <TabControl Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem Header="Promedios">
                 Acá va la vista de promedios del análisis
             </TabItem>

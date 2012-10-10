@@ -1,29 +1,50 @@
 ﻿<Window x:Class="UDA_HTA.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+        xmlns:r="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
         xmlns:UserControls="clr-namespace:UDA_HTA.UserControls"
-        Title="UDA-HTA" Height="600" Width="1024">
-    <Grid>  
-        
+        Title="UDA-HTA" MinHeight="600" MinWidth="1024">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110" />
+            <RowDefinition Height="136" /> <!-- TODO ver altura de ribbon -->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <ribbon:Ribbon x:Name="MenuRibbon">
-            <ribbon:Ribbon.HelpPaneContentTemplate>
+        <r:Ribbon x:Name="MenuRibbon" SelectionChanged="MenuRibbon_SelectionChanged" Grid.RowSpan="2">
+            <r:Ribbon.HelpPaneContentTemplate>
                 <DataTemplate>
-                    <ribbon:RibbonButton DataContext="{Binding}" /> <!-- TODO VER ESTO -->
+                    <r:RibbonButton DataContext="{Binding}" /> <!-- TODO VER ESTO -->
                 </DataTemplate>
-            </ribbon:Ribbon.HelpPaneContentTemplate>
+            </r:Ribbon.HelpPaneContentTemplate>
             
-            <ribbon:Ribbon.ApplicationMenu>
-                <ribbon:RibbonApplicationMenu SmallImageSource="Images\ribbon_menu.png">
+            <r:Ribbon.ApplicationMenu>
+                <r:RibbonApplicationMenu SmallImageSource="Images\ribbon_menu.png">
                     <!-- TODO incluir los elementos del menú, manejo de mi usuario (cambio pwd, logout) -->
-                </ribbon:RibbonApplicationMenu>
-            </ribbon:Ribbon.ApplicationMenu>
-        </ribbon:Ribbon>
+                    <r:RibbonApplicationMenuItem Header="Logout" />
+                </r:RibbonApplicationMenu>
+            </r:Ribbon.ApplicationMenu>
+
+            <r:RibbonTab Header="Inicio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <r:RibbonGroup Header="Paciente">
+                    <r:RibbonButton Name="importar" Label="Importar Datos" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Investigación">
+
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Administración">
+                    
+                </r:RibbonGroup>
+            </r:RibbonTab>
+
+            <r:RibbonTab Header="Investigación" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
+                
+            </r:RibbonTab>
+
+            <r:RibbonTab Header="Paciente" Name="tabPaciente"> <!-- Visibility="Collapsed" -->
+
+            </r:RibbonTab>
+            
+        </r:Ribbon>
         
         <ContentControl Name="ControlsContainer" Grid.Row="1">
             <UserControls:PatientViewer Grid.Row="1" />
