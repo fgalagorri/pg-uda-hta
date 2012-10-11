@@ -13,7 +13,8 @@ namespace ConsoleApplication1
         {
             IDeviceDataAccess iDataAccess = new HMS();
             iDataAccess.connectToDataBase();
-            ICollection<Patient> patientList = iDataAccess.ListPatients();
+            //ICollection<Patient> patientList = iDataAccess.ListPatients();
+            ICollection<Report> repList = iDataAccess.ListReports();
             iDataAccess.closeConnectionDataBase();
             //HMS hms = new HMS();
             //hms.connect();

@@ -50,12 +50,37 @@ namespace HMSDataAccess
 
         public ICollection<Report> ListReports()
         {
-            return null;
+            return GetReportsByPatientId(3);
         }
 
         public ICollection<Report> GetReportById()
         {
             return null;
+        }
+
+        // Devuelve una lista con los identificadores de los reportes del paciente
+        private ICollection<Report> GetReportsByPatientId(int patientId)
+        {
+            string patIdStr = patientId.ToString();
+            //Obtengo una lista de identificadores de reportes para el paciente patientId
+            string sql = "SELECT NIBPMAD FROM MEASUREMENTSBP INNER JOIN AUFZEICHNUNG ON AUFZEICHNUNG.ID = MEASUREMENTSBP.AUFZEICHNUNG_ID WHERE AUFZEICHNUNG.PATIENT_ID=" + patIdStr;
+            ResultSet rsAuf = stat.executeQuery( sql );
+            ICollection<Report> reportList = new List<Report>();
+            Report report = new Report();
+
+            int bpMed;
+            string bpMedStr;
+            while (rsAuf.next())
+            {
+                bpMed = rsAuf.getInt(1);
+                bpMedStr = rsAuf.getString(1);
+                report.setIdent(bpMed);
+                Console.WriteLine(bpMedStr);
+
+                //Agrego el reporte a la lista
+                reportList.Add(report);
+            }
+            return reportList;
         }
 
     }
