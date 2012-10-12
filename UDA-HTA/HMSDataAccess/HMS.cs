@@ -58,24 +58,34 @@ namespace HMSDataAccess
             return null;
         }
 
-        // Devuelve una lista con los identificadores de los reportes del paciente
+        // Devuelve una lista de los reportes del paciente 'patientId'
         private ICollection<Report> GetReportsByPatientId(int patientId)
         {
             string patIdStr = patientId.ToString();
-            //Obtengo una lista de identificadores de reportes para el paciente patientId
-            string sql = "SELECT NIBPMAD FROM MEASUREMENTSBP INNER JOIN AUFZEICHNUNG ON AUFZEICHNUNG.ID = MEASUREMENTSBP.AUFZEICHNUNG_ID WHERE AUFZEICHNUNG.PATIENT_ID=" + patIdStr;
-            ResultSet rsAuf = stat.executeQuery( sql );
+            //Obtengo una lista de presiones de reportes para el paciente patientId
+            string columns = " TIMEOFMEASUREMENT, NIBPSYS, NIBPMAD, NIBPDIAS, HR ";
+            string cond = " AUFZEICHNUNG.PATIENT_ID=" + patIdStr;
+            string sql = "SELECT" + columns + "FROM MEASUREMENTSBP INNER JOIN AUFZEICHNUNG ON AUFZEICHNUNG.ID = MEASUREMENTSBP.AUFZEICHNUNG_ID WHERE" + cond;
+            ResultSet rs = stat.executeQuery( sql );
             ICollection<Report> reportList = new List<Report>();
             Report report = new Report();
 
-            int bpMed;
-            string bpMedStr;
-            while (rsAuf.next())
+            while (rs.next())
             {
-                bpMed = rsAuf.getInt(1);
-                bpMedStr = rsAuf.getString(1);
-                report.setIdent(bpMed);
-                Console.WriteLine(bpMedStr);
+                Measurement m = new Measurement();
+                m.setSystolic(rs.getInt(1));
+                Console.Write(rs.getInt(1) + "|");
+
+                m.setAverage(rs.getInt(2));
+                Console.Write(rs.getInt(2) + "|");
+
+                m.setDiastolic(rs.getInt(3));
+                Console.Write(rs.getInt(3) + "|");
+
+                m.setHeartRate(rs.getInt(4));
+                Console.WriteLine(rs.getInt(4) + "|");
+
+                report.addToMeasureList(m);
 
                 //Agrego el reporte a la lista
                 reportList.Add(report);
