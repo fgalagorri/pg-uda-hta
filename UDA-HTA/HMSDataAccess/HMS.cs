@@ -100,16 +100,21 @@ namespace HMSDataAccess
             ICollection<Report> reportList = new List<Report>();
             Report report = new Report();
 
+            int i;
+            int id;
+            string timeStr;
+            int lastId = Convert.ToInt32(rs.getString(1));
+
             while (rs.next())
             {
                 Measurement m = new Measurement();
 
-                int i = 0;
+                i = 0;
 
-                string id = rs.getString(++i);
-                Console.Write(id + "|");
-                
-                string timeStr = rs.getString(++i);
+                id = rs.getInt(++i);
+                Console.Write(id.ToString() + "|");
+
+                timeStr = rs.getString(++i);
                 //Pareseo la fecha y hora para crear el DateTime
                 DateTime time = parseDateTime(timeStr);
                 m.setTime(time);
@@ -127,10 +132,22 @@ namespace HMSDataAccess
                 m.setHeartRate(rs.getInt(++i));
                 Console.WriteLine(rs.getInt(i) + "|");
 
-                report.addToMeasureList(m);
+                //Si id es igual al ultimo id, agrego las medidas al reporte
+                if (id == lastId)
+                {
+                    //Agrego la medida al reporte
+                    report.addToMeasureList(m);
+                }
+                else
+                { //Si el ultimo id es diferente al actual, entonces comenzaron las medidas de otro reporte
 
-                //Agrego el reporte a la lista
-                reportList.Add(report);
+                    //Agrego el reporte del ultimo identificador a la lista
+                    report.setIdent(id);
+                    reportList.Add(report);
+
+                    //Creo el siguiente reporte
+                    report = new Report();
+                }
             }
             return reportList;
         }
