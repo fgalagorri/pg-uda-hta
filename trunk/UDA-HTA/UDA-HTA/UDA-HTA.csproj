@@ -123,14 +123,32 @@
     <Resource Include="Images\ribbon_newReport.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ribbon_newReportx32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\ribbon_newPatient.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ribbon_newDoctor.png" />
     <Resource Include="Images\ribbon_newResearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tree_study24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_editDrugs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_findPatient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_editPatient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_editResearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_findDoctor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_editDoctor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

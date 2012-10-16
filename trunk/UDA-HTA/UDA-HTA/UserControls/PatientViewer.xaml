@@ -22,7 +22,7 @@
                     <TreeViewItem>
                         <TreeViewItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="..\Images\tree_study.png" />
+                                <Image Source="..\Images\tree_study24.png" />
                                 <Label>21/5/2012</Label>
                             </StackPanel>
                         </TreeViewItem.Header>
