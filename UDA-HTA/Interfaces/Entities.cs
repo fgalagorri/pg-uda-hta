@@ -7,6 +7,18 @@ namespace Interfaces
 {
     public class Patient
     {
+        public enum sexType{F,M};
+        
+        private string documentId;
+        private string name;
+        private DateTime birthDate;
+        private sexType sex;
+        private string address;
+        private string neighbour;
+        private string city;
+        private string phone;
+        private string cellPhone;
+        private string eMail;
         private ICollection<Report> reportList;
 
         public Patient()
@@ -14,6 +26,106 @@ namespace Interfaces
             reportList = new List<Report>();
         }
 
+        public void setDocumentId(string di)
+        {
+            documentId = di;
+        }
+
+        public string getDocumentId()
+        {
+            return documentId;
+        }
+
+        public void setName(string n)
+        {
+            name = n;
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public void setBirthDate(DateTime bd)
+        {
+            birthDate = bd;
+        }
+
+        public DateTime getBirthDate()
+        {
+            return birthDate;
+        }
+
+        public void setSex(sexType s)
+        {
+            sex= s;
+        }
+
+        public sexType getSex()
+        {
+            return sex;
+        }
+
+        public void setAddress(string adr)
+        {
+            address = adr;
+        }
+
+        public string getAddress()
+        {
+            return address;
+        }
+
+        public void setNeighbour(string n)
+        {
+            neighbour = n;
+        }
+
+        public string getNeighbour()
+        {
+            return neighbour;
+        }
+
+        public void setCity(string c)
+        {
+            city = c;
+        }
+
+        public string getCity()
+        {
+            return city;
+        }
+
+        public void setPhone(string p)
+        {
+            phone = p;
+        }
+
+        public string getPhone()
+        {
+            return phone;
+        }
+
+        public void setCellPhone(string cp)
+        {
+            cellPhone = cp;
+        }
+
+        public string getCellPhone()
+        {
+            return cellPhone;
+        }
+
+        public void setEmail(string em)
+        {
+            eMail = em;
+        }
+
+        public string getEmail()
+        {
+            return eMail;
+        }
+        
         public void addToReportList(Report rep)
         {
             reportList.Add(rep);
