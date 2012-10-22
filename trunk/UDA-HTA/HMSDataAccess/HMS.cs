@@ -67,15 +67,28 @@ namespace HMSDataAccess
 
         public ICollection<Patient> ListPatients()
         {
-            ResultSet rs = stat.executeQuery("SELECT PATIENTID FROM PATIENT");
-            ICollection<string> patientIDList = new List<string>();
+            ResultSet rs = stat.executeQuery("SELECT BIRTHDATE,PATIENTID FROM PATIENT");
+            Patient patient = new Patient();
+            ICollection<Patient> patientList = new List<Patient>();
+
+            string timeStr;
+
             while (rs.next())
             {
-                patientIDList.Add(rs.getString(1));
-                Console.WriteLine(rs.getString(1));
+                timeStr = rs.getString(1);
+                //Pareseo la fecha y hora para crear el DateTime
+                DateTime time = parseDateTime(timeStr);
+                patient.setBirthDate(time);
+                Console.Write(time.ToString());
+
+                patient.setDocumentId(rs.getString(2));
+                Console.WriteLine(rs.getString(2));
+
+                //Agrego el paciente a la lista
+                patientList.Add(patient);
             }
 
-            return null;
+            return patientList;
         }
 
         public ICollection<Report> ListReports()
