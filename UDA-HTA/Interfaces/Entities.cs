@@ -8,132 +8,101 @@ namespace Interfaces
     public class Patient
     {
         public enum sexType{F,M};
-        
-        private string documentId;
-        private string name;
-        private DateTime birthDate;
-        private sexType sex;
-        private string address;
-        private string neighbour;
-        private string city;
-        private string phone;
-        private string cellPhone;
-        private string eMail;
-        private ICollection<Report> reportList;
+
+        private int _idHms;
+        private string _documentId;
+        private string _name;
+        private DateTime _birthDate;
+        private sexType _sex;
+        private string _address;
+        private string _neighbour;
+        private string _city;
+        private string _phone;
+        private string _cellPhone;
+        private string _eMail;
+        private ICollection<Report> _reportList;
 
         public Patient()
         {
-            reportList = new List<Report>();
+            _reportList = new List<Report>();
         }
 
-        public void setDocumentId(string di)
+        public int IdHms
         {
-            documentId = di;
+            get { return _idHms; }
+            set { _idHms = value; }
+        }
+        
+        public string DocumentId
+        {
+            get { return _documentId; }
+            set { _documentId = value; }
         }
 
-        public string getDocumentId()
+        public string Name
         {
-            return documentId;
+            get { return _name; }
+            set { _name = value; }
         }
 
-        public void setName(string n)
+        public DateTime BirthDate
         {
-            name = n;
+            get { return _birthDate; }
+            set { _birthDate = value; }
         }
 
-        public string getName()
+        public sexType Sex
         {
-            return name;
+            get { return _sex; }
+            set { _sex = value; }
         }
 
-        public void setBirthDate(DateTime bd)
+        public string Address
         {
-            birthDate = bd;
+            get { return _address; }
+            set { _address = value; }
         }
 
-        public DateTime getBirthDate()
+        public string Neighbour
         {
-            return birthDate;
+            get { return _neighbour; }
+            set { _neighbour = value; }
         }
 
-        public void setSex(sexType s)
+        public string City
         {
-            sex= s;
+            get { return _city; }
+            set { _city = value; }
         }
 
-        public sexType getSex()
+        public string Phone
         {
-            return sex;
+            get { return _phone; }
+            set { _phone = value; }
         }
 
-        public void setAddress(string adr)
+        public string CellPhone
         {
-            address = adr;
+            get { return _cellPhone; }
+            set { _cellPhone = value; }
         }
 
-        public string getAddress()
+        public string EMail
         {
-            return address;
+            get { return _eMail; }
+            set { _eMail = value; }
         }
 
-        public void setNeighbour(string n)
-        {
-            neighbour = n;
-        }
 
-        public string getNeighbour()
+        public ICollection<Report> ReportList
         {
-            return neighbour;
-        }
-
-        public void setCity(string c)
-        {
-            city = c;
-        }
-
-        public string getCity()
-        {
-            return city;
-        }
-
-        public void setPhone(string p)
-        {
-            phone = p;
-        }
-
-        public string getPhone()
-        {
-            return phone;
-        }
-
-        public void setCellPhone(string cp)
-        {
-            cellPhone = cp;
-        }
-
-        public string getCellPhone()
-        {
-            return cellPhone;
-        }
-
-        public void setEmail(string em)
-        {
-            eMail = em;
-        }
-
-        public string getEmail()
-        {
-            return eMail;
+            get { return _reportList; }
+            set { _reportList = value; }
         }
         
         public void addToReportList(Report rep)
         {
-            reportList.Add(rep);
-        }
-
-        public ICollection<Report> getReportList()
-        {
-            return reportList;
+            _reportList.Add(rep);
         }
 
     }   // end patient
@@ -141,76 +110,52 @@ namespace Interfaces
 
     public class Measurement
     {
-        private DateTime time;
-        private int systolic;
-        private int average;
-        private int diastolic;
-        private int heartRate;
-        private string comment;
+        private DateTime _time;
+        private int _systolic;
+        private int _average;
+        private int _diastolic;
+        private int _heartRate;
+        private string _comment;
 
         public Measurement()
         {
 
         }
 
-        public void setTime(DateTime t)
+        public DateTime Time
         {
-            time = t;
+            get { return _time; }
+            set { _time = value; }
         }
 
-        public DateTime getTime()
+        public int Systolic
         {
-            return time;
+            get { return _systolic; }
+            set { _systolic = value; }
         }
 
-        public void setSystolic(int sys)
+        public int Average
         {
-            systolic = sys;
+            get { return _average; }
+            set { _average = value; }
         }
 
-        public int getSystolic()
+        public int Diastolic
         {
-            return systolic;
+            get { return _diastolic; }
+            set { _diastolic = value; }
         }
 
-        public void setAverage(int avg)
+        public int HeartRate
         {
-            average = avg;
+            get { return _heartRate; }
+            set { _heartRate = value; }
         }
 
-        public int getAverage()
+        public string Comment
         {
-            return average;
-        }
-
-        public void setDiastolic(int dias)
-        {
-            diastolic = dias;
-        }
-
-        public int getDiastolic()
-        {
-            return diastolic;
-        }
-
-        public void setHeartRate(int hrate)
-        {
-            heartRate = hrate;
-        }
-
-        public int getHeartRate()
-        {
-            return heartRate;
-        }
-
-        public void setComment(string comm)
-        {
-            comment = comm;
-        }
-
-        public string getComment()
-        {
-            return comment;
+            get { return _comment; }
+            set { _comment = value; }
         }
 
     }   //end measurement
@@ -218,7 +163,7 @@ namespace Interfaces
 
     public class Report
     {
-        private int ident;
+        private int _ident;
         private ICollection<Measurement> measureList;
 
         public Report()
@@ -226,9 +171,10 @@ namespace Interfaces
             measureList = new List<Measurement>();
         }
 
-        public void setIdent(int id)
+        public int Ident
         {
-            ident = id;
+            get { return _ident; }
+            set { _ident = value; }
         }
 
         public void addToMeasureList(Measurement measure)

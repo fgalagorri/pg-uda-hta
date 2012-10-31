@@ -14,9 +14,9 @@ namespace Interfaces
 
         ICollection<Patient> ListPatients();
 
-        ICollection<Report> ListReports();
+        ICollection<Report> ListAllReports();
 
-        ICollection<Report> GetReportById();
+        ICollection<Report> GetReportsByPatientId(int patientId);
 
 
     }

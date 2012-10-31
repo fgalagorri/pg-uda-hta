@@ -27,12 +27,12 @@ namespace SpacelabsDataAccess
             return null;
         }
 
-        public ICollection<Report> ListReports()
+        public ICollection<Report> ListAllReports()
         {
             return null;
         }
 
-        public ICollection<Report> GetReportById()
+        public ICollection<Report> GetReportsByPatientId(int patientId)
         {
             return null;
         }
