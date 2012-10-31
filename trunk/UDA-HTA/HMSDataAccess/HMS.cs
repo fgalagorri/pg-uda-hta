@@ -50,7 +50,7 @@ namespace HMSDataAccess
         {
             org.h2.Driver.load();
             conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
-            stat = conn.createStatement();
+            stat = conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             ResultSet rs = stat.executeQuery("SELECT 'Hello World'");
             while (rs.next())
             {
@@ -62,27 +62,34 @@ namespace HMSDataAccess
         public void closeConnectionDataBase()
         {
             conn.close();
+            stat.close();
         }
 
 
         public ICollection<Patient> ListPatients()
         {
-            ResultSet rs = stat.executeQuery("SELECT BIRTHDATE,PATIENTID FROM PATIENT");
-            Patient patient = new Patient();
+            ResultSet rs = stat.executeQuery("SELECT ID, BIRTHDATE,PATIENTID FROM PATIENT");
             ICollection<Patient> patientList = new List<Patient>();
 
             string timeStr;
+            DateTime time;
+            int id;
 
             while (rs.next())
             {
-                timeStr = rs.getString(1);
+                Patient patient = new Patient();
+
+                id = rs.getInt(1);
+                patient.IdHms = id;
+
+                timeStr = rs.getString(2);
                 //Pareseo la fecha y hora para crear el DateTime
-                DateTime time = parseDateTime(timeStr);
-                patient.setBirthDate(time);
+                time = parseDateTime(timeStr);
+                patient.BirthDate = time;
                 Console.Write(time.ToString());
 
-                patient.setDocumentId(rs.getString(2));
-                Console.WriteLine(rs.getString(2));
+                patient.DocumentId = rs.getString(3);
+                Console.WriteLine(rs.getString(3));
 
                 //Agrego el paciente a la lista
                 patientList.Add(patient);
@@ -91,18 +98,20 @@ namespace HMSDataAccess
             return patientList;
         }
 
-        public ICollection<Report> ListReports()
+        public ICollection<Report> ListAllReports()
         {
-            return GetReportsByPatientId(5);
+            ResultSet rs = stat.executeQuery("SELECT ID FROM PATIENT");
+            ICollection<Report> result = new List<Report>();
+            while (rs.next())
+            {
+                result.Concat( GetReportsByPatientId(rs.getInt(1)) );
+            }
+            return result;
         }
 
-        public ICollection<Report> GetReportById()
-        {
-            return null;
-        }
 
         // Devuelve una lista de los reportes del paciente 'patientId'
-        private ICollection<Report> GetReportsByPatientId(int patientId)
+        public ICollection<Report> GetReportsByPatientId(int patientId)
         {
             string patIdStr = patientId.ToString();
             //Obtengo una lista de presiones de reportes para el paciente patientId
@@ -116,7 +125,17 @@ namespace HMSDataAccess
             int i;
             int id;
             string timeStr;
-            int lastId = Convert.ToInt32(rs.getString(1));
+            int lastId;
+            if (rs.first())
+            {
+                rs.first();
+                lastId = Convert.ToInt32(rs.getString(1));
+            }
+            else
+            {
+                //No tiene reportes asignados
+                return null;
+            }
 
             while (rs.next())
             {
@@ -130,19 +149,19 @@ namespace HMSDataAccess
                 timeStr = rs.getString(++i);
                 //Pareseo la fecha y hora para crear el DateTime
                 DateTime time = parseDateTime(timeStr);
-                m.setTime(time);
+                m.Time = time;
                 Console.Write(time.ToString());
 
-                m.setSystolic(rs.getInt(++i));
+                m.Systolic = rs.getInt(++i);
                 Console.Write(rs.getInt(i) + "|");
 
-                m.setAverage(rs.getInt(++i));
+                m.Average = rs.getInt(++i);
                 Console.Write(rs.getInt(i) + "|");
 
-                m.setDiastolic(rs.getInt(++i));
+                m.Diastolic = rs.getInt(++i);
                 Console.Write(rs.getInt(i) + "|");
 
-                m.setHeartRate(rs.getInt(++i));
+                m.HeartRate = rs.getInt(++i);
                 Console.WriteLine(rs.getInt(i) + "|");
 
                 //Si id es igual al ultimo id, agrego las medidas al reporte
@@ -152,16 +171,23 @@ namespace HMSDataAccess
                     report.addToMeasureList(m);
                 }
                 else
-                { //Si el ultimo id es diferente al actual, entonces comenzaron las medidas de otro reporte
+                { //Si el ultimo id (lastId) es diferente al actual, entonces comenzaron las medidas de otro reporte
 
                     //Agrego el reporte del ultimo identificador a la lista
-                    report.setIdent(id);
+                    report.Ident = lastId;
                     reportList.Add(report);
-
-                    //Creo el siguiente reporte
+                    
+                    //Actualizo el ultimo id
+                    lastId = id;
+                    
+                    //Creo el siguiente reporte y agrego la ultima medida procesada
                     report = new Report();
+                    report.addToMeasureList(m);
+
                 }
             }
+            report.Ident = lastId;
+            reportList.Add(report);
             return reportList;
         }
 
