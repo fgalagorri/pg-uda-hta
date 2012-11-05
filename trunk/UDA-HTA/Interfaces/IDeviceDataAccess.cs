@@ -7,7 +7,6 @@ namespace Interfaces
 {
     public interface IDeviceDataAccess
     {
-
         void connectToDataBase();
 
         void closeConnectionDataBase();

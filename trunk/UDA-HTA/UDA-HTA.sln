@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaPrueba", "ConsoleApplication1\ConsolaPrueba.csproj", "{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "ClassLibrary2\DataAccess.csproj", "{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -75,6 +77,16 @@ Global
 		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|Mixed Platforms.Build.0 = Release|x86
 		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|x86.ActiveCfg = Release|x86
 		{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}.Release|x86.Build.0 = Release|x86
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
