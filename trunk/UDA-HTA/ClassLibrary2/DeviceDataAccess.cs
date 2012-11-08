@@ -35,7 +35,7 @@ namespace DataAccess
             return _deviceType.ListAllReports();
         }
 
-        public ICollection<Report> GetReportsByPatientIdDeviceDataAccess(int patientId)
+        public ICollection<Report> GetReportsByPatientIdDDA(int patientId)
         {
             return _deviceType.GetReportsByPatientId(patientId);
         }
