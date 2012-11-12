@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using HMSDataAccess;
 using Interfaces;
+using UdaHtaDataAccess;
 
 namespace ConsoleApplication1
 {
@@ -12,6 +13,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            /*
             IDeviceDataAccess iDataAccess = new HMS();
             iDataAccess.connectToDataBase();
             ICollection<Patient> patientList = iDataAccess.ListPatients();
@@ -41,7 +43,10 @@ namespace ConsoleApplication1
             }
 
             iDataAccess.closeConnectionDataBase();
+            */
 
+            IDeviceDataAccess idataAccess = new UdaHta();
+            idataAccess.connectToDataBase();
         }
     }
 }
