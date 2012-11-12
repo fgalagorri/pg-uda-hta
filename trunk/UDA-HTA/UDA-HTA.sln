@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaPrueba", "ConsoleApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "ClassLibrary2\DataAccess.csproj", "{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdaHtaDataAccess", "ClassLibrary1\UdaHtaDataAccess.csproj", "{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -87,6 +89,16 @@ Global
 		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
