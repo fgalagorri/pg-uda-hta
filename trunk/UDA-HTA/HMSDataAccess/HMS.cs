@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DeviceDataAccess;
-using Interfaces;
+using Entities;
 using java.sql;
 
 namespace HMSDataAccess

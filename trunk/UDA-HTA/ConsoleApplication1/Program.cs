@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using HMSDataAccess;
-using Interfaces;
+using Entities;
 using DataAccess;
 
 namespace ConsoleApplication1

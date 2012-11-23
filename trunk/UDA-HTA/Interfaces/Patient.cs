@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Interfaces
+namespace Entities
 {
     public class Patient
     {
@@ -106,86 +106,4 @@ namespace Interfaces
         }
 
     }   // end patient
-
-
-    public class Measurement
-    {
-        private DateTime _time;
-        private int _systolic;
-        private int _average;
-        private int _diastolic;
-        private int _heartRate;
-        private string _comment;
-
-        public Measurement()
-        {
-
-        }
-
-        public DateTime Time
-        {
-            get { return _time; }
-            set { _time = value; }
-        }
-
-        public int Systolic
-        {
-            get { return _systolic; }
-            set { _systolic = value; }
-        }
-
-        public int Average
-        {
-            get { return _average; }
-            set { _average = value; }
-        }
-
-        public int Diastolic
-        {
-            get { return _diastolic; }
-            set { _diastolic = value; }
-        }
-
-        public int HeartRate
-        {
-            get { return _heartRate; }
-            set { _heartRate = value; }
-        }
-
-        public string Comment
-        {
-            get { return _comment; }
-            set { _comment = value; }
-        }
-
-    }   //end measurement
-
-
-    public class Report
-    {
-        private int _ident;
-        private ICollection<Measurement> measureList;
-
-        public Report()
-        {
-            measureList = new List<Measurement>();
-        }
-
-        public int Ident
-        {
-            get { return _ident; }
-            set { _ident = value; }
-        }
-
-        public void addToMeasureList(Measurement measure)
-        {
-            measureList.Add(measure);        
-        }
-
-        public ICollection<Measurement> getMeasureList()
-        {
-            return measureList;
-        }
-
-    }   //end report
 }

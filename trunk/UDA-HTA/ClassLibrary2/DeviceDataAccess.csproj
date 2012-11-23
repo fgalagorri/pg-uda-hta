@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+    <ProjectReference Include="..\Interfaces\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
-      <Name>Interfaces</Name>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

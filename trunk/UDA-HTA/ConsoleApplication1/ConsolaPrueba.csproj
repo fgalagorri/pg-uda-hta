@@ -55,9 +55,9 @@
       <Project>{EDF0E5D0-E41D-4A95-8421-93882EA811FB}</Project>
       <Name>HMSDataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+    <ProjectReference Include="..\Interfaces\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
-      <Name>Interfaces</Name>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
