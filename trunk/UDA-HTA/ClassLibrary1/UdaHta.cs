@@ -7,7 +7,7 @@ using Interfaces;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
-namespace UdaHtaDataAccess
+namespace DataAccess
 {
     public class UdaHta
     {
@@ -86,13 +86,39 @@ namespace UdaHtaDataAccess
             conn.Close();
         }
 
-        //Inserta un nuevo usuario en la base de datos
+        //Inserta un nuevo tipo de droga en la base de datos
         public void insertDrugType(int idDrugType, string type)
         {
             MySqlCommand mc = new MySqlCommand("insertDrugType", conn);
             mc.CommandType = CommandType.StoredProcedure;
             mc.Parameters.Add(new MySqlParameter("id", idDrugType));
             mc.Parameters.Add(new MySqlParameter("typ", type));
+            conn.Open();
+            mc.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        //Inserta una nueva droga en la base de datos
+        public void insertDrug(int idDrug, string name, int idDrugTyp)
+        {
+            MySqlCommand mc = new MySqlCommand("insertDrug", conn);
+            mc.CommandType = CommandType.StoredProcedure;
+            mc.Parameters.Add(new MySqlParameter("id", idDrug));
+            mc.Parameters.Add(new MySqlParameter("nam", name));
+            mc.Parameters.Add(new MySqlParameter("idDrugType", idDrugTyp));
+            conn.Open();
+            mc.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        //Inserta una nueva droga en la base de datos
+        public void insertInvestigation(int id, string nam, DateTime createDat)
+        {
+            MySqlCommand mc = new MySqlCommand("insertInvestigation", conn);
+            mc.CommandType = CommandType.StoredProcedure;
+            mc.Parameters.Add(new MySqlParameter("id", id));
+            mc.Parameters.Add(new MySqlParameter("nam", nam));
+            mc.Parameters.Add(new MySqlParameter("createDat", createDat));
             conn.Open();
             mc.ExecuteNonQuery();
             conn.Close();
