@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\UdaHtaDataAccess.csproj">
+    <ProjectReference Include="..\ClassLibrary1\DataAccess.csproj">
       <Project>{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}</Project>
-      <Name>UdaHtaDataAccess</Name>
+      <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\HMSDataAccess\HMSDataAccess.csproj">
       <Project>{EDF0E5D0-E41D-4A95-8421-93882EA811FB}</Project>

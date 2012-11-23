@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Interfaces;
 
-namespace DataAccess
+namespace DeviceDataAccess
 {
     public class DeviceDataAccess
     {

@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolaPrueba", "ConsoleApplication1\ConsolaPrueba.csproj", "{E7A4CBB9-5F90-4DFD-8D39-D68806F08C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "ClassLibrary2\DataAccess.csproj", "{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceDataAccess", "ClassLibrary2\DeviceDataAccess.csproj", "{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdaHtaDataAccess", "ClassLibrary1\UdaHtaDataAccess.csproj", "{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "ClassLibrary1\DataAccess.csproj", "{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution

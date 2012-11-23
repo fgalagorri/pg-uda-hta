@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using HMSDataAccess;
 using Interfaces;
-using UdaHtaDataAccess;
+using DataAccess;
 
 namespace ConsoleApplication1
 {
@@ -47,10 +47,10 @@ namespace ConsoleApplication1
 
             UdaHta dataAccess = new UdaHta();
             dataAccess.connectToDataBase();
-            Report rep = new Report();
-            rep.Ident = 1;
-            dataAccess.insertUser(3, "login", "pass", "rol");
-            dataAccess.insertDrugType(2, "type1");
+            //dataAccess.insertUser(3, "login", "pass", "rol");
+            //dataAccess.insertDrugType(2, "type1");
+            //dataAccess.insertDrug(1, "DrugName", 2);
+            dataAccess.insertInvestigation(1, "inv1", new DateTime());
         }
     }
 }
