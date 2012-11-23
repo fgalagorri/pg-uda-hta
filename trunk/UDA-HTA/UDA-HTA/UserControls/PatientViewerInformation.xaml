@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.PatientViewerInformation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700">
+    <UserControl.Resources>
+        <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+        
+            <!-- Datos de identificación -->
+            <StackPanel Grid.Row="0" Margin="5,5,0,10">
+                <DockPanel MinHeight="22">
+                    <TextBlock DockPanel.Dock="Left">Nombres:</TextBlock>
+                    <TextBox Name="txtNames" Text="Juan Alberto" Margin="15,0" ></TextBox>
+                </DockPanel>
+                <DockPanel Margin="0,10" MinHeight="22">
+                    <TextBlock DockPanel.Dock="Left" >Apellidos:</TextBlock>
+                    <TextBox Name="txtLast" Text="Pérez Manzanares" Margin="15,0"/>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,15,0">CI:</TextBlock>
+                    <TextBox Name="txtCI" Text="1.234.567-8" Width="200"/>
+                </StackPanel>
+                <Separator BorderBrush="LightGray" />
+            </StackPanel>
+        
+        
+            <!-- Datos del estado del paciente -->
+            <StackPanel Grid.Row="1" Margin="5,5,0,10">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center">Fecha de Nacimiento:</TextBlock>
+                    <DatePicker Name="dtBirth" Width="110" Text="1/1/86" Margin="10,0,5,0" />
+                    <TextBlock VerticalAlignment="Center" Name="lblAge">25 años</TextBlock>
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Sexo:</TextBlock>
+                    <ComboBox Name="cmbSex" Text="Seleccionar sexo" >
+                        <ComboBoxItem Tag="-1" >Seleccionar sexo</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True" Tag="0" >Masculino</ComboBoxItem>
+                        <ComboBoxItem Tag="1" >Femenino</ComboBoxItem>
+                    </ComboBox> 
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22" >
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Peso (Kg):</TextBlock>
+                    <TextBox Name="txtWeight" Text="95" Width="30" TextAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Altura (m):</TextBlock>
+                    <TextBox Name="txtHeight" Text="1.80" Width="40" TextAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">IMC:</TextBlock>
+                    <TextBlock VerticalAlignment="Center" Name="lblImc" >29.32</TextBlock>
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">%Grasa:</TextBlock>
+                    <TextBox Name="txtFat" Text="98" Width="30" TextAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">%Músculo:</TextBlock>
+                    <TextBox Name="txtMuscle" Text="45" Width="30" TextAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center"  Margin="0,0,10,0">KCal:</TextBlock>
+                    <TextBox Name="txtKcal" Text="500" Width="45" TextAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Fuma:</TextBlock>
+                    <CheckBox Name="chkSmoker" IsChecked="True" VerticalAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Diabetes:</TextBlock>
+                    <CheckBox Name="chkDiabetes" IsChecked="False" VerticalAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Dislipemia:</TextBlock>
+                    <CheckBox Name="chkColesterol" IsChecked="True" VerticalAlignment="Center" />
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Hipertenso:</TextBlock>
+                    <CheckBox Name="chkHypertense" IsChecked="True" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <DockPanel Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" >Medicamentos:</TextBlock>
+                    <TextBox HorizontalAlignment="Stretch" Text="No toma." Height="70" AcceptsReturn="True" Margin="15,0"/>
+                </DockPanel>
+                <Separator BorderBrush="LightGray" />
+            </StackPanel>
+
+            <!-- Datos de locación -->
+            <StackPanel Grid.Row="2" Margin="5,5,0,10">
+                <DockPanel MinHeight="22" Margin="0,0,0,10">
+                    <TextBlock VerticalAlignment="Top" DockPanel.Dock="Left">Dirección:</TextBlock>
+                    <TextBox Name="txtAddress" Text="18 de julio 1586 apto. 303" MinLines="2" MaxLines="2" 
+                             VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Margin="15,0" ></TextBox>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center">Ciudad:</TextBlock>
+                    <TextBox Name="txtCity" Text="Mercedes" Width="200" Margin="15,0"/>
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center">Departamento:</TextBlock>
+                    <TextBox Name="txtDepartament" Text="Soriano" Width="200" Margin="15,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center">Teléfono:</TextBlock>
+                    <TextBox Name="txtTel" Text="2200 8825" Width="200" Margin="15,0"/>
+                    <Border Margin="15,0" BorderThickness="1" BorderBrush="LightGray" />
+                    <TextBlock VerticalAlignment="Center">Celular:</TextBlock>
+                    <TextBox Name="txtCel" Text="099 123 456" Width="200" Margin="15,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" MinHeight="22">
+                    <TextBlock VerticalAlignment="Center">e-Mail:</TextBlock>
+                    <TextBox Name="txtMail" Text="japerezm@gmail.com" Width="200" Margin="15,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
