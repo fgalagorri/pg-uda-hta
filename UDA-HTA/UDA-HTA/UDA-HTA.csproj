@@ -65,6 +65,15 @@
     <Compile Include="UserControls\PatientViewer.xaml.cs">
       <DependentUpon>PatientViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PatientViewerData.xaml.cs">
+      <DependentUpon>PatientViewerData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PatientViewerInformation.xaml.cs">
+      <DependentUpon>PatientViewerInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PatientViewerSummary.xaml.cs">
+      <DependentUpon>PatientViewerSummary.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,6 +91,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PatientViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PatientViewerData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PatientViewerInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PatientViewerSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
