@@ -45,7 +45,7 @@ namespace ConsoleApplication1
             iDataAccess.closeConnectionDataBase();
             */
 
-            UdaHta dataAccess = new UdaHta();
+            UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
             dataAccess.connectToDataBase();
             //dataAccess.insertUser(3, "login", "pass", "rol");
             //dataAccess.insertDrugType(2, "type1");

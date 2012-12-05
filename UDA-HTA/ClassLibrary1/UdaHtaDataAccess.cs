@@ -9,12 +9,12 @@ using MySql.Data.MySqlClient;
 
 namespace DataAccess
 {
-    public class UdaHta
+    public class UdaHtaDataAccess
     {
         private string ConnectionString = "SERVER=localhost;DATABASE=udahta_db;UID=root;PASSWORD=rootudahta;";
         private MySqlConnection conn;
 
-        public UdaHta()
+        public UdaHtaDataAccess()
         {
         }
 
