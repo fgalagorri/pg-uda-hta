@@ -7,5 +7,6 @@ namespace InterfaceBussinessLogic
 {
     interface IImportDataManagement
     {
+
     }
 }
