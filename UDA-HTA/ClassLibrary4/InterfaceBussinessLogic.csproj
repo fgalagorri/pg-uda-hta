@@ -42,10 +42,17 @@
   <ItemGroup>
     <Compile Include="IImportDataManagement.cs" />
     <Compile Include="IInvestigationManagement.cs" />
+    <Compile Include="IReportManagement.cs" />
     <Compile Include="IUserManagement.cs" />
     <Compile Include="ISessionManagement.cs" />
     <Compile Include="IPatientManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\Entities.csproj">
+      <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
