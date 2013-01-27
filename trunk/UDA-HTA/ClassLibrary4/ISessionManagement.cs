@@ -7,5 +7,10 @@ namespace InterfaceBussinessLogic
 {
     interface ISessionManagement
     {
+        int login(string userName, string password);
+
+        void logout();
+
+        int changePassword(string currentPass, string newPas);
     }
 }
