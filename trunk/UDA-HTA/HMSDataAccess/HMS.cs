@@ -66,6 +66,14 @@ namespace HMSDataAccess
             stat.close();
         }
 
+        public Report getReport(int idReport)
+        {
+            Report report = new Report();
+            // TODO: Obtener el reporte con identificador idReport
+
+            return report;
+        }
+
 
         public ICollection<Patient> ListPatients()
         {

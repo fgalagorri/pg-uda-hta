@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DeviceDataAccess;
-using Interfaces;
+using Entities;
 
 namespace SpacelabsDataAccess
 {
@@ -28,7 +28,7 @@ namespace SpacelabsDataAccess
             return null;
         }
 
-        public ICollection<Report> ListAllReports()
+        public ICollection<Report> ListAllPendingReports()
         {
             return null;
         }

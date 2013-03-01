@@ -25,6 +25,11 @@ namespace DeviceDataAccess
             _deviceType.closeConnectionDataBase();
         }
 
+        public Report GetReport(int idReport)
+        {
+            _deviceType.GetReport(idReport);
+        }
+
         public ICollection<Patient> ListPatientsDeviceDataAccess()
         {
             return _deviceType.ListPatients();
