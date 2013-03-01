@@ -12,6 +12,8 @@ namespace DeviceDataAccess
 
         void closeConnectionDataBase();
 
+        Report getReport(int idReport);
+
         ICollection<Patient> ListPatients();
 
         ICollection<Report> ListAllReports();
