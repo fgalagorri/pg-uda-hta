@@ -66,14 +66,44 @@ namespace HMSDataAccess
             stat.close();
         }
 
+        
+
+        // Obtiene el reporte con identificador idReport, el identificador hace referencia al ID de la tabla AUFZEICHNUNG
         public Report getReport(int idReport)
         {
+            string timeStr;
+            
             Report report = new Report();
-            // TODO: Obtener el reporte con identificador idReport
+            string columns = "ID, BEFUND, CALIBDATE, DAYSTART, IMPORTDATE, NIGHTSTART, PROTDESC, PROTNUM, PROTOCOLDAYSTART, PROTOCOLNIGHTSTART, SERNUM, TIMESTAMP, PATIENT_ID";
+            ResultSet rs = stat.executeQuery("SELECT " + columns + " FROM AUFZEICHNUNG WHERE AUFZEICHNUNG.ID = " + idReport.ToString());
+            int id = rs.getInt(1);
+
+            report.Ident = id;
+
+            columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIEMSTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
+            rs = stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + id.ToString());
+
+            // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
+            while (rs.next())
+            {
+                Measurement measure = new Measurement();
+                measure.Comment = rs.getString(5); //Kommentar
+
+                timeStr = rs.getString(7); //Timeofmeasurement
+                //Pareseo la fecha y hora para crear el DateTime
+                DateTime time = parseDateTime(timeStr);
+                measure.Time = time;
+
+                measure.HeartRate = rs.getInt(11); //HR
+                measure.Diastolic = rs.getInt(12); //NIBPDIAS
+                measure.Average = rs.getInt(13); //NIBPMAD
+                measure.Systolic = rs.getInt(14); //NIBPSYS
+
+                report.addToMeasureList(measure);
+            }
 
             return report;
         }
-
 
         public ICollection<Patient> ListPatients()
         {
@@ -117,7 +147,6 @@ namespace HMSDataAccess
             }
             return result;
         }
-
 
         // Devuelve una lista de los reportes del paciente 'patientId'
         public ICollection<Report> GetReportsByPatientId(int patientId)
