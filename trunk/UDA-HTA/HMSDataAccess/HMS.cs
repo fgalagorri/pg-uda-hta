@@ -66,8 +66,6 @@ namespace HMSDataAccess
             stat.close();
         }
 
-        
-
         // Obtiene el reporte con identificador idReport, el identificador hace referencia al ID de la tabla AUFZEICHNUNG
         public Report getReport(int idReport)
         {

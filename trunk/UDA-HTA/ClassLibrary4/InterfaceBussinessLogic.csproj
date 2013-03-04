@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IImportDataManagement.cs" />
     <Compile Include="IInvestigationManagement.cs" />
+    <Compile Include="ICriptographyManagement.cs" />
     <Compile Include="IReportManagement.cs" />
     <Compile Include="IUserManagement.cs" />
     <Compile Include="ISessionManagement.cs" />
