@@ -5,7 +5,7 @@ using System.Text;
 
 namespace InterfaceBussinessLogic
 {
-    interface ISessionManagement
+    public interface ISessionManagement
     {
         int login(string userName, string password);
 

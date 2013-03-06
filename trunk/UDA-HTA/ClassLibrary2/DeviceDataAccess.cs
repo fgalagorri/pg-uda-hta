@@ -27,7 +27,7 @@ namespace DeviceDataAccess
 
         public Report GetReport(int idReport)
         {
-            _deviceType.GetReport(idReport);
+            return _deviceType.getReport(idReport);
         }
 
         public ICollection<Patient> ListPatientsDeviceDataAccess()

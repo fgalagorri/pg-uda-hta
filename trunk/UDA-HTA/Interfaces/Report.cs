@@ -16,7 +16,6 @@ namespace Entities
             int reportDevice;
             Int32 reportIdent;
         }
-
         
         private int _ident;
         private ICollection<Measurement> measureList;

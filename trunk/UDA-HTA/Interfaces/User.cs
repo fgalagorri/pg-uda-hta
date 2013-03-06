@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities
 {
-    class User
+    public class User
     {
     }
 }

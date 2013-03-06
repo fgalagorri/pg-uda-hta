@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\DataAccess.csproj">
+      <Project>{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClassLibrary2\DeviceDataAccess.csproj">
       <Project>{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}</Project>
       <Name>DeviceDataAccess</Name>

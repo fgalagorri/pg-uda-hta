@@ -50,7 +50,11 @@ namespace ConsoleApplication1
             //dataAccess.insertUser(3, "login", "pass", "rol");
             //dataAccess.insertDrugType(2, "type1");
             //dataAccess.insertDrug(1, "DrugName", 2);
-            dataAccess.insertInvestigation(1, "inv1", new DateTime());
+            //dataAccess.insertInvestigation(1, "inv1", new DateTime());
+            bool exist = dataAccess.existUser("pepe");
+            Console.WriteLine(exist.ToString());
+
+            dataAccess.closeConnectionDataBase();
         }
     }
 }

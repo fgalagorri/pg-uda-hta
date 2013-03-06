@@ -72,6 +72,35 @@ namespace DataAccess
             conn.Close();
         }
 
+        //Verifica que existe el nombre de usuario 'userName' en la base de datos
+        public bool existUser(string userName)
+        {
+            string stm = "SELECT EXISTS(SELECT 1 FROM User WHERE login = '" + userName + "' LIMIT 1)";
+            MySqlCommand mc = new MySqlCommand(stm, conn);
+
+            conn.Open();
+            MySqlDataReader rdr = mc.ExecuteReader();
+
+            Int16 exists = 0;
+            if ( rdr.Read() )
+            {
+                exists = rdr.GetInt16(0);
+            }
+
+            rdr.Close();
+            conn.Close();
+
+            if (exists == 1)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+
+        }
+        
         //Inserta un nuevo usuario en la base de datos
         public void insertUser(int idUsuario, string login, string pass, string rol)
         {
