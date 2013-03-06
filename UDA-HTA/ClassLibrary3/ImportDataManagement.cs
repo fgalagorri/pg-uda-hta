@@ -13,7 +13,7 @@ namespace BussinessLogic
     class ImportDataManagement : IImportDataManagement
     {
 
-        private ICollection<Report.PatientReport> getListNewPatientReports(DeviceDataAccess.DeviceDataAccess dda)
+        public ICollection<Report.PatientReport> getListNewPatientReports(DeviceDataAccess.DeviceDataAccess dda)
         {
             Entities.Report.PatientReport node = new Report.PatientReport();
             ICollection<Entities.Report.PatientReport> list = new List<Entities.Report.PatientReport>();
@@ -32,7 +32,7 @@ namespace BussinessLogic
             return list;
         }
 
-        private ICollection<Report.PatientReport> listNewPatientReports()
+        public ICollection<Report.PatientReport> listNewPatientReports()
         {
             ICollection<Entities.Report.PatientReport> list = new List<Entities.Report.PatientReport>();
 
@@ -49,7 +49,7 @@ namespace BussinessLogic
             return list;
         }
 
-        private Report importData(int idReport, int device)
+        public Report importData(int idReport, int device)
         {
             Report report = null;
 

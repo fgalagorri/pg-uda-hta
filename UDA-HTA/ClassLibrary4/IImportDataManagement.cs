@@ -6,7 +6,7 @@ using Entities;
 
 namespace InterfaceBussinessLogic
 {
-    interface IImportDataManagement
+    public interface IImportDataManagement
     {
 
         /* Lista los pacientes con los respectivos estudios que no han sido cargados en la aplicacion.

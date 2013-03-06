@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using InterfaceBussinessLogic;
+using DataAccess;
 
 namespace BussinesLogic
 {
-    class SessionManagement : ISessionManagement
+    public class SessionManagement : ISessionManagement
     {
         private string currentUser;
 
-        private int login(string userName, string pswdHashed)
+        public int login(string userName, string pswdHashed)
         {
-            // Verificar que nombre de usuario es correcto
+            // Verificar que el nombre de usuario es correcto
+            UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
+            dataAccess.connectToDataBase();
+
+            bool exist = dataAccess.existUser(userName);
+
+            dataAccess.closeConnectionDataBase();
             // Obtener hash del pasword guardado en la base de datos
             // comparar ambos password
             // si son iguales login exitoso, sino falla login
             return 1;
         }
 
-        private void logout()
+        public void logout()
         {
         }
 
         // Los parametros currentPswd, newPswd, deben estar encriptados.
-        private int changePassword(string currentPswd, string newPswd)
+        public int changePassword(string currentPswd, string newPswd)
         {
             // Verificar que el pswd actual es correcto
             // guardar nuevo paswd en la base

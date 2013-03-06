@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Entities
 {
-    class Investigation
+    public class Investigation
     {
-        string _name;
-        DateTime _creationDate;
+        private string _name;
+        private DateTime _creationDate;
 
         public Investigation()
         {

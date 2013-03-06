@@ -9,7 +9,7 @@ namespace BussinessLogic
 {
     class CriptographyManagement : ICriptographyManagement
     {
-        private string sha256Encryipt(string clearPswd)
+        public string sha256Encryipt(string clearPswd)
         {
             UTF8Encoding encoder = new UTF8Encoding();
             SHA256Managed sha256hasher = new SHA256Managed();
@@ -17,7 +17,7 @@ namespace BussinessLogic
             return byteArrayToString(hashedDataBytes);
         }
 
-        private bool goodPassword(string inputPswd, string savedPswd)
+        public bool goodPassword(string inputPswd, string savedPswd)
         {
             return inputPswd.Equals(savedPswd);
         }

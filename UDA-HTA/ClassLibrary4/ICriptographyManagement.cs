@@ -5,7 +5,7 @@ using System.Text;
 
 namespace InterfaceBussinessLogic
 {
-    interface ICriptographyManagement
+    public interface ICriptographyManagement
     {
         string sha256Encryipt(string clearPswd);
 
