@@ -8,17 +8,6 @@
     
     <!-- Definicion de los estilos del control -->
     <UserControl.Resources>
-        <!-- Grupos -->
-        <Style TargetType="GroupBox">
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Width" Value="700" />
-            <Setter Property="Margin" Value="10" />
-        </Style>
-        <!-- Títulos de los Groups -->
-        <Style x:Key="groupTitle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="Bold" />
-        </Style>
         <!-- Títulos de las columnas -->
         <Style x:Key="columnTitle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
             <Setter Property="Grid.ColumnSpan" Value="2" />
@@ -26,21 +15,30 @@
             <Setter Property="Grid.Row" Value="0" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
-        <!-- Labels de los valuees -->
-        <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <!-- TextBlocks de los valuees -->
+        <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource label}">
             <Setter Property="Grid.Column" Value="0" />
         </Style>
         <!-- Valores desplegados -->
-        <Style x:Key="value" TargetType="Label">
+        <Style x:Key="value" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
             <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0,0,5,0" />
         </Style>
         <!-- Info extra de valuees desplegados -->
-        <Style x:Key="extraValue" TargetType="Label">
+        <Style x:Key="extraValue" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
             <Setter Property="Margin" Value="5,0,0,0" />
         </Style>
         <Style x:Key="stackExtra" TargetType="StackPanel">
+            <Style.Resources>
+                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Margin" Value="0,0,5,0" />
+                </Style>
+            </Style.Resources>
             <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="Margin" Value="5,0,0,0" />
+        </Style>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
         </Style>
     </UserControl.Resources>
     
@@ -61,7 +59,7 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Hora</TextBlock>
                 </GroupBox.Header>
-                <Grid Margin="10,5">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="Auto"/>
@@ -73,13 +71,13 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Style="{StaticResource label}">Inicio:</TextBlock>
-                    <Label Name="lblInicio" Grid.Row="0" Grid.Column="2" Style="{StaticResource value}">11/11/2012 13.45</Label>
+                    <TextBlock Name="lblInicio" Grid.Row="0" Grid.Column="2" Style="{StaticResource value}">11/11/2012 13.45</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Fin:</TextBlock>
-                    <Label Name="lblFin" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">12/11/2012 15.05</Label>
+                    <TextBlock Name="lblFin" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">12/11/2012 15.05</TextBlock>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Período de sueño:</TextBlock>
-                    <Label Name="lblSueno" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">11/11/2012 13.45</Label>
+                    <TextBlock Name="lblSueno" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">11/11/2012 13.45</TextBlock>
                 </Grid>
             </GroupBox>
 
@@ -88,7 +86,7 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mediciones</TextBlock>
                 </GroupBox.Header>
-                <Grid Margin="10,5">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
@@ -109,26 +107,26 @@
                     <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Total:</TextBlock>
-                    <Label Name="lblMedTotalT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">43</Label>
-                    <Label Name="lblMedTotalD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">25</Label>
-                    <Label Name="lblMedTotalN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}">18</Label>
+                    <TextBlock Name="lblMedTotalT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">43</TextBlock>
+                    <TextBlock Name="lblMedTotalD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">25</TextBlock>
+                    <TextBlock Name="lblMedTotalN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}">18</TextBlock>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Válidas:</TextBlock>
-                    <Label Name="lblMedValidaT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">43</Label>
-                    <Label Name="lblMedValidaTP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}">(83%)</Label>
-                    <Label Name="lblMedValidaD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">25</Label>
-                    <Label Name="lblMedValidaDP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}">(80%)</Label>
-                    <Label Name="lblMedValidaN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}">16</Label>
-                    <Label Name="lblMedValidaNP" Grid.Row="2" Grid.Column="6" Style="{StaticResource extraValue}">(88%)</Label>
+                    <TextBlock Name="lblMedValidaT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">43</TextBlock>
+                    <TextBlock Name="lblMedValidaTP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}">(83%)</TextBlock>
+                    <TextBlock Name="lblMedValidaD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">25</TextBlock>
+                    <TextBlock Name="lblMedValidaDP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}">(80%)</TextBlock>
+                    <TextBlock Name="lblMedValidaN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}">16</TextBlock>
+                    <TextBlock Name="lblMedValidaNP" Grid.Row="2" Grid.Column="6" Style="{StaticResource extraValue}">(88%)</TextBlock>
                 </Grid>
             </GroupBox>
 
             <!-- Promedios -->
-            <GroupBox Grid.Row="3">
+            <GroupBox Grid.Row="2">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Promedios</TextBlock>
                 </GroupBox.Header>
-                <Grid Margin="10,5">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
@@ -152,41 +150,41 @@
                     <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <Label Name="lblPromSistT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">136</Label>
-                    <Label Name="lblPromSistD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">138</Label>
-                    <Label Name="lblPromSistN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}">135</Label>
+                    <TextBlock Name="lblPromSistT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">136</TextBlock>
+                    <TextBlock Name="lblPromSistD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">138</TextBlock>
+                    <TextBlock Name="lblPromSistN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}">135</TextBlock>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <Label Name="lblPromDiastT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">80</Label>
-                    <Label Name="lblPromDiastD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">83</Label>
-                    <Label Name="lblPromDiastN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}">79</Label>
+                    <TextBlock Name="lblPromDiastT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">80</TextBlock>
+                    <TextBlock Name="lblPromDiastD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">83</TextBlock>
+                    <TextBlock Name="lblPromDiastN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}">79</TextBlock>
 
                     <TextBlock Grid.Row="3" Style="{StaticResource label}">Tension Arterial Media:</TextBlock>
-                    <Label Name="lblPromTamT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}">115</Label>
-                    <Label Name="lblPromTamD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}">121</Label>
-                    <Label Name="lblPromTamN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}">96</Label>
+                    <TextBlock Name="lblPromTamT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}">115</TextBlock>
+                    <TextBlock Name="lblPromTamD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}">121</TextBlock>
+                    <TextBlock Name="lblPromTamN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}">96</TextBlock>
 
                     <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
-                    <Label Name="lblPromFrecT" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}">85</Label>
-                    <Label Name="lblPromFrecD" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}">89</Label>
-                    <Label Name="lblPromFrecN" Grid.Row="4" Grid.Column="5" Style="{StaticResource value}">71</Label>
+                    <TextBlock Name="lblPromFrecT" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}">85</TextBlock>
+                    <TextBlock Name="lblPromFrecD" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}">89</TextBlock>
+                    <TextBlock Name="lblPromFrecN" Grid.Row="4" Grid.Column="5" Style="{StaticResource value}">71</TextBlock>
 
                     <!-- Más datos se pueden agregar -->
                 </Grid>
             </GroupBox>
 
             <!-- Valores sobre límite -->
-            <GroupBox Grid.Row="4">
+            <GroupBox Grid.Row="3">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Valores sobre el límite</TextBlock>
                 </GroupBox.Header>
-                <Grid Margin="10,5">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.8*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.8*" />
+                        <ColumnDefinition Width="0.85*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.85*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -198,32 +196,32 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <Label Name="lblVslSistD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">52</Label>
-                    <Label Name="lblVslSistDP" Grid.Row="1" Grid.Column="2" Style="{StaticResource extraValue}">(63%)</Label>
-                    <Label Name="lblVslSistN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">5</Label>
-                    <Label Name="lblVslSistNP" Grid.Row="1" Grid.Column="4" Style="{StaticResource extraValue}">(25%)</Label>
+                    <TextBlock Name="lblVslSistD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">52</TextBlock>
+                    <TextBlock Name="lblVslSistDP" Grid.Row="1" Grid.Column="2" Style="{StaticResource extraValue}">(63%)</TextBlock>
+                    <TextBlock Name="lblVslSistN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">5</TextBlock>
+                    <TextBlock Name="lblVslSistNP" Grid.Row="1" Grid.Column="4" Style="{StaticResource extraValue}">(25%)</TextBlock>
                     
                     <!-- Diastólico -->
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <Label Name="lblVslDiastD"  Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">68</Label>
-                    <Label Name="lblVslDiastDP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}">(75%)</Label>
-                    <Label Name="lblVslDiastN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">10</Label>
-                    <Label Name="lblVslDiastNP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}">(50%)</Label>
+                    <TextBlock Name="lblVslDiastD"  Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">68</TextBlock>
+                    <TextBlock Name="lblVslDiastDP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}">(75%)</TextBlock>
+                    <TextBlock Name="lblVslDiastN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">10</TextBlock>
+                    <TextBlock Name="lblVslDiastNP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}">(50%)</TextBlock>
                 </Grid>
             </GroupBox>
 
             <!-- Máximos -->
-            <GroupBox Grid.Row="5">
+            <GroupBox Grid.Row="4">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Máximos</TextBlock>
                 </GroupBox.Header>
-                <Grid Margin="10,5">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.75*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.75*" />
+                        <ColumnDefinition Width="0.8*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.8*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -235,43 +233,43 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <Label Name="lblMaxSistD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">201</Label>
+                    <TextBlock Name="lblMaxSistD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">201</TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMaxSistDP">09:30</Label>
+                        <TextBlock Name="lblMaxSistDP">09:30</TextBlock>
                     </StackPanel>
-                    <Label Name="lblMaxSistN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">137</Label>
+                    <TextBlock Name="lblMaxSistN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">137</TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMaxSistNP">23:30</Label>
+                        <TextBlock Name="lblMaxSistNP">23:30</TextBlock>
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <Label Name="lblMaxDiastD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">138</Label>
+                    <TextBlock Name="lblMaxDiastD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">138</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMaxDiastDP">09:30</Label>
+                        <TextBlock Name="lblMaxDiastDP">09:30</TextBlock>
                     </StackPanel>
-                    <Label Name="lblMaxDiastN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">103</Label>
+                    <TextBlock Name="lblMaxDiastN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">103</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMaxDiastNP">07:18</Label>
+                        <TextBlock Name="lblMaxDiastNP">07:18</TextBlock>
                     </StackPanel>
                 </Grid>
             </GroupBox>
 
             <!-- Mínimos -->
-            <GroupBox Grid.Row="6">
+            <GroupBox Grid.Row="5">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mínimos</TextBlock>
                 </GroupBox.Header>
-                <Grid Margin="10,5">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.8*" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.8*" />
+                        <ColumnDefinition Width="0.85*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.85*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -283,27 +281,27 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <Label Name="lblMinSistD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">96</Label>
+                    <TextBlock Name="lblMinSistD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">96</TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMinSistDP">11:03</Label>
+                        <TextBlock Name="lblMinSistDP">11:03</TextBlock>
                     </StackPanel>
-                    <Label Name="lblMinSistN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">99</Label>
+                    <TextBlock Name="lblMinSistN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">99</TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMinSistNP">01:30</Label>
+                        <TextBlock Name="lblMinSistNP">01:30</TextBlock>
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <Label Name="lblMinDiastD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">54</Label>
+                    <TextBlock Name="lblMinDiastD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">54</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMinDiastDP">15:45</Label>
+                        <TextBlock Name="lblMinDiastDP">15:45</TextBlock>
                     </StackPanel>
-                    <Label Name="lblMinDiastN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">60</Label>
+                    <TextBlock Name="lblMinDiastN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">60</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <Label Name="lblMinDiastNP">01:30</Label>
+                        <TextBlock Name="lblMinDiastNP">01:30</TextBlock>
                     </StackPanel>
                 </Grid>
             </GroupBox>

@@ -26,31 +26,31 @@
 
             <r:RibbonTab Header="Inicio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <r:RibbonGroup>
-                    <r:RibbonButton Name="newReport" Label="Nuevo Informe" LargeImageSource="Images\ribbon_newReport.png"/>
+                    <r:RibbonButton Name="btnNewReport" Label="Nuevo Informe" LargeImageSource="Images\ribbon_newReport.png" Click="newReport" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Paciente">
-                    <r:RibbonButton Name="findPatient" Label="Búsqueda" LargeImageSource="Images\ribbon_findPatient.png"/>
-                    <r:RibbonButton Name="newPatient" Label="Nuevo" LargeImageSource="Images\ribbon_newPatient.png"/>
-                    <r:RibbonButton Name="editPatient" Label="Editar" LargeImageSource="Images\ribbon_editPatient.png"/>
+                    <r:RibbonButton Name="btnFindPatient" Label="Búsqueda" LargeImageSource="Images\ribbon_findPatient.png"/>
+                    <r:RibbonButton Name="btnNewPatient" Label="Nuevo" LargeImageSource="Images\ribbon_newPatient.png"/>
+                    <r:RibbonButton Name="btnEditPatient" Label="Editar" LargeImageSource="Images\ribbon_editPatient.png"/>
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Investigación">
-                    <r:RibbonButton Name="newResearch" Label="Nueva" LargeImageSource="Images\ribbon_newResearch.png"></r:RibbonButton>
-                    <r:RibbonButton Name="findResearch" Label="Buscar" LargeImageSource="Images\ribbon_editResearch.png"></r:RibbonButton>
+                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="Images\ribbon_newResearch.png"></r:RibbonButton>
+                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="Images\ribbon_editResearch.png"></r:RibbonButton>
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Name="administration" Header="Administración">
-                    <r:RibbonButton Name="editDrugs" Label="Drogas" LargeImageSource="Images\ribbon_editDrugs.png"></r:RibbonButton>
-                    <r:RibbonButton Name="newDoctor" Label="Nuevo Usuario" LargeImageSource="Images\ribbon_newDoctor.png"></r:RibbonButton>
-                    <r:RibbonButton Name="findDoctor" Label="Buscar Usuario" LargeImageSource="Images\ribbon_findDoctor.png"></r:RibbonButton>
+                    <r:RibbonButton Name="btnEditDrugs" Label="Drogas" LargeImageSource="Images\ribbon_editDrugs.png"></r:RibbonButton>
+                    <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="Images\ribbon_newDoctor.png"></r:RibbonButton>
+                    <r:RibbonButton Name="btnFindDoctor" Label="Buscar Usuario" LargeImageSource="Images\ribbon_findDoctor.png"></r:RibbonButton>
                 </r:RibbonGroup>
             </r:RibbonTab>
 
             <r:RibbonTab Header="Investigación" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
                 <r:RibbonGroup>
-                    <r:RibbonButton Name="editResearch" Label="Editar" LargeImageSource="Images\ribbon_newReport.png"/>
-                    <r:RibbonButton Name="addStudyResearch" Label="Editar" LargeImageSource="Images\ribbon_newReport.png"/>
+                    <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="Images\ribbon_newReport.png"/>
+                    <r:RibbonButton Name="btnAddStudyResearch" Label="Editar" LargeImageSource="Images\ribbon_newReport.png"/>
                     <r:RibbonSplitButton >
                         <r:RibbonMenuItem Name="CSV"/>
                         <r:RibbonMenuItem Name="XLS"/>

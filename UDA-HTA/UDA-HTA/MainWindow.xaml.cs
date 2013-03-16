@@ -28,5 +28,11 @@ namespace UDA_HTA
         {
 
         }
+
+        private void newReport(object sender, RoutedEventArgs e)
+        {
+            NewReportFinder newReportPopup = new NewReportFinder();
+            newReportPopup.ShowDialog();
+        }
     }
 }

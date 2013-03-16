@@ -1,0 +1,38 @@
+﻿<Window x:Class="UDA_HTA.NewReportFinder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xml:lang="es-UY"
+        Title="Seleccionar el estudio realizado" Height="400" Width="825" ResizeMode="NoResize">
+    
+    <StackPanel Margin="15">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <TextBlock Style="{StaticResource label}">Desde:</TextBlock>
+                <DatePicker Name="dtStart" Margin="15,0,40,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <TextBlock Style="{StaticResource label}">Hasta:</TextBlock>
+                <DatePicker Name="dtEnd" Margin="15,0,40,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                <TextBlock Style="{StaticResource label}">Usuario:</TextBlock>
+                <TextBox Name="patientName" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown"></TextBox>
+            </StackPanel>
+            <Button Name="btnFilter" Padding="5,0" Click="btnFilter_Click">Filtrar</Button>
+        </StackPanel>
+        
+        <DataGrid Name="grReports" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                  IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="Selected" Handler="onRowSelect" />
+                    <Setter Property="Cursor" Value="Hand" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha del estudio" Width="1*" Binding="{Binding Path=Date}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Paciente" Width="1*" IsReadOnly="True" Binding="{Binding Path=Patient}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=Device}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>
