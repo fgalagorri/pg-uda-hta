@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.AdmissionForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="750">
+    
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+        </Style>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
+        </Style>
+        <Style TargetType="TextBox" x:Key="TBlockSmall" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Margin" Value="0,3" />
+        </Style>
+    </UserControl.Resources>
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <!-- General -->
+            <GroupBox Grid.Row="0">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">General</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
+                    <TextBox Name="txtTecnico" Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
+                    <DatePicker Name="dtEstudioIni" Grid.Row="1" Grid.Column="1" />
+                    <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource label}">Hora:</TextBlock>
+                    <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
+                        <TextBox Name="txtEstudioHoraIni" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtEstudioMinIni" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" >
+                        <TextBox Name="txtSuenoHoraIni" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtSuenoMinIni" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Horizontal">
+                        <TextBox Name="txtSuenoHoraFin" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtSuenoMinFin" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
+                    <TextBlock Name="lblSuenoCalidad" Grid.Row="3" Grid.Column="1">Regular</TextBlock>
+                    <TextBox Name="txtSuenoDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" 
+                             AcceptsReturn="True" Margin="0,5" MinLines="2" MaxLines="2" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                        <TextBox Name="txtComidaHora" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtComidaMin" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+
+            <!-- Datos del estado del paciente -->
+            <GroupBox Grid.Row="1">
+                <GroupBox.Header >
+                    <TextBlock Style="{StaticResource groupTitle}">Condición</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                        <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
+                        <TextBox Name="txtWeight" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
+                        <TextBox Name="txtHeight" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
+                        <TextBox Name="lblImc" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                        <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">%Grasa:</TextBlock>
+                        <TextBox Name="txtFat" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">%Músculo:</TextBlock>
+                        <TextBox Name="txtMuscle" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                        <Border />
+                        <TextBlock  Margin="15,0" Style="{StaticResource label}">KCal:</TextBlock>
+                        <TextBox Name="txtKcal" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                        <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
+                        <CheckBox Name="lblSmoker" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
+                        <CheckBox Name="lblDiabetes" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
+                        <CheckBox Name="lblColesterol" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
+                        <CheckBox Name="lblHypertense" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -58,6 +58,9 @@ namespace UDA_HTA
         private void onRowSelect(object sender, RoutedEventArgs e)
         {
             string s = ((ExampleReportList)((DataGridRow)sender).Item).Patient;
+            ReportCreate rc = new ReportCreate();
+            this.Close();
+            rc.ShowDialog();
         }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
