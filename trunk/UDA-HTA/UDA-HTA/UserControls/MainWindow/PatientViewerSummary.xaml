@@ -54,30 +54,49 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             
-            <!-- Hora -->
+            <!-- General -->
             <GroupBox Grid.Row="0">
                 <GroupBox.Header>
-                    <TextBlock Style="{StaticResource groupTitle}">Hora</TextBlock>
+                    <TextBlock Style="{StaticResource groupTitle}">General</TextBlock>
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource label}">Inicio:</TextBlock>
-                    <TextBlock Name="lblInicio" Grid.Row="0" Grid.Column="2" Style="{StaticResource value}">11/11/2012 13.45</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
+                    <TextBlock Name="lblTecnico" Grid.Row="0" Grid.Column="1">José Boggia</TextBlock>
 
-                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Fin:</TextBlock>
-                    <TextBlock Name="lblFin" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">12/11/2012 15.05</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
+                    <TextBlock Name="lblEstudioIni" Grid.Row="1" Grid.Column="1">11/11/2012 13.45</TextBlock>
+                    <!--TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
+                    <TextBlock Name="lblEstudioFin" Grid.Row="1" Grid.Column="4">12/11/2012 15.05</TextBlock-->
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Período de sueño:</TextBlock>
-                    <TextBlock Name="lblSueno" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">11/11/2012 13.45</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
+                    <TextBlock Name="lblSuenoIni" Grid.Row="2" Grid.Column="1">12/11/2012 00.30</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
+                    <TextBlock Name="lblSuenoFin" Grid.Row="2" Grid.Column="4">12/11/2012 07.35</TextBlock>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
+                    <TextBlock Name="lblSuenoCalidad" Grid.Row="3" Grid.Column="1">Regular</TextBlock>
+                    <TextBlock Name="lblSuenoDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5">
+                        Tuvo dificultades para dormir debido a que el aparato lo molestaba al tomar la presión.
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
+                    <TextBlock Name="lblComida" Grid.Row="4" Grid.Column="1">11/11/2012 15.15</TextBlock>
                 </Grid>
             </GroupBox>
 

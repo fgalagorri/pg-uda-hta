@@ -23,5 +23,9 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontStyle" Value="Italic" />
         </Style>
+        <!-- Cuadros de Texto -->
+        <Style TargetType="TextBox">
+            
+        </Style>
     </Application.Resources>
 </Application>
