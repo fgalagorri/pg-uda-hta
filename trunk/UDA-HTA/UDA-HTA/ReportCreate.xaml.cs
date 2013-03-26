@@ -18,9 +18,24 @@ namespace UDA_HTA
     /// </summary>
     public partial class ReportCreate : Window
     {
+        private static int state = 1;
+
         public ReportCreate()
         {
             InitializeComponent();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (state == 1)
+            {
+                CurrentControl.Content = null;
+                state = 2;
+            }
+            else if (state == 2)
+            {
+                
+            }
         }
     }
 }

@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.ReportCreation.ManualInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="Auto">
+    
+    <UserControl.Resources>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
+        </Style>
+        <Style TargetType="TextBox" x:Key="TBlockSmall" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Margin" Value="0,3" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- Mediciones manuales al inicio -->
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header >
+                <TextBlock Style="{StaticResource groupTitle}">Mediciones iniciales</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{StaticResource label}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">Medición 1:</TextBlock>
+                <TextBlock Style="{StaticResource label}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">Medición 2:</TextBlock>
+                <TextBlock Style="{StaticResource label}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">Medición 3:</TextBlock>
+
+                <TextBlock Style="{StaticResource label}" Grid.Row="1" Grid.Column="0" >Presión arterial:</TextBlock>
+                <TextBlock Style="{StaticResource label}" Grid.Row="2" Grid.Column="0" >Fec. Cardíaca:</TextBlock>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtIniSist1" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Margin="2,0">/</TextBlock>
+                    <TextBox Name="txtIniDiast1" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <TextBox Name="txtIniFC1" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="1"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtIniSist2" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Margin="2,0">/</TextBlock>
+                    <TextBox Name="txtIniDiast2" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <TextBox Name="txtIniFC2" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="2"/>
+
+
+                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtIniSist3" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Margin="2,0">/</TextBlock>
+                    <TextBox Name="txtIniDiast3" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <TextBox Name="txtIniFC3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3"/>
+            </Grid>
+        </GroupBox>
+
+
+        <!-- Mediciones manuales al inicio -->
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header >
+                <TextBlock Style="{StaticResource groupTitle}">Mediciones finales</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{StaticResource label}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">Medición 1:</TextBlock>
+                <TextBlock Style="{StaticResource label}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">Medición 2:</TextBlock>
+                <TextBlock Style="{StaticResource label}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">Medición 3:</TextBlock>
+
+                <TextBlock Style="{StaticResource label}" Grid.Row="1" Grid.Column="0" >Presión arterial:</TextBlock>
+                <TextBlock Style="{StaticResource label}" Grid.Row="2" Grid.Column="0" >Fec. Cardíaca:</TextBlock>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtFinSist1" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Margin="2,0">/</TextBlock>
+                    <TextBox Name="txtFinDiast1" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <TextBox Name="txtFinFC1" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="1"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtFinSist2" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Margin="2,0">/</TextBlock>
+                    <TextBox Name="txtFinDiast2" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <TextBox Name="txtFinFC2" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="2"/>
+
+
+                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Name="txtFinSist3" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Margin="2,0">/</TextBlock>
+                    <TextBox Name="txtFinDiast3" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <TextBox Name="txtFinFC3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3"/>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>
