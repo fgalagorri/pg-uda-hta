@@ -62,20 +62,38 @@
     <Compile Include="NewReportFinder.xaml.cs">
       <DependentUpon>NewReportFinder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportCreate.xaml.cs">
+      <DependentUpon>ReportCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportCreation\AdmissionForm.xaml.cs">
+      <DependentUpon>AdmissionForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Lookup.xaml.cs">
       <DependentUpon>Lookup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PatientViewer.xaml.cs">
+    <Compile Include="UserControls\MainWindow\PatientViewer.xaml.cs">
       <DependentUpon>PatientViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PatientViewerData.xaml.cs">
+    <Compile Include="UserControls\MainWindow\PatientViewerData.xaml.cs">
       <DependentUpon>PatientViewerData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PatientViewerInformation.xaml.cs">
+    <Compile Include="UserControls\MainWindow\PatientViewerInformation.xaml.cs">
       <DependentUpon>PatientViewerInformation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PatientViewerSummary.xaml.cs">
+    <Compile Include="UserControls\MainWindow\PatientViewerSummary.xaml.cs">
       <DependentUpon>PatientViewerSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportCreation\ManualInput.xaml.cs">
+      <DependentUpon>ManualInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportCreation\OtherInformation.xaml.cs">
+      <DependentUpon>OtherInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportCreation\PatientInformation.xaml.cs">
+      <DependentUpon>PatientInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportCreation\Summary.xaml.cs">
+      <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,23 +111,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ReportCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportCreation\AdmissionForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Lookup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PatientViewer.xaml">
+    <Page Include="UserControls\MainWindow\PatientViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PatientViewerData.xaml">
+    <Page Include="UserControls\MainWindow\PatientViewerData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PatientViewerInformation.xaml">
+    <Page Include="UserControls\MainWindow\PatientViewerInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PatientViewerSummary.xaml">
+    <Page Include="UserControls\MainWindow\PatientViewerSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportCreation\ManualInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportCreation\OtherInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportCreation\PatientInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportCreation\Summary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

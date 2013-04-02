@@ -14,7 +14,7 @@ namespace Entities
 
             DateTime reportDate;
             int reportDevice;
-            Int32 reportIdent;
+            int reportIdent;
         }
         
         private int _ident;
