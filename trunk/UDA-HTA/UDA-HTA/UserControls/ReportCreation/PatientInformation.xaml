@@ -1,11 +1,138 @@
-﻿<UserControl x:Class="UDA_HTA.UserControls.PatientInformation"
+﻿<UserControl x:Class="UDA_HTA.UserControls.ReportCreation.PatientInformation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="28" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- Datos de identificación -->
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Identificación</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <TextBlock Style="{StaticResource label}">Nombres:</TextBlock>
+                    <TextBox Name="txtNames" Margin="15,0" Width="200" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Style="{StaticResource label}">Apellidos:</TextBlock>
+                    <TextBox Name="txtLast" Margin="15,0"  Width="200" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Style="{StaticResource label}">CI:</TextBlock>
+                    <TextBox Name="txtCI" Margin="15,0" Width="100" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <TextBlock Style="{StaticResource label}">Fecha de Nacimiento:</TextBlock>
+                    <StackPanel Margin="15,0" Orientation="Horizontal">
+                        <TextBox Name="txtBirthDay" Margin="2,0" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock>/</TextBlock>
+                        <TextBox Name="txtBirthMon" Margin="2,0" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock>/</TextBlock>
+                        <TextBox Name="txtBirthYear" Margin="2,0" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="4">
+                    <TextBlock Style="{StaticResource label}">Sexo:</TextBlock>
+                    <ComboBox Name="cmbSexo" Margin="15,0" Width="100" VerticalAlignment="Center">
+                        <ComboBoxItem Content="Masculino" />
+                        <ComboBoxItem Content="Femenino" />
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Datos de locación -->
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Dirección</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                    <TextBlock Margin="0,0,15,0"  Style="{StaticResource label}">Dirección:</TextBlock>
+                    <TextBox Name="txtAddress" />
+                </DockPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Barrio:</TextBlock>
+                    <TextBox Name="txtNeighbour" Width="150" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Ciudad:</TextBlock>
+                    <TextBox Name="txtCity" Width="130" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Departamento:</TextBlock>
+                    <ComboBox Name="cmbDepto" VerticalAlignment="Center" Width="100">
+                        <ComboBoxItem Content="Montevideo"></ComboBoxItem>
+                        <ComboBoxItem Content="Artigas"></ComboBoxItem>
+                        <ComboBoxItem Content="Canelones"></ComboBoxItem>
+                        <ComboBoxItem Content="Colonia"></ComboBoxItem>
+                        <ComboBoxItem Content="Cerro Largo"></ComboBoxItem>
+                        <ComboBoxItem Content="Durazno"></ComboBoxItem>
+                        <ComboBoxItem Content="Flores"></ComboBoxItem>
+                        <ComboBoxItem Content="Florida"></ComboBoxItem>
+                        <ComboBoxItem Content="Lavalleja"></ComboBoxItem>
+                        <ComboBoxItem Content="Maldonado"></ComboBoxItem>
+                        <ComboBoxItem Content="Paysandú"></ComboBoxItem>
+                        <ComboBoxItem Content="Río Negro"></ComboBoxItem>
+                        <ComboBoxItem Content="Rivera"></ComboBoxItem>
+                        <ComboBoxItem Content="Rocha"></ComboBoxItem>
+                        <ComboBoxItem Content="Salto"></ComboBoxItem>
+                        <ComboBoxItem Content="San José"></ComboBoxItem>
+                        <ComboBoxItem Content="Soriano"></ComboBoxItem>
+                        <ComboBoxItem Content="Tacuarembó"></ComboBoxItem>
+                        <ComboBoxItem Content="Treinta y Tres"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Teléfono:</TextBlock>
+                    <TextBox Name="txtTel" Width="140"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <Border  />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Celular:</TextBlock>
+                    <TextBox Name="txtCel" Width="130" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">e-Mail:</TextBlock>
+                    <TextBox Name="txtMail" Width="300" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

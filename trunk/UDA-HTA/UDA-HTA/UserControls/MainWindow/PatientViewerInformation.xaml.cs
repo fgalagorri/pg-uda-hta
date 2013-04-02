@@ -54,7 +54,7 @@ namespace UDA_HTA.UserControls
     }
 
 
-    /* PROVISORIO */
+    /* PROVISORIO */ // TODO sacar esto para otra dll que tenga las entidades
     public class ExampleMedication
     {
         public string Categoria { get; set; }
