@@ -20,7 +20,7 @@ namespace UDA_HTA
     /// </summary>
     public partial class ReportCreate : Window
     {
-        private static int state = 0;
+        private int _state;
         private PatientInformation patientinfo;
         private AdmissionForm admissionForm;
         private ManualInput manualInput;
@@ -29,7 +29,7 @@ namespace UDA_HTA
         public ReportCreate()
         {
             InitializeComponent();
-            
+            _state = 0;
             patientinfo = new PatientInformation();
             admissionForm = new AdmissionForm();
             manualInput = new ManualInput();
@@ -40,45 +40,49 @@ namespace UDA_HTA
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            switch (state)
+            switch (_state)
             {
                 case 0:
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
-                    state++;
+                    _state++;
                     break;
                 case 1:
                     CurrentControl.Content = manualInput;
                     btnBack.IsEnabled = true;
-                    state++;
+                    _state++;
                     break;
                 case 2:
                     CurrentControl.Content = otherInfo;
                     btnBack.IsEnabled = true;
                     btnNext.Content = "Finalizar >>";
-                    state++;
+                    _state++;
+                    break;
+                case 3:
+                    DialogResult = true;
+                    Close();
                     break;
             }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            switch (state)
+            switch (_state)
             {
                 case 1:
                     CurrentControl.Content = patientinfo;
                     btnBack.IsEnabled = false;
-                    state--;
+                    _state--;
                     break;
                 case 2:             
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
-                    state--;
+                    _state--;
                     break;
                 case 3:
                     CurrentControl.Content = manualInput;
                     btnBack.IsEnabled = true;
-                    state--;
+                    _state--;
                     break;
             }
         }

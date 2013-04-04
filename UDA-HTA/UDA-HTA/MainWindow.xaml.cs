@@ -22,6 +22,7 @@ namespace UDA_HTA
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -29,9 +30,9 @@ namespace UDA_HTA
 
         }
 
-        private void newReport(object sender, RoutedEventArgs e)
+        private void NewReport(object sender, RoutedEventArgs e)
         {
-            NewReportFinder newReportPopup = new NewReportFinder();
+            NewReportFinder newReportPopup = new NewReportFinder{Owner = this};
             newReportPopup.ShowDialog();
         }
     }
