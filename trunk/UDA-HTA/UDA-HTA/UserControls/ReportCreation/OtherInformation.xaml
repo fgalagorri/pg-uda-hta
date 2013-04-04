@@ -106,7 +106,7 @@
                         <ComboBoxItem Content="Vómitos o nauseas" />
                         <ComboBoxItem Content="Otros" />
                     </ComboBox>
-                    <TextBox VerticalAlignment="Center" Width="200"  IsEnabled="False"></TextBox>
+                    <TextBox VerticalAlignment="Center" Width="200" Name="txtComplOther" IsEnabled="False" />
                     
                     <Button Name="btnAddCompl" Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddCompl_Click">Agregar</Button>
                 </StackPanel>

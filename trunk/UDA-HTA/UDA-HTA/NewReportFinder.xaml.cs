@@ -57,10 +57,7 @@ namespace UDA_HTA
 
         private void onRowSelect(object sender, RoutedEventArgs e)
         {
-            string s = ((ExampleReportList)((DataGridRow)sender).Item).Patient;
-            ReportCreate rc = new ReportCreate();
-            this.Close();
-            rc.ShowDialog();
+            
         }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
@@ -81,6 +78,26 @@ namespace UDA_HTA
         {
             if (e.Key == Key.Enter)
                 btnFilter_Click(sender, e);
+        }
+
+        private void grReports_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((DataGrid) sender).SelectedIndex != -1)
+            {
+                string s = ((ExampleReportList)e.AddedItems[0]).Patient;
+                var rc = new ReportCreate {Owner = this};
+                var cancelled = rc.ShowDialog();
+
+                if (cancelled.HasValue && !cancelled.Value)
+                {
+                    //grReports.UnselectAll();
+                    // Hack to disable selected row style
+                    grReports.IsEnabled = false;
+                    grReports.IsEnabled = true;
+                }
+                else
+                    Close();
+            }
         }
     }
 
