@@ -15,7 +15,7 @@
                 <DatePicker Name="dtEnd" Margin="15,0,40,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                <TextBlock Style="{StaticResource label}">Usuario:</TextBlock>
+                <TextBlock Style="{StaticResource label}">Paciente:</TextBlock>
                 <TextBox Name="patientName" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown"></TextBox>
             </StackPanel>
             <Button Name="btnFilter" Padding="5,0" Click="btnFilter_Click">Filtrar</Button>

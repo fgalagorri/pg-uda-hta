@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
@@ -55,7 +55,7 @@
       <Project>{EDF0E5D0-E41D-4A95-8421-93882EA811FB}</Project>
       <Name>HMSDataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Entities.csproj">
+    <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>
