@@ -11,19 +11,28 @@ namespace BussinesLogic
     {
         private string currentUser;
 
-        public int login(string userName, string pswdHashed)
+        public bool login(string userName, string pswdHashed)
         {
             // Verificar que el nombre de usuario es correcto
             UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
             dataAccess.connectToDataBase();
 
-            bool exist = dataAccess.existUser(userName);
+            string pswd = dataAccess.getPassword(userName);
 
             dataAccess.closeConnectionDataBase();
-            // Obtener hash del pasword guardado en la base de datos
-            // comparar ambos password
-            // si son iguales login exitoso, sino falla login
-            return 1;
+
+            //Si existe el usuario, el password sera distinto de ""
+            //Si el hash del password ingresado es igual al hash del password guardado,
+            //entonces login exitos, sino falla login 
+            if (!pswd.Equals("") && pswd.Equals(pswdHashed))
+            {
+                return true;                        
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public void logout()
