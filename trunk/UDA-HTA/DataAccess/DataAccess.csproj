@@ -8,8 +8,8 @@
     <ProjectGuid>{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,7 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Entities.csproj">
+    <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>

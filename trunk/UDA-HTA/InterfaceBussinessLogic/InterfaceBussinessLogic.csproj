@@ -8,8 +8,8 @@
     <ProjectGuid>{022155CB-DDF2-41F0-9583-9D25106D309F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary4</RootNamespace>
-    <AssemblyName>ClassLibrary4</AssemblyName>
+    <RootNamespace>InterfaceBussinessLogic</RootNamespace>
+    <AssemblyName>InterfaceBussinessLogic</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,7 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Entities.csproj">
+    <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>

@@ -8,8 +8,8 @@
     <ProjectGuid>{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary3</RootNamespace>
-    <AssemblyName>ClassLibrary3</AssemblyName>
+    <RootNamespace>BussinessLogic</RootNamespace>
+    <AssemblyName>BussinessLogic</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,15 +50,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\DataAccess.csproj">
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary2\DeviceDataAccess.csproj">
+    <ProjectReference Include="..\DeviceDataAccess\DeviceDataAccess.csproj">
       <Project>{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}</Project>
       <Name>DeviceDataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary4\InterfaceBussinessLogic.csproj">
+    <ProjectReference Include="..\InterfaceBussinessLogic\InterfaceBussinessLogic.csproj">
       <Project>{022155CB-DDF2-41F0-9583-9D25106D309F}</Project>
       <Name>InterfaceBussinessLogic</Name>
     </ProjectReference>
@@ -66,7 +66,7 @@
       <Project>{EDF0E5D0-E41D-4A95-8421-93882EA811FB}</Project>
       <Name>HMSDataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Entities.csproj">
+    <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>
