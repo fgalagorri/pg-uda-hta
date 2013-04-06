@@ -13,6 +13,31 @@ namespace BussinesLogic
 
         public bool login(string userName, string pswdHashed)
         {
+            return verifyPassword(userName, pswdHashed);
+        }
+
+        public void logout()
+        {
+        }
+
+        // Los parametros currentPswd, newPswd, deben estar encriptados.
+        public bool changePassword(string userName, string currentPswd, string newPswd)
+        {
+            // Verificar que el pswd actual es correcto
+            if ( verifyPassword(userName,currentPswd) )
+            {
+                // guardar nuevo paswd en la base
+                UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
+                dataAccess.connectToDataBase();
+
+                bool ret = dataAccess.updatePassword(userName,newPswd);
+                return ret;
+            }
+            return false;
+        }
+
+        private bool verifyPassword(string userName, string pswdHashed)
+        {
             // Verificar que el nombre de usuario es correcto
             UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
             dataAccess.connectToDataBase();
@@ -33,18 +58,6 @@ namespace BussinesLogic
                 return false;
             }
 
-        }
-
-        public void logout()
-        {
-        }
-
-        // Los parametros currentPswd, newPswd, deben estar encriptados.
-        public int changePassword(string currentPswd, string newPswd)
-        {
-            // Verificar que el pswd actual es correcto
-            // guardar nuevo paswd en la base
-            return 1;
         }
 
     }

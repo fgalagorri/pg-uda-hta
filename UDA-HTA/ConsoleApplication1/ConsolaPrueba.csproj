@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BussinessLogic\BussinessLogic.csproj">
+      <Project>{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}</Project>
+      <Name>BussinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{C3227741-D7CD-4B88-8BEA-58B7338F6CD4}</Project>
       <Name>DataAccess</Name>
@@ -58,6 +62,10 @@
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBussinessLogic\InterfaceBussinessLogic.csproj">
+      <Project>{022155CB-DDF2-41F0-9583-9D25106D309F}</Project>
+      <Name>InterfaceBussinessLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

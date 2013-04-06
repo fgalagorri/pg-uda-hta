@@ -6,6 +6,7 @@ using System.Text;
 using HMSDataAccess;
 using Entities;
 using DataAccess;
+using BussinesLogic;
 
 namespace ConsoleApplication1
 {
@@ -51,10 +52,17 @@ namespace ConsoleApplication1
             //dataAccess.insertDrugType(2, "type1");
             //dataAccess.insertDrug(1, "DrugName", 2);
             //dataAccess.insertInvestigation(1, "inv1", new DateTime());
-            bool exist = dataAccess.existUser("pepe");
-            Console.WriteLine(exist.ToString());
-
+            string pswd = dataAccess.getPassword("pepe");
             dataAccess.closeConnectionDataBase();
+            Console.WriteLine(pswd);
+
+            SessionManagement sm = new SessionManagement();
+            bool logged = sm.login("pepe","pas");
+            if (logged)
+                Console.WriteLine("LOGUEADO :)");
+            else
+                Console.WriteLine("NO SE PUDO LOGUEAR :(");
+
         }
     }
 }
