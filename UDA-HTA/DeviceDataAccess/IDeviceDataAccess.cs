@@ -16,7 +16,7 @@ namespace DeviceDataAccess
 
         ICollection<Patient> ListPatients();
 
-        ICollection<Report> ListAllReports();
+        ICollection<PatientReport> ListAllReports();
 
         ICollection<Report> GetReportsByPatientId(int patientId);
 

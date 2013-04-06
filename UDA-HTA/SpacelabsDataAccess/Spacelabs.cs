@@ -33,7 +33,7 @@ namespace SpacelabsDataAccess
             return null;
         }
 
-        public ICollection<Report> ListAllReports()
+        public ICollection<PatientReport> ListAllReports()
         {
             return null;
         }

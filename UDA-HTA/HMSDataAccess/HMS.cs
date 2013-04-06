@@ -135,13 +135,28 @@ namespace HMSDataAccess
             return patientList;
         }
 
-        public ICollection<Report> ListAllReports()
+        public ICollection<PatientReport> ListAllReports()
         {
-            ResultSet rs = stat.executeQuery("SELECT ID FROM PATIENT");
-            ICollection<Report> result = new List<Report>();
+            string col = "p.id, p.patientid, a1.id, a1.firstname, a1.lastname, a2.id, a2.timestamp";
+            string tables = "patient AS p, adresse AS a1, aufzeichnung AS a2";
+            string cond = "( p.ID = a2.PATIENT_ID AND p.adress_id = a1.ID )";
+            ResultSet rs = stat.executeQuery("SELECT " + col + " FROM " + tables + " WHERE " + cond + ";");
+            ICollection<PatientReport> result = new List<PatientReport>();
+            string timeStr;
             while (rs.next())
             {
-                result.Concat( GetReportsByPatientId(rs.getInt(1)) );
+                //Creo el nodo de la lista result de tipo PatientReport
+                PatientReport pr = new PatientReport();
+                pr.patientIdent = rs.getInt(1);
+                pr.patientDocument = rs.getString(2);
+                pr.patientName = rs.getString(4);
+                pr.patientLastName = rs.getString(5);
+                pr.reportIdent = rs.getInt(6);
+                timeStr = rs.getString(7); 
+                //Pareseo la fecha y hora para crear el DateTime
+                pr.reportDate = parseDateTime(timeStr);
+                pr.reportDevice = 0; //HMS
+                result.Add(pr);
             }
             return result;
         }
@@ -226,6 +241,7 @@ namespace HMSDataAccess
             reportList.Add(report);
             return reportList;
         }
+
 
     }
 }
