@@ -35,7 +35,7 @@ namespace DeviceDataAccess
             return _deviceType.ListPatients();
         }
 
-        public ICollection<Report> ListAllReportsDeviceDataAccess()
+        public ICollection<PatientReport> ListAllReportsDeviceDataAccess()
         {
             return _deviceType.ListAllReports();
         }

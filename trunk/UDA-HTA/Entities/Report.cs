@@ -7,15 +7,6 @@ namespace Entities
 {
     public class Report
     {
-        public struct PatientReport
-        {
-            string patientName;
-            string patientDocument;
-
-            DateTime reportDate;
-            int reportDevice;
-            int reportIdent;
-        }
         
         private int _ident;
         private ICollection<Measurement> measureList;

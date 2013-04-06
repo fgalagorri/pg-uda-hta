@@ -13,10 +13,10 @@ namespace BussinessLogic
     class ImportDataManagement : IImportDataManagement
     {
 
-        public ICollection<Report.PatientReport> getListNewPatientReports(DeviceDataAccess.DeviceDataAccess dda)
+        public ICollection<PatientReport> getListNewPatientReports(DeviceDataAccess.DeviceDataAccess dda)
         {
-            Entities.Report.PatientReport node = new Report.PatientReport();
-            ICollection<Entities.Report.PatientReport> list = new List<Entities.Report.PatientReport>();
+            PatientReport node = new PatientReport();
+            ICollection<PatientReport> list = new List<PatientReport>();
 
             // Abro conexion con la base de datos
             dda.ConnectDeviceDataAccess();
@@ -24,7 +24,7 @@ namespace BussinessLogic
             /*
              * TODO: del lado de la base una rutina que obtenga una lista de PatientReport
              */
-            ICollection<Report> l = dda.ListAllReportsDeviceDataAccess(); 
+            list = dda.ListAllReportsDeviceDataAccess(); 
 
             // Cierro la conexion con la base de datos
             dda.CloseDeviceDataAccess();
@@ -32,16 +32,18 @@ namespace BussinessLogic
             return list;
         }
 
-        public ICollection<Report.PatientReport> listNewPatientReports()
+        public ICollection<PatientReport> listNewPatientReports()
         {
-            ICollection<Entities.Report.PatientReport> list = new List<Entities.Report.PatientReport>();
+            ICollection<PatientReport> list = new List<PatientReport>();
 
             // Obtener lista de reportes perdientes para cada dispositivo
             DeviceDataAccess.DeviceDataAccess dda;
             
+            //Lista de reportes pendientes de HMS
             dda = new DeviceDataAccess.DeviceDataAccess(new HMS());
             list = getListNewPatientReports(dda);
 
+            //Lista de reportes pendientes de spacelabs
             dda = new DeviceDataAccess.DeviceDataAccess(new Spacelabs());
             list.Concat(getListNewPatientReports(dda));
 
