@@ -72,33 +72,45 @@ namespace DataAccess
             conn.Close();
         }
 
-        //Verifica que existe el nombre de usuario 'userName' en la base de datos
-        public bool existUser(string userName)
+
+        //Verifica que existe el nombre de usuario 'userName' en la base de datos y devuelve el password,
+        //en caso de no existr devuelvo null
+        public string getPassword(string userName)
         {
-            string stm = "SELECT EXISTS(SELECT 1 FROM User WHERE login = '" + userName + "' LIMIT 1)";
+        //  string stm = "SELECT EXISTS(SELECT 1 FROM User WHERE login = '" + userName + "' LIMIT 1)";
+            string stm = "SELECT pass FROM User WHERE login = '" + userName + "' LIMIT 1";
             MySqlCommand mc = new MySqlCommand(stm, conn);
 
             conn.Open();
             MySqlDataReader rdr = mc.ExecuteReader();
-
-            Int16 exists = 0;
-            if ( rdr.Read() )
+            
+            string pswd = "";
+            while ( rdr.Read() )
             {
-                exists = rdr.GetInt16(0);
+        //      exists = rdr.GetInt16(0);
+                pswd = rdr.GetString(0);
             }
 
             rdr.Close();
             conn.Close();
 
-            if (exists == 1)
-            {
-                return true;
-            } 
-            else
-            {
-                return false;
-            }
+            return pswd;
 
+        }
+        
+        //Actualiza la contrasena del usuario userName
+        public bool updatePassword(string userName, string newPswd)
+        {
+            MySqlCommand mc = new MySqlCommand("updatePassword", conn);
+            mc.CommandType = CommandType.StoredProcedure;
+            mc.Parameters.Add(new MySqlParameter("login_var", userName));
+            mc.Parameters.Add(new MySqlParameter("pass_var", newPswd));
+
+            conn.Open();
+            mc.ExecuteNonQuery();
+            conn.Close();
+
+            return true; 
         }
         
         //Inserta un nuevo usuario en la base de datos
