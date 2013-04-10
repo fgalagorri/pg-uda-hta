@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UDA_HTA.UserControls;
+using UDA_HTA.UserControls.MainWindow;
 
 namespace UDA_HTA
 {
@@ -19,10 +21,14 @@ namespace UDA_HTA
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PatientViewer patientViewer;
+
         public MainWindow()
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            patientViewer = new PatientViewer();
+            Container.Content = patientViewer;
         }
 
         private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -30,10 +36,16 @@ namespace UDA_HTA
 
         }
 
-        private void NewReport(object sender, RoutedEventArgs e)
+        private void btnNewReport_Click(object sender, RoutedEventArgs e)
         {
-            NewReportFinder newReportPopup = new NewReportFinder{Owner = this};
+            var newReportPopup = new NewReportFinder { Owner = this };
             newReportPopup.ShowDialog();
+        }
+
+        private void btnReportComments_Click(object sender, RoutedEventArgs e)
+        {
+            var reportComments = new ReportComments();
+            Container.Content = reportComments;
         }
     }
 }

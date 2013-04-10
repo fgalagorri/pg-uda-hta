@@ -65,6 +65,9 @@
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainWindow\ReportComments.xaml.cs">
+      <DependentUpon>ReportComments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ReportCreation\AdmissionForm.xaml.cs">
       <DependentUpon>AdmissionForm.xaml</DependentUpon>
     </Compile>
@@ -82,9 +85,6 @@
     </Compile>
     <Compile Include="UserControls\MainWindow\PatientViewerSummary.xaml.cs">
       <DependentUpon>PatientViewerSummary.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ReportCreation\ManualInput.xaml.cs">
-      <DependentUpon>ManualInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ReportCreation\OtherInformation.xaml.cs">
       <DependentUpon>OtherInformation.xaml</DependentUpon>
@@ -115,6 +115,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\MainWindow\ReportComments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ReportCreation\AdmissionForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,10 +140,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MainWindow\PatientViewerSummary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ReportCreation\ManualInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -11,5 +11,20 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             InitializeComponent();
         }
+
+        private void btnAddIllness_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDelIllness_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void grBackground_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

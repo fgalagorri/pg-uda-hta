@@ -26,12 +26,16 @@
                     <TextBlock Name="txtMedicamento"  Margin="20,0" Visibility="Collapsed" />
                     <Button Name="btnMedicamento" Padding="5,2" VerticalAlignment="Center" Margin="30,0">Seleccionar</Button>
 
-                    <Button Name="btnAddMedicamento" Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddMedicamento_Click">Agregar</Button>
+                    <Button Name="btnAddMedicamento" Padding="5,2" VerticalAlignment="Center" 
+                            Margin="30,0" Click="btnAddMedicamento_Click">Agregar</Button>
                 </StackPanel>
 
-                <DataGrid Grid.Row="1" Name="grMedication" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}" Height="90" IsReadOnly="True">
+                <DataGrid Grid.Row="1" Name="grMedication" Background="White" AutoGenerateColumns="False"
+                          ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hora}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Hora}">
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Categoría" Width="*" IsReadOnly="True"
                                             Binding="{Binding Path=Categoria}">
                         </DataGridTextColumn>
@@ -68,7 +72,7 @@
                         <ComboBoxItem Content="Estress, tension, nervios" />
                     </ComboBox>
 
-                    <Button Name="btnAddEsfuerzo" Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddEsfuerzo_Click">Agregar</Button>
+                    <Button Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddEsfuerzo_Click">Agregar</Button>
                 </StackPanel>
                 <DataGrid Name="grEsfuerzo" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
@@ -110,7 +114,8 @@
                     
                     <Button Name="btnAddCompl" Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddCompl_Click">Agregar</Button>
                 </StackPanel>
-                <DataGrid Name="grComplicaciones" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}" Height="90" IsReadOnly="True">
+                <DataGrid Name="grComplicaciones" Background="White" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hora}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Tipo}"></DataGridTextColumn>

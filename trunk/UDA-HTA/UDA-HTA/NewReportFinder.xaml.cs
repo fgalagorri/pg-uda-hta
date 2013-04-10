@@ -55,11 +55,6 @@ namespace UDA_HTA
             grReports.DataContext = list;
         }
 
-        private void onRowSelect(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
             List<ExampleReportList> filter = list;
