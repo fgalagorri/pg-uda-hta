@@ -6,7 +6,9 @@ using System.Text;
 using HMSDataAccess;
 using Entities;
 using DataAccess;
-using BussinesLogic;
+using BussinessLogic;
+using InterfaceBussinessLogic;
+using DeviceDataAccess;
 
 namespace ConsoleApplication1
 {
@@ -46,22 +48,42 @@ namespace ConsoleApplication1
             iDataAccess.closeConnectionDataBase();
             */
 
-            UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
-            dataAccess.connectToDataBase();
+            //UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
+            //dataAccess.connectToDataBase();
             //dataAccess.insertUser(3, "login", "pass", "rol");
             //dataAccess.insertDrugType(2, "type1");
             //dataAccess.insertDrug(1, "DrugName", 2);
             //dataAccess.insertInvestigation(1, "inv1", new DateTime());
-            string pswd = dataAccess.getPassword("pepe");
-            dataAccess.closeConnectionDataBase();
-            Console.WriteLine(pswd);
+            //string pswd = dataAccess.getPassword("pepe");
+            //dataAccess.closeConnectionDataBase();
+            //Console.WriteLine(pswd);
 
-            SessionManagement sm = new SessionManagement();
-            bool logged = sm.login("pepe","pas");
-            if (logged)
-                Console.WriteLine("LOGUEADO :)");
-            else
-                Console.WriteLine("NO SE PUDO LOGUEAR :(");
+            //SessionManagement sm = new SessionManagement();
+            //bool logged = sm.login("pepe","pas");
+            //if (logged)
+            //    Console.WriteLine("LOGUEADO :)");
+            //else
+            //    Console.WriteLine("NO SE PUDO LOGUEAR :(");
+
+            IDeviceDataAccess iDataAccess = new HMS();
+            iDataAccess.connectToDataBase();
+            iDataAccess.closeConnectionDataBase();
+
+
+            IDeviceDataAccess idda = new HMS();
+            DeviceDataAccess.DeviceDataAccess dda = new DeviceDataAccess.DeviceDataAccess(idda);
+            dda.ConnectDeviceDataAccess();
+            dda.CloseDeviceDataAccess();
+
+            IImportDataManagement idm = new ImportDataManagement();
+            ICollection<PatientReport> lpr = idm.listNewPatientReports();
+            while (!lpr.First().Equals(null))
+            {
+                Console.WriteLine(lpr.First().patientDocument);
+            }
+
+
+            
 
         }
     }

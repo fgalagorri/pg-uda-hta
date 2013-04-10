@@ -8,7 +8,5 @@ namespace InterfaceBussinessLogic
     public interface ICriptographyManagement
     {
         string sha256Encryipt(string clearPswd);
-
-        bool goodPassword(string inputPswd, string savedPswd);
     }
 }

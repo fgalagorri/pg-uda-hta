@@ -12,7 +12,7 @@ namespace InterfaceBussinessLogic
         /* Lista los pacientes con los respectivos estudios que no han sido cargados en la aplicacion.
          * Solo se devuelve la informacion necesario para poder identificar al reporte.
         */
-        ICollection<Entities.Report.PatientReport> listNewPatientReports();
+        ICollection<PatientReport> listNewPatientReports();
 
         /*
          * Importa todos los datos de un estudio
