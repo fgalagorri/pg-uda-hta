@@ -138,12 +138,17 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Medicación</TextBlock>
                 </GroupBox.Header>
-                <DataGrid Name="grMedication" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid Name="grMedication" Background="White" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding}" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Categoría" Width="1*" IsReadOnly="True" Binding="{Binding Path=Categoria}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True" Binding="{Binding Path=Nombre}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True" Binding="{Binding Path=Principio}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Dosificación" Width="2*" IsReadOnly="True" Binding="{Binding Path=Dosis}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Categoría" Width="1*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Categoria}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Nombre}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Principio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Dosificación" Width="2*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Dosis}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
@@ -153,10 +158,15 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
                 </GroupBox.Header>
-                <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False"
+                            ItemsSource="{Binding}" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True" Binding="{Binding Path=Enfermedad}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True" Binding="{Binding Path=Comentario}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True"
+                                            Binding="{Binding Path=Enfermedad}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"
+                                            Binding="{Binding Path=Comentario}">
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>

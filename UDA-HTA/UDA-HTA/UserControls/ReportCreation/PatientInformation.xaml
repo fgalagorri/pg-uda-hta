@@ -12,8 +12,10 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Datos de identificación -->
@@ -61,6 +63,7 @@
             </Grid>
         </GroupBox>
 
+       
         <!-- Datos de locación -->
         <GroupBox Grid.Row="1">
             <GroupBox.Header>
@@ -131,6 +134,78 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                     <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">e-Mail:</TextBlock>
                     <TextBox Name="txtMail" Width="300" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+
+        <!-- Datos del estado del paciente -->
+        <GroupBox Grid.Row="2">
+            <GroupBox.Header >
+                <TextBlock Style="{StaticResource groupTitle}">Condición</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
+                    <TextBox Name="txtWeight" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
+                    <TextBox Name="txtHeight" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
+                    <TextBox Name="lblImc" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">%Grasa:</TextBlock>
+                    <TextBox Name="txtFat" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">%Músculo:</TextBlock>
+                    <TextBox Name="txtMuscle" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                    <Border />
+                    <TextBlock  Margin="15,0" Style="{StaticResource label}">KCal:</TextBlock>
+                    <TextBox Name="txtKcal" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
+                    <CheckBox Name="lblSmoker" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
+                    <CheckBox Name="lblDiabetes" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
+                    <CheckBox Name="lblColesterol" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
+                    <CheckBox Name="lblHypertense" VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>
         </GroupBox>
