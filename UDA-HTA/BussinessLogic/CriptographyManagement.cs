@@ -17,11 +17,6 @@ namespace BussinessLogic
             return byteArrayToString(hashedDataBytes);
         }
 
-        public bool goodPassword(string inputPswd, string savedPswd)
-        {
-            return inputPswd.Equals(savedPswd);
-        }
-
 
         private string byteArrayToString(byte[] inputArray)
         {

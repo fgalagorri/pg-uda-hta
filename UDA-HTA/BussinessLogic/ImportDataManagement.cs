@@ -10,7 +10,7 @@ using SpacelabsDataAccess;
 
 namespace BussinessLogic
 {
-    class ImportDataManagement : IImportDataManagement
+    public class ImportDataManagement : IImportDataManagement
     {
 
         public ICollection<PatientReport> getListNewPatientReports(DeviceDataAccess.DeviceDataAccess dda)
@@ -21,9 +21,7 @@ namespace BussinessLogic
             // Abro conexion con la base de datos
             dda.ConnectDeviceDataAccess();
 
-            /*
-             * TODO: del lado de la base una rutina que obtenga una lista de PatientReport
-             */
+            // Obtiene una lista de PatientReport
             list = dda.ListAllReportsDeviceDataAccess(); 
 
             // Cierro la conexion con la base de datos
