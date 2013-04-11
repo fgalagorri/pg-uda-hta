@@ -49,13 +49,16 @@ namespace HMSDataAccess
         
         public void connectToDataBase()
         {
-            org.h2.Driver.load();
-            conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
-            stat = conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
-            ResultSet rs = stat.executeQuery("SELECT 'Hello World'");
-            while (rs.next())
+            try
             {
-                Console.WriteLine(rs.getString(1));
+                org.h2.Driver.load();
+                conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
+                stat = conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                throw (e);
             }
 
         }

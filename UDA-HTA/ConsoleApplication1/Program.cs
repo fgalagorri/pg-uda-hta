@@ -65,21 +65,11 @@ namespace ConsoleApplication1
             //else
             //    Console.WriteLine("NO SE PUDO LOGUEAR :(");
 
-            IDeviceDataAccess iDataAccess = new HMS();
-            iDataAccess.connectToDataBase();
-            iDataAccess.closeConnectionDataBase();
-
-
-            IDeviceDataAccess idda = new HMS();
-            DeviceDataAccess.DeviceDataAccess dda = new DeviceDataAccess.DeviceDataAccess(idda);
-            dda.ConnectDeviceDataAccess();
-            dda.CloseDeviceDataAccess();
-
             IImportDataManagement idm = new ImportDataManagement();
             ICollection<PatientReport> lpr = idm.listNewPatientReports();
-            while (!lpr.First().Equals(null))
+            foreach (PatientReport pr in lpr)
             {
-                Console.WriteLine(lpr.First().patientDocument);
+                Console.WriteLine(pr.patientDocument);
             }
 
 
