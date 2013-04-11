@@ -33,6 +33,7 @@ namespace BussinessLogic
         public ICollection<PatientReport> listNewPatientReports()
         {
             ICollection<PatientReport> list = new List<PatientReport>();
+            ICollection<PatientReport> listSL = new List<PatientReport>();
 
             // Obtener lista de reportes perdientes para cada dispositivo
             DeviceDataAccess.DeviceDataAccess dda;
@@ -43,8 +44,11 @@ namespace BussinessLogic
 
             //Lista de reportes pendientes de spacelabs
             dda = new DeviceDataAccess.DeviceDataAccess(new Spacelabs());
-            list.Concat(getListNewPatientReports(dda));
-
+            listSL = getListNewPatientReports(dda);
+            if (listSL != null)
+            {
+                list.Concat(listSL);
+            }
 
             return list;
         }

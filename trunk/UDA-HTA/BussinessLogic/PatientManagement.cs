@@ -2,10 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Entities;
+using DataAccess;
 
 namespace BussinessLogic
 {
-    class PatientManagement
+    public class PatientManagement
     {
+        public void createPatient(int idDev, string name, string surname, string address, string dni, DateTime birth, Entities.Patient.sexType sex, string neighbour, string city, string tel, string cell, string e_mail)
+        {
+            Patient p = new Patient();
+            p.Address = address;
+            p.BirthDate = birth;
+            p.CellPhone = cell;
+            p.City = city;
+            p.DocumentId = dni;
+            p.EMail = e_mail;
+            p.IdHms = idDev;
+            p.Name = name;
+            p.Neighbour = neighbour;
+            p.Phone = tel;
+            p.Sex = sex;
+
+            PatientDataAccess pda = new PatientDataAccess();
+            try
+            {
+                pda.insertPatient(p);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+        }
+
     }
 }

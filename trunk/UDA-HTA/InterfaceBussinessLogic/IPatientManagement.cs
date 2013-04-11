@@ -8,7 +8,7 @@ namespace InterfaceBussinessLogic
 {
     public interface IPatientManagement
     {
-        bool createPatient(string name, string surname, string address, string dni, DateTime birth, Entities.Patient.sexType sex, string neighbour, string city, string tel, string cell, string e_mail);
+        void createPatient(int idDev, string name, string surname, string address, string dni, DateTime birth, Entities.Patient.sexType sex, string neighbour, string city, string tel, string cell, string e_mail);
 
         ICollection<Entities.Patient> listPatients();
 
