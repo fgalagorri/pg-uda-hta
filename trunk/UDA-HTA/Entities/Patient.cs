@@ -9,9 +9,10 @@ namespace Entities
     {
         public enum sexType{F,M};
 
-        private int _idDevice;
+        private int _idInDevice;
         private string _documentId;
         private string _name;
+        private string _surname;
         private DateTime _birthDate;
         private sexType _sex;
         private string _address;
@@ -27,10 +28,10 @@ namespace Entities
             _reportList = new List<Report>();
         }
 
-        public int IdHms
+        public int IdInDevice
         {
-            get { return _idDevice; }
-            set { _idDevice = value; }
+            get { return _idInDevice; }
+            set { _idInDevice = value; }
         }
         
         public string DocumentId
@@ -43,6 +44,12 @@ namespace Entities
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public string Surname
+        {
+            get { return _surname; }
+            set { _surname = value; }
         }
 
         public DateTime BirthDate

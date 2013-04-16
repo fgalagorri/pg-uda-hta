@@ -9,7 +9,7 @@ namespace UDA_HTA.UserControls.MainWindow
     {
         public ReportComments()
         {
-            InitializeComponent();
+//            InitializeComponent();
         }
     }
 }
