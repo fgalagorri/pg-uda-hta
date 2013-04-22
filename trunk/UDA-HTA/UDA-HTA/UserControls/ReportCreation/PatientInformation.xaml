@@ -160,17 +160,17 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                     <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
-                    <TextBox Name="txtWeight" Style="{StaticResource TBlockSmall}" />
+                    <TextBox Name="txtWeight" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                     <Border />
                     <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
-                    <TextBox Name="txtHeight" Style="{StaticResource TBlockSmall}" />
+                    <TextBox Name="txtHeight" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <Border />
                     <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
-                    <TextBox Name="lblImc" Style="{StaticResource TBlockSmall}" />
+                    <TextBlock Name="lblImc" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">

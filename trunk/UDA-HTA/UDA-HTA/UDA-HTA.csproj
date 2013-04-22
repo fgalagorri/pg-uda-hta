@@ -59,14 +59,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DiagnosisEditor.xaml.cs">
+      <DependentUpon>DiagnosisEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\RichTextboxAssistant.cs" />
     <Compile Include="NewReportFinder.xaml.cs">
       <DependentUpon>NewReportFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\MainWindow\ReportComments.xaml.cs">
-      <DependentUpon>ReportComments.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ReportCreation\AdmissionForm.xaml.cs">
       <DependentUpon>AdmissionForm.xaml</DependentUpon>
@@ -95,6 +96,13 @@
     <Compile Include="UserControls\ReportCreation\Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RichTextBox\RichTextEditor.xaml.cs">
+      <DependentUpon>RichTextEditor.xaml</DependentUpon>
+    </Compile>
+    <Page Include="DiagnosisEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,10 +120,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReportCreate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\MainWindow\ReportComments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,6 +158,10 @@
     <Page Include="UserControls\ReportCreation\Summary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RichTextBox\RichTextEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +228,25 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ribbon_editDoctor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RichTextEditor\charactergrowfont.png" />
+    <Resource Include="Images\RichTextEditor\charactershrinkfont.png" />
+    <Resource Include="Images\RichTextEditor\editcopy.png" />
+    <Resource Include="Images\RichTextEditor\editcut.png" />
+    <Resource Include="Images\RichTextEditor\editpaste.png" />
+    <Resource Include="Images\RichTextEditor\editredo.png" />
+    <Resource Include="Images\RichTextEditor\editundo.png" />
+    <Resource Include="Images\RichTextEditor\fileopen.png" />
+    <Resource Include="Images\RichTextEditor\filesave.png" />
+    <Resource Include="Images\RichTextEditor\listbullets.png" />
+    <Resource Include="Images\RichTextEditor\listnumbering.png" />
+    <Resource Include="Images\RichTextEditor\paragraphcenterjustify.png" />
+    <Resource Include="Images\RichTextEditor\paragraphdecreaseindentation.png" />
+    <Resource Include="Images\RichTextEditor\paragraphfulljustify.png" />
+    <Resource Include="Images\RichTextEditor\paragraphincreaseindentation.png" />
+    <Resource Include="Images\RichTextEditor\paragraphleftjustify.png" />
+    <Resource Include="Images\RichTextEditor\paragraphrightjustify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
