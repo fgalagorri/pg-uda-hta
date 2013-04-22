@@ -36,46 +36,42 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
-                    <TextBox Name="txtTecnico" Grid.Column="1" Margin="1,0,34,5" Grid.ColumnSpan="2" />
-
-                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
-                    <DatePicker Name="dtEstudioIni" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource label}">Hora:</TextBlock>
-                    <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
+                    <DatePicker Name="dtEstudioIni" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource label}">Hora:</TextBlock>
+                    <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal">
                         <TextBox Name="txtEstudioHoraIni" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
                         <TextBox Name="txtEstudioMinIni" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <TextBox Name="txtSuenoHoraIni" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
                         <TextBox Name="txtSuenoMinIni" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
-                    <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Horizontal">
+                    <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
+                    <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
                         <TextBox Name="txtSuenoHoraFin" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
                         <TextBox Name="txtSuenoMinFin" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
-                    <ComboBox Name="cmbSuenoCalidad" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
+                    <ComboBox Name="cmbSuenoCalidad" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                         <ComboBoxItem Content="Bueno" />
                         <ComboBoxItem Content="Regular" />
                         <ComboBoxItem Content="Malo" />
                     </ComboBox>
-                    <TextBox Name="txtSuenoDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap"
+                    <TextBox Name="txtSuenoDesc" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap"
                              AcceptsReturn="True" Margin="0,5" MinLines="2" MaxLines="2"
                              ScrollViewer.VerticalScrollBarVisibility="Auto" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
-                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                         <TextBox Name="txtComidaHora" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
                         <TextBox Name="txtComidaMin" Style="{StaticResource TBlockSmall}" />

@@ -25,8 +25,8 @@
 
             <r:RibbonTab Header="Inicio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <r:RibbonGroup>
-                    <r:RibbonButton Name="btnNewReport" Label="Nuevo Informe" LargeImageSource="/Images/ribbon_newReport.png" Click="btnNewReport_Click" />
-                    <r:RibbonButton Name="btnReportComments" Label="Añadir Diagnóstico" LargeImageSource="/Images/ribbon_newReport.png" Click="btnReportComments_Click" />
+                    <r:RibbonButton Name="btnNewReport" Label="Nuevo Registro" LargeImageSource="/Images/ribbon_newReport.png" Click="btnNewReport_Click" />
+                    <r:RibbonButton Name="btnReportComments" Label="Informar" LargeImageSource="/Images/ribbon_newReport.png" Click="btnReportComments_Click" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Paciente">
@@ -65,7 +65,7 @@
             
         </r:Ribbon>
 
-        <ContentControl Name="Container" Grid.Row="2" Content="{Binding ControlContent}" />
+        <ContentControl Name="Container" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
         
     </Grid>
 </Window>

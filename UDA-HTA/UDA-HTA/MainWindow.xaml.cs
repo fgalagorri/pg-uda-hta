@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UDA_HTA.UserControls;
-using UDA_HTA.UserControls.MainWindow;
 
 namespace UDA_HTA
 {
@@ -44,8 +43,8 @@ namespace UDA_HTA
 
         private void btnReportComments_Click(object sender, RoutedEventArgs e)
         {
-            var reportComments = new ReportComments();
-            Container.Content = reportComments;
+            var diagnosis = new DiagnosisEditor {Owner = this};
+            diagnosis.ShowDialog();
         }
     }
 }
