@@ -120,7 +120,7 @@ namespace HMSDataAccess
                 Patient patient = new Patient();
 
                 id = rs.getInt(1);
-                patient.IdHms = id;
+                //patient.IdHms = id;
 
                 timeStr = rs.getString(2);
                 //Pareseo la fecha y hora para crear el DateTime

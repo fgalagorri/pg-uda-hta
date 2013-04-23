@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="UDA_HTA.UserControls.PatientViewer"
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.PatientViewer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:userControls="clr-namespace:UDA_HTA.UserControls" >
+             xmlns:mainWindow="clr-namespace:UDA_HTA.UserControls.MainWindow">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -35,21 +35,33 @@
                       VerticalAlignment="Stretch" Margin="0" Grid.Column="1" Width="5" />
 
         <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Información">
+            <TabItem Header="Paciente">
                 <ContentControl>
-                    <userControls:PatientViewerInformation />
+                    <mainWindow:PatientViewerInformation />
                 </ContentControl>
             </TabItem>
-            
+
+            <TabItem Header="Información">
+                <ContentControl>
+                    <mainWindow:PatientViewerReportInfo />
+                </ContentControl>
+            </TabItem>
+
             <TabItem Header="Resumen">
                 <ContentControl>
-                    <userControls:PatientViewerSummary />
+                    <mainWindow:PatientViewerSummary />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Header="Informe médico">
+                <ContentControl>
+                    <mainWindow:PatientViewerDiagnosis />
                 </ContentControl>
             </TabItem>
 
             <TabItem Header="Mediciones">
                 <ContentControl>
-                    <userControls:PatientViewerData />
+                    <mainWindow:PatientViewerData />
                 </ContentControl>
             </TabItem>
 

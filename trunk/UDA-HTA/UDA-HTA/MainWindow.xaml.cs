@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UDA_HTA.UserControls;
+using UDA_HTA.UserControls.MainWindow;
 
 namespace UDA_HTA
 {

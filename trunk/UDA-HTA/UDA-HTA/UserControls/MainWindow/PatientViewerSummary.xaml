@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UDA_HTA.UserControls.PatientViewerSummary"
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.PatientViewerSummary"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,6 +8,9 @@
     
     <!-- Definicion de los estilos del control -->
     <UserControl.Resources>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
+        </Style>
         <!-- Títulos de las columnas -->
         <Style x:Key="columnTitle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
             <Setter Property="Grid.ColumnSpan" Value="2" />
@@ -15,7 +18,7 @@
             <Setter Property="Grid.Row" Value="0" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
-        <!-- TextBlocks de los valuees -->
+        <!-- TextBlocks de los values -->
         <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource label}">
             <Setter Property="Grid.Column" Value="0" />
         </Style>
@@ -37,9 +40,6 @@
             <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="Margin" Value="5,0,0,0" />
         </Style>
-        <Style TargetType="RowDefinition">
-            <Setter Property="MinHeight" Value="26" />
-        </Style>
     </UserControl.Resources>
     
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -50,58 +50,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             
-            <!-- General -->
-            <GroupBox Grid.Row="0">
-                <GroupBox.Header>
-                    <TextBlock Style="{StaticResource groupTitle}">General</TextBlock>
-                </GroupBox.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="35"/>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
-                    <TextBlock Name="lblTecnico" Grid.Row="0" Grid.Column="1">José Boggia</TextBlock>
-
-                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
-                    <TextBlock Name="lblEstudioIni" Grid.Row="1" Grid.Column="1">11/11/2012 13.45</TextBlock>
-                    <!--TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
-                    <TextBlock Name="lblEstudioFin" Grid.Row="1" Grid.Column="4">12/11/2012 15.05</TextBlock-->
-
-                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
-                    <TextBlock Name="lblSuenoIni" Grid.Row="2" Grid.Column="1">12/11/2012 00.30</TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
-                    <TextBlock Name="lblSuenoFin" Grid.Row="2" Grid.Column="4">12/11/2012 07.35</TextBlock>
-
-                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
-                    <TextBlock Name="lblSuenoCalidad" Grid.Row="3" Grid.Column="1">Regular</TextBlock>
-                    <TextBlock Name="lblSuenoDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5">
-                        Tuvo dificultades para dormir debido a que el aparato lo molestaba al tomar la presión.
-                    </TextBlock>
-
-                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
-                    <TextBlock Name="lblComida" Grid.Row="4" Grid.Column="1">11/11/2012 15.15</TextBlock>
-                </Grid>
-            </GroupBox>
-
             <!-- Mediciones -->
-            <GroupBox Grid.Row="1">
+            <GroupBox Grid.Row="0">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mediciones</TextBlock>
                 </GroupBox.Header>
@@ -139,9 +91,9 @@
                     <TextBlock Name="lblMedValidaNP" Grid.Row="2" Grid.Column="6" Style="{StaticResource extraValue}">(88%)</TextBlock>
                 </Grid>
             </GroupBox>
-
+            
             <!-- Promedios -->
-            <GroupBox Grid.Row="2">
+            <GroupBox Grid.Row="1">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Promedios</TextBlock>
                 </GroupBox.Header>
@@ -156,7 +108,6 @@
                         <ColumnDefinition Width="0.7*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
@@ -193,7 +144,7 @@
             </GroupBox>
 
             <!-- Valores sobre límite -->
-            <GroupBox Grid.Row="3">
+            <GroupBox Grid.Row="2">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Valores sobre el límite</TextBlock>
                 </GroupBox.Header>
@@ -230,7 +181,7 @@
             </GroupBox>
 
             <!-- Máximos -->
-            <GroupBox Grid.Row="4">
+            <GroupBox Grid.Row="3">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Máximos</TextBlock>
                 </GroupBox.Header>
@@ -278,7 +229,7 @@
             </GroupBox>
 
             <!-- Mínimos -->
-            <GroupBox Grid.Row="5">
+            <GroupBox Grid.Row="4">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mínimos</TextBlock>
                 </GroupBox.Header>
