@@ -9,11 +9,27 @@ namespace BussinesLogic
 {
     public class SessionManagement : ISessionManagement
     {
-        private string currentUser;
+        private string _currentUser;
+
+        public string CurrentUser
+        {
+            get { return _currentUser; }
+            set { _currentUser = value; }
+        }
 
         public bool login(string userName, string pswdHashed)
         {
-            return verifyPassword(userName, pswdHashed);
+            if (verifyPassword(userName, pswdHashed))
+            {
+                _currentUser = userName;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
         }
 
         public void logout()

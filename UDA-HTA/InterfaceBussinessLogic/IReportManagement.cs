@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Entities;
 
 namespace InterfaceBussinessLogic
 {
-    interface IReportManagement
+    public interface IReportManagement
     {
         // ABM medicamentos
         void addDrug(string type, string name);
@@ -20,6 +21,9 @@ namespace InterfaceBussinessLogic
         void printReport(int idReport);
 
         void exportReportPDF(int idReport);
+
+        //Agrega el reporte report al paciente con identificador idPatient en la base udaHta
+        void addReport(Report report, int idPatient);
 
     }
 }

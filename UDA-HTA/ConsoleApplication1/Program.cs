@@ -65,15 +65,31 @@ namespace ConsoleApplication1
             //else
             //    Console.WriteLine("NO SE PUDO LOGUEAR :(");
 
+            //IImportDataManagement idm = new ImportDataManagement();
+            //ICollection<PatientReport> lpr = idm.listNewPatientReports();
+            //foreach (PatientReport pr in lpr)
+            //{
+            //    Console.WriteLine(pr.patientDocument);
+            //}
+
             IImportDataManagement idm = new ImportDataManagement();
-            ICollection<PatientReport> lpr = idm.listNewPatientReports();
-            foreach (PatientReport pr in lpr)
+            Report rep = idm.importData(7, 0); //HMS
+            Console.WriteLine(rep.Ident.ToString());
+            ICollection<Measurement> lm = rep.getMeasureList();
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("HORA" + "," + "PROMEDIO" + "," + "DIASTOLICA" + "," + "SISTOLICA" + "," + "HR" + "," + "COMENTARIO");
+
+            foreach (Measurement m in lm)
             {
-                Console.WriteLine(pr.patientDocument);
+                sb.AppendLine(m.Time + "," + m.Average + "," + m.Diastolic + "," + m.Systolic + "," + m.HeartRate + "," + m.Comment);
             }
 
-
-            
+            using (StreamWriter outfile = new StreamWriter("reportOutFile.txt"))
+            {
+                outfile.Write(sb.ToString());
+            }
 
         }
     }
