@@ -13,6 +13,7 @@ namespace Entities
         private int _diastolic;
         private int _heartRate;
         private string _comment;
+        private bool _sleep;
 
         public Measurement()
         {
@@ -53,6 +54,12 @@ namespace Entities
         {
             get { return _comment; }
             set { _comment = value; }
+        }
+
+        public bool Sleep
+        {
+            get { return _sleep; }
+            set { _sleep = value; }
         }
 
     }   //end measurement
