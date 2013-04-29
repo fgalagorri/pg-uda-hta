@@ -23,8 +23,8 @@
                     </StackPanel>
 
                     <TextBlock Style="{StaticResource label}">Medicamento:</TextBlock>
-                    <TextBlock Name="txtMedicamento"  Margin="20,0" Visibility="Collapsed" />
-                    <Button Name="btnMedicamento" Padding="5,2" VerticalAlignment="Center" Margin="30,0">Seleccionar</Button>
+                    <TextBox Name="txtMedicamento"  Margin="20,0" Width="150" IsReadOnly="True" />
+                    <Button Name="btnMedicamento" Padding="5,2" VerticalAlignment="Center">Seleccionar</Button>
 
                     <Button Name="btnAddMedicamento" Padding="5,2" VerticalAlignment="Center" 
                             Margin="30,0" Click="btnAddMedicamento_Click">Agregar</Button>
