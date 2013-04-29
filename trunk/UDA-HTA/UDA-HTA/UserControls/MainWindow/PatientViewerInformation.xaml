@@ -218,6 +218,11 @@
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Celular:</TextBlock>
                         <TextBlock Name="txtCel">099 123 456</TextBlock>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                        <Border  />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Teléfono alternativo:</TextBlock>
+                        <TextBlock Name="txtTelAlt">099 123 456</TextBlock>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">e-Mail:</TextBlock>
                         <TextBlock Name="txtMail">japerezm@gmail.com</TextBlock>
