@@ -17,33 +17,33 @@
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                     <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="20,0">
-                        <TextBox Name="txtHoraMedicacion" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtHourMedication" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtMinMedicacion" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtMinMedication" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
                     <TextBlock Style="{StaticResource label}">Medicamento:</TextBlock>
-                    <TextBox Name="txtMedicamento"  Margin="20,0" Width="150" IsReadOnly="True" />
-                    <Button Name="btnMedicamento" Padding="5,2" VerticalAlignment="Center">Seleccionar</Button>
+                    <TextBox Name="txtMedication"  Margin="20,0" Width="150" VerticalAlignment="Center" IsReadOnly="True" />
+                    <Button Name="btnMedication" Padding="5,2" VerticalAlignment="Center" Click="btnMedication_Click">Seleccionar</Button>
 
-                    <Button Name="btnAddMedicamento" Padding="5,2" VerticalAlignment="Center" 
-                            Margin="30,0" Click="btnAddMedicamento_Click">Agregar</Button>
+                    <Button Name="btnAddMedication" Padding="5,2" VerticalAlignment="Center" 
+                            Margin="30,0" Click="btnAddMedication_Click">Agregar</Button>
                 </StackPanel>
 
                 <DataGrid Grid.Row="1" Name="grMedication" Background="White" AutoGenerateColumns="False"
                           ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Hora}">
+                                            Binding="{Binding Path=Hour}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Categoría" Width="*" IsReadOnly="True"
-                                            Binding="{Binding Path=Categoria}">
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True"
-                                            Binding="{Binding Path=Nombre}">
+                                            Binding="{Binding Path=Category}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True"
-                                            Binding="{Binding Path=Principio}">
+                                            Binding="{Binding Path=Active}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True"
+                                            Binding="{Binding Path=Name}">
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -60,24 +60,24 @@
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                     <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="20,0">
-                        <TextBox Name="txtHoraEsfuerzo" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtHourEffort" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtMinEsfuerzo" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtMinEffort" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
                     
                     <TextBlock Style="{StaticResource label}">Tipo de esfuerzo:</TextBlock>
-                    <ComboBox Name="cmbTipoEsfuerzo" VerticalAlignment="Center" Width="130" Margin="20,0,0,0">
+                    <ComboBox Name="cmbTypeEffort" VerticalAlignment="Center" Width="130" Margin="20,0,0,0">
                         <ComboBoxItem Content="Esfuerzo leve" />
                         <ComboBoxItem Content="Esfuerzo moderado" />
                         <ComboBoxItem Content="Estress, tension, nervios" />
                     </ComboBox>
 
-                    <Button Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddEsfuerzo_Click">Agregar</Button>
+                    <Button Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddEffort_Click">Agregar</Button>
                 </StackPanel>
-                <DataGrid Name="grEsfuerzo" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}" Height="90" IsReadOnly="True">
+                <DataGrid Name="grEffort" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hora}" />
-                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Tipo}" />
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hour}" />
+                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Type}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
@@ -93,13 +93,13 @@
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                     <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="20,0">
-                        <TextBox Name="txtHoraComp" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtHourComp" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
                         <TextBox Name="txtMinComp" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
                     <TextBlock Style="{StaticResource label}">Tipo:</TextBlock>
-                    <ComboBox Name="cmbTipoComp" VerticalAlignment="Center" Width="130" Margin="20,0" SelectionChanged="cmbTipoComp_SelectionChanged">
+                    <ComboBox Name="cmbTypeComp" VerticalAlignment="Center" Width="130" Margin="20,0" SelectionChanged="cmbTypeComp_SelectionChanged">
                         <ComboBoxItem Content="Dolor de cabeza" />
                         <ComboBoxItem Content="Fatiga, falta de aire" />
                         <ComboBoxItem Content="Mareos" />
@@ -110,15 +110,15 @@
                         <ComboBoxItem Content="Vómitos o nauseas" />
                         <ComboBoxItem Content="Otros" />
                     </ComboBox>
-                    <TextBox VerticalAlignment="Center" Width="200" Name="txtComplOther" IsEnabled="False" />
+                    <TextBox VerticalAlignment="Center" Width="200" Name="txtCompOther" IsEnabled="False" />
                     
-                    <Button Name="btnAddCompl" Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddCompl_Click">Agregar</Button>
+                    <Button Name="btnAddComp" Padding="5,2" VerticalAlignment="Center" Margin="30,0" Click="btnAddComp_Click">Agregar</Button>
                 </StackPanel>
-                <DataGrid Name="grComplicaciones" Background="White" AutoGenerateColumns="False" 
+                <DataGrid Name="grComplications" Background="White" AutoGenerateColumns="False" 
                           ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hora}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Tipo}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hour}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Type}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

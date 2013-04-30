@@ -19,88 +19,127 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class OtherInformation : UserControl
     {
-        private List<ExampleEsfuerzo> lstEsfuerzo;
-        private List<ExampleComplicacion> lstComplicacion;
+        private List<ExampleEffort> _lstEffort;
+        private List<ExampleComplication> _lstComplication;
+        private List<ExampleMedication> _lstMedication;
+        private MedicationSelector _ms;
 
         public OtherInformation()
         {
             InitializeComponent();
-            lstEsfuerzo = new List<ExampleEsfuerzo>();
-            lstComplicacion = new List<ExampleComplicacion>();
+
+            _lstEffort = new List<ExampleEffort>();
+            _lstComplication = new List<ExampleComplication>();
+            _lstMedication = new List<ExampleMedication>();
         }
 
-        private void btnAddMedicamento_Click(object sender, RoutedEventArgs e)
+        private void btnMedication_Click(object sender, RoutedEventArgs e)
         {
-
+            _ms = new MedicationSelector();
+            _ms.ShowDialog();
+            if (!String.IsNullOrWhiteSpace(_ms.name))
+                txtMedication.Text = _ms.name;
         }
 
-        private void btnAddEsfuerzo_Click(object sender, RoutedEventArgs e)
+        private void btnAddMedication_Click(object sender, RoutedEventArgs e)
         {
-            grEsfuerzo.DataContext = null;
-
-            int hora, min;
-            if (int.TryParse(txtHoraEsfuerzo.Text, out hora)
-                && int.TryParse(txtMinEsfuerzo.Text, out min)
-                && 0 <= hora && hora < 24 && 0 <= min && min < 60)
+            int hour, min;
+            if (int.TryParse(txtHourMedication.Text, out hour)
+                && int.TryParse(txtMinMedication.Text, out min)
+                && 0 <= hour && hour < 24 && 0 <= min && min < 60
+                && !String.IsNullOrWhiteSpace(_ms.category) 
+                && !String.IsNullOrWhiteSpace(_ms.active) 
+                && !String.IsNullOrWhiteSpace(_ms.name))
             {
-                lstEsfuerzo.Add(new ExampleEsfuerzo
+                _lstMedication.Add(new ExampleMedication
                     {
-                        Hora = hora.ToString("D2") + ":" + min.ToString("D2"),
-                        Tipo = cmbTipoEsfuerzo.Text
+                        Hour = hour.ToString("D2") + ":" + min.ToString("D2"),
+                        Category = _ms.category,
+                        Active = _ms.active,
+                        Name = _ms.name
+                    });
+            }
+
+            txtHourMedication.Clear();
+            txtMinMedication.Clear();
+            txtMedication.Clear();
+            grMedication.DataContext = _lstMedication;
+        }
+
+        private void btnAddEffort_Click(object sender, RoutedEventArgs e)
+        {
+            grEffort.DataContext = null;
+
+            int hour, min;
+            if (int.TryParse(txtHourEffort.Text, out hour)
+                && int.TryParse(txtMinEffort.Text, out min)
+                && 0 <= hour && hour < 24 && 0 <= min && min < 60)
+            {
+                _lstEffort.Add(new ExampleEffort
+                    {
+                        Hour = hour.ToString("D2") + ":" + min.ToString("D2"),
+                        Type = cmbTypeEffort.Text
                     });
             }
             //TODO show error message when the time is not correct
 
-            txtHoraEsfuerzo.Clear();
-            txtMinEsfuerzo.Clear();
-            cmbTipoEsfuerzo.SelectedIndex = -1;
-            grEsfuerzo.DataContext = lstEsfuerzo;
+            txtHourEffort.Clear();
+            txtMinEffort.Clear();
+            cmbTypeEffort.SelectedIndex = -1;
+            grEffort.DataContext = _lstEffort;
         }
 
-        private void btnAddCompl_Click(object sender, RoutedEventArgs e)
+        private void btnAddComp_Click(object sender, RoutedEventArgs e)
         {
-            grComplicaciones.DataContext = null;
+            grComplications.DataContext = null;
 
-            int hora, min;
-            string tipo;
-            if (int.TryParse(txtHoraComp.Text, out hora)
+            int hour, min;
+            string type;
+            if (int.TryParse(txtHourComp.Text, out hour)
                 && int.TryParse(txtMinComp.Text, out min)
-                && 0 <= hora && hora < 24 && 0 <= min && min < 60)
+                && 0 <= hour && hour < 24 && 0 <= min && min < 60)
             {
-                tipo = cmbTipoComp.Text;
-                if (cmbTipoComp.Text.Equals("Otros"))
-                    tipo += ": " + txtComplOther;
+                type = cmbTypeComp.Text;
+                if (cmbTypeComp.Text.Equals("Otros"))
+                    type += ": " + txtCompOther;
 
-                lstComplicacion.Add(new ExampleComplicacion
+                _lstComplication.Add(new ExampleComplication
                     {
-                        Hora = hora.ToString("D2") + ":" + min.ToString("D2"),
-                        Tipo = tipo
+                        Hour = hour.ToString("D2") + ":" + min.ToString("D2"),
+                        Type = type
                     });
             }
             //TODO show error message when the time is not correct
 
-            txtHoraComp.Clear();
+            txtHourComp.Clear();
             txtMinComp.Clear();
-            cmbTipoComp.SelectedIndex = -1;
-            txtComplOther.Clear();
-            txtComplOther.IsEnabled = false;
-            grComplicaciones.DataContext = lstComplicacion;
+            cmbTypeComp.SelectedIndex = -1;
+            txtCompOther.Clear();
+            txtCompOther.IsEnabled = false;
+            grComplications.DataContext = _lstComplication;
         }
 
-        private void cmbTipoComp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cmbTypeComp_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txtComplOther.IsEnabled = ((ComboBoxItem)e.AddedItems).Content.Equals("Otros");
+            txtCompOther.IsEnabled = ((ComboBoxItem)e.AddedItems).Content.Equals("Otros");
         }
     }
 
-    public class ExampleEsfuerzo
+    public class ExampleEffort
     {
-        public string Hora { get; set; }
-        public string Tipo { get; set; }
+        public string Hour { get; set; }
+        public string Type { get; set; }
     }
-    public class ExampleComplicacion
+    public class ExampleComplication
     {
-        public string Hora { get; set; }
-        public string Tipo { get; set; }
+        public string Hour { get; set; }
+        public string Type { get; set; }
+    }
+    public class ExampleMedication
+    {
+        public string Hour  { get; set; }
+        public string Category { get; set; }
+        public string Active { get; set; }
+        public string Name { get; set; }
     }
 }
