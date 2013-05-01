@@ -13,13 +13,10 @@ namespace BussinessLogic
     public class ImportDataManagement : IImportDataManagement
     {
 
-        public ICollection<PatientReport> getListNewPatientReports(DeviceDataAccess.DeviceDataAccess dda)
+        public ICollection<PatientReport> GetListNewPatientReports(DeviceController dda)
         {
             PatientReport node = new PatientReport();
             ICollection<PatientReport> list = new List<PatientReport>();
-
-            // Abro conexion con la base de datos
-            dda.ConnectDeviceDataAccess();
 
             // Obtiene una lista de PatientReport
             list = dda.ListAllReportsDeviceDataAccess(); 
@@ -30,21 +27,21 @@ namespace BussinessLogic
             return list;
         }
 
-        public ICollection<PatientReport> listNewPatientReports()
+        public ICollection<PatientReport> ListNewPatientReports()
         {
             ICollection<PatientReport> list = new List<PatientReport>();
             ICollection<PatientReport> listSL = new List<PatientReport>();
 
             // Obtener lista de reportes perdientes para cada dispositivo
-            DeviceDataAccess.DeviceDataAccess dda;
+            DeviceController dda;
             
             //Lista de reportes pendientes de HMS
-            dda = new DeviceDataAccess.DeviceDataAccess(new HMS());
-            list = getListNewPatientReports(dda);
+            dda = new DeviceController(new HMS());
+            list = GetListNewPatientReports(dda);
 
             //Lista de reportes pendientes de spacelabs
-            dda = new DeviceDataAccess.DeviceDataAccess(new Spacelabs());
-            listSL = getListNewPatientReports(dda);
+            dda = new DeviceController(new Spacelabs());
+            listSL = GetListNewPatientReports(dda);
             if (listSL != null)
             {
                 list.Concat(listSL);
@@ -53,20 +50,20 @@ namespace BussinessLogic
             return list;
         }
 
-        public Report importData(int idReport, int device)
+        public Report ImportData(string idReport, int device)
         {
             Report report = null;
 
-            DeviceDataAccess.DeviceDataAccess dda;
+            DeviceController dda;
             switch (device)
             {
                 case 0:
                     // El dispositivo es HMS
-                    dda = new DeviceDataAccess.DeviceDataAccess(new HMS());
+                    dda = new DeviceController(new HMS());
                     break;
                 case 1:
                     // El dispositivo es Spacelabs
-                    dda = new DeviceDataAccess.DeviceDataAccess(new Spacelabs());
+                    dda = new DeviceController(new Spacelabs());
                     break;
                 default:
                     // Error
@@ -76,10 +73,7 @@ namespace BussinessLogic
 
             if (dda != null) 
             {
-                dda.ConnectDeviceDataAccess();
-
                 report = dda.GetReport(idReport);
-
                 dda.CloseDeviceDataAccess();
             }
 

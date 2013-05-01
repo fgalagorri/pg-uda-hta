@@ -1,68 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Entities
 {
     public class PatientReport
     {
-        private string _patientName;
-        private string _patientLastName;
-        private string _patientDocument;
-        private int _patientIdent;
+        public string PatientName { get; set; }
 
-        private DateTime _reportDate;
-        private int _reportDevice;
-        private int _reportIdent;
+        public string PatientLastName { get; set; }
 
-        public PatientReport()
-        {
-        }
+        public string PatientDocument { get; set; }
 
-        public string patientName
-        {
-            get { return _patientName; }
-            set { _patientName = value; }
-        }
+        public string PatientIdent { get; set; }
 
-        public string patientLastName
-        {
-            get { return _patientLastName; }
-            set { _patientLastName = value; }
-        }
+        public DateTime ReportDate { get; set; }
 
-        public string patientDocument
-        {
-            get { return _patientDocument; }
-            set { _patientDocument = value; }
-        }
+        public int ReportDevice { get; set; }
 
-        public int patientIdent
-        {
-            get { return _patientIdent; }
-            set { _patientIdent = value; }
-        }
-
-        public DateTime reportDate
-        {
-            get { return _reportDate; }
-            set { _reportDate = value; }
-        }
-
-        public int reportDevice
-        {
-            get { return _reportDevice; }
-            set { _reportDevice = value; }
-        }
-
-        public int reportIdent
-        {
-            get { return _reportIdent; }
-            set { _reportIdent = value; }
-        }
-
-        
-
+        public string ReportIdent { get; set; }
     }
 }

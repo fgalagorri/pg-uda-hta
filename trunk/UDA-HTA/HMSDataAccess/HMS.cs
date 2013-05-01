@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using DeviceDataAccess;
@@ -10,12 +11,9 @@ namespace HMSDataAccess
 {
     public class HMS : IDeviceDataAccess
     {
+        private const int DeviceId = 0;
         private Statement stat;
         private Connection conn;
-
-        public HMS()
-        { 
-        }
 
         private DateTime parseDateTime(string timeStr)
         {
@@ -47,12 +45,12 @@ namespace HMSDataAccess
                         
         }
         
-        public void connectToDataBase()
+        public void ConnectToDataBase()
         {
             try
             {
                 org.h2.Driver.load();
-                conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database", "sa", "");
+                conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
                 stat = conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             }
             catch (Exception e)
@@ -60,17 +58,16 @@ namespace HMSDataAccess
                 Console.WriteLine(e.InnerException);
                 throw (e);
             }
-
         }
 
-        public void closeConnectionDataBase()
+        public void CloseConnectionDataBase()
         {
             conn.close();
             stat.close();
         }
 
         // Obtiene el reporte con identificador idReport, el identificador hace referencia al ID de la tabla AUFZEICHNUNG
-        public Report getReport(int idReport)
+        public Report GetReport(string idReport)
         {
             string timeStr;
             
@@ -152,23 +149,24 @@ namespace HMSDataAccess
             while (rs.next())
             {
                 //Creo el nodo de la lista result de tipo PatientReport
-                PatientReport pr = new PatientReport();
-                pr.patientIdent = rs.getInt(1);
-                pr.patientDocument = rs.getString(2);
-                pr.patientName = rs.getString(4);
-                pr.patientLastName = rs.getString(5);
-                pr.reportIdent = rs.getInt(6);
-                timeStr = rs.getString(7); 
-                //Pareseo la fecha y hora para crear el DateTime
-                pr.reportDate = parseDateTime(timeStr);
-                pr.reportDevice = 0; //HMS
+                PatientReport pr = new PatientReport
+                    {
+                        PatientIdent = rs.getString(1),
+                        PatientDocument = rs.getString(2),
+                        PatientName = rs.getString(4),
+                        PatientLastName = rs.getString(5),
+                        ReportIdent = rs.getString(6),
+                        ReportDevice = DeviceId,
+                        ReportDate = parseDateTime(rs.getString(7))
+                    };
+
                 result.Add(pr);
             }
             return result;
         }
 
         // Devuelve una lista de los reportes del paciente 'patientId'
-        public ICollection<Report> GetReportsByPatientId(int patientId)
+        public ICollection<Report> GetReportsByPatientId(string patientId)
         {
             string patIdStr = patientId.ToString();
             //Obtengo una lista de presiones de reportes para el paciente patientId

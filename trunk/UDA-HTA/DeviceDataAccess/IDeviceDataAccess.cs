@@ -8,17 +8,17 @@ namespace DeviceDataAccess
 {
     public interface IDeviceDataAccess
     {
-        void connectToDataBase();
+        void ConnectToDataBase();
 
-        void closeConnectionDataBase();
+        void CloseConnectionDataBase();
 
-        Report getReport(int idReport);
+        Report GetReport(string idReport);
 
         ICollection<Patient> ListPatients();
 
         ICollection<PatientReport> ListAllReports();
 
-        ICollection<Report> GetReportsByPatientId(int patientId);
+        ICollection<Report> GetReportsByPatientId(string patientId);
 
 
     }
