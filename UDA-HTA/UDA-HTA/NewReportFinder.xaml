@@ -30,9 +30,11 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Fecha del estudio" Width="1*" Binding="{Binding Path=Date}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Paciente" Width="1*" IsReadOnly="True" Binding="{Binding Path=Patient}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=Device}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha del estudio" Width="1*" Binding="{Binding Path=ReportDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CI" Width="Auto" Binding="{Binding Path=PatientDocument}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre" Width="1*" IsReadOnly="True" Binding="{Binding Path=PatientName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido" Width="1*" IsReadOnly="True" Binding="{Binding Path=PatientLastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=ReportDevice}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

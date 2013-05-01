@@ -81,9 +81,6 @@
     <Compile Include="UserControls\ReportCreation\AdmissionForm.xaml.cs">
       <DependentUpon>AdmissionForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Lookup.xaml.cs">
-      <DependentUpon>Lookup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\MainWindow\PatientViewer.xaml.cs">
       <DependentUpon>PatientViewer.xaml</DependentUpon>
     </Compile>
@@ -268,6 +265,16 @@
     <Resource Include="Images\RichTextEditor\paragraphincreaseindentation.png" />
     <Resource Include="Images\RichTextEditor\paragraphleftjustify.png" />
     <Resource Include="Images\RichTextEditor\paragraphrightjustify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gateway\Gateway.csproj">
+      <Project>{99BA066D-A192-4101-843D-D9E6DA95C4C4}</Project>
+      <Name>Gateway</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

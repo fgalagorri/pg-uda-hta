@@ -76,7 +76,11 @@
     <Reference Include="IKVM.OpenJDK.Util">
       <HintPath>..\..\Packages\H2\IKVM.OpenJDK.Util.dll</HintPath>
     </Reference>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\..\Packages\H2\IKVM.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
@@ -95,6 +99,9 @@
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using DeviceDataAccess;
@@ -9,21 +10,25 @@ namespace SpacelabsDataAccess
 {
     public class Spacelabs : IDeviceDataAccess
     {
+        private const int deviceId = 1;
+        private ABPEntities _db;
+
         public Spacelabs()
         {
+            _db = new ABPEntities();
         }
 
-        public void connectToDataBase()
+        public void ConnectToDataBase()
         {
-        
+            _db.Connection.Open();
         }
 
-        public void closeConnectionDataBase()
+        public void CloseConnectionDataBase()
         {
-
+            _db.Connection.Close();
         }
 
-        public Report getReport(int idReport)
+        public Report GetReport(string idReport)
         {
             return null;
         }
@@ -35,7 +40,18 @@ namespace SpacelabsDataAccess
 
         public ICollection<PatientReport> ListAllReports()
         {
-            return null;
+            return (from test in _db.tblAbpTest
+                    join patient in _db.tblSysPatient on test.PatientId equals patient.PatientId
+                    select new PatientReport
+                        {
+                            PatientName = test.FirstName,
+                            PatientLastName = test.LastName,
+                            PatientDocument = patient.MRN,
+                            ReportIdent = test.TestId.ToString(),
+                            PatientIdent = patient.PatientId.ToString(),
+                            ReportDevice = deviceId,
+                            ReportDate = test.HookupStartTime ?? DateTime.MinValue
+                        }).ToList();
         }
 
         public ICollection<Report> ListAllPendingReports()
@@ -43,7 +59,7 @@ namespace SpacelabsDataAccess
             return null;
         }
 
-        public ICollection<Report> GetReportsByPatientId(int patientId)
+        public ICollection<Report> GetReportsByPatientId(string patientId)
         {
             return null;
         }

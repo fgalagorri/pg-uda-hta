@@ -12,11 +12,11 @@ namespace InterfaceBussinessLogic
         /* Lista los pacientes con los respectivos estudios que no han sido cargados en la aplicacion.
          * Solo se devuelve la informacion necesario para poder identificar al reporte.
         */
-        ICollection<PatientReport> listNewPatientReports();
+        ICollection<PatientReport> ListNewPatientReports();
 
         /*
          * Importa todos los datos de un estudio
          */
-        Report importData(int idReport, int device);
+        Report ImportData(string idReport, int device);
     }
 }

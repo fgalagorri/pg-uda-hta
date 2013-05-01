@@ -1,15 +1,11 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Entities;
+using Gateway;
 
 namespace UDA_HTA
 {
@@ -21,50 +17,57 @@ namespace UDA_HTA
         /* La idea es que la consulta a la BD xa obtener la lista 
          * se haga una sola vez, después se envía el filtro al gateway 
          * que guarda la lista de pedidos en su memoria y devuelve la lista filtrada */
-        private static List<ExampleReportList> list;
+        private static ICollection<PatientReport> _list;
 
         public NewReportFinder()
         {
             InitializeComponent();
 
-            list = new List<ExampleReportList>();
-            list.Add(new ExampleReportList{
+            var controller = GatewayController.GetInstance();
+            _list = controller.GetNewReports();
+
+            /*_list = new List<ExampleReportList>();
+            _list.Add(new ExampleReportList{
                 Date = DateTime.Now,
                 Patient = "Juan Alberto Pérez Manzanares",
                 Device = "Spacelabs"
             });
-            list.Add(new ExampleReportList
+            _list.Add(new ExampleReportList
             {
                 Date = DateTime.Now.AddDays(-3).AddMinutes(-2480),
                 Patient = "Pedro Pereyra",
                 Device = "HMS"
             });
-            list.Add(new ExampleReportList
+            _list.Add(new ExampleReportList
             {
                 Date = DateTime.Now.AddDays(-15).AddMinutes(-1080),
                 Patient = "Matías Alvez Correa",
                 Device = "Spacelabs"
             });
-            list.Add(new ExampleReportList
+            _list.Add(new ExampleReportList
             {
                 Date = DateTime.Now.AddDays(-7).AddMinutes(-520),
                 Patient = "Alberto Molina",
                 Device = "HMS"
-            });
+            });*/
 
-            grReports.DataContext = list;
+            grReports.DataContext = _list;
         }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
-            List<ExampleReportList> filter = list;
+            ICollection<PatientReport> filter = _list;
 
             if (dtStart.SelectedDate.HasValue)
-                filter = list.Where(d => d.Date >= dtStart.SelectedDate.Value).ToList();
+                filter = _list.Where(d => d.ReportDate >= dtStart.SelectedDate.Value).ToList();
+
             if (dtEnd.SelectedDate.HasValue)
-                filter = list.Where(d => d.Date <= dtEnd.SelectedDate.Value).ToList();
+                filter = _list.Where(d => d.ReportDate <= dtEnd.SelectedDate.Value).ToList();
+            
             if (!String.IsNullOrWhiteSpace(patientName.Text))
-                filter = list.Where(d => d.Patient.ToLower().Contains(patientName.Text.ToLower())).ToList();
+                filter = _list.Where(d => d.PatientName.ToLower().Contains(patientName.Text.ToLower())
+                                    || d.PatientLastName.ToLower().Contains(patientName.Text.ToLower())
+                                    || d.PatientDocument.Contains(patientName.Text)).ToList();
 
             grReports.DataContext = filter;
         }
@@ -79,7 +82,6 @@ namespace UDA_HTA
         {
             if (((DataGrid) sender).SelectedIndex != -1)
             {
-                string s = ((ExampleReportList)e.AddedItems[0]).Patient;
                 var rc = new ReportCreate {Owner = this};
                 var cancelled = rc.ShowDialog();
 
@@ -94,13 +96,5 @@ namespace UDA_HTA
                     Close();
             }
         }
-    }
-
-    public class ExampleReportList
-    {
-        /* ID para identificarlo */
-        public DateTime Date { get; set; }
-        public string Patient { get; set; }
-        public string Device { get; set; }
     }
 }

@@ -6,28 +6,29 @@ using Entities;
 
 namespace DeviceDataAccess
 {
-    public class DeviceDataAccess
+    public class DeviceController
     {
         private IDeviceDataAccess _deviceType; 
 
-        public DeviceDataAccess(IDeviceDataAccess devTyp)
+        public DeviceController(IDeviceDataAccess devTyp)
         {
-            this._deviceType = devTyp;
+            _deviceType = devTyp;
+            ConnectDeviceDataAccess();
         }
 
-        public void ConnectDeviceDataAccess()
+        private void ConnectDeviceDataAccess()
         {
-            _deviceType.connectToDataBase();
+            _deviceType.ConnectToDataBase();
         }
 
         public void CloseDeviceDataAccess()
         {
-            _deviceType.closeConnectionDataBase();
+            _deviceType.CloseConnectionDataBase();
         }
 
-        public Report GetReport(int idReport)
+        public Report GetReport(string idReport)
         {
-            return _deviceType.getReport(idReport);
+            return _deviceType.GetReport(idReport);
         }
 
         public ICollection<Patient> ListPatientsDeviceDataAccess()
@@ -40,7 +41,7 @@ namespace DeviceDataAccess
             return _deviceType.ListAllReports();
         }
 
-        public ICollection<Report> GetReportsByPatientIdDDA(int patientId)
+        public ICollection<Report> GetReportsByPatientIdDDA(string patientId)
         {
             return _deviceType.GetReportsByPatientId(patientId);
         }
