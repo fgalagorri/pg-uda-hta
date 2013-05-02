@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using InterfaceBussinessLogic;
 using Entities;
-using DeviceDataAccess;
 using HMSDataAccess;
 using SpacelabsDataAccess;
+using DeviceDataAccess;
 
 namespace BussinessLogic
 {
     public class ImportDataManagement : IImportDataManagement
     {
 
-        public ICollection<PatientReport> GetListNewPatientReports(DeviceController dda)
+        private static ICollection<PatientReport> GetListNewPatientReports(DeviceDataAccess.DeviceController dda)
         {
-            PatientReport node = new PatientReport();
-            ICollection<PatientReport> list = new List<PatientReport>();
-
             // Obtiene una lista de PatientReport
-            list = dda.ListAllReportsDeviceDataAccess(); 
+            var list = dda.ListAllReportsDeviceDataAccess();
 
             // Cierro la conexion con la base de datos
             dda.CloseDeviceDataAccess();
@@ -29,28 +24,52 @@ namespace BussinessLogic
 
         public ICollection<PatientReport> ListNewPatientReports()
         {
-            ICollection<PatientReport> list = new List<PatientReport>();
-            ICollection<PatientReport> listSL = new List<PatientReport>();
-
-            // Obtener lista de reportes perdientes para cada dispositivo
-            DeviceController dda;
-            
             //Lista de reportes pendientes de HMS
-            dda = new DeviceController(new HMS());
-            list = GetListNewPatientReports(dda);
+            DeviceController dda = new DeviceController(new HMS());
+            ICollection<PatientReport> list = GetListNewPatientReports(dda);
 
             //Lista de reportes pendientes de spacelabs
             dda = new DeviceController(new Spacelabs());
-            listSL = GetListNewPatientReports(dda);
-            if (listSL != null)
-            {
-                list.Concat(listSL);
-            }
+            ICollection<PatientReport> listSl = GetListNewPatientReports(dda);
+            
+            if (listSl != null)
+                list = list.Concat(listSl).ToList();
 
             return list;
         }
 
-        public Report ImportData(string idReport, int device)
+        public Patient ImportPatient(string idPatient, int device)
+        {
+            var pat = new Patient();
+
+            DeviceDataAccess.DeviceController dda;
+            switch (device)
+            {
+                case 0:
+                    // El dispositivo es HMS
+                    dda = new DeviceDataAccess.DeviceController(new HMS());
+                    break;
+                case 1:
+                    // El dispositivo es Spacelabs
+                    dda = new DeviceDataAccess.DeviceController(new Spacelabs());
+                    break;
+                default:
+                    // Error
+                    dda = null;
+                    break;
+            }
+
+            if (dda != null)
+            {
+                pat = dda.GetPatient(idPatient);
+
+                dda.CloseDeviceDataAccess();
+            }
+
+            return pat;
+        }
+
+        public Report ImportReport(string idReport, int device)
         {
             Report report = null;
 

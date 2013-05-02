@@ -170,11 +170,10 @@ namespace DataAccess
         }
 
         //Inserta un nuevo tipo de droga en la base de datos
-        public void insertDrugType(int idDrugType, string type)
+        public void insertDrugType(string type)
         {
             MySqlCommand mc = new MySqlCommand("insertDrugType", conn);
             mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("id", idDrugType));
             mc.Parameters.Add(new MySqlParameter("typ", type));
             conn.Open();
             mc.ExecuteNonQuery();
@@ -182,11 +181,10 @@ namespace DataAccess
         }
 
         //Inserta una nueva droga en la base de datos
-        public void insertDrug(int idDrug, string name, int idDrugTyp)
+        public void insertDrug(string name, int idDrugTyp)
         {
             MySqlCommand mc = new MySqlCommand("insertDrug", conn);
             mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("id", idDrug));
             mc.Parameters.Add(new MySqlParameter("nam", name));
             mc.Parameters.Add(new MySqlParameter("idDrugType", idDrugTyp));
             conn.Open();
@@ -194,7 +192,7 @@ namespace DataAccess
             conn.Close();
         }
 
-        //Inserta una nueva droga en la base de datos
+        //Inserta una nueva investigacion en la base de datos
         public void insertInvestigation(int id, string nam, DateTime createDat)
         {
             MySqlCommand mc = new MySqlCommand("insertInvestigation", conn);

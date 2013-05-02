@@ -7,14 +7,14 @@ namespace Entities
 {
     public class Patient
     {
-        public enum sexType{F,M};
+        public enum SexType{F,M};
 
         private int _idInDevice;
         private string _documentId;
         private string _name;
         private string _surname;
         private DateTime _birthDate;
-        private sexType _sex;
+        private SexType _sex;
         private string _address;
         private string _neighbour;
         private string _city;
@@ -58,7 +58,7 @@ namespace Entities
             set { _birthDate = value; }
         }
 
-        public sexType Sex
+        public SexType Sex
         {
             get { return _sex; }
             set { _sex = value; }

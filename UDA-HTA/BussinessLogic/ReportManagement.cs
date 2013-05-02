@@ -5,14 +5,18 @@ using System.Text;
 using InterfaceBussinessLogic;
 using Entities;
 using DataAccess;
+using PdfSharp;
+using PdfSharp.Pdf;
 
 namespace BussinessLogic
 {
     public class ReportManagement : IReportManagement
     {
 
-        public void addDrug(string type, string name)
+        public void addDrug(int type, string name)
         {
+            UdaHtaDataAccess uhda = new UdaHtaDataAccess();
+            uhda.insertDrug(name, type);
         }
 
         public void deleteDrug(string name)
@@ -24,7 +28,7 @@ namespace BussinessLogic
         }
 
 
-        public ICollection<Entities.Report> listPatientReports(int idPatient)
+        public ICollection<Report> listPatientReports(int idPatient)
         {
             return null;
         }
@@ -33,8 +37,19 @@ namespace BussinessLogic
         {
         }
 
-        public void exportReportPDF(int idReport)
+        public void exportReportPDF(Report report, string fileName)
         {
+            //Crear documento PDF
+            PdfDocument doc = new PdfDocument();
+            doc.Info.Title = "Informe de Hipertensión Arterial";
+
+            //Crear pagina vacia
+            PdfPage page = doc.AddPage();
+
+            // . . . . . 
+
+            //Guardar el documento
+            doc.Save(fileName);
         }
 
         public void addReport(Report report, int idPatient)
