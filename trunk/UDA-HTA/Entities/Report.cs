@@ -26,7 +26,7 @@ namespace Entities
         private int _dayMaxDias;
         private int _nightMaxDias;
         private int _idDev;
-        private int _devReportId;
+        private string _devReportId;
         private int _idTemporaryData;
         private int _idDailyCarnet;
         private int _idPatient;
@@ -145,7 +145,7 @@ namespace Entities
             set { _idDev = value; }
         }
 
-        public int DevReportId
+        public string DevReportId
         {
             get { return _devReportId; }
             set { _devReportId = value; }

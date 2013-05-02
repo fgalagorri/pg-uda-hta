@@ -31,6 +31,11 @@ namespace DeviceDataAccess
             return _deviceType.GetReport(idReport);
         }
 
+        public Patient GetPatient(string idPatient)
+        {
+            return _deviceType.GetPatient(idPatient);
+        }
+
         public ICollection<Patient> ListPatientsDeviceDataAccess()
         {
             return _deviceType.ListPatients();

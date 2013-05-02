@@ -14,6 +14,8 @@ namespace DeviceDataAccess
 
         Report GetReport(string idReport);
 
+        Patient GetPatient(string idPatient);
+        
         ICollection<Patient> ListPatients();
 
         ICollection<PatientReport> ListAllReports();

@@ -33,6 +33,11 @@ namespace SpacelabsDataAccess
             return null;
         }
 
+        public Patient GetPatient(string idPatient)
+        {
+            return null;
+        }
+
         public ICollection<Patient> ListPatients()
         {
             return null;

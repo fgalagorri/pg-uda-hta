@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using MySql.Data;
+using System.Linq;
 using MySql.Data.MySqlClient;
 using Entities;
 
@@ -11,26 +9,22 @@ namespace DataAccess
 {
     public class PatientDataAccess
     {
-        private string ConnectionString = "SERVER=localhost;DATABASE=patient_info_db;UID=root;PASSWORD=rootudahta;";
-        private MySqlConnection conn;
+        private const string ConnectionString = "SERVER=localhost;DATABASE=patient_info_db;UID=root;PASSWORD=rootudahta;";
+        private readonly MySqlConnection _conn;
 
         public PatientDataAccess()
         {
+            _conn = new MySqlConnection(ConnectionString);
         }
 
-        public void connectToDataBase()
+        public void CloseConnectionDataBase()
         {
-            conn = new MySqlConnection(ConnectionString);
+            _conn.Close();
         }
 
-        public void closeConnectionDataBase()
+        public void InsertPatient(Patient p)
         {
-            conn.Close();
-        }
-
-        public void insertPatient(Patient p)
-        {
-            MySqlCommand mc = new MySqlCommand("insertPatient", conn);
+            MySqlCommand mc = new MySqlCommand("insertPatient", _conn);
             mc.CommandType = CommandType.StoredProcedure;
             mc.Parameters.Add(new MySqlParameter("idInDev", p.IdInDevice));            
             mc.Parameters.Add(new MySqlParameter("name", p.Name));
@@ -45,23 +39,35 @@ namespace DataAccess
             mc.Parameters.Add(new MySqlParameter("cell", p.CellPhone));
             mc.Parameters.Add(new MySqlParameter("email", p.EMail));
 
-            conn.Open();
+            _conn.Open();
             mc.ExecuteNonQuery();
-            conn.Close();
+            _conn.Close();
 
         }
 
         /*
          * Lista todos los pacientes existentes en la base.
          */
-        public ICollection<Patient> listPatients()
+        public ICollection<Patient> ListPatients()
         {
+            
+            var patientContext = new patient_info_dbEntities();
+            ICollection<Patient> patientQuery = patientContext.patient.Select(p=> new Entities.Patient
+                {
+                    Name = p.name,
+                    City = p.city
+                }).ToList();
+
+            return patientQuery;
+
+
+            /* 
             ICollection<Patient> lp = new List<Patient>();
 
             string stm = "SELECT * FROM patient";
-            MySqlCommand mc = new MySqlCommand(stm, conn);
+            MySqlCommand mc = new MySqlCommand(stm, _conn);
 
-            conn.Open();
+            _conn.Open();
             MySqlDataReader rdr = mc.ExecuteReader();
 
             while (rdr.Read())
@@ -74,9 +80,10 @@ namespace DataAccess
             }
 
             rdr.Close();
-            conn.Close();
+            _conn.Close();
             
             return lp;
+            */
         }
 
     }

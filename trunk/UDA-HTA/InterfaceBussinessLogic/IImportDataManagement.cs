@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Entities;
 
 namespace InterfaceBussinessLogic
@@ -9,14 +6,20 @@ namespace InterfaceBussinessLogic
     public interface IImportDataManagement
     {
 
-        /* Lista los pacientes con los respectivos estudios que no han sido cargados en la aplicacion.
+        /* 
+         * Lista los pacientes con los respectivos estudios que no han sido cargados en la aplicacion.
          * Solo se devuelve la informacion necesario para poder identificar al reporte.
         */
         ICollection<PatientReport> ListNewPatientReports();
 
-        /*
-         * Importa todos los datos de un estudio
+        /* 
+         * Importa los datos del paciente
          */
-        Report ImportData(string idReport, int device);
+        Patient ImportPatient(string idPatient, int device);
+
+        /*
+         * Importa todos los datos de un estudio del dispositivo device con identificador idReport
+         */
+        Report ImportReport(string idReport, int device);
     }
 }

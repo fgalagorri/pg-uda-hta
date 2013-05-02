@@ -73,7 +73,7 @@ namespace ConsoleApplication1
             //}
 
             IImportDataManagement idm = new ImportDataManagement();
-            Report rep = idm.ImportData(7, 0); //HMS
+            Report rep = idm.ImportReport("7", 0); //HMS
             Console.WriteLine(rep.Ident.ToString());
             ICollection<Measurement> lm = rep.getMeasureList();
 

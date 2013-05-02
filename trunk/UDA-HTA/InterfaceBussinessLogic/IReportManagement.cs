@@ -9,7 +9,7 @@ namespace InterfaceBussinessLogic
     public interface IReportManagement
     {
         // ABM medicamentos
-        void addDrug(string type, string name);
+        void addDrug(int type, string name);
 
         void deleteDrug(string name);
 
@@ -20,7 +20,7 @@ namespace InterfaceBussinessLogic
 
         void printReport(int idReport);
 
-        void exportReportPDF(int idReport);
+        void exportReportPDF(Report report, string fileName);
 
         //Agrega el reporte report al paciente con identificador idPatient en la base udaHta
         void addReport(Report report, int idPatient);
