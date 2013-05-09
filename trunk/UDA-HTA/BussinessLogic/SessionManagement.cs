@@ -5,7 +5,7 @@ using System.Text;
 using InterfaceBussinessLogic;
 using DataAccess;
 
-namespace BussinesLogic
+namespace BussinessLogic
 {
     public class SessionManagement : ISessionManagement
     {
@@ -60,7 +60,7 @@ namespace BussinesLogic
 
             string pswd = dataAccess.getPassword(userName);
 
-            dataAccess.closeConnectionDataBase();
+            dataAccess.CloseConnectionDataBase();
 
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,

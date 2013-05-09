@@ -51,6 +51,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelPatient.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ModelUda.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUda.edmx</DependentUpon>
+    </Compile>
     <Compile Include="PatientDataAccess.cs" />
     <Compile Include="UdaHtaDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,13 +67,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="ModelPatient.edmx">
+    <EntityDeploy Include="ModelUda.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelPatient.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelUda.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="ModelPatient.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelPatient.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
