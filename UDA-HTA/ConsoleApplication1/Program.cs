@@ -65,13 +65,24 @@ namespace ConsoleApplication1
             //else
             //    Console.WriteLine("NO SE PUDO LOGUEAR :(");
 
-            //IImportDataManagement idm = new ImportDataManagement();
-            //ICollection<PatientReport> lpr = idm.listNewPatientReports();
-            //foreach (PatientReport pr in lpr)
-            //{
-            //    Console.WriteLine(pr.patientDocument);
-            //}
+            IImportDataManagement idm = new ImportDataManagement();
+            ICollection<PatientReport> lpr = idm.ListNewPatientReports();
+            foreach (PatientReport pr in lpr)
+            {
+                Console.Write(pr.PatientName);
+                Console.Write(" , ");
+                Console.Write(pr.PatientLastName);
+                Console.Write(" , ");
+                Console.Write(pr.PatientDocument);
+                Console.Write(" , ");
+                Console.Write(pr.ReportDate);
+                Console.Write(" , ");
+                Console.Write(pr.ReportDevice);
+                Console.Write(" , ");
+                Console.WriteLine(pr.ReportIdent);
+            }
 
+            /*
             IImportDataManagement idm = new ImportDataManagement();
             Report rep = idm.ImportReport("7", 0); //HMS
             Console.WriteLine(rep.Ident.ToString());
@@ -90,7 +101,7 @@ namespace ConsoleApplication1
             {
                 outfile.Write(sb.ToString());
             }
-
+            */
         }
     }
 }

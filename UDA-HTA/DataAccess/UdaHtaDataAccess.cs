@@ -34,7 +34,7 @@ namespace DataAccess
             */
         }
 
-        public void closeConnectionDataBase()
+        public void CloseConnectionDataBase()
         {
             conn.Close(); 
         }
@@ -45,11 +45,18 @@ namespace DataAccess
             return null;
         }
 
-        public ICollection<Report> ListAllReports()
+        public ICollection<PatientReport> ListAllReports()
         {
-            return null;
-        }
+            var udaContext = new udahta_dbEntities();
+            ICollection<PatientReport> udaQuery = udaContext.report.Select(r => new PatientReport()
+            {
+                ReportDevice = r.idDevice,
+                ReportIdent = r.deviceReportId
+            }).ToList();
 
+            return udaQuery;
+
+        } 
 
         // Devuelve una lista de los reportes del paciente 'patientId'
         public ICollection<Report> GetReportsByPatientId(int patientId)
@@ -58,7 +65,7 @@ namespace DataAccess
         }
 
 
-        public void insertReport(int idPatient, Report rep)
+        public void InsertReport(int idPatient, Report rep)
         {
             int lastId = 0;
 
@@ -110,7 +117,7 @@ namespace DataAccess
             conn.Close();
         }
 
-        public void insertDailyCarnet()
+        public void InsertDailyCarnet()
         {
         }
 
