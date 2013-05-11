@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -414,7 +414,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="udahta_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -428,6 +429,7 @@
           <EntitySet Name="measurement" EntityType="udahta_dbModel.measurement" />
           <EntitySet Name="medicalhistory" EntityType="udahta_dbModel.medicalhistory" />
           <EntitySet Name="medicinedose" EntityType="udahta_dbModel.medicinedose" />
+          <EntitySet Name="patientuda" EntityType="udahta_dbModel.patientuda" />
           <EntitySet Name="report" EntityType="udahta_dbModel.report" />
           <EntitySet Name="temporarydata" EntityType="udahta_dbModel.temporarydata" />
           <EntitySet Name="user" EntityType="udahta_dbModel.user" />
@@ -455,9 +457,21 @@
             <End Role="report" EntitySet="report" />
             <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
+          <AssociationSet Name="fk_MedicalHistory_Patient1" Association="udahta_dbModel.fk_MedicalHistory_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="medicalhistory" EntitySet="medicalhistory" />
+          </AssociationSet>
           <AssociationSet Name="fk_MedicineDose_TemporaryData1" Association="udahta_dbModel.fk_MedicineDose_TemporaryData1">
             <End Role="temporarydata" EntitySet="temporarydata" />
             <End Role="medicinedose" EntitySet="medicinedose" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_Patient1" Association="udahta_dbModel.fk_Report_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TemporaryData_Patient1" Association="udahta_dbModel.fk_TemporaryData_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="temporarydata" EntitySet="temporarydata" />
           </AssociationSet>
           <AssociationSet Name="fk_Report_TemporaryData1" Association="udahta_dbModel.fk_Report_TemporaryData1">
             <End Role="temporarydata" EntitySet="temporarydata" />
@@ -466,19 +480,6 @@
           <AssociationSet Name="investigation_has_report" Association="udahta_dbModel.investigation_has_report">
             <End Role="investigation" EntitySet="investigation" />
             <End Role="report" EntitySet="report" />
-          </AssociationSet>
-          <EntitySet Name="patientuda" EntityType="udahta_dbModel.patientuda" />
-          <AssociationSet Name="fk_MedicalHistory_Patient11" Association="udahta_dbModel.fk_MedicalHistory_Patient11">
-            <End Role="patientuda" EntitySet="patientuda" />
-            <End Role="medicalhistory" EntitySet="medicalhistory" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Report_Patient11" Association="udahta_dbModel.fk_Report_Patient11">
-            <End Role="patientuda" EntitySet="patientuda" />
-            <End Role="report" EntitySet="report" />
-          </AssociationSet>
-          <AssociationSet Name="fk_TemporaryData_Patient11" Association="udahta_dbModel.fk_TemporaryData_Patient11">
-            <End Role="patientuda" EntitySet="patientuda" />
-            <End Role="temporarydata" EntitySet="temporarydata" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -583,7 +584,7 @@
           <Property Name="To" Type="DateTime" />
           <Property Name="Comment" Type="String" />
           <Property Name="Patient_idPatient" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_MedicalHistory_Patient11" FromRole="medicalhistory" ToRole="patientuda" />
+          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_MedicalHistory_Patient1" FromRole="medicalhistory" ToRole="patientuda" />
         </EntityType>
         <EntityType Name="medicinedose">
           <Key>
@@ -597,6 +598,15 @@
           <Property Name="TemporaryData_Patient_idPatient" Type="Int32" Nullable="false" />
           <NavigationProperty Name="drug" Relationship="udahta_dbModel.fk_MedicineDosis_Drug1" FromRole="medicinedose" ToRole="drug" />
           <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_MedicineDose_TemporaryData1" FromRole="medicinedose" ToRole="temporarydata" />
+        </EntityType>
+        <EntityType Name="patientuda">
+          <Key>
+            <PropertyRef Name="idPatientUda" />
+          </Key>
+          <Property Name="idPatientUda" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="medicalhistory" Relationship="udahta_dbModel.fk_MedicalHistory_Patient1" FromRole="patientuda" ToRole="medicalhistory" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_Patient1" FromRole="patientuda" ToRole="report" />
+          <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_TemporaryData_Patient1" FromRole="patientuda" ToRole="temporarydata" />
         </EntityType>
         <EntityType Name="report">
           <Key>
@@ -628,9 +638,9 @@
           <Property Name="TemporaryData_Patient_idPatient" Type="Int32" Nullable="false" />
           <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="report" ToRole="dailycarnet" />
           <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
+          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_Report_Patient1" FromRole="report" ToRole="patientuda" />
           <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_Report_TemporaryData1" FromRole="report" ToRole="temporarydata" />
           <NavigationProperty Name="investigation" Relationship="udahta_dbModel.investigation_has_report" FromRole="report" ToRole="investigation" />
-          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_Report_Patient11" FromRole="report" ToRole="patientuda" />
         </EntityType>
         <EntityType Name="temporarydata">
           <Key>
@@ -651,8 +661,8 @@
           <Property Name="kcal" Type="Int32" />
           <Property Name="Patient_idPatient" Type="Int32" Nullable="false" />
           <NavigationProperty Name="medicinedose" Relationship="udahta_dbModel.fk_MedicineDose_TemporaryData1" FromRole="temporarydata" ToRole="medicinedose" />
+          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_TemporaryData_Patient1" FromRole="temporarydata" ToRole="patientuda" />
           <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_TemporaryData1" FromRole="temporarydata" ToRole="report" />
-          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_TemporaryData_Patient11" FromRole="temporarydata" ToRole="patientuda" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -737,6 +747,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_MedicalHistory_Patient1">
+          <End Role="patientuda" Type="udahta_dbModel.patientuda" Multiplicity="1" />
+          <End Role="medicalhistory" Type="udahta_dbModel.medicalhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="medicalhistory">
+              <PropertyRef Name="Patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_MedicineDose_TemporaryData1">
           <End Role="temporarydata" Type="udahta_dbModel.temporarydata" Multiplicity="1" />
           <End Role="medicinedose" Type="udahta_dbModel.medicinedose" Multiplicity="*" />
@@ -748,6 +770,30 @@
             <Dependent Role="medicinedose">
               <PropertyRef Name="TemporaryData_idTemporaryData" />
               <PropertyRef Name="TemporaryData_Patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_Patient1">
+          <End Role="patientuda" Type="udahta_dbModel.patientuda" Multiplicity="1" />
+          <End Role="report" Type="udahta_dbModel.report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="Patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TemporaryData_Patient1">
+          <End Role="patientuda" Type="udahta_dbModel.patientuda" Multiplicity="1" />
+          <End Role="temporarydata" Type="udahta_dbModel.temporarydata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="temporarydata">
+              <PropertyRef Name="Patient_idPatient" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -768,51 +814,6 @@
         <Association Name="investigation_has_report">
           <End Role="investigation" Type="udahta_dbModel.investigation" Multiplicity="*" />
           <End Role="report" Type="udahta_dbModel.report" Multiplicity="*" />
-        </Association>
-        <EntityType Name="patientuda">
-          <Key>
-            <PropertyRef Name="idPatientUda" />
-          </Key>
-          <Property Type="Int32" Name="idPatientUda" Nullable="false" />
-          <NavigationProperty Name="medicalhistory" Relationship="udahta_dbModel.fk_MedicalHistory_Patient11" FromRole="patientuda" ToRole="medicalhistory" />
-          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_Patient11" FromRole="patientuda" ToRole="report" />
-          <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_TemporaryData_Patient11" FromRole="patientuda" ToRole="temporarydata" />
-        </EntityType>
-        <Association Name="fk_MedicalHistory_Patient11">
-          <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
-          <End Type="udahta_dbModel.medicalhistory" Role="medicalhistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="patientuda">
-              <PropertyRef Name="idPatientUda" />
-            </Principal>
-            <Dependent Role="medicalhistory">
-              <PropertyRef Name="Patient_idPatient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Report_Patient11">
-          <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
-          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="patientuda">
-              <PropertyRef Name="idPatientUda" />
-            </Principal>
-            <Dependent Role="report">
-              <PropertyRef Name="Patient_idPatient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_TemporaryData_Patient11">
-          <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
-          <End Type="udahta_dbModel.temporarydata" Role="temporarydata" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="patientuda">
-              <PropertyRef Name="idPatientUda" />
-            </Principal>
-            <Dependent Role="temporarydata">
-              <PropertyRef Name="Patient_idPatient" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -893,6 +894,9 @@
             <ScalarProperty Name="TemporaryData_idTemporaryData" ColumnName="TemporaryData_idTemporaryData" />
             <ScalarProperty Name="TemporaryData_Patient_idPatient" ColumnName="TemporaryData_Patient_idPatient" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="patientuda"><EntityTypeMapping TypeName="udahta_dbModel.patientuda"><MappingFragment StoreEntitySet="patientuda">
+            <ScalarProperty Name="idPatientUda" ColumnName="idPatientUda" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="report"><EntityTypeMapping TypeName="udahta_dbModel.report"><MappingFragment StoreEntitySet="report">
             <ScalarProperty Name="idReport" ColumnName="idReport" />
             <ScalarProperty Name="begin_date" ColumnName="begin_date" />
@@ -948,13 +952,6 @@
               <ScalarProperty Name="Patient_idPatient" ColumnName="Report_Patient_idPatient" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="patientuda">
-            <EntityTypeMapping TypeName="udahta_dbModel.patientuda">
-              <MappingFragment StoreEntitySet="patientuda">
-                <ScalarProperty Name="idPatientUda" ColumnName="idPatientUda" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -985,6 +982,7 @@
         <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="7.5" PointY="12.125" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="3" PointY="5.125" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="5.25" PointY="18.125" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="0.75" PointY="7.875" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="5.25" PointY="10.5" Height="6.4032194010416674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3" PointY="15.375" Height="4.0956022135416674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="5.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
@@ -998,8 +996,8 @@
           <ConnectorPoint PointX="6" PointY="7.125" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="11.888076985677083" />
-          <ConnectorPoint PointX="5.25" PointY="11.888076985677083" />
+          <ConnectorPoint PointX="4.5" PointY="12.182403971354166" />
+          <ConnectorPoint PointX="5.25" PointY="12.182403971354166" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="24.422841796874998" />
@@ -1014,43 +1012,42 @@
           <ConnectorPoint PointX="6.75" PointY="13.595896809895834" />
           <ConnectorPoint PointX="7.5" PointY="13.595896809895834" />
         </AssociationConnector>
-        <AssociationConnector Association="udahta_dbModel.fk_MedicineDose_TemporaryData1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="18.893951822916669" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="18.893951822916669" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="18.893951822916669" />
-          <ConnectorPoint PointX="5.25" PointY="18.893951822916669" />
-        </AssociationConnector>
-        <AssociationConnector Association="udahta_dbModel.fk_Report_TemporaryData1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="16.235260416666669" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="16.235260416666669" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="16.235260416666669" />
-          <ConnectorPoint PointX="5.25" PointY="16.235260416666669" />
-        </AssociationConnector>
-        <AssociationConnector Association="udahta_dbModel.investigation_has_report" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="20.626152846153843" />
-          <ConnectorPoint PointX="4.875" PointY="20.251152846153843" />
-          <ConnectorPoint PointX="4.875" PointY="14.061668701171875" />
-          <ConnectorPoint PointX="5.25" PointY="14.061668701171875" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="0.75" PointY="11.5" Height="1.7879850260416674" />
-        <AssociationConnector Association="udahta_dbModel.fk_MedicalHistory_Patient11" >
-          <ConnectorPoint PointX="1.5" PointY="11.5" />
+        <AssociationConnector Association="udahta_dbModel.fk_MedicalHistory_Patient1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="7.875" />
           <ConnectorPoint PointX="1.5" PointY="6.3074446614583337" />
           <ConnectorPoint PointX="3" PointY="6.3074446614583337" />
         </AssociationConnector>
-        <AssociationConnector Association="udahta_dbModel.fk_Report_Patient11" >
-          <ConnectorPoint PointX="1.29687375" PointY="13.287985026041667" />
-          <ConnectorPoint PointX="1.29687375" PointY="14.619903971354166" />
-          <ConnectorPoint PointX="1.7213560416666669" PointY="14.619903971354166" />
-          <ConnectorPoint PointX="1.8880227083333334" PointY="14.619903971354166" />
+        <AssociationConnector Association="udahta_dbModel.fk_MedicineDose_TemporaryData1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="18.797801106770834" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="18.797801106770834" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="18.797801106770834" />
+          <ConnectorPoint PointX="5.25" PointY="18.797801106770834" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Report_Patient1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="9.6629850260416674" />
+          <ConnectorPoint PointX="1.5" PointY="14.619903971354166" />
+          <ConnectorPoint PointX="1.8229191666666667" PointY="14.619903971354166" />
+          <ConnectorPoint PointX="1.9895858333333332" PointY="14.619903971354166" />
           <ConnectorPoint PointX="4.791666666666667" PointY="14.619903971354166" />
           <ConnectorPoint PointX="4.958333333333333" PointY="14.619903971354166" />
           <ConnectorPoint PointX="5.25" PointY="14.619903971354166" />
         </AssociationConnector>
-        <AssociationConnector Association="udahta_dbModel.fk_TemporaryData_Patient11" >
-          <ConnectorPoint PointX="1.8046893750000002" PointY="13.287985026041667" />
-          <ConnectorPoint PointX="1.8046893750000002" PointY="17.422801106770834" />
+        <AssociationConnector Association="udahta_dbModel.fk_TemporaryData_Patient1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.9062525" PointY="9.6629850260416674" />
+          <ConnectorPoint PointX="1.9062525" PointY="17.422801106770834" />
           <ConnectorPoint PointX="3" PointY="17.422801106770834" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Report_TemporaryData1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="16.139109700520834" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="16.139109700520834" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="16.139109700520834" />
+          <ConnectorPoint PointX="5.25" PointY="16.139109700520834" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.investigation_has_report" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="20.626152846153843" />
+          <ConnectorPoint PointX="4.875" PointY="20.251152846153843" />
+          <ConnectorPoint PointX="4.875" PointY="13.401153971354166" />
+          <ConnectorPoint PointX="5.25" PointY="13.401153971354166" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
