@@ -10,12 +10,12 @@ namespace Entities
 
         public string PatientDocument { get; set; }
 
-        public string PatientIdent { get; set; }
+        public string PatientId { get; set; }
 
         public DateTime ReportDate { get; set; }
 
         public int ReportDevice { get; set; }
 
-        public string ReportIdent { get; set; }
+        public string ReportId { get; set; }
     }
 }

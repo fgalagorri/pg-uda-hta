@@ -25,53 +25,22 @@ namespace BussinessLogic
 
         public ICollection<PatientReport> ListNewPatientReports()
         {
-            ICollection<PatientReport> list = null;
+            var list = new List<PatientReport>();
 
             //Lista de reportes pendientes de HMS
-            DeviceController dda = new DeviceController(new HMS());
-            ICollection<PatientReport> listHms = GetListNewPatientReports(dda);
+            var dda = new DeviceController(new HMS());
+            list.AddRange(GetListNewPatientReports(dda));
 
             //Lista de reportes pendientes de spacelabs
-            //dda = new DeviceController(new Spacelabs());
-            //ICollection<PatientReport> listSl = GetListNewPatientReports(dda);
-            ICollection<PatientReport> listSl = null;
+            dda = new DeviceController(new Spacelabs());
+            list.AddRange(GetListNewPatientReports(dda));
 
-            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            var uda = new UdaHtaDataAccess();
             ICollection<PatientReport> listUda = uda.ListAllReports();
 
-            if (listUda != null && (listHms != null || listSl != null))
-            {
-                if (listHms != null)
-                {
-                    var udaQuery = from rUda in listUda
-                                    where rUda.ReportDevice == 0
-                                    select rUda;
-
-                    var hmsQuery = from rUda in udaQuery
-                                   join rHms in listHms on rUda.ReportIdent equals rHms.ReportIdent
-                                   select rHms;
-
-                    listHms = listHms.Intersect(hmsQuery).ToList();
-                }
-                
-                if (listSl != null)
-                {
-                    
-                    var udaQuery = (from rUda in listUda
-                                    where rUda.ReportDevice == 1
-                                    select rUda).ToList();
-
-                    var slQuery = from rUda in udaQuery
-                                  join rSl in listSl on rUda.ReportIdent equals rSl.ReportIdent
-                                  select rSl;
-
-                    listSl = listSl.Intersect(slQuery).ToList();
-                }
-
-                if (listHms != null && listSl != null)
-                    list = listHms.Concat(listSl).ToList();
-
-            }
+            list = (from l in list
+                    where listUda.Any(a => !a.ReportId.Equals(l.ReportId))
+                    select l).ToList();
 
             return list;
         }
