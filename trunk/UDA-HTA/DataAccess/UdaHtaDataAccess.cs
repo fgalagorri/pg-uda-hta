@@ -51,7 +51,7 @@ namespace DataAccess
             ICollection<PatientReport> udaQuery = udaContext.report.Select(r => new PatientReport()
             {
                 ReportDevice = r.idDevice,
-                ReportIdent = r.deviceReportId
+                ReportId = r.deviceReportId
             }).ToList();
 
             return udaQuery;

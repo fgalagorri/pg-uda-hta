@@ -79,7 +79,7 @@ namespace ConsoleApplication1
                 Console.Write(" , ");
                 Console.Write(pr.ReportDevice);
                 Console.Write(" , ");
-                Console.WriteLine(pr.ReportIdent);
+                Console.WriteLine(pr.ReportId);
             }
 
             /*

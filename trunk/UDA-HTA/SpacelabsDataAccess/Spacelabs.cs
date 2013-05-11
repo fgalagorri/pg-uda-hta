@@ -45,18 +45,29 @@ namespace SpacelabsDataAccess
 
         public ICollection<PatientReport> ListAllReports()
         {
-            return (from test in _db.tblAbpTest
-                    join patient in _db.tblSysPatient on test.PatientId equals patient.PatientId
-                    select new PatientReport
-                        {
-                            PatientName = test.FirstName,
-                            PatientLastName = test.LastName,
-                            PatientDocument = patient.MRN,
-                            ReportIdent = test.TestId.ToString(),
-                            PatientIdent = patient.PatientId.ToString(),
-                            ReportDevice = deviceId,
-                            ReportDate = test.HookupStartTime ?? DateTime.MinValue
-                        }).ToList();
+            var qry = from test in _db.tblAbpTest
+                      join patient in _db.tblSysPatient on test.PatientId equals patient.PatientId
+                      select new
+                          {
+                              PatientName = test.FirstName,
+                              PatientLastName = test.LastName,
+                              PatientDocument = patient.MRN,
+                              ReportId = test.TestId,
+                              PatientId = patient.PatientId,
+                              ReportDevice = deviceId,
+                              ReportDate = test.HookupStartTime ?? DateTime.MinValue
+                          };
+
+            return qry.Select(q => new PatientReport
+                {
+                    PatientId = q.PatientId.ToString(),
+                    PatientName = q.PatientName,
+                    PatientLastName = q.PatientLastName,
+                    PatientDocument = q.PatientDocument,
+                    ReportId = q.ReportId.ToString(),
+                    ReportDate = q.ReportDate,
+                    ReportDevice = q.ReportDevice
+                }).ToList();
         }
 
         public ICollection<Report> ListAllPendingReports()

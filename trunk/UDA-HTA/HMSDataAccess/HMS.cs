@@ -182,11 +182,11 @@ namespace HMSDataAccess
                 //Creo el nodo de la lista result de tipo PatientReport
                 PatientReport pr = new PatientReport
                     {
-                        PatientIdent = rs.getString(1),
+                        PatientId = rs.getString(1),
                         PatientDocument = rs.getString(2),
                         PatientName = rs.getString(4),
                         PatientLastName = rs.getString(5),
-                        ReportIdent = rs.getString(6),
+                        ReportId = rs.getString(6),
                         ReportDevice = DeviceId,
                         ReportDate = parseDateTime(rs.getString(7))
                     };
