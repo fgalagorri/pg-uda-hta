@@ -24,12 +24,12 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Drug_DrugType", "drugtype", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drugtype), "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.drug), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDosis_Drug1", "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drug), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Measurement_Report1", "report", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.report), "measurement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.measurement), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicalHistory_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "medicalhistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicalhistory), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDose_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_TemporaryData_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.temporarydata), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "investigation_has_report", "investigation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.investigation), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report))]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicalHistory_Patient11", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "medicalhistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicalhistory), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_Patient11", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_TemporaryData_Patient11", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.temporarydata), true)]
 
 #endregion
 
@@ -228,6 +228,22 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<patientuda> patientuda
+        {
+            get
+            {
+                if ((_patientuda == null))
+                {
+                    _patientuda = base.CreateObjectSet<patientuda>("patientuda");
+                }
+                return _patientuda;
+            }
+        }
+        private ObjectSet<patientuda> _patientuda;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<report> report
         {
             get
@@ -272,22 +288,6 @@ namespace DataAccess
             }
         }
         private ObjectSet<user> _user;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<patientuda> patientuda
-        {
-            get
-            {
-                if ((_patientuda == null))
-                {
-                    _patientuda = base.CreateObjectSet<patientuda>("patientuda");
-                }
-                return _patientuda;
-            }
-        }
-        private ObjectSet<patientuda> _patientuda;
 
         #endregion
         #region AddTo Methods
@@ -365,6 +365,14 @@ namespace DataAccess
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the patientuda EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTopatientuda(patientuda patientuda)
+        {
+            base.AddObject("patientuda", patientuda);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the report EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToreport(report report)
@@ -386,14 +394,6 @@ namespace DataAccess
         public void AddTouser(user user)
         {
             base.AddObject("user", user);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the patientuda EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTopatientuda(patientuda patientuda)
-        {
-            base.AddObject("patientuda", patientuda);
         }
 
         #endregion
@@ -2173,16 +2173,16 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_MedicalHistory_Patient11", "patientuda")]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_MedicalHistory_Patient1", "patientuda")]
         public patientuda patientuda
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient11", "patientuda").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient1", "patientuda").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient11", "patientuda").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient1", "patientuda").Value = value;
             }
         }
         /// <summary>
@@ -2194,13 +2194,13 @@ namespace DataAccess
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient11", "patientuda");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient1", "patientuda");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient11", "patientuda", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patientuda>("udahta_dbModel.fk_MedicalHistory_Patient1", "patientuda", value);
                 }
             }
         }
@@ -2533,18 +2533,18 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_MedicalHistory_Patient11", "medicalhistory")]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_MedicalHistory_Patient1", "medicalhistory")]
         public EntityCollection<medicalhistory> medicalhistory
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<medicalhistory>("udahta_dbModel.fk_MedicalHistory_Patient11", "medicalhistory");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<medicalhistory>("udahta_dbModel.fk_MedicalHistory_Patient1", "medicalhistory");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<medicalhistory>("udahta_dbModel.fk_MedicalHistory_Patient11", "medicalhistory", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<medicalhistory>("udahta_dbModel.fk_MedicalHistory_Patient1", "medicalhistory", value);
                 }
             }
         }
@@ -2555,18 +2555,18 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_Patient11", "report")]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_Patient1", "report")]
         public EntityCollection<report> report
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<report>("udahta_dbModel.fk_Report_Patient11", "report");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<report>("udahta_dbModel.fk_Report_Patient1", "report");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<report>("udahta_dbModel.fk_Report_Patient11", "report", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<report>("udahta_dbModel.fk_Report_Patient1", "report", value);
                 }
             }
         }
@@ -2577,18 +2577,18 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_TemporaryData_Patient11", "temporarydata")]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_TemporaryData_Patient1", "temporarydata")]
         public EntityCollection<temporarydata> temporarydata
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<temporarydata>("udahta_dbModel.fk_TemporaryData_Patient11", "temporarydata");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<temporarydata>("udahta_dbModel.fk_TemporaryData_Patient1", "temporarydata");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<temporarydata>("udahta_dbModel.fk_TemporaryData_Patient11", "temporarydata", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<temporarydata>("udahta_dbModel.fk_TemporaryData_Patient1", "temporarydata", value);
                 }
             }
         }
@@ -3260,6 +3260,44 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_Patient1", "patientuda")]
+        public patientuda patientuda
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient1", "patientuda").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient1", "patientuda").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<patientuda> patientudaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient1", "patientuda");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient1", "patientuda", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_TemporaryData1", "temporarydata")]
         public temporarydata temporarydata
         {
@@ -3310,44 +3348,6 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<investigation>("udahta_dbModel.investigation_has_report", "investigation", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_Patient11", "patientuda")]
-        public patientuda patientuda
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient11", "patientuda").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient11", "patientuda").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<patientuda> patientudaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient11", "patientuda");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patientuda>("udahta_dbModel.fk_Report_Patient11", "patientuda", value);
                 }
             }
         }
@@ -3731,6 +3731,44 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_TemporaryData_Patient1", "patientuda")]
+        public patientuda patientuda
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient1", "patientuda").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient1", "patientuda").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<patientuda> patientudaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient1", "patientuda");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient1", "patientuda", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_TemporaryData1", "report")]
         public EntityCollection<report> report
         {
@@ -3743,44 +3781,6 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<report>("udahta_dbModel.fk_Report_TemporaryData1", "report", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_TemporaryData_Patient11", "patientuda")]
-        public patientuda patientuda
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient11", "patientuda").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient11", "patientuda").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<patientuda> patientudaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient11", "patientuda");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patientuda>("udahta_dbModel.fk_TemporaryData_Patient11", "patientuda", value);
                 }
             }
         }
