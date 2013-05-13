@@ -52,10 +52,10 @@ namespace BussinessLogic
             doc.Save(fileName);
         }
 
-        public void addReport(Report report, int idPatient)
+        public void addReport(Report report, string idPatient, DailyCarnet dailyCarnet, TemporaryData temporaryData)
         {
             var uhda = new UdaHtaDataAccess();
-            uhda.InsertReport(idPatient,report);
+            uhda.InsertReport(int.Parse(idPatient),report, dailyCarnet,temporaryData);
         }
     }
 }

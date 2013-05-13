@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TemporaryData.cs" />
     <Compile Include="DailyCarnet.cs" />
     <Compile Include="PatientReport.cs" />
     <Compile Include="User.cs" />

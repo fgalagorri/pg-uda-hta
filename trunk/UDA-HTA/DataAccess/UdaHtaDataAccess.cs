@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Text;
 using System.Data;
@@ -16,6 +17,7 @@ namespace DataAccess
 
         public UdaHtaDataAccess()
         {
+            conn = new MySqlConnection(ConnectionString);
         }
 
         public void connectToDataBase()
@@ -48,6 +50,7 @@ namespace DataAccess
         public ICollection<PatientReport> ListAllReports()
         {
             var udaContext = new udahta_dbEntities();
+            
             ICollection<PatientReport> udaQuery = udaContext.report.Select(r => new PatientReport()
             {
                 ReportDevice = r.idDevice,
@@ -65,54 +68,41 @@ namespace DataAccess
         }
 
 
-        public void InsertReport(int idPatient, Report rep)
+        public void InsertReport(int idPatient, Report rep, DailyCarnet dCarnet, TemporaryData tempData)
         {
-            int lastId = 0;
+            var udaContext = new udahta_dbEntities();
 
-            MySqlCommand mcReport = new MySqlCommand("insertReport", conn);
-            mcReport.CommandType = CommandType.StoredProcedure;
-            mcReport.Parameters.Add(new MySqlParameter("id", lastId));
-            mcReport.Parameters.Add(new MySqlParameter("begin_date", rep.BeginDate));
-            mcReport.Parameters.Add(new MySqlParameter("end_date", rep.EndDate));
-            mcReport.Parameters.Add(new MySqlParameter("doctor", rep.BeginDate));
-            mcReport.Parameters.Add(new MySqlParameter("diagnosis", rep.Diagnosis));
-            mcReport.Parameters.Add(new MySqlParameter("requestDoctor", rep.RequestDoctor));
-            mcReport.Parameters.Add(new MySqlParameter("specialty", rep.Specialty));
-            mcReport.Parameters.Add(new MySqlParameter("dayAvgSys", rep.DayAvgSys));
-            mcReport.Parameters.Add(new MySqlParameter("nightAvgSys", rep.NightAvgSys));
-            mcReport.Parameters.Add(new MySqlParameter("totalAvgSys", rep.TotalAvgSys));
-            mcReport.Parameters.Add(new MySqlParameter("dayMaxSys", rep.DayMaxSys));
-            mcReport.Parameters.Add(new MySqlParameter("nightMaxSys", rep.NightMaxSys));
-            mcReport.Parameters.Add(new MySqlParameter("dayAvgDias", rep.DayAvgDias));
-            mcReport.Parameters.Add(new MySqlParameter("nightAvgDias", rep.NightAvgDias));
-            mcReport.Parameters.Add(new MySqlParameter("totalAvgDias", rep.TotalAvgDias));
-            mcReport.Parameters.Add(new MySqlParameter("dayMaxDias", rep.DayMaxDias));
-            mcReport.Parameters.Add(new MySqlParameter("nightMaxDias", rep.NightMaxDias));
-            mcReport.Parameters.Add(new MySqlParameter("idDev", rep.IdDev));
-            mcReport.Parameters.Add(new MySqlParameter("devReportId", rep.DevReportId));
-            mcReport.Parameters.Add(new MySqlParameter("IdTemporaryData", rep.IdTemporaryData));
-            mcReport.Parameters.Add(new MySqlParameter("IdDailyCarnet", rep.IdDailyCarnet));
-            mcReport.Parameters.Add(new MySqlParameter("idPatient", idPatient));
+            ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
+            udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technical, dCarnet.Init_bp1, dCarnet.Init_bp2,
+                                         dCarnet.Init_bp3, dCarnet.Init_hr1,dCarnet.Init_hr2, dCarnet.Init_hr3, 
+                                         dCarnet.Final_bp1, dCarnet.Final_bp2,dCarnet.Final_bp3, dCarnet.Final_hr1, 
+                                         dCarnet.Final_hr2,dCarnet.Final_hr3, dCarnet.Begin_sleep_time, 
+                                         dCarnet.End_sleep_time,dCarnet.How_sleep, dCarnet.Main_meal_time);
 
-            conn.Open();
-            mcReport.ExecuteNonQuery();
+            rep.IdDailyCarnet = (int)lastIdDailyReport.Value;
+
+            ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
+            udaContext.insertTemporaryData(lastIdTempData, tempData.weight, tempData.height, tempData.age,
+                                           tempData.body_max_index, tempData.smoker, tempData.dyslipidemia,
+                                           tempData.diabetic, tempData.known_hypertensive, tempData.fat_percentage,
+                                           tempData.muscle_percentage, tempData.kcal);
+
+            rep.IdTemporaryData = (int) lastIdTempData.Value;
+
+            ObjectParameter lastIdReport = new ObjectParameter("id",typeof(long));
+            udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor, rep.Diagnosis, rep.RequestDoctor,
+                                    rep.Specialty, rep.DayAvgSys, rep.NightAvgSys, rep.TotalAvgSys, rep.DayMaxSys, rep.NightMaxSys,
+                                    rep.DayAvgDias, rep.NightAvgDias, rep.TotalAvgDias, rep.DayMaxDias, rep.NightMaxDias, rep.IdDev, 
+                                    int.Parse(rep.DevReportId), rep.IdTemporaryData, rep.IdDailyCarnet, idPatient);
+            
 
             //Obtener lista de medidas para insertar en tabla Measurement
             ICollection<Measurement> lmeasure = rep.getMeasureList();
-            MySqlCommand mcMeasure = new MySqlCommand("insertMeasure", conn);
-            mcMeasure.CommandType = CommandType.StoredProcedure;
 
             foreach (Measurement m in lmeasure)
             {
-                mcMeasure.Parameters.Add(new MySqlParameter("idReport", lastId));
-                mcMeasure.Parameters.Add(new MySqlParameter("date",m.Time));
-                mcMeasure.Parameters.Add(new MySqlParameter("systolic", m.Systolic));
-                mcMeasure.Parameters.Add(new MySqlParameter("average", m.Average));
-                mcMeasure.Parameters.Add(new MySqlParameter("diastolic", m.Diastolic));
-                mcMeasure.Parameters.Add(new MySqlParameter("heart_rate",m.HeartRate));
-                mcMeasure.Parameters.Add(new MySqlParameter("sleep", m.Sleep));
-
-                mcReport.ExecuteNonQuery();
+                udaContext.insertMeasurement(m.Time, m.Systolic, m.Average, m.Diastolic, m.HeartRate, m.Sleep, (long)lastIdReport.Value,
+                                             idPatient);
             }
             conn.Close();
         }
