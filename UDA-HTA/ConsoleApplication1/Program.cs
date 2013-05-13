@@ -66,10 +66,11 @@ namespace ConsoleApplication1
             //    Console.WriteLine("NO SE PUDO LOGUEAR :(");
 
             IImportDataManagement idm = new ImportDataManagement();
+            IReportManagement rm = new ReportManagement();
             ICollection<PatientReport> lpr = idm.ListNewPatientReports();
             foreach (PatientReport pr in lpr)
             {
-                Console.Write(pr.PatientName);
+/*                Console.Write(pr.PatientName);
                 Console.Write(" , ");
                 Console.Write(pr.PatientLastName);
                 Console.Write(" , ");
@@ -80,6 +81,11 @@ namespace ConsoleApplication1
                 Console.Write(pr.ReportDevice);
                 Console.Write(" , ");
                 Console.WriteLine(pr.ReportId);
+ */
+                DailyCarnet dailyCarnet = new DailyCarnet();
+                TemporaryData temporaryData = new TemporaryData();
+                Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
+                rm.addReport(rep,pr.PatientId,dailyCarnet,temporaryData);
             }
 
             /*

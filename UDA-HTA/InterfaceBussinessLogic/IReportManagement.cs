@@ -23,7 +23,7 @@ namespace InterfaceBussinessLogic
         void exportReportPDF(Report report, string fileName);
 
         //Agrega el reporte report al paciente con identificador idPatient en la base udaHta
-        void addReport(Report report, int idPatient);
+        void addReport(Report report, string idPatient, DailyCarnet dailyCarnet, TemporaryData temporaryData);
 
     }
 }

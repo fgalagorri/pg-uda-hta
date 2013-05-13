@@ -32,15 +32,19 @@ namespace BussinessLogic
             list.AddRange(GetListNewPatientReports(dda));
 
             //Lista de reportes pendientes de spacelabs
-            dda = new DeviceController(new Spacelabs());
-            list.AddRange(GetListNewPatientReports(dda));
+            //dda = new DeviceController(new Spacelabs());
+            //list.AddRange(GetListNewPatientReports(dda));
 
             var uda = new UdaHtaDataAccess();
             ICollection<PatientReport> listUda = uda.ListAllReports();
 
-            list = (from l in list
-                    where listUda.Any(a => !a.ReportId.Equals(l.ReportId))
-                    select l).ToList();
+            if (listUda.Count() != 0)
+            {
+                list = (from l in list
+                        where listUda.Any(a => !a.ReportId.Equals(l.ReportId))
+                        select l).ToList();
+            }
+            
 
             return list;
         }
