@@ -7,8 +7,7 @@ namespace Entities
 {
     public class Report
     {
-        
-        private int _ident;
+        private long _id;
         private DateTime _beginDate;
         private DateTime _endDate;
         private string _doctor;
@@ -25,11 +24,11 @@ namespace Entities
         private int _totalAvgDias;
         private int _dayMaxDias;
         private int _nightMaxDias;
-        private int _idDev;
+        private int _deviceId;
         private string _devReportId;
         private int _idTemporaryData;
         private int _idDailyCarnet;
-        private int _idPatient;
+        private string _idPatient;
         private ICollection<Measurement> measureList;
 
         public Report()
@@ -37,10 +36,10 @@ namespace Entities
             measureList = new List<Measurement>();
         }
 
-        public int Ident
+        public long Id
         {
-            get { return _ident; }
-            set { _ident = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
         public DateTime BeginDate
@@ -139,10 +138,10 @@ namespace Entities
             set { _nightMaxDias = value; }
         }
 
-        public int IdDev
+        public int DeviceId
         {
-            get { return _idDev; }
-            set { _idDev = value; }
+            get { return _deviceId; }
+            set { _deviceId = value; }
         }
 
         public string DevReportId
@@ -163,7 +162,7 @@ namespace Entities
             set { _idDailyCarnet = value; }
         }
 
-        public int IdPatient
+        public string IdPatient
         {
             get { return _idPatient; }
             set { _idPatient = value; }

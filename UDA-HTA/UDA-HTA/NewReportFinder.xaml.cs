@@ -59,13 +59,13 @@ namespace UDA_HTA
             ICollection<PatientReport> filter = _list;
 
             if (dtStart.SelectedDate.HasValue)
-                filter = _list.Where(d => d.ReportDate >= dtStart.SelectedDate.Value).ToList();
+                filter = filter.Where(d => d.ReportDate >= dtStart.SelectedDate.Value).ToList();
 
             if (dtEnd.SelectedDate.HasValue)
-                filter = _list.Where(d => d.ReportDate <= dtEnd.SelectedDate.Value).ToList();
+                filter = filter.Where(d => d.ReportDate <= dtEnd.SelectedDate.Value).ToList();
             
             if (!String.IsNullOrWhiteSpace(patientName.Text))
-                filter = _list.Where(d => d.PatientName.ToLower().Contains(patientName.Text.ToLower())
+                filter = filter.Where(d => d.PatientName.ToLower().Contains(patientName.Text.ToLower())
                                     || d.PatientLastName.ToLower().Contains(patientName.Text.ToLower())
                                     || d.PatientDocument.Contains(patientName.Text)).ToList();
 
