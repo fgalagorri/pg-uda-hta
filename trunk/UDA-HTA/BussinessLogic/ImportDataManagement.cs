@@ -32,19 +32,16 @@ namespace BussinessLogic
             list.AddRange(GetListNewPatientReports(dda));
 
             //Lista de reportes pendientes de spacelabs
-            //dda = new DeviceController(new Spacelabs());
-            //list.AddRange(GetListNewPatientReports(dda));
+            dda = new DeviceController(new Spacelabs());
+            list.AddRange(GetListNewPatientReports(dda));
 
             var uda = new UdaHtaDataAccess();
             ICollection<PatientReport> listUda = uda.ListAllReports();
 
-            if (listUda.Count() != 0)
-            {
-                list = (from l in list
-                        where listUda.Any(a => !a.ReportId.Equals(l.ReportId))
-                        select l).ToList();
-            }
-            
+            list = (from l in list
+                    where !(listUda.Any(a => a.ReportId.Equals(l.ReportId) && 
+                                             a.ReportDevice.Equals(l.ReportDevice)))
+                    select l).ToList();
 
             return list;
         }
@@ -58,11 +55,11 @@ namespace BussinessLogic
             {
                 case 0:
                     // El dispositivo es HMS
-                    dda = new DeviceDataAccess.DeviceController(new HMS());
+                    dda = new DeviceController(new HMS());
                     break;
                 case 1:
                     // El dispositivo es Spacelabs
-                    dda = new DeviceDataAccess.DeviceController(new Spacelabs());
+                    dda = new DeviceController(new Spacelabs());
                     break;
                 default:
                     // Error

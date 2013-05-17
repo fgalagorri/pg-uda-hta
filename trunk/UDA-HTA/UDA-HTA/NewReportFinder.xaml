@@ -4,7 +4,12 @@
         Title="Seleccionar el estudio realizado" 
         WindowStartupLocation="CenterScreen" Height="400" Width="825" ResizeMode="NoResize">
     
-    <StackPanel Margin="15">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
         <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                 <TextBlock Style="{StaticResource label}">Desde:</TextBlock>
@@ -18,11 +23,11 @@
                 <TextBlock Style="{StaticResource label}">Paciente:</TextBlock>
                 <TextBox Name="patientName" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown"></TextBox>
             </StackPanel>
-            <Button Name="btnFilter" Padding="5,0" Click="btnFilter_Click">Filtrar</Button>
+            <Button Padding="5,0" Click="btnFilter_Click">Filtrar</Button>
         </StackPanel>
-        
-        <DataGrid Name="grReports" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                  IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" 
+
+        <DataGrid Name="grReports" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
+                  AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
                   SelectionChanged="grReports_SelectionChanged" SelectionMode="Single" SelectionUnit="FullRow">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridRow}">
@@ -37,5 +42,5 @@
                 <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=ReportDevice}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-    </StackPanel>
+    </Grid>
 </Window>

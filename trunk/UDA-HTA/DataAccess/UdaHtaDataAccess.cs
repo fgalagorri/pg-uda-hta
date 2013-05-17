@@ -92,7 +92,7 @@ namespace DataAccess
             ObjectParameter lastIdReport = new ObjectParameter("id",typeof(long));
             udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor, rep.Diagnosis, rep.RequestDoctor,
                                     rep.Specialty, rep.DayAvgSys, rep.NightAvgSys, rep.TotalAvgSys, rep.DayMaxSys, rep.NightMaxSys,
-                                    rep.DayAvgDias, rep.NightAvgDias, rep.TotalAvgDias, rep.DayMaxDias, rep.NightMaxDias, rep.IdDev, 
+                                    rep.DayAvgDias, rep.NightAvgDias, rep.TotalAvgDias, rep.DayMaxDias, rep.NightMaxDias, rep.DeviceId, 
                                     int.Parse(rep.DevReportId), rep.IdTemporaryData, rep.IdDailyCarnet, idPatient);
             
 

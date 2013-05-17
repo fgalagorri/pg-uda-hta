@@ -12,7 +12,7 @@ namespace Entities
 
         public string PatientId { get; set; }
 
-        public DateTime ReportDate { get; set; }
+        public DateTime? ReportDate { get; set; }
 
         public int ReportDevice { get; set; }
 

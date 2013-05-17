@@ -50,8 +50,8 @@ namespace HMSDataAccess
             try
             {
                 org.h2.Driver.load();
-                _conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
-            //  _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
+                //_conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
+                _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
                 _stat = _conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             }
             catch (Exception e)
@@ -211,11 +211,11 @@ namespace HMSDataAccess
             int i;
             int id;
             string timeStr;
-            int lastId;
+            long lastId;
             if (rs.first())
             {
                 rs.first();
-                lastId = Convert.ToInt32(rs.getString(1));
+                lastId = Convert.ToInt64(rs.getString(1));
             }
             else
             {
@@ -260,7 +260,7 @@ namespace HMSDataAccess
                 { //Si el ultimo id (lastId) es diferente al actual, entonces comenzaron las medidas de otro reporte
 
                     //Agrego el reporte del ultimo identificador a la lista
-                    report.Ident = lastId;
+                    report.Id = lastId;
                     reportList.Add(report);
                     
                     //Actualizo el ultimo id
@@ -272,7 +272,7 @@ namespace HMSDataAccess
 
                 }
             }
-            report.Ident = lastId;
+            report.Id = lastId;
             reportList.Add(report);
             return reportList;
         }
