@@ -113,7 +113,7 @@ namespace HMSDataAccess
 
             if (rs != null && rs.next())
             {
-                patient.IdInDevice = rs.getInt(2);
+                patient.IdInDevice = rs.getString(2);
                 
                 var timeStr = rs.getString(3); //Timeofmeasurement
                 //Pareseo la fecha y hora para crear el DateTime
@@ -145,13 +145,13 @@ namespace HMSDataAccess
 
             string timeStr;
             DateTime time;
-            int id;
+            string id;
 
             while (rs.next())
             {
                 Patient patient = new Patient();
 
-                id = rs.getInt(1);
+                id = rs.getString(1);
                 patient.IdInDevice = id;
 
                 timeStr = rs.getString(2);
