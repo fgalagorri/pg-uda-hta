@@ -43,8 +43,8 @@ namespace DataAccess
 
         public bool ExistPatient(int idPatient)
         {
-            var patientContext = new patient_info_dbEntities();
-            return patientContext.patient.Any(p => p.idPatient == idPatient);
+            var udaContext = new udahta_dbEntities();
+            return udaContext.patientuda.Any(p => p.idPatientUda == idPatient);
         }
 
         public ICollection<Patient> ListPatients()

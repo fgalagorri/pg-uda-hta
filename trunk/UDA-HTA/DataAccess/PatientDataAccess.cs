@@ -29,7 +29,7 @@ namespace DataAccess
             ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
             try
             {
-                udaContext.insertPatient(lastIdPatient, p.IdInDevice, p.Name, p.Surname, p.Address, p.DocumentId,
+                udaContext.insertPatient(lastIdPatient, Convert.ToInt32(p.IdInDevice), p.Name, p.Surname, p.Address, p.DocumentId,
                                          p.BirthDate, p.Sex.ToString(),
                                          p.Neighbour, p.City, p.Phone, p.CellPhone,
                                          p.EMail);
@@ -83,17 +83,16 @@ namespace DataAccess
             */
         }
 
-        public bool ExistPatientReference(Int32 patientReference)
+        public bool ExistPatientReference(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
-            return patientContext.patient.Any(p => p.patientReference == patientReference);
+            return patientContext.patient.Any(p => p.patientReference == Convert.ToInt32(patientReference));
         }
 
-        public int GetPatientId(Int32 patientReference)
+        public int GetPatientId(string patientReference)
         {
-            int id;
             var patientContext = new patient_info_dbEntities();
-            var pat = patientContext.patient.Where(p => p.patientReference == patientReference).Select(p => new { p.idPatient }).ToList().First();
+            var pat = patientContext.patient.Where(p => p.patientReference == Convert.ToInt32(patientReference)).Select(p => new { p.idPatient }).ToList().First();
             return pat.idPatient;
         }
     }

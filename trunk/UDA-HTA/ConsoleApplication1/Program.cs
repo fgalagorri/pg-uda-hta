@@ -89,6 +89,7 @@ namespace ConsoleApplication1
                 pat.DocumentId = pr.PatientDocument;
                 pat.Name = pr.PatientName;
                 pat.Surname = pr.PatientLastName;
+                pat.IdInDevice = pr.PatientId.ToString();
                 try
                 {
                     var idPatient = pm.CreatePatient(pat);

@@ -10,7 +10,7 @@ namespace Entities
         public enum SexType{F,M};
 
         private int _id;
-        private Int32 _idInDevice;
+        private string _idInDevice;
         private string _documentId;
         private string _name;
         private string _surname;
@@ -35,7 +35,7 @@ namespace Entities
             set { _id = value; }
         }
 
-        public int IdInDevice
+        public string IdInDevice
         {
             get { return _idInDevice; }
             set { _idInDevice = value; }
