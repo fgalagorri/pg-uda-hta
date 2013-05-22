@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entities;
 using DataAccess;
 
@@ -6,24 +7,49 @@ namespace BussinessLogic
 {
     public class PatientManagement
     {
-        public void CreatePatient(Patient patient)
+        public int CreatePatient(Patient patient)
         {
             var p = new Patient();
-            p.Address = p.Address;
-            p.BirthDate = p.BirthDate;
-            p.CellPhone = p.CellPhone;
-            p.City = p.City;
-            p.DocumentId = p.DocumentId;
-            p.EMail = p.EMail;
-            p.IdInDevice = p.IdInDevice;
-            p.Name = p.Name;
-            p.Surname = p.Surname;
-            p.Neighbour = p.Neighbour;
-            p.Phone = p.Phone;
-            p.Sex = p.Sex;
+            p.Address = patient.Address;
+            p.BirthDate = patient.BirthDate;
+            p.CellPhone = patient.CellPhone;
+            p.City = patient.City;
+            p.DocumentId = patient.DocumentId;
+            p.EMail = patient.EMail;
+            p.IdInDevice = patient.IdInDevice;
+            p.Name = patient.Name;
+            p.Surname = patient.Surname;
+            p.Neighbour = patient.Neighbour;
+            p.Phone = patient.Phone;
+            p.Sex = patient.Sex;
 
-            var pda = new PatientDataAccess();
-            pda.InsertPatient(p);
+            int id;
+            try
+            {
+                var pda = new PatientDataAccess();
+                if (!pda.ExistPatientReference(p.IdInDevice))
+                {
+                    id = pda.InsertPatient(p);
+                }
+                else
+                {
+                    id = pda.GetPatientId(p.IdInDevice);
+                }
+                pda.CloseConnectionDataBase();
+
+                var uda = new UdaHtaDataAccess();
+                if (!uda.ExistPatient(id))
+                {
+                    uda.insertPatientUda(id);    
+                }
+                uda.CloseConnectionDataBase();
+
+                return id;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         

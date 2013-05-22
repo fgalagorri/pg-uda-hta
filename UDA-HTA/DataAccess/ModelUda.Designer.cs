@@ -693,6 +693,7 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="idInDev">No Metadata Documentation available.</param>
         /// <param name="name">No Metadata Documentation available.</param>
         /// <param name="surname">No Metadata Documentation available.</param>
@@ -705,7 +706,7 @@ namespace DataAccess
         /// <param name="phone">No Metadata Documentation available.</param>
         /// <param name="cell">No Metadata Documentation available.</param>
         /// <param name="email">No Metadata Documentation available.</param>
-        public int insertPatient(Nullable<global::System.Int32> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email)
+        public int insertPatient(ObjectParameter id, Nullable<global::System.Int32> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email)
         {
             ObjectParameter idInDevParameter;
             if (idInDev.HasValue)
@@ -827,7 +828,7 @@ namespace DataAccess
                 emailParameter = new ObjectParameter("email", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("insertPatient", idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter);
+            return base.ExecuteFunction("insertPatient", id, idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter);
         }
     
         /// <summary>
@@ -1198,6 +1199,66 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("insertTemporaryData", id, weightParameter, heightParameter, ageParameter, body_mass_indexParameter, smokerParameter, dyslipidemiaParameter, diabeticParameter, known_hypertensiveParameter, fat_percentageParameter, muscle_percentageParameter, kcalParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int insertPatientUda(Nullable<global::System.Int32> id)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertPatientUda", idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="nam">No Metadata Documentation available.</param>
+        /// <param name="createDat">No Metadata Documentation available.</param>
+        public int insertInvestigation(Nullable<global::System.Int32> id, global::System.String nam, Nullable<global::System.DateTime> createDat)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter namParameter;
+            if (nam != null)
+            {
+                namParameter = new ObjectParameter("nam", nam);
+            }
+            else
+            {
+                namParameter = new ObjectParameter("nam", typeof(global::System.String));
+            }
+    
+            ObjectParameter createDatParameter;
+            if (createDat.HasValue)
+            {
+                createDatParameter = new ObjectParameter("createDat", createDat);
+            }
+            else
+            {
+                createDatParameter = new ObjectParameter("createDat", typeof(global::System.DateTime));
+            }
+    
+            return base.ExecuteFunction("insertInvestigation", idParameter, namParameter, createDatParameter);
         }
 
         #endregion

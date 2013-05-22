@@ -50,8 +50,8 @@ namespace HMSDataAccess
             try
             {
                 org.h2.Driver.load();
-                //_conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
-                _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
+                _conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
+                //_conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
                 _stat = _conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             }
             catch (Exception e)
