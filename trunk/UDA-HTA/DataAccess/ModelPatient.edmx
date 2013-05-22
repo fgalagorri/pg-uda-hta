@@ -28,6 +28,7 @@
             <PropertyRef Name="idPatient" />
           </Key>
           <Property Name="idPatient" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="patientReference" Type="bigint" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="surname" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="document" Type="varchar" Nullable="false" MaxLength="45" />
@@ -37,7 +38,7 @@
           <Property Name="address" Type="varchar" MaxLength="45" />
           <Property Name="city" Type="varchar" MaxLength="45" />
           <Property Name="neighborhood" Type="varchar" MaxLength="45" />
-          <Property Name="country" Type="varchar" MaxLength="45" />
+          <Property Name="birthday" Type="datetime" />
           <Property Name="e_mail" Type="varchar" MaxLength="45" />
         </EntityType>
         <Association Name="fk_emergency_contact_Patient">
@@ -52,6 +53,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="int" Mode="Out" />
+          <Parameter Name="idInDev" Type="bigint" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="addr" Type="varchar" Mode="In" />
+          <Parameter Name="dni" Type="varchar" Mode="In" />
+          <Parameter Name="birth" Type="datetime" Mode="In" />
+          <Parameter Name="sex" Type="enum" Mode="In" />
+          <Parameter Name="neighbour" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="cell" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
@@ -64,6 +80,21 @@
             <End Role="patient" EntitySet="patient" />
             <End Role="emergency_contact" EntitySet="emergency_contact" />
           </AssociationSet>
+          <FunctionImport Name="insertPatient">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
+            <Parameter Name="idInDev" Mode="In" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="birth" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="neighbour" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="cell" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="emergency_contact">
           <Key>
@@ -81,6 +112,7 @@
             <PropertyRef Name="idPatient" />
           </Key>
           <Property Name="idPatient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientReference" Type="Int64" />
           <Property Name="name" Type="String" Nullable="false" />
           <Property Name="surname" Type="String" Nullable="false" />
           <Property Name="document" Type="String" Nullable="false" />
@@ -90,7 +122,7 @@
           <Property Name="address" Type="String" />
           <Property Name="city" Type="String" />
           <Property Name="neighborhood" Type="String" />
-          <Property Name="country" Type="String" />
+          <Property Name="birthday" Type="DateTime" />
           <Property Name="e_mail" Type="String" />
           <NavigationProperty Name="emergency_contact" Relationship="patient_info_dbModel.fk_emergency_contact_Patient" FromRole="patient" ToRole="emergency_contact" />
         </EntityType>
@@ -121,6 +153,7 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="patient"><EntityTypeMapping TypeName="patient_info_dbModel.patient"><MappingFragment StoreEntitySet="patient">
             <ScalarProperty Name="idPatient" ColumnName="idPatient" />
+            <ScalarProperty Name="patientReference" ColumnName="patientReference" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="surname" ColumnName="surname" />
             <ScalarProperty Name="document" ColumnName="document" />
@@ -130,9 +163,10 @@
             <ScalarProperty Name="address" ColumnName="address" />
             <ScalarProperty Name="city" ColumnName="city" />
             <ScalarProperty Name="neighborhood" ColumnName="neighborhood" />
-            <ScalarProperty Name="country" ColumnName="country" />
+            <ScalarProperty Name="birthday" ColumnName="birthday" />
             <ScalarProperty Name="e_mail" ColumnName="e_mail" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -154,11 +188,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="1.625" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="1.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1" Height="3.7109993489583313" IsExpanded="true" />
         <AssociationConnector Association="patient_info_dbModel.fk_emergency_contact_Patient" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.7112939453125" />
-          <ConnectorPoint PointX="3" PointY="2.7112939453125" />
+          <ConnectorPoint PointX="2.25" PointY="2.8362939453125" />
+          <ConnectorPoint PointX="3" PointY="2.8362939453125" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

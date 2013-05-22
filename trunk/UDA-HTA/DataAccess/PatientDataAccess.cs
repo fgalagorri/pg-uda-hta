@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Objects;
 using System.Linq;
 using MySql.Data.MySqlClient;
 using Entities;
@@ -22,27 +22,24 @@ namespace DataAccess
             _conn.Close();
         }
 
-        public void InsertPatient(Patient p)
+        public int InsertPatient(Patient p)
         {
-            MySqlCommand mc = new MySqlCommand("insertPatient", _conn);
-            mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("idInDev", p.IdInDevice));            
-            mc.Parameters.Add(new MySqlParameter("name", p.Name));
-            mc.Parameters.Add(new MySqlParameter("surname", p.Surname));
-            mc.Parameters.Add(new MySqlParameter("addr", p.Address));
-            mc.Parameters.Add(new MySqlParameter("dni", p.DocumentId));
-            mc.Parameters.Add(new MySqlParameter("birth", p.BirthDate));
-            mc.Parameters.Add(new MySqlParameter("sex", p.Sex));
-            mc.Parameters.Add(new MySqlParameter("neighbour", p.Neighbour));
-            mc.Parameters.Add(new MySqlParameter("city", p.City));
-            mc.Parameters.Add(new MySqlParameter("phone", p.Phone));
-            mc.Parameters.Add(new MySqlParameter("cell", p.CellPhone));
-            mc.Parameters.Add(new MySqlParameter("email", p.EMail));
+            var udaContext = new patient_info_dbEntities();
 
-            _conn.Open();
-            mc.ExecuteNonQuery();
-            _conn.Close();
+            ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
+            try
+            {
+                udaContext.insertPatient(lastIdPatient, p.IdInDevice, p.Name, p.Surname, p.Address, p.DocumentId,
+                                         p.BirthDate, p.Sex.ToString(),
+                                         p.Neighbour, p.City, p.Phone, p.CellPhone,
+                                         p.EMail);
 
+            }
+            catch (MySql.Data.MySqlClient.MySqlException e)
+            {
+                throw (e);
+            }
+            return (int)lastIdPatient.Value;
         }
 
         /*
@@ -86,5 +83,18 @@ namespace DataAccess
             */
         }
 
+        public bool ExistPatientReference(Int32 patientReference)
+        {
+            var patientContext = new patient_info_dbEntities();
+            return patientContext.patient.Any(p => p.patientReference == patientReference);
+        }
+
+        public int GetPatientId(Int32 patientReference)
+        {
+            int id;
+            var patientContext = new patient_info_dbEntities();
+            var pat = patientContext.patient.Where(p => p.patientReference == patientReference).Select(p => new { p.idPatient }).ToList().First();
+            return pat.idPatient;
+        }
     }
 }

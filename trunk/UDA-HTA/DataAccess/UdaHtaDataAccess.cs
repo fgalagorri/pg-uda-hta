@@ -41,6 +41,11 @@ namespace DataAccess
             conn.Close(); 
         }
 
+        public bool ExistPatient(int idPatient)
+        {
+            var patientContext = new patient_info_dbEntities();
+            return patientContext.patient.Any(p => p.idPatient == idPatient);
+        }
 
         public ICollection<Patient> ListPatients()
         {
@@ -150,6 +155,20 @@ namespace DataAccess
             conn.Close();
 
             return true; 
+        }
+
+        public void insertPatientUda(int id)
+        {
+            var udaContext = new udahta_dbEntities();
+            try
+            {
+                udaContext.insertPatientUda(id);
+            }
+            catch (MySql.Data.MySqlClient.MySqlException e)
+            {
+                throw e;
+            }
+            
         }
         
         //Inserta un nuevo usuario en la base de datos

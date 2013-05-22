@@ -67,6 +67,8 @@ namespace ConsoleApplication1
 
             IImportDataManagement idm = new ImportDataManagement();
             IReportManagement rm = new ReportManagement();
+            PatientManagement pm = new PatientManagement();
+
             ICollection<PatientReport> lpr = idm.ListNewPatientReports();
             foreach (PatientReport pr in lpr)
             {
@@ -82,10 +84,29 @@ namespace ConsoleApplication1
                 Console.Write(" , ");
                 Console.WriteLine(pr.ReportId);
  */
-                DailyCarnet dailyCarnet = new DailyCarnet();
-                TemporaryData temporaryData = new TemporaryData();
-                Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
-                rm.addReport(rep,pr.PatientId,dailyCarnet,temporaryData);
+
+                Patient pat = new Patient();
+                pat.DocumentId = pr.PatientDocument;
+                pat.Name = pr.PatientName;
+                pat.Surname = pr.PatientLastName;
+                try
+                {
+                    var idPatient = pm.CreatePatient(pat);
+                    DailyCarnet dailyCarnet = new DailyCarnet();
+                    TemporaryData temporaryData = new TemporaryData();
+                    Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
+                    rm.addReport(rep, idPatient.ToString(), dailyCarnet, temporaryData);
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException.Message.Contains("Duplicate entry"))
+                    {
+                    }
+                    else
+                    {
+                        throw;    
+                    }
+                }
             }
 
             /*

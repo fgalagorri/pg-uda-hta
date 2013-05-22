@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -433,6 +433,7 @@
           <Parameter Name="idPatient" Type="int" Mode="In" />
         </Function>
         <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="idInDev" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="surname" Type="varchar" Mode="In" />
@@ -445,6 +446,9 @@
           <Parameter Name="phone" Type="varchar" Mode="In" />
           <Parameter Name="cell" Type="varchar" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="insertReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
@@ -494,8 +498,7 @@
           <Parameter Name="login_var" Type="varchar" Mode="In" />
           <Parameter Name="pass_var" Type="varchar" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="udahta_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -588,6 +591,7 @@
             <Parameter Name="idPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertPatient">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="idInDev" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="surname" Mode="In" Type="String" />
@@ -638,6 +642,14 @@
             <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
             <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
             <Parameter Name="kcal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertPatientUda">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvestigation">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="nam" Mode="In" Type="String" />
+            <Parameter Name="createDat" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1090,6 +1102,8 @@
           <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="udahta_dbModel.Store.insertPatient" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
+          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

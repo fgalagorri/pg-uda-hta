@@ -122,6 +122,150 @@ namespace DataAccess
         }
 
         #endregion
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="idInDev">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="addr">No Metadata Documentation available.</param>
+        /// <param name="dni">No Metadata Documentation available.</param>
+        /// <param name="birth">No Metadata Documentation available.</param>
+        /// <param name="sex">No Metadata Documentation available.</param>
+        /// <param name="neighbour">No Metadata Documentation available.</param>
+        /// <param name="city">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="cell">No Metadata Documentation available.</param>
+        /// <param name="email">No Metadata Documentation available.</param>
+        public int insertPatient(ObjectParameter id, Nullable<global::System.Int64> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email)
+        {
+            ObjectParameter idInDevParameter;
+            if (idInDev.HasValue)
+            {
+                idInDevParameter = new ObjectParameter("idInDev", idInDev);
+            }
+            else
+            {
+                idInDevParameter = new ObjectParameter("idInDev", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter addrParameter;
+            if (addr != null)
+            {
+                addrParameter = new ObjectParameter("addr", addr);
+            }
+            else
+            {
+                addrParameter = new ObjectParameter("addr", typeof(global::System.String));
+            }
+    
+            ObjectParameter dniParameter;
+            if (dni != null)
+            {
+                dniParameter = new ObjectParameter("dni", dni);
+            }
+            else
+            {
+                dniParameter = new ObjectParameter("dni", typeof(global::System.String));
+            }
+    
+            ObjectParameter birthParameter;
+            if (birth.HasValue)
+            {
+                birthParameter = new ObjectParameter("birth", birth);
+            }
+            else
+            {
+                birthParameter = new ObjectParameter("birth", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter sexParameter;
+            if (sex != null)
+            {
+                sexParameter = new ObjectParameter("sex", sex);
+            }
+            else
+            {
+                sexParameter = new ObjectParameter("sex", typeof(global::System.String));
+            }
+    
+            ObjectParameter neighbourParameter;
+            if (neighbour != null)
+            {
+                neighbourParameter = new ObjectParameter("neighbour", neighbour);
+            }
+            else
+            {
+                neighbourParameter = new ObjectParameter("neighbour", typeof(global::System.String));
+            }
+    
+            ObjectParameter cityParameter;
+            if (city != null)
+            {
+                cityParameter = new ObjectParameter("city", city);
+            }
+            else
+            {
+                cityParameter = new ObjectParameter("city", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter cellParameter;
+            if (cell != null)
+            {
+                cellParameter = new ObjectParameter("cell", cell);
+            }
+            else
+            {
+                cellParameter = new ObjectParameter("cell", typeof(global::System.String));
+            }
+    
+            ObjectParameter emailParameter;
+            if (email != null)
+            {
+                emailParameter = new ObjectParameter("email", email);
+            }
+            else
+            {
+                emailParameter = new ObjectParameter("email", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertPatient", id, idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter);
+        }
+
+        #endregion
     }
     
 
@@ -383,6 +527,30 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> patientReference
+        {
+            get
+            {
+                return _patientReference;
+            }
+            set
+            {
+                OnpatientReferenceChanging(value);
+                ReportPropertyChanging("patientReference");
+                _patientReference = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("patientReference");
+                OnpatientReferenceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _patientReference;
+        partial void OnpatientReferenceChanging(Nullable<global::System.Int64> value);
+        partial void OnpatientReferenceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String name
@@ -601,24 +769,24 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String country
+        public Nullable<global::System.DateTime> birthday
         {
             get
             {
-                return _country;
+                return _birthday;
             }
             set
             {
-                OncountryChanging(value);
-                ReportPropertyChanging("country");
-                _country = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("country");
-                OncountryChanged();
+                OnbirthdayChanging(value);
+                ReportPropertyChanging("birthday");
+                _birthday = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("birthday");
+                OnbirthdayChanged();
             }
         }
-        private global::System.String _country;
-        partial void OncountryChanging(global::System.String value);
-        partial void OncountryChanged();
+        private Nullable<global::System.DateTime> _birthday;
+        partial void OnbirthdayChanging(Nullable<global::System.DateTime> value);
+        partial void OnbirthdayChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

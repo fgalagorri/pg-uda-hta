@@ -9,7 +9,8 @@ namespace Entities
     {
         public enum SexType{F,M};
 
-        private int _idInDevice;
+        private int _id;
+        private Int32 _idInDevice;
         private string _documentId;
         private string _name;
         private string _surname;
@@ -26,6 +27,12 @@ namespace Entities
         public Patient()
         {
             _reportList = new List<Report>();
+        }
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
         }
 
         public int IdInDevice
