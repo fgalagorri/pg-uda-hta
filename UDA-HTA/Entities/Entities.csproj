@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="TemporaryData.cs" />
     <Compile Include="DailyCarnet.cs" />
     <Compile Include="PatientReport.cs" />
+    <Compile Include="Tools\ToolsMeasurement.cs" />
+    <Compile Include="Tools\ToolsPatient.cs" />
+    <Compile Include="Tools\ToolsReport.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Investigation.cs" />
     <Compile Include="Report.cs" />

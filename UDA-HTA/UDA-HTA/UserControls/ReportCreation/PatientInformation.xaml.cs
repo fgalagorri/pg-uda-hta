@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Controls;
+using Entities;
+using Entities.Tools;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -12,9 +14,11 @@ namespace UDA_HTA.UserControls.ReportCreation
     {
         double _imc;
 
-        public PatientInformation()
+        public PatientInformation(ToolsReport report)
         {
             InitializeComponent();
+
+            // TODO: Initialize with report information
         }
 
         private void CalculateImc(object sender, TextChangedEventArgs e)

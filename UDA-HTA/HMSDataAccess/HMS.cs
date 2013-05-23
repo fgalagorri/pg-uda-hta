@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using DeviceDataAccess;
 using Entities;
+using Entities.Tools;
 using java.sql;
 
 namespace HMSDataAccess
@@ -68,42 +69,44 @@ namespace HMSDataAccess
         }
 
         // Obtiene el reporte con identificador idReport, el identificador hace referencia al ID de la tabla AUFZEICHNUNG
-        public Report GetReport(string idReport)
+        public ToolsReport GetReport(string idReport)
         {
-            var report = new Report();
+            var report = new ToolsReport();
             var columns = "ID, BEFUND, CALIBDATE, DAYSTART, IMPORTDATE, NIGHTSTART, PROTDESC, PROTNUM, PROTOCOLDAYSTART, PROTOCOLNIGHTSTART, SERNUM, TIMESTAMP, PATIENT_ID";
             var rs = _stat.executeQuery("SELECT " + columns + " FROM AUFZEICHNUNG WHERE AUFZEICHNUNG.ID = " + idReport);
             if (rs != null  && rs.next())
             {
-                var id = rs.getString(1);
-
-                report.DevReportId = id;
-
-                columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIMESTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
-                rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + id);
-            
-                // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
-                while (rs.next())
-                {
-                    var measure = new Measurement();
-                    measure.Comment = rs.getString(5); //Kommentar
-
-                    var timeStr = rs.getString(7);
-                    //Pareseo la fecha y hora para crear el DateTime
-                    var time = parseDateTime(timeStr);
-                    measure.Time = time;
-
-                    measure.HeartRate = rs.getInt(11); //HR
-                    measure.Diastolic = rs.getInt(12); //NIBPDIAS
-                    measure.Average = rs.getInt(13); //NIBPMAD
-                    measure.Systolic = rs.getInt(14); //NIBPSYS
-
-                    report.addToMeasureList(measure);
-                }
+                report.ReportId = rs.getString(1);
             }
 
             return report;
         }
+
+        public List<ToolsMeasurement> GetMeasures(string reportId)
+        {
+            var list = new List<ToolsMeasurement>();
+            var columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIMESTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
+            var rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + reportId);
+
+            // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
+            while (rs.next())
+            {
+                var measure = new ToolsMeasurement();
+                measure.Comment = rs.getString(5); //Kommentar
+
+                //Pareseo la fecha y hora para crear el DateTime
+                measure.Time = parseDateTime(rs.getString(7));
+
+                measure.HeartRate = rs.getInt(11); //HR
+                measure.Diastolic = rs.getInt(12); //NIBPDIAS
+                measure.Middle = rs.getInt(13); //NIBPMAD
+                measure.Systolic = rs.getInt(14); //NIBPSYS
+
+                list.Add(measure);
+            }
+
+            return list;
+        }  
 
         public Patient GetPatient(string idPatient)
         {

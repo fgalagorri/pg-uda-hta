@@ -55,16 +55,15 @@ namespace DataAccess
         public ICollection<PatientReport> ListAllReports()
         {
             var udaContext = new udahta_dbEntities();
-            
+
             ICollection<PatientReport> udaQuery = udaContext.report.Select(r => new PatientReport()
-            {
-                ReportDevice = r.idDevice,
-                ReportId = r.deviceReportId
-            }).ToList();
+                {
+                    ReportDevice = r.idDevice,
+                    ReportId = r.deviceReportId
+                }).ToList();
 
             return udaQuery;
-
-        } 
+        }
 
         // Devuelve una lista de los reportes del paciente 'patientId'
         public ICollection<Report> GetReportsByPatientId(int patientId)

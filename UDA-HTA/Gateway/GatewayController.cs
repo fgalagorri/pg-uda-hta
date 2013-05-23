@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BussinessLogic;
 using Entities;
+using Entities.Tools;
 using InterfaceBussinessLogic;
 
 namespace Gateway
@@ -27,6 +28,12 @@ namespace Gateway
         {
             IImportDataManagement controller = new ImportDataManagement();
             return controller.ListNewPatientReports();
-        } 
+        }
+
+        public ToolsReport ImportReport(string idReport, int device)
+        {
+            IImportDataManagement controller = new ImportDataManagement();
+            return controller.ImportReport(idReport, device);
+        }
     }
 }
