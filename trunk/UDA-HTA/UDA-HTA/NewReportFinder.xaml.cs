@@ -14,9 +14,6 @@ namespace UDA_HTA
     /// </summary>
     public partial class NewReportFinder : Window
     {
-        /* La idea es que la consulta a la BD xa obtener la lista 
-         * se haga una sola vez, después se envía el filtro al gateway 
-         * que guarda la lista de pedidos en su memoria y devuelve la lista filtrada */
         private static ICollection<PatientReport> _list;
 
         public NewReportFinder()
@@ -25,31 +22,6 @@ namespace UDA_HTA
 
             var controller = GatewayController.GetInstance();
             _list = controller.GetNewReports();
-
-            /*_list = new List<ExampleReportList>();
-            _list.Add(new ExampleReportList{
-                Date = DateTime.Now,
-                Patient = "Juan Alberto Pérez Manzanares",
-                Device = "Spacelabs"
-            });
-            _list.Add(new ExampleReportList
-            {
-                Date = DateTime.Now.AddDays(-3).AddMinutes(-2480),
-                Patient = "Pedro Pereyra",
-                Device = "HMS"
-            });
-            _list.Add(new ExampleReportList
-            {
-                Date = DateTime.Now.AddDays(-15).AddMinutes(-1080),
-                Patient = "Matías Alvez Correa",
-                Device = "Spacelabs"
-            });
-            _list.Add(new ExampleReportList
-            {
-                Date = DateTime.Now.AddDays(-7).AddMinutes(-520),
-                Patient = "Alberto Molina",
-                Device = "HMS"
-            });*/
 
             grReports.DataContext = _list;
         }
@@ -82,7 +54,9 @@ namespace UDA_HTA
         {
             if (((DataGrid) sender).SelectedIndex != -1)
             {
-                var rc = new ReportCreate {Owner = this};
+                var pr = (PatientReport) e.AddedItems;
+                var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice);
+                var rc = new ReportCreate(report) {Owner = this};
                 var cancelled = rc.ShowDialog();
 
                 if (cancelled.HasValue && !cancelled.Value)

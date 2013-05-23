@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Entities.Tools;
 using InterfaceBussinessLogic;
 using Entities;
 using DataAccess;
@@ -77,9 +78,9 @@ namespace BussinessLogic
             return pat;
         }
 
-        public Report ImportReport(string idReport, int device)
+        public ToolsReport ImportReport(string idReport, int device)
         {
-            Report report = null;
+            ToolsReport report = null;
 
             DeviceController dda;
             switch (device)
@@ -91,6 +92,7 @@ namespace BussinessLogic
                 case 1:
                     // El dispositivo es Spacelabs
                     dda = new DeviceController(new Spacelabs());
+                    report = dda.GetReport(idReport);
                     break;
                 default:
                     // Error

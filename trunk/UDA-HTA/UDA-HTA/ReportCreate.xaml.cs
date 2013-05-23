@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using Entities;
+using Entities.Tools;
 using UDA_HTA.UserControls.ReportCreation;
 
 namespace UDA_HTA
@@ -15,13 +17,13 @@ namespace UDA_HTA
         private AdmissionForm admissionForm;
         private OtherInformation otherInfo;
 
-        public ReportCreate()
+        public ReportCreate(ToolsReport report)
         {
             InitializeComponent();
             _state = 0;
-            patientinfo = new PatientInformation();
-            admissionForm = new AdmissionForm();
-            otherInfo = new OtherInformation();
+            patientinfo = new PatientInformation(report);
+            admissionForm = new AdmissionForm(report);
+            otherInfo = new OtherInformation(report);
 
             CurrentControl.Content = patientinfo;
         }

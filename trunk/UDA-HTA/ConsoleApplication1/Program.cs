@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
+using Entities.Tools;
 using HMSDataAccess;
 using Entities;
 using DataAccess;
@@ -95,8 +96,9 @@ namespace ConsoleApplication1
                     var idPatient = pm.CreatePatient(pat);
                     DailyCarnet dailyCarnet = new DailyCarnet();
                     TemporaryData temporaryData = new TemporaryData();
-                    Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
-                    rm.addReport(rep, idPatient.ToString(), dailyCarnet, temporaryData);
+                    ToolsReport rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
+                    Report r = null;
+                    rm.addReport(r, idPatient.ToString(), dailyCarnet, temporaryData);
                 }
                 catch (Exception e)
                 {
