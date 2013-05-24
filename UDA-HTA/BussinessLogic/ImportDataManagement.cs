@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Entities.Tools;
 using InterfaceBussinessLogic;
 using Entities;
 using DataAccess;
@@ -78,9 +77,9 @@ namespace BussinessLogic
             return pat;
         }
 
-        public ToolsReport ImportReport(string idReport, int device)
+        public Report ImportReport(string idReport, int device)
         {
-            ToolsReport report = null;
+            Report report = null;
 
             DeviceController dda;
             switch (device)

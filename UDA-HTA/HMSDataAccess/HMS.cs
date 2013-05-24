@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using DeviceDataAccess;
 using Entities;
-using Entities.Tools;
 using java.sql;
 
 namespace HMSDataAccess
@@ -69,29 +68,29 @@ namespace HMSDataAccess
         }
 
         // Obtiene el reporte con identificador idReport, el identificador hace referencia al ID de la tabla AUFZEICHNUNG
-        public ToolsReport GetReport(string idReport)
+        public Report GetReport(string idReport)
         {
-            var report = new ToolsReport();
+            var report = new Report();
             var columns = "ID, BEFUND, CALIBDATE, DAYSTART, IMPORTDATE, NIGHTSTART, PROTDESC, PROTNUM, PROTOCOLDAYSTART, PROTOCOLNIGHTSTART, SERNUM, TIMESTAMP, PATIENT_ID";
             var rs = _stat.executeQuery("SELECT " + columns + " FROM AUFZEICHNUNG WHERE AUFZEICHNUNG.ID = " + idReport);
             if (rs != null  && rs.next())
             {
-                report.ReportId = rs.getString(1);
+                report.DeviceReportId = rs.getString(1);
             }
 
             return report;
         }
 
-        public List<ToolsMeasurement> GetMeasures(string reportId)
+        public List<Measurement> GetMeasures(string reportId)
         {
-            var list = new List<ToolsMeasurement>();
+            var list = new List<Measurement>();
             var columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIMESTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
             var rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + reportId);
 
             // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
             while (rs.next())
             {
-                var measure = new ToolsMeasurement();
+                var measure = new Measurement();
                 measure.Comment = rs.getString(5); //Kommentar
 
                 //Pareseo la fecha y hora para crear el DateTime
@@ -116,7 +115,7 @@ namespace HMSDataAccess
 
             if (rs != null && rs.next())
             {
-                patient.IdInDevice = rs.getString(2);
+                patient.DevicePatientId = rs.getString(2);
                 
                 var timeStr = rs.getString(3); //Timeofmeasurement
                 //Pareseo la fecha y hora para crear el DateTime
@@ -124,12 +123,12 @@ namespace HMSDataAccess
 
                 patient.DocumentId = rs.getString(8);
 
-                patient.Sex = rs.getInt(13)==0 ? Patient.SexType.F : Patient.SexType.M;
+                patient.Sex = rs.getInt(13) == 0 ? SexType.F : SexType.M;
 
                 patient.City = rs.getString(26);
-                patient.EMail = rs.getString(29);
-                patient.Name = rs.getString(30);
-                patient.Surname = rs.getString(32);
+                patient.Email = rs.getString(29);
+                patient.Names = rs.getString(30);
+                patient.Surnames = rs.getString(32);
                 patient.CellPhone = rs.getString(35);
                 patient.Phone = rs.getString(36);
                 patient.Neighbour = rs.getString(37);
@@ -155,7 +154,7 @@ namespace HMSDataAccess
                 Patient patient = new Patient();
 
                 id = rs.getString(1);
-                patient.IdInDevice = id;
+                patient.DevicePatientId = id;
 
                 timeStr = rs.getString(2);
                 //Pareseo la fecha y hora para crear el DateTime
@@ -244,7 +243,7 @@ namespace HMSDataAccess
                 m.Systolic = rs.getInt(++i);
                 Console.Write(rs.getInt(i) + "|");
 
-                m.Average = rs.getInt(++i);
+                m.Middle = rs.getInt(++i);
                 Console.Write(rs.getInt(i) + "|");
 
                 m.Diastolic = rs.getInt(++i);
@@ -257,13 +256,13 @@ namespace HMSDataAccess
                 if (id == lastId)
                 {
                     //Agrego la medida al reporte
-                    report.addToMeasureList(m);
+                    report.Measures.Add(m);
                 }
                 else
                 { //Si el ultimo id (lastId) es diferente al actual, entonces comenzaron las medidas de otro reporte
 
                     //Agrego el reporte del ultimo identificador a la lista
-                    report.Id = lastId;
+                    report.UdaId = lastId;
                     reportList.Add(report);
                     
                     //Actualizo el ultimo id
@@ -271,11 +270,11 @@ namespace HMSDataAccess
                     
                     //Creo el siguiente reporte y agrego la ultima medida procesada
                     report = new Report();
-                    report.addToMeasureList(m);
+                    report.Measures.Add(m);
 
                 }
             }
-            report.Id = lastId;
+            report.UdaId = lastId;
             reportList.Add(report);
             return reportList;
         }

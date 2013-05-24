@@ -5,119 +5,28 @@ using System.Text;
 
 namespace Entities
 {
+    public enum SexType { F, M };
+
     public class Patient
     {
-        public enum SexType{F,M};
+        public string DevicePatientId { get; set; }
+        public string DocumentId { get; set; }
+        public string Names { get; set; }
+        public string Surnames { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public SexType? Sex { get; set; }
+        public string Address { get; set; }
+        public string Neighbour { get; set; }
+        public string City { get; set; }
+        public string Department { get; set; }
+        public string Phone { get; set; }
+        public string CellPhone { get; set; }
+        public string Email { get; set; }
 
-        private int _id;
-        private string _idInDevice;
-        private string _documentId;
-        private string _name;
-        private string _surname;
-        private DateTime _birthDate;
-        private SexType _sex;
-        private string _address;
-        private string _neighbour;
-        private string _city;
-        private string _phone;
-        private string _cellPhone;
-        private string _eMail;
-        private ICollection<Report> _reportList;
+        public string UdaId { get; set; }
+        public int? DeviceId { get; set; }
 
-        public Patient()
-        {
-            _reportList = new List<Report>();
-        }
+        private ICollection<Report> ReportList  { get; set; }
 
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        public string IdInDevice
-        {
-            get { return _idInDevice; }
-            set { _idInDevice = value; }
-        }
-        
-        public string DocumentId
-        {
-            get { return _documentId; }
-            set { _documentId = value; }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        public string Surname
-        {
-            get { return _surname; }
-            set { _surname = value; }
-        }
-
-        public DateTime BirthDate
-        {
-            get { return _birthDate; }
-            set { _birthDate = value; }
-        }
-
-        public SexType Sex
-        {
-            get { return _sex; }
-            set { _sex = value; }
-        }
-
-        public string Address
-        {
-            get { return _address; }
-            set { _address = value; }
-        }
-
-        public string Neighbour
-        {
-            get { return _neighbour; }
-            set { _neighbour = value; }
-        }
-
-        public string City
-        {
-            get { return _city; }
-            set { _city = value; }
-        }
-
-        public string Phone
-        {
-            get { return _phone; }
-            set { _phone = value; }
-        }
-
-        public string CellPhone
-        {
-            get { return _cellPhone; }
-            set { _cellPhone = value; }
-        }
-
-        public string EMail
-        {
-            get { return _eMail; }
-            set { _eMail = value; }
-        }
-
-
-        public ICollection<Report> ReportList
-        {
-            get { return _reportList; }
-            set { _reportList = value; }
-        }
-        
-        public void addToReportList(Report rep)
-        {
-            _reportList.Add(rep);
-        }
-
-    }   // end patient
+    }
 }

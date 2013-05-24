@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
-using Entities.Tools;
 using HMSDataAccess;
 using Entities;
 using DataAccess;
@@ -88,15 +87,15 @@ namespace ConsoleApplication1
 
                 Patient pat = new Patient();
                 pat.DocumentId = pr.PatientDocument;
-                pat.Name = pr.PatientName;
-                pat.Surname = pr.PatientLastName;
-                pat.IdInDevice = pr.PatientId.ToString();
+                pat.Names = pr.PatientName;
+                pat.Surnames = pr.PatientLastName;
+                pat.DevicePatientId = pr.PatientId;
                 try
                 {
                     var idPatient = pm.CreatePatient(pat);
                     DailyCarnet dailyCarnet = new DailyCarnet();
                     TemporaryData temporaryData = new TemporaryData();
-                    ToolsReport rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
+                    Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
                     Report r = null;
                     rm.addReport(r, idPatient.ToString(), dailyCarnet, temporaryData);
                 }

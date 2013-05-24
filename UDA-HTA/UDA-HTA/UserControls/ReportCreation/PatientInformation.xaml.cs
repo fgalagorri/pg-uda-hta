@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows.Controls;
 using Entities;
-using Entities.Tools;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -14,7 +13,7 @@ namespace UDA_HTA.UserControls.ReportCreation
     {
         double _imc;
 
-        public PatientInformation(ToolsReport report)
+        public PatientInformation(Report report)
         {
             InitializeComponent();
 

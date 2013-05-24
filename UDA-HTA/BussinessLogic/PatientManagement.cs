@@ -9,31 +9,33 @@ namespace BussinessLogic
     {
         public int CreatePatient(Patient patient)
         {
-            var p = new Patient();
-            p.Address = patient.Address;
-            p.BirthDate = patient.BirthDate;
-            p.CellPhone = patient.CellPhone;
-            p.City = patient.City;
-            p.DocumentId = patient.DocumentId;
-            p.EMail = patient.EMail;
-            p.IdInDevice = patient.IdInDevice;
-            p.Name = patient.Name;
-            p.Surname = patient.Surname;
-            p.Neighbour = patient.Neighbour;
-            p.Phone = patient.Phone;
-            p.Sex = patient.Sex;
+            var p = new Patient
+                {
+                    Address = patient.Address,
+                    BirthDate = patient.BirthDate,
+                    CellPhone = patient.CellPhone,
+                    City = patient.City,
+                    DocumentId = patient.DocumentId,
+                    Email = patient.Email,
+                    DevicePatientId = patient.DevicePatientId,
+                    Names = patient.Names,
+                    Surnames = patient.Surnames,
+                    Neighbour = patient.Neighbour,
+                    Phone = patient.Phone,
+                    Sex = patient.Sex
+                };
 
             int id;
             try
             {
                 var pda = new PatientDataAccess();
-                if (!pda.ExistPatientReference(p.IdInDevice))
+                if (!pda.ExistPatientReference(p.DevicePatientId))
                 {
                     id = pda.InsertPatient(p);
                 }
                 else
                 {
-                    id = pda.GetPatientId(p.IdInDevice);
+                    id = pda.GetPatientId(p.DevicePatientId);
                 }
                 pda.CloseConnectionDataBase();
 

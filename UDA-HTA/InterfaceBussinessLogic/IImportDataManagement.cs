@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Entities;
-using Entities.Tools;
 
 namespace InterfaceBussinessLogic
 {
@@ -21,6 +20,6 @@ namespace InterfaceBussinessLogic
         /*
          * Importa todos los datos de un estudio del dispositivo device con identificador idReport
          */
-        ToolsReport ImportReport(string idReport, int device);
+        Report ImportReport(string idReport, int device);
     }
 }

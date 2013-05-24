@@ -11,7 +11,9 @@ namespace InterfaceBussinessLogic
         /*
          * Crea un paciente que no existe en la base con los datos ingresados como parametros.
          */
-        void CreatePatient(int idDev, string name, string surname, string address, string dni, DateTime birth, Patient.SexType sex, string neighbour, string city, string tel, string cell, string e_mail);
+
+        void CreatePatient(int idDev, string name, string surname, string address, string dni, DateTime birth,
+                           SexType sex, string neighbour, string city, string tel, string cell, string email);
 
         /*
          * Lista todos los pacientes de la base
@@ -21,6 +23,8 @@ namespace InterfaceBussinessLogic
         /*
          * Modifica la informacion actual del paciente
          */
-        bool EditPatient(string name, string surname, string address, string dni, DateTime birth, Patient.SexType sex, string neighbour, string city, string tel, string cell, string e_mail);
+
+        bool EditPatient(string name, string surname, string address, string dni, DateTime birth, SexType sex,
+                         string neighbour, string city, string tel, string cell, string email);
     }
 }
