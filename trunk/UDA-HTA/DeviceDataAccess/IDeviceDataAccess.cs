@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Entities;
-using Entities.Tools;
 
 namespace DeviceDataAccess
 {
@@ -11,8 +10,8 @@ namespace DeviceDataAccess
     {
         void ConnectToDataBase();
         void CloseConnectionDataBase();
-        ToolsReport GetReport(string idReport);
-        List<ToolsMeasurement> GetMeasures(string idReport);
+        Report GetReport(string idReport);
+        List<Measurement> GetMeasures(string idReport);
         Patient GetPatient(string idPatient);
         ICollection<Patient> ListPatients();
         ICollection<PatientReport> ListAllReports();

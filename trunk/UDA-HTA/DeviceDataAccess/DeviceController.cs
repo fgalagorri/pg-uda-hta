@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Entities;
-using Entities.Tools;
 
 namespace DeviceDataAccess
 {
@@ -27,7 +26,7 @@ namespace DeviceDataAccess
             _deviceType.CloseConnectionDataBase();
         }
 
-        public ToolsReport GetReport(string idReport)
+        public Report GetReport(string idReport)
         {
             return _deviceType.GetReport(idReport);
         }

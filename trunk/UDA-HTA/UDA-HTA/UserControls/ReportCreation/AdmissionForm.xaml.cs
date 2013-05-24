@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using Entities;
-using Entities.Tools;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -9,7 +8,7 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class AdmissionForm : UserControl
     {
-        public AdmissionForm(ToolsReport report)
+        public AdmissionForm(Report report)
         {
             InitializeComponent();
 

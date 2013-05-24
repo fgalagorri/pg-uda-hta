@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Entities;
-using Entities.Tools;
 using UDA_HTA.UserControls.ReportCreation;
 
 namespace UDA_HTA
@@ -17,7 +16,7 @@ namespace UDA_HTA
         private AdmissionForm admissionForm;
         private OtherInformation otherInfo;
 
-        public ReportCreate(ToolsReport report)
+        public ReportCreate(Report report)
         {
             InitializeComponent();
             _state = 0;

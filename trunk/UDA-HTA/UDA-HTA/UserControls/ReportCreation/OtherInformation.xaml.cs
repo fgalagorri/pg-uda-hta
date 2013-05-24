@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Entities.Tools;
+using Entities;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -25,7 +25,7 @@ namespace UDA_HTA.UserControls.ReportCreation
         private List<ExampleMedication> _lstMedication;
         private MedicationSelector _ms;
 
-        public OtherInformation(ToolsReport report)
+        public OtherInformation(Report report)
         {
             InitializeComponent();
 

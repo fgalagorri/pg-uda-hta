@@ -29,10 +29,10 @@ namespace DataAccess
             ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
             try
             {
-                udaContext.insertPatient(lastIdPatient, Convert.ToInt32(p.IdInDevice), p.Name, p.Surname, p.Address, p.DocumentId,
+                udaContext.insertPatient(lastIdPatient, Convert.ToInt32(p.DevicePatientId), p.Names, p.Surnames, p.Address, p.DocumentId,
                                          p.BirthDate, p.Sex.ToString(),
                                          p.Neighbour, p.City, p.Phone, p.CellPhone,
-                                         p.EMail);
+                                         p.Email);
 
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
@@ -51,7 +51,7 @@ namespace DataAccess
             var patientContext = new patient_info_dbEntities();
             ICollection<Patient> patientQuery = patientContext.patient.Select(p=> new Entities.Patient
                 {
-                    Name = p.name,
+                    Names = p.name,
                     City = p.city
                 }).ToList();
 

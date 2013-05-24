@@ -7,61 +7,16 @@ namespace Entities
 {
     public class Measurement
     {
-        private DateTime _time;
-        private int _systolic;
-        private int _average;
-        private int _diastolic;
-        private int _heartRate;
-        private string _comment;
-        private bool _sleep;
+        public DateTime Time { get; set; }
+        public int Systolic { get; set; }
+        public int Diastolic { get; set; }
+        public int Middle { get; set; }
+        public int HeartRate { get; set; }
 
-        public Measurement()
-        {
+        public string Comment { get; set; }
+        public bool Asleep { get; set; }
 
-        }
+        // TODO: Ver el parámetro extra del spacelabs!!
 
-        public DateTime Time
-        {
-            get { return _time; }
-            set { _time = value; }
-        }
-
-        public int Systolic
-        {
-            get { return _systolic; }
-            set { _systolic = value; }
-        }
-
-        public int Average
-        {
-            get { return _average; }
-            set { _average = value; }
-        }
-
-        public int Diastolic
-        {
-            get { return _diastolic; }
-            set { _diastolic = value; }
-        }
-
-        public int HeartRate
-        {
-            get { return _heartRate; }
-            set { _heartRate = value; }
-        }
-
-        public string Comment
-        {
-            get { return _comment; }
-            set { _comment = value; }
-        }
-
-        public bool Sleep
-        {
-            get { return _sleep; }
-            set { _sleep = value; }
-        }
-
-    }   //end measurement
-
+    }
 }

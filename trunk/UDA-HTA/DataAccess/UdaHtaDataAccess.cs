@@ -83,7 +83,7 @@ namespace DataAccess
                                          dCarnet.Final_hr2,dCarnet.Final_hr3, dCarnet.Begin_sleep_time, 
                                          dCarnet.End_sleep_time,dCarnet.How_sleep, dCarnet.Main_meal_time);
 
-            rep.IdDailyCarnet = (int)lastIdDailyReport.Value;
+            rep.DailyCarnetId = (int?)lastIdDailyReport.Value;
 
             ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
             udaContext.insertTemporaryData(lastIdTempData, tempData.weight, tempData.height, tempData.age,
@@ -91,21 +91,21 @@ namespace DataAccess
                                            tempData.diabetic, tempData.known_hypertensive, tempData.fat_percentage,
                                            tempData.muscle_percentage, tempData.kcal);
 
-            rep.IdTemporaryData = (int) lastIdTempData.Value;
+            rep.TemporaryDataId = (int?) lastIdTempData.Value;
 
             ObjectParameter lastIdReport = new ObjectParameter("id",typeof(long));
-            udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor, rep.Diagnosis, rep.RequestDoctor,
-                                    rep.Specialty, rep.DayAvgSys, rep.NightAvgSys, rep.TotalAvgSys, rep.DayMaxSys, rep.NightMaxSys,
-                                    rep.DayAvgDias, rep.NightAvgDias, rep.TotalAvgDias, rep.DayMaxDias, rep.NightMaxDias, rep.DeviceId, 
-                                    int.Parse(rep.DevReportId), rep.IdTemporaryData, rep.IdDailyCarnet, idPatient);
+            udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name, rep.Diagnosis, rep.RequestDoctor,
+                                    rep.RequestDoctorSpeciality, rep.SystolicDayAvg, rep.SystolicNightAvg, rep.SystolicTotalAvg, rep.SystolicDayMax, rep.SystolicNightMax,
+                                    rep.DiastolicDayAvg, rep.DiastolicNightAvg, rep.DiastolicTotalAvg, rep.DiastolicDayMax, rep.DiastolicNightMax, rep.DeviceId, 
+                                    int.Parse(rep.DeviceReportId), rep.TemporaryDataId, rep.DailyCarnetId, idPatient);
             
 
             //Obtener lista de medidas para insertar en tabla Measurement
-            ICollection<Measurement> lmeasure = rep.getMeasureList();
+            ICollection<Measurement> lmeasure = rep.Measures;
 
             foreach (Measurement m in lmeasure)
             {
-                udaContext.insertMeasurement(m.Time, m.Systolic, m.Average, m.Diastolic, m.HeartRate, m.Sleep, (long)lastIdReport.Value,
+                udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate, m.Asleep, (long?)lastIdReport.Value,
                                              idPatient);
             }
             conn.Close();

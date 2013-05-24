@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DeviceDataAccess;
 using Entities;
-using Entities.Tools;
 
 namespace SpacelabsDataAccess
 {
@@ -27,10 +26,10 @@ namespace SpacelabsDataAccess
             //_db.Connection.Close();
         }
 
-        public ToolsReport GetReport(string idReport)
+        public Report GetReport(string idReport)
         {
             Guid id = Guid.Parse(idReport);
-            ToolsReport report = null;
+            Report report = null;
 
             using (_db = new ABPEntities())
             {
@@ -47,12 +46,18 @@ namespace SpacelabsDataAccess
                                  s.SystolicMin,
                                  s.SystolicMax,
                                  s.SystolicAvg,
+                                 s.SystolicMaxTime,
+                                 s.SystolicMintime,
                                  s.DiastolicMin,
                                  s.DiastolicMax,
                                  s.DiastolicAvg,
+                                 s.DiastolicMaxTime,
+                                 s.DiastolicMintime,
                                  s.HrMin,
                                  s.HrMax,
                                  s.HrAvg,
+                                 s.HrMaxTime,
+                                 s.HrMintime,
 
                                  p.PatientId,
                                  p.FirstName,
@@ -70,38 +75,46 @@ namespace SpacelabsDataAccess
 
                 if (r != null)
                 {
-                    report = new ToolsReport
+                    report = new Report
                         {
-                            ReportId = r.TestId.ToString(),
+                            DeviceId = deviceId,
+                            DeviceReportId = r.TestId.ToString(),
                             BeginDate = r.HookupStartTime,
                             EndDate = r.HookupEndTime,
-                            
-                            SystolicMin = r.SystolicMin,
-                            SystolicMax = r.SystolicMax,
-                            SystolicAvg = r.SystolicAvg,
-                            DiastolicMin = r.DiastolicMin,
-                            DiastolicMax = r.DiastolicMax,
-                            DiastolicAvg = r.DiastolicAvg,
-                            HeartRateMin = r.HrMin,
-                            HeartRateMax = r.HrMax,
-                            HeartRateAvg = r.HrAvg,
-                            DeviceId = deviceId,
-                            
-                            Patient = new ToolsPatient
+                            Patient = new Patient
                                 {
-                                    PatientId = r.PatientId.ToString(),
+                                    DevicePatientId = r.PatientId.ToString(),
                                     Names = r.FirstName,
-                                    LastNames = r.Names,
-                                    CI = r.CI,
-                                    Birthday = r.BirthDate,
-                                    Gender = (Sex?) r.GenderId,
+                                    Surnames = r.Names,
+                                    DocumentId = r.CI,
+                                    BirthDate = r.BirthDate,
+                                    Sex = (SexType?) r.GenderId,
                                     Address = r.Street,
                                     // Neighbourhood
                                     City = r.City,
                                     // Department
-                                    Telephone = r.DayPhone,
-                                    Email = r.PriEmailId
-                                }
+                                    Phone = r.DayPhone,
+                                    Email = r.PriEmailId,
+                                    DeviceId = deviceId
+                                },
+
+                            SystolicTotalAvg = r.SystolicAvg,
+                            SystolicTotalMax = r.SystolicMax,
+                            SystolicTotalMin = r.SystolicMin,
+                            SystolicTotalMaxTime = r.SystolicMaxTime,
+                            SystolicTotalMinTime = r.SystolicMintime,
+
+                            DiastolicTotalAvg = r.DiastolicAvg,
+                            DiastolicTotalMax = r.DiastolicMax,
+                            DiastolicTotalMin = r.DiastolicMin,
+                            DiastolicTotalMaxTime = r.DiastolicMaxTime,
+                            DiastolicTotalMinTime = r.DiastolicMintime,
+
+                            HeartRateAvg = r.HrAvg,
+                            HeartRateMax = r.HrMax,
+                            HeartRateMin = r.HrMin,
+                            HeartRateMaxTime = r.HrMaxTime,
+                            HeartRateMinTime = r.HrMintime
                         };
                 }
             }
@@ -109,7 +122,7 @@ namespace SpacelabsDataAccess
             return report;
         }
 
-        public List<ToolsMeasurement> GetMeasures(string idReport)
+        public List<Measurement> GetMeasures(string idReport)
         {
             throw new NotImplementedException();
         }
