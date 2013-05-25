@@ -7,23 +7,34 @@ namespace Entities
 {
     public class DailyCarnet
     {
-        public string Technical { get; set; }
-        public int Init_bp1 { get; set; }
-        public int Init_bp2 { get; set; }
-        public int Init_bp3 { get; set; }
-        public int Init_hr1 { get; set; }
-        public int Init_hr2 { get; set; }
-        public int Init_hr3 { get; set; }
-        public int Final_bp1 { get; set; }
-        public int Final_bp2 { get; set; }
-        public int Final_bp3 { get; set; }
-        public int Final_hr1 { get; set; }
-        public int Final_hr2 { get; set; }
-        public int Final_hr3 { get; set; }
-        public DateTime Begin_sleep_time { get; set; }
-        public DateTime End_sleep_time { get; set; }
-        public string How_sleep { get; set; }
-        public DateTime Main_meal_time { get; set; }
+        public int? InitSystolic1 { get; set; }
+        public int? InitSystolic2 { get; set; }
+        public int? InitSystolic3 { get; set; }
+        public int? InitDiastolic1 { get; set; }
+        public int? InitDiastolic2 { get; set; }
+        public int? InitDiastolic3 { get; set; }
+        public int? InitHeartRate1 { get; set; }
+        public int? InitHeartRate2 { get; set; }
+        public int? InitHeartRate3 { get; set; }
+
+        public int? FinalSystolic1 { get; set; }
+        public int? FinalSystolic2 { get; set; }
+        public int? FinalSystolic3 { get; set; }
+        public int? FinalDiastolic1 { get; set; }
+        public int? FinalDiastolic2 { get; set; }
+        public int? FinalDiastolic3 { get; set; }
+        public int? FinalHeartRate1 { get; set; }
+        public int? FinalHeartRate2 { get; set; }
+        public int? FinalHeartRate3 { get; set; }
+
+        public DateTime SleepTimeStart { get; set; }
+        public DateTime SleepTimeEnd { get; set; }
+        public string SleepQuality { get; set; }
+        public DateTime MealTime { get; set; }
+
+        public ICollection<Effort> Efforts { get; set; }
+        public ICollection<Complication> Complications { get; set; }
+        public ICollection<Medication> Medications { get; set; } 
     }
 
 }

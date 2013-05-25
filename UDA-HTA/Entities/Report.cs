@@ -33,6 +33,8 @@ namespace Entities
         public string DeviceReportId { get; set; }
         public DateTime? BeginDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? DreamStart { get; set; }
+        public DateTime? DreamEnd { get; set; }
         public Patient Patient { get; set; }
 
 
@@ -50,10 +52,6 @@ namespace Entities
         public DateTime? SystolicNightMinTime { get; set; }
         
         public int? SystolicTotalAvg { get; set; }
-        public int? SystolicTotalMax { get; set; } // TODO VER!!!
-        public int? SystolicTotalMin { get; set; }
-        public DateTime? SystolicTotalMaxTime { get; set; }
-        public DateTime? SystolicTotalMinTime { get; set; }
         
         
         // Diastolic measurements 
@@ -70,7 +68,6 @@ namespace Entities
         public DateTime? DiastolicNightMinTime { get; set; }
 
         public int? DiastolicTotalAvg { get; set; }
-        public int? DiastolicTotalMax { get; set; } // TODO VER!!!
         public int? DiastolicTotalMin { get; set; }
         public DateTime? DiastolicTotalMaxTime { get; set; }  
         public DateTime? DiastolicTotalMinTime { get; set; }
@@ -78,10 +75,6 @@ namespace Entities
 
         // Heart rate measurements
         public int? HeartRateAvg { get; set; }
-        public int? HeartRateMax { get; set; } // TODO ver máximos y minimos
-        public int? HeartRateMin { get; set; }
-        public DateTime? HeartRateMaxTime { get; set; }
-        public DateTime? HeartRateMinTime { get; set; }
 
         #endregion
     }
