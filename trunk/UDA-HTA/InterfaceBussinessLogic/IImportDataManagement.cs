@@ -21,5 +21,10 @@ namespace InterfaceBussinessLogic
          * Importa todos los datos de un estudio del dispositivo device con identificador idReport
          */
         Report ImportReport(string idReport, int device);
+
+        /*
+         * Importa todas las medidas de un estudio del dispositivo device con identificador idReport
+         */
+        List<Measurement> ImportMeasures(string idReport, int device);
     }
 }

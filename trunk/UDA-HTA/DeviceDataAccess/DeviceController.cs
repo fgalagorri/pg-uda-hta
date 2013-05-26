@@ -31,6 +31,11 @@ namespace DeviceDataAccess
             return _deviceType.GetReport(idReport);
         }
 
+        public List<Measurement> GetMeasures(string reportId)
+        {
+            return _deviceType.GetMeasures(reportId);
+        }
+
         public Patient GetPatient(string idPatient)
         {
             return _deviceType.GetPatient(idPatient);

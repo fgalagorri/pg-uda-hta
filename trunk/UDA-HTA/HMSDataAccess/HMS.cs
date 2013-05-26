@@ -71,11 +71,15 @@ namespace HMSDataAccess
         public Report GetReport(string idReport)
         {
             var report = new Report();
-            var columns = "ID, BEFUND, CALIBDATE, DAYSTART, IMPORTDATE, NIGHTSTART, PROTDESC, PROTNUM, PROTOCOLDAYSTART, PROTOCOLNIGHTSTART, SERNUM, TIMESTAMP, PATIENT_ID";
+            var columns = "ID, BEFUND, CALIBDATE, DAYSTART, NIGHTSTART, TIMESTAMP, PATIENT_ID";
             var rs = _stat.executeQuery("SELECT " + columns + " FROM AUFZEICHNUNG WHERE AUFZEICHNUNG.ID = " + idReport);
             if (rs != null  && rs.next())
             {
                 report.DeviceReportId = rs.getString(1);
+                report.Diagnosis = rs.getString(2);
+                report.BeginDate = parseDateTime(rs.getString(6));
+                report.Doctor = new User();
+
             }
 
             return report;

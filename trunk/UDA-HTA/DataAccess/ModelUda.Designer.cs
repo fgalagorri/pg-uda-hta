@@ -403,15 +403,15 @@ namespace DataAccess
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="technical">No Metadata Documentation available.</param>
-        /// <param name="initial_bp1">No Metadata Documentation available.</param>
-        /// <param name="initial_bp2">No Metadata Documentation available.</param>
-        /// <param name="initial_bp3">No Metadata Documentation available.</param>
+        /// <param name="initial_dias1">No Metadata Documentation available.</param>
+        /// <param name="initial_dias2">No Metadata Documentation available.</param>
+        /// <param name="initial_dias3">No Metadata Documentation available.</param>
         /// <param name="initial_hr1">No Metadata Documentation available.</param>
         /// <param name="initial_hr2">No Metadata Documentation available.</param>
         /// <param name="initial_hr3">No Metadata Documentation available.</param>
-        /// <param name="final_bp1">No Metadata Documentation available.</param>
-        /// <param name="final_bp2">No Metadata Documentation available.</param>
-        /// <param name="final_bp3">No Metadata Documentation available.</param>
+        /// <param name="final_dias1">No Metadata Documentation available.</param>
+        /// <param name="final_dias2">No Metadata Documentation available.</param>
+        /// <param name="final_dias3">No Metadata Documentation available.</param>
         /// <param name="final_hr1">No Metadata Documentation available.</param>
         /// <param name="final_hr2">No Metadata Documentation available.</param>
         /// <param name="final_hr3">No Metadata Documentation available.</param>
@@ -419,7 +419,13 @@ namespace DataAccess
         /// <param name="end_sleep_time">No Metadata Documentation available.</param>
         /// <param name="how_sleep">No Metadata Documentation available.</param>
         /// <param name="main_meal_time">No Metadata Documentation available.</param>
-        public int insertDailyCarnet(ObjectParameter id, global::System.String technical, Nullable<global::System.Int32> initial_bp1, Nullable<global::System.Int32> initial_bp2, Nullable<global::System.Int32> initial_bp3, Nullable<global::System.Int32> initial_hr1, Nullable<global::System.Int32> initial_hr2, Nullable<global::System.Int32> initial_hr3, Nullable<global::System.Int32> final_bp1, Nullable<global::System.Int32> final_bp2, Nullable<global::System.Int32> final_bp3, Nullable<global::System.Int32> final_hr1, Nullable<global::System.Int32> final_hr2, Nullable<global::System.Int32> final_hr3, Nullable<global::System.DateTime> begin_sleep_time, Nullable<global::System.DateTime> end_sleep_time, global::System.String how_sleep, Nullable<global::System.DateTime> main_meal_time)
+        /// <param name="init_sys1">No Metadata Documentation available.</param>
+        /// <param name="init_sys2">No Metadata Documentation available.</param>
+        /// <param name="init_sys3">No Metadata Documentation available.</param>
+        /// <param name="final_sys1">No Metadata Documentation available.</param>
+        /// <param name="final_sys2">No Metadata Documentation available.</param>
+        /// <param name="final_sys3">No Metadata Documentation available.</param>
+        public int insertDailyCarnet(ObjectParameter id, global::System.String technical, Nullable<global::System.Int32> initial_dias1, Nullable<global::System.Int32> initial_dias2, Nullable<global::System.Int32> initial_dias3, Nullable<global::System.Int32> initial_hr1, Nullable<global::System.Int32> initial_hr2, Nullable<global::System.Int32> initial_hr3, Nullable<global::System.Int32> final_dias1, Nullable<global::System.Int32> final_dias2, Nullable<global::System.Int32> final_dias3, Nullable<global::System.Int32> final_hr1, Nullable<global::System.Int32> final_hr2, Nullable<global::System.Int32> final_hr3, Nullable<global::System.DateTime> begin_sleep_time, Nullable<global::System.DateTime> end_sleep_time, global::System.String how_sleep, Nullable<global::System.DateTime> main_meal_time, Nullable<global::System.Int32> init_sys1, Nullable<global::System.Int32> init_sys2, Nullable<global::System.Int32> init_sys3, Nullable<global::System.Int32> final_sys1, Nullable<global::System.Int32> final_sys2, Nullable<global::System.Int32> final_sys3)
         {
             ObjectParameter technicalParameter;
             if (technical != null)
@@ -431,34 +437,34 @@ namespace DataAccess
                 technicalParameter = new ObjectParameter("technical", typeof(global::System.String));
             }
     
-            ObjectParameter initial_bp1Parameter;
-            if (initial_bp1.HasValue)
+            ObjectParameter initial_dias1Parameter;
+            if (initial_dias1.HasValue)
             {
-                initial_bp1Parameter = new ObjectParameter("initial_bp1", initial_bp1);
+                initial_dias1Parameter = new ObjectParameter("initial_dias1", initial_dias1);
             }
             else
             {
-                initial_bp1Parameter = new ObjectParameter("initial_bp1", typeof(global::System.Int32));
+                initial_dias1Parameter = new ObjectParameter("initial_dias1", typeof(global::System.Int32));
             }
     
-            ObjectParameter initial_bp2Parameter;
-            if (initial_bp2.HasValue)
+            ObjectParameter initial_dias2Parameter;
+            if (initial_dias2.HasValue)
             {
-                initial_bp2Parameter = new ObjectParameter("initial_bp2", initial_bp2);
+                initial_dias2Parameter = new ObjectParameter("initial_dias2", initial_dias2);
             }
             else
             {
-                initial_bp2Parameter = new ObjectParameter("initial_bp2", typeof(global::System.Int32));
+                initial_dias2Parameter = new ObjectParameter("initial_dias2", typeof(global::System.Int32));
             }
     
-            ObjectParameter initial_bp3Parameter;
-            if (initial_bp3.HasValue)
+            ObjectParameter initial_dias3Parameter;
+            if (initial_dias3.HasValue)
             {
-                initial_bp3Parameter = new ObjectParameter("initial_bp3", initial_bp3);
+                initial_dias3Parameter = new ObjectParameter("initial_dias3", initial_dias3);
             }
             else
             {
-                initial_bp3Parameter = new ObjectParameter("initial_bp3", typeof(global::System.Int32));
+                initial_dias3Parameter = new ObjectParameter("initial_dias3", typeof(global::System.Int32));
             }
     
             ObjectParameter initial_hr1Parameter;
@@ -491,34 +497,34 @@ namespace DataAccess
                 initial_hr3Parameter = new ObjectParameter("initial_hr3", typeof(global::System.Int32));
             }
     
-            ObjectParameter final_bp1Parameter;
-            if (final_bp1.HasValue)
+            ObjectParameter final_dias1Parameter;
+            if (final_dias1.HasValue)
             {
-                final_bp1Parameter = new ObjectParameter("final_bp1", final_bp1);
+                final_dias1Parameter = new ObjectParameter("final_dias1", final_dias1);
             }
             else
             {
-                final_bp1Parameter = new ObjectParameter("final_bp1", typeof(global::System.Int32));
+                final_dias1Parameter = new ObjectParameter("final_dias1", typeof(global::System.Int32));
             }
     
-            ObjectParameter final_bp2Parameter;
-            if (final_bp2.HasValue)
+            ObjectParameter final_dias2Parameter;
+            if (final_dias2.HasValue)
             {
-                final_bp2Parameter = new ObjectParameter("final_bp2", final_bp2);
+                final_dias2Parameter = new ObjectParameter("final_dias2", final_dias2);
             }
             else
             {
-                final_bp2Parameter = new ObjectParameter("final_bp2", typeof(global::System.Int32));
+                final_dias2Parameter = new ObjectParameter("final_dias2", typeof(global::System.Int32));
             }
     
-            ObjectParameter final_bp3Parameter;
-            if (final_bp3.HasValue)
+            ObjectParameter final_dias3Parameter;
+            if (final_dias3.HasValue)
             {
-                final_bp3Parameter = new ObjectParameter("final_bp3", final_bp3);
+                final_dias3Parameter = new ObjectParameter("final_dias3", final_dias3);
             }
             else
             {
-                final_bp3Parameter = new ObjectParameter("final_bp3", typeof(global::System.Int32));
+                final_dias3Parameter = new ObjectParameter("final_dias3", typeof(global::System.Int32));
             }
     
             ObjectParameter final_hr1Parameter;
@@ -591,244 +597,67 @@ namespace DataAccess
                 main_meal_timeParameter = new ObjectParameter("main_meal_time", typeof(global::System.DateTime));
             }
     
-            return base.ExecuteFunction("insertDailyCarnet", id, technicalParameter, initial_bp1Parameter, initial_bp2Parameter, initial_bp3Parameter, initial_hr1Parameter, initial_hr2Parameter, initial_hr3Parameter, final_bp1Parameter, final_bp2Parameter, final_bp3Parameter, final_hr1Parameter, final_hr2Parameter, final_hr3Parameter, begin_sleep_timeParameter, end_sleep_timeParameter, how_sleepParameter, main_meal_timeParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="dateM">No Metadata Documentation available.</param>
-        /// <param name="systolic">No Metadata Documentation available.</param>
-        /// <param name="average">No Metadata Documentation available.</param>
-        /// <param name="diastolic">No Metadata Documentation available.</param>
-        /// <param name="heart_rate">No Metadata Documentation available.</param>
-        /// <param name="sleep">No Metadata Documentation available.</param>
-        /// <param name="idReport">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Int64> idReport, Nullable<global::System.Int32> idPatient)
-        {
-            ObjectParameter dateMParameter;
-            if (dateM.HasValue)
+            ObjectParameter init_sys1Parameter;
+            if (init_sys1.HasValue)
             {
-                dateMParameter = new ObjectParameter("dateM", dateM);
+                init_sys1Parameter = new ObjectParameter("init_sys1", init_sys1);
             }
             else
             {
-                dateMParameter = new ObjectParameter("dateM", typeof(global::System.DateTime));
+                init_sys1Parameter = new ObjectParameter("init_sys1", typeof(global::System.Int32));
             }
     
-            ObjectParameter systolicParameter;
-            if (systolic.HasValue)
+            ObjectParameter init_sys2Parameter;
+            if (init_sys2.HasValue)
             {
-                systolicParameter = new ObjectParameter("systolic", systolic);
+                init_sys2Parameter = new ObjectParameter("init_sys2", init_sys2);
             }
             else
             {
-                systolicParameter = new ObjectParameter("systolic", typeof(global::System.Int32));
+                init_sys2Parameter = new ObjectParameter("init_sys2", typeof(global::System.Int32));
             }
     
-            ObjectParameter averageParameter;
-            if (average.HasValue)
+            ObjectParameter init_sys3Parameter;
+            if (init_sys3.HasValue)
             {
-                averageParameter = new ObjectParameter("average", average);
+                init_sys3Parameter = new ObjectParameter("init_sys3", init_sys3);
             }
             else
             {
-                averageParameter = new ObjectParameter("average", typeof(global::System.Int32));
+                init_sys3Parameter = new ObjectParameter("init_sys3", typeof(global::System.Int32));
             }
     
-            ObjectParameter diastolicParameter;
-            if (diastolic.HasValue)
+            ObjectParameter final_sys1Parameter;
+            if (final_sys1.HasValue)
             {
-                diastolicParameter = new ObjectParameter("diastolic", diastolic);
+                final_sys1Parameter = new ObjectParameter("final_sys1", final_sys1);
             }
             else
             {
-                diastolicParameter = new ObjectParameter("diastolic", typeof(global::System.Int32));
+                final_sys1Parameter = new ObjectParameter("final_sys1", typeof(global::System.Int32));
             }
     
-            ObjectParameter heart_rateParameter;
-            if (heart_rate.HasValue)
+            ObjectParameter final_sys2Parameter;
+            if (final_sys2.HasValue)
             {
-                heart_rateParameter = new ObjectParameter("heart_rate", heart_rate);
+                final_sys2Parameter = new ObjectParameter("final_sys2", final_sys2);
             }
             else
             {
-                heart_rateParameter = new ObjectParameter("heart_rate", typeof(global::System.Int32));
+                final_sys2Parameter = new ObjectParameter("final_sys2", typeof(global::System.Int32));
             }
     
-            ObjectParameter sleepParameter;
-            if (sleep.HasValue)
+            ObjectParameter final_sys3Parameter;
+            if (final_sys3.HasValue)
             {
-                sleepParameter = new ObjectParameter("sleep", sleep);
+                final_sys3Parameter = new ObjectParameter("final_sys3", final_sys3);
             }
             else
             {
-                sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
+                final_sys3Parameter = new ObjectParameter("final_sys3", typeof(global::System.Int32));
             }
     
-            ObjectParameter idReportParameter;
-            if (idReport.HasValue)
-            {
-                idReportParameter = new ObjectParameter("idReport", idReport);
-            }
-            else
-            {
-                idReportParameter = new ObjectParameter("idReport", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, idReportParameter, idPatientParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="idInDev">No Metadata Documentation available.</param>
-        /// <param name="name">No Metadata Documentation available.</param>
-        /// <param name="surname">No Metadata Documentation available.</param>
-        /// <param name="addr">No Metadata Documentation available.</param>
-        /// <param name="dni">No Metadata Documentation available.</param>
-        /// <param name="birth">No Metadata Documentation available.</param>
-        /// <param name="sex">No Metadata Documentation available.</param>
-        /// <param name="neighbour">No Metadata Documentation available.</param>
-        /// <param name="city">No Metadata Documentation available.</param>
-        /// <param name="phone">No Metadata Documentation available.</param>
-        /// <param name="cell">No Metadata Documentation available.</param>
-        /// <param name="email">No Metadata Documentation available.</param>
-        public int insertPatient(ObjectParameter id, Nullable<global::System.Int32> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email)
-        {
-            ObjectParameter idInDevParameter;
-            if (idInDev.HasValue)
-            {
-                idInDevParameter = new ObjectParameter("idInDev", idInDev);
-            }
-            else
-            {
-                idInDevParameter = new ObjectParameter("idInDev", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter nameParameter;
-            if (name != null)
-            {
-                nameParameter = new ObjectParameter("name", name);
-            }
-            else
-            {
-                nameParameter = new ObjectParameter("name", typeof(global::System.String));
-            }
-    
-            ObjectParameter surnameParameter;
-            if (surname != null)
-            {
-                surnameParameter = new ObjectParameter("surname", surname);
-            }
-            else
-            {
-                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
-            }
-    
-            ObjectParameter addrParameter;
-            if (addr != null)
-            {
-                addrParameter = new ObjectParameter("addr", addr);
-            }
-            else
-            {
-                addrParameter = new ObjectParameter("addr", typeof(global::System.String));
-            }
-    
-            ObjectParameter dniParameter;
-            if (dni != null)
-            {
-                dniParameter = new ObjectParameter("dni", dni);
-            }
-            else
-            {
-                dniParameter = new ObjectParameter("dni", typeof(global::System.String));
-            }
-    
-            ObjectParameter birthParameter;
-            if (birth.HasValue)
-            {
-                birthParameter = new ObjectParameter("birth", birth);
-            }
-            else
-            {
-                birthParameter = new ObjectParameter("birth", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter sexParameter;
-            if (sex != null)
-            {
-                sexParameter = new ObjectParameter("sex", sex);
-            }
-            else
-            {
-                sexParameter = new ObjectParameter("sex", typeof(global::System.String));
-            }
-    
-            ObjectParameter neighbourParameter;
-            if (neighbour != null)
-            {
-                neighbourParameter = new ObjectParameter("neighbour", neighbour);
-            }
-            else
-            {
-                neighbourParameter = new ObjectParameter("neighbour", typeof(global::System.String));
-            }
-    
-            ObjectParameter cityParameter;
-            if (city != null)
-            {
-                cityParameter = new ObjectParameter("city", city);
-            }
-            else
-            {
-                cityParameter = new ObjectParameter("city", typeof(global::System.String));
-            }
-    
-            ObjectParameter phoneParameter;
-            if (phone != null)
-            {
-                phoneParameter = new ObjectParameter("phone", phone);
-            }
-            else
-            {
-                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
-            }
-    
-            ObjectParameter cellParameter;
-            if (cell != null)
-            {
-                cellParameter = new ObjectParameter("cell", cell);
-            }
-            else
-            {
-                cellParameter = new ObjectParameter("cell", typeof(global::System.String));
-            }
-    
-            ObjectParameter emailParameter;
-            if (email != null)
-            {
-                emailParameter = new ObjectParameter("email", email);
-            }
-            else
-            {
-                emailParameter = new ObjectParameter("email", typeof(global::System.String));
-            }
-    
-            return base.ExecuteFunction("insertPatient", id, idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter);
+            return base.ExecuteFunction("insertDailyCarnet", id, technicalParameter, initial_dias1Parameter, initial_dias2Parameter, initial_dias3Parameter, initial_hr1Parameter, initial_hr2Parameter, initial_hr3Parameter, final_dias1Parameter, final_dias2Parameter, final_dias3Parameter, final_hr1Parameter, final_hr2Parameter, final_hr3Parameter, begin_sleep_timeParameter, end_sleep_timeParameter, how_sleepParameter, main_meal_timeParameter, init_sys1Parameter, init_sys2Parameter, init_sys3Parameter, final_sys1Parameter, final_sys2Parameter, final_sys3Parameter);
         }
     
         /// <summary>
@@ -1074,6 +903,151 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="dateM">No Metadata Documentation available.</param>
+        /// <param name="systolic">No Metadata Documentation available.</param>
+        /// <param name="average">No Metadata Documentation available.</param>
+        /// <param name="diastolic">No Metadata Documentation available.</param>
+        /// <param name="heart_rate">No Metadata Documentation available.</param>
+        /// <param name="sleep">No Metadata Documentation available.</param>
+        /// <param name="idReport">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Int64> idReport, Nullable<global::System.Int32> idPatient)
+        {
+            ObjectParameter dateMParameter;
+            if (dateM.HasValue)
+            {
+                dateMParameter = new ObjectParameter("dateM", dateM);
+            }
+            else
+            {
+                dateMParameter = new ObjectParameter("dateM", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter systolicParameter;
+            if (systolic.HasValue)
+            {
+                systolicParameter = new ObjectParameter("systolic", systolic);
+            }
+            else
+            {
+                systolicParameter = new ObjectParameter("systolic", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter averageParameter;
+            if (average.HasValue)
+            {
+                averageParameter = new ObjectParameter("average", average);
+            }
+            else
+            {
+                averageParameter = new ObjectParameter("average", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter diastolicParameter;
+            if (diastolic.HasValue)
+            {
+                diastolicParameter = new ObjectParameter("diastolic", diastolic);
+            }
+            else
+            {
+                diastolicParameter = new ObjectParameter("diastolic", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter heart_rateParameter;
+            if (heart_rate.HasValue)
+            {
+                heart_rateParameter = new ObjectParameter("heart_rate", heart_rate);
+            }
+            else
+            {
+                heart_rateParameter = new ObjectParameter("heart_rate", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter sleepParameter;
+            if (sleep.HasValue)
+            {
+                sleepParameter = new ObjectParameter("sleep", sleep);
+            }
+            else
+            {
+                sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter idReportParameter;
+            if (idReport.HasValue)
+            {
+                idReportParameter = new ObjectParameter("idReport", idReport);
+            }
+            else
+            {
+                idReportParameter = new ObjectParameter("idReport", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, idReportParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int insertPatientUda(Nullable<global::System.Int32> id)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertPatientUda", idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="login_var">No Metadata Documentation available.</param>
+        /// <param name="pass_var">No Metadata Documentation available.</param>
+        public int updatePassword(global::System.String login_var, global::System.String pass_var)
+        {
+            ObjectParameter login_varParameter;
+            if (login_var != null)
+            {
+                login_varParameter = new ObjectParameter("login_var", login_var);
+            }
+            else
+            {
+                login_varParameter = new ObjectParameter("login_var", typeof(global::System.String));
+            }
+    
+            ObjectParameter pass_varParameter;
+            if (pass_var != null)
+            {
+                pass_varParameter = new ObjectParameter("pass_var", pass_var);
+            }
+            else
+            {
+                pass_varParameter = new ObjectParameter("pass_var", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updatePassword", login_varParameter, pass_varParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="weight">No Metadata Documentation available.</param>
         /// <param name="height">No Metadata Documentation available.</param>
@@ -1200,66 +1174,6 @@ namespace DataAccess
     
             return base.ExecuteFunction("insertTemporaryData", id, weightParameter, heightParameter, ageParameter, body_mass_indexParameter, smokerParameter, dyslipidemiaParameter, diabeticParameter, known_hypertensiveParameter, fat_percentageParameter, muscle_percentageParameter, kcalParameter);
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        public int insertPatientUda(Nullable<global::System.Int32> id)
-        {
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertPatientUda", idParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="nam">No Metadata Documentation available.</param>
-        /// <param name="createDat">No Metadata Documentation available.</param>
-        public int insertInvestigation(Nullable<global::System.Int32> id, global::System.String nam, Nullable<global::System.DateTime> createDat)
-        {
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter namParameter;
-            if (nam != null)
-            {
-                namParameter = new ObjectParameter("nam", nam);
-            }
-            else
-            {
-                namParameter = new ObjectParameter("nam", typeof(global::System.String));
-            }
-    
-            ObjectParameter createDatParameter;
-            if (createDat.HasValue)
-            {
-                createDatParameter = new ObjectParameter("createDat", createDat);
-            }
-            else
-            {
-                createDatParameter = new ObjectParameter("createDat", typeof(global::System.DateTime));
-            }
-    
-            return base.ExecuteFunction("insertInvestigation", idParameter, namParameter, createDatParameter);
-        }
 
         #endregion
     }
@@ -1285,7 +1199,7 @@ namespace DataAccess
         /// <param name="idComplications_Activities">Initial value of the idComplications_Activities property.</param>
         /// <param name="dailyCarnet_idDailyCarnet">Initial value of the DailyCarnet_idDailyCarnet property.</param>
         /// <param name="extrasID_idExtrasID">Initial value of the ExtrasID_idExtrasID property.</param>
-        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int32 dailyCarnet_idDailyCarnet, global::System.Int32 extrasID_idExtrasID)
+        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int64 dailyCarnet_idDailyCarnet, global::System.Int32 extrasID_idExtrasID)
         {
             complications_activities complications_activities = new complications_activities();
             complications_activities.idComplications_Activities = idComplications_Activities;
@@ -1401,7 +1315,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 DailyCarnet_idDailyCarnet
+        public global::System.Int64 DailyCarnet_idDailyCarnet
         {
             get
             {
@@ -1416,8 +1330,8 @@ namespace DataAccess
                 OnDailyCarnet_idDailyCarnetChanged();
             }
         }
-        private global::System.Int32 _DailyCarnet_idDailyCarnet;
-        partial void OnDailyCarnet_idDailyCarnetChanging(global::System.Int32 value);
+        private global::System.Int64 _DailyCarnet_idDailyCarnet;
+        partial void OnDailyCarnet_idDailyCarnetChanging(global::System.Int64 value);
         partial void OnDailyCarnet_idDailyCarnetChanged();
     
         /// <summary>
@@ -1544,7 +1458,7 @@ namespace DataAccess
         /// Create a new dailycarnet object.
         /// </summary>
         /// <param name="idDailyCarnet">Initial value of the idDailyCarnet property.</param>
-        public static dailycarnet Createdailycarnet(global::System.Int32 idDailyCarnet)
+        public static dailycarnet Createdailycarnet(global::System.Int64 idDailyCarnet)
         {
             dailycarnet dailycarnet = new dailycarnet();
             dailycarnet.idDailyCarnet = idDailyCarnet;
@@ -1559,7 +1473,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idDailyCarnet
+        public global::System.Int64 idDailyCarnet
         {
             get
             {
@@ -1577,8 +1491,8 @@ namespace DataAccess
                 }
             }
         }
-        private global::System.Int32 _idDailyCarnet;
-        partial void OnidDailyCarnetChanging(global::System.Int32 value);
+        private global::System.Int64 _idDailyCarnet;
+        partial void OnidDailyCarnetChanging(global::System.Int64 value);
         partial void OnidDailyCarnetChanged();
     
         /// <summary>
@@ -1610,72 +1524,72 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> initial_bp1
+        public Nullable<global::System.Int32> initial_dias1
         {
             get
             {
-                return _initial_bp1;
+                return _initial_dias1;
             }
             set
             {
-                Oninitial_bp1Changing(value);
-                ReportPropertyChanging("initial_bp1");
-                _initial_bp1 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("initial_bp1");
-                Oninitial_bp1Changed();
+                Oninitial_dias1Changing(value);
+                ReportPropertyChanging("initial_dias1");
+                _initial_dias1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("initial_dias1");
+                Oninitial_dias1Changed();
             }
         }
-        private Nullable<global::System.Int32> _initial_bp1;
-        partial void Oninitial_bp1Changing(Nullable<global::System.Int32> value);
-        partial void Oninitial_bp1Changed();
+        private Nullable<global::System.Int32> _initial_dias1;
+        partial void Oninitial_dias1Changing(Nullable<global::System.Int32> value);
+        partial void Oninitial_dias1Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> initial_bp2
+        public Nullable<global::System.Int32> initial_dias2
         {
             get
             {
-                return _initial_bp2;
+                return _initial_dias2;
             }
             set
             {
-                Oninitial_bp2Changing(value);
-                ReportPropertyChanging("initial_bp2");
-                _initial_bp2 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("initial_bp2");
-                Oninitial_bp2Changed();
+                Oninitial_dias2Changing(value);
+                ReportPropertyChanging("initial_dias2");
+                _initial_dias2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("initial_dias2");
+                Oninitial_dias2Changed();
             }
         }
-        private Nullable<global::System.Int32> _initial_bp2;
-        partial void Oninitial_bp2Changing(Nullable<global::System.Int32> value);
-        partial void Oninitial_bp2Changed();
+        private Nullable<global::System.Int32> _initial_dias2;
+        partial void Oninitial_dias2Changing(Nullable<global::System.Int32> value);
+        partial void Oninitial_dias2Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> initial_bp3
+        public Nullable<global::System.Int32> initial_dias3
         {
             get
             {
-                return _initial_bp3;
+                return _initial_dias3;
             }
             set
             {
-                Oninitial_bp3Changing(value);
-                ReportPropertyChanging("initial_bp3");
-                _initial_bp3 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("initial_bp3");
-                Oninitial_bp3Changed();
+                Oninitial_dias3Changing(value);
+                ReportPropertyChanging("initial_dias3");
+                _initial_dias3 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("initial_dias3");
+                Oninitial_dias3Changed();
             }
         }
-        private Nullable<global::System.Int32> _initial_bp3;
-        partial void Oninitial_bp3Changing(Nullable<global::System.Int32> value);
-        partial void Oninitial_bp3Changed();
+        private Nullable<global::System.Int32> _initial_dias3;
+        partial void Oninitial_dias3Changing(Nullable<global::System.Int32> value);
+        partial void Oninitial_dias3Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1754,72 +1668,72 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> final_bp1
+        public Nullable<global::System.Int32> final_dias1
         {
             get
             {
-                return _final_bp1;
+                return _final_dias1;
             }
             set
             {
-                Onfinal_bp1Changing(value);
-                ReportPropertyChanging("final_bp1");
-                _final_bp1 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("final_bp1");
-                Onfinal_bp1Changed();
+                Onfinal_dias1Changing(value);
+                ReportPropertyChanging("final_dias1");
+                _final_dias1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_dias1");
+                Onfinal_dias1Changed();
             }
         }
-        private Nullable<global::System.Int32> _final_bp1;
-        partial void Onfinal_bp1Changing(Nullable<global::System.Int32> value);
-        partial void Onfinal_bp1Changed();
+        private Nullable<global::System.Int32> _final_dias1;
+        partial void Onfinal_dias1Changing(Nullable<global::System.Int32> value);
+        partial void Onfinal_dias1Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> final_bp2
+        public Nullable<global::System.Int32> final_dias2
         {
             get
             {
-                return _final_bp2;
+                return _final_dias2;
             }
             set
             {
-                Onfinal_bp2Changing(value);
-                ReportPropertyChanging("final_bp2");
-                _final_bp2 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("final_bp2");
-                Onfinal_bp2Changed();
+                Onfinal_dias2Changing(value);
+                ReportPropertyChanging("final_dias2");
+                _final_dias2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_dias2");
+                Onfinal_dias2Changed();
             }
         }
-        private Nullable<global::System.Int32> _final_bp2;
-        partial void Onfinal_bp2Changing(Nullable<global::System.Int32> value);
-        partial void Onfinal_bp2Changed();
+        private Nullable<global::System.Int32> _final_dias2;
+        partial void Onfinal_dias2Changing(Nullable<global::System.Int32> value);
+        partial void Onfinal_dias2Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> final_bp3
+        public Nullable<global::System.Int32> final_dias3
         {
             get
             {
-                return _final_bp3;
+                return _final_dias3;
             }
             set
             {
-                Onfinal_bp3Changing(value);
-                ReportPropertyChanging("final_bp3");
-                _final_bp3 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("final_bp3");
-                Onfinal_bp3Changed();
+                Onfinal_dias3Changing(value);
+                ReportPropertyChanging("final_dias3");
+                _final_dias3 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_dias3");
+                Onfinal_dias3Changed();
             }
         }
-        private Nullable<global::System.Int32> _final_bp3;
-        partial void Onfinal_bp3Changing(Nullable<global::System.Int32> value);
-        partial void Onfinal_bp3Changed();
+        private Nullable<global::System.Int32> _final_dias3;
+        partial void Onfinal_dias3Changing(Nullable<global::System.Int32> value);
+        partial void Onfinal_dias3Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1988,6 +1902,150 @@ namespace DataAccess
         private Nullable<global::System.DateTime> _main_meal_time;
         partial void Onmain_meal_timeChanging(Nullable<global::System.DateTime> value);
         partial void Onmain_meal_timeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> init_sys1
+        {
+            get
+            {
+                return _init_sys1;
+            }
+            set
+            {
+                Oninit_sys1Changing(value);
+                ReportPropertyChanging("init_sys1");
+                _init_sys1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("init_sys1");
+                Oninit_sys1Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _init_sys1;
+        partial void Oninit_sys1Changing(Nullable<global::System.Int32> value);
+        partial void Oninit_sys1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> init_sys2
+        {
+            get
+            {
+                return _init_sys2;
+            }
+            set
+            {
+                Oninit_sys2Changing(value);
+                ReportPropertyChanging("init_sys2");
+                _init_sys2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("init_sys2");
+                Oninit_sys2Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _init_sys2;
+        partial void Oninit_sys2Changing(Nullable<global::System.Int32> value);
+        partial void Oninit_sys2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> init_sys3
+        {
+            get
+            {
+                return _init_sys3;
+            }
+            set
+            {
+                Oninit_sys3Changing(value);
+                ReportPropertyChanging("init_sys3");
+                _init_sys3 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("init_sys3");
+                Oninit_sys3Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _init_sys3;
+        partial void Oninit_sys3Changing(Nullable<global::System.Int32> value);
+        partial void Oninit_sys3Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> final_sys1
+        {
+            get
+            {
+                return _final_sys1;
+            }
+            set
+            {
+                Onfinal_sys1Changing(value);
+                ReportPropertyChanging("final_sys1");
+                _final_sys1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_sys1");
+                Onfinal_sys1Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _final_sys1;
+        partial void Onfinal_sys1Changing(Nullable<global::System.Int32> value);
+        partial void Onfinal_sys1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> final_sys2
+        {
+            get
+            {
+                return _final_sys2;
+            }
+            set
+            {
+                Onfinal_sys2Changing(value);
+                ReportPropertyChanging("final_sys2");
+                _final_sys2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_sys2");
+                Onfinal_sys2Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _final_sys2;
+        partial void Onfinal_sys2Changing(Nullable<global::System.Int32> value);
+        partial void Onfinal_sys2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> final_sys3
+        {
+            get
+            {
+                return _final_sys3;
+            }
+            set
+            {
+                Onfinal_sys3Changing(value);
+                ReportPropertyChanging("final_sys3");
+                _final_sys3 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("final_sys3");
+                Onfinal_sys3Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _final_sys3;
+        partial void Onfinal_sys3Changing(Nullable<global::System.Int32> value);
+        partial void Onfinal_sys3Changed();
 
         #endregion
     
@@ -3432,7 +3490,7 @@ namespace DataAccess
         /// <param name="dailyCarnet_idDailyCarnet">Initial value of the DailyCarnet_idDailyCarnet property.</param>
         /// <param name="patient_idPatient">Initial value of the Patient_idPatient property.</param>
         /// <param name="temporaryData_idTemporaryData">Initial value of the TemporaryData_idTemporaryData property.</param>
-        public static report Createreport(global::System.Int64 idReport, global::System.Int32 idDevice, global::System.String deviceReportId, global::System.Int32 dailyCarnet_idDailyCarnet, global::System.Int32 patient_idPatient, global::System.Int32 temporaryData_idTemporaryData)
+        public static report Createreport(global::System.Int64 idReport, global::System.Int32 idDevice, global::System.String deviceReportId, global::System.Int64 dailyCarnet_idDailyCarnet, global::System.Int32 patient_idPatient, global::System.Int32 temporaryData_idTemporaryData)
         {
             report report = new report();
             report.idReport = idReport;
@@ -3911,7 +3969,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 DailyCarnet_idDailyCarnet
+        public global::System.Int64 DailyCarnet_idDailyCarnet
         {
             get
             {
@@ -3926,8 +3984,8 @@ namespace DataAccess
                 OnDailyCarnet_idDailyCarnetChanged();
             }
         }
-        private global::System.Int32 _DailyCarnet_idDailyCarnet;
-        partial void OnDailyCarnet_idDailyCarnetChanging(global::System.Int32 value);
+        private global::System.Int64 _DailyCarnet_idDailyCarnet;
+        partial void OnDailyCarnet_idDailyCarnetChanging(global::System.Int64 value);
         partial void OnDailyCarnet_idDailyCarnetChanged();
     
         /// <summary>

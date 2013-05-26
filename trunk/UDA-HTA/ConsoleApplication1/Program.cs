@@ -96,8 +96,9 @@ namespace ConsoleApplication1
                     DailyCarnet dailyCarnet = new DailyCarnet();
                     TemporaryData temporaryData = new TemporaryData();
                     Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
-                    Report r = null;
-                    rm.addReport(r, idPatient.ToString(), dailyCarnet, temporaryData);
+                    List<Measurement> lMeasurements = idm.ImportMeasures(pr.ReportId, pr.ReportDevice);
+                    rep.Measures = lMeasurements;
+                    rm.addReport(rep, idPatient.ToString(), dailyCarnet, temporaryData);
                 }
                 catch (Exception e)
                 {
