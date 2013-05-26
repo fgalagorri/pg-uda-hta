@@ -91,7 +91,6 @@ namespace BussinessLogic
                 case 1:
                     // El dispositivo es Spacelabs
                     dda = new DeviceController(new Spacelabs());
-                    report = dda.GetReport(idReport);
                     break;
                 default:
                     // Error
@@ -108,5 +107,34 @@ namespace BussinessLogic
             return report;
         }
 
+        public List<Measurement> ImportMeasures(string idReport, int device)
+        {
+            List<Measurement> lMeasures = null; 
+
+            DeviceController dda;
+            switch (device)
+            {
+                case 0:
+                    // El dispositivo es HMS
+                    dda = new DeviceController(new HMS());
+                    break;
+                case 1:
+                    // El dispositivo es Spacelabs
+                    dda = new DeviceController(new Spacelabs());
+                    break;
+                default:
+                    // Error
+                    dda = null;
+                    break;
+            }
+
+            if (dda != null)
+            {
+                lMeasures = dda.GetMeasures(idReport);
+                dda.CloseDeviceDataAccess();
+            }
+
+            return lMeasures;
+        }
     }
 }

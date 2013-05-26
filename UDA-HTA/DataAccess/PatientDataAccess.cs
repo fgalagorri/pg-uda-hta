@@ -29,10 +29,16 @@ namespace DataAccess
             ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
             try
             {
-                udaContext.insertPatient(lastIdPatient, Convert.ToInt32(p.DevicePatientId), p.Names, p.Surnames, p.Address, p.DocumentId,
-                                         p.BirthDate, p.Sex.ToString(),
-                                         p.Neighbour, p.City, p.Phone, p.CellPhone,
-                                         p.Email);
+                Int32 devPatId = Convert.ToInt32(p.DevicePatientId);
+                var sex = SexType.M.ToString();
+                if ( p.Sex != null &&
+                    ((p.Sex.Value == SexType.F) || 
+                    (p.Sex.Value == SexType.M)) )
+                {
+                    sex = p.Sex.Value.ToString();
+                }
+                udaContext.insertPatient(lastIdPatient, devPatId, p.Names, p.Surnames, p.Address, p.DocumentId,
+                                         p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email);
 
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
@@ -86,13 +92,15 @@ namespace DataAccess
         public bool ExistPatientReference(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
-            return patientContext.patient.Any(p => p.patientReference == Convert.ToInt32(patientReference));
+            Int32 patRef = Convert.ToInt32(patientReference);
+            return patientContext.patient.Any(p => p.patientReference == patRef);
         }
 
         public int GetPatientId(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
-            var pat = patientContext.patient.Where(p => p.patientReference == Convert.ToInt32(patientReference)).Select(p => new { p.idPatient }).ToList().First();
+            Int32 patRef = Convert.ToInt32(patientReference);
+            var pat = patientContext.patient.Where(p => p.patientReference == patRef).Select(p => new { p.idPatient }).ToList().First();
             return pat.idPatient;
         }
     }

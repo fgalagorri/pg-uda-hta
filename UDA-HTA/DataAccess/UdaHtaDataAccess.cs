@@ -77,27 +77,32 @@ namespace DataAccess
             var udaContext = new udahta_dbEntities();
 
             ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
-            udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technical, dCarnet.Init_bp1, dCarnet.Init_bp2,
-                                         dCarnet.Init_bp3, dCarnet.Init_hr1,dCarnet.Init_hr2, dCarnet.Init_hr3, 
-                                         dCarnet.Final_bp1, dCarnet.Final_bp2,dCarnet.Final_bp3, dCarnet.Final_hr1, 
-                                         dCarnet.Final_hr2,dCarnet.Final_hr3, dCarnet.Begin_sleep_time, 
-                                         dCarnet.End_sleep_time,dCarnet.How_sleep, dCarnet.Main_meal_time);
+            udaContext.insertDailyCarnet(lastIdDailyReport, rep.Technician.Name, dCarnet.InitDiastolic1,
+                                         dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
+                                         dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
+                                         dCarnet.FinalDiastolic1, dCarnet.FinalDiastolic2, dCarnet.FinalDiastolic3,
+                                         dCarnet.FinalHeartRate1, dCarnet.FinalHeartRate2, dCarnet.FinalHeartRate3,
+                                         dCarnet.SleepTimeStart, dCarnet.SleepTimeEnd, dCarnet.SleepQuality, dCarnet.MealTime,
+                                         dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
+                                         dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3
+                                         );
 
             rep.DailyCarnetId = (int?)lastIdDailyReport.Value;
 
             ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
-            udaContext.insertTemporaryData(lastIdTempData, tempData.weight, tempData.height, tempData.age,
-                                           tempData.body_max_index, tempData.smoker, tempData.dyslipidemia,
-                                           tempData.diabetic, tempData.known_hypertensive, tempData.fat_percentage,
-                                           tempData.muscle_percentage, tempData.kcal);
+            udaContext.insertTemporaryData(lastIdTempData, tempData.Weight, tempData.Height, tempData.Age,
+                                           tempData.BodyMassIndex, tempData.Smoker, tempData.Dyslipidemia,
+                                           tempData.Diabetic, tempData.Hypertensive, tempData.FatPercentage,
+                                           tempData.MusclePercentage, tempData.Kcal);
 
             rep.TemporaryDataId = (int?) lastIdTempData.Value;
 
             ObjectParameter lastIdReport = new ObjectParameter("id",typeof(long));
             udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name, rep.Diagnosis, rep.RequestDoctor,
-                                    rep.RequestDoctorSpeciality, rep.SystolicDayAvg, rep.SystolicNightAvg, rep.SystolicTotalAvg, rep.SystolicDayMax, rep.SystolicNightMax,
-                                    rep.DiastolicDayAvg, rep.DiastolicNightAvg, rep.DiastolicTotalAvg, rep.DiastolicDayMax, rep.DiastolicNightMax, rep.DeviceId, 
-                                    int.Parse(rep.DeviceReportId), rep.TemporaryDataId, rep.DailyCarnetId, idPatient);
+                                    rep.RequestDoctorSpeciality, rep.SystolicDayAvg, rep.SystolicNightAvg, rep.SystolicTotalAvg, rep.SystolicDayMax, 
+                                    rep.SystolicNightMax, rep.DiastolicDayAvg, rep.DiastolicNightAvg, rep.DiastolicTotalAvg, rep.DiastolicDayMax, 
+                                    rep.DiastolicNightMax, rep.DeviceId, int.Parse(rep.DeviceReportId), rep.TemporaryDataId, rep.DailyCarnetId, 
+                                    idPatient);
             
 
             //Obtener lista de medidas para insertar en tabla Measurement

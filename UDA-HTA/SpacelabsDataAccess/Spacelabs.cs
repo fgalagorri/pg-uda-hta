@@ -99,22 +99,24 @@ namespace SpacelabsDataAccess
                                 },
 
                             SystolicTotalAvg = r.SystolicAvg,
-                            SystolicTotalMax = r.SystolicMax,
+                            /*SystolicTotalMax = r.SystolicMax,
                             SystolicTotalMin = r.SystolicMin,
                             SystolicTotalMaxTime = r.SystolicMaxTime,
                             SystolicTotalMinTime = r.SystolicMintime,
+                             */
 
                             DiastolicTotalAvg = r.DiastolicAvg,
-                            DiastolicTotalMax = r.DiastolicMax,
+                            //DiastolicTotalMax = r.DiastolicMax,
                             DiastolicTotalMin = r.DiastolicMin,
                             DiastolicTotalMaxTime = r.DiastolicMaxTime,
                             DiastolicTotalMinTime = r.DiastolicMintime,
 
                             HeartRateAvg = r.HrAvg,
-                            HeartRateMax = r.HrMax,
+                            /*HeartRateMax = r.HrMax,
                             HeartRateMin = r.HrMin,
                             HeartRateMaxTime = r.HrMaxTime,
                             HeartRateMinTime = r.HrMintime
+                             */
                         };
                 }
             }
