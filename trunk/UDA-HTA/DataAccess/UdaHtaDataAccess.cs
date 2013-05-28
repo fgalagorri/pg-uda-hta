@@ -66,9 +66,107 @@ namespace DataAccess
         }
 
         // Devuelve una lista de los reportes del paciente 'patientId'
-        public ICollection<Report> GetReportsByPatientId(int patientId)
+        public ICollection<Report> GetReportsByPatientId(string patientId)
         {
-            return null;
+            ICollection<Report> lrep = new List<Report>();
+
+            var udaContext = new udahta_dbEntities();
+            var query = udaContext.report
+                .Where(r => r.Patient_idPatient.ToString() == patientId)
+                .Select(r => new {r.idReport, r.DailyCarnet_idDailyCarnet, r.Patient_idPatient, r.TemporaryData_idTemporaryData, r.begin_date, 
+                                  r.dailycarnet, r.day_avg_dias, r.day_avg_sys, r.day_max_dias, r.day_max_sys, r.deviceReportId, r.diagnosis, 
+                                  r.doctor, r.end_date, r.idDevice, r.investigation, r.measurement, r.night_avg_dias, r.night_avg_sys, 
+                                  r.night_max_dias, r.night_max_sys, r.patientuda, r.request_doctor, r.specialty, r.temporarydata, r.total_avg_dias, 
+                                  r.total_avg_sys}).ToList();
+
+            foreach (var rep in query)
+            {
+                var report = new Report();
+                report.BeginDate = rep.begin_date;
+                
+                //DailyCarnet
+                report.Carnet.InitSystolic1 = rep.dailycarnet.init_sys1;
+                report.Carnet.InitSystolic2 = rep.dailycarnet.init_sys2;
+                report.Carnet.InitSystolic3 = rep.dailycarnet.init_sys3;
+                
+                report.Carnet.InitDiastolic1 = rep.dailycarnet.initial_dias1;
+                report.Carnet.InitDiastolic2 = rep.dailycarnet.initial_dias2;
+                report.Carnet.InitDiastolic3 = rep.dailycarnet.initial_dias3;
+                
+                report.Carnet.InitHeartRate1 = rep.dailycarnet.initial_hr1;
+                report.Carnet.InitHeartRate2 = rep.dailycarnet.initial_hr2;
+                report.Carnet.InitHeartRate3 = rep.dailycarnet.initial_hr3;
+
+                report.Carnet.FinalSystolic1 = rep.dailycarnet.final_sys1;
+                report.Carnet.FinalSystolic2 = rep.dailycarnet.final_sys2;
+                report.Carnet.FinalSystolic3 = rep.dailycarnet.final_sys3;
+
+                report.Carnet.FinalDiastolic1 = rep.dailycarnet.final_dias1;
+                report.Carnet.FinalDiastolic2 = rep.dailycarnet.final_dias2;
+                report.Carnet.FinalDiastolic3 = rep.dailycarnet.final_dias3;
+
+                report.Carnet.FinalHeartRate1 = rep.dailycarnet.final_hr1;
+                report.Carnet.FinalHeartRate2 = rep.dailycarnet.final_hr2;
+                report.Carnet.FinalHeartRate3 = rep.dailycarnet.final_hr3;
+
+                report.Carnet.MealTime = new DateTime(rep.dailycarnet.main_meal_time.Value.Year,
+                                                      rep.dailycarnet.main_meal_time.Value.Month,
+                                                      rep.dailycarnet.main_meal_time.Value.Day,
+                                                      rep.dailycarnet.main_meal_time.Value.Hour,
+                                                      rep.dailycarnet.main_meal_time.Value.Minute,
+                                                      rep.dailycarnet.main_meal_time.Value.Second);
+
+                report.Carnet.SleepQuality = rep.dailycarnet.how_sleep;
+
+                report.Carnet.SleepTimeEnd = new DateTime(rep.dailycarnet.end_sleep_time.Value.Year,
+                                                          rep.dailycarnet.end_sleep_time.Value.Month,
+                                                          rep.dailycarnet.end_sleep_time.Value.Day,
+                                                          rep.dailycarnet.end_sleep_time.Value.Hour,
+                                                          rep.dailycarnet.end_sleep_time.Value.Minute,
+                                                          rep.dailycarnet.end_sleep_time.Value.Second);
+
+                report.Carnet.SleepTimeStart = new DateTime(rep.dailycarnet.begin_sleep_time.Value.Year,
+                                                            rep.dailycarnet.begin_sleep_time.Value.Month,
+                                                            rep.dailycarnet.begin_sleep_time.Value.Day,
+                                                            rep.dailycarnet.begin_sleep_time.Value.Hour,
+                                                            rep.dailycarnet.begin_sleep_time.Value.Minute,
+                                                            rep.dailycarnet.begin_sleep_time.Value.Second
+                                                            );
+
+                report.Carnet.Technician.Name = rep.dailycarnet.technical;
+
+                report.DeviceId = rep.idDevice;
+                report.DeviceReportId = rep.deviceReportId;
+                report.Diagnosis = rep.diagnosis;
+                
+                report.DiastolicDayAvg = rep.day_avg_dias;
+                report.DiastolicDayMax = rep.day_max_sys;
+                report.DiastolicNightAvg = rep.night_avg_dias;
+                report.DiastolicNightMax = rep.night_max_dias;
+                report.DiastolicTotalAvg = rep.total_avg_dias;
+                
+                report.Doctor.Name = rep.doctor;
+                report.EndDate = rep.end_date;
+                report.RequestDoctor = rep.request_doctor;
+                report.RequestDoctorSpeciality = rep.specialty;
+
+                //TemporaryData
+                report.TemporaryData.IdTemporaryData = rep.temporarydata.idTemporaryData;
+                report.TemporaryData.Age = rep.temporarydata.age;
+                report.TemporaryData.BodyMassIndex = rep.temporarydata.body_mass_index;
+                report.TemporaryData.Diabetic = rep.temporarydata.diabetic;
+                report.TemporaryData.Dyslipidemia = rep.temporarydata.dyslipidemia;
+                report.TemporaryData.FatPercentage = rep.temporarydata.fat_percentage;
+                report.TemporaryData.Height = rep.temporarydata.height;
+                report.TemporaryData.Hypertensive = rep.temporarydata.known_hypertensive;
+                report.TemporaryData.Kcal = rep.temporarydata.kcal;
+                report.TemporaryData.MusclePercentage = rep.temporarydata.muscle_percentage;
+                report.TemporaryData.Smoker = rep.temporarydata.smoker;
+                report.TemporaryData.Weight = report.TemporaryData.Weight;
+
+            }
+
+            return lrep;
         }
 
 
@@ -77,7 +175,7 @@ namespace DataAccess
             var udaContext = new udahta_dbEntities();
 
             ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
-            udaContext.insertDailyCarnet(lastIdDailyReport, rep.Technician.Name, dCarnet.InitDiastolic1,
+            udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technician.Name, dCarnet.InitDiastolic1,
                                          dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
                                          dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
                                          dCarnet.FinalDiastolic1, dCarnet.FinalDiastolic2, dCarnet.FinalDiastolic3,
@@ -110,14 +208,26 @@ namespace DataAccess
 
             foreach (Measurement m in lmeasure)
             {
-                udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate, m.Asleep, (long?)lastIdReport.Value,
+                udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate, m.Asleep, m.Comment, (long?)lastIdReport.Value,
                                              idPatient);
             }
             conn.Close();
         }
 
-        public void InsertDailyCarnet()
+        public void InsertDailyCarnet(DailyCarnet dCarnet)
         {
+            var udaContext = new udahta_dbEntities();
+
+            ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
+            udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technician.Name, dCarnet.InitDiastolic1,
+                                         dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
+                                         dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
+                                         dCarnet.FinalDiastolic1, dCarnet.FinalDiastolic2, dCarnet.FinalDiastolic3,
+                                         dCarnet.FinalHeartRate1, dCarnet.FinalHeartRate2, dCarnet.FinalHeartRate3,
+                                         dCarnet.SleepTimeStart, dCarnet.SleepTimeEnd, dCarnet.SleepQuality, dCarnet.MealTime,
+                                         dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
+                                         dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3
+                                         );
         }
 
 

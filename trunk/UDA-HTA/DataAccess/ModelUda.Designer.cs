@@ -903,102 +903,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="dateM">No Metadata Documentation available.</param>
-        /// <param name="systolic">No Metadata Documentation available.</param>
-        /// <param name="average">No Metadata Documentation available.</param>
-        /// <param name="diastolic">No Metadata Documentation available.</param>
-        /// <param name="heart_rate">No Metadata Documentation available.</param>
-        /// <param name="sleep">No Metadata Documentation available.</param>
-        /// <param name="idReport">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Int64> idReport, Nullable<global::System.Int32> idPatient)
-        {
-            ObjectParameter dateMParameter;
-            if (dateM.HasValue)
-            {
-                dateMParameter = new ObjectParameter("dateM", dateM);
-            }
-            else
-            {
-                dateMParameter = new ObjectParameter("dateM", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter systolicParameter;
-            if (systolic.HasValue)
-            {
-                systolicParameter = new ObjectParameter("systolic", systolic);
-            }
-            else
-            {
-                systolicParameter = new ObjectParameter("systolic", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter averageParameter;
-            if (average.HasValue)
-            {
-                averageParameter = new ObjectParameter("average", average);
-            }
-            else
-            {
-                averageParameter = new ObjectParameter("average", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter diastolicParameter;
-            if (diastolic.HasValue)
-            {
-                diastolicParameter = new ObjectParameter("diastolic", diastolic);
-            }
-            else
-            {
-                diastolicParameter = new ObjectParameter("diastolic", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter heart_rateParameter;
-            if (heart_rate.HasValue)
-            {
-                heart_rateParameter = new ObjectParameter("heart_rate", heart_rate);
-            }
-            else
-            {
-                heart_rateParameter = new ObjectParameter("heart_rate", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter sleepParameter;
-            if (sleep.HasValue)
-            {
-                sleepParameter = new ObjectParameter("sleep", sleep);
-            }
-            else
-            {
-                sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
-            }
-    
-            ObjectParameter idReportParameter;
-            if (idReport.HasValue)
-            {
-                idReportParameter = new ObjectParameter("idReport", idReport);
-            }
-            else
-            {
-                idReportParameter = new ObjectParameter("idReport", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, idReportParameter, idPatientParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         public int insertPatientUda(Nullable<global::System.Int32> id)
         {
@@ -1173,6 +1077,113 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("insertTemporaryData", id, weightParameter, heightParameter, ageParameter, body_mass_indexParameter, smokerParameter, dyslipidemiaParameter, diabeticParameter, known_hypertensiveParameter, fat_percentageParameter, muscle_percentageParameter, kcalParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="dateM">No Metadata Documentation available.</param>
+        /// <param name="systolic">No Metadata Documentation available.</param>
+        /// <param name="average">No Metadata Documentation available.</param>
+        /// <param name="diastolic">No Metadata Documentation available.</param>
+        /// <param name="heart_rate">No Metadata Documentation available.</param>
+        /// <param name="sleep">No Metadata Documentation available.</param>
+        /// <param name="comm">No Metadata Documentation available.</param>
+        /// <param name="idReport">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int32> idPatient)
+        {
+            ObjectParameter dateMParameter;
+            if (dateM.HasValue)
+            {
+                dateMParameter = new ObjectParameter("dateM", dateM);
+            }
+            else
+            {
+                dateMParameter = new ObjectParameter("dateM", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter systolicParameter;
+            if (systolic.HasValue)
+            {
+                systolicParameter = new ObjectParameter("systolic", systolic);
+            }
+            else
+            {
+                systolicParameter = new ObjectParameter("systolic", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter averageParameter;
+            if (average.HasValue)
+            {
+                averageParameter = new ObjectParameter("average", average);
+            }
+            else
+            {
+                averageParameter = new ObjectParameter("average", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter diastolicParameter;
+            if (diastolic.HasValue)
+            {
+                diastolicParameter = new ObjectParameter("diastolic", diastolic);
+            }
+            else
+            {
+                diastolicParameter = new ObjectParameter("diastolic", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter heart_rateParameter;
+            if (heart_rate.HasValue)
+            {
+                heart_rateParameter = new ObjectParameter("heart_rate", heart_rate);
+            }
+            else
+            {
+                heart_rateParameter = new ObjectParameter("heart_rate", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter sleepParameter;
+            if (sleep.HasValue)
+            {
+                sleepParameter = new ObjectParameter("sleep", sleep);
+            }
+            else
+            {
+                sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter commParameter;
+            if (comm != null)
+            {
+                commParameter = new ObjectParameter("comm", comm);
+            }
+            else
+            {
+                commParameter = new ObjectParameter("comm", typeof(global::System.String));
+            }
+    
+            ObjectParameter idReportParameter;
+            if (idReport.HasValue)
+            {
+                idReportParameter = new ObjectParameter("idReport", idReport);
+            }
+            else
+            {
+                idReportParameter = new ObjectParameter("idReport", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, commParameter, idReportParameter, idPatientParameter);
         }
 
         #endregion
@@ -2864,6 +2875,30 @@ namespace DataAccess
         private global::System.Int32 _Report_Patient_idPatient;
         partial void OnReport_Patient_idPatientChanging(global::System.Int32 value);
         partial void OnReport_Patient_idPatientChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String comment
+        {
+            get
+            {
+                return _comment;
+            }
+            set
+            {
+                OncommentChanging(value);
+                ReportPropertyChanging("comment");
+                _comment = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("comment");
+                OncommentChanged();
+            }
+        }
+        private global::System.String _comment;
+        partial void OncommentChanging(global::System.String value);
+        partial void OncommentChanged();
 
         #endregion
     

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -163,6 +163,7 @@
           <Property Name="diastolic" Type="int" />
           <Property Name="heart_rate" Type="int" />
           <Property Name="sleep" Type="bit" />
+          <Property Name="comment" Type="text" />
           <Property Name="Report_idReport" Type="bigint" Nullable="false" />
           <Property Name="Report_Patient_idPatient" Type="int" Nullable="false" />
         </EntityType>
@@ -441,6 +442,7 @@
           <Parameter Name="diastolic" Type="int" Mode="In" />
           <Parameter Name="heart_rate" Type="int" Mode="In" />
           <Parameter Name="sleep" Type="bit" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatient" Type="int" Mode="In" />
         </Function>
@@ -495,8 +497,7 @@
           <Parameter Name="login_var" Type="varchar" Mode="In" />
           <Parameter Name="pass_var" Type="varchar" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="udahta_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -608,18 +609,8 @@
             <Parameter Name="idDailyCarnet" Mode="In" Type="Int32" />
             <Parameter Name="idPatient" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertMeasurement">
-            <Parameter Name="dateM" Mode="In" Type="DateTime" />
-            <Parameter Name="systolic" Mode="In" Type="Int32" />
-            <Parameter Name="average" Mode="In" Type="Int32" />
-            <Parameter Name="diastolic" Mode="In" Type="Int32" />
-            <Parameter Name="heart_rate" Mode="In" Type="Int32" />
-            <Parameter Name="sleep" Mode="In" Type="Boolean" />
-            <Parameter Name="idReport" Mode="In" Type="Int64" />
-            <Parameter Name="idPatient" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="insertPatientUda">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="updatePassword">
             <Parameter Name="login_var" Mode="In" Type="String" />
@@ -638,6 +629,17 @@
             <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
             <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
             <Parameter Name="kcal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertMeasurement">
+            <Parameter Name="dateM" Mode="In" Type="DateTime" />
+            <Parameter Name="systolic" Mode="In" Type="Int32" />
+            <Parameter Name="average" Mode="In" Type="Int32" />
+            <Parameter Name="diastolic" Mode="In" Type="Int32" />
+            <Parameter Name="heart_rate" Mode="In" Type="Int32" />
+            <Parameter Name="sleep" Mode="In" Type="Boolean" />
+            <Parameter Name="comm" Mode="In" Type="String" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatient" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -736,6 +738,7 @@
           <Property Name="Report_idReport" Type="Int64" Nullable="false" />
           <Property Name="Report_Patient_idPatient" Type="Int32" Nullable="false" />
           <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="measurement" ToRole="report" />
+          <Property Type="String" Name="comment" />
         </EntityType>
         <EntityType Name="medicalhistory">
           <Key>
@@ -1016,7 +1019,8 @@
             <ScalarProperty Name="creation_date" ColumnName="creation_date" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="measurement"><EntityTypeMapping TypeName="udahta_dbModel.measurement"><MappingFragment StoreEntitySet="measurement">
-            <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
+            <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
             <ScalarProperty Name="date" ColumnName="date" />
             <ScalarProperty Name="systolic" ColumnName="systolic" />
             <ScalarProperty Name="average" ColumnName="average" />
@@ -1099,10 +1103,10 @@
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
-          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
