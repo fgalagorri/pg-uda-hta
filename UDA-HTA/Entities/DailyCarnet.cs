@@ -5,8 +5,19 @@ using System.Text;
 
 namespace Entities
 {
+
     public class DailyCarnet
     {
+        public DailyCarnet()
+        {
+            Technician = new User();
+            Efforts = new List<Effort>();
+            Complications = new List<Complication>();
+            Medications = new List<Medication>();
+        }
+
+        public User Technician { get; set; }
+        
         public int? InitSystolic1 { get; set; }
         public int? InitSystolic2 { get; set; }
         public int? InitSystolic3 { get; set; }

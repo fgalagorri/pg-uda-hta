@@ -78,6 +78,18 @@ namespace HMSDataAccess
                 report.DeviceReportId = rs.getString(1);
                 report.Diagnosis = rs.getString(2);
                 report.BeginDate = parseDateTime(rs.getString(6));
+                
+                int dayStart = rs.getInt(4);
+                Int32 dayStartHr = (dayStart/100);
+                Int32 dayStartMin = dayStart - (dayStartHr*100);
+                const int sec0 = 0;
+
+                int nightStart = rs.getInt(5);
+                Int32 nightStartHr = (nightStart/100);
+                Int32 nightStartMin = nightStart - (nightStartHr*100);
+
+                report.DreamStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
+                report.DreamEnd = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, dayStartHr, dayStartMin, sec0);
                 report.Doctor = new User();
 
             }

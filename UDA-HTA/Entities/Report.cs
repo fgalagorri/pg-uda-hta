@@ -7,11 +7,18 @@ namespace Entities
 {
     public class Report
     {
+        public Report()
+        {
+            Doctor = new User();
+            TemporaryData = new TemporaryData();
+            Carnet = new DailyCarnet();
+            Measures = new List<Measurement>();
+        }
+
         // Propiuedades que solo se usan con la BD de UDA
         #region UDA Properties
 
         public long? UdaId { get; set; }
-        public User Technician { get; set; }
         public User Doctor { get; set; }
         public string RequestDoctor { get; set; }
         public string RequestDoctorSpeciality { get; set; }
