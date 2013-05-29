@@ -17,7 +17,7 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`Patient` (
   `name` VARCHAR(45) NOT NULL ,
   `surname` VARCHAR(45) NOT NULL ,
   `document` VARCHAR(45) NOT NULL ,
-  `gender` ENUM('F','M') NULL ,
+  `gender` ENUM('F','M','') NOT NULL DEFAULT 'M' ,
   `telephone` VARCHAR(45) NULL ,
   `cell_phone` VARCHAR(45) NULL ,
   `address` VARCHAR(45) NULL ,
