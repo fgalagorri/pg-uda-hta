@@ -1,11 +1,22 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatient$$
-CREATE PROCEDURE insertPatient(IN idInDev INT, IN name VARCHAR(45), IN surname VARCHAR(45), IN addr VARCHAR(45), IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45))
+CREATE PROCEDURE insertPatient(OUT id INT, IN idInDev BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), IN addr VARCHAR(45), IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45))
 BEGIN
 INSERT INTO `patient_info_db`.`Patient`(`patientReference`, `name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, `address`, `city`, `neighborhood`, `birthday`, `e_mail`)
 VALUES (idInDev, name, surname, dni, sex, phone, cell, addr, city, neighbour, birth, email);
+SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertPatientUda$$
+CREATE PROCEDURE insertPatientUda(IN id INT)
+BEGIN
+INSERT INTO `udahta_db`.`PatientUda`(`idPatientUda`)
+VALUES (id);
+END$$
+DELIMITER ;
+
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertReport$$
@@ -13,27 +24,39 @@ CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date
 BEGIN
 INSERT INTO `udahta_db`.`Report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, `TemporaryData_idTemporaryData`, `DailyCarnet_idDailyCarnet`, `Patient_idPatient`) 
 VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, idDailyCarnet, idPatient);
-SET id = (SELECT LastInsertedId());
+SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMeasurement$$
-CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN idReport BIGINT, IN idPatient INT)
+CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN comm TEXT, IN idReport BIGINT, IN idPatient INT)
 BEGIN
-INSERT INTO `udahta_db`.`Measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `Report_idReport`, `Report_Patient_idPatient`) 
-VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, idReport, idPatient);
+INSERT INTO `udahta_db`.`Measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `comment`, `Report_idReport`, `Report_Patient_idPatient`) 
+VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, comm, idReport, idPatient);
 END$$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertDailyCarnet$$
-CREATE PROCEDURE insertDailyCarnet(IN technical, IN initial_bp1, IN initial_bp2, IN initial_bp3, IN initial_hr1, IN initial_hr2, IN initial_hr3, IN final_bp1, IN final_bp2, IN final_bp3, IN final_hr1, IN final_hr2, IN final_hr3, IN begin_sleep_time, IN end_sleep_time, IN how_sleep, IN main_meal_time)
+CREATE PROCEDURE insertDailyCarnet(OUT id INT, IN technical VARCHAR(45), IN initial_dias1 INT, IN initial_dias2 INT, IN initial_dias3 INT, IN initial_hr1 INT, IN initial_hr2 INT, IN initial_hr3 INT, IN final_dias1 INT, IN final_dias2 INT, IN final_dias3 INT, IN final_hr1 INT, IN final_hr2 INT, IN final_hr3 INT, IN begin_sleep_time DATETIME, IN end_sleep_time DATETIME, IN how_sleep VARCHAR(45), IN main_meal_time DATETIME, IN init_sys1 INT, IN init_sys2 INT, IN init_sys3 INT, IN final_sys1 INT, IN final_sys2 INT, IN final_sys3 INT)
 BEGIN
-INSERT INTO `udahta_db`.`DailyCarnet` (`technical`, `initial_bp1`, `initial_bp2`, `initial_bp3`, `initial_hr1`, `initial_hr2`, `initial_hr3`, `final_bp1`, `final_bp2`, `final_bp3`, `final_hr1`, `final_hr2`, `final_hr3`, `begin_sleep_time`, `end_sleep_time`, `how_sleep`, `main_meal_time`) 
-VALUES (technical, initial_bp1, initial_bp2, initial_bp3, initial_hr1, initial_hr2, initial_hr3, final_bp1, final_bp2, final_bp3, final_hr1, final_hr2, final_hr3, begin_sleep_time, end_sleep_time, how_sleep, main_meal_time);
+INSERT INTO `udahta_db`.`DailyCarnet` (`technical`, `initial_dias1`, `initial_dias2`, `initial_dias3`, `initial_hr1`, `initial_hr2`, `initial_hr3`, `final_dias1`, `final_dias2`, `final_dias3`, `final_hr1`, `final_hr2`, `final_hr3`, `begin_sleep_time`, `end_sleep_time`, `how_sleep`, `main_meal_time`, `init_sys1`, `init_sys2`, `init_sys3`, `final_sys1`, `final_sys2`, `final_sys3`) 
+VALUES (technical, initial_dias1, initial_dias2, initial_dias3, initial_hr1, initial_hr2, initial_hr3, final_dias1, final_dias2, final_dias3, final_hr1, final_hr2, final_hr3, begin_sleep_time, end_sleep_time, how_sleep, main_meal_time, init_sys1, init_sys2, init_sys3, final_sys1, final_sys2, final_sys3);
+SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertTemporaryData$$
+CREATE PROCEDURE insertTemporaryData(OUT id INT, IN weight DECIMAL(2), IN height DECIMAL(2), IN age INT, IN body_mass_index DECIMAL(2), IN smoker BIT, IN dyslipidemia BIT, IN diabetic BIT, IN known_hypertensive BIT, IN fat_percentage DECIMAL(2), IN muscle_percentage DECIMAL(2), IN kcal INT)
+BEGIN
+INSERT INTO `udahta_db`.`TemporaryData` (`weight`, `height`, `age`, `body_mass_index`, `smoker`, `dyslipidemia`, `diabetic`, `known_hypertensive`, `fat_percentage`, `muscle_percentage`, `kcal`) 
+VALUES (weight, height, age, body_mass_index, smoker, dyslipidemia, diabetic, known_hypertensive, fat_percentage, muscle_percentage, kcal);
+SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
 
 
 DELIMITER $$
@@ -90,3 +113,21 @@ SELECT * FROM DrugType;
 SELECT * FROM Drug;
 
 SELECT * FROM Investigation;
+
+SELECT * FROM Report;
+
+SELECT * FROM DailyCarnet;
+
+SELECT * FROM TemporaryData;
+
+SELECT * FROM Patientuda;
+
+SELECT * FROM Measurement;
+
+SET foreign_key_checks = 0;
+TRUNCATE DailyCarnet;
+TRUNCATE TemporaryData;
+TRUNCATE Report;
+TRUNCATE Measurement;
+TRUNCATE PatientUda;
+SET foreign_key_checks = 1;
