@@ -124,7 +124,7 @@ namespace SpacelabsDataAccess
             return report;
         }
 
-        public List<Measurement> GetMeasures(string idReport)
+        public List<Measurement> GetMeasures(Report report)
         {
             throw new NotImplementedException();
         }

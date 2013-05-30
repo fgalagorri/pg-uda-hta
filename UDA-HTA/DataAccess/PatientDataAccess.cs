@@ -63,30 +63,30 @@ namespace DataAccess
 
             return patientQuery;
 
+        }
 
-            /* 
-            ICollection<Patient> lp = new List<Patient>();
+        public Patient getPatientData(string patientId)
+        {
+            var patientContext = new patient_info_dbEntities();
+            Int32 patId = Convert.ToInt32(patientId);
+            var pat =patientContext.patient.Where(p => p.idPatient == patId).Select(p => new {p.address,p.birthday,p.cell_phone,p.city,p.document,
+                                                                                     p.e_mail,p.emergency_contact,p.gender,p.name,p.neighborhood,
+                                                                                     p.patientReference,p.surname,p.telephone}).ToList().First();
+            Patient patient = new Patient();
+            patient.Address = pat.address;
+            patient.BirthDate = pat.birthday;
+            patient.CellPhone = pat.cell_phone;
+            patient.City = pat.city;
+            patient.DocumentId = pat.document;
+            patient.DevicePatientId = pat.patientReference.ToString();
+            patient.Email = pat.e_mail;
+            patient.Names = pat.name;
+            patient.Neighbour = pat.neighborhood;
+            patient.Phone = pat.telephone;
+            patient.Sex = pat.gender == "M" ? SexType.M : SexType.F;
+            patient.Surnames = pat.surname;
 
-            string stm = "SELECT * FROM patient";
-            MySqlCommand mc = new MySqlCommand(stm, _conn);
-
-            _conn.Open();
-            MySqlDataReader rdr = mc.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Patient p = new Patient();
-                p.Name = rdr.GetString(2);
-                p.Surname = rdr.GetString(3);
-                p.DocumentId = rdr.GetString(4);
-                lp.Add(p);
-            }
-
-            rdr.Close();
-            _conn.Close();
-            
-            return lp;
-            */
+            return patient;
         }
 
         public bool ExistPatientReference(string patientReference)

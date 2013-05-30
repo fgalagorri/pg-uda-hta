@@ -88,8 +88,20 @@ namespace HMSDataAccess
                 Int32 nightStartHr = (nightStart/100);
                 Int32 nightStartMin = nightStart - (nightStartHr*100);
 
-                report.DreamStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
-                report.DreamEnd = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, dayStartHr, dayStartMin, sec0);
+                // Si se durmio despues de las 23:59, dreamStart = dreamEnd = BeginDate + 1
+                DateTime date;
+                if (nightStart <= dayStart)
+                {
+                    date = report.BeginDate.Value.AddDays(1);
+                    report.DreamStart = new DateTime(date.Year, date.Month, date.Day, nightStartHr, nightStartMin, sec0);
+                    report.DreamEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);                    
+                }
+                else // Si se durmio antes de las 00:00, el dia de dreamEnd = dreamStart + 1
+                {
+                    report.DreamStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
+                    date = report.BeginDate.Value.AddDays(1);
+                    report.DreamEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
+                }
                 report.Doctor = new User();
 
             }
@@ -97,11 +109,24 @@ namespace HMSDataAccess
             return report;
         }
 
-        public List<Measurement> GetMeasures(string reportId)
+        public List<Measurement> GetMeasures(Report report)
         {
             var list = new List<Measurement>();
             var columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIMESTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
-            var rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + reportId);
+            var rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + report.DeviceReportId);
+
+            int maxDiasDay = 0;
+            int maxDiasNight = 0;
+
+            int maxSysDay = 0;
+            int maxSysNight = 0;
+
+            int sumSysDay = 0;
+            int sumSysNight = 0;
+            int sumDiasDay = 0;
+            int sumDiasNight = 0;
+            int countDay = 0;
+            int countNight = 0;
 
             // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
             while (rs.next())
@@ -117,7 +142,67 @@ namespace HMSDataAccess
                 measure.Middle = rs.getInt(13); //NIBPMAD
                 measure.Systolic = rs.getInt(14); //NIBPSYS
 
+                if (measure.Time >= report.DreamStart.Value && measure.Time <= report.DreamEnd.Value)
+                { // Medida tomada mientras dormia, actualizar maximos
+                    measure.Asleep = true;
+                    
+                    if (measure.Diastolic > maxDiasNight)
+                        maxDiasNight = measure.Diastolic;
+
+                    if (measure.Systolic > maxSysNight)
+                        maxSysNight = measure.Systolic;
+
+                    sumDiasNight = sumDiasNight + measure.Diastolic;
+                    sumSysNight = sumSysNight + measure.Systolic;
+                    countNight++;
+                }
+                else
+                { // Si no esta durmiendo, actualizar maximos del dia
+                    if (measure.Diastolic > maxDiasDay)
+                        maxDiasDay = measure.Diastolic;
+
+                    if (measure.Systolic > maxSysDay)
+                        maxSysDay = measure.Systolic;
+
+                    sumDiasDay = sumDiasDay + measure.Diastolic;
+                    sumSysDay = sumSysDay + measure.Systolic;
+                    countDay++;
+                }
+
                 list.Add(measure);
+
+                report.EndDate = measure.Time;
+            }
+
+            report.DiastolicDayMax = maxDiasDay;
+            report.DiastolicNightMax = maxDiasNight;
+            report.SystolicDayMax = maxSysDay;
+            report.SystolicNightMax = maxSysNight;
+
+            report.HeartRateAvg = list.Sum(m => m.HeartRate)/list.Count;
+            report.DiastolicTotalAvg = list.Sum(m => m.Diastolic)/list.Count;
+            report.SystolicTotalAvg = list.Sum(m => m.Systolic)/list.Count;
+            if (countDay != 0)
+            {
+                report.DiastolicDayAvg = sumDiasDay / countDay;
+                report.SystolicDayAvg = sumSysDay / countDay;                
+            }
+            else
+            {
+                report.DiastolicDayAvg = 0;
+                report.SystolicDayAvg = 0;                                
+            }
+
+            if (countNight != 0)
+            {
+                report.DiastolicNightAvg = sumDiasNight / countNight;
+                report.SystolicNightAvg = sumSysNight / countNight;
+                
+            }
+            else
+            {
+                report.DiastolicNightAvg = 0;
+                report.SystolicNightAvg = 0;                
             }
 
             return list;
@@ -133,13 +218,13 @@ namespace HMSDataAccess
             {
                 patient.DevicePatientId = rs.getString(2);
                 
-                var timeStr = rs.getString(3); //Timeofmeasurement
+                var timeStr = rs.getString(3); 
                 //Pareseo la fecha y hora para crear el DateTime
                 patient.BirthDate = parseDateTime(timeStr);
 
                 patient.DocumentId = rs.getString(8);
 
-                patient.Sex = rs.getInt(13) == 0 ? SexType.F : SexType.M;
+                patient.Sex = rs.getInt(13) == 0 ? SexType.M : SexType.F;
 
                 patient.City = rs.getString(26);
                 patient.Email = rs.getString(29);
@@ -147,8 +232,8 @@ namespace HMSDataAccess
                 patient.Surnames = rs.getString(32);
                 patient.CellPhone = rs.getString(35);
                 patient.Phone = rs.getString(36);
-                patient.Neighbour = rs.getString(37);
-                patient.Address = rs.getString(38);
+                patient.Neighbour = rs.getString(38);
+                patient.Address = rs.getString(39);
 
             }
 

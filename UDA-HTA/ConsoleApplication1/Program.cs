@@ -65,53 +65,45 @@ namespace ConsoleApplication1
             //else
             //    Console.WriteLine("NO SE PUDO LOGUEAR :(");
 
-            IImportDataManagement idm = new ImportDataManagement();
-            IReportManagement rm = new ReportManagement();
-            PatientManagement pm = new PatientManagement();
+            /* 
+             * Exportar PDF
+             */
 
-            ICollection<PatientReport> lpr = idm.ListNewPatientReports();
-            foreach (PatientReport pr in lpr)
-            {
-/*                Console.Write(pr.PatientName);
-                Console.Write(" , ");
-                Console.Write(pr.PatientLastName);
-                Console.Write(" , ");
-                Console.Write(pr.PatientDocument);
-                Console.Write(" , ");
-                Console.Write(pr.ReportDate);
-                Console.Write(" , ");
-                Console.Write(pr.ReportDevice);
-                Console.Write(" , ");
-                Console.WriteLine(pr.ReportId);
- */
+            IReportManagement irm = new ReportManagement();
+            irm.exportReportPDF(new Report(), "HelloWorld.pdf");
 
-                Patient pat = new Patient();
-                pat.DocumentId = pr.PatientDocument;
-                pat.Names = pr.PatientName;
-                pat.Surnames = pr.PatientLastName;
-                pat.DevicePatientId = pr.PatientId;
-                try
-                {
-                    var idPatient = pm.CreatePatient(pat);
-                    DailyCarnet dailyCarnet = new DailyCarnet();
-                    TemporaryData temporaryData = new TemporaryData();
-                    Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
-                    List<Measurement> lMeasurements = idm.ImportMeasures(pr.ReportId, pr.ReportDevice);
-                    rep.Measures = rep.Measures.Concat(lMeasurements).ToList();
-                    rm.addReport(rep, idPatient.ToString(), dailyCarnet, temporaryData);
-                }
-                catch (Exception e)
-                {
-                    if (e.InnerException.Message.Contains("Duplicate entry"))
-                    {
-                    }
-                    else
-                    {
-                        throw;    
-                    }
-                }
-            }
+            /* Importar datos e impactarlos en base
+             * 
+                        IImportDataManagement idm = new ImportDataManagement();
+                        IReportManagement rm = new ReportManagement();
+                        PatientManagement pm = new PatientManagement();
 
+                        ICollection<PatientReport> lpr = idm.ListNewPatientReports();
+                        foreach (PatientReport pr in lpr)
+                        {
+                            try
+                            {
+                                Patient pat = idm.ImportPatient(pr.PatientId, pr.ReportDevice);
+                                var idPatient = pm.CreatePatient(pat);
+                                DailyCarnet dailyCarnet = new DailyCarnet();
+                                TemporaryData temporaryData = new TemporaryData();
+                                Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
+                                List<Measurement> lMeasurements = idm.ImportMeasures(rep);
+                                rep.Measures = rep.Measures.Concat(lMeasurements).ToList();
+                                rm.addReport(rep, idPatient.ToString(), dailyCarnet, temporaryData);
+                            }
+                            catch (Exception e)
+                            {
+                                if (e.InnerException.Message.Contains("Duplicate entry"))
+                                {
+                                }
+                                else
+                                {
+                                    throw;    
+                                }
+                            }
+                        }
+            */
             /*
             IImportDataManagement idm = new ImportDataManagement();
             Report rep = idm.ImportReport("7", 0); //HMS
