@@ -20,11 +20,11 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`Patient` (
   `gender` ENUM('F','M','') NOT NULL DEFAULT 'M' ,
   `telephone` VARCHAR(45) NULL ,
   `cell_phone` VARCHAR(45) NULL ,
-  `address` VARCHAR(45) NULL ,
+  `address` TEXT NULL ,
   `city` VARCHAR(45) NULL ,
   `neighborhood` VARCHAR(45) NULL ,
   `birthday` DATETIME NULL ,
-  `e_mail` VARCHAR(45) NULL ,
+  `e_mail` TEXT NULL ,
   PRIMARY KEY (`idPatient`) ,
   UNIQUE INDEX `document_UNIQUE` (`document` ASC) )
 ENGINE = InnoDB;
