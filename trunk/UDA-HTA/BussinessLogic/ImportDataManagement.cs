@@ -50,7 +50,7 @@ namespace BussinessLogic
         {
             var pat = new Patient();
 
-            DeviceDataAccess.DeviceController dda;
+            DeviceController dda;
             switch (device)
             {
                 case 0:
@@ -107,12 +107,12 @@ namespace BussinessLogic
             return report;
         }
 
-        public List<Measurement> ImportMeasures(string idReport, int device)
+        public List<Measurement> ImportMeasures(Report report)
         {
             List<Measurement> lMeasures = null; 
 
             DeviceController dda;
-            switch (device)
+            switch (report.DeviceId)
             {
                 case 0:
                     // El dispositivo es HMS
@@ -130,7 +130,7 @@ namespace BussinessLogic
 
             if (dda != null)
             {
-                lMeasures = dda.GetMeasures(idReport);
+                lMeasures = dda.GetMeasures(report);
                 dda.CloseDeviceDataAccess();
             }
 

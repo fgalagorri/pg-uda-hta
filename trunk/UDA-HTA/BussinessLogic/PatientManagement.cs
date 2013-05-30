@@ -55,7 +55,7 @@ namespace BussinessLogic
         }
 
         
-        ICollection<Patient> ListPatients()
+        public ICollection<Patient> ListPatients()
         {
             var pda = new PatientDataAccess();
             var lp = pda.ListPatients();
@@ -63,7 +63,17 @@ namespace BussinessLogic
             return lp;
         }
 
+        public Patient getPatientData(string patientId)
+        {
+            var pda = new PatientDataAccess();
+            return pda.getPatientData(patientId);
+        }
 
+        public bool existPatientReference(string patientRefId)
+        {
+            var pda = new PatientDataAccess();
+            return pda.ExistPatientReference(patientRefId);
+        }
 
     }
 }

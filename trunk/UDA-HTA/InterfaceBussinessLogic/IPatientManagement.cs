@@ -21,6 +21,16 @@ namespace InterfaceBussinessLogic
         ICollection<Patient> ListPatients();
 
         /*
+         * Obtiene los datos del paciente con identificador 'patientId'
+         */
+        Patient getPatientData(string patientId);
+
+        /*
+         * Devuelve true si existe el paciente con referencia a Spacelab o HMS 'patientRefId'
+         */
+        bool existPatientReference(string patientRefId);
+
+        /*
          * Modifica la informacion actual del paciente
          */
 
