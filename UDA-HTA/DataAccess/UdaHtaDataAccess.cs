@@ -41,7 +41,7 @@ namespace DataAccess
             conn.Close(); 
         }
 
-        public bool ExistPatient(int idPatient)
+        public bool ExistPatient(int? idPatient)
         {
             var udaContext = new udahta_dbEntities();
             return udaContext.patientuda.Any(p => p.idPatientUda == idPatient);
@@ -271,7 +271,7 @@ namespace DataAccess
             return true; 
         }
 
-        public void insertPatientUda(int id)
+        public void insertPatientUda(int? id)
         {
             var udaContext = new udahta_dbEntities();
             try

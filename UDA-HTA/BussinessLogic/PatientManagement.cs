@@ -7,7 +7,7 @@ namespace BussinessLogic
 {
     public class PatientManagement
     {
-        public int CreatePatient(Patient patient)
+        public int? CreatePatient(Patient patient)
         {
             var p = new Patient
                 {
@@ -25,7 +25,7 @@ namespace BussinessLogic
                     Sex = patient.Sex
                 };
 
-            int id;
+            int? id;
             try
             {
                 var pda = new PatientDataAccess();
@@ -69,10 +69,10 @@ namespace BussinessLogic
             return pda.getPatientData(patientId);
         }
 
-        public bool existPatientReference(string patientRefId)
+        public int? getPatientIdIfExist(string patientRefId)
         {
             var pda = new PatientDataAccess();
-            return pda.ExistPatientReference(patientRefId);
+            return pda.GetPatientId(patientRefId);
         }
 
     }

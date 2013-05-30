@@ -67,13 +67,14 @@ namespace ConsoleApplication1
 
             /* 
              * Exportar PDF
-             */
 
             IReportManagement irm = new ReportManagement();
             irm.exportReportPDF(new Report(), "HelloWorld.pdf");
+             */
 
             /* Importar datos e impactarlos en base
              * 
+             */
                         IImportDataManagement idm = new ImportDataManagement();
                         IReportManagement rm = new ReportManagement();
                         PatientManagement pm = new PatientManagement();
@@ -103,7 +104,7 @@ namespace ConsoleApplication1
                                 }
                             }
                         }
-            */
+         
             /*
             IImportDataManagement idm = new ImportDataManagement();
             Report rep = idm.ImportReport("7", 0); //HMS
