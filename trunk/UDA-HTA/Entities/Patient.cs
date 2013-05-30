@@ -9,6 +9,12 @@ namespace Entities
 
     public class Patient
     {
+        public Patient()
+        {
+            EmergencyContactList = new List<EmergencyContact>();
+            ReportList = new List<Report>();
+        }
+        
         public string DevicePatientId { get; set; }
         public string DocumentId { get; set; }
         public string Names { get; set; }
@@ -26,8 +32,8 @@ namespace Entities
         public string UdaId { get; set; }
         public int? DeviceId { get; set; }
 
+        public ICollection<EmergencyContact> EmergencyContactList { get; set; } 
         public ICollection<MedicalRecord> Background { get; set; } 
-
         private ICollection<Report> ReportList  { get; set; }
     }
 }

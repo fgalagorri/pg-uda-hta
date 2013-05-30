@@ -22,7 +22,7 @@ namespace DataAccess
             _conn.Close();
         }
 
-        public int InsertPatient(Patient p)
+        public int? InsertPatient(Patient p)
         {
             var udaContext = new patient_info_dbEntities();
 
@@ -46,6 +46,11 @@ namespace DataAccess
                 throw (e);
             }
             return (int)lastIdPatient.Value;
+        }
+
+        public void insertEmergencyContact()
+        {
+            
         }
 
         /*
@@ -86,6 +91,16 @@ namespace DataAccess
             patient.Sex = pat.gender == "M" ? SexType.M : SexType.F;
             patient.Surnames = pat.surname;
 
+            foreach (var ec in pat.emergency_contact)
+            {
+                EmergencyContact emergencyContact = new EmergencyContact();
+                emergencyContact.EmergencyContactId = ec.idemergency_contact;
+                emergencyContact.Name = ec.name;
+                emergencyContact.Phone = ec.phone;
+                emergencyContact.Surname = ec.surname;
+                patient.EmergencyContactList.Add(emergencyContact);
+            }
+
             return patient;
         }
 
@@ -96,11 +111,15 @@ namespace DataAccess
             return patientContext.patient.Any(p => p.patientReference == patRef);
         }
 
-        public int GetPatientId(string patientReference)
+        public int? GetPatientId(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
             Int32 patRef = Convert.ToInt32(patientReference);
-            var pat = patientContext.patient.Where(p => p.patientReference == patRef).Select(p => new { p.idPatient }).ToList().First();
+            var pat = patientContext.patient.Where(p => p.patientReference == patRef).Select(p => new { p.idPatient }).ToList().FirstOrDefault();
+            if (pat == null)
+            {
+                return null;
+            }
             return pat.idPatient;
         }
     }
