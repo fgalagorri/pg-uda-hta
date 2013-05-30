@@ -40,8 +40,6 @@ namespace Entities
         public string DeviceReportId { get; set; }
         public DateTime? BeginDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public DateTime? DreamStart { get; set; }
-        public DateTime? DreamEnd { get; set; }
         public Patient Patient { get; set; }
 
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Entities;
+using Gateway;
 using UDA_HTA.UserControls.ReportCreation;
 
 namespace UDA_HTA
@@ -12,19 +13,22 @@ namespace UDA_HTA
         private const string Siguiente = "Siguiente >";
         private const string Finalizar = "Finalizar >>";
         private int _state;
-        private PatientInformation patientinfo;
+        private PatientInformation patientInfo;
         private AdmissionForm admissionForm;
         private OtherInformation otherInfo;
+        public Report Report { get; private set; }
 
         public ReportCreate(Report report)
         {
             InitializeComponent();
+            Report = report;
             _state = 0;
-            patientinfo = new PatientInformation(report);
-            admissionForm = new AdmissionForm(report);
-            otherInfo = new OtherInformation(report);
+            patientInfo = new PatientInformation();
+            admissionForm = new AdmissionForm();
+            otherInfo = new OtherInformation();
 
-            CurrentControl.Content = patientinfo;
+            patientInfo.Report = report;
+            CurrentControl.Content = patientInfo;
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
@@ -32,18 +36,25 @@ namespace UDA_HTA
             switch (_state)
             {
                 case 0:
+                    Report = patientInfo.Report;
+                    admissionForm.Report = Report;
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
                     _state++;
                     break;
                 case 1:
+                    Report = admissionForm.Report;
+                    otherInfo.Report = Report;
                     CurrentControl.Content = otherInfo;
                     btnBack.IsEnabled = true;
                     btnNext.Content = Finalizar;
                     _state++;
                     break;
                 case 2:
+                    Report = otherInfo.Report;
                     DialogResult = true;
+                    //GatewayController.GetInstance()
+
                     Close();
                     break;
             }
@@ -54,11 +65,15 @@ namespace UDA_HTA
             switch (_state)
             {
                 case 1:
-                    CurrentControl.Content = patientinfo;
+                    Report = admissionForm.Report;
+                    patientInfo.Report = Report;
+                    CurrentControl.Content = patientInfo;
                     btnBack.IsEnabled = false;
                     _state--;
                     break;
-                case 2:             
+                case 2:
+                    Report = otherInfo.Report;
+                    admissionForm.Report = Report;
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
                     btnNext.Content = Siguiente;

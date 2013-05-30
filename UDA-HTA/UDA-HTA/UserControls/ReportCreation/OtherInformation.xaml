@@ -34,7 +34,7 @@
                           ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Hour}">
+                                            Binding="{Binding Path=Time}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Categoría" Width="*" IsReadOnly="True"
                                             Binding="{Binding Path=Category}">
@@ -76,8 +76,8 @@
                 </StackPanel>
                 <DataGrid Name="grEffort" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hour}" />
-                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Type}" />
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Time}" />
+                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Description}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
@@ -117,8 +117,8 @@
                 <DataGrid Name="grComplications" Background="White" AutoGenerateColumns="False" 
                           ItemsSource="{Binding}" Height="90" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Hour}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Type}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" Binding="{Binding Path=Time}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" Binding="{Binding Path=Description}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

@@ -61,11 +61,13 @@ namespace SpacelabsDataAccess
 
                                  p.PatientId,
                                  p.FirstName,
-                                 Names = p.LastName + " " + p.SecondLastName,
+                                 p.LastName,
+                                 p.SecondLastName,
                                  CI = p.MRN,
                                  p.BirthDate,
                                  p.GenderId,
-                                 Street = p.Street1 + " " + p.Street2,
+                                 p.Street1,
+                                 p.Street2,
                                  // Neighbourhood
                                  p.City,
                                  // Department
@@ -85,11 +87,11 @@ namespace SpacelabsDataAccess
                                 {
                                     DevicePatientId = r.PatientId.ToString(),
                                     Names = r.FirstName,
-                                    Surnames = r.Names,
+                                    Surnames = (r.LastName + " " + r.SecondLastName).Trim(),
                                     DocumentId = r.CI,
                                     BirthDate = r.BirthDate,
                                     Sex = (SexType?) r.GenderId,
-                                    Address = r.Street,
+                                    Address = (r.Street1 + " " + r.Street2).Trim(),
                                     // Neighbourhood
                                     City = r.City,
                                     // Department

@@ -93,14 +93,14 @@ namespace HMSDataAccess
                 if (nightStart <= dayStart)
                 {
                     date = report.BeginDate.Value.AddDays(1);
-                    report.DreamStart = new DateTime(date.Year, date.Month, date.Day, nightStartHr, nightStartMin, sec0);
-                    report.DreamEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);                    
+                    report.Carnet.SleepTimeStart = new DateTime(date.Year, date.Month, date.Day, nightStartHr, nightStartMin, sec0);
+                    report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);                    
                 }
                 else // Si se durmio antes de las 00:00, el dia de dreamEnd = dreamStart + 1
                 {
-                    report.DreamStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
+                    report.Carnet.SleepTimeStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
                     date = report.BeginDate.Value.AddDays(1);
-                    report.DreamEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
+                    report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
                 }
                 report.Doctor = new User();
 
@@ -142,7 +142,7 @@ namespace HMSDataAccess
                 measure.Middle = rs.getInt(13); //NIBPMAD
                 measure.Systolic = rs.getInt(14); //NIBPSYS
 
-                if (measure.Time >= report.DreamStart.Value && measure.Time <= report.DreamEnd.Value)
+                if (measure.Time >= report.Carnet.SleepTimeStart.Value && measure.Time <= report.Carnet.SleepTimeEnd.Value)
                 { // Medida tomada mientras dormia, actualizar maximos
                     measure.Asleep = true;
                     
