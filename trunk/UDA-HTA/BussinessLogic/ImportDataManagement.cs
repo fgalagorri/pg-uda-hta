@@ -27,13 +27,13 @@ namespace BussinessLogic
         {
             var list = new List<PatientReport>();
 
-            //Lista de reportes pendientes de HMS
+            // Lista de reportes pendientes de HMS
             var dda = new DeviceController(new HMS());
-            list.AddRange(GetListNewPatientReports(dda));
-
-            //Lista de reportes pendientes de spacelabs
-            //dda = new DeviceController(new Spacelabs());
             //list.AddRange(GetListNewPatientReports(dda));
+
+            // Lista de reportes pendientes de spacelabs
+            dda = new DeviceController(new Spacelabs());
+            list.AddRange(GetListNewPatientReports(dda));
 
             var uda = new UdaHtaDataAccess();
             ICollection<PatientReport> listUda = uda.ListAllReports();

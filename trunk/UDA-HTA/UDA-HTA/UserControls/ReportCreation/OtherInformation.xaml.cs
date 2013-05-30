@@ -20,47 +20,68 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class OtherInformation : UserControl
     {
-        private List<ExampleEffort> _lstEffort;
-        private List<ExampleComplication> _lstComplication;
-        private List<ExampleMedication> _lstMedication;
-        private MedicationSelector _ms;
+        private List<Effort> _lstEffort;
+        private List<Complication> _lstComplication;
+        private List<Medication> _lstMedication;
 
-        public OtherInformation(Report report)
+        private Report _report;
+
+        public Report Report
+        {
+            get
+            {
+                var c = _report.Carnet ?? new DailyCarnet();
+                c.Complications = _lstComplication;
+                c.Efforts = _lstEffort;
+                c.Medications = _lstMedication;
+
+                _report.Carnet = c;
+                return _report;
+            }
+            set
+            {
+                _report = value;
+
+                _lstMedication = _report.Carnet.Medications ?? new List<Medication>();
+                grMedication.DataContext = _lstMedication;
+
+                _lstEffort = _report.Carnet.Efforts ?? new List<Effort>();
+                grEffort.DataContext = _lstEffort;
+
+                _lstComplication = _report.Carnet.Complications ?? new List<Complication>();
+                grComplications.DataContext = _lstComplication;
+            }
+        }
+
+
+        public OtherInformation()
         {
             InitializeComponent();
-
-            _lstEffort = new List<ExampleEffort>();
-            _lstComplication = new List<ExampleComplication>();
-            _lstMedication = new List<ExampleMedication>();
         }
 
         private void btnMedication_Click(object sender, RoutedEventArgs e)
         {
-            _ms = new MedicationSelector();
+            /*_ms = new MedicationSelector();
             _ms.ShowDialog();
             if (!String.IsNullOrWhiteSpace(_ms.name))
-                txtMedication.Text = _ms.name;
+                txtMedication.Text = _ms.name;*/
         }
 
         private void btnAddMedication_Click(object sender, RoutedEventArgs e)
         {
+            grMedication.DataContext = null;
+
             int hour, min;
             if (int.TryParse(txtHourMedication.Text, out hour)
                 && int.TryParse(txtMinMedication.Text, out min)
-                && 0 <= hour && hour < 24 && 0 <= min && min < 60
-                && !String.IsNullOrWhiteSpace(_ms.category) 
-                && !String.IsNullOrWhiteSpace(_ms.active) 
-                && !String.IsNullOrWhiteSpace(_ms.name))
+                && 0 <= hour && hour < 24 && 0 <= min && min < 60)
             {
-                _lstMedication.Add(new ExampleMedication
-                    {
-                        Hour = hour.ToString("D2") + ":" + min.ToString("D2"),
-                        Category = _ms.category,
-                        Active = _ms.active,
-                        Name = _ms.name
-                    });
+                // TODO : Ver Drug!!!
+                _lstMedication.Add(new Medication(new DateTime(1, 1, 1, hour, min, 0), new Drug("ver", "ver", "ver")));
             }
 
+
+            // Clears the textboxes after insertion
             txtHourMedication.Clear();
             txtMinMedication.Clear();
             txtMedication.Clear();
@@ -76,14 +97,12 @@ namespace UDA_HTA.UserControls.ReportCreation
                 && int.TryParse(txtMinEffort.Text, out min)
                 && 0 <= hour && hour < 24 && 0 <= min && min < 60)
             {
-                _lstEffort.Add(new ExampleEffort
-                    {
-                        Hour = hour.ToString("D2") + ":" + min.ToString("D2"),
-                        Type = cmbTypeEffort.Text
-                    });
+                _lstEffort.Add(new Effort(new DateTime(1, 1, 1, hour, min, 0), cmbTypeEffort.Text));
             }
             //TODO show error message when the time is not correct
 
+
+            // Clears the textboxes after insertion
             txtHourEffort.Clear();
             txtMinEffort.Clear();
             cmbTypeEffort.SelectedIndex = -1;
@@ -104,14 +123,11 @@ namespace UDA_HTA.UserControls.ReportCreation
                 if (cmbTypeComp.Text.Equals("Otros"))
                     type += ": " + txtCompOther;
 
-                _lstComplication.Add(new ExampleComplication
-                    {
-                        Hour = hour.ToString("D2") + ":" + min.ToString("D2"),
-                        Type = type
-                    });
+                _lstComplication.Add(new Complication(new DateTime(1, 1, 1, hour, min, 0), type));
             }
             //TODO show error message when the time is not correct
 
+            // Clears the textboxes after insertion
             txtHourComp.Clear();
             txtMinComp.Clear();
             cmbTypeComp.SelectedIndex = -1;
@@ -122,25 +138,8 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         private void cmbTypeComp_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txtCompOther.IsEnabled = ((ComboBoxItem)e.AddedItems).Content.Equals("Otros");
+            if (e.AddedItems.Count > 0)
+                txtCompOther.IsEnabled = ((ComboBoxItem)e.AddedItems[0]).Content.Equals("Otros");
         }
-    }
-
-    public class ExampleEffort
-    {
-        public string Hour { get; set; }
-        public string Type { get; set; }
-    }
-    public class ExampleComplication
-    {
-        public string Hour { get; set; }
-        public string Type { get; set; }
-    }
-    public class ExampleMedication
-    {
-        public string Hour  { get; set; }
-        public string Category { get; set; }
-        public string Active { get; set; }
-        public string Name { get; set; }
     }
 }

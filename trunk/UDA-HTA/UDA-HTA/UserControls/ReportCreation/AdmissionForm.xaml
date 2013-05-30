@@ -39,42 +39,42 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
-                    <DatePicker Name="dtEstudioIni" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
+                    <DatePicker Name="dtStart" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource label}">Hora:</TextBlock>
                     <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal">
-                        <TextBox Name="txtEstudioHoraIni" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtStartHour" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtEstudioMinIni" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtStartMinutes" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                        <TextBox Name="txtSuenoHoraIni" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDreamStartHour" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtSuenoMinIni" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDreamStartMinutes" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
                     <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
-                        <TextBox Name="txtSuenoHoraFin" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDreamEndHour" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtSuenoMinFin" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDreamEndMinutes" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
-                    <ComboBox Name="cmbSuenoCalidad" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+                    <ComboBox Name="cmbDreamQty" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" SelectedValuePath="Content">
                         <ComboBoxItem Content="Bueno" />
                         <ComboBoxItem Content="Regular" />
                         <ComboBoxItem Content="Malo" />
                     </ComboBox>
-                    <TextBox Name="txtSuenoDesc" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap"
+                    <TextBox Name="txtDreamDesc" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap"
                              AcceptsReturn="True" Margin="0,5" MinLines="2" MaxLines="2"
                              ScrollViewer.VerticalScrollBarVisibility="Auto" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                        <TextBox Name="txtComidaHora" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtMealHour" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtComidaMin" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtMealMinutes" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -107,26 +107,26 @@
                     <TextBlock Style="{StaticResource label}" Grid.Row="2" Grid.Column="0">Fec. Cardíaca:</TextBlock>
 
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Name="txtIniSist1" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtSystolicInitial1" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">/</TextBlock>
-                        <TextBox Name="txtIniDiast1" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDiastolicInitial1" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBox Name="txtIniFC1" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="1" />
+                    <TextBox Name="txtHeartRateInitial1" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="1" />
 
                     <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Name="txtIniSist2" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtSystolicInitial2" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">/</TextBlock>
-                        <TextBox Name="txtIniDiast2" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDiastolicInitial2" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBox Name="txtIniFC2" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="2" />
+                    <TextBox Name="txtHeartRateInitial2" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="2" />
 
 
                     <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Name="txtIniSist3" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtSystolicInitial3" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">/</TextBlock>
-                        <TextBox Name="txtIniDiast3" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDiastolicInitial3" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBox Name="txtIniFC3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3" />
+                    <TextBox Name="txtHeartRateInitial3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3" />
                 </Grid>
             </GroupBox>
 
@@ -158,26 +158,26 @@
                     <TextBlock Style="{StaticResource label}" Grid.Row="2" Grid.Column="0">Fec. Cardíaca:</TextBlock>
 
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Name="txtFinSist1" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtSystolicEnd1" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">/</TextBlock>
-                        <TextBox Name="txtFinDiast1" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDiastolicEnd1" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBox Name="txtFinFC1" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="1" />
+                    <TextBox Name="txtHeartRateEnd1" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="1" />
 
                     <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Name="txtFinSist2" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtSystolicEnd2" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">/</TextBlock>
-                        <TextBox Name="txtFinDiast2" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDiastolicEnd2" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBox Name="txtFinFC2" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="2" />
+                    <TextBox Name="txtHeartRateEnd2" Style="{StaticResource TBlockSmall}" Grid.Row="2" Grid.Column="2" />
 
 
                     <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox Name="txtFinSist3" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtSystolicEnd3" Style="{StaticResource TBlockSmall}" />
                         <TextBlock Margin="2,0">/</TextBlock>
-                        <TextBox Name="txtFinDiast3" Style="{StaticResource TBlockSmall}" />
+                        <TextBox Name="txtDiastolicEnd3" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
-                    <TextBox Name="txtFinFC3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3" />
+                    <TextBox Name="txtHeartRateEnd3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3" />
                 </Grid>
             </GroupBox>
             
@@ -191,10 +191,10 @@
                 <StackPanel>
                     <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                         <TextBlock Style="{StaticResource label}">Enfermedad:</TextBlock>
-                        <TextBox Name="txtEnfedad" Margin="20,0" Width="150" />
+                        <TextBox Name="txtIllness" Margin="20,0" Width="150" />
 
                         <TextBlock Style="{StaticResource label}">Comentario:</TextBlock>
-                        <TextBox Name="txtComentario"  Margin="20,0" Width="150" />
+                        <TextBox Name="txtComments"  Margin="20,0" Width="150" />
 
                         <Button Name="btnAddIllness" Padding="5,2" VerticalAlignment="Center" 
                                 Margin="15,0,0,0" Click="btnAddIllness_Click">Agregar</Button>
@@ -205,10 +205,10 @@
                               IsReadOnly="True" SelectionChanged="grBackground_SelectionChanged" Height="90">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True"
-                                                Binding="{Binding Path=Enfermedad}">
+                                                Binding="{Binding Path=Illness}">
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"
-                                                Binding="{Binding Path=Comentario}">
+                                                Binding="{Binding Path=Comment}">
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>

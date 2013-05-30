@@ -38,14 +38,15 @@ namespace Entities
         public int? FinalHeartRate2 { get; set; }
         public int? FinalHeartRate3 { get; set; }
 
-        public DateTime SleepTimeStart { get; set; }
-        public DateTime SleepTimeEnd { get; set; }
+        public DateTime? SleepTimeStart { get; set; }
+        public DateTime? SleepTimeEnd { get; set; }
         public string SleepQuality { get; set; }
-        public DateTime MealTime { get; set; }
+        public string SleepQualityDescription { get; set; }
+        public DateTime? MealTime { get; set; }
 
-        public ICollection<Effort> Efforts { get; set; }
-        public ICollection<Complication> Complications { get; set; }
-        public ICollection<Medication> Medications { get; set; } 
+        public List<Effort> Efforts { get; set; }
+        public List<Complication> Complications { get; set; }
+        public List<Medication> Medications { get; set; } 
     }
 
 }

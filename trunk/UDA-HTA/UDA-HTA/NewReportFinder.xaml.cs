@@ -54,7 +54,7 @@ namespace UDA_HTA
         {
             if (((DataGrid) sender).SelectedIndex != -1)
             {
-                var pr = (PatientReport) e.AddedItems;
+                var pr = (PatientReport) e.AddedItems[0];
                 var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice);
                 var rc = new ReportCreate(report) {Owner = this};
                 var cancelled = rc.ShowDialog();
@@ -66,7 +66,6 @@ namespace UDA_HTA
                     grReports.IsEnabled = false;
                     grReports.IsEnabled = true;
                 }
-                else
                     Close();
             }
         }

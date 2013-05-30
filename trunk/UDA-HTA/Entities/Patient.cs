@@ -26,7 +26,8 @@ namespace Entities
         public string UdaId { get; set; }
         public int? DeviceId { get; set; }
 
-        private ICollection<Report> ReportList  { get; set; }
+        public ICollection<MedicalRecord> Background { get; set; } 
 
+        private ICollection<Report> ReportList  { get; set; }
     }
 }

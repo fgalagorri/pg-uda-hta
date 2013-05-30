@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Drug.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="MedicalRecord.cs" />
     <Compile Include="TemporaryData.cs" />
     <Compile Include="DailyCarnet.cs" />
     <Compile Include="PatientReport.cs" />

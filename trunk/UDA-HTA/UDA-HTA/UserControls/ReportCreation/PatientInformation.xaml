@@ -37,14 +37,14 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <TextBlock Style="{StaticResource label}">Apellidos:</TextBlock>
-                    <TextBox Name="txtLast" Margin="15,0"  Width="200" />
+                    <TextBox Name="txtSurnames" Margin="15,0"  Width="200" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2">
                     <TextBlock Style="{StaticResource label}">CI:</TextBlock>
                     <TextBox Name="txtCI" Margin="15,0" Width="100" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="3">
-                    <TextBlock Style="{StaticResource label}">Fecha de Nacimiento:</TextBlock>
+                    <TextBlock Style="{StaticResource label}">Fecha de Nacimiento (dd/mm/yyyy):</TextBlock>
                     <StackPanel Margin="15,0" Orientation="Horizontal">
                         <TextBox Name="txtBirthDay" Margin="2,0" Style="{StaticResource TBlockSmall}" />
                         <TextBlock>/</TextBlock>
@@ -55,7 +55,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="4">
                     <TextBlock Style="{StaticResource label}">Sexo:</TextBlock>
-                    <ComboBox Name="cmbSexo" Margin="15,0" Width="100" VerticalAlignment="Center">
+                    <ComboBox Name="cmbSex" Margin="15,0" Width="100" VerticalAlignment="Center">
                         <ComboBoxItem Content="Masculino" />
                         <ComboBoxItem Content="Femenino" />
                     </ComboBox>
@@ -99,7 +99,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
                     <Border />
                     <TextBlock Margin="15,0" Style="{StaticResource label}">Departamento:</TextBlock>
-                    <ComboBox Name="cmbDepto" VerticalAlignment="Center" Width="100">
+                    <ComboBox Name="cmbDepartment" VerticalAlignment="Center" Width="100" SelectedValuePath="Content">
                         <ComboBoxItem Content="Montevideo"></ComboBoxItem>
                         <ComboBoxItem Content="Artigas"></ComboBoxItem>
                         <ComboBoxItem Content="Canelones"></ComboBoxItem>
@@ -190,22 +190,22 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
                     <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
-                    <CheckBox Name="lblSmoker" VerticalAlignment="Center" />
+                    <CheckBox Name="chkSmoker" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                     <Border />
                     <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
-                    <CheckBox Name="lblDiabetes" VerticalAlignment="Center" />
+                    <CheckBox Name="chkDiabetic" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
                     <Border />
                     <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
-                    <CheckBox Name="lblColesterol" VerticalAlignment="Center" />
+                    <CheckBox Name="chkDyslipidemia" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
                     <Border />
                     <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
-                    <CheckBox Name="lblHypertense" VerticalAlignment="Center" />
+                    <CheckBox Name="chkHypertense" VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>
         </GroupBox>
