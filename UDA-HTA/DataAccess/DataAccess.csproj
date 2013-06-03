@@ -51,15 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelUda.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelUda.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ModelPatient.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelPatient.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ModelUda.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelUda.edmx</DependentUpon>
     </Compile>
     <Compile Include="PatientDataAccess.cs" />
     <Compile Include="UdaHtaDataAccess.cs" />
@@ -75,13 +75,13 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="ModelPatient.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelPatient.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="ModelUda.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelUda.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="ModelPatient.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelPatient.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
