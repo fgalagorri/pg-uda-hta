@@ -7,12 +7,12 @@ CREATE SCHEMA IF NOT EXISTS `patient_info_db` DEFAULT CHARACTER SET latin1 COLLA
 USE `patient_info_db` ;
 
 -- -----------------------------------------------------
--- Table `patient_info_db`.`Patient`
+-- Table `patient_info_db`.`patient`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_info_db`.`Patient` ;
+DROP TABLE IF EXISTS `patient_info_db`.`patient` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_info_db`.`Patient` (
-  `idPatient` INT NOT NULL AUTO_INCREMENT ,
+CREATE  TABLE IF NOT EXISTS `patient_info_db`.`patient` (
+  `idPatient` BIGINT NOT NULL AUTO_INCREMENT ,
   `patientReference` BIGINT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `surname` VARCHAR(45) NOT NULL ,
@@ -25,6 +25,7 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`Patient` (
   `neighborhood` VARCHAR(45) NULL ,
   `birthday` DATETIME NULL ,
   `e_mail` TEXT NULL ,
+  `register_number` BIGINT NULL ,
   PRIMARY KEY (`idPatient`) ,
   UNIQUE INDEX `document_UNIQUE` (`document` ASC) )
 ENGINE = InnoDB;
@@ -40,12 +41,12 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`emergency_contact` (
   `name` VARCHAR(45) NULL ,
   `surname` VARCHAR(45) NULL ,
   `phone` VARCHAR(45) NULL ,
-  `Patient_idPatient` INT NOT NULL ,
+  `patient_idPatient` BIGINT NOT NULL ,
   PRIMARY KEY (`idemergency_contact`) ,
-  INDEX `fk_emergency_contact_Patient_idx` (`Patient_idPatient` ASC) ,
+  INDEX `fk_emergency_contact_Patient_idx` (`patient_idPatient` ASC) ,
   CONSTRAINT `fk_emergency_contact_Patient`
-    FOREIGN KEY (`Patient_idPatient` )
-    REFERENCES `patient_info_db`.`Patient` (`idPatient` )
+    FOREIGN KEY (`patient_idPatient` )
+    REFERENCES `patient_info_db`.`patient` (`idPatient` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
