@@ -140,7 +140,8 @@ namespace DataAccess
         /// <param name="phone">No Metadata Documentation available.</param>
         /// <param name="cell">No Metadata Documentation available.</param>
         /// <param name="email">No Metadata Documentation available.</param>
-        public int insertPatient(ObjectParameter id, Nullable<global::System.Int64> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email)
+        /// <param name="register_number">No Metadata Documentation available.</param>
+        public int insertPatient(ObjectParameter id, Nullable<global::System.Int64> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
         {
             ObjectParameter idInDevParameter;
             if (idInDev.HasValue)
@@ -262,7 +263,17 @@ namespace DataAccess
                 emailParameter = new ObjectParameter("email", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("insertPatient", id, idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter);
+            ObjectParameter register_numberParameter;
+            if (register_number.HasValue)
+            {
+                register_numberParameter = new ObjectParameter("register_number", register_number);
+            }
+            else
+            {
+                register_numberParameter = new ObjectParameter("register_number", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertPatient", id, idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
         }
 
         #endregion
@@ -287,12 +298,12 @@ namespace DataAccess
         /// Create a new emergency_contact object.
         /// </summary>
         /// <param name="idemergency_contact">Initial value of the idemergency_contact property.</param>
-        /// <param name="patient_idPatient">Initial value of the Patient_idPatient property.</param>
-        public static emergency_contact Createemergency_contact(global::System.Int32 idemergency_contact, global::System.Int32 patient_idPatient)
+        /// <param name="patient_idPatient">Initial value of the patient_idPatient property.</param>
+        public static emergency_contact Createemergency_contact(global::System.Int32 idemergency_contact, global::System.Int64 patient_idPatient)
         {
             emergency_contact emergency_contact = new emergency_contact();
             emergency_contact.idemergency_contact = idemergency_contact;
-            emergency_contact.Patient_idPatient = patient_idPatient;
+            emergency_contact.patient_idPatient = patient_idPatient;
             return emergency_contact;
         }
 
@@ -403,24 +414,24 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Patient_idPatient
+        public global::System.Int64 patient_idPatient
         {
             get
             {
-                return _Patient_idPatient;
+                return _patient_idPatient;
             }
             set
             {
-                OnPatient_idPatientChanging(value);
-                ReportPropertyChanging("Patient_idPatient");
-                _Patient_idPatient = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Patient_idPatient");
-                OnPatient_idPatientChanged();
+                Onpatient_idPatientChanging(value);
+                ReportPropertyChanging("patient_idPatient");
+                _patient_idPatient = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("patient_idPatient");
+                Onpatient_idPatientChanged();
             }
         }
-        private global::System.Int32 _Patient_idPatient;
-        partial void OnPatient_idPatientChanging(global::System.Int32 value);
-        partial void OnPatient_idPatientChanged();
+        private global::System.Int64 _patient_idPatient;
+        partial void Onpatient_idPatientChanging(global::System.Int64 value);
+        partial void Onpatient_idPatientChanged();
 
         #endregion
     
@@ -484,13 +495,15 @@ namespace DataAccess
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="surname">Initial value of the surname property.</param>
         /// <param name="document">Initial value of the document property.</param>
-        public static patient Createpatient(global::System.Int32 idPatient, global::System.String name, global::System.String surname, global::System.String document)
+        /// <param name="gender">Initial value of the gender property.</param>
+        public static patient Createpatient(global::System.Int64 idPatient, global::System.String name, global::System.String surname, global::System.String document, global::System.String gender)
         {
             patient patient = new patient();
             patient.idPatient = idPatient;
             patient.name = name;
             patient.surname = surname;
             patient.document = document;
+            patient.gender = gender;
             return patient;
         }
 
@@ -502,7 +515,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idPatient
+        public global::System.Int64 idPatient
         {
             get
             {
@@ -520,8 +533,8 @@ namespace DataAccess
                 }
             }
         }
-        private global::System.Int32 _idPatient;
-        partial void OnidPatientChanging(global::System.Int32 value);
+        private global::System.Int64 _idPatient;
+        partial void OnidPatientChanging(global::System.Int64 value);
         partial void OnidPatientChanged();
     
         /// <summary>
@@ -623,7 +636,7 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String gender
         {
@@ -635,7 +648,7 @@ namespace DataAccess
             {
                 OngenderChanging(value);
                 ReportPropertyChanging("gender");
-                _gender = StructuralObject.SetValidValue(value, true);
+                _gender = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("gender");
                 OngenderChanged();
             }
@@ -811,6 +824,30 @@ namespace DataAccess
         private global::System.String _e_mail;
         partial void One_mailChanging(global::System.String value);
         partial void One_mailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> register_number
+        {
+            get
+            {
+                return _register_number;
+            }
+            set
+            {
+                Onregister_numberChanging(value);
+                ReportPropertyChanging("register_number");
+                _register_number = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("register_number");
+                Onregister_numberChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _register_number;
+        partial void Onregister_numberChanging(Nullable<global::System.Int64> value);
+        partial void Onregister_numberChanged();
 
         #endregion
     

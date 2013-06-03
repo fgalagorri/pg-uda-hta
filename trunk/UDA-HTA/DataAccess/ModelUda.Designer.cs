@@ -663,6 +663,132 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="dateM">No Metadata Documentation available.</param>
+        /// <param name="systolic">No Metadata Documentation available.</param>
+        /// <param name="average">No Metadata Documentation available.</param>
+        /// <param name="diastolic">No Metadata Documentation available.</param>
+        /// <param name="heart_rate">No Metadata Documentation available.</param>
+        /// <param name="sleep">No Metadata Documentation available.</param>
+        /// <param name="comm">No Metadata Documentation available.</param>
+        /// <param name="idReport">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter dateMParameter;
+            if (dateM.HasValue)
+            {
+                dateMParameter = new ObjectParameter("dateM", dateM);
+            }
+            else
+            {
+                dateMParameter = new ObjectParameter("dateM", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter systolicParameter;
+            if (systolic.HasValue)
+            {
+                systolicParameter = new ObjectParameter("systolic", systolic);
+            }
+            else
+            {
+                systolicParameter = new ObjectParameter("systolic", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter averageParameter;
+            if (average.HasValue)
+            {
+                averageParameter = new ObjectParameter("average", average);
+            }
+            else
+            {
+                averageParameter = new ObjectParameter("average", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter diastolicParameter;
+            if (diastolic.HasValue)
+            {
+                diastolicParameter = new ObjectParameter("diastolic", diastolic);
+            }
+            else
+            {
+                diastolicParameter = new ObjectParameter("diastolic", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter heart_rateParameter;
+            if (heart_rate.HasValue)
+            {
+                heart_rateParameter = new ObjectParameter("heart_rate", heart_rate);
+            }
+            else
+            {
+                heart_rateParameter = new ObjectParameter("heart_rate", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter sleepParameter;
+            if (sleep.HasValue)
+            {
+                sleepParameter = new ObjectParameter("sleep", sleep);
+            }
+            else
+            {
+                sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter commParameter;
+            if (comm != null)
+            {
+                commParameter = new ObjectParameter("comm", comm);
+            }
+            else
+            {
+                commParameter = new ObjectParameter("comm", typeof(global::System.String));
+            }
+    
+            ObjectParameter idReportParameter;
+            if (idReport.HasValue)
+            {
+                idReportParameter = new ObjectParameter("idReport", idReport);
+            }
+            else
+            {
+                idReportParameter = new ObjectParameter("idReport", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, commParameter, idReportParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        public int insertPatientUda(Nullable<global::System.Int64> id)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertPatientUda", idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="begin_date">No Metadata Documentation available.</param>
         /// <param name="end_date">No Metadata Documentation available.</param>
@@ -685,7 +811,7 @@ namespace DataAccess
         /// <param name="idTemporaryData">No Metadata Documentation available.</param>
         /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
         /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, Nullable<global::System.Int32> devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int32> idDailyCarnet, Nullable<global::System.Int32> idPatient)
+        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, Nullable<global::System.Int32> devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient)
         {
             ObjectParameter begin_dateParameter;
             if (begin_date.HasValue)
@@ -884,7 +1010,7 @@ namespace DataAccess
             }
             else
             {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int32));
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
             }
     
             ObjectParameter idPatientParameter;
@@ -894,59 +1020,10 @@ namespace DataAccess
             }
             else
             {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int32));
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
             }
     
             return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        public int insertPatientUda(Nullable<global::System.Int32> id)
-        {
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertPatientUda", idParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="login_var">No Metadata Documentation available.</param>
-        /// <param name="pass_var">No Metadata Documentation available.</param>
-        public int updatePassword(global::System.String login_var, global::System.String pass_var)
-        {
-            ObjectParameter login_varParameter;
-            if (login_var != null)
-            {
-                login_varParameter = new ObjectParameter("login_var", login_var);
-            }
-            else
-            {
-                login_varParameter = new ObjectParameter("login_var", typeof(global::System.String));
-            }
-    
-            ObjectParameter pass_varParameter;
-            if (pass_var != null)
-            {
-                pass_varParameter = new ObjectParameter("pass_var", pass_var);
-            }
-            else
-            {
-                pass_varParameter = new ObjectParameter("pass_var", typeof(global::System.String));
-            }
-    
-            return base.ExecuteFunction("updatePassword", login_varParameter, pass_varParameter);
         }
     
         /// <summary>
@@ -1078,113 +1155,6 @@ namespace DataAccess
     
             return base.ExecuteFunction("insertTemporaryData", id, weightParameter, heightParameter, ageParameter, body_mass_indexParameter, smokerParameter, dyslipidemiaParameter, diabeticParameter, known_hypertensiveParameter, fat_percentageParameter, muscle_percentageParameter, kcalParameter);
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="dateM">No Metadata Documentation available.</param>
-        /// <param name="systolic">No Metadata Documentation available.</param>
-        /// <param name="average">No Metadata Documentation available.</param>
-        /// <param name="diastolic">No Metadata Documentation available.</param>
-        /// <param name="heart_rate">No Metadata Documentation available.</param>
-        /// <param name="sleep">No Metadata Documentation available.</param>
-        /// <param name="comm">No Metadata Documentation available.</param>
-        /// <param name="idReport">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int32> idPatient)
-        {
-            ObjectParameter dateMParameter;
-            if (dateM.HasValue)
-            {
-                dateMParameter = new ObjectParameter("dateM", dateM);
-            }
-            else
-            {
-                dateMParameter = new ObjectParameter("dateM", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter systolicParameter;
-            if (systolic.HasValue)
-            {
-                systolicParameter = new ObjectParameter("systolic", systolic);
-            }
-            else
-            {
-                systolicParameter = new ObjectParameter("systolic", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter averageParameter;
-            if (average.HasValue)
-            {
-                averageParameter = new ObjectParameter("average", average);
-            }
-            else
-            {
-                averageParameter = new ObjectParameter("average", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter diastolicParameter;
-            if (diastolic.HasValue)
-            {
-                diastolicParameter = new ObjectParameter("diastolic", diastolic);
-            }
-            else
-            {
-                diastolicParameter = new ObjectParameter("diastolic", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter heart_rateParameter;
-            if (heart_rate.HasValue)
-            {
-                heart_rateParameter = new ObjectParameter("heart_rate", heart_rate);
-            }
-            else
-            {
-                heart_rateParameter = new ObjectParameter("heart_rate", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter sleepParameter;
-            if (sleep.HasValue)
-            {
-                sleepParameter = new ObjectParameter("sleep", sleep);
-            }
-            else
-            {
-                sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
-            }
-    
-            ObjectParameter commParameter;
-            if (comm != null)
-            {
-                commParameter = new ObjectParameter("comm", comm);
-            }
-            else
-            {
-                commParameter = new ObjectParameter("comm", typeof(global::System.String));
-            }
-    
-            ObjectParameter idReportParameter;
-            if (idReport.HasValue)
-            {
-                idReportParameter = new ObjectParameter("idReport", idReport);
-            }
-            else
-            {
-                idReportParameter = new ObjectParameter("idReport", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, commParameter, idReportParameter, idPatientParameter);
-        }
 
         #endregion
     }
@@ -1208,14 +1178,14 @@ namespace DataAccess
         /// Create a new complications_activities object.
         /// </summary>
         /// <param name="idComplications_Activities">Initial value of the idComplications_Activities property.</param>
-        /// <param name="dailyCarnet_idDailyCarnet">Initial value of the DailyCarnet_idDailyCarnet property.</param>
-        /// <param name="extrasID_idExtrasID">Initial value of the ExtrasID_idExtrasID property.</param>
-        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int64 dailyCarnet_idDailyCarnet, global::System.Int32 extrasID_idExtrasID)
+        /// <param name="dailycarnet_idDailyCarnet">Initial value of the dailycarnet_idDailyCarnet property.</param>
+        /// <param name="extrasid_idExtrasID">Initial value of the extrasid_idExtrasID property.</param>
+        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int64 dailycarnet_idDailyCarnet, global::System.Int32 extrasid_idExtrasID)
         {
             complications_activities complications_activities = new complications_activities();
             complications_activities.idComplications_Activities = idComplications_Activities;
-            complications_activities.DailyCarnet_idDailyCarnet = dailyCarnet_idDailyCarnet;
-            complications_activities.ExtrasID_idExtrasID = extrasID_idExtrasID;
+            complications_activities.dailycarnet_idDailyCarnet = dailycarnet_idDailyCarnet;
+            complications_activities.extrasid_idExtrasID = extrasid_idExtrasID;
             return complications_activities;
         }
 
@@ -1326,51 +1296,51 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 DailyCarnet_idDailyCarnet
+        public global::System.Int64 dailycarnet_idDailyCarnet
         {
             get
             {
-                return _DailyCarnet_idDailyCarnet;
+                return _dailycarnet_idDailyCarnet;
             }
             set
             {
-                OnDailyCarnet_idDailyCarnetChanging(value);
-                ReportPropertyChanging("DailyCarnet_idDailyCarnet");
-                _DailyCarnet_idDailyCarnet = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DailyCarnet_idDailyCarnet");
-                OnDailyCarnet_idDailyCarnetChanged();
+                Ondailycarnet_idDailyCarnetChanging(value);
+                ReportPropertyChanging("dailycarnet_idDailyCarnet");
+                _dailycarnet_idDailyCarnet = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dailycarnet_idDailyCarnet");
+                Ondailycarnet_idDailyCarnetChanged();
             }
         }
-        private global::System.Int64 _DailyCarnet_idDailyCarnet;
-        partial void OnDailyCarnet_idDailyCarnetChanging(global::System.Int64 value);
-        partial void OnDailyCarnet_idDailyCarnetChanged();
+        private global::System.Int64 _dailycarnet_idDailyCarnet;
+        partial void Ondailycarnet_idDailyCarnetChanging(global::System.Int64 value);
+        partial void Ondailycarnet_idDailyCarnetChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 ExtrasID_idExtrasID
+        public global::System.Int32 extrasid_idExtrasID
         {
             get
             {
-                return _ExtrasID_idExtrasID;
+                return _extrasid_idExtrasID;
             }
             set
             {
-                if (_ExtrasID_idExtrasID != value)
+                if (_extrasid_idExtrasID != value)
                 {
-                    OnExtrasID_idExtrasIDChanging(value);
-                    ReportPropertyChanging("ExtrasID_idExtrasID");
-                    _ExtrasID_idExtrasID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ExtrasID_idExtrasID");
-                    OnExtrasID_idExtrasIDChanged();
+                    Onextrasid_idExtrasIDChanging(value);
+                    ReportPropertyChanging("extrasid_idExtrasID");
+                    _extrasid_idExtrasID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("extrasid_idExtrasID");
+                    Onextrasid_idExtrasIDChanged();
                 }
             }
         }
-        private global::System.Int32 _ExtrasID_idExtrasID;
-        partial void OnExtrasID_idExtrasIDChanging(global::System.Int32 value);
-        partial void OnExtrasID_idExtrasIDChanged();
+        private global::System.Int32 _extrasid_idExtrasID;
+        partial void Onextrasid_idExtrasIDChanging(global::System.Int32 value);
+        partial void Onextrasid_idExtrasIDChanged();
 
         #endregion
     
@@ -2124,13 +2094,13 @@ namespace DataAccess
         /// </summary>
         /// <param name="idDrug">Initial value of the idDrug property.</param>
         /// <param name="name">Initial value of the name property.</param>
-        /// <param name="drugType_idDrugType">Initial value of the DrugType_idDrugType property.</param>
-        public static drug Createdrug(global::System.Int32 idDrug, global::System.String name, global::System.Int32 drugType_idDrugType)
+        /// <param name="drugtype_idDrugType">Initial value of the drugtype_idDrugType property.</param>
+        public static drug Createdrug(global::System.Int32 idDrug, global::System.String name, global::System.Int32 drugtype_idDrugType)
         {
             drug drug = new drug();
             drug.idDrug = idDrug;
             drug.name = name;
-            drug.DrugType_idDrugType = drugType_idDrugType;
+            drug.drugtype_idDrugType = drugtype_idDrugType;
             return drug;
         }
 
@@ -2193,24 +2163,24 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 DrugType_idDrugType
+        public global::System.Int32 drugtype_idDrugType
         {
             get
             {
-                return _DrugType_idDrugType;
+                return _drugtype_idDrugType;
             }
             set
             {
-                OnDrugType_idDrugTypeChanging(value);
-                ReportPropertyChanging("DrugType_idDrugType");
-                _DrugType_idDrugType = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DrugType_idDrugType");
-                OnDrugType_idDrugTypeChanged();
+                Ondrugtype_idDrugTypeChanging(value);
+                ReportPropertyChanging("drugtype_idDrugType");
+                _drugtype_idDrugType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("drugtype_idDrugType");
+                Ondrugtype_idDrugTypeChanged();
             }
         }
-        private global::System.Int32 _DrugType_idDrugType;
-        partial void OnDrugType_idDrugTypeChanging(global::System.Int32 value);
-        partial void OnDrugType_idDrugTypeChanged();
+        private global::System.Int32 _drugtype_idDrugType;
+        partial void Ondrugtype_idDrugTypeChanging(global::System.Int32 value);
+        partial void Ondrugtype_idDrugTypeChanged();
 
         #endregion
     
@@ -2637,14 +2607,14 @@ namespace DataAccess
         /// Create a new measurement object.
         /// </summary>
         /// <param name="idMeasurement">Initial value of the idMeasurement property.</param>
-        /// <param name="report_idReport">Initial value of the Report_idReport property.</param>
-        /// <param name="report_Patient_idPatient">Initial value of the Report_Patient_idPatient property.</param>
-        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Int64 report_idReport, global::System.Int32 report_Patient_idPatient)
+        /// <param name="report_idReport">Initial value of the report_idReport property.</param>
+        /// <param name="report_patientuda_idPatientUda">Initial value of the report_patientuda_idPatientUda property.</param>
+        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda)
         {
             measurement measurement = new measurement();
             measurement.idMeasurement = idMeasurement;
-            measurement.Report_idReport = report_idReport;
-            measurement.Report_Patient_idPatient = report_Patient_idPatient;
+            measurement.report_idReport = report_idReport;
+            measurement.report_patientuda_idPatientUda = report_patientuda_idPatientUda;
             return measurement;
         }
 
@@ -2825,60 +2795,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Report_idReport
-        {
-            get
-            {
-                return _Report_idReport;
-            }
-            set
-            {
-                if (_Report_idReport != value)
-                {
-                    OnReport_idReportChanging(value);
-                    ReportPropertyChanging("Report_idReport");
-                    _Report_idReport = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Report_idReport");
-                    OnReport_idReportChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Report_idReport;
-        partial void OnReport_idReportChanging(global::System.Int64 value);
-        partial void OnReport_idReportChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Report_Patient_idPatient
-        {
-            get
-            {
-                return _Report_Patient_idPatient;
-            }
-            set
-            {
-                if (_Report_Patient_idPatient != value)
-                {
-                    OnReport_Patient_idPatientChanging(value);
-                    ReportPropertyChanging("Report_Patient_idPatient");
-                    _Report_Patient_idPatient = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Report_Patient_idPatient");
-                    OnReport_Patient_idPatientChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Report_Patient_idPatient;
-        partial void OnReport_Patient_idPatientChanging(global::System.Int32 value);
-        partial void OnReport_Patient_idPatientChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String comment
@@ -2899,6 +2815,60 @@ namespace DataAccess
         private global::System.String _comment;
         partial void OncommentChanging(global::System.String value);
         partial void OncommentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 report_idReport
+        {
+            get
+            {
+                return _report_idReport;
+            }
+            set
+            {
+                if (_report_idReport != value)
+                {
+                    Onreport_idReportChanging(value);
+                    ReportPropertyChanging("report_idReport");
+                    _report_idReport = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("report_idReport");
+                    Onreport_idReportChanged();
+                }
+            }
+        }
+        private global::System.Int64 _report_idReport;
+        partial void Onreport_idReportChanging(global::System.Int64 value);
+        partial void Onreport_idReportChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 report_patientuda_idPatientUda
+        {
+            get
+            {
+                return _report_patientuda_idPatientUda;
+            }
+            set
+            {
+                if (_report_patientuda_idPatientUda != value)
+                {
+                    Onreport_patientuda_idPatientUdaChanging(value);
+                    ReportPropertyChanging("report_patientuda_idPatientUda");
+                    _report_patientuda_idPatientUda = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("report_patientuda_idPatientUda");
+                    Onreport_patientuda_idPatientUdaChanged();
+                }
+            }
+        }
+        private global::System.Int64 _report_patientuda_idPatientUda;
+        partial void Onreport_patientuda_idPatientUdaChanging(global::System.Int64 value);
+        partial void Onreport_patientuda_idPatientUdaChanged();
 
         #endregion
     
@@ -2959,12 +2929,12 @@ namespace DataAccess
         /// Create a new medicalhistory object.
         /// </summary>
         /// <param name="idMedical_History">Initial value of the idMedical_History property.</param>
-        /// <param name="patient_idPatient">Initial value of the Patient_idPatient property.</param>
-        public static medicalhistory Createmedicalhistory(global::System.Int32 idMedical_History, global::System.Int32 patient_idPatient)
+        /// <param name="patientuda_idPatientUda">Initial value of the patientuda_idPatientUda property.</param>
+        public static medicalhistory Createmedicalhistory(global::System.Int32 idMedical_History, global::System.Int64 patientuda_idPatientUda)
         {
             medicalhistory medicalhistory = new medicalhistory();
             medicalhistory.idMedical_History = idMedical_History;
-            medicalhistory.Patient_idPatient = patient_idPatient;
+            medicalhistory.patientuda_idPatientUda = patientuda_idPatientUda;
             return medicalhistory;
         }
 
@@ -3099,27 +3069,27 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Patient_idPatient
+        public global::System.Int64 patientuda_idPatientUda
         {
             get
             {
-                return _Patient_idPatient;
+                return _patientuda_idPatientUda;
             }
             set
             {
-                if (_Patient_idPatient != value)
+                if (_patientuda_idPatientUda != value)
                 {
-                    OnPatient_idPatientChanging(value);
-                    ReportPropertyChanging("Patient_idPatient");
-                    _Patient_idPatient = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Patient_idPatient");
-                    OnPatient_idPatientChanged();
+                    Onpatientuda_idPatientUdaChanging(value);
+                    ReportPropertyChanging("patientuda_idPatientUda");
+                    _patientuda_idPatientUda = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("patientuda_idPatientUda");
+                    Onpatientuda_idPatientUdaChanged();
                 }
             }
         }
-        private global::System.Int32 _Patient_idPatient;
-        partial void OnPatient_idPatientChanging(global::System.Int32 value);
-        partial void OnPatient_idPatientChanged();
+        private global::System.Int64 _patientuda_idPatientUda;
+        partial void Onpatientuda_idPatientUdaChanging(global::System.Int64 value);
+        partial void Onpatientuda_idPatientUdaChanged();
 
         #endregion
     
@@ -3182,16 +3152,16 @@ namespace DataAccess
         /// <param name="idMedicineDosis">Initial value of the idMedicineDosis property.</param>
         /// <param name="time">Initial value of the time property.</param>
         /// <param name="dose">Initial value of the dose property.</param>
-        /// <param name="drug_idDrug">Initial value of the Drug_idDrug property.</param>
-        /// <param name="temporaryData_idTemporaryData">Initial value of the TemporaryData_idTemporaryData property.</param>
-        public static medicinedose Createmedicinedose(global::System.Int32 idMedicineDosis, global::System.DateTime time, global::System.String dose, global::System.Int32 drug_idDrug, global::System.Int32 temporaryData_idTemporaryData)
+        /// <param name="drug_idDrug">Initial value of the drug_idDrug property.</param>
+        /// <param name="temporarydata_idTemporaryData">Initial value of the temporarydata_idTemporaryData property.</param>
+        public static medicinedose Createmedicinedose(global::System.Int32 idMedicineDosis, global::System.DateTime time, global::System.String dose, global::System.Int32 drug_idDrug, global::System.Int32 temporarydata_idTemporaryData)
         {
             medicinedose medicinedose = new medicinedose();
             medicinedose.idMedicineDosis = idMedicineDosis;
             medicinedose.time = time;
             medicinedose.dose = dose;
-            medicinedose.Drug_idDrug = drug_idDrug;
-            medicinedose.TemporaryData_idTemporaryData = temporaryData_idTemporaryData;
+            medicinedose.drug_idDrug = drug_idDrug;
+            medicinedose.temporarydata_idTemporaryData = temporarydata_idTemporaryData;
             return medicinedose;
         }
 
@@ -3278,48 +3248,48 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Drug_idDrug
+        public global::System.Int32 drug_idDrug
         {
             get
             {
-                return _Drug_idDrug;
+                return _drug_idDrug;
             }
             set
             {
-                OnDrug_idDrugChanging(value);
-                ReportPropertyChanging("Drug_idDrug");
-                _Drug_idDrug = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Drug_idDrug");
-                OnDrug_idDrugChanged();
+                Ondrug_idDrugChanging(value);
+                ReportPropertyChanging("drug_idDrug");
+                _drug_idDrug = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("drug_idDrug");
+                Ondrug_idDrugChanged();
             }
         }
-        private global::System.Int32 _Drug_idDrug;
-        partial void OnDrug_idDrugChanging(global::System.Int32 value);
-        partial void OnDrug_idDrugChanged();
+        private global::System.Int32 _drug_idDrug;
+        partial void Ondrug_idDrugChanging(global::System.Int32 value);
+        partial void Ondrug_idDrugChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 TemporaryData_idTemporaryData
+        public global::System.Int32 temporarydata_idTemporaryData
         {
             get
             {
-                return _TemporaryData_idTemporaryData;
+                return _temporarydata_idTemporaryData;
             }
             set
             {
-                OnTemporaryData_idTemporaryDataChanging(value);
-                ReportPropertyChanging("TemporaryData_idTemporaryData");
-                _TemporaryData_idTemporaryData = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TemporaryData_idTemporaryData");
-                OnTemporaryData_idTemporaryDataChanged();
+                Ontemporarydata_idTemporaryDataChanging(value);
+                ReportPropertyChanging("temporarydata_idTemporaryData");
+                _temporarydata_idTemporaryData = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("temporarydata_idTemporaryData");
+                Ontemporarydata_idTemporaryDataChanged();
             }
         }
-        private global::System.Int32 _TemporaryData_idTemporaryData;
-        partial void OnTemporaryData_idTemporaryDataChanging(global::System.Int32 value);
-        partial void OnTemporaryData_idTemporaryDataChanged();
+        private global::System.Int32 _temporarydata_idTemporaryData;
+        partial void Ontemporarydata_idTemporaryDataChanging(global::System.Int32 value);
+        partial void Ontemporarydata_idTemporaryDataChanged();
 
         #endregion
     
@@ -3418,7 +3388,7 @@ namespace DataAccess
         /// Create a new patientuda object.
         /// </summary>
         /// <param name="idPatientUda">Initial value of the idPatientUda property.</param>
-        public static patientuda Createpatientuda(global::System.Int32 idPatientUda)
+        public static patientuda Createpatientuda(global::System.Int64 idPatientUda)
         {
             patientuda patientuda = new patientuda();
             patientuda.idPatientUda = idPatientUda;
@@ -3433,7 +3403,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idPatientUda
+        public global::System.Int64 idPatientUda
         {
             get
             {
@@ -3451,8 +3421,8 @@ namespace DataAccess
                 }
             }
         }
-        private global::System.Int32 _idPatientUda;
-        partial void OnidPatientUdaChanging(global::System.Int32 value);
+        private global::System.Int64 _idPatientUda;
+        partial void OnidPatientUdaChanging(global::System.Int64 value);
         partial void OnidPatientUdaChanged();
 
         #endregion
@@ -3522,18 +3492,18 @@ namespace DataAccess
         /// <param name="idReport">Initial value of the idReport property.</param>
         /// <param name="idDevice">Initial value of the idDevice property.</param>
         /// <param name="deviceReportId">Initial value of the deviceReportId property.</param>
-        /// <param name="dailyCarnet_idDailyCarnet">Initial value of the DailyCarnet_idDailyCarnet property.</param>
-        /// <param name="patient_idPatient">Initial value of the Patient_idPatient property.</param>
-        /// <param name="temporaryData_idTemporaryData">Initial value of the TemporaryData_idTemporaryData property.</param>
-        public static report Createreport(global::System.Int64 idReport, global::System.Int32 idDevice, global::System.String deviceReportId, global::System.Int64 dailyCarnet_idDailyCarnet, global::System.Int32 patient_idPatient, global::System.Int32 temporaryData_idTemporaryData)
+        /// <param name="dailycarnet_idDailyCarnet">Initial value of the dailycarnet_idDailyCarnet property.</param>
+        /// <param name="patientuda_idPatientUda">Initial value of the patientuda_idPatientUda property.</param>
+        /// <param name="temporarydata_idTemporaryData">Initial value of the temporarydata_idTemporaryData property.</param>
+        public static report Createreport(global::System.Int64 idReport, global::System.Int32 idDevice, global::System.String deviceReportId, global::System.Int64 dailycarnet_idDailyCarnet, global::System.Int64 patientuda_idPatientUda, global::System.Int32 temporarydata_idTemporaryData)
         {
             report report = new report();
             report.idReport = idReport;
             report.idDevice = idDevice;
             report.deviceReportId = deviceReportId;
-            report.DailyCarnet_idDailyCarnet = dailyCarnet_idDailyCarnet;
-            report.Patient_idPatient = patient_idPatient;
-            report.TemporaryData_idTemporaryData = temporaryData_idTemporaryData;
+            report.dailycarnet_idDailyCarnet = dailycarnet_idDailyCarnet;
+            report.patientuda_idPatientUda = patientuda_idPatientUda;
+            report.temporarydata_idTemporaryData = temporarydata_idTemporaryData;
             return report;
         }
 
@@ -4004,75 +3974,75 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 DailyCarnet_idDailyCarnet
+        public global::System.Int64 dailycarnet_idDailyCarnet
         {
             get
             {
-                return _DailyCarnet_idDailyCarnet;
+                return _dailycarnet_idDailyCarnet;
             }
             set
             {
-                OnDailyCarnet_idDailyCarnetChanging(value);
-                ReportPropertyChanging("DailyCarnet_idDailyCarnet");
-                _DailyCarnet_idDailyCarnet = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DailyCarnet_idDailyCarnet");
-                OnDailyCarnet_idDailyCarnetChanged();
+                Ondailycarnet_idDailyCarnetChanging(value);
+                ReportPropertyChanging("dailycarnet_idDailyCarnet");
+                _dailycarnet_idDailyCarnet = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dailycarnet_idDailyCarnet");
+                Ondailycarnet_idDailyCarnetChanged();
             }
         }
-        private global::System.Int64 _DailyCarnet_idDailyCarnet;
-        partial void OnDailyCarnet_idDailyCarnetChanging(global::System.Int64 value);
-        partial void OnDailyCarnet_idDailyCarnetChanged();
+        private global::System.Int64 _dailycarnet_idDailyCarnet;
+        partial void Ondailycarnet_idDailyCarnetChanging(global::System.Int64 value);
+        partial void Ondailycarnet_idDailyCarnetChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Patient_idPatient
+        public global::System.Int64 patientuda_idPatientUda
         {
             get
             {
-                return _Patient_idPatient;
+                return _patientuda_idPatientUda;
             }
             set
             {
-                if (_Patient_idPatient != value)
+                if (_patientuda_idPatientUda != value)
                 {
-                    OnPatient_idPatientChanging(value);
-                    ReportPropertyChanging("Patient_idPatient");
-                    _Patient_idPatient = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Patient_idPatient");
-                    OnPatient_idPatientChanged();
+                    Onpatientuda_idPatientUdaChanging(value);
+                    ReportPropertyChanging("patientuda_idPatientUda");
+                    _patientuda_idPatientUda = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("patientuda_idPatientUda");
+                    Onpatientuda_idPatientUdaChanged();
                 }
             }
         }
-        private global::System.Int32 _Patient_idPatient;
-        partial void OnPatient_idPatientChanging(global::System.Int32 value);
-        partial void OnPatient_idPatientChanged();
+        private global::System.Int64 _patientuda_idPatientUda;
+        partial void Onpatientuda_idPatientUdaChanging(global::System.Int64 value);
+        partial void Onpatientuda_idPatientUdaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 TemporaryData_idTemporaryData
+        public global::System.Int32 temporarydata_idTemporaryData
         {
             get
             {
-                return _TemporaryData_idTemporaryData;
+                return _temporarydata_idTemporaryData;
             }
             set
             {
-                OnTemporaryData_idTemporaryDataChanging(value);
-                ReportPropertyChanging("TemporaryData_idTemporaryData");
-                _TemporaryData_idTemporaryData = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TemporaryData_idTemporaryData");
-                OnTemporaryData_idTemporaryDataChanged();
+                Ontemporarydata_idTemporaryDataChanging(value);
+                ReportPropertyChanging("temporarydata_idTemporaryData");
+                _temporarydata_idTemporaryData = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("temporarydata_idTemporaryData");
+                Ontemporarydata_idTemporaryDataChanged();
             }
         }
-        private global::System.Int32 _TemporaryData_idTemporaryData;
-        partial void OnTemporaryData_idTemporaryDataChanging(global::System.Int32 value);
-        partial void OnTemporaryData_idTemporaryDataChanged();
+        private global::System.Int32 _temporarydata_idTemporaryData;
+        partial void Ontemporarydata_idTemporaryDataChanging(global::System.Int32 value);
+        partial void Ontemporarydata_idTemporaryDataChanged();
 
         #endregion
     

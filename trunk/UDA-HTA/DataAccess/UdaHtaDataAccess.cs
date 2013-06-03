@@ -41,7 +41,7 @@ namespace DataAccess
             conn.Close(); 
         }
 
-        public bool ExistPatient(int? idPatient)
+        public bool ExistPatient(long? idPatient)
         {
             var udaContext = new udahta_dbEntities();
             return udaContext.patientuda.Any(p => p.idPatientUda == idPatient);
@@ -72,8 +72,8 @@ namespace DataAccess
 
             var udaContext = new udahta_dbEntities();
             var query = udaContext.report
-                .Where(r => r.Patient_idPatient.ToString() == patientId)
-                .Select(r => new {r.idReport, r.DailyCarnet_idDailyCarnet, r.Patient_idPatient, r.TemporaryData_idTemporaryData, r.begin_date, 
+                .Where(r => r.patientuda_idPatientUda.ToString() == patientId)
+                .Select(r => new {r.idReport, r.dailycarnet_idDailyCarnet, r.patientuda_idPatientUda, r.temporarydata_idTemporaryData, r.begin_date, 
                                   r.dailycarnet, r.day_avg_dias, r.day_avg_sys, r.day_max_dias, r.day_max_sys, r.deviceReportId, r.diagnosis, 
                                   r.doctor, r.end_date, r.idDevice, r.investigation, r.measurement, r.night_avg_dias, r.night_avg_sys, 
                                   r.night_max_dias, r.night_max_sys, r.patientuda, r.request_doctor, r.specialty, r.temporarydata, r.total_avg_dias, 
@@ -271,7 +271,7 @@ namespace DataAccess
             return true; 
         }
 
-        public void insertPatientUda(int? id)
+        public void insertPatientUda(long? id)
         {
             var udaContext = new udahta_dbEntities();
             try

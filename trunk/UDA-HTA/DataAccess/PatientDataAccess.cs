@@ -38,7 +38,7 @@ namespace DataAccess
                     sex = p.Sex.Value.ToString();
                 }
                 udaContext.insertPatient(lastIdPatient, devPatId, p.Names, p.Surnames, p.Address, p.DocumentId,
-                                         p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email);
+                                         p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
 
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
@@ -111,7 +111,7 @@ namespace DataAccess
             return patientContext.patient.Any(p => p.patientReference == patRef);
         }
 
-        public int? GetPatientId(string patientReference)
+        public long? GetPatientId(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
             Int32 patRef = Convert.ToInt32(patientReference);
