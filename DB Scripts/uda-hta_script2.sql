@@ -7,11 +7,11 @@ CREATE SCHEMA IF NOT EXISTS `udahta_db` ;
 USE `udahta_db` ;
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`User`
+-- Table `udahta_db`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`User` ;
+DROP TABLE IF EXISTS `udahta_db`.`user` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`User` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`user` (
   `idUser` INT NOT NULL AUTO_INCREMENT ,
   `login` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(45) NOT NULL ,
@@ -22,11 +22,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`DrugType`
+-- Table `udahta_db`.`drugtype`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`DrugType` ;
+DROP TABLE IF EXISTS `udahta_db`.`drugtype` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`DrugType` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`drugtype` (
   `idDrugType` INT NOT NULL AUTO_INCREMENT ,
   `type` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`idDrugType`) ,
@@ -35,31 +35,31 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`Drug`
+-- Table `udahta_db`.`drug`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`Drug` ;
+DROP TABLE IF EXISTS `udahta_db`.`drug` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`Drug` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`drug` (
   `idDrug` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
-  `DrugType_idDrugType` INT NOT NULL ,
+  `drugtype_idDrugType` INT NOT NULL ,
   PRIMARY KEY (`idDrug`) ,
-  INDEX `fk_Drug_DrugType_idx` (`DrugType_idDrugType` ASC) ,
+  INDEX `fk_Drug_DrugType_idx` (`drugtype_idDrugType` ASC) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
   CONSTRAINT `fk_Drug_DrugType`
-    FOREIGN KEY (`DrugType_idDrugType` )
-    REFERENCES `udahta_db`.`DrugType` (`idDrugType` )
+    FOREIGN KEY (`drugtype_idDrugType` )
+    REFERENCES `udahta_db`.`drugtype` (`idDrugType` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`DailyCarnet`
+-- Table `udahta_db`.`dailycarnet`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`DailyCarnet` ;
+DROP TABLE IF EXISTS `udahta_db`.`dailycarnet` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`DailyCarnet` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`dailycarnet` (
   `idDailyCarnet` BIGINT NOT NULL AUTO_INCREMENT ,
   `technical` VARCHAR(45) NULL ,
   `initial_dias1` INT NULL ,
@@ -89,22 +89,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`PatientUda`
+-- Table `udahta_db`.`patientuda`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`PatientUda` ;
+DROP TABLE IF EXISTS `udahta_db`.`patientuda` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`PatientUda` (
-  `idPatientUda` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`patientuda` (
+  `idPatientUda` BIGINT NOT NULL ,
   PRIMARY KEY (`idPatientUda`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`TemporaryData`
+-- Table `udahta_db`.`temporarydata`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`TemporaryData` ;
+DROP TABLE IF EXISTS `udahta_db`.`temporarydata` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`TemporaryData` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`temporarydata` (
   `idTemporaryData` INT NOT NULL AUTO_INCREMENT ,
   `weight` DECIMAL(2) NULL ,
   `height` DECIMAL(2) NULL ,
@@ -122,11 +122,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`Report`
+-- Table `udahta_db`.`report`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`Report` ;
+DROP TABLE IF EXISTS `udahta_db`.`report` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`Report` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `idReport` BIGINT NOT NULL AUTO_INCREMENT ,
   `begin_date` DATETIME NULL ,
   `end_date` DATETIME NULL ,
@@ -146,37 +146,37 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`Report` (
   `night_max_dias` INT NULL ,
   `idDevice` INT NOT NULL ,
   `deviceReportId` TEXT NOT NULL ,
-  `DailyCarnet_idDailyCarnet` BIGINT NOT NULL ,
-  `Patient_idPatient` INT NOT NULL ,
-  `TemporaryData_idTemporaryData` INT NOT NULL ,
-  PRIMARY KEY (`idReport`, `Patient_idPatient`) ,
-  INDEX `fk_Report_DailyCarnet1_idx` (`DailyCarnet_idDailyCarnet` ASC) ,
-  INDEX `fk_Report_Patient1_idx` (`Patient_idPatient` ASC) ,
-  INDEX `fk_Report_TemporaryData1_idx` (`TemporaryData_idTemporaryData` ASC) ,
+  `dailycarnet_idDailyCarnet` BIGINT NOT NULL ,
+  `patientuda_idPatientUda` BIGINT NOT NULL ,
+  `temporarydata_idTemporaryData` INT NOT NULL ,
+  PRIMARY KEY (`idReport`, `patientuda_idPatientUda`) ,
+  INDEX `fk_Report_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
+  INDEX `fk_Report_Patient1_idx` (`patientuda_idPatientUda` ASC) ,
+  INDEX `fk_Report_TemporaryData1_idx` (`temporarydata_idTemporaryData` ASC) ,
   CONSTRAINT `fk_Report_DailyCarnet1`
-    FOREIGN KEY (`DailyCarnet_idDailyCarnet` )
-    REFERENCES `udahta_db`.`DailyCarnet` (`idDailyCarnet` )
+    FOREIGN KEY (`dailycarnet_idDailyCarnet` )
+    REFERENCES `udahta_db`.`dailycarnet` (`idDailyCarnet` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Report_Patient1`
-    FOREIGN KEY (`Patient_idPatient` )
-    REFERENCES `udahta_db`.`PatientUda` (`idPatientUda` )
+    FOREIGN KEY (`patientuda_idPatientUda` )
+    REFERENCES `udahta_db`.`patientuda` (`idPatientUda` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Report_TemporaryData1`
-    FOREIGN KEY (`TemporaryData_idTemporaryData` )
-    REFERENCES `udahta_db`.`TemporaryData` (`idTemporaryData` )
+    FOREIGN KEY (`temporarydata_idTemporaryData` )
+    REFERENCES `udahta_db`.`temporarydata` (`idTemporaryData` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`Measurement`
+-- Table `udahta_db`.`measurement`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`Measurement` ;
+DROP TABLE IF EXISTS `udahta_db`.`measurement` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`Measurement` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`measurement` (
   `idMeasurement` INT NOT NULL AUTO_INCREMENT ,
   `date` DATETIME NULL ,
   `systolic` INT NULL ,
@@ -185,24 +185,24 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`Measurement` (
   `heart_rate` INT NULL ,
   `sleep` BIT NULL ,
   `comment` TEXT NULL ,
-  `Report_idReport` BIGINT NOT NULL ,
-  `Report_Patient_idPatient` INT NOT NULL ,
-  PRIMARY KEY (`idMeasurement`, `Report_idReport`, `Report_Patient_idPatient`) ,
-  INDEX `fk_Measurement_Report1_idx` (`Report_idReport` ASC, `Report_Patient_idPatient` ASC) ,
+  `report_idReport` BIGINT NOT NULL ,
+  `report_patientuda_idPatientUda` BIGINT NOT NULL ,
+  PRIMARY KEY (`idMeasurement`, `report_idReport`, `report_patientuda_idPatientUda`) ,
+  INDEX `fk_Measurement_Report1_idx` (`report_idReport` ASC, `report_patientuda_idPatientUda` ASC) ,
   CONSTRAINT `fk_Measurement_Report1`
-    FOREIGN KEY (`Report_idReport` , `Report_Patient_idPatient` )
-    REFERENCES `udahta_db`.`Report` (`idReport` , `Patient_idPatient` )
+    FOREIGN KEY (`report_idReport` , `report_patientuda_idPatientUda` )
+    REFERENCES `udahta_db`.`report` (`idReport` , `patientuda_idPatientUda` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`Investigation`
+-- Table `udahta_db`.`investigation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`Investigation` ;
+DROP TABLE IF EXISTS `udahta_db`.`investigation` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`Investigation` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation` (
   `idInvestigation` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `creation_date` DATETIME NOT NULL ,
@@ -212,63 +212,63 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`MedicineDose`
+-- Table `udahta_db`.`medicinedose`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`MedicineDose` ;
+DROP TABLE IF EXISTS `udahta_db`.`medicinedose` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`MedicineDose` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicinedose` (
   `idMedicineDosis` INT NOT NULL AUTO_INCREMENT ,
   `time` DATETIME NOT NULL ,
   `dose` VARCHAR(45) NOT NULL ,
-  `Drug_idDrug` INT NOT NULL ,
-  `TemporaryData_idTemporaryData` INT NOT NULL ,
+  `drug_idDrug` INT NOT NULL ,
+  `temporarydata_idTemporaryData` INT NOT NULL ,
   PRIMARY KEY (`idMedicineDosis`) ,
-  INDEX `fk_MedicineDosis_Drug1_idx` (`Drug_idDrug` ASC) ,
-  INDEX `fk_MedicineDose_TemporaryData1_idx` (`TemporaryData_idTemporaryData` ASC) ,
+  INDEX `fk_MedicineDosis_Drug1_idx` (`drug_idDrug` ASC) ,
+  INDEX `fk_MedicineDose_TemporaryData1_idx` (`temporarydata_idTemporaryData` ASC) ,
   CONSTRAINT `fk_MedicineDosis_Drug1`
-    FOREIGN KEY (`Drug_idDrug` )
-    REFERENCES `udahta_db`.`Drug` (`idDrug` )
+    FOREIGN KEY (`drug_idDrug` )
+    REFERENCES `udahta_db`.`drug` (`idDrug` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_MedicineDose_TemporaryData1`
-    FOREIGN KEY (`TemporaryData_idTemporaryData` )
-    REFERENCES `udahta_db`.`TemporaryData` (`idTemporaryData` )
+    FOREIGN KEY (`temporarydata_idTemporaryData` )
+    REFERENCES `udahta_db`.`temporarydata` (`idTemporaryData` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`Investigation_has_Report`
+-- Table `udahta_db`.`investigation_has_report`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`Investigation_has_Report` ;
+DROP TABLE IF EXISTS `udahta_db`.`investigation_has_report` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`Investigation_has_Report` (
-  `Investigation_idInvestigation` INT NOT NULL ,
-  `Report_idReport` BIGINT NOT NULL ,
-  `Report_Patient_idPatient` INT NOT NULL ,
-  PRIMARY KEY (`Investigation_idInvestigation`, `Report_idReport`, `Report_Patient_idPatient`) ,
-  INDEX `fk_Investigation_has_Report_Investigation1_idx` (`Investigation_idInvestigation` ASC) ,
-  INDEX `fk_Investigation_has_Report_Report1_idx` (`Report_idReport` ASC, `Report_Patient_idPatient` ASC) ,
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation_has_report` (
+  `investigation_idInvestigation` INT NOT NULL ,
+  `report_idReport` BIGINT NOT NULL ,
+  `report_patientuda_idPatientUda` BIGINT NOT NULL ,
+  PRIMARY KEY (`investigation_idInvestigation`, `report_idReport`, `report_patientuda_idPatientUda`) ,
+  INDEX `fk_Investigation_has_Report_Investigation1_idx` (`investigation_idInvestigation` ASC) ,
+  INDEX `fk_Investigation_has_Report_Report1_idx` (`report_idReport` ASC, `report_patientuda_idPatientUda` ASC) ,
   CONSTRAINT `fk_Investigation_has_Report_Investigation1`
-    FOREIGN KEY (`Investigation_idInvestigation` )
-    REFERENCES `udahta_db`.`Investigation` (`idInvestigation` )
+    FOREIGN KEY (`investigation_idInvestigation` )
+    REFERENCES `udahta_db`.`investigation` (`idInvestigation` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Investigation_has_Report_Report1`
-    FOREIGN KEY (`Report_idReport` , `Report_Patient_idPatient` )
-    REFERENCES `udahta_db`.`Report` (`idReport` , `Patient_idPatient` )
+    FOREIGN KEY (`report_idReport` , `report_patientuda_idPatientUda` )
+    REFERENCES `udahta_db`.`report` (`idReport` , `patientuda_idPatientUda` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`ExtrasID`
+-- Table `udahta_db`.`extrasid`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`ExtrasID` ;
+DROP TABLE IF EXISTS `udahta_db`.`extrasid` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`ExtrasID` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`extrasid` (
   `idExtrasID` INT NOT NULL AUTO_INCREMENT ,
   `description` TEXT(100) NOT NULL ,
   PRIMARY KEY (`idExtrasID`) ,
@@ -277,50 +277,50 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`Complications_Activities`
+-- Table `udahta_db`.`complications_activities`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`Complications_Activities` ;
+DROP TABLE IF EXISTS `udahta_db`.`complications_activities` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`Complications_Activities` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`complications_activities` (
   `idComplications_Activities` INT NOT NULL AUTO_INCREMENT ,
   `hour` INT NULL ,
   `minutes` INT NULL ,
   `specification` TEXT NULL ,
-  `DailyCarnet_idDailyCarnet` BIGINT NOT NULL ,
-  `ExtrasID_idExtrasID` INT NOT NULL ,
-  PRIMARY KEY (`idComplications_Activities`, `ExtrasID_idExtrasID`) ,
-  INDEX `fk_Complications_Activities_DailyCarnet1_idx` (`DailyCarnet_idDailyCarnet` ASC) ,
-  INDEX `fk_Complications_Activities_ExtrasID1_idx` (`ExtrasID_idExtrasID` ASC) ,
+  `dailycarnet_idDailyCarnet` BIGINT NOT NULL ,
+  `extrasid_idExtrasID` INT NOT NULL ,
+  PRIMARY KEY (`idComplications_Activities`, `extrasid_idExtrasID`) ,
+  INDEX `fk_Complications_Activities_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
+  INDEX `fk_Complications_Activities_ExtrasID1_idx` (`extrasid_idExtrasID` ASC) ,
   CONSTRAINT `fk_Complications_Activities_DailyCarnet1`
-    FOREIGN KEY (`DailyCarnet_idDailyCarnet` )
-    REFERENCES `udahta_db`.`DailyCarnet` (`idDailyCarnet` )
+    FOREIGN KEY (`dailycarnet_idDailyCarnet` )
+    REFERENCES `udahta_db`.`dailycarnet` (`idDailyCarnet` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Complications_Activities_ExtrasID1`
-    FOREIGN KEY (`ExtrasID_idExtrasID` )
-    REFERENCES `udahta_db`.`ExtrasID` (`idExtrasID` )
+    FOREIGN KEY (`extrasid_idExtrasID` )
+    REFERENCES `udahta_db`.`extrasid` (`idExtrasID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`MedicalHistory`
+-- Table `udahta_db`.`medicalhistory`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`MedicalHistory` ;
+DROP TABLE IF EXISTS `udahta_db`.`medicalhistory` ;
 
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`MedicalHistory` (
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
   `idMedical History` INT NOT NULL ,
   `Illness` VARCHAR(45) NULL ,
   `From` DATETIME NULL ,
   `To` DATETIME NULL ,
   `Comment` TEXT NULL ,
-  `Patient_idPatient` INT NOT NULL ,
-  PRIMARY KEY (`idMedical History`, `Patient_idPatient`) ,
-  INDEX `fk_MedicalHistory_Patient1_idx` (`Patient_idPatient` ASC) ,
+  `patientuda_idPatientUda` BIGINT NOT NULL ,
+  PRIMARY KEY (`idMedical History`, `patientuda_idPatientUda`) ,
+  INDEX `fk_MedicalHistory_Patient1_idx` (`patientuda_idPatientUda` ASC) ,
   CONSTRAINT `fk_MedicalHistory_Patient1`
-    FOREIGN KEY (`Patient_idPatient` )
-    REFERENCES `udahta_db`.`PatientUda` (`idPatientUda` )
+    FOREIGN KEY (`patientuda_idPatientUda` )
+    REFERENCES `udahta_db`.`patientuda` (`idPatientUda` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
