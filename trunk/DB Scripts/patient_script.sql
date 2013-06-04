@@ -26,6 +26,7 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`patient` (
   `birthday` DATETIME NULL ,
   `e_mail` TEXT NULL ,
   `register_number` BIGINT NULL ,
+  `modified_date` DATETIME NULL ,
   PRIMARY KEY (`idPatient`) ,
   UNIQUE INDEX `document_UNIQUE` (`document` ASC) )
 ENGINE = InnoDB;
@@ -37,7 +38,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `patient_info_db`.`emergency_contact` ;
 
 CREATE  TABLE IF NOT EXISTS `patient_info_db`.`emergency_contact` (
-  `idemergency_contact` INT NOT NULL AUTO_INCREMENT ,
+  `idemergency_contact` BIGINT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `surname` VARCHAR(45) NULL ,
   `phone` VARCHAR(45) NULL ,

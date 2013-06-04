@@ -9,6 +9,17 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS insertEmergencyContact$$
+CREATE PROCEDURE insertEmergencyContact(OUT id BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), IN phone VARCHAR(45), IN idPatient BIGINT)
+BEGIN
+INSERT INTO `patient_info_db`.`emergency_contact` (`name`, `surname`, `phone`, `patient_idPatient`) 
+VALUES (name, surname, phone, idPatient);
+SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatientUda$$
 CREATE PROCEDURE insertPatientUda(IN id BIGINT)
 BEGIN
@@ -48,11 +59,31 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS insertComplications_Activities$$
+CREATE PROCEDURE insertComplications_Activities(OUT id BIGINT, IN hour INT, IN minutes INT, IN specification TEXT, IN idDailyCarnet BIGINT, IN description TEXT)
+BEGIN
+INSERT INTO `udahta_db`.`complications_activities` (`hour`, `minutes`, `specification`, `dailycarnet_idDailyCarnet`, `description`)
+VALUES (hour, minutes, specification, idDailyCarnet, description);
+SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS insertTemporaryData$$
 CREATE PROCEDURE insertTemporaryData(OUT id INT, IN weight DECIMAL(2), IN height DECIMAL(2), IN age INT, IN body_mass_index DECIMAL(2), IN smoker BIT, IN dyslipidemia BIT, IN diabetic BIT, IN known_hypertensive BIT, IN fat_percentage DECIMAL(2), IN muscle_percentage DECIMAL(2), IN kcal INT)
 BEGIN
 INSERT INTO `udahta_db`.`temporarydata` (`weight`, `height`, `age`, `body_mass_index`, `smoker`, `dyslipidemia`, `diabetic`, `known_hypertensive`, `fat_percentage`, `muscle_percentage`, `kcal`) 
 VALUES (weight, height, age, body_mass_index, smoker, dyslipidemia, diabetic, known_hypertensive, fat_percentage, muscle_percentage, kcal);
+SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertMedicalHistory$$
+CREATE PROCEDURE insertMedicalHistory(OUT id INT, IN illness VARCHAR(45), IN fromDate DATETIME, IN toDate DATETIME, IN comm TEXT, IN idPatientUda BIGINT)
+BEGIN
+INSERT INTO `udahta_db`.`medicalhistory` (`illness`, `from`, `to`, `comment`, `patientuda_idPatientUda`)
+VALUES (illness, fromDate, toDate, comm, idPatientUda);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -94,6 +125,16 @@ INSERT INTO `udahta_db`.`drug`(`name`, `drugtype_idDrugType`)
 VALUES(nam, idDrugType);
 END$$
 DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertMedicineDose$$
+CREATE PROCEDURE insertMedicineDose(IN time DATETIME, IN dose TEXT, IN idDrug INT, IN idTemporaryData INT)
+BEGIN
+INSERT INTO `udahta_db`.`medicinedose` (`time`, `dose`, `drug_idDrug`, `temporarydata_idTemporaryData`)
+VALUES(time, dose, idDrug, idTemporaryData);
+END$$
+DELIMITER ;
+
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertInvestigation$$
