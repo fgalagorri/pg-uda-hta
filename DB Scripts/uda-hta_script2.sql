@@ -219,7 +219,7 @@ DROP TABLE IF EXISTS `udahta_db`.`medicinedose` ;
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicinedose` (
   `idMedicineDosis` INT NOT NULL AUTO_INCREMENT ,
   `time` DATETIME NOT NULL ,
-  `dose` VARCHAR(45) NOT NULL ,
+  `dose` TEXT NOT NULL ,
   `drug_idDrug` INT NOT NULL ,
   `temporarydata_idTemporaryData` INT NOT NULL ,
   PRIMARY KEY (`idMedicineDosis`) ,
@@ -264,19 +264,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `udahta_db`.`extrasid`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `udahta_db`.`extrasid` ;
-
-CREATE  TABLE IF NOT EXISTS `udahta_db`.`extrasid` (
-  `idExtrasID` INT NOT NULL AUTO_INCREMENT ,
-  `description` TEXT(100) NOT NULL ,
-  PRIMARY KEY (`idExtrasID`) ,
-  UNIQUE INDEX `idExtrasID_UNIQUE` (`idExtrasID` ASC) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `udahta_db`.`complications_activities`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `udahta_db`.`complications_activities` ;
@@ -287,18 +274,12 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`complications_activities` (
   `minutes` INT NULL ,
   `specification` TEXT NULL ,
   `dailycarnet_idDailyCarnet` BIGINT NOT NULL ,
-  `extrasid_idExtrasID` INT NOT NULL ,
-  PRIMARY KEY (`idComplications_Activities`, `extrasid_idExtrasID`) ,
+  `description` TEXT NULL ,
+  PRIMARY KEY (`idComplications_Activities`) ,
   INDEX `fk_Complications_Activities_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
-  INDEX `fk_Complications_Activities_ExtrasID1_idx` (`extrasid_idExtrasID` ASC) ,
   CONSTRAINT `fk_Complications_Activities_DailyCarnet1`
     FOREIGN KEY (`dailycarnet_idDailyCarnet` )
     REFERENCES `udahta_db`.`dailycarnet` (`idDailyCarnet` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Complications_Activities_ExtrasID1`
-    FOREIGN KEY (`extrasid_idExtrasID` )
-    REFERENCES `udahta_db`.`extrasid` (`idExtrasID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -310,13 +291,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `udahta_db`.`medicalhistory` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
-  `idMedical History` INT NOT NULL ,
-  `Illness` VARCHAR(45) NULL ,
-  `From` DATETIME NULL ,
-  `To` DATETIME NULL ,
-  `Comment` TEXT NULL ,
+  `idMedicalHistory` INT NOT NULL ,
+  `illness` VARCHAR(45) NULL ,
+  `from` DATETIME NULL ,
+  `to` DATETIME NULL ,
+  `comment` TEXT NULL ,
   `patientuda_idPatientUda` BIGINT NOT NULL ,
-  PRIMARY KEY (`idMedical History`, `patientuda_idPatientUda`) ,
+  PRIMARY KEY (`idMedicalHistory`, `patientuda_idPatientUda`) ,
   INDEX `fk_MedicalHistory_Patient1_idx` (`patientuda_idPatientUda` ASC) ,
   CONSTRAINT `fk_MedicalHistory_Patient1`
     FOREIGN KEY (`patientuda_idPatientUda` )
