@@ -14,15 +14,12 @@ namespace DataAccess
     {
         private string ConnectionString = "SERVER=localhost;DATABASE=udahta_db;UID=root;PASSWORD=rootudahta;";
         private MySqlConnection conn;
+        private udahta_dbEntities udaContext;
 
         public UdaHtaDataAccess()
         {
             conn = new MySqlConnection(ConnectionString);
-        }
-
-        public void connectToDataBase()
-        {
-            conn = new MySqlConnection(ConnectionString);
+            udaContext = new udahta_dbEntities();
         }
 
         public void CloseConnectionDataBase()
@@ -32,15 +29,12 @@ namespace DataAccess
 
         public bool ExistPatient(long? idPatient)
         {
-            var udaContext = new udahta_dbEntities();
             return udaContext.patientuda.Any(p => p.idPatientUda == idPatient);
         }
 
 
         public ICollection<PatientReport> ListAllReports()
         {
-            var udaContext = new udahta_dbEntities();
-
             ICollection<PatientReport> udaQuery = udaContext.report.Select(r => new PatientReport()
                 {
                     ReportDevice = r.idDevice,
@@ -55,7 +49,6 @@ namespace DataAccess
         {
             ICollection<Report> lrep = new List<Report>();
 
-            var udaContext = new udahta_dbEntities();
             var query = udaContext.report
                 .Where(r => r.patientuda_idPatientUda == patientId)
                 .Select(r => new {r.idReport, r.dailycarnet_idDailyCarnet, r.patientuda_idPatientUda, r.temporarydata_idTemporaryData, r.begin_date, 
@@ -155,35 +148,16 @@ namespace DataAccess
         }
 
 
-        public void InsertReport(Report rep)
+        public void insertReport(Report rep)
         {
-            var udaContext = new udahta_dbEntities();
-
             if (rep.Carnet != null)
             { //si DailyCarnet existe, insertar
-                ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
-                udaContext.insertDailyCarnet(lastIdDailyReport, rep.Carnet.Technician.Name, rep.Carnet.InitDiastolic1,
-                                             rep.Carnet.InitDiastolic2, rep.Carnet.InitDiastolic3,
-                                             rep.Carnet.InitHeartRate1, rep.Carnet.InitHeartRate2, rep.Carnet.InitHeartRate3,
-                                             rep.Carnet.FinalDiastolic1, rep.Carnet.FinalDiastolic2, rep.Carnet.FinalDiastolic3,
-                                             rep.Carnet.FinalHeartRate1, rep.Carnet.FinalHeartRate2, rep.Carnet.FinalHeartRate3,
-                                             rep.Carnet.SleepTimeStart, rep.Carnet.SleepTimeEnd, rep.Carnet.SleepQuality, rep.Carnet.MealTime,
-                                             rep.Carnet.InitSystolic1, rep.Carnet.InitSystolic2, rep.Carnet.InitSystolic3,
-                                             rep.Carnet.FinalSystolic1, rep.Carnet.FinalSystolic2, rep.Carnet.FinalSystolic3
-                                             );
-
-                rep.DailyCarnetId = (int?)lastIdDailyReport.Value;
-                
+                rep.DailyCarnetId = insertDailyCarnet(rep.Carnet);
             }
+
             if (rep.TemporaryData != null)
             { //si TemporaryData existe, insertar
-                ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
-                udaContext.insertTemporaryData(lastIdTempData, rep.TemporaryData.Weight, rep.TemporaryData.Height, rep.TemporaryData.Age,
-                                               rep.TemporaryData.BodyMassIndex, rep.TemporaryData.Smoker, rep.TemporaryData.Dyslipidemia,
-                                               rep.TemporaryData.Diabetic, rep.TemporaryData.Hypertensive, rep.TemporaryData.FatPercentage,
-                                               rep.TemporaryData.MusclePercentage, rep.TemporaryData.Kcal);
-
-                rep.TemporaryDataId = (int?)lastIdTempData.Value;    
+                rep.TemporaryDataId = insertTemporaryData(rep.TemporaryData);    
             }
             
 
@@ -206,10 +180,8 @@ namespace DataAccess
             conn.Close();
         }
 
-        public void InsertDailyCarnet(DailyCarnet dCarnet)
+        public int? insertDailyCarnet(DailyCarnet dCarnet)
         {
-            var udaContext = new udahta_dbEntities();
-
             ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
             udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technician.Name, dCarnet.InitDiastolic1,
                                          dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
@@ -220,8 +192,45 @@ namespace DataAccess
                                          dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
                                          dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3
                                          );
+            
+            ObjectParameter lastIdCA = new ObjectParameter("id",typeof(int));
+            foreach (var compl in dCarnet.Complications)
+            {
+                udaContext.insertComplications_Activities(lastIdCA, compl.Time.Hour, compl.Time.Minute, "COMPLICACION",
+                                                          (int) lastIdDailyReport.Value, compl.Description);
+            }
+
+            ObjectParameter lastIdEff = new ObjectParameter("id",typeof(int));
+            foreach (var effort in dCarnet.Efforts)
+            {
+                udaContext.insertComplications_Activities(lastIdEff, effort.Time.Hour, effort.Time.Minute, "ACTIVIDAD",
+                                                          (int) lastIdDailyReport.Value, effort.Description);
+            }
+
+            return (int?) lastIdDailyReport.Value;
         }
 
+        public int? insertTemporaryData(TemporaryData temporaryData)
+        {
+            ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
+            udaContext.insertTemporaryData(lastIdTempData, temporaryData.Weight, temporaryData.Height, temporaryData.Age,
+                                           temporaryData.BodyMassIndex, temporaryData.Smoker, temporaryData.Dyslipidemia,
+                                           temporaryData.Diabetic, temporaryData.Hypertensive, temporaryData.FatPercentage,
+                                           temporaryData.MusclePercentage, temporaryData.Kcal);
+
+            foreach (var med in temporaryData.LMedicines)
+            {
+                insertMedicineDose(med,temporaryData.IdTemporaryData);
+            }
+
+            return (int?)lastIdTempData.Value;    
+
+        }
+
+        public void insertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
+        {
+            udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Drug.Id, idTemporaryData);
+        }
 
         //Verifica que existe el nombre de usuario 'userName' en la base de datos y devuelve el password,
         //en caso de no existr devuelvo null
@@ -249,7 +258,6 @@ namespace DataAccess
         //Actualiza la contrasena del usuario userName
         public bool updatePassword(string userName, string newPswd)
         {
-            var udaContext = new udahta_dbEntities();
             try
             {
                 udaContext.updatePassword(userName, newPswd);
@@ -262,9 +270,9 @@ namespace DataAccess
             
         }
 
-        public void insertPatientUda(long? id)
+        //Inserta la referencia a la base de pacientes
+        public void insertPatientUda(long id)
         {
-            var udaContext = new udahta_dbEntities();
             try
             {
                 udaContext.insertPatientUda(id);
@@ -275,25 +283,30 @@ namespace DataAccess
             }
             
         }
+
+        //Inserta una nueva instancia de la historia clinca del paciente
+        public void insertMedicalHistory(long patientId, MedicalRecord medicalRecord)
+        {
+            ObjectParameter lastIdMedicalHistory = new ObjectParameter("id",typeof(int));
+            udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness, medicalRecord.Since,
+                                           medicalRecord.Until, medicalRecord.Comment, patientId);
+        }
         
         //Inserta un nuevo usuario en la base de datos
         public void insertUser(int idUsuario, string login, string pass, string rol)
         {
-            var udaContext = new udahta_dbEntities();
             udaContext.insertUser(idUsuario, login, pass, rol);
         }
 
         //Inserta un nuevo tipo de droga en la base de datos
         public void insertDrugType(string type)
         {
-            var udaContext = new udahta_dbEntities();
             udaContext.insertDrugType(type);
         }
 
         //Inserta una nueva droga en la base de datos
         public void insertDrug(string name, int idDrugTyp)
         {
-            var udaContext = new udahta_dbEntities();
             udaContext.insertDrug(name,idDrugTyp);
         }
 
@@ -305,7 +318,6 @@ namespace DataAccess
         //Listar investigaciones 
         public ICollection<Investigation> listInvestigations()
         {
-            var udaContext = new udahta_dbEntities();
             ICollection<Investigation> list = udaContext.investigation.Select(i => new Investigation(i.idInvestigation,i.name,i.creation_date)).ToList();
             return list;
         }
@@ -313,10 +325,14 @@ namespace DataAccess
         //Inserta una nueva investigacion en la base de datos
         public int insertInvestigation(string nam, DateTime createDat)
         {
-            var udaContext = new udahta_dbEntities();
             ObjectParameter id = new ObjectParameter("id",typeof(int));
             udaContext.insertInvestigation(id, nam, createDat);
             return Convert.ToInt16(id.Value.ToString());
+        }
+
+        public void addReportToInvestigation(long idPatient, long idReport, int idInvestigation)
+        {
+            
         }
 
     }

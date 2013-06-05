@@ -74,7 +74,7 @@ namespace Gateway
             return patientController.listPatients();
         }
 
-        public ICollection<Report> GetReportsOfPatient(long patientId)
+        public ICollection<Report> GettReportsOfPatient(long patientId)
         {
             IReportManagement reportController = new ReportManagement();
             return reportController.listPatientReports(patientId);

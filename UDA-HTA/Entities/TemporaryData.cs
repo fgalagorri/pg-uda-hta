@@ -7,6 +7,11 @@ namespace Entities
 {
     public class TemporaryData
     {
+        public TemporaryData()
+        {
+            LMedicines = new List<MedicineDose>();        
+        }
+
         public int IdTemporaryData { get; set; }
         public decimal? Weight { get; set; }
         public decimal? Height { get; set; }
@@ -19,5 +24,7 @@ namespace Entities
         public decimal? FatPercentage { get; set; }
         public decimal? MusclePercentage { get; set; }
         public int? Kcal { get; set; }
+
+        public ICollection<MedicineDose> LMedicines { get; set; }
     }
 }

@@ -953,58 +953,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="time">No Metadata Documentation available.</param>
-        /// <param name="dose">No Metadata Documentation available.</param>
-        /// <param name="idDrug">No Metadata Documentation available.</param>
-        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
-        public int insertMedicineDose(Nullable<global::System.DateTime> time, global::System.String dose, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
-        {
-            ObjectParameter timeParameter;
-            if (time.HasValue)
-            {
-                timeParameter = new ObjectParameter("time", time);
-            }
-            else
-            {
-                timeParameter = new ObjectParameter("time", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter doseParameter;
-            if (dose != null)
-            {
-                doseParameter = new ObjectParameter("dose", dose);
-            }
-            else
-            {
-                doseParameter = new ObjectParameter("dose", typeof(global::System.String));
-            }
-    
-            ObjectParameter idDrugParameter;
-            if (idDrug.HasValue)
-            {
-                idDrugParameter = new ObjectParameter("idDrug", idDrug);
-            }
-            else
-            {
-                idDrugParameter = new ObjectParameter("idDrug", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter idTemporaryDataParameter;
-            if (idTemporaryData.HasValue)
-            {
-                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
-            }
-            else
-            {
-                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertMedicineDose", timeParameter, doseParameter, idDrugParameter, idTemporaryDataParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         public int insertPatientUda(Nullable<global::System.Int64> id)
         {
@@ -1471,6 +1419,47 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("updatePassword", login_varParameter, pass_varParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="dose">No Metadata Documentation available.</param>
+        /// <param name="idDrug">No Metadata Documentation available.</param>
+        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
+        public int insertMedicineDose(global::System.String dose, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
+        {
+            ObjectParameter doseParameter;
+            if (dose != null)
+            {
+                doseParameter = new ObjectParameter("dose", dose);
+            }
+            else
+            {
+                doseParameter = new ObjectParameter("dose", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDrugParameter;
+            if (idDrug.HasValue)
+            {
+                idDrugParameter = new ObjectParameter("idDrug", idDrug);
+            }
+            else
+            {
+                idDrugParameter = new ObjectParameter("idDrug", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idTemporaryDataParameter;
+            if (idTemporaryData.HasValue)
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
+            }
+            else
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertMedicineDose", doseParameter, idDrugParameter, idTemporaryDataParameter);
         }
 
         #endregion
@@ -3318,15 +3307,13 @@ namespace DataAccess
         /// Create a new medicinedose object.
         /// </summary>
         /// <param name="idMedicineDosis">Initial value of the idMedicineDosis property.</param>
-        /// <param name="time">Initial value of the time property.</param>
         /// <param name="dose">Initial value of the dose property.</param>
         /// <param name="drug_idDrug">Initial value of the drug_idDrug property.</param>
         /// <param name="temporarydata_idTemporaryData">Initial value of the temporarydata_idTemporaryData property.</param>
-        public static medicinedose Createmedicinedose(global::System.Int32 idMedicineDosis, global::System.DateTime time, global::System.String dose, global::System.Int32 drug_idDrug, global::System.Int32 temporarydata_idTemporaryData)
+        public static medicinedose Createmedicinedose(global::System.Int32 idMedicineDosis, global::System.String dose, global::System.Int32 drug_idDrug, global::System.Int32 temporarydata_idTemporaryData)
         {
             medicinedose medicinedose = new medicinedose();
             medicinedose.idMedicineDosis = idMedicineDosis;
-            medicinedose.time = time;
             medicinedose.dose = dose;
             medicinedose.drug_idDrug = drug_idDrug;
             medicinedose.temporarydata_idTemporaryData = temporarydata_idTemporaryData;
@@ -3362,30 +3349,6 @@ namespace DataAccess
         private global::System.Int32 _idMedicineDosis;
         partial void OnidMedicineDosisChanging(global::System.Int32 value);
         partial void OnidMedicineDosisChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime time
-        {
-            get
-            {
-                return _time;
-            }
-            set
-            {
-                OntimeChanging(value);
-                ReportPropertyChanging("time");
-                _time = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("time");
-                OntimeChanged();
-            }
-        }
-        private global::System.DateTime _time;
-        partial void OntimeChanging(global::System.DateTime value);
-        partial void OntimeChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

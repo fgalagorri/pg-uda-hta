@@ -12,7 +12,7 @@ namespace InterfaceBussinessLogic
          * Crea un paciente que no existe en la base con los datos ingresados como parametros.
          */
 
-        long? createPatient(Patient patient);
+        long createPatient(Patient patient);
 
         /*
          * Lista todos los pacientes de la base
