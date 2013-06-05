@@ -71,20 +71,50 @@ namespace HMSDataAccess
         public Report GetReport(string idReport)
         {
             var report = new Report();
-            var columns = "ID, BEFUND, CALIBDATE, DAYSTART, NIGHTSTART, TIMESTAMP, PATIENT_ID";
-            var rs = _stat.executeQuery("SELECT " + columns + " FROM AUFZEICHNUNG WHERE AUFZEICHNUNG.ID = " + idReport);
+            //             (1)         (2)                (3)               (4)         (5)          (6)            (7)          (8)             (9)           (10)              (11)             (12)                (13)          (14)           (15)           (16)            (17)                (18)                  (19)                    (20)
+            var columns = "PATIENT.ID, PATIENT.BIRTHDATE, PATIENT.PATIENTID,PATIENT.SEX,PATIENT.SIZE,PATIENT.WEIGHT,ADRESSE.CITY,ADRESSE.COUNTRY,ADRESSE.EMAIL,ADRESSE.FIRSTNAME,ADRESSE.LASTNAME,ADRESSE.MOBILEPHONE,ADRESSE.PHONE,ADRESSE.REGION,ADRESSE.STREET,AUFZEICHNUNG.ID,AUFZEICHNUNG.BEFUND,AUFZEICHNUNG.DAYSTART,AUFZEICHNUNG.NIGHTSTART,AUFZEICHNUNG.TIMESTAMP";
+            var table = "(PATIENT LEFT JOIN ADRESSE ON ADRESSE.ID = PATIENT.ADRESS_ID)INNER JOIN AUFZEICHNUNG";
+            var condition = "AUFZEICHNUNG.PATIENT_ID = PATIENT.ID AND AUFZEICHNUNG.ID = " + idReport;
+            var rs = _stat.executeQuery("SELECT " + columns + " FROM " + table + " ON " + condition);
+
+
             if (rs != null  && rs.next())
             {
-                report.DeviceReportId = rs.getString(1);
-                report.Diagnosis = rs.getString(2);
-                report.BeginDate = parseDateTime(rs.getString(6));
+                /*
+                 * Datos paciente
+                 */
+                report.Patient.DevicePatientId = rs.getString(1);
+
+                var timeStr = rs.getString(2);
+                //Pareseo la fecha y hora para crear el DateTime
+                report.Patient.BirthDate = parseDateTime(timeStr);
+
+                report.Patient.DocumentId = rs.getString(3);
+
+                report.Patient.Sex = rs.getInt(5) == 0 ? SexType.M : SexType.F;
+
+                report.Patient.City = rs.getString(8);
+                report.Patient.Email = rs.getString(10);
+                report.Patient.Names = rs.getString(11);
+                report.Patient.Surnames = rs.getString(12);
+                report.Patient.CellPhone = rs.getString(13);
+                report.Patient.Phone = rs.getString(14);
+                report.Patient.Neighbour = rs.getString(15);
+                report.Patient.Address = rs.getString(16);
+
+                /*
+                 * Datos reporte
+                 */
+                report.DeviceReportId = rs.getString(17);
+                report.Diagnosis = rs.getString(18);
+                report.BeginDate = parseDateTime(rs.getString(21));
                 
-                int dayStart = rs.getInt(4);
+                int dayStart = rs.getInt(19);
                 Int32 dayStartHr = (dayStart/100);
                 Int32 dayStartMin = dayStart - (dayStartHr*100);
                 const int sec0 = 0;
 
-                int nightStart = rs.getInt(5);
+                int nightStart = rs.getInt(20);
                 Int32 nightStartHr = (nightStart/100);
                 Int32 nightStartMin = nightStart - (nightStartHr*100);
 

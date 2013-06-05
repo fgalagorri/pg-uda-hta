@@ -4,13 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="drug" EntityType="udahta_dbModel.Store.drug" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="drugtype" EntityType="udahta_dbModel.Store.drugtype" store:Type="Tables" Schema="udahta_db" />
-          <EntitySet Name="extrasid" EntityType="udahta_dbModel.Store.extrasid" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="investigation" EntityType="udahta_dbModel.Store.investigation" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="investigation_has_report" EntityType="udahta_dbModel.Store.investigation_has_report" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="measurement" EntityType="udahta_dbModel.Store.measurement" store:Type="Tables" Schema="udahta_db" />
@@ -22,10 +21,6 @@
           <EntitySet Name="user" EntityType="udahta_dbModel.Store.user" store:Type="Tables" Schema="udahta_db" />
           <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.Store.fk_Complications_Activities_DailyCarnet1">
             <End Role="dailycarnet" EntitySet="dailycarnet" />
-            <End Role="complications_activities" EntitySet="complications_activities" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Complications_Activities_ExtrasID1" Association="udahta_dbModel.Store.fk_Complications_Activities_ExtrasID1">
-            <End Role="extrasid" EntitySet="extrasid" />
             <End Role="complications_activities" EntitySet="complications_activities" />
           </AssociationSet>
           <AssociationSet Name="fk_Drug_DrugType" Association="udahta_dbModel.Store.fk_Drug_DrugType">
@@ -72,14 +67,13 @@
         <EntityType Name="complications_activities">
           <Key>
             <PropertyRef Name="idComplications_Activities" />
-            <PropertyRef Name="extrasid_idExtrasID" />
           </Key>
           <Property Name="idComplications_Activities" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="hour" Type="int" />
           <Property Name="minutes" Type="int" />
           <Property Name="specification" Type="text" />
           <Property Name="dailycarnet_idDailyCarnet" Type="bigint" Nullable="false" />
-          <Property Name="extrasid_idExtrasID" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" />
         </EntityType>
         <EntityType Name="dailycarnet">
           <Key>
@@ -125,13 +119,6 @@
           <Property Name="idDrugType" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
-        <EntityType Name="extrasid">
-          <Key>
-            <PropertyRef Name="idExtrasID" />
-          </Key>
-          <Property Name="idExtrasID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="description" Type="text" Nullable="false" />
-        </EntityType>
         <EntityType Name="investigation">
           <Key>
             <PropertyRef Name="idInvestigation" />
@@ -169,14 +156,14 @@
         </EntityType>
         <EntityType Name="medicalhistory">
           <Key>
-            <PropertyRef Name="idMedical History" />
+            <PropertyRef Name="idMedicalHistory" />
             <PropertyRef Name="patientuda_idPatientUda" />
           </Key>
-          <Property Name="idMedical History" Type="int" Nullable="false" />
-          <Property Name="Illness" Type="varchar" MaxLength="45" />
-          <Property Name="From" Type="datetime" />
-          <Property Name="To" Type="datetime" />
-          <Property Name="Comment" Type="text" />
+          <Property Name="idMedicalHistory" Type="int" Nullable="false" />
+          <Property Name="illness" Type="varchar" MaxLength="45" />
+          <Property Name="from" Type="datetime" />
+          <Property Name="to" Type="datetime" />
+          <Property Name="comment" Type="text" />
           <Property Name="patientuda_idPatientUda" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="medicinedose">
@@ -185,7 +172,7 @@
           </Key>
           <Property Name="idMedicineDosis" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="time" Type="datetime" Nullable="false" />
-          <Property Name="dose" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="dose" Type="text" Nullable="false" />
           <Property Name="drug_idDrug" Type="int" Nullable="false" />
           <Property Name="temporarydata_idTemporaryData" Type="int" Nullable="false" />
         </EntityType>
@@ -258,18 +245,6 @@
             </Principal>
             <Dependent Role="complications_activities">
               <PropertyRef Name="dailycarnet_idDailyCarnet" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Complications_Activities_ExtrasID1">
-          <End Role="extrasid" Type="udahta_dbModel.Store.extrasid" Multiplicity="1" />
-          <End Role="complications_activities" Type="udahta_dbModel.Store.complications_activities" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="extrasid">
-              <PropertyRef Name="idExtrasID" />
-            </Principal>
-            <Dependent Role="complications_activities">
-              <PropertyRef Name="extrasid_idExtrasID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -397,6 +372,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="hour" Type="int" Mode="In" />
+          <Parameter Name="minutes" Type="int" Mode="In" />
+          <Parameter Name="specification" Type="text" Mode="In" />
+          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
+          <Parameter Name="description" Type="text" Mode="In" />
+        </Function>
         <Function Name="insertDailyCarnet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="technical" Type="varchar" Mode="In" />
@@ -431,7 +414,7 @@
           <Parameter Name="typ" Type="varchar" Mode="In" />
         </Function>
         <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="nam" Type="varchar" Mode="In" />
           <Parameter Name="createDat" Type="datetime" Mode="In" />
         </Function>
@@ -445,6 +428,20 @@
           <Parameter Name="comm" Type="text" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="int" Mode="Out" />
+          <Parameter Name="illness" Type="varchar" Mode="In" />
+          <Parameter Name="fromDate" Type="datetime" Mode="In" />
+          <Parameter Name="toDate" Type="datetime" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="time" Type="datetime" Mode="In" />
+          <Parameter Name="dose" Type="text" Mode="In" />
+          <Parameter Name="idDrug" Type="int" Mode="In" />
+          <Parameter Name="idTemporaryData" Type="int" Mode="In" />
         </Function>
         <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
@@ -497,8 +494,7 @@
           <Parameter Name="login_var" Type="varchar" Mode="In" />
           <Parameter Name="pass_var" Type="varchar" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="udahta_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -507,7 +503,6 @@
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.dailycarnet" />
           <EntitySet Name="drug" EntityType="udahta_dbModel.drug" />
           <EntitySet Name="drugtype" EntityType="udahta_dbModel.drugtype" />
-          <EntitySet Name="extrasid" EntityType="udahta_dbModel.extrasid" />
           <EntitySet Name="investigation" EntityType="udahta_dbModel.investigation" />
           <EntitySet Name="measurement" EntityType="udahta_dbModel.measurement" />
           <EntitySet Name="medicalhistory" EntityType="udahta_dbModel.medicalhistory" />
@@ -518,10 +513,6 @@
           <EntitySet Name="user" EntityType="udahta_dbModel.user" />
           <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1">
             <End Role="dailycarnet" EntitySet="dailycarnet" />
-            <End Role="complications_activities" EntitySet="complications_activities" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Complications_Activities_ExtrasID1" Association="udahta_dbModel.fk_Complications_Activities_ExtrasID1">
-            <End Role="extrasid" EntitySet="extrasid" />
             <End Role="complications_activities" EntitySet="complications_activities" />
           </AssociationSet>
           <AssociationSet Name="fk_Report_DailyCarnet1" Association="udahta_dbModel.fk_Report_DailyCarnet1">
@@ -560,6 +551,14 @@
             <End Role="investigation" EntitySet="investigation" />
             <End Role="report" EntitySet="report" />
           </AssociationSet>
+          <FunctionImport Name="insertComplications_Activities">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="hour" Mode="In" Type="Int32" />
+            <Parameter Name="minutes" Mode="In" Type="Int32" />
+            <Parameter Name="specification" Mode="In" Type="String" />
+            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="insertDailyCarnet">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="technical" Mode="In" Type="String" />
@@ -586,6 +585,18 @@
             <Parameter Name="final_sys2" Mode="In" Type="Int32" />
             <Parameter Name="final_sys3" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="insertDrug">
+            <Parameter Name="nam" Mode="In" Type="String" />
+            <Parameter Name="idDrugType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertDrugType">
+          <Parameter Name="typ" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvestigation">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
+            <Parameter Name="nam" Mode="In" Type="String" />
+            <Parameter Name="createDat" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="insertMeasurement">
             <Parameter Name="dateM" Mode="In" Type="DateTime" />
             <Parameter Name="systolic" Mode="In" Type="Int32" />
@@ -597,8 +608,22 @@
             <Parameter Name="idReport" Mode="In" Type="Int64" />
             <Parameter Name="idPatient" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="insertMedicalHistory">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
+            <Parameter Name="illness" Mode="In" Type="String" />
+            <Parameter Name="fromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="toDate" Mode="In" Type="DateTime" />
+            <Parameter Name="comm" Mode="In" Type="String" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertMedicineDose">
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+            <Parameter Name="dose" Mode="In" Type="String" />
+            <Parameter Name="idDrug" Mode="In" Type="Int32" />
+            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="insertPatientUda">
-            <Parameter Name="id" Mode="In" Type="Int64" />
+          <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertReport">
             <Parameter Name="id" Mode="Out" Type="Int64" />
@@ -638,20 +663,28 @@
             <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
             <Parameter Name="kcal" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="insertUser">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="log" Mode="In" Type="String" />
+            <Parameter Name="p" Mode="In" Type="String" />
+            <Parameter Name="r" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updatePassword">
+            <Parameter Name="login_var" Mode="In" Type="String" />
+            <Parameter Name="pass_var" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
           <Key>
             <PropertyRef Name="idComplications_Activities" />
-            <PropertyRef Name="extrasid_idExtrasID" />
           </Key>
           <Property Name="idComplications_Activities" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="hour" Type="Int32" />
           <Property Name="minutes" Type="Int32" />
           <Property Name="specification" Type="String" />
           <Property Name="dailycarnet_idDailyCarnet" Type="Int64" Nullable="false" />
-          <Property Name="extrasid_idExtrasID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" />
           <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
-          <NavigationProperty Name="extrasid" Relationship="udahta_dbModel.fk_Complications_Activities_ExtrasID1" FromRole="complications_activities" ToRole="extrasid" />
         </EntityType>
         <EntityType Name="dailycarnet">
           <Key>
@@ -702,14 +735,6 @@
           <Property Name="type" Type="String" Nullable="false" />
           <NavigationProperty Name="drug" Relationship="udahta_dbModel.fk_Drug_DrugType" FromRole="drugtype" ToRole="drug" />
         </EntityType>
-        <EntityType Name="extrasid">
-          <Key>
-            <PropertyRef Name="idExtrasID" />
-          </Key>
-          <Property Name="idExtrasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="description" Type="String" Nullable="false" />
-          <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_ExtrasID1" FromRole="extrasid" ToRole="complications_activities" />
-        </EntityType>
         <EntityType Name="investigation">
           <Key>
             <PropertyRef Name="idInvestigation" />
@@ -739,14 +764,14 @@
         </EntityType>
         <EntityType Name="medicalhistory">
           <Key>
-            <PropertyRef Name="idMedical_History" />
+            <PropertyRef Name="idMedicalHistory" />
             <PropertyRef Name="patientuda_idPatientUda" />
           </Key>
-          <Property Name="idMedical_History" Type="Int32" Nullable="false" />
-          <Property Name="Illness" Type="String" />
-          <Property Name="From" Type="DateTime" />
-          <Property Name="To" Type="DateTime" />
-          <Property Name="Comment" Type="String" />
+          <Property Name="idMedicalHistory" Type="Int32" Nullable="false" />
+          <Property Name="illness" Type="String" />
+          <Property Name="from" Type="DateTime" />
+          <Property Name="to" Type="DateTime" />
+          <Property Name="comment" Type="String" />
           <Property Name="patientuda_idPatientUda" Type="Int64" Nullable="false" />
           <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_MedicalHistory_Patient1" FromRole="medicalhistory" ToRole="patientuda" />
         </EntityType>
@@ -840,18 +865,6 @@
             </Principal>
             <Dependent Role="complications_activities">
               <PropertyRef Name="dailycarnet_idDailyCarnet" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Complications_Activities_ExtrasID1">
-          <End Role="extrasid" Type="udahta_dbModel.extrasid" Multiplicity="1" />
-          <End Role="complications_activities" Type="udahta_dbModel.complications_activities" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="extrasid">
-              <PropertyRef Name="idExtrasID" />
-            </Principal>
-            <Dependent Role="complications_activities">
-              <PropertyRef Name="extrasid_idExtrasID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -969,7 +982,7 @@
             <ScalarProperty Name="minutes" ColumnName="minutes" />
             <ScalarProperty Name="specification" ColumnName="specification" />
             <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
-            <ScalarProperty Name="extrasid_idExtrasID" ColumnName="extrasid_idExtrasID" />
+            <ScalarProperty Name="description" ColumnName="description" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="dailycarnet"><EntityTypeMapping TypeName="udahta_dbModel.dailycarnet"><MappingFragment StoreEntitySet="dailycarnet">
             <ScalarProperty Name="idDailyCarnet" ColumnName="idDailyCarnet" />
@@ -1006,10 +1019,6 @@
             <ScalarProperty Name="idDrugType" ColumnName="idDrugType" />
             <ScalarProperty Name="type" ColumnName="type" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="extrasid"><EntityTypeMapping TypeName="udahta_dbModel.extrasid"><MappingFragment StoreEntitySet="extrasid">
-            <ScalarProperty Name="idExtrasID" ColumnName="idExtrasID" />
-            <ScalarProperty Name="description" ColumnName="description" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="investigation"><EntityTypeMapping TypeName="udahta_dbModel.investigation"><MappingFragment StoreEntitySet="investigation">
             <ScalarProperty Name="idInvestigation" ColumnName="idInvestigation" />
             <ScalarProperty Name="name" ColumnName="name" />
@@ -1028,11 +1037,11 @@
             <ScalarProperty Name="report_patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="medicalhistory"><EntityTypeMapping TypeName="udahta_dbModel.medicalhistory"><MappingFragment StoreEntitySet="medicalhistory">
-            <ScalarProperty Name="idMedical_History" ColumnName="idMedical History" />
-            <ScalarProperty Name="Illness" ColumnName="Illness" />
-            <ScalarProperty Name="From" ColumnName="From" />
-            <ScalarProperty Name="To" ColumnName="To" />
-            <ScalarProperty Name="Comment" ColumnName="Comment" />
+            <ScalarProperty Name="idMedicalHistory" ColumnName="idMedicalHistory" />
+            <ScalarProperty Name="illness" ColumnName="illness" />
+            <ScalarProperty Name="from" ColumnName="from" />
+            <ScalarProperty Name="to" ColumnName="to" />
+            <ScalarProperty Name="comment" ColumnName="comment" />
             <ScalarProperty Name="patientuda_idPatientUda" ColumnName="patientuda_idPatientUda" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="medicinedose"><EntityTypeMapping TypeName="udahta_dbModel.medicinedose"><MappingFragment StoreEntitySet="medicinedose">
@@ -1098,11 +1107,19 @@
               <ScalarProperty Name="patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
           <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
+          <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
+          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
+          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
           <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
+          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
+          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
+          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1123,80 +1140,70 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1">
-        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="5.25" Height="2.5571907552083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3.5" Height="6.0186165364583326" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="16" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.5" PointY="16.25" Height="1.5956835937500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.extrasid" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="2.25" Height="1.7879850260416665" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="5" Height="3.1340950520833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="6" PointY="15.375" Height="2.3648893229166692" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="6" PointY="11.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.5" Height="6.2109179687500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="11.125" Height="3.7109993489583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="1.25" Height="1.7879850260416674" IsExpanded="true" />
+      <Diagram Name="Model1" ZoomLevel="69">
+        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3" Height="6.0186165364583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.375" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.5" PointY="15.625" Height="1.5956835937499978" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="1.625" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="4.375" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="6" PointY="14.75" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="6" PointY="11.25" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="2.875" Height="6.2109179687500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="10.5" Height="3.7109993489583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
         <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.5285953776041667" />
-          <ConnectorPoint PointX="3" PointY="6.5285953776041667" />
-        </AssociationConnector>
-        <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_ExtrasID1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.46875" />
-          <ConnectorPoint PointX="3.34375" PointY="1.46875" />
-          <ConnectorPoint PointX="3.34375" PointY="5.25" />
+          <ConnectorPoint PointX="2.25" PointY="5.9324446614583337" />
+          <ConnectorPoint PointX="3" PointY="5.9324446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.6439925130208337" />
-          <ConnectorPoint PointX="3.2604166666666665" PointY="4.6439925130208328" />
-          <ConnectorPoint PointX="3.4270833333333335" PointY="4.6439925130208337" />
-          <ConnectorPoint PointX="6" PointY="4.6439925130208337" />
+          <ConnectorPoint PointX="2.25" PointY="4.0814925130208337" />
+          <ConnectorPoint PointX="6" PointY="4.0814925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="17.047841796875" />
-          <ConnectorPoint PointX="3.75" PointY="17.047841796875" />
+          <ConnectorPoint PointX="3" PointY="16.422841796874998" />
+          <ConnectorPoint PointX="3.75" PointY="16.422841796874998" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDosis_Drug1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="16.001152846153843" />
-          <ConnectorPoint PointX="5.625" PointY="15.626152846153843" />
-          <ConnectorPoint PointX="5.625" PointY="12.932444661458334" />
-          <ConnectorPoint PointX="5.729166666666667" PointY="12.932444661458334" />
-          <ConnectorPoint PointX="5.895833333333333" PointY="12.932444661458334" />
-          <ConnectorPoint PointX="6" PointY="12.932444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="15.376152846153847" />
+          <ConnectorPoint PointX="5.625" PointY="15.001152846153847" />
+          <ConnectorPoint PointX="5.625" PointY="12.432444661458334" />
+          <ConnectorPoint PointX="5.729166666666667" PointY="12.432444661458334" />
+          <ConnectorPoint PointX="5.895833333333333" PointY="12.432444661458334" />
+          <ConnectorPoint PointX="6" PointY="12.432444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="6.5670475260416659" />
-          <ConnectorPoint PointX="8.25" PointY="6.5670475260416659" />
+          <ConnectorPoint PointX="7.5" PointY="5.9420475260416659" />
+          <ConnectorPoint PointX="8.25" PointY="5.9420475260416659" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicalHistory_Patient1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="10.283374901442308" />
-          <ConnectorPoint PointX="5.5660744349011217" PointY="10.599449336343428" />
-          <ConnectorPoint PointX="5.6839255650988791" PointY="10.717300466541186" />
-          <ConnectorPoint PointX="5.8125" PointY="10.845874901442308" />
-          <ConnectorPoint PointX="5.8125" PointY="16.557444661458334" />
-          <ConnectorPoint PointX="6" PointY="16.557444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="9.7833749014423077" />
+          <ConnectorPoint PointX="5.8125" PointY="10.345874901442308" />
+          <ConnectorPoint PointX="5.8125" PointY="15.932444661458334" />
+          <ConnectorPoint PointX="6" PointY="15.932444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDose_TemporaryData1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="12.278722330729167" />
-          <ConnectorPoint PointX="5.729166666666667" PointY="12.278722330729167" />
-          <ConnectorPoint PointX="5.895833333333333" PointY="12.278722330729167" />
-          <ConnectorPoint PointX="6" PointY="12.278722330729167" />
+          <ConnectorPoint PointX="5.25" PointY="11.778722330729167" />
+          <ConnectorPoint PointX="5.729166666666667" PointY="11.778722330729167" />
+          <ConnectorPoint PointX="5.895833333333333" PointY="11.778722330729167" />
+          <ConnectorPoint PointX="6" PointY="11.778722330729167" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_Patient1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="9.2304589843750016" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="9.2304589843750016" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="9.2304589843750016" />
-          <ConnectorPoint PointX="6" PointY="9.2304589843750016" />
+          <ConnectorPoint PointX="5.25" PointY="8.6679589843750016" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="8.6679589843750016" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="8.6679589843750016" />
+          <ConnectorPoint PointX="6" PointY="8.6679589843750016" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_TemporaryData1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="11.126152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="10.751152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="6.9372257486979176" />
-          <ConnectorPoint PointX="6" PointY="6.9372257486979176" />
+          <ConnectorPoint PointX="5.25" PointY="10.501152846153847" />
+          <ConnectorPoint PointX="5.625" PointY="10.126152846153847" />
+          <ConnectorPoint PointX="5.625" PointY="6.3747257486979176" />
+          <ConnectorPoint PointX="6" PointY="6.3747257486979176" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.investigation_has_report" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="3.7689925130208333" />
-          <ConnectorPoint PointX="6" PointY="3.7689925130208333" />
+          <ConnectorPoint PointX="5.25" PointY="3.1439925130208337" />
+          <ConnectorPoint PointX="6" PointY="3.1439925130208337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

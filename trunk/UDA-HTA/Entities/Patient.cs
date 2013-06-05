@@ -11,13 +11,12 @@ namespace Entities
     {
         public Patient()
         {
+            UdaId = null;
             EmergencyContactList = new List<EmergencyContact>();
             ReportList = new List<Report>();
         }
         
-        public string DevicePatientId { get; set; }
         public string DocumentId { get; set; }
-        public long? RegisterNumer { get; set; }
         public string Names { get; set; }
         public string Surnames { get; set; }
         public DateTime? BirthDate { get; set; }
@@ -29,8 +28,11 @@ namespace Entities
         public string Phone { get; set; }
         public string CellPhone { get; set; }
         public string Email { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
-        public string UdaId { get; set; }
+        public long? UdaId { get; set; }
+        public string DevicePatientId { get; set; }
+        public long? RegisterNumer { get; set; }
         public int? DeviceId { get; set; }
 
         public ICollection<EmergencyContact> EmergencyContactList { get; set; } 

@@ -85,13 +85,13 @@ namespace ConsoleApplication1
                             try
                             {
                                 Patient pat = idm.ImportPatient(pr.PatientId, pr.ReportDevice);
-                                var idPatient = pm.CreatePatient(pat);
+                                var idPatient = pm.createPatient(pat);
                                 DailyCarnet dailyCarnet = new DailyCarnet();
                                 TemporaryData temporaryData = new TemporaryData();
                                 Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
                                 List<Measurement> lMeasurements = idm.ImportMeasures(rep);
                                 rep.Measures = rep.Measures.Concat(lMeasurements).ToList();
-                                rm.addReport(rep, idPatient.ToString(), dailyCarnet, temporaryData);
+                                rm.addReport(rep);
                             }
                             catch (Exception e)
                             {

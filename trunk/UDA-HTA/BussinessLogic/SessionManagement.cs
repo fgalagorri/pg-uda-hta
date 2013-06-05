@@ -9,19 +9,13 @@ namespace BussinessLogic
 {
     public class SessionManagement : ISessionManagement
     {
-        private string _currentUser;
-
-        public string CurrentUser
-        {
-            get { return _currentUser; }
-            set { _currentUser = value; }
-        }
+        public string CurrentUser { get; set; }
 
         public bool login(string userName, string pswdHashed)
         {
             if (verifyPassword(userName, pswdHashed))
             {
-                _currentUser = userName;
+                CurrentUser = userName;
                 return true;
             }
             else
@@ -44,7 +38,6 @@ namespace BussinessLogic
             {
                 // guardar nuevo paswd en la base
                 UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
-                dataAccess.connectToDataBase();
 
                 bool ret = dataAccess.updatePassword(userName,newPswd);
                 return ret;
@@ -56,7 +49,6 @@ namespace BussinessLogic
         {
             // Verificar que el nombre de usuario es correcto
             UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
-            dataAccess.connectToDataBase();
 
             string pswd = dataAccess.getPassword(userName);
 

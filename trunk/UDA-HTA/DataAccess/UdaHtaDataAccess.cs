@@ -22,18 +22,7 @@ namespace DataAccess
 
         public void connectToDataBase()
         {
-            //string Consulta = "SELECT * FROM User";
             conn = new MySqlConnection(ConnectionString);
-            /*MySqlDataAdapter mda = new MySqlDataAdapter(Consulta, cnn);
-            DataSet ds = new DataSet();
-            mda.Fill(ds, "User");
-
-            Console.WriteLine(ds.Tables[0].Rows[0].ItemArray[0].ToString());
-            Console.WriteLine(ds.Tables[0].Rows[0].ItemArray[1].ToString());
-            Console.WriteLine("");
-            Console.WriteLine(ds.Tables[0].Rows[1].ItemArray[0].ToString());
-            Console.WriteLine(ds.Tables[0].Rows[1].ItemArray[1].ToString());
-            */
         }
 
         public void CloseConnectionDataBase()
@@ -47,10 +36,6 @@ namespace DataAccess
             return udaContext.patientuda.Any(p => p.idPatientUda == idPatient);
         }
 
-        public ICollection<Patient> ListPatients()
-        {
-            return null;
-        }
 
         public ICollection<PatientReport> ListAllReports()
         {
@@ -66,13 +51,13 @@ namespace DataAccess
         }
 
         // Devuelve una lista de los reportes del paciente 'patientId'
-        public ICollection<Report> GetReportsByPatientId(string patientId)
+        public ICollection<Report> GetReportsByPatientId(long patientId)
         {
             ICollection<Report> lrep = new List<Report>();
 
             var udaContext = new udahta_dbEntities();
             var query = udaContext.report
-                .Where(r => r.patientuda_idPatientUda.ToString() == patientId)
+                .Where(r => r.patientuda_idPatientUda == patientId)
                 .Select(r => new {r.idReport, r.dailycarnet_idDailyCarnet, r.patientuda_idPatientUda, r.temporarydata_idTemporaryData, r.begin_date, 
                                   r.dailycarnet, r.day_avg_dias, r.day_avg_sys, r.day_max_dias, r.day_max_sys, r.deviceReportId, r.diagnosis, 
                                   r.doctor, r.end_date, r.idDevice, r.investigation, r.measurement, r.night_avg_dias, r.night_avg_sys, 
@@ -170,37 +155,44 @@ namespace DataAccess
         }
 
 
-        public void InsertReport(int idPatient, Report rep, DailyCarnet dCarnet, TemporaryData tempData)
+        public void InsertReport(Report rep)
         {
             var udaContext = new udahta_dbEntities();
 
-            ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
-            udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technician.Name, dCarnet.InitDiastolic1,
-                                         dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
-                                         dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
-                                         dCarnet.FinalDiastolic1, dCarnet.FinalDiastolic2, dCarnet.FinalDiastolic3,
-                                         dCarnet.FinalHeartRate1, dCarnet.FinalHeartRate2, dCarnet.FinalHeartRate3,
-                                         dCarnet.SleepTimeStart, dCarnet.SleepTimeEnd, dCarnet.SleepQuality, dCarnet.MealTime,
-                                         dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
-                                         dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3
-                                         );
+            if (rep.Carnet != null)
+            { //si DailyCarnet existe, insertar
+                ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
+                udaContext.insertDailyCarnet(lastIdDailyReport, rep.Carnet.Technician.Name, rep.Carnet.InitDiastolic1,
+                                             rep.Carnet.InitDiastolic2, rep.Carnet.InitDiastolic3,
+                                             rep.Carnet.InitHeartRate1, rep.Carnet.InitHeartRate2, rep.Carnet.InitHeartRate3,
+                                             rep.Carnet.FinalDiastolic1, rep.Carnet.FinalDiastolic2, rep.Carnet.FinalDiastolic3,
+                                             rep.Carnet.FinalHeartRate1, rep.Carnet.FinalHeartRate2, rep.Carnet.FinalHeartRate3,
+                                             rep.Carnet.SleepTimeStart, rep.Carnet.SleepTimeEnd, rep.Carnet.SleepQuality, rep.Carnet.MealTime,
+                                             rep.Carnet.InitSystolic1, rep.Carnet.InitSystolic2, rep.Carnet.InitSystolic3,
+                                             rep.Carnet.FinalSystolic1, rep.Carnet.FinalSystolic2, rep.Carnet.FinalSystolic3
+                                             );
 
-            rep.DailyCarnetId = (int?)lastIdDailyReport.Value;
+                rep.DailyCarnetId = (int?)lastIdDailyReport.Value;
+                
+            }
+            if (rep.TemporaryData != null)
+            { //si TemporaryData existe, insertar
+                ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
+                udaContext.insertTemporaryData(lastIdTempData, rep.TemporaryData.Weight, rep.TemporaryData.Height, rep.TemporaryData.Age,
+                                               rep.TemporaryData.BodyMassIndex, rep.TemporaryData.Smoker, rep.TemporaryData.Dyslipidemia,
+                                               rep.TemporaryData.Diabetic, rep.TemporaryData.Hypertensive, rep.TemporaryData.FatPercentage,
+                                               rep.TemporaryData.MusclePercentage, rep.TemporaryData.Kcal);
 
-            ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
-            udaContext.insertTemporaryData(lastIdTempData, tempData.Weight, tempData.Height, tempData.Age,
-                                           tempData.BodyMassIndex, tempData.Smoker, tempData.Dyslipidemia,
-                                           tempData.Diabetic, tempData.Hypertensive, tempData.FatPercentage,
-                                           tempData.MusclePercentage, tempData.Kcal);
-
-            rep.TemporaryDataId = (int?) lastIdTempData.Value;
+                rep.TemporaryDataId = (int?)lastIdTempData.Value;    
+            }
+            
 
             ObjectParameter lastIdReport = new ObjectParameter("id",typeof(long));
             udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name, rep.Diagnosis, rep.RequestDoctor,
                                     rep.RequestDoctorSpeciality, rep.SystolicDayAvg, rep.SystolicNightAvg, rep.SystolicTotalAvg, rep.SystolicDayMax, 
                                     rep.SystolicNightMax, rep.DiastolicDayAvg, rep.DiastolicNightAvg, rep.DiastolicTotalAvg, rep.DiastolicDayMax, 
                                     rep.DiastolicNightMax, rep.DeviceId, int.Parse(rep.DeviceReportId), rep.TemporaryDataId, rep.DailyCarnetId, 
-                                    idPatient);
+                                    rep.Patient.UdaId);
             
 
             //Obtener lista de medidas para insertar en tabla Measurement
@@ -209,7 +201,7 @@ namespace DataAccess
             foreach (Measurement m in lmeasure)
             {
                 udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate, m.Asleep, m.Comment, (long?)lastIdReport.Value,
-                                             idPatient);
+                                             rep.Patient.UdaId);
             }
             conn.Close();
         }
@@ -235,7 +227,6 @@ namespace DataAccess
         //en caso de no existr devuelvo null
         public string getPassword(string userName)
         {
-        //  string stm = "SELECT EXISTS(SELECT 1 FROM User WHERE login = '" + userName + "' LIMIT 1)";
             string stm = "SELECT pass FROM User WHERE login = '" + userName + "' LIMIT 1";
             MySqlCommand mc = new MySqlCommand(stm, conn);
 
@@ -245,7 +236,6 @@ namespace DataAccess
             string pswd = "";
             while ( rdr.Read() )
             {
-        //      exists = rdr.GetInt16(0);
                 pswd = rdr.GetString(0);
             }
 
@@ -259,16 +249,17 @@ namespace DataAccess
         //Actualiza la contrasena del usuario userName
         public bool updatePassword(string userName, string newPswd)
         {
-            MySqlCommand mc = new MySqlCommand("updatePassword", conn);
-            mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("login_var", userName));
-            mc.Parameters.Add(new MySqlParameter("pass_var", newPswd));
-
-            conn.Open();
-            mc.ExecuteNonQuery();
-            conn.Close();
-
-            return true; 
+            var udaContext = new udahta_dbEntities();
+            try
+            {
+                udaContext.updatePassword(userName, newPswd);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
         }
 
         public void insertPatientUda(long? id)
@@ -288,51 +279,44 @@ namespace DataAccess
         //Inserta un nuevo usuario en la base de datos
         public void insertUser(int idUsuario, string login, string pass, string rol)
         {
-            MySqlCommand mc = new MySqlCommand("insertUser", conn);
-            mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("id", idUsuario));
-            mc.Parameters.Add(new MySqlParameter("log", login));
-            mc.Parameters.Add(new MySqlParameter("p", pass));
-            mc.Parameters.Add(new MySqlParameter("r", rol));
-            conn.Open();
-            mc.ExecuteNonQuery();
-            conn.Close();
+            var udaContext = new udahta_dbEntities();
+            udaContext.insertUser(idUsuario, login, pass, rol);
         }
 
         //Inserta un nuevo tipo de droga en la base de datos
         public void insertDrugType(string type)
         {
-            MySqlCommand mc = new MySqlCommand("insertDrugType", conn);
-            mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("typ", type));
-            conn.Open();
-            mc.ExecuteNonQuery();
-            conn.Close();
+            var udaContext = new udahta_dbEntities();
+            udaContext.insertDrugType(type);
         }
 
         //Inserta una nueva droga en la base de datos
         public void insertDrug(string name, int idDrugTyp)
         {
-            MySqlCommand mc = new MySqlCommand("insertDrug", conn);
-            mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("nam", name));
-            mc.Parameters.Add(new MySqlParameter("idDrugType", idDrugTyp));
-            conn.Open();
-            mc.ExecuteNonQuery();
-            conn.Close();
+            var udaContext = new udahta_dbEntities();
+            udaContext.insertDrug(name,idDrugTyp);
+        }
+
+
+        /*
+         * INVESTIGACIONES
+         */
+
+        //Listar investigaciones 
+        public ICollection<Investigation> listInvestigations()
+        {
+            var udaContext = new udahta_dbEntities();
+            ICollection<Investigation> list = udaContext.investigation.Select(i => new Investigation(i.idInvestigation,i.name,i.creation_date)).ToList();
+            return list;
         }
 
         //Inserta una nueva investigacion en la base de datos
-        public void insertInvestigation(int id, string nam, DateTime createDat)
+        public int insertInvestigation(string nam, DateTime createDat)
         {
-            MySqlCommand mc = new MySqlCommand("insertInvestigation", conn);
-            mc.CommandType = CommandType.StoredProcedure;
-            mc.Parameters.Add(new MySqlParameter("id", id));
-            mc.Parameters.Add(new MySqlParameter("nam", nam));
-            mc.Parameters.Add(new MySqlParameter("createDat", createDat));
-            conn.Open();
-            mc.ExecuteNonQuery();
-            conn.Close();
+            var udaContext = new udahta_dbEntities();
+            ObjectParameter id = new ObjectParameter("id",typeof(int));
+            udaContext.insertInvestigation(id, nam, createDat);
+            return Convert.ToInt16(id.Value.ToString());
         }
 
     }

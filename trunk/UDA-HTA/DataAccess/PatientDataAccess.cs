@@ -48,9 +48,15 @@ namespace DataAccess
             return (int)lastIdPatient.Value;
         }
 
-        public void insertEmergencyContact()
+        public void insertEmergencyContact(Patient patient)
         {
-            
+            var patientContext = new patient_info_dbEntities();
+            ObjectParameter lastIdEmergencyContact = new ObjectParameter("id", typeof(long));
+
+            foreach (var ec in patient.EmergencyContactList)
+            {
+                patientContext.insertEmergencyContact(lastIdEmergencyContact,ec.Name,ec.Surname,ec.Phone,Convert.ToInt32(patient.UdaId));
+            }
         }
 
         /*
@@ -62,7 +68,10 @@ namespace DataAccess
             var patientContext = new patient_info_dbEntities();
             ICollection<Patient> patientQuery = patientContext.patient.Select(p=> new Entities.Patient
                 {
+                    DocumentId = p.document,
                     Names = p.name,
+                    Surnames = p.surname,
+                    BirthDate = p.birthday,
                     City = p.city
                 }).ToList();
 
@@ -70,14 +79,14 @@ namespace DataAccess
 
         }
 
-        public Patient getPatientData(string patientId)
+        public Patient getPatientData(long patientId)
         {
             var patientContext = new patient_info_dbEntities();
-            Int32 patId = Convert.ToInt32(patientId);
-            var pat =patientContext.patient.Where(p => p.idPatient == patId).Select(p => new {p.address,p.birthday,p.cell_phone,p.city,p.document,
+            var pat = patientContext.patient.Where(p => p.idPatient == patientId).Select(p => new {p.idPatient, p.address,p.birthday,p.cell_phone,p.city,p.document,
                                                                                      p.e_mail,p.emergency_contact,p.gender,p.name,p.neighborhood,
                                                                                      p.patientReference,p.surname,p.telephone}).ToList().First();
             Patient patient = new Patient();
+            patient.UdaId = pat.idPatient;
             patient.Address = pat.address;
             patient.BirthDate = pat.birthday;
             patient.CellPhone = pat.cell_phone;

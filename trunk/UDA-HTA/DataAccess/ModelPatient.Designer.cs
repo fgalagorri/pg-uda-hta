@@ -128,6 +128,59 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="idInDev">No Metadata Documentation available.</param>
         /// <param name="name">No Metadata Documentation available.</param>
         /// <param name="surname">No Metadata Documentation available.</param>
@@ -299,7 +352,7 @@ namespace DataAccess
         /// </summary>
         /// <param name="idemergency_contact">Initial value of the idemergency_contact property.</param>
         /// <param name="patient_idPatient">Initial value of the patient_idPatient property.</param>
-        public static emergency_contact Createemergency_contact(global::System.Int32 idemergency_contact, global::System.Int64 patient_idPatient)
+        public static emergency_contact Createemergency_contact(global::System.Int64 idemergency_contact, global::System.Int64 patient_idPatient)
         {
             emergency_contact emergency_contact = new emergency_contact();
             emergency_contact.idemergency_contact = idemergency_contact;
@@ -315,7 +368,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idemergency_contact
+        public global::System.Int64 idemergency_contact
         {
             get
             {
@@ -333,8 +386,8 @@ namespace DataAccess
                 }
             }
         }
-        private global::System.Int32 _idemergency_contact;
-        partial void Onidemergency_contactChanging(global::System.Int32 value);
+        private global::System.Int64 _idemergency_contact;
+        partial void Onidemergency_contactChanging(global::System.Int64 value);
         partial void Onidemergency_contactChanged();
     
         /// <summary>
@@ -848,6 +901,30 @@ namespace DataAccess
         private Nullable<global::System.Int64> _register_number;
         partial void Onregister_numberChanging(Nullable<global::System.Int64> value);
         partial void Onregister_numberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> modified_date
+        {
+            get
+            {
+                return _modified_date;
+            }
+            set
+            {
+                Onmodified_dateChanging(value);
+                ReportPropertyChanging("modified_date");
+                _modified_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("modified_date");
+                Onmodified_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _modified_date;
+        partial void Onmodified_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onmodified_dateChanged();
 
         #endregion
     
