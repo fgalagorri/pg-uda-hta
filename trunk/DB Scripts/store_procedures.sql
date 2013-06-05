@@ -128,21 +128,22 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicineDose$$
-CREATE PROCEDURE insertMedicineDose(IN time DATETIME, IN dose TEXT, IN idDrug INT, IN idTemporaryData INT)
+CREATE PROCEDURE insertMedicineDose(IN dose TEXT, IN idDrug INT, IN idTemporaryData INT)
 BEGIN
-INSERT INTO `udahta_db`.`medicinedose` (`time`, `dose`, `drug_idDrug`, `temporarydata_idTemporaryData`)
-VALUES(time, dose, idDrug, idTemporaryData);
+INSERT INTO `udahta_db`.`medicinedose` (`dose`, `drug_idDrug`, `temporarydata_idTemporaryData`)
+VALUES(dose, idDrug, idTemporaryData);
 END$$
 DELIMITER ;
 
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertInvestigation$$
-CREATE PROCEDURE insertInvestigation(IN id INT, IN nam VARCHAR(45), IN createDat DATETIME)
+CREATE PROCEDURE insertInvestigation(OUT id INT, IN nam VARCHAR(45), IN createDat DATETIME)
 BEGIN
 INSERT 
-INTO `udahta_db`.`investigation`(idInvestigation, name, creation_date)
+INTO `udahta_db`.`investigation`(name, creation_date)
 VALUES(id, nam, createDat);
+SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
