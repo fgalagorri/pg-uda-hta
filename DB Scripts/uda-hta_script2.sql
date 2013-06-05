@@ -218,7 +218,6 @@ DROP TABLE IF EXISTS `udahta_db`.`medicinedose` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicinedose` (
   `idMedicineDosis` INT NOT NULL AUTO_INCREMENT ,
-  `time` DATETIME NOT NULL ,
   `dose` TEXT NOT NULL ,
   `drug_idDrug` INT NOT NULL ,
   `temporarydata_idTemporaryData` INT NOT NULL ,
