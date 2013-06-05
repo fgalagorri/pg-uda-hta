@@ -7,23 +7,19 @@ namespace Entities
 {
     public class Investigation
     {
-        private string _name;
-        private DateTime _creationDate;
+        public int IdInvestigation { get; set; }
+        public string Name { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public Investigation()
         {
         }
 
-        public string name
+        public Investigation(int id, string name, DateTime date)
         {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        public DateTime creationDate
-        {
-            get { return _creationDate; }
-            set { _creationDate = value; }
+            IdInvestigation = id;
+            Name = name;
+            CreationDate = date;
         }
 
     }

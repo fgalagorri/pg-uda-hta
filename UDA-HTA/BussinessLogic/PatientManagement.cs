@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Entities;
 using DataAccess;
+using InterfaceBussinessLogic;
 
 namespace BussinessLogic
 {
-    public class PatientManagement
+    public class PatientManagement : IPatientManagement
     {
-        public long? CreatePatient(Patient patient)
+        public long? createPatient(Patient patient)
         {
             var p = new Patient
                 {
@@ -29,21 +30,11 @@ namespace BussinessLogic
             try
             {
                 var pda = new PatientDataAccess();
-                if (!pda.ExistPatientReference(p.DevicePatientId))
-                {
-                    id = pda.InsertPatient(p);
-                }
-                else
-                {
-                    id = pda.GetPatientId(p.DevicePatientId);
-                }
+                id = pda.InsertPatient(p);
                 pda.CloseConnectionDataBase();
 
                 var uda = new UdaHtaDataAccess();
-                if (!uda.ExistPatient(id))
-                {
-                    uda.insertPatientUda(id);    
-                }
+                uda.insertPatientUda(id);    
                 uda.CloseConnectionDataBase();
 
                 return id;
@@ -55,7 +46,7 @@ namespace BussinessLogic
         }
 
         
-        public ICollection<Patient> ListPatients()
+        public ICollection<Patient> listPatients()
         {
             var pda = new PatientDataAccess();
             var lp = pda.ListPatients();
@@ -63,7 +54,7 @@ namespace BussinessLogic
             return lp;
         }
 
-        public Patient getPatientData(string patientId)
+        public Patient getPatientData(long patientId)
         {
             var pda = new PatientDataAccess();
             return pda.getPatientData(patientId);
@@ -73,6 +64,11 @@ namespace BussinessLogic
         {
             var pda = new PatientDataAccess();
             return pda.GetPatientId(patientRefId);
+        }
+
+        public bool editPatient(Patient patient)
+        {
+            return false;
         }
 
     }

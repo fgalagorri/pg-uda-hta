@@ -12,7 +12,7 @@ namespace InterfaceBussinessLogic
 
         void exportInvestigation(int idInvestigation);
 
-        void createInvestigation(string name, DateTime creationDate);
+        int createInvestigation(string name, DateTime creationDate);
 
         void editInvestigation(string name, DateTime creationDate);
 

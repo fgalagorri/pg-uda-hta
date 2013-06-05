@@ -30,9 +30,10 @@ namespace BussinessLogic
         }
 
 
-        public ICollection<Report> listPatientReports(int idPatient)
+        public ICollection<Report> listPatientReports(long idPatient)
         {
-            return null;
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            return uda.GetReportsByPatientId(idPatient);
         }
 
         public void printReport(int idReport)
@@ -64,10 +65,10 @@ namespace BussinessLogic
           */
         }
 
-        public void addReport(Report report, string idPatient, DailyCarnet dailyCarnet, TemporaryData temporaryData)
+        public void addReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
-            uhda.InsertReport(int.Parse(idPatient),report, dailyCarnet,temporaryData);
+            uhda.InsertReport(report);
         }
 
     }

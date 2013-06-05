@@ -16,14 +16,14 @@ namespace InterfaceBussinessLogic
         void editDrug(string type, string name);
 
 
-        ICollection<Entities.Report> listPatientReports(int idPatient);
+        ICollection<Report> listPatientReports(long idPatient);
 
         void printReport(int idReport);
 
         void exportReportPDF(Report report, string fileName);
 
         //Agrega el reporte report al paciente con identificador idPatient en la base udaHta
-        void addReport(Report report, string idPatient, DailyCarnet dailyCarnet, TemporaryData temporaryData);
+        void addReport(Report report);
 
     }
 }

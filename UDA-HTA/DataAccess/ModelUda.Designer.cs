@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_ExtrasID1", "extrasid", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.extrasid), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Drug_DrugType", "drugtype", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drugtype), "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.drug), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDosis_Drug1", "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drug), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
@@ -143,22 +142,6 @@ namespace DataAccess
             }
         }
         private ObjectSet<drugtype> _drugtype;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<extrasid> extrasid
-        {
-            get
-            {
-                if ((_extrasid == null))
-                {
-                    _extrasid = base.CreateObjectSet<extrasid>("extrasid");
-                }
-                return _extrasid;
-            }
-        }
-        private ObjectSet<extrasid> _extrasid;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -324,14 +307,6 @@ namespace DataAccess
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the extrasid EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToextrasid(extrasid extrasid)
-        {
-            base.AddObject("extrasid", extrasid);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the investigation EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToinvestigation(investigation investigation)
@@ -397,6 +372,70 @@ namespace DataAccess
 
         #endregion
         #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="hour">No Metadata Documentation available.</param>
+        /// <param name="minutes">No Metadata Documentation available.</param>
+        /// <param name="specification">No Metadata Documentation available.</param>
+        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
+        /// <param name="description">No Metadata Documentation available.</param>
+        public int insertComplications_Activities(ObjectParameter id, Nullable<global::System.Int32> hour, Nullable<global::System.Int32> minutes, global::System.String specification, Nullable<global::System.Int64> idDailyCarnet, global::System.String description)
+        {
+            ObjectParameter hourParameter;
+            if (hour.HasValue)
+            {
+                hourParameter = new ObjectParameter("hour", hour);
+            }
+            else
+            {
+                hourParameter = new ObjectParameter("hour", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter minutesParameter;
+            if (minutes.HasValue)
+            {
+                minutesParameter = new ObjectParameter("minutes", minutes);
+            }
+            else
+            {
+                minutesParameter = new ObjectParameter("minutes", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter specificationParameter;
+            if (specification != null)
+            {
+                specificationParameter = new ObjectParameter("specification", specification);
+            }
+            else
+            {
+                specificationParameter = new ObjectParameter("specification", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDailyCarnetParameter;
+            if (idDailyCarnet.HasValue)
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
+            }
+            else
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter descriptionParameter;
+            if (description != null)
+            {
+                descriptionParameter = new ObjectParameter("description", description);
+            }
+            else
+            {
+                descriptionParameter = new ObjectParameter("description", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertComplications_Activities", id, hourParameter, minutesParameter, specificationParameter, idDailyCarnetParameter, descriptionParameter);
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -663,6 +702,86 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="nam">No Metadata Documentation available.</param>
+        /// <param name="idDrugType">No Metadata Documentation available.</param>
+        public int insertDrug(global::System.String nam, Nullable<global::System.Int32> idDrugType)
+        {
+            ObjectParameter namParameter;
+            if (nam != null)
+            {
+                namParameter = new ObjectParameter("nam", nam);
+            }
+            else
+            {
+                namParameter = new ObjectParameter("nam", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDrugTypeParameter;
+            if (idDrugType.HasValue)
+            {
+                idDrugTypeParameter = new ObjectParameter("idDrugType", idDrugType);
+            }
+            else
+            {
+                idDrugTypeParameter = new ObjectParameter("idDrugType", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertDrug", namParameter, idDrugTypeParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="typ">No Metadata Documentation available.</param>
+        public int insertDrugType(global::System.String typ)
+        {
+            ObjectParameter typParameter;
+            if (typ != null)
+            {
+                typParameter = new ObjectParameter("typ", typ);
+            }
+            else
+            {
+                typParameter = new ObjectParameter("typ", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertDrugType", typParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="nam">No Metadata Documentation available.</param>
+        /// <param name="createDat">No Metadata Documentation available.</param>
+        public int insertInvestigation(ObjectParameter id, global::System.String nam, Nullable<global::System.DateTime> createDat)
+        {
+            ObjectParameter namParameter;
+            if (nam != null)
+            {
+                namParameter = new ObjectParameter("nam", nam);
+            }
+            else
+            {
+                namParameter = new ObjectParameter("nam", typeof(global::System.String));
+            }
+    
+            ObjectParameter createDatParameter;
+            if (createDat.HasValue)
+            {
+                createDatParameter = new ObjectParameter("createDat", createDat);
+            }
+            else
+            {
+                createDatParameter = new ObjectParameter("createDat", typeof(global::System.DateTime));
+            }
+    
+            return base.ExecuteFunction("insertInvestigation", id, namParameter, createDatParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         /// <param name="dateM">No Metadata Documentation available.</param>
         /// <param name="systolic">No Metadata Documentation available.</param>
         /// <param name="average">No Metadata Documentation available.</param>
@@ -765,6 +884,122 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, commParameter, idReportParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="illness">No Metadata Documentation available.</param>
+        /// <param name="fromDate">No Metadata Documentation available.</param>
+        /// <param name="toDate">No Metadata Documentation available.</param>
+        /// <param name="comm">No Metadata Documentation available.</param>
+        /// <param name="idPatientUda">No Metadata Documentation available.</param>
+        public int insertMedicalHistory(ObjectParameter id, global::System.String illness, Nullable<global::System.DateTime> fromDate, Nullable<global::System.DateTime> toDate, global::System.String comm, Nullable<global::System.Int64> idPatientUda)
+        {
+            ObjectParameter illnessParameter;
+            if (illness != null)
+            {
+                illnessParameter = new ObjectParameter("illness", illness);
+            }
+            else
+            {
+                illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
+            }
+    
+            ObjectParameter fromDateParameter;
+            if (fromDate.HasValue)
+            {
+                fromDateParameter = new ObjectParameter("fromDate", fromDate);
+            }
+            else
+            {
+                fromDateParameter = new ObjectParameter("fromDate", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter toDateParameter;
+            if (toDate.HasValue)
+            {
+                toDateParameter = new ObjectParameter("toDate", toDate);
+            }
+            else
+            {
+                toDateParameter = new ObjectParameter("toDate", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter commParameter;
+            if (comm != null)
+            {
+                commParameter = new ObjectParameter("comm", comm);
+            }
+            else
+            {
+                commParameter = new ObjectParameter("comm", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientUdaParameter;
+            if (idPatientUda.HasValue)
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", idPatientUda);
+            }
+            else
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertMedicalHistory", id, illnessParameter, fromDateParameter, toDateParameter, commParameter, idPatientUdaParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="time">No Metadata Documentation available.</param>
+        /// <param name="dose">No Metadata Documentation available.</param>
+        /// <param name="idDrug">No Metadata Documentation available.</param>
+        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
+        public int insertMedicineDose(Nullable<global::System.DateTime> time, global::System.String dose, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
+        {
+            ObjectParameter timeParameter;
+            if (time.HasValue)
+            {
+                timeParameter = new ObjectParameter("time", time);
+            }
+            else
+            {
+                timeParameter = new ObjectParameter("time", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter doseParameter;
+            if (dose != null)
+            {
+                doseParameter = new ObjectParameter("dose", dose);
+            }
+            else
+            {
+                doseParameter = new ObjectParameter("dose", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDrugParameter;
+            if (idDrug.HasValue)
+            {
+                idDrugParameter = new ObjectParameter("idDrug", idDrug);
+            }
+            else
+            {
+                idDrugParameter = new ObjectParameter("idDrug", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idTemporaryDataParameter;
+            if (idTemporaryData.HasValue)
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
+            }
+            else
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertMedicineDose", timeParameter, doseParameter, idDrugParameter, idTemporaryDataParameter);
         }
     
         /// <summary>
@@ -1155,6 +1390,88 @@ namespace DataAccess
     
             return base.ExecuteFunction("insertTemporaryData", id, weightParameter, heightParameter, ageParameter, body_mass_indexParameter, smokerParameter, dyslipidemiaParameter, diabeticParameter, known_hypertensiveParameter, fat_percentageParameter, muscle_percentageParameter, kcalParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="log">No Metadata Documentation available.</param>
+        /// <param name="p">No Metadata Documentation available.</param>
+        /// <param name="r">No Metadata Documentation available.</param>
+        public int insertUser(Nullable<global::System.Int32> id, global::System.String log, global::System.String p, global::System.String r)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter logParameter;
+            if (log != null)
+            {
+                logParameter = new ObjectParameter("log", log);
+            }
+            else
+            {
+                logParameter = new ObjectParameter("log", typeof(global::System.String));
+            }
+    
+            ObjectParameter pParameter;
+            if (p != null)
+            {
+                pParameter = new ObjectParameter("p", p);
+            }
+            else
+            {
+                pParameter = new ObjectParameter("p", typeof(global::System.String));
+            }
+    
+            ObjectParameter rParameter;
+            if (r != null)
+            {
+                rParameter = new ObjectParameter("r", r);
+            }
+            else
+            {
+                rParameter = new ObjectParameter("r", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertUser", idParameter, logParameter, pParameter, rParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="login_var">No Metadata Documentation available.</param>
+        /// <param name="pass_var">No Metadata Documentation available.</param>
+        public int updatePassword(global::System.String login_var, global::System.String pass_var)
+        {
+            ObjectParameter login_varParameter;
+            if (login_var != null)
+            {
+                login_varParameter = new ObjectParameter("login_var", login_var);
+            }
+            else
+            {
+                login_varParameter = new ObjectParameter("login_var", typeof(global::System.String));
+            }
+    
+            ObjectParameter pass_varParameter;
+            if (pass_var != null)
+            {
+                pass_varParameter = new ObjectParameter("pass_var", pass_var);
+            }
+            else
+            {
+                pass_varParameter = new ObjectParameter("pass_var", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updatePassword", login_varParameter, pass_varParameter);
+        }
 
         #endregion
     }
@@ -1179,13 +1496,11 @@ namespace DataAccess
         /// </summary>
         /// <param name="idComplications_Activities">Initial value of the idComplications_Activities property.</param>
         /// <param name="dailycarnet_idDailyCarnet">Initial value of the dailycarnet_idDailyCarnet property.</param>
-        /// <param name="extrasid_idExtrasID">Initial value of the extrasid_idExtrasID property.</param>
-        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int64 dailycarnet_idDailyCarnet, global::System.Int32 extrasid_idExtrasID)
+        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int64 dailycarnet_idDailyCarnet)
         {
             complications_activities complications_activities = new complications_activities();
             complications_activities.idComplications_Activities = idComplications_Activities;
             complications_activities.dailycarnet_idDailyCarnet = dailycarnet_idDailyCarnet;
-            complications_activities.extrasid_idExtrasID = extrasid_idExtrasID;
             return complications_activities;
         }
 
@@ -1318,29 +1633,26 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 extrasid_idExtrasID
+        public global::System.String description
         {
             get
             {
-                return _extrasid_idExtrasID;
+                return _description;
             }
             set
             {
-                if (_extrasid_idExtrasID != value)
-                {
-                    Onextrasid_idExtrasIDChanging(value);
-                    ReportPropertyChanging("extrasid_idExtrasID");
-                    _extrasid_idExtrasID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("extrasid_idExtrasID");
-                    Onextrasid_idExtrasIDChanged();
-                }
+                OndescriptionChanging(value);
+                ReportPropertyChanging("description");
+                _description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("description");
+                OndescriptionChanged();
             }
         }
-        private global::System.Int32 _extrasid_idExtrasID;
-        partial void Onextrasid_idExtrasIDChanging(global::System.Int32 value);
-        partial void Onextrasid_idExtrasIDChanged();
+        private global::System.String _description;
+        partial void OndescriptionChanging(global::System.String value);
+        partial void OndescriptionChanged();
 
         #endregion
     
@@ -1380,44 +1692,6 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<dailycarnet>("udahta_dbModel.fk_Complications_Activities_DailyCarnet1", "dailycarnet", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Complications_Activities_ExtrasID1", "extrasid")]
-        public extrasid extrasid
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<extrasid>("udahta_dbModel.fk_Complications_Activities_ExtrasID1", "extrasid").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<extrasid>("udahta_dbModel.fk_Complications_Activities_ExtrasID1", "extrasid").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<extrasid> extrasidReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<extrasid>("udahta_dbModel.fk_Complications_Activities_ExtrasID1", "extrasid");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<extrasid>("udahta_dbModel.fk_Complications_Activities_ExtrasID1", "extrasid", value);
                 }
             }
         }
@@ -2358,112 +2632,6 @@ namespace DataAccess
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="udahta_dbModel", Name="extrasid")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class extrasid : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new extrasid object.
-        /// </summary>
-        /// <param name="idExtrasID">Initial value of the idExtrasID property.</param>
-        /// <param name="description">Initial value of the description property.</param>
-        public static extrasid Createextrasid(global::System.Int32 idExtrasID, global::System.String description)
-        {
-            extrasid extrasid = new extrasid();
-            extrasid.idExtrasID = idExtrasID;
-            extrasid.description = description;
-            return extrasid;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 idExtrasID
-        {
-            get
-            {
-                return _idExtrasID;
-            }
-            set
-            {
-                if (_idExtrasID != value)
-                {
-                    OnidExtrasIDChanging(value);
-                    ReportPropertyChanging("idExtrasID");
-                    _idExtrasID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("idExtrasID");
-                    OnidExtrasIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _idExtrasID;
-        partial void OnidExtrasIDChanging(global::System.Int32 value);
-        partial void OnidExtrasIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String description
-        {
-            get
-            {
-                return _description;
-            }
-            set
-            {
-                OndescriptionChanging(value);
-                ReportPropertyChanging("description");
-                _description = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("description");
-                OndescriptionChanged();
-            }
-        }
-        private global::System.String _description;
-        partial void OndescriptionChanging(global::System.String value);
-        partial void OndescriptionChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Complications_Activities_ExtrasID1", "complications_activities")]
-        public EntityCollection<complications_activities> complications_activities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<complications_activities>("udahta_dbModel.fk_Complications_Activities_ExtrasID1", "complications_activities");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<complications_activities>("udahta_dbModel.fk_Complications_Activities_ExtrasID1", "complications_activities", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="udahta_dbModel", Name="investigation")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2928,12 +3096,12 @@ namespace DataAccess
         /// <summary>
         /// Create a new medicalhistory object.
         /// </summary>
-        /// <param name="idMedical_History">Initial value of the idMedical_History property.</param>
+        /// <param name="idMedicalHistory">Initial value of the idMedicalHistory property.</param>
         /// <param name="patientuda_idPatientUda">Initial value of the patientuda_idPatientUda property.</param>
-        public static medicalhistory Createmedicalhistory(global::System.Int32 idMedical_History, global::System.Int64 patientuda_idPatientUda)
+        public static medicalhistory Createmedicalhistory(global::System.Int32 idMedicalHistory, global::System.Int64 patientuda_idPatientUda)
         {
             medicalhistory medicalhistory = new medicalhistory();
-            medicalhistory.idMedical_History = idMedical_History;
+            medicalhistory.idMedicalHistory = idMedicalHistory;
             medicalhistory.patientuda_idPatientUda = patientuda_idPatientUda;
             return medicalhistory;
         }
@@ -2946,123 +3114,123 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idMedical_History
+        public global::System.Int32 idMedicalHistory
         {
             get
             {
-                return _idMedical_History;
+                return _idMedicalHistory;
             }
             set
             {
-                if (_idMedical_History != value)
+                if (_idMedicalHistory != value)
                 {
-                    OnidMedical_HistoryChanging(value);
-                    ReportPropertyChanging("idMedical_History");
-                    _idMedical_History = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("idMedical_History");
-                    OnidMedical_HistoryChanged();
+                    OnidMedicalHistoryChanging(value);
+                    ReportPropertyChanging("idMedicalHistory");
+                    _idMedicalHistory = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idMedicalHistory");
+                    OnidMedicalHistoryChanged();
                 }
             }
         }
-        private global::System.Int32 _idMedical_History;
-        partial void OnidMedical_HistoryChanging(global::System.Int32 value);
-        partial void OnidMedical_HistoryChanged();
+        private global::System.Int32 _idMedicalHistory;
+        partial void OnidMedicalHistoryChanging(global::System.Int32 value);
+        partial void OnidMedicalHistoryChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Illness
+        public global::System.String illness
         {
             get
             {
-                return _Illness;
+                return _illness;
             }
             set
             {
-                OnIllnessChanging(value);
-                ReportPropertyChanging("Illness");
-                _Illness = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Illness");
-                OnIllnessChanged();
+                OnillnessChanging(value);
+                ReportPropertyChanging("illness");
+                _illness = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("illness");
+                OnillnessChanged();
             }
         }
-        private global::System.String _Illness;
-        partial void OnIllnessChanging(global::System.String value);
-        partial void OnIllnessChanged();
+        private global::System.String _illness;
+        partial void OnillnessChanging(global::System.String value);
+        partial void OnillnessChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> From
+        public Nullable<global::System.DateTime> from
         {
             get
             {
-                return _From;
+                return _from;
             }
             set
             {
-                OnFromChanging(value);
-                ReportPropertyChanging("From");
-                _From = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("From");
-                OnFromChanged();
+                OnfromChanging(value);
+                ReportPropertyChanging("from");
+                _from = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("from");
+                OnfromChanged();
             }
         }
-        private Nullable<global::System.DateTime> _From;
-        partial void OnFromChanging(Nullable<global::System.DateTime> value);
-        partial void OnFromChanged();
+        private Nullable<global::System.DateTime> _from;
+        partial void OnfromChanging(Nullable<global::System.DateTime> value);
+        partial void OnfromChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> To
+        public Nullable<global::System.DateTime> to
         {
             get
             {
-                return _To;
+                return _to;
             }
             set
             {
-                OnToChanging(value);
-                ReportPropertyChanging("To");
-                _To = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("To");
-                OnToChanged();
+                OntoChanging(value);
+                ReportPropertyChanging("to");
+                _to = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("to");
+                OntoChanged();
             }
         }
-        private Nullable<global::System.DateTime> _To;
-        partial void OnToChanging(Nullable<global::System.DateTime> value);
-        partial void OnToChanged();
+        private Nullable<global::System.DateTime> _to;
+        partial void OntoChanging(Nullable<global::System.DateTime> value);
+        partial void OntoChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Comment
+        public global::System.String comment
         {
             get
             {
-                return _Comment;
+                return _comment;
             }
             set
             {
-                OnCommentChanging(value);
-                ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Comment");
-                OnCommentChanged();
+                OncommentChanging(value);
+                ReportPropertyChanging("comment");
+                _comment = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("comment");
+                OncommentChanged();
             }
         }
-        private global::System.String _Comment;
-        partial void OnCommentChanging(global::System.String value);
-        partial void OnCommentChanged();
+        private global::System.String _comment;
+        partial void OncommentChanging(global::System.String value);
+        partial void OncommentChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

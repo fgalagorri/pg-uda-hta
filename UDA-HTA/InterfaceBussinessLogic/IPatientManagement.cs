@@ -12,29 +12,28 @@ namespace InterfaceBussinessLogic
          * Crea un paciente que no existe en la base con los datos ingresados como parametros.
          */
 
-        void CreatePatient(int idDev, string name, string surname, string address, string dni, DateTime birth,
-                           SexType sex, string neighbour, string city, string tel, string cell, string email);
+        long? createPatient(Patient patient);
 
         /*
          * Lista todos los pacientes de la base
          */
-        ICollection<Patient> ListPatients();
+        ICollection<Patient> listPatients();
 
         /*
          * Obtiene los datos del paciente con identificador 'patientId'
          */
-        Patient getPatientData(string patientId);
+        Patient getPatientData(long patientId);
 
         /*
-         * Devuelve true si existe el paciente con referencia a Spacelab o HMS 'patientRefId'
+         * Obtiene el identificador del paciente con referencia a su base original 'patientRefId', en caso de que exista
+         * si no existe, devuelve null
          */
-        bool existPatientReference(string patientRefId);
+        long? getPatientIdIfExist(string patientRefId);
 
         /*
          * Modifica la informacion actual del paciente
          */
 
-        bool EditPatient(string name, string surname, string address, string dni, DateTime birth, SexType sex,
-                         string neighbour, string city, string tel, string cell, string email);
+        bool editPatient(Patient patient);
     }
 }

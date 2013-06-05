@@ -13,6 +13,7 @@ namespace Entities
             TemporaryData = new TemporaryData();
             Carnet = new DailyCarnet();
             Measures = new List<Measurement>();
+            Patient = new Patient();
         }
 
         // Propiuedades que solo se usan con la BD de UDA
