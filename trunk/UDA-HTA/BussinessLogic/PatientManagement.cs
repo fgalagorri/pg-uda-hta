@@ -8,35 +8,24 @@ namespace BussinessLogic
 {
     public class PatientManagement : IPatientManagement
     {
-        public long? createPatient(Patient patient)
+        public long createPatient(Patient patient)
         {
-            var p = new Patient
-                {
-                    Address = patient.Address,
-                    BirthDate = patient.BirthDate,
-                    CellPhone = patient.CellPhone,
-                    City = patient.City,
-                    DocumentId = patient.DocumentId,
-                    Email = patient.Email,
-                    DevicePatientId = patient.DevicePatientId,
-                    Names = patient.Names,
-                    Surnames = patient.Surnames,
-                    Neighbour = patient.Neighbour,
-                    Phone = patient.Phone,
-                    Sex = patient.Sex
-                };
-
-            long? id;
+            long id;
             try
             {
                 var pda = new PatientDataAccess();
-                id = pda.InsertPatient(p);
+                id = pda.InsertPatient(patient);
                 pda.CloseConnectionDataBase();
 
                 var uda = new UdaHtaDataAccess();
-                uda.insertPatientUda(id);    
-                uda.CloseConnectionDataBase();
-
+                uda.insertPatientUda(id);
+                //Insertar Medical History
+                foreach (var mh in patient.Background)
+                {
+                    uda.insertMedicalHistory(id, mh);
+                }
+                
+                uda.CloseConnectionDataBase();    
                 return id;
             }
             catch (Exception e)

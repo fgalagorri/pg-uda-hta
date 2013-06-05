@@ -13,6 +13,7 @@ namespace Entities
         {
             UdaId = null;
             EmergencyContactList = new List<EmergencyContact>();
+            Background = new List<MedicalRecord>();
             ReportList = new List<Report>();
         }
         

@@ -11,8 +11,11 @@ namespace Entities
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
 
+        public ICollection<Report> LReports { get; set; } 
+
         public Investigation()
         {
+            LReports = new List<Report>();
         }
 
         public Investigation(int id, string name, DateTime date)
@@ -20,6 +23,7 @@ namespace Entities
             IdInvestigation = id;
             Name = name;
             CreationDate = date;
+            LReports = new List<Report>();
         }
 
     }

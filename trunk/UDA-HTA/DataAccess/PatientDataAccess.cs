@@ -22,7 +22,7 @@ namespace DataAccess
             _conn.Close();
         }
 
-        public int? InsertPatient(Patient p)
+        public long InsertPatient(Patient p)
         {
             var udaContext = new patient_info_dbEntities();
 
@@ -45,7 +45,7 @@ namespace DataAccess
             {
                 throw (e);
             }
-            return (int)lastIdPatient.Value;
+            return (long) lastIdPatient.Value;
         }
 
         public void insertEmergencyContact(Patient patient)

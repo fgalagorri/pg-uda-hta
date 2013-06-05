@@ -171,7 +171,6 @@
             <PropertyRef Name="idMedicineDosis" />
           </Key>
           <Property Name="idMedicineDosis" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="time" Type="datetime" Nullable="false" />
           <Property Name="dose" Type="text" Nullable="false" />
           <Property Name="drug_idDrug" Type="int" Nullable="false" />
           <Property Name="temporarydata_idTemporaryData" Type="int" Nullable="false" />
@@ -438,7 +437,6 @@
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="time" Type="datetime" Mode="In" />
           <Parameter Name="dose" Type="text" Mode="In" />
           <Parameter Name="idDrug" Type="int" Mode="In" />
           <Parameter Name="idTemporaryData" Type="int" Mode="In" />
@@ -616,12 +614,6 @@
             <Parameter Name="comm" Mode="In" Type="String" />
             <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="insertMedicineDose">
-            <Parameter Name="time" Mode="In" Type="DateTime" />
-            <Parameter Name="dose" Mode="In" Type="String" />
-            <Parameter Name="idDrug" Mode="In" Type="Int32" />
-            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="insertPatientUda">
           <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
@@ -672,6 +664,11 @@
           <FunctionImport Name="updatePassword">
             <Parameter Name="login_var" Mode="In" Type="String" />
             <Parameter Name="pass_var" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertMedicineDose">
+            <Parameter Name="dose" Mode="In" Type="String" />
+            <Parameter Name="idDrug" Mode="In" Type="Int32" />
+            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -780,7 +777,6 @@
             <PropertyRef Name="idMedicineDosis" />
           </Key>
           <Property Name="idMedicineDosis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="time" Type="DateTime" Nullable="false" />
           <Property Name="dose" Type="String" Nullable="false" />
           <Property Name="drug_idDrug" Type="Int32" Nullable="false" />
           <Property Name="temporarydata_idTemporaryData" Type="Int32" Nullable="false" />
@@ -1046,7 +1042,6 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="medicinedose"><EntityTypeMapping TypeName="udahta_dbModel.medicinedose"><MappingFragment StoreEntitySet="medicinedose">
             <ScalarProperty Name="idMedicineDosis" ColumnName="idMedicineDosis" />
-            <ScalarProperty Name="time" ColumnName="time" />
             <ScalarProperty Name="dose" ColumnName="dose" />
             <ScalarProperty Name="drug_idDrug" ColumnName="drug_idDrug" />
             <ScalarProperty Name="temporarydata_idTemporaryData" ColumnName="temporarydata_idTemporaryData" />
@@ -1114,12 +1109,12 @@
           <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
           <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
           <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
-          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
+          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1148,7 +1143,7 @@
         <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="1.625" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="4.375" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="6" PointY="14.75" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="6" PointY="11.25" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="6" PointY="11.25" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.25" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="2.875" Height="6.2109179687500031" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="10.5" Height="3.7109993489583317" IsExpanded="true" />
@@ -1168,10 +1163,8 @@
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDosis_Drug1" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="15.376152846153847" />
           <ConnectorPoint PointX="5.625" PointY="15.001152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="12.432444661458334" />
-          <ConnectorPoint PointX="5.729166666666667" PointY="12.432444661458334" />
-          <ConnectorPoint PointX="5.895833333333333" PointY="12.432444661458334" />
-          <ConnectorPoint PointX="6" PointY="12.432444661458334" />
+          <ConnectorPoint PointX="5.625" PointY="12.658485889502391" />
+          <ConnectorPoint PointX="6" PointY="12.658485889502391" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="5.9420475260416659" />
@@ -1179,15 +1172,15 @@
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicalHistory_Patient1" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="9.7833749014423077" />
-          <ConnectorPoint PointX="5.8125" PointY="10.345874901442308" />
-          <ConnectorPoint PointX="5.8125" PointY="15.932444661458334" />
+          <ConnectorPoint PointX="5.6875" PointY="10.220874901442308" />
+          <ConnectorPoint PointX="5.6875" PointY="15.932444661458334" />
           <ConnectorPoint PointX="6" PointY="15.932444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDose_TemporaryData1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="11.778722330729167" />
-          <ConnectorPoint PointX="5.729166666666667" PointY="11.778722330729167" />
-          <ConnectorPoint PointX="5.895833333333333" PointY="11.778722330729167" />
-          <ConnectorPoint PointX="6" PointY="11.778722330729167" />
+          <ConnectorPoint PointX="5.25" PointY="11.891742944751195" />
+          <ConnectorPoint PointX="5.604166666666667" PointY="11.891742944751195" />
+          <ConnectorPoint PointX="5.770833333333333" PointY="11.891742944751195" />
+          <ConnectorPoint PointX="6" PointY="11.891742944751195" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_Patient1" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="8.6679589843750016" />
@@ -1198,8 +1191,8 @@
         <AssociationConnector Association="udahta_dbModel.fk_Report_TemporaryData1" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="10.501152846153847" />
           <ConnectorPoint PointX="5.625" PointY="10.126152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="6.3747257486979176" />
-          <ConnectorPoint PointX="6" PointY="6.3747257486979176" />
+          <ConnectorPoint PointX="5.625" PointY="5.9804589843750016" />
+          <ConnectorPoint PointX="6" PointY="5.9804589843750016" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.investigation_has_report" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="3.1439925130208337" />

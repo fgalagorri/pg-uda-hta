@@ -16,9 +16,9 @@ namespace InterfaceBussinessLogic
 
         void editInvestigation(string name, DateTime creationDate);
 
-        void addReportToInvestigation(int idReport, int idInvestigation);
+        void addReportToInvestigation(Report report, int idInvestigation);
 
-        void deleteReportFromInvestigation(int idReport, int idInvestigation);
+        void deleteReportFromInvestigation(Report report, int idInvestigation);
 
     }
 }

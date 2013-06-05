@@ -68,7 +68,7 @@ namespace BussinessLogic
         public void addReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
-            uhda.InsertReport(report);
+            uhda.insertReport(report);
         }
 
     }
