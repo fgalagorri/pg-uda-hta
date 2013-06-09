@@ -87,12 +87,15 @@ namespace DataAccess
                 report.Carnet.FinalHeartRate2 = rep.dailycarnet.final_hr2;
                 report.Carnet.FinalHeartRate3 = rep.dailycarnet.final_hr3;
 
-                report.Carnet.MealTime = new DateTime(rep.dailycarnet.main_meal_time.Value.Year,
-                                                      rep.dailycarnet.main_meal_time.Value.Month,
-                                                      rep.dailycarnet.main_meal_time.Value.Day,
-                                                      rep.dailycarnet.main_meal_time.Value.Hour,
-                                                      rep.dailycarnet.main_meal_time.Value.Minute,
-                                                      rep.dailycarnet.main_meal_time.Value.Second);
+                if (rep.dailycarnet.main_meal_time != null)
+                {
+                    report.Carnet.MealTime = new DateTime(rep.dailycarnet.main_meal_time.Value.Year,
+                                                          rep.dailycarnet.main_meal_time.Value.Month,
+                                                          rep.dailycarnet.main_meal_time.Value.Day,
+                                                          rep.dailycarnet.main_meal_time.Value.Hour,
+                                                          rep.dailycarnet.main_meal_time.Value.Minute,
+                                                          rep.dailycarnet.main_meal_time.Value.Second);                    
+                }
 
                 report.Carnet.SleepQuality = rep.dailycarnet.how_sleep;
 
@@ -140,8 +143,9 @@ namespace DataAccess
                 report.TemporaryData.Kcal = rep.temporarydata.kcal;
                 report.TemporaryData.MusclePercentage = rep.temporarydata.muscle_percentage;
                 report.TemporaryData.Smoker = rep.temporarydata.smoker;
-                report.TemporaryData.Weight = report.TemporaryData.Weight;
+                report.TemporaryData.Weight = rep.temporarydata.weight;
 
+                lrep.Add(report);
             }
 
             return lrep;
