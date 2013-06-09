@@ -25,7 +25,7 @@ namespace Entities
         public string RequestDoctorSpeciality { get; set; }
         public string Diagnosis { get; set; }
 
-        public int? DailyCarnetId { get; set; } // TODO cambiar a LONG
+        public long? DailyCarnetId { get; set; }
         public int? TemporaryDataId { get; set; }
         public TemporaryData TemporaryData { get; set; }
         public DailyCarnet Carnet { get; set; }
