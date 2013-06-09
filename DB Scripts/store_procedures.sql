@@ -1,6 +1,6 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatient$$
-CREATE PROCEDURE insertPatient(OUT id BIGINT, IN idInDev BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45), IN register_number BIGINT)
+CREATE PROCEDURE insertPatient(OUT id BIGINT, IN idInDev VARCHAR(45), IN name VARCHAR(45), IN surname VARCHAR(45), IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45), IN register_number BIGINT)
 BEGIN
 INSERT INTO `patient_info_db`.`patient`(`patientReference`, `name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, `address`, `city`, `neighborhood`, `birthday`, `e_mail`,`register_number`)
 VALUES (idInDev, name, surname, dni, sex, phone, cell, addr, city, neighbour, birth, email,register_number);
