@@ -291,7 +291,7 @@ DROP TABLE IF EXISTS `udahta_db`.`medicalhistory` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
   `idMedicalHistory` BIGINT NOT NULL AUTO_INCREMENT ,
-  `illness` VARCHAR(45) NULL ,
+  `illness` TEXT NULL ,
   `from` DATETIME NULL ,
   `to` DATETIME NULL ,
   `comment` TEXT NULL ,

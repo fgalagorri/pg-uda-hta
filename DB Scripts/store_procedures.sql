@@ -80,7 +80,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicalHistory$$
-CREATE PROCEDURE insertMedicalHistory(OUT id BIGINT, IN illness VARCHAR(45), IN fromDate DATETIME, IN toDate DATETIME, IN comm TEXT, IN idPatientUda BIGINT)
+CREATE PROCEDURE insertMedicalHistory(OUT id BIGINT, IN illness TEXT, IN fromDate DATETIME, IN toDate DATETIME, IN comm TEXT, IN idPatientUda BIGINT)
 BEGIN
 INSERT INTO `udahta_db`.`medicalhistory` (`illness`, `from`, `to`, `comment`, `patientuda_idPatientUda`)
 VALUES (illness, fromDate, toDate, comm, idPatientUda);
