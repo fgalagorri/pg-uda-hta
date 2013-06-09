@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS `patient_info_db`.`patient` ;
 
 CREATE  TABLE IF NOT EXISTS `patient_info_db`.`patient` (
   `idPatient` BIGINT NOT NULL AUTO_INCREMENT ,
-  `patientReference` BIGINT NULL ,
+  `patientReference` VARCHAR(45) NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `surname` VARCHAR(45) NOT NULL ,
   `document` VARCHAR(45) NOT NULL ,
