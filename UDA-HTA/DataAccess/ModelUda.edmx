@@ -159,7 +159,7 @@
             <PropertyRef Name="idMedicalHistory" />
             <PropertyRef Name="patientuda_idPatientUda" />
           </Key>
-          <Property Name="idMedicalHistory" Type="int" Nullable="false" />
+          <Property Name="idMedicalHistory" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="illness" Type="varchar" MaxLength="45" />
           <Property Name="from" Type="datetime" />
           <Property Name="to" Type="datetime" />
@@ -463,7 +463,7 @@
           <Parameter Name="day_max_dias" Type="int" Mode="In" />
           <Parameter Name="night_max_dias" Type="int" Mode="In" />
           <Parameter Name="idDev" Type="int" Mode="In" />
-          <Parameter Name="devReportId" Type="int" Mode="In" />
+          <Parameter Name="devReportId" Type="varchar" Mode="In" />
           <Parameter Name="idTemporaryData" Type="int" Mode="In" />
           <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
@@ -617,30 +617,6 @@
           <FunctionImport Name="insertPatientUda">
           <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="insertReport">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
-            <Parameter Name="end_date" Mode="In" Type="DateTime" />
-            <Parameter Name="doctor" Mode="In" Type="String" />
-            <Parameter Name="diagnosis" Mode="In" Type="String" />
-            <Parameter Name="request_doctor" Mode="In" Type="String" />
-            <Parameter Name="specialty" Mode="In" Type="String" />
-            <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
-            <Parameter Name="night_avg_sys" Mode="In" Type="Int32" />
-            <Parameter Name="total_avg_sys" Mode="In" Type="Int32" />
-            <Parameter Name="day_max_sys" Mode="In" Type="Int32" />
-            <Parameter Name="night_max_sys" Mode="In" Type="Int32" />
-            <Parameter Name="day_avg_dias" Mode="In" Type="Int32" />
-            <Parameter Name="night_avg_dias" Mode="In" Type="Int32" />
-            <Parameter Name="total_avg_dias" Mode="In" Type="Int32" />
-            <Parameter Name="day_max_dias" Mode="In" Type="Int32" />
-            <Parameter Name="night_max_dias" Mode="In" Type="Int32" />
-            <Parameter Name="idDev" Mode="In" Type="Int32" />
-            <Parameter Name="devReportId" Mode="In" Type="Int32" />
-            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
-            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
-          </FunctionImport>
           <FunctionImport Name="insertTemporaryData">
             <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="weight" Mode="In" Type="Decimal" />
@@ -669,6 +645,30 @@
             <Parameter Name="dose" Mode="In" Type="String" />
             <Parameter Name="idDrug" Mode="In" Type="Int32" />
             <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertReport">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+            <Parameter Name="doctor" Mode="In" Type="String" />
+            <Parameter Name="diagnosis" Mode="In" Type="String" />
+            <Parameter Name="request_doctor" Mode="In" Type="String" />
+            <Parameter Name="specialty" Mode="In" Type="String" />
+            <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="total_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="day_max_sys" Mode="In" Type="Int32" />
+            <Parameter Name="night_max_sys" Mode="In" Type="Int32" />
+            <Parameter Name="day_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="total_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="day_max_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_max_dias" Mode="In" Type="Int32" />
+            <Parameter Name="idDev" Mode="In" Type="Int32" />
+            <Parameter Name="devReportId" Mode="In" Type="String" />
+            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
+            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1110,11 +1110,11 @@
           <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
           <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
-          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
+          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
