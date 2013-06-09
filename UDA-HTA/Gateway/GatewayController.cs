@@ -49,6 +49,7 @@ namespace Gateway
         {
             IReportManagement reportController = new ReportManagement();
             IPatientManagement patientController = new PatientManagement();
+            IImportDataManagement importController = new ImportDataManagement();
             
             /*
              * Si report.UdaId != null, entonces el paciente ya fue creado
@@ -64,6 +65,8 @@ namespace Gateway
             {
                 patientController.createPatient(report.Patient);
             }
+
+			report.Measures = importController.ImportMeasures(report);
 
             reportController.addReport(report);
         }

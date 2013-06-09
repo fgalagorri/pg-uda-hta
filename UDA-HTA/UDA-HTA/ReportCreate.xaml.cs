@@ -13,15 +13,15 @@ namespace UDA_HTA
         private const string Siguiente = "Siguiente >";
         private const string Finalizar = "Finalizar >>";
         private int _state;
+        private Report _report;
         private PatientInformation patientInfo;
         private AdmissionForm admissionForm;
         private OtherInformation otherInfo;
-        public Report Report { get; private set; }
 
         public ReportCreate(Report report)
         {
             InitializeComponent();
-            Report = report;
+            _report = report;
             _state = 0;
             patientInfo = new PatientInformation();
             admissionForm = new AdmissionForm();
@@ -36,24 +36,24 @@ namespace UDA_HTA
             switch (_state)
             {
                 case 0:
-                    Report = patientInfo.Report;
-                    admissionForm.Report = Report;
+                    _report = patientInfo.Report;
+                    admissionForm.Report = _report;
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
                     _state++;
                     break;
                 case 1:
-                    Report = admissionForm.Report;
-                    otherInfo.Report = Report;
+                    _report = admissionForm.Report;
+                    otherInfo.Report = _report;
                     CurrentControl.Content = otherInfo;
                     btnBack.IsEnabled = true;
                     btnNext.Content = Finalizar;
                     _state++;
                     break;
                 case 2:
-                    Report = otherInfo.Report;
+                    _report = otherInfo.Report;
                     DialogResult = true;
-                    //GatewayController.GetInstance()
+                    GatewayController.GetInstance().AddImportedData(_report, true); // TODO ver modified
 
                     Close();
                     break;
@@ -65,15 +65,15 @@ namespace UDA_HTA
             switch (_state)
             {
                 case 1:
-                    Report = admissionForm.Report;
-                    patientInfo.Report = Report;
+                    _report = admissionForm.Report;
+                    patientInfo.Report = _report;
                     CurrentControl.Content = patientInfo;
                     btnBack.IsEnabled = false;
                     _state--;
                     break;
                 case 2:
-                    Report = otherInfo.Report;
-                    admissionForm.Report = Report;
+                    _report = otherInfo.Report;
+                    admissionForm.Report = _report;
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
                     btnNext.Content = Siguiente;

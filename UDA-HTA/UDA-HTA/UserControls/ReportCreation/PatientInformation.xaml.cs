@@ -87,10 +87,17 @@ namespace UDA_HTA.UserControls.ReportCreation
                         txtFat.Text = t.FatPercentage.ToString();
                         txtMuscle.Text = t.MusclePercentage.ToString();
                         txtKcal.Text = t.Kcal.ToString();
-                        chkSmoker.IsChecked = t.Smoker;
-                        chkDiabetic.IsChecked = t.Diabetic;
-                        chkDyslipidemia.IsChecked = t.Dyslipidemia;
-                        chkHypertense.IsChecked = t.Hypertensive;
+                        chkSmoker.IsChecked = t.Smoker ?? false;
+                        chkDiabetic.IsChecked = t.Diabetic ?? false;
+                        chkDyslipidemia.IsChecked = t.Dyslipidemia ?? false;
+                        chkHypertense.IsChecked = t.Hypertensive ?? false;
+                    }
+                    else
+                    {
+                        chkSmoker.IsChecked = false;
+                        chkDiabetic.IsChecked = false;
+                        chkDyslipidemia.IsChecked = false;
+                        chkHypertense.IsChecked = false;
                     }
                 }
             }
