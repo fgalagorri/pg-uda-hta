@@ -63,7 +63,7 @@ namespace Gateway
             }
             else
             {
-                patientController.createPatient(report.Patient);
+                report.Patient.UdaId = patientController.createPatient(report.Patient);
             }
 
 			report.Measures = importController.ImportMeasures(report);
