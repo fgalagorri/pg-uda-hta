@@ -31,7 +31,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertReport$$
-CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, IN doctor VARCHAR(45), IN diagnosis TEXT, IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, IN night_max_dias INT, IN idDev INT, IN devReportId INT, IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT)
+CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, IN doctor VARCHAR(45), IN diagnosis TEXT, IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, IN night_max_dias INT, IN idDev INT, IN devReportId VARCHAR(45), IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT)
 BEGIN
 INSERT INTO `udahta_db`.`report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, `temporarydata_idTemporaryData`, `dailycarnet_idDailyCarnet`, `patientuda_idPatientUda`) 
 VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, idDailyCarnet, idPatient);
@@ -80,7 +80,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicalHistory$$
-CREATE PROCEDURE insertMedicalHistory(OUT id INT, IN illness VARCHAR(45), IN fromDate DATETIME, IN toDate DATETIME, IN comm TEXT, IN idPatientUda BIGINT)
+CREATE PROCEDURE insertMedicalHistory(OUT id BIGINT, IN illness VARCHAR(45), IN fromDate DATETIME, IN toDate DATETIME, IN comm TEXT, IN idPatientUda BIGINT)
 BEGIN
 INSERT INTO `udahta_db`.`medicalhistory` (`illness`, `from`, `to`, `comment`, `patientuda_idPatientUda`)
 VALUES (illness, fromDate, toDate, comm, idPatientUda);
