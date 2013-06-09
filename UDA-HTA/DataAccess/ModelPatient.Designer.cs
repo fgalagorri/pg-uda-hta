@@ -595,7 +595,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> patientReference
+        public global::System.String patientReference
         {
             get
             {
@@ -605,13 +605,13 @@ namespace DataAccess
             {
                 OnpatientReferenceChanging(value);
                 ReportPropertyChanging("patientReference");
-                _patientReference = StructuralObject.SetValidValue(value);
+                _patientReference = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("patientReference");
                 OnpatientReferenceChanged();
             }
         }
-        private Nullable<global::System.Int64> _patientReference;
-        partial void OnpatientReferenceChanging(Nullable<global::System.Int64> value);
+        private global::System.String _patientReference;
+        partial void OnpatientReferenceChanging(global::System.String value);
         partial void OnpatientReferenceChanged();
     
         /// <summary>
