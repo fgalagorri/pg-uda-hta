@@ -229,7 +229,7 @@ namespace DataAccess
 
         public void insertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
         {
-            udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Drug.Id, idTemporaryData);
+            //udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Drug.Id, idTemporaryData);
         }
 
         //Verifica que existe el nombre de usuario 'userName' en la base de datos y devuelve el password,
