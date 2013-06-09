@@ -290,7 +290,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `udahta_db`.`medicalhistory` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
-  `idMedicalHistory` INT NOT NULL ,
+  `idMedicalHistory` BIGINT NOT NULL AUTO_INCREMENT ,
   `illness` VARCHAR(45) NULL ,
   `from` DATETIME NULL ,
   `to` DATETIME NULL ,
