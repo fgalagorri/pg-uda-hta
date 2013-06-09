@@ -70,7 +70,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertTemporaryData$$
-CREATE PROCEDURE insertTemporaryData(OUT id INT, IN weight DECIMAL(2), IN height DECIMAL(2), IN age INT, IN body_mass_index DECIMAL(2), IN smoker BIT, IN dyslipidemia BIT, IN diabetic BIT, IN known_hypertensive BIT, IN fat_percentage DECIMAL(2), IN muscle_percentage DECIMAL(2), IN kcal INT)
+CREATE PROCEDURE insertTemporaryData(OUT id INT, IN weight DECIMAL(5,2), IN height DECIMAL(5,2), IN age INT, IN body_mass_index DECIMAL(5,2), IN smoker BIT, IN dyslipidemia BIT, IN diabetic BIT, IN known_hypertensive BIT, IN fat_percentage DECIMAL(5,2), IN muscle_percentage DECIMAL(5,2), IN kcal INT)
 BEGIN
 INSERT INTO `udahta_db`.`temporarydata` (`weight`, `height`, `age`, `body_mass_index`, `smoker`, `dyslipidemia`, `diabetic`, `known_hypertensive`, `fat_percentage`, `muscle_percentage`, `kcal`) 
 VALUES (weight, height, age, body_mass_index, smoker, dyslipidemia, diabetic, known_hypertensive, fat_percentage, muscle_percentage, kcal);

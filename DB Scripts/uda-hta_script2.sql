@@ -106,16 +106,16 @@ DROP TABLE IF EXISTS `udahta_db`.`temporarydata` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`temporarydata` (
   `idTemporaryData` INT NOT NULL AUTO_INCREMENT ,
-  `weight` DECIMAL(2) NULL ,
-  `height` DECIMAL(2) NULL ,
+  `weight` DECIMAL(5,2) NULL ,
+  `height` DECIMAL(5,2) NULL ,
   `age` INT NULL ,
-  `body_mass_index` DECIMAL(2) NULL ,
+  `body_mass_index` DECIMAL(5,2) NULL ,
   `smoker` BIT NULL ,
   `dyslipidemia` BIT NULL ,
   `diabetic` BIT NULL ,
   `known_hypertensive` BIT NULL ,
-  `fat_percentage` DECIMAL(2) NULL ,
-  `muscle_percentage` DECIMAL(2) NULL ,
+  `fat_percentage` DECIMAL(5,2) NULL ,
+  `muscle_percentage` DECIMAL(5,2) NULL ,
   `kcal` INT NULL ,
   PRIMARY KEY (`idTemporaryData`) )
 ENGINE = InnoDB;
