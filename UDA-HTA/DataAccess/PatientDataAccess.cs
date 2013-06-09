@@ -29,7 +29,6 @@ namespace DataAccess
             ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
             try
             {
-                Int32 devPatId = Convert.ToInt32(p.DevicePatientId);
                 var sex = SexType.M.ToString();
                 if ( p.Sex != null &&
                     ((p.Sex.Value == SexType.F) || 
@@ -37,7 +36,7 @@ namespace DataAccess
                 {
                     sex = p.Sex.Value.ToString();
                 }
-                udaContext.insertPatient(lastIdPatient, devPatId, p.Names, p.Surnames, p.Address, p.DocumentId,
+                udaContext.insertPatient(lastIdPatient, p.DevicePatientId, p.Names, p.Surnames, p.Address, p.DocumentId,
                                          p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
 
             }
@@ -116,15 +115,14 @@ namespace DataAccess
         public bool ExistPatientReference(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
-            Int32 patRef = Convert.ToInt32(patientReference);
-            return patientContext.patient.Any(p => p.patientReference == patRef);
+            return patientContext.patient.Any(p => p.patientReference == patientReference);
         }
 
         public long? GetPatientId(string patientReference)
         {
             var patientContext = new patient_info_dbEntities();
             Int32 patRef = Convert.ToInt32(patientReference);
-            var pat = patientContext.patient.Where(p => p.patientReference == patRef).Select(p => new { p.idPatient }).ToList().FirstOrDefault();
+            var pat = patientContext.patient.Where(p => p.patientReference == patientReference).Select(p => new { p.idPatient }).ToList().FirstOrDefault();
             if (pat == null)
             {
                 return null;

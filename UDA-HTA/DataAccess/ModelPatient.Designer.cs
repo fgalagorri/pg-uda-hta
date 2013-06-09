@@ -194,16 +194,16 @@ namespace DataAccess
         /// <param name="cell">No Metadata Documentation available.</param>
         /// <param name="email">No Metadata Documentation available.</param>
         /// <param name="register_number">No Metadata Documentation available.</param>
-        public int insertPatient(ObjectParameter id, Nullable<global::System.Int64> idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
+        public int insertPatient(ObjectParameter id, global::System.String idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
         {
             ObjectParameter idInDevParameter;
-            if (idInDev.HasValue)
+            if (idInDev != null)
             {
                 idInDevParameter = new ObjectParameter("idInDev", idInDev);
             }
             else
             {
-                idInDevParameter = new ObjectParameter("idInDev", typeof(global::System.Int64));
+                idInDevParameter = new ObjectParameter("idInDev", typeof(global::System.String));
             }
     
             ObjectParameter nameParameter;
