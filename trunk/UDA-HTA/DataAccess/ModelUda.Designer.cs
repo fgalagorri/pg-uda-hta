@@ -973,246 +973,6 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="begin_date">No Metadata Documentation available.</param>
-        /// <param name="end_date">No Metadata Documentation available.</param>
-        /// <param name="doctor">No Metadata Documentation available.</param>
-        /// <param name="diagnosis">No Metadata Documentation available.</param>
-        /// <param name="request_doctor">No Metadata Documentation available.</param>
-        /// <param name="specialty">No Metadata Documentation available.</param>
-        /// <param name="day_avg_sys">No Metadata Documentation available.</param>
-        /// <param name="night_avg_sys">No Metadata Documentation available.</param>
-        /// <param name="total_avg_sys">No Metadata Documentation available.</param>
-        /// <param name="day_max_sys">No Metadata Documentation available.</param>
-        /// <param name="night_max_sys">No Metadata Documentation available.</param>
-        /// <param name="day_avg_dias">No Metadata Documentation available.</param>
-        /// <param name="night_avg_dias">No Metadata Documentation available.</param>
-        /// <param name="total_avg_dias">No Metadata Documentation available.</param>
-        /// <param name="day_max_dias">No Metadata Documentation available.</param>
-        /// <param name="night_max_dias">No Metadata Documentation available.</param>
-        /// <param name="idDev">No Metadata Documentation available.</param>
-        /// <param name="devReportId">No Metadata Documentation available.</param>
-        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
-        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, Nullable<global::System.Int32> devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient)
-        {
-            ObjectParameter begin_dateParameter;
-            if (begin_date.HasValue)
-            {
-                begin_dateParameter = new ObjectParameter("begin_date", begin_date);
-            }
-            else
-            {
-                begin_dateParameter = new ObjectParameter("begin_date", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter end_dateParameter;
-            if (end_date.HasValue)
-            {
-                end_dateParameter = new ObjectParameter("end_date", end_date);
-            }
-            else
-            {
-                end_dateParameter = new ObjectParameter("end_date", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter doctorParameter;
-            if (doctor != null)
-            {
-                doctorParameter = new ObjectParameter("doctor", doctor);
-            }
-            else
-            {
-                doctorParameter = new ObjectParameter("doctor", typeof(global::System.String));
-            }
-    
-            ObjectParameter diagnosisParameter;
-            if (diagnosis != null)
-            {
-                diagnosisParameter = new ObjectParameter("diagnosis", diagnosis);
-            }
-            else
-            {
-                diagnosisParameter = new ObjectParameter("diagnosis", typeof(global::System.String));
-            }
-    
-            ObjectParameter request_doctorParameter;
-            if (request_doctor != null)
-            {
-                request_doctorParameter = new ObjectParameter("request_doctor", request_doctor);
-            }
-            else
-            {
-                request_doctorParameter = new ObjectParameter("request_doctor", typeof(global::System.String));
-            }
-    
-            ObjectParameter specialtyParameter;
-            if (specialty != null)
-            {
-                specialtyParameter = new ObjectParameter("specialty", specialty);
-            }
-            else
-            {
-                specialtyParameter = new ObjectParameter("specialty", typeof(global::System.String));
-            }
-    
-            ObjectParameter day_avg_sysParameter;
-            if (day_avg_sys.HasValue)
-            {
-                day_avg_sysParameter = new ObjectParameter("day_avg_sys", day_avg_sys);
-            }
-            else
-            {
-                day_avg_sysParameter = new ObjectParameter("day_avg_sys", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter night_avg_sysParameter;
-            if (night_avg_sys.HasValue)
-            {
-                night_avg_sysParameter = new ObjectParameter("night_avg_sys", night_avg_sys);
-            }
-            else
-            {
-                night_avg_sysParameter = new ObjectParameter("night_avg_sys", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter total_avg_sysParameter;
-            if (total_avg_sys.HasValue)
-            {
-                total_avg_sysParameter = new ObjectParameter("total_avg_sys", total_avg_sys);
-            }
-            else
-            {
-                total_avg_sysParameter = new ObjectParameter("total_avg_sys", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter day_max_sysParameter;
-            if (day_max_sys.HasValue)
-            {
-                day_max_sysParameter = new ObjectParameter("day_max_sys", day_max_sys);
-            }
-            else
-            {
-                day_max_sysParameter = new ObjectParameter("day_max_sys", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter night_max_sysParameter;
-            if (night_max_sys.HasValue)
-            {
-                night_max_sysParameter = new ObjectParameter("night_max_sys", night_max_sys);
-            }
-            else
-            {
-                night_max_sysParameter = new ObjectParameter("night_max_sys", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter day_avg_diasParameter;
-            if (day_avg_dias.HasValue)
-            {
-                day_avg_diasParameter = new ObjectParameter("day_avg_dias", day_avg_dias);
-            }
-            else
-            {
-                day_avg_diasParameter = new ObjectParameter("day_avg_dias", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter night_avg_diasParameter;
-            if (night_avg_dias.HasValue)
-            {
-                night_avg_diasParameter = new ObjectParameter("night_avg_dias", night_avg_dias);
-            }
-            else
-            {
-                night_avg_diasParameter = new ObjectParameter("night_avg_dias", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter total_avg_diasParameter;
-            if (total_avg_dias.HasValue)
-            {
-                total_avg_diasParameter = new ObjectParameter("total_avg_dias", total_avg_dias);
-            }
-            else
-            {
-                total_avg_diasParameter = new ObjectParameter("total_avg_dias", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter day_max_diasParameter;
-            if (day_max_dias.HasValue)
-            {
-                day_max_diasParameter = new ObjectParameter("day_max_dias", day_max_dias);
-            }
-            else
-            {
-                day_max_diasParameter = new ObjectParameter("day_max_dias", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter night_max_diasParameter;
-            if (night_max_dias.HasValue)
-            {
-                night_max_diasParameter = new ObjectParameter("night_max_dias", night_max_dias);
-            }
-            else
-            {
-                night_max_diasParameter = new ObjectParameter("night_max_dias", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter idDevParameter;
-            if (idDev.HasValue)
-            {
-                idDevParameter = new ObjectParameter("idDev", idDev);
-            }
-            else
-            {
-                idDevParameter = new ObjectParameter("idDev", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter devReportIdParameter;
-            if (devReportId.HasValue)
-            {
-                devReportIdParameter = new ObjectParameter("devReportId", devReportId);
-            }
-            else
-            {
-                devReportIdParameter = new ObjectParameter("devReportId", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter idTemporaryDataParameter;
-            if (idTemporaryData.HasValue)
-            {
-                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
-            }
-            else
-            {
-                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter idDailyCarnetParameter;
-            if (idDailyCarnet.HasValue)
-            {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
-            }
-            else
-            {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
-            }
-    
-            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="weight">No Metadata Documentation available.</param>
         /// <param name="height">No Metadata Documentation available.</param>
         /// <param name="age">No Metadata Documentation available.</param>
@@ -1460,6 +1220,246 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("insertMedicineDose", doseParameter, idDrugParameter, idTemporaryDataParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="begin_date">No Metadata Documentation available.</param>
+        /// <param name="end_date">No Metadata Documentation available.</param>
+        /// <param name="doctor">No Metadata Documentation available.</param>
+        /// <param name="diagnosis">No Metadata Documentation available.</param>
+        /// <param name="request_doctor">No Metadata Documentation available.</param>
+        /// <param name="specialty">No Metadata Documentation available.</param>
+        /// <param name="day_avg_sys">No Metadata Documentation available.</param>
+        /// <param name="night_avg_sys">No Metadata Documentation available.</param>
+        /// <param name="total_avg_sys">No Metadata Documentation available.</param>
+        /// <param name="day_max_sys">No Metadata Documentation available.</param>
+        /// <param name="night_max_sys">No Metadata Documentation available.</param>
+        /// <param name="day_avg_dias">No Metadata Documentation available.</param>
+        /// <param name="night_avg_dias">No Metadata Documentation available.</param>
+        /// <param name="total_avg_dias">No Metadata Documentation available.</param>
+        /// <param name="day_max_dias">No Metadata Documentation available.</param>
+        /// <param name="night_max_dias">No Metadata Documentation available.</param>
+        /// <param name="idDev">No Metadata Documentation available.</param>
+        /// <param name="devReportId">No Metadata Documentation available.</param>
+        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
+        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter begin_dateParameter;
+            if (begin_date.HasValue)
+            {
+                begin_dateParameter = new ObjectParameter("begin_date", begin_date);
+            }
+            else
+            {
+                begin_dateParameter = new ObjectParameter("begin_date", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter end_dateParameter;
+            if (end_date.HasValue)
+            {
+                end_dateParameter = new ObjectParameter("end_date", end_date);
+            }
+            else
+            {
+                end_dateParameter = new ObjectParameter("end_date", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter doctorParameter;
+            if (doctor != null)
+            {
+                doctorParameter = new ObjectParameter("doctor", doctor);
+            }
+            else
+            {
+                doctorParameter = new ObjectParameter("doctor", typeof(global::System.String));
+            }
+    
+            ObjectParameter diagnosisParameter;
+            if (diagnosis != null)
+            {
+                diagnosisParameter = new ObjectParameter("diagnosis", diagnosis);
+            }
+            else
+            {
+                diagnosisParameter = new ObjectParameter("diagnosis", typeof(global::System.String));
+            }
+    
+            ObjectParameter request_doctorParameter;
+            if (request_doctor != null)
+            {
+                request_doctorParameter = new ObjectParameter("request_doctor", request_doctor);
+            }
+            else
+            {
+                request_doctorParameter = new ObjectParameter("request_doctor", typeof(global::System.String));
+            }
+    
+            ObjectParameter specialtyParameter;
+            if (specialty != null)
+            {
+                specialtyParameter = new ObjectParameter("specialty", specialty);
+            }
+            else
+            {
+                specialtyParameter = new ObjectParameter("specialty", typeof(global::System.String));
+            }
+    
+            ObjectParameter day_avg_sysParameter;
+            if (day_avg_sys.HasValue)
+            {
+                day_avg_sysParameter = new ObjectParameter("day_avg_sys", day_avg_sys);
+            }
+            else
+            {
+                day_avg_sysParameter = new ObjectParameter("day_avg_sys", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_avg_sysParameter;
+            if (night_avg_sys.HasValue)
+            {
+                night_avg_sysParameter = new ObjectParameter("night_avg_sys", night_avg_sys);
+            }
+            else
+            {
+                night_avg_sysParameter = new ObjectParameter("night_avg_sys", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter total_avg_sysParameter;
+            if (total_avg_sys.HasValue)
+            {
+                total_avg_sysParameter = new ObjectParameter("total_avg_sys", total_avg_sys);
+            }
+            else
+            {
+                total_avg_sysParameter = new ObjectParameter("total_avg_sys", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter day_max_sysParameter;
+            if (day_max_sys.HasValue)
+            {
+                day_max_sysParameter = new ObjectParameter("day_max_sys", day_max_sys);
+            }
+            else
+            {
+                day_max_sysParameter = new ObjectParameter("day_max_sys", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_max_sysParameter;
+            if (night_max_sys.HasValue)
+            {
+                night_max_sysParameter = new ObjectParameter("night_max_sys", night_max_sys);
+            }
+            else
+            {
+                night_max_sysParameter = new ObjectParameter("night_max_sys", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter day_avg_diasParameter;
+            if (day_avg_dias.HasValue)
+            {
+                day_avg_diasParameter = new ObjectParameter("day_avg_dias", day_avg_dias);
+            }
+            else
+            {
+                day_avg_diasParameter = new ObjectParameter("day_avg_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_avg_diasParameter;
+            if (night_avg_dias.HasValue)
+            {
+                night_avg_diasParameter = new ObjectParameter("night_avg_dias", night_avg_dias);
+            }
+            else
+            {
+                night_avg_diasParameter = new ObjectParameter("night_avg_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter total_avg_diasParameter;
+            if (total_avg_dias.HasValue)
+            {
+                total_avg_diasParameter = new ObjectParameter("total_avg_dias", total_avg_dias);
+            }
+            else
+            {
+                total_avg_diasParameter = new ObjectParameter("total_avg_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter day_max_diasParameter;
+            if (day_max_dias.HasValue)
+            {
+                day_max_diasParameter = new ObjectParameter("day_max_dias", day_max_dias);
+            }
+            else
+            {
+                day_max_diasParameter = new ObjectParameter("day_max_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_max_diasParameter;
+            if (night_max_dias.HasValue)
+            {
+                night_max_diasParameter = new ObjectParameter("night_max_dias", night_max_dias);
+            }
+            else
+            {
+                night_max_diasParameter = new ObjectParameter("night_max_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idDevParameter;
+            if (idDev.HasValue)
+            {
+                idDevParameter = new ObjectParameter("idDev", idDev);
+            }
+            else
+            {
+                idDevParameter = new ObjectParameter("idDev", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter devReportIdParameter;
+            if (devReportId != null)
+            {
+                devReportIdParameter = new ObjectParameter("devReportId", devReportId);
+            }
+            else
+            {
+                devReportIdParameter = new ObjectParameter("devReportId", typeof(global::System.String));
+            }
+    
+            ObjectParameter idTemporaryDataParameter;
+            if (idTemporaryData.HasValue)
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
+            }
+            else
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idDailyCarnetParameter;
+            if (idDailyCarnet.HasValue)
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
+            }
+            else
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter);
         }
 
         #endregion

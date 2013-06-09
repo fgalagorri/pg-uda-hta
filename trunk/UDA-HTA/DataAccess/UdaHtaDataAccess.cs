@@ -165,7 +165,7 @@ namespace DataAccess
             udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name, rep.Diagnosis, rep.RequestDoctor,
                                     rep.RequestDoctorSpeciality, rep.SystolicDayAvg, rep.SystolicNightAvg, rep.SystolicTotalAvg, rep.SystolicDayMax, 
                                     rep.SystolicNightMax, rep.DiastolicDayAvg, rep.DiastolicNightAvg, rep.DiastolicTotalAvg, rep.DiastolicDayMax, 
-                                    rep.DiastolicNightMax, rep.DeviceId, int.Parse(rep.DeviceReportId), rep.TemporaryDataId, rep.DailyCarnetId, 
+                                    rep.DiastolicNightMax, rep.DeviceId, rep.DeviceReportId, rep.TemporaryDataId, rep.DailyCarnetId, 
                                     rep.Patient.UdaId);
             
 
