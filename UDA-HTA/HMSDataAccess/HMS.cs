@@ -71,68 +71,125 @@ namespace HMSDataAccess
         public Report GetReport(string idReport)
         {
             var report = new Report();
-            //             (1)         (2)                (3)               (4)         (5)          (6)            (7)          (8)             (9)           (10)              (11)             (12)                (13)          (14)           (15)           (16)            (17)                (18)                  (19)                    (20)
-            var columns = "PATIENT.ID, PATIENT.BIRTHDATE, PATIENT.PATIENTID,PATIENT.SEX,PATIENT.SIZE,PATIENT.WEIGHT,ADRESSE.CITY,ADRESSE.COUNTRY,ADRESSE.EMAIL,ADRESSE.FIRSTNAME,ADRESSE.LASTNAME,ADRESSE.MOBILEPHONE,ADRESSE.PHONE,ADRESSE.REGION,ADRESSE.STREET,AUFZEICHNUNG.ID,AUFZEICHNUNG.BEFUND,AUFZEICHNUNG.DAYSTART,AUFZEICHNUNG.NIGHTSTART,AUFZEICHNUNG.TIMESTAMP";
-            var table = "(PATIENT LEFT JOIN ADRESSE ON ADRESSE.ID = PATIENT.ADRESS_ID)INNER JOIN AUFZEICHNUNG";
+            //                    (1)         (2)                (3)               (4)         (5)          (6)            
+            var columnsPatient = "PATIENT.ID, PATIENT.BIRTHDATE, PATIENT.PATIENTID,PATIENT.SEX,PATIENT.SIZE,PATIENT.WEIGHT,";
+            //                    (7)          (8)             (9)           (10)              (11)             (12)                (13)          (14)           (15)           
+            var columnsAdresse = "ADRESSE.CITY,ADRESSE.COUNTRY,ADRESSE.EMAIL,ADRESSE.FIRSTNAME,ADRESSE.LASTNAME,ADRESSE.MOBILEPHONE,ADRESSE.PHONE,ADRESSE.REGION,ADRESSE.STREET,";
+            //                    (16)hasta     (17)                (18)                (19)desde     
+            var columnsIllness = "KRANKHEIT.BIS,KRANKHEIT.KOMMENTAR,KRANKHEIT.KRANKHEIT,KRANKHEIT.VON,";
+            //                     (20)                 (21)comercial          (22)activo            
+            var columnsMedicine = "MEDIKATION.DOSIERUNG,MEDIKATION.HANDELSNAME,MEDIKATION.WIRKSTOFF,";
+            //                   (23)            (24)                (25)                  (26)                    (27)                   
+            var columnsReport = "AUFZEICHNUNG.ID,AUFZEICHNUNG.BEFUND,AUFZEICHNUNG.DAYSTART,AUFZEICHNUNG.NIGHTSTART,AUFZEICHNUNG.TIMESTAMP";
+            
+            var columns = columnsPatient + columnsAdresse + columnsIllness + columnsMedicine + columnsReport;
+            var illnessTable = "(PATIENT_KRANKHEIT INNER JOIN KRANKHEIT ON KRANKHEITEN_ID = KRANKHEIT.ID)";
+            var medicineTable = "(PATIENT_MEDIKATION INNER JOIN MEDIKATION ON MEDIKATIONEN_ID = MEDIKATION.ID)";
+            var table = "(((PATIENT LEFT JOIN ADRESSE ON ADRESSE.ID = PATIENT.ADRESS_ID)LEFT JOIN " + illnessTable + " ON PATIENT.ID = PATIENT_KRANKHEIT.PATIENT_ID) LEFT JOIN " + medicineTable + " ON PATIENT.ID = PATIENT_MEDIKATION.PATIENT_ID) INNER JOIN AUFZEICHNUNG";
             var condition = "AUFZEICHNUNG.PATIENT_ID = PATIENT.ID AND AUFZEICHNUNG.ID = " + idReport;
             var rs = _stat.executeQuery("SELECT " + columns + " FROM " + table + " ON " + condition);
 
 
-            if (rs != null  && rs.next())
+            var first = true;
+            while (rs != null  && rs.next())
             {
-                /*
-                 * Datos paciente
-                 */
-                report.Patient.DevicePatientId = rs.getString(1);
+                if (first)
+                { // Si es la primera vez que ejecuta el while, cargar todos los datos paciente y reporte.
+                    /*
+                     * Datos paciente
+                      */
+                    report.Patient.DevicePatientId = rs.getString(1);
 
-                var timeStr = rs.getString(2);
-                //Pareseo la fecha y hora para crear el DateTime
-                report.Patient.BirthDate = parseDateTime(timeStr);
+                    var timeStr = rs.getString(2);
+                    //Pareseo la fecha y hora para crear el DateTime
+                    report.Patient.BirthDate = parseDateTime(timeStr);
 
-                report.Patient.DocumentId = rs.getString(3);
+                    report.Patient.DocumentId = rs.getString(3);
 
-                report.Patient.Sex = rs.getInt(5) == 0 ? SexType.M : SexType.F;
+                    report.Patient.Sex = rs.getInt(5) == 0 ? SexType.M : SexType.F;
 
-                report.Patient.City = rs.getString(8);
-                report.Patient.Email = rs.getString(10);
-                report.Patient.Names = rs.getString(11);
-                report.Patient.Surnames = rs.getString(12);
-                report.Patient.CellPhone = rs.getString(13);
-                report.Patient.Phone = rs.getString(14);
-                report.Patient.Neighbour = rs.getString(15);
-                report.Patient.Address = rs.getString(16);
+                    report.Patient.City = rs.getString(7);
+                    report.Patient.Email = rs.getString(9);
+                    report.Patient.Names = rs.getString(10);
+                    report.Patient.Surnames = rs.getString(11);
+                    report.Patient.CellPhone = rs.getString(12);
+                    report.Patient.Phone = rs.getString(13);
+                    report.Patient.Neighbour = rs.getString(14);
+                    report.Patient.Address = rs.getString(15);
 
-                /*
-                 * Datos reporte
-                 */
-                report.DeviceReportId = rs.getString(17);
-                report.Diagnosis = rs.getString(18);
-                report.BeginDate = parseDateTime(rs.getString(21));
+
+                    /*
+                     * Datos reporte
+                     */
+                    report.DeviceReportId = rs.getString(23);
+                    report.Diagnosis = rs.getString(24);
+                    report.BeginDate = parseDateTime(rs.getString(27));
+
+                    int dayStart = rs.getInt(25);
+                    Int32 dayStartHr = (dayStart / 100);
+                    Int32 dayStartMin = dayStart - (dayStartHr * 100);
+                    const int sec0 = 0;
+
+                    int nightStart = rs.getInt(26);
+                    Int32 nightStartHr = (nightStart / 100);
+                    Int32 nightStartMin = nightStart - (nightStartHr * 100);
+
+                    // Si se durmio despues de las 23:59, dreamStart = dreamEnd = BeginDate + 1
+                    DateTime date;
+                    if (nightStart <= dayStart)
+                    {
+                        date = report.BeginDate.Value.AddDays(1);
+                        report.Carnet.SleepTimeStart = new DateTime(date.Year, date.Month, date.Day, nightStartHr, nightStartMin, sec0);
+                        report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
+                    }
+                    else // Si se durmio antes de las 00:00, el dia de dreamEnd = dreamStart + 1
+                    {
+                        report.Carnet.SleepTimeStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
+                        date = report.BeginDate.Value.AddDays(1);
+                        report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
+                    }
+                    report.Doctor = new User();
+
+                    first = false; //ya se procesaron los datos generales del paciente y reporte.
+
+                }
                 
-                int dayStart = rs.getInt(19);
-                Int32 dayStartHr = (dayStart/100);
-                Int32 dayStartMin = dayStart - (dayStartHr*100);
-                const int sec0 = 0;
-
-                int nightStart = rs.getInt(20);
-                Int32 nightStartHr = (nightStart/100);
-                Int32 nightStartMin = nightStart - (nightStartHr*100);
-
-                // Si se durmio despues de las 23:59, dreamStart = dreamEnd = BeginDate + 1
-                DateTime date;
-                if (nightStart <= dayStart)
+                /* 
+                 * Historial Medico
+                 */
+                if (rs.getString(16) != null || 
+                    rs.getString(17) != null ||
+                    rs.getString(18) != null ||
+                    rs.getString(19) != null)
                 {
-                    date = report.BeginDate.Value.AddDays(1);
-                    report.Carnet.SleepTimeStart = new DateTime(date.Year, date.Month, date.Day, nightStartHr, nightStartMin, sec0);
-                    report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);                    
+                    MedicalRecord mr = new MedicalRecord();
+                    if (rs.getString(16) != null)
+                    {
+                        mr.Until = parseDateTime(rs.getString(16));                        
+                    }
+                    mr.Comment = rs.getString(17);
+                    mr.Illness = rs.getString(18);
+                    if (rs.getString(19) != null)
+                    {
+                        mr.Since = parseDateTime(rs.getString(19));
+                    }
+                    report.Patient.Background.Add(mr);
                 }
-                else // Si se durmio antes de las 00:00, el dia de dreamEnd = dreamStart + 1
+
+
+                /*
+                 * Medicinas
+                 */
+                if (rs.getString(20) != null ||
+                    rs.getString(21) != null ||
+                    rs.getString(22) != null)
                 {
-                    report.Carnet.SleepTimeStart = new DateTime(report.BeginDate.Value.Year, report.BeginDate.Value.Month, report.BeginDate.Value.Day, nightStartHr, nightStartMin, sec0);
-                    date = report.BeginDate.Value.AddDays(1);
-                    report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
+                    MedicineDose md = new MedicineDose();
+                    md.Dose = rs.getString(20);
+                    md.Drug = new Drug("", rs.getString(22), rs.getString(21));
+
+                    report.TemporaryData.LMedicines.Add(md);                    
                 }
-                report.Doctor = new User();
 
             }
 
