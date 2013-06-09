@@ -67,19 +67,10 @@ namespace DataAccess
             var patientContext = new patient_info_dbEntities();
             ICollection<Patient> patientQuery = patientContext.patient.Select(p=> new Entities.Patient
                 {
-                    DevicePatientId = p.patientReference,
+                    UdaId = p.idPatient,
                     DocumentId = p.document,
                     Names = p.name,
-                    Surnames = p.surname,
-                    Phone = p.telephone,
-                    CellPhone = p.cell_phone,
-                    Address = p.address,
-                    BirthDate = p.birthday,
-                    City = p.city,
-                    Neighbour = p.neighborhood,
-                    Email = p.e_mail,
-                    RegisterNumer = p.register_number,
-                    ModifiedDate = p.modified_date
+                    Surnames = p.surname
                 }).ToList();
 
             return patientQuery;
