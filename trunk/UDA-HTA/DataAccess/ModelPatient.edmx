@@ -28,7 +28,7 @@
             <PropertyRef Name="idPatient" />
           </Key>
           <Property Name="idPatient" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="patientReference" Type="bigint" />
+          <Property Name="patientReference" Type="varchar" MaxLength="45" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="surname" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="document" Type="varchar" Nullable="false" MaxLength="45" />
@@ -130,7 +130,7 @@
             <PropertyRef Name="idPatient" />
           </Key>
           <Property Name="idPatient" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="patientReference" Type="Int64" />
+          <Property Name="patientReference" Type="String" />
           <Property Name="name" Type="String" Nullable="false" />
           <Property Name="surname" Type="String" Nullable="false" />
           <Property Name="document" Type="String" Nullable="false" />
