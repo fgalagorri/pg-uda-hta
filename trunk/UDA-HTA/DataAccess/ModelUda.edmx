@@ -160,7 +160,7 @@
             <PropertyRef Name="patientuda_idPatientUda" />
           </Key>
           <Property Name="idMedicalHistory" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="illness" Type="varchar" MaxLength="45" />
+          <Property Name="illness" Type="text" />
           <Property Name="from" Type="datetime" />
           <Property Name="to" Type="datetime" />
           <Property Name="comment" Type="text" />
@@ -429,8 +429,8 @@
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="int" Mode="Out" />
-          <Parameter Name="illness" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="illness" Type="text" Mode="In" />
           <Parameter Name="fromDate" Type="datetime" Mode="In" />
           <Parameter Name="toDate" Type="datetime" Mode="In" />
           <Parameter Name="comm" Type="text" Mode="In" />
@@ -606,14 +606,6 @@
             <Parameter Name="idReport" Mode="In" Type="Int64" />
             <Parameter Name="idPatient" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="insertMedicalHistory">
-            <Parameter Name="id" Mode="Out" Type="Int32" />
-            <Parameter Name="illness" Mode="In" Type="String" />
-            <Parameter Name="fromDate" Mode="In" Type="DateTime" />
-            <Parameter Name="toDate" Mode="In" Type="DateTime" />
-            <Parameter Name="comm" Mode="In" Type="String" />
-            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
-          </FunctionImport>
           <FunctionImport Name="insertPatientUda">
           <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
@@ -669,6 +661,14 @@
             <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
             <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
             <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertMedicalHistory">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="illness" Mode="In" Type="String" />
+            <Parameter Name="fromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="toDate" Mode="In" Type="DateTime" />
+            <Parameter Name="comm" Mode="In" Type="String" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1108,13 +1108,13 @@
           <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
           <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
           <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
-          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
