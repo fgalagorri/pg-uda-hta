@@ -112,22 +112,20 @@ namespace DataAccess
             return patient;
         }
 
-        public bool ExistPatientReference(string patientReference)
+        public bool ExistPatientReference(string patientRef)
         {
             var patientContext = new patient_info_dbEntities();
-            return patientContext.patient.Any(p => p.patientReference == patientReference);
+            return patientContext.patient.Any(p => p.patientReference == patientRef);
         }
 
-        public long? GetPatientId(string patientReference)
+        public long? GetPatientId(string patientRef)
         {
             var patientContext = new patient_info_dbEntities();
-            Int32 patRef = Convert.ToInt32(patientReference);
-            var pat = patientContext.patient.Where(p => p.patientReference == patientReference).Select(p => new { p.idPatient }).ToList().FirstOrDefault();
-            if (pat == null)
-            {
-                return null;
-            }
-            return pat.idPatient;
+            var pat = patientContext.patient.Where(p => p.patientReference == patientRef)
+                                    .Select(p => new {p.idPatient})
+                                    .FirstOrDefault();
+
+            return (pat != null) ? (long?) pat.idPatient : null;
         }
     }
 }
