@@ -34,30 +34,64 @@ namespace SpacelabsDataAccess
             using (_db = new ABPEntities())
             {
                 var r = (from t in _db.tblAbpTest
-                         join s in _db.tblAbpTestSummaryResults on t.TestId equals s.TestId
+                         join st in _db.tblAbpTestSummaryResults on t.TestId equals st.TestId
+                         join sd in _db.tblAbpTestSummaryResults on t.TestId equals sd.TestId
+                         join sn in _db.tblAbpTestSummaryResults on t.TestId equals sn.TestId
                          join p in _db.tblSysPatient on t.PatientId equals p.PatientId
-                         where t.TestId == id
+                         where t.TestId == id && st.SummaryType == 1 && sd.SummaryType == 2 && sn.SummaryType == 3
                          select new
                              {
                                  t.TestId,
                                  t.HookupStartTime,
                                  t.HookupEndTime,
 
-                                 s.SystolicMin,
-                                 s.SystolicMax,
-                                 s.SystolicAvg,
-                                 s.SystolicMaxTime,
-                                 s.SystolicMintime,
-                                 s.DiastolicMin,
-                                 s.DiastolicMax,
-                                 s.DiastolicAvg,
-                                 s.DiastolicMaxTime,
-                                 s.DiastolicMintime,
-                                 s.HrMin,
-                                 s.HrMax,
-                                 s.HrAvg,
-                                 s.HrMaxTime,
-                                 s.HrMintime,
+                                 SystolicTotalMin = st.SystolicMin,
+                                 SystolicTotalMax = st.SystolicMax,
+                                 SystolicTotalAvg = st.SystolicAvg,
+                                 SystolicTotalMaxTime = st.SystolicMaxTime,
+                                 SystolicTotalMinTime = st.SystolicMintime,
+                                 DiastolicTotalMin = st.DiastolicMin,
+                                 DiastolicTotalMax = st.DiastolicMax,
+                                 DiastolicTotalAvg = st.DiastolicAvg,
+                                 DiastolicTotalMaxTime = st.DiastolicMaxTime,
+                                 DiastolicTotalMinTime = st.DiastolicMintime,
+                                 HRTotalMin = st.HrMin,
+                                 HRTotalMax = st.HrMax,
+                                 HRTotalAvg = st.HrAvg,
+                                 HRTotalMaxTime = st.HrMaxTime,
+                                 HRTotalMinTime = st.HrMintime,
+
+                                 SystolicDayMin = sd.SystolicMin,
+                                 SystolicDayMax = sd.SystolicMax,
+                                 SystolicDayAvg = sd.SystolicAvg,
+                                 SystolicDayMaxTime = sd.SystolicMaxTime,
+                                 SystolicDayMinTime = sd.SystolicMintime,
+                                 DiastolicDayMin = sd.DiastolicMin,
+                                 DiastolicDayMax = sd.DiastolicMax,
+                                 DiastolicDayAvg = sd.DiastolicAvg,
+                                 DiastolicDayMaxTime = sd.DiastolicMaxTime,
+                                 DiastolicDayMinTime = sd.DiastolicMintime,
+                                 HRDayMin = sd.HrMin,
+                                 HRDayMax = sd.HrMax,
+                                 HRDayAvg = sd.HrAvg,
+                                 HRDayMaxTime = sd.HrMaxTime,
+                                 HRDayMinTime = sd.HrMintime,
+
+                                 SystolicNightMin = sn.SystolicMin,
+                                 SystolicNightMax = sn.SystolicMax,
+                                 SystolicNightAvg = sn.SystolicAvg,
+                                 SystolicNightMaxTime = sn.SystolicMaxTime,
+                                 SystolicNightMinTime = sn.SystolicMintime,
+                                 DiastolicNightMin = sn.DiastolicMin,
+                                 DiastolicNightMax = sn.DiastolicMax,
+                                 DiastolicNightAvg = sn.DiastolicAvg,
+                                 DiastolicNightMaxTime = sn.DiastolicMaxTime,
+                                 DiastolicNightMinTime = sn.DiastolicMintime,
+                                 HRNightMin = sn.HrMin,
+                                 HRNightMax = sn.HrMax,
+                                 HRNightAvg = sn.HrAvg,
+                                 HRNightMaxTime = sn.HrMaxTime,
+                                 HRNightMinTime = sn.HrMintime,
 
                                  p.PatientId,
                                  p.FirstName,
@@ -100,25 +134,53 @@ namespace SpacelabsDataAccess
                                     DeviceId = deviceId
                                 },
 
-                            SystolicTotalAvg = r.SystolicAvg,
-                            /*SystolicTotalMax = r.SystolicMax,
-                            SystolicTotalMin = r.SystolicMin,
-                            SystolicTotalMaxTime = r.SystolicMaxTime,
-                            SystolicTotalMinTime = r.SystolicMintime,
-                             */
+                            SystolicTotalAvg = r.SystolicTotalAvg,
+                            SystolicTotalMax = r.SystolicTotalMax,
+                            SystolicTotalMin = r.SystolicTotalMin,
+                            SystolicTotalMaxTime = r.SystolicTotalMaxTime,
+                            SystolicTotalMinTime = r.SystolicTotalMinTime,
+                            DiastolicTotalAvg = r.DiastolicTotalAvg,
+                            DiastolicTotalMax = r.DiastolicTotalMax,
+                            DiastolicTotalMin = r.DiastolicTotalMin,
+                            DiastolicTotalMaxTime = r.DiastolicTotalMaxTime,
+                            DiastolicTotalMinTime = r.DiastolicTotalMinTime,
+                            HeartRateTotalAvg = r.HRTotalAvg,
+                            HeartRateTotalMax = r.HRTotalMax,
+                            HeartRateTotalMin = r.HRTotalMin,
+                            HeartRateTotalMaxTime = r.HRTotalMaxTime,
+                            HeartRateTotalMinTime = r.HRTotalMinTime,
 
-                            DiastolicTotalAvg = r.DiastolicAvg,
-                            //DiastolicTotalMax = r.DiastolicMax,
-                            DiastolicTotalMin = r.DiastolicMin,
-                            DiastolicTotalMaxTime = r.DiastolicMaxTime,
-                            DiastolicTotalMinTime = r.DiastolicMintime,
+                            SystolicDayAvg = r.SystolicDayAvg,
+                            SystolicDayMax = r.SystolicDayMax,
+                            SystolicDayMin = r.SystolicDayMin,
+                            SystolicDayMaxTime = r.SystolicDayMaxTime,
+                            SystolicDayMinTime = r.SystolicDayMinTime,
+                            DiastolicDayAvg = r.DiastolicDayAvg,
+                            DiastolicDayMax = r.DiastolicDayMax,
+                            DiastolicDayMin = r.DiastolicDayMin,
+                            DiastolicDayMaxTime = r.DiastolicDayMaxTime,
+                            DiastolicDayMinTime = r.DiastolicDayMinTime,
+                            HeartRateDayAvg = r.HRDayAvg,
+                            HeartRateDayMax = r.HRDayMax,
+                            HeartRateDayMin = r.HRDayMin,
+                            HeartRateDayMaxTime = r.HRDayMaxTime,
+                            HeartRateDayMinTime = r.HRDayMinTime,
 
-                            HeartRateAvg = r.HrAvg,
-                            /*HeartRateMax = r.HrMax,
-                            HeartRateMin = r.HrMin,
-                            HeartRateMaxTime = r.HrMaxTime,
-                            HeartRateMinTime = r.HrMintime
-                             */
+                            SystolicNightAvg = r.SystolicNightAvg,
+                            SystolicNightMax = r.SystolicNightMax,
+                            SystolicNightMin = r.SystolicNightMin,
+                            SystolicNightMaxTime = r.SystolicNightMaxTime,
+                            SystolicNightMinTime = r.SystolicNightMinTime,
+                            DiastolicNightAvg = r.DiastolicNightAvg,
+                            DiastolicNightMax = r.DiastolicNightMax,
+                            DiastolicNightMin = r.DiastolicNightMin,
+                            DiastolicNightMaxTime = r.DiastolicNightMaxTime,
+                            DiastolicNightMinTime = r.DiastolicNightMinTime,
+                            HeartRateNightAvg = r.HRNightAvg,
+                            HeartRateNightMax = r.HRNightMax,
+                            HeartRateNightMin = r.HRNightMin,
+                            HeartRateNightMaxTime = r.HRNightMaxTime,
+                            HeartRateNightMinTime = r.HRNightMinTime,
                         };
                 }
             }
@@ -128,7 +190,23 @@ namespace SpacelabsDataAccess
 
         public List<Measurement> GetMeasures(Report report)
         {
-            throw new NotImplementedException();
+            Guid testId = Guid.Parse(report.DeviceReportId);
+
+            var measures = from d in _db.tblAbpTestRawData
+                           where d.TestId == testId
+                           orderby d.ReadingTime
+                           select new Measurement
+                               {
+                                   Time = d.ReadingTime.Value,
+                                   Systolic = d.Systolic.Value,
+                                   Diastolic = d.Diastolic.Value,
+                                   Middle = d.MAP.Value,
+                                   HeartRate = d.HR.Value,
+                                   Asleep = (report.Carnet.SleepTimeStart <= d.ReadingTime &&
+                                             report.Carnet.SleepTimeEnd >= d.ReadingTime)
+                               };
+
+            return measures.ToList();
         }
 
         public Patient GetPatient(string idPatient)
