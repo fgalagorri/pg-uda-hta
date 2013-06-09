@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Entities;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -77,7 +78,8 @@ namespace UDA_HTA.UserControls.ReportCreation
                 && 0 <= hour && hour < 24 && 0 <= min && min < 60)
             {
                 // TODO : Ver Drug!!!
-                _lstMedication.Add(new Medication(new DateTime(1, 1, 1, hour, min, 0), new Drug("ver", "ver", "ver")));
+                var date = DateTimeHelper.SetDateTime(_report.BeginDate.Value, hour, min);
+                _lstMedication.Add(new Medication(date, new Drug("ver", "ver", "ver")));
             }
 
 
@@ -97,10 +99,11 @@ namespace UDA_HTA.UserControls.ReportCreation
                 && int.TryParse(txtMinEffort.Text, out min)
                 && 0 <= hour && hour < 24 && 0 <= min && min < 60)
             {
-                _lstEffort.Add(new Effort(new DateTime(1, 1, 1, hour, min, 0), cmbTypeEffort.Text));
+                var date = DateTimeHelper.SetDateTime(_report.BeginDate.Value, hour, min);
+                _lstEffort.Add(new Effort(date, cmbTypeEffort.Text));
             }
-            //TODO show error message when the time is not correct
 
+            //TODO show error message when the time is not correct
 
             // Clears the textboxes after insertion
             txtHourEffort.Clear();
@@ -123,7 +126,8 @@ namespace UDA_HTA.UserControls.ReportCreation
                 if (cmbTypeComp.Text.Equals("Otros"))
                     type += ": " + txtCompOther;
 
-                _lstComplication.Add(new Complication(new DateTime(1, 1, 1, hour, min, 0), type));
+                var date = DateTimeHelper.SetDateTime(_report.BeginDate.Value, hour, min);
+                _lstComplication.Add(new Complication(date, type));
             }
             //TODO show error message when the time is not correct
 

@@ -58,6 +58,10 @@ namespace Entities
         public DateTime? SystolicNightMinTime { get; set; }
         
         public int? SystolicTotalAvg { get; set; }
+        public int? SystolicTotalMax { get; set; }
+        public int? SystolicTotalMin { get; set; }
+        public DateTime? SystolicTotalMaxTime { get; set; }
+        public DateTime? SystolicTotalMinTime { get; set; }
         
         
         // Diastolic measurements 
@@ -74,13 +78,30 @@ namespace Entities
         public DateTime? DiastolicNightMinTime { get; set; }
 
         public int? DiastolicTotalAvg { get; set; }
+        public int? DiastolicTotalMax { get; set; }
         public int? DiastolicTotalMin { get; set; }
         public DateTime? DiastolicTotalMaxTime { get; set; }  
         public DateTime? DiastolicTotalMinTime { get; set; }
 
 
         // Heart rate measurements
-        public int? HeartRateAvg { get; set; }
+        public int? HeartRateDayAvg { get; set; }
+        public int? HeartRateDayMax { get; set; }
+        public int? HeartRateDayMin { get; set; }
+        public DateTime? HeartRateDayMaxTime { get; set; }
+        public DateTime? HeartRateDayMinTime { get; set; }
+
+        public int? HeartRateNightAvg { get; set; }
+        public int? HeartRateNightMax { get; set; }
+        public int? HeartRateNightMin { get; set; }
+        public DateTime? HeartRateNightMaxTime { get; set; }
+        public DateTime? HeartRateNightMinTime { get; set; }
+
+        public int? HeartRateTotalAvg { get; set; }
+        public int? HeartRateTotalMax { get; set; }
+        public int? HeartRateTotalMin { get; set; }
+        public DateTime? HeartRateTotalMaxTime { get; set; }
+        public DateTime? HeartRateTotalMinTime { get; set; }
 
         #endregion
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Entities;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -18,23 +19,24 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             get
             {
-                _report.BeginDate = dtStart.SelectedDate.Value.Date +
-                                    new TimeSpan(int.Parse(txtStartHour.Text),
-                                                 int.Parse(txtStartMinutes.Text), 0);
+                _report.BeginDate = dtStart.SelectedDate.Value.Date
+                                        .AddHours(int.Parse(txtStartHour.Text))
+                                        .AddMinutes(int.Parse(txtStartMinutes.Text));
 
                 var c = _report.Carnet ?? new DailyCarnet();
 
-                c.SleepTimeStart = new DateTime() + // TODO calculate and set the date
-                                   new TimeSpan(int.Parse(txtDreamStartHour.Text),
-                                                int.Parse(txtDreamStartMinutes.Text), 0);
-                c.SleepTimeEnd = new DateTime() +
-                                 new TimeSpan(int.Parse(txtDreamEndHour.Text),
-                                              int.Parse(txtDreamEndMinutes.Text), 0);
+                c.SleepTimeStart = DateTimeHelper.SetDateTime(_report.BeginDate.Value,
+                                                              int.Parse(txtDreamStartHour.Text),
+                                                              int.Parse(txtDreamStartMinutes.Text));
+
+                c.SleepTimeEnd = DateTimeHelper.SetDateTime(_report.BeginDate.Value,
+                                                            int.Parse(txtDreamEndHour.Text),
+                                                            int.Parse(txtDreamEndMinutes.Text));
                 c.SleepQuality = cmbDreamQty.Text;
                 c.SleepQualityDescription = txtDreamDesc.Text;
-                c.MealTime = new DateTime() +
-                             new TimeSpan(int.Parse(txtMealHour.Text),
-                                          int.Parse(txtMealMinutes.Text), 0);
+                c.MealTime = DateTimeHelper.SetDateTime(_report.BeginDate.Value,
+                                                        int.Parse(txtMealHour.Text),
+                                                        int.Parse(txtMealMinutes.Text));
 
                 // Mediciones iniciales
                 c.InitSystolic1 = int.Parse(txtSystolicInitial1.Text);
