@@ -180,9 +180,9 @@ namespace DataAccess
             conn.Close();
         }
 
-        public int? insertDailyCarnet(DailyCarnet dCarnet)
+        public long? insertDailyCarnet(DailyCarnet dCarnet)
         {
-            ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(int));
+            ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(long));
             udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technician.Name, dCarnet.InitDiastolic1,
                                          dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
                                          dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
@@ -207,7 +207,7 @@ namespace DataAccess
                                                           (int) lastIdDailyReport.Value, effort.Description);
             }
 
-            return (int?) lastIdDailyReport.Value;
+            return (long) lastIdDailyReport.Value;
         }
 
         public int? insertTemporaryData(TemporaryData temporaryData)
