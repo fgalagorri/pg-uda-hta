@@ -7,7 +7,6 @@ using HMSDataAccess;
 using Entities;
 using DataAccess;
 using BussinessLogic;
-using InterfaceBussinessLogic;
 using DeviceDataAccess;
 
 namespace ConsoleApplication1
@@ -75,8 +74,8 @@ namespace ConsoleApplication1
             /* Importar datos e impactarlos en base
              * 
              */
-                        IImportDataManagement idm = new ImportDataManagement();
-                        IReportManagement rm = new ReportManagement();
+                        ImportDataManagement idm = new ImportDataManagement();
+                        ReportManagement rm = new ReportManagement();
                         PatientManagement pm = new PatientManagement();
 
                         ICollection<PatientReport> lpr = idm.ListNewPatientReports();
@@ -85,13 +84,13 @@ namespace ConsoleApplication1
                             try
                             {
                                 Patient pat = idm.ImportPatient(pr.PatientId, pr.ReportDevice);
-                                var idPatient = pm.createPatient(pat);
+                                var idPatient = pm.CreatePatient(pat);
                                 DailyCarnet dailyCarnet = new DailyCarnet();
                                 TemporaryData temporaryData = new TemporaryData();
                                 Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
                                 List<Measurement> lMeasurements = idm.ImportMeasures(rep);
                                 rep.Measures = rep.Measures.Concat(lMeasurements).ToList();
-                                rm.addReport(rep);
+                                rm.AddReport(rep);
                             }
                             catch (Exception e)
                             {

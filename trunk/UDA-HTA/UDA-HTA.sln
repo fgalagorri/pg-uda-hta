@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLogic", "BussinessLogic\BussinessLogic.csproj", "{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBussinessLogic", "InterfaceBussinessLogic\InterfaceBussinessLogic.csproj", "{022155CB-DDF2-41F0-9583-9D25106D309F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{99BA066D-A192-4101-843D-D9E6DA95C4C4}"
 EndProject
 Global
@@ -115,16 +113,6 @@ Global
 		{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}.Release|x86.ActiveCfg = Release|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{022155CB-DDF2-41F0-9583-9D25106D309F}.Release|x86.ActiveCfg = Release|Any CPU
 		{99BA066D-A192-4101-843D-D9E6DA95C4C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{99BA066D-A192-4101-843D-D9E6DA95C4C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99BA066D-A192-4101-843D-D9E6DA95C4C4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

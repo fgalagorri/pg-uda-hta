@@ -61,20 +61,36 @@ namespace DataAccess
         /*
          * Lista todos los pacientes existentes en la base.
          */
-        public ICollection<Patient> ListPatients()
+
+        public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
+                                                       DateTime? birthDate, long? registerNo)
         {
-            
-            var patientContext = new patient_info_dbEntities();
-            ICollection<Patient> patientQuery = patientContext.patient.Select(p=> new Entities.Patient
-                {
-                    UdaId = p.idPatient,
-                    DocumentId = p.document,
-                    Names = p.name,
-                    Surnames = p.surname
-                }).ToList();
 
-            return patientQuery;
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                var list = patientContext.patient.AsQueryable();
 
+                if (!string.IsNullOrWhiteSpace(documentId))
+                    list = list.Where(p => p.document == documentId);
+                if (!string.IsNullOrWhiteSpace(names))
+                    list = list.Where(p => p.name == names);
+                if (!string.IsNullOrWhiteSpace(surnames))
+                    list = list.Where(p => p.surname == surnames);
+                if (birthDate.HasValue)
+                    list = list.Where(p => p.birthday.Value.Date == birthDate.Value.Date);
+                if (registerNo.HasValue)
+                    list = list.Where(p => p.register_number == registerNo.Value);
+
+                return list.Select(p => new PatientSearch
+                    {
+                        UdaId = p.idPatient,
+                        DocumentId = p.document,
+                        Names = p.name,
+                        Surnames = p.surname,
+                        BirthDate = p.birthday,
+                        RegisterNumer = p.register_number
+                    }).ToList();
+            }
         }
 
         public Patient getPatientData(long patientId)

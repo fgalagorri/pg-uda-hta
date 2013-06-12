@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using InterfaceBussinessLogic;
 using DataAccess;
 
 namespace BussinessLogic
 {
-    public class SessionManagement : ISessionManagement
+    public class SessionManagement
     {
         public string CurrentUser { get; set; }
 
-        public bool login(string userName, string pswdHashed)
+        public bool Login(string userName, string pswdHashed)
         {
             if (verifyPassword(userName, pswdHashed))
             {
@@ -26,12 +25,12 @@ namespace BussinessLogic
 
         }
 
-        public void logout()
+        public void Logout()
         {
         }
 
         // Los parametros currentPswd, newPswd, deben estar encriptados.
-        public bool changePassword(string userName, string currentPswd, string newPswd)
+        public bool ChangePassword(string userName, string currentPswd, string newPswd)
         {
             // Verificar que el pswd actual es correcto
             if ( verifyPassword(userName,currentPswd) )

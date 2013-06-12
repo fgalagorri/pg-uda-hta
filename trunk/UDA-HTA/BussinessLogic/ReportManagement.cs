@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using InterfaceBussinessLogic;
 using Entities;
 using DataAccess;
 using PdfSharp;
@@ -12,35 +11,35 @@ using PdfSharp.Pdf;
 
 namespace BussinessLogic
 {
-    public class ReportManagement : IReportManagement
+    public class ReportManagement
     {
 
-        public void addDrug(int type, string name)
+        public void AddDrug(int type, string name)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
             uhda.insertDrug(name, type);
         }
 
-        public void deleteDrug(string name)
+        public void DeleteDrug(string name)
         {
         }
 
-        public void editDrug(string type, string name)
+        public void EditDrug(string type, string name)
         {
         }
 
 
-        public ICollection<Report> listPatientReports(long idPatient)
+        public ICollection<Report> ListPatientReports(long idPatient)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             return uda.GetReportsByPatientId(idPatient);
         }
 
-        public void printReport(int idReport)
+        public void PrintReport(int idReport)
         {
         }
 
-        public void exportReportPDF(Report report, string fileName)
+        public void ExportReportPdf(Report report, string fileName)
         {/*
             //Crear documento PDF
             PdfDocument doc = new PdfDocument();
@@ -65,7 +64,7 @@ namespace BussinessLogic
           */
         }
 
-        public void addReport(Report report)
+        public void AddReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
             uhda.insertReport(report);

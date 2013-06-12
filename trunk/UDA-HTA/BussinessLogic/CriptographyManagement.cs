@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using InterfaceBussinessLogic;
 using System.Security.Cryptography;
 
 namespace BussinessLogic
 {
-    class CriptographyManagement : ICriptographyManagement
+    class CriptographyManagement
     {
-        public string sha256Encryipt(string clearPswd)
+        public string Sha256Encryipt(string clearPswd)
         {
             UTF8Encoding encoder = new UTF8Encoding();
             SHA256Managed sha256hasher = new SHA256Managed();
