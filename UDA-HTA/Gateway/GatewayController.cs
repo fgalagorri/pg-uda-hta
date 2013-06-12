@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BussinessLogic;
 using Entities;
-using InterfaceBussinessLogic;
 
 namespace Gateway
 {
@@ -25,21 +25,21 @@ namespace Gateway
 
         public ICollection<PatientReport> GetNewReports()
         {
-            IImportDataManagement controller = new ImportDataManagement();
+            var controller = new ImportDataManagement();
             return controller.ListNewPatientReports();
         }
 
         public Report ImportReport(string idReport, int device)
         {
-            IImportDataManagement importDataController = new ImportDataManagement();
+            var importDataController = new ImportDataManagement();
             var report = importDataController.ImportReport(idReport, device);
 
-            IPatientManagement patientController = new PatientManagement();
-            var idPatient = patientController.getPatientIdIfExist(report.Patient.DevicePatientId);
+            var patientController = new PatientManagement();
+            var idPatient = patientController.GetPatientIdIfExist(report.Patient.DevicePatientId);
             if (idPatient != null)
             {
                 // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo
-                report.Patient = patientController.getPatientData((long)idPatient);
+                report.Patient = patientController.GetPatientData((long)idPatient);
             }
 
             return report;
@@ -47,9 +47,9 @@ namespace Gateway
 
         public void AddImportedData(Report report, bool patientModified)
         {
-            IReportManagement reportController = new ReportManagement();
-            IPatientManagement patientController = new PatientManagement();
-            IImportDataManagement importController = new ImportDataManagement();
+            var reportController = new ReportManagement();
+            var patientController = new PatientManagement();
+            var importController = new ImportDataManagement();
             
             /*
              * Si report.UdaId != null, entonces el paciente ya fue creado
@@ -59,28 +59,29 @@ namespace Gateway
             if (report.Patient.UdaId != null)
             {
                 if (patientModified)
-                    patientController.editPatient(report.Patient);
+                    patientController.EditPatient(report.Patient);
             }
             else
             {
-                report.Patient.UdaId = patientController.createPatient(report.Patient);
+                report.Patient.UdaId = patientController.CreatePatient(report.Patient);
             }
 
 			report.Measures = importController.ImportMeasures(report);
 
-            reportController.addReport(report);
+            reportController.AddReport(report);
         }
 
-        public ICollection<Patient> ListPatients()
+        public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
+                                                       DateTime? birthDate, long? registerNo)
         {
-            IPatientManagement patientController = new PatientManagement();
-            return patientController.listPatients();
+            var patientController = new PatientManagement();
+            return patientController.ListPatients(documentId, names, surnames, birthDate, registerNo);
         }
 
         public ICollection<Report> GettReportsOfPatient(long patientId)
         {
-            IReportManagement reportController = new ReportManagement();
-            return reportController.listPatientReports(patientId);
+            var reportController = new ReportManagement();
+            return reportController.ListPatientReports(patientId);
         }
     }
 }

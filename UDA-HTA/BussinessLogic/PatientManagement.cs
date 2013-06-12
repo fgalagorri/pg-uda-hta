@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using Entities;
 using DataAccess;
-using InterfaceBussinessLogic;
 
 namespace BussinessLogic
 {
-    public class PatientManagement : IPatientManagement
+    public class PatientManagement
     {
-        public long createPatient(Patient patient)
+        public long CreatePatient(Patient patient)
         {
             long id;
             try
@@ -34,28 +33,29 @@ namespace BussinessLogic
             }
         }
 
-        
-        public ICollection<Patient> listPatients()
+
+        public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
+                                                       DateTime? birthDate, long? registerNo)
         {
             var pda = new PatientDataAccess();
-            var lp = pda.ListPatients();
-         
+            var lp = pda.ListPatients(documentId, names, surnames, birthDate, registerNo);
+
             return lp;
         }
 
-        public Patient getPatientData(long patientId)
+        public Patient GetPatientData(long patientId)
         {
             var pda = new PatientDataAccess();
             return pda.getPatientData(patientId);
         }
 
-        public long? getPatientIdIfExist(string patientRefId)
+        public long? GetPatientIdIfExist(string patientRefId)
         {
             var pda = new PatientDataAccess();
             return pda.GetPatientId(patientRefId);
         }
 
-        public bool editPatient(Patient patient)
+        public bool EditPatient(Patient patient)
         {
             return false;
         }

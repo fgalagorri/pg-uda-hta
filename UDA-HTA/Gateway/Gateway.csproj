@@ -52,10 +52,6 @@
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InterfaceBussinessLogic\InterfaceBussinessLogic.csproj">
-      <Project>{022155CB-DDF2-41F0-9583-9D25106D309F}</Project>
-      <Name>InterfaceBussinessLogic</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

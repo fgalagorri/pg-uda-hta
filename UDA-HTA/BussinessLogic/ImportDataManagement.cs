@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using InterfaceBussinessLogic;
 using Entities;
 using DataAccess;
 using HMSDataAccess;
@@ -9,7 +8,7 @@ using DeviceDataAccess;
 
 namespace BussinessLogic
 {
-    public class ImportDataManagement : IImportDataManagement
+    public class ImportDataManagement
     {
 
         private static ICollection<PatientReport> GetListNewPatientReports(DeviceDataAccess.DeviceController dda)
