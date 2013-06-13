@@ -98,7 +98,7 @@ namespace HMSDataAccess
                     /*
                      * Datos paciente
                       */
-                    report.Patient.DevicePatientId = rs.getString(1);
+                    report.Patient.DevReference.Add(DeviceId, rs.getString(1));
 
                     var timeStr = rs.getString(2);
                     //Pareseo la fecha y hora para crear el DateTime
@@ -303,7 +303,7 @@ namespace HMSDataAccess
 
             if (rs != null && rs.next())
             {
-                patient.DevicePatientId = rs.getString(2);
+                patient.DevReference.Add(DeviceId, rs.getString(2));
                 
                 var timeStr = rs.getString(3); 
                 //Pareseo la fecha y hora para crear el DateTime
@@ -342,7 +342,7 @@ namespace HMSDataAccess
                 Patient patient = new Patient();
 
                 id = rs.getString(1);
-                patient.DevicePatientId = id;
+                patient.DevReference.Add(DeviceId,id);
 
                 timeStr = rs.getString(2);
                 //Pareseo la fecha y hora para crear el DateTime
