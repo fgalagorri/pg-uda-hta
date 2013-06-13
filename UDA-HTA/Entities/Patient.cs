@@ -32,9 +32,8 @@ namespace Entities
         public DateTime? ModifiedDate { get; set; }
 
         public long? UdaId { get; set; }
-        public string DevicePatientId { get; set; }
         public long? RegisterNumer { get; set; }
-        public int? DeviceId { get; set; }
+        public IDictionary<int,string> DevReference { get; set; }
 
         public ICollection<EmergencyContact> EmergencyContactList { get; set; } 
         public ICollection<MedicalRecord> Background { get; set; } 
