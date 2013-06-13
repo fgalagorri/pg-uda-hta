@@ -119,7 +119,7 @@ namespace SpacelabsDataAccess
                             EndDate = r.HookupEndTime,
                             Patient = new Patient
                                 {
-                                    DevicePatientId = r.PatientId.ToString(),
+                                     
                                     Names = r.FirstName,
                                     Surnames = (r.LastName + " " + r.SecondLastName).Trim(),
                                     DocumentId = r.CI,
@@ -131,7 +131,6 @@ namespace SpacelabsDataAccess
                                     // Department
                                     Phone = r.DayPhone,
                                     Email = r.PriEmailId,
-                                    DeviceId = deviceId
                                 },
 
                             SystolicTotalAvg = r.SystolicTotalAvg,
@@ -182,6 +181,8 @@ namespace SpacelabsDataAccess
                             HeartRateNightMaxTime = r.HRNightMaxTime,
                             HeartRateNightMinTime = r.HRNightMinTime,
                         };
+
+                    report.Patient.DevReference.Add(deviceId,r.PatientId.ToString());
                 }
             }
 
