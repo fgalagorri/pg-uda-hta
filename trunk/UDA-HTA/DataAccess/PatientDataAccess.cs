@@ -36,8 +36,12 @@ namespace DataAccess
                 {
                     sex = p.Sex.Value.ToString();
                 }
-                udaContext.insertPatient(lastIdPatient, p.DevicePatientId, p.Names, p.Surnames, p.Address, p.DocumentId,
+                udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
                                          p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
+                foreach (var devRef in p.DevReference)
+                {
+                    udaContext.insertDeviceReference(lastIdPatient, devRef.Key, devRef.Value, (long)lastIdPatient.Value);
+                }
 
             }
             catch (MySql.Data.MySqlClient.MySqlException e)
@@ -106,7 +110,6 @@ namespace DataAccess
             patient.CellPhone = pat.cell_phone;
             patient.City = pat.city;
             patient.DocumentId = pat.document;
-            patient.DevicePatientId = pat.patientReference.ToString();
             patient.Email = pat.e_mail;
             patient.Names = pat.name;
             patient.Neighbour = pat.neighborhood;
