@@ -18,6 +18,7 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
+[assembly: EdmRelationshipAttribute("patient_info_dbModel", "fk_device_reference_patient1", "patient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patient), "device_reference", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.device_reference), true)]
 [assembly: EdmRelationshipAttribute("patient_info_dbModel", "fk_emergency_contact_Patient", "patient", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patient), "emergency_contact", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.emergency_contact), true)]
 
 #endregion
@@ -73,6 +74,22 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<device_reference> device_reference
+        {
+            get
+            {
+                if ((_device_reference == null))
+                {
+                    _device_reference = base.CreateObjectSet<device_reference>("device_reference");
+                }
+                return _device_reference;
+            }
+        }
+        private ObjectSet<device_reference> _device_reference;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<emergency_contact> emergency_contact
         {
             get
@@ -106,6 +123,14 @@ namespace DataAccess
         #region AddTo Methods
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the device_reference EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTodevice_reference(device_reference device_reference)
+        {
+            base.AddObject("device_reference", device_reference);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the emergency_contact EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToemergency_contact(emergency_contact emergency_contact)
@@ -123,6 +148,48 @@ namespace DataAccess
 
         #endregion
         #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="device_type">No Metadata Documentation available.</param>
+        /// <param name="device_ref">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertDeviceReference(ObjectParameter id, Nullable<global::System.Int32> device_type, global::System.String device_ref, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter device_typeParameter;
+            if (device_type.HasValue)
+            {
+                device_typeParameter = new ObjectParameter("device_type", device_type);
+            }
+            else
+            {
+                device_typeParameter = new ObjectParameter("device_type", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter device_refParameter;
+            if (device_ref != null)
+            {
+                device_refParameter = new ObjectParameter("device_ref", device_ref);
+            }
+            else
+            {
+                device_refParameter = new ObjectParameter("device_ref", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertDeviceReference", id, device_typeParameter, device_refParameter, idPatientParameter);
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -181,7 +248,6 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="idInDev">No Metadata Documentation available.</param>
         /// <param name="name">No Metadata Documentation available.</param>
         /// <param name="surname">No Metadata Documentation available.</param>
         /// <param name="addr">No Metadata Documentation available.</param>
@@ -194,18 +260,8 @@ namespace DataAccess
         /// <param name="cell">No Metadata Documentation available.</param>
         /// <param name="email">No Metadata Documentation available.</param>
         /// <param name="register_number">No Metadata Documentation available.</param>
-        public int insertPatient(ObjectParameter id, global::System.String idInDev, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
+        public int insertPatient(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
         {
-            ObjectParameter idInDevParameter;
-            if (idInDev != null)
-            {
-                idInDevParameter = new ObjectParameter("idInDev", idInDev);
-            }
-            else
-            {
-                idInDevParameter = new ObjectParameter("idInDev", typeof(global::System.String));
-            }
-    
             ObjectParameter nameParameter;
             if (name != null)
             {
@@ -326,7 +382,7 @@ namespace DataAccess
                 register_numberParameter = new ObjectParameter("register_number", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertPatient", id, idInDevParameter, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
+            return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
         }
 
         #endregion
@@ -336,6 +392,176 @@ namespace DataAccess
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="patient_info_dbModel", Name="device_reference")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class device_reference : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new device_reference object.
+        /// </summary>
+        /// <param name="iddevice_reference">Initial value of the iddevice_reference property.</param>
+        /// <param name="patient_idPatient">Initial value of the patient_idPatient property.</param>
+        public static device_reference Createdevice_reference(global::System.Int64 iddevice_reference, global::System.Int64 patient_idPatient)
+        {
+            device_reference device_reference = new device_reference();
+            device_reference.iddevice_reference = iddevice_reference;
+            device_reference.patient_idPatient = patient_idPatient;
+            return device_reference;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 iddevice_reference
+        {
+            get
+            {
+                return _iddevice_reference;
+            }
+            set
+            {
+                if (_iddevice_reference != value)
+                {
+                    Oniddevice_referenceChanging(value);
+                    ReportPropertyChanging("iddevice_reference");
+                    _iddevice_reference = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("iddevice_reference");
+                    Oniddevice_referenceChanged();
+                }
+            }
+        }
+        private global::System.Int64 _iddevice_reference;
+        partial void Oniddevice_referenceChanging(global::System.Int64 value);
+        partial void Oniddevice_referenceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> device_type
+        {
+            get
+            {
+                return _device_type;
+            }
+            set
+            {
+                Ondevice_typeChanging(value);
+                ReportPropertyChanging("device_type");
+                _device_type = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("device_type");
+                Ondevice_typeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _device_type;
+        partial void Ondevice_typeChanging(Nullable<global::System.Int32> value);
+        partial void Ondevice_typeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String device_ref
+        {
+            get
+            {
+                return _device_ref;
+            }
+            set
+            {
+                Ondevice_refChanging(value);
+                ReportPropertyChanging("device_ref");
+                _device_ref = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("device_ref");
+                Ondevice_refChanged();
+            }
+        }
+        private global::System.String _device_ref;
+        partial void Ondevice_refChanging(global::System.String value);
+        partial void Ondevice_refChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 patient_idPatient
+        {
+            get
+            {
+                return _patient_idPatient;
+            }
+            set
+            {
+                Onpatient_idPatientChanging(value);
+                ReportPropertyChanging("patient_idPatient");
+                _patient_idPatient = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("patient_idPatient");
+                Onpatient_idPatientChanged();
+            }
+        }
+        private global::System.Int64 _patient_idPatient;
+        partial void Onpatient_idPatientChanging(global::System.Int64 value);
+        partial void Onpatient_idPatientChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("patient_info_dbModel", "fk_device_reference_patient1", "patient")]
+        public patient patient
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patient>("patient_info_dbModel.fk_device_reference_patient1", "patient").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patient>("patient_info_dbModel.fk_device_reference_patient1", "patient").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<patient> patientReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<patient>("patient_info_dbModel.fk_device_reference_patient1", "patient");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<patient>("patient_info_dbModel.fk_device_reference_patient1", "patient", value);
+                }
+            }
+        }
+
+        #endregion
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -929,6 +1155,28 @@ namespace DataAccess
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("patient_info_dbModel", "fk_device_reference_patient1", "device_reference")]
+        public EntityCollection<device_reference> device_reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<device_reference>("patient_info_dbModel.fk_device_reference_patient1", "device_reference");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<device_reference>("patient_info_dbModel.fk_device_reference_patient1", "device_reference", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.

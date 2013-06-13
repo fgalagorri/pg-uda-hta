@@ -4,15 +4,29 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="patient_info_dbModelStoreContainer">
+          <EntitySet Name="device_reference" EntityType="patient_info_dbModel.Store.device_reference" store:Type="Tables" Schema="patient_info_db" />
           <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.Store.emergency_contact" store:Type="Tables" Schema="patient_info_db" />
           <EntitySet Name="patient" EntityType="patient_info_dbModel.Store.patient" store:Type="Tables" Schema="patient_info_db" />
+          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.Store.fk_device_reference_patient1">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="device_reference" EntitySet="device_reference" />
+          </AssociationSet>
           <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.Store.fk_emergency_contact_Patient">
             <End Role="patient" EntitySet="patient" />
             <End Role="emergency_contact" EntitySet="emergency_contact" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="device_reference">
+          <Key>
+            <PropertyRef Name="iddevice_reference" />
+          </Key>
+          <Property Name="iddevice_reference" Type="bigint" Nullable="false" />
+          <Property Name="device_type" Type="int" />
+          <Property Name="device_ref" Type="varchar" MaxLength="45" />
+          <Property Name="patient_idPatient" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="emergency_contact">
           <Key>
             <PropertyRef Name="idemergency_contact" />
@@ -43,6 +57,18 @@
           <Property Name="register_number" Type="bigint" />
           <Property Name="modified_date" Type="datetime" />
         </EntityType>
+        <Association Name="fk_device_reference_patient1">
+          <End Role="patient" Type="patient_info_dbModel.Store.patient" Multiplicity="1" />
+          <End Role="device_reference" Type="patient_info_dbModel.Store.device_reference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="device_reference">
+              <PropertyRef Name="patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_emergency_contact_Patient">
           <End Role="patient" Type="patient_info_dbModel.Store.patient" Multiplicity="1" />
           <End Role="emergency_contact" Type="patient_info_dbModel.Store.emergency_contact" Multiplicity="*" />
@@ -55,6 +81,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="device_type" Type="int" Mode="In" />
+          <Parameter Name="device_ref" Type="varchar" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -64,7 +96,6 @@
         </Function>
         <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="idInDev" Type="varchar" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="surname" Type="varchar" Mode="In" />
           <Parameter Name="addr" Type="text" Mode="In" />
@@ -78,17 +109,29 @@
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="register_number" Type="bigint" Mode="In" />
         </Function>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="patient_info_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="patient_info_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="device_reference" EntityType="patient_info_dbModel.device_reference" />
           <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.emergency_contact" />
           <EntitySet Name="patient" EntityType="patient_info_dbModel.patient" />
+          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.fk_device_reference_patient1">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="device_reference" EntitySet="device_reference" />
+          </AssociationSet>
           <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.fk_emergency_contact_Patient">
             <End Role="patient" EntitySet="patient" />
             <End Role="emergency_contact" EntitySet="emergency_contact" />
           </AssociationSet>
+          <FunctionImport Name="insertDeviceReference">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="device_type" Mode="In" Type="Int32" />
+            <Parameter Name="device_ref" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="insertEmergencyContact">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="name" Mode="In" Type="String" />
@@ -98,7 +141,6 @@
           </FunctionImport>
           <FunctionImport Name="insertPatient">
             <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="idInDev" Mode="In" Type="String" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="surname" Mode="In" Type="String" />
             <Parameter Name="addr" Mode="In" Type="String" />
@@ -113,6 +155,16 @@
             <Parameter Name="register_number" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
+        <EntityType Name="device_reference">
+          <Key>
+            <PropertyRef Name="iddevice_reference" />
+          </Key>
+          <Property Name="iddevice_reference" Type="Int64" Nullable="false" />
+          <Property Name="device_type" Type="Int32" />
+          <Property Name="device_ref" Type="String" />
+          <Property Name="patient_idPatient" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="patient" Relationship="patient_info_dbModel.fk_device_reference_patient1" FromRole="device_reference" ToRole="patient" />
+        </EntityType>
         <EntityType Name="emergency_contact">
           <Key>
             <PropertyRef Name="idemergency_contact" />
@@ -143,8 +195,21 @@
           <Property Name="e_mail" Type="String" />
           <Property Name="register_number" Type="Int64" />
           <Property Name="modified_date" Type="DateTime" />
+          <NavigationProperty Name="device_reference" Relationship="patient_info_dbModel.fk_device_reference_patient1" FromRole="patient" ToRole="device_reference" />
           <NavigationProperty Name="emergency_contact" Relationship="patient_info_dbModel.fk_emergency_contact_Patient" FromRole="patient" ToRole="emergency_contact" />
         </EntityType>
+        <Association Name="fk_device_reference_patient1">
+          <End Role="patient" Type="patient_info_dbModel.patient" Multiplicity="1" />
+          <End Role="device_reference" Type="patient_info_dbModel.device_reference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="device_reference">
+              <PropertyRef Name="patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_emergency_contact_Patient">
           <End Role="patient" Type="patient_info_dbModel.patient" Multiplicity="1" />
           <End Role="emergency_contact" Type="patient_info_dbModel.emergency_contact" Multiplicity="*" />
@@ -163,6 +228,12 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="patient_info_dbModelStoreContainer" CdmEntityContainer="patient_info_dbEntities">
+          <EntitySetMapping Name="device_reference"><EntityTypeMapping TypeName="patient_info_dbModel.device_reference"><MappingFragment StoreEntitySet="device_reference">
+            <ScalarProperty Name="iddevice_reference" ColumnName="iddevice_reference" />
+            <ScalarProperty Name="device_type" ColumnName="device_type" />
+            <ScalarProperty Name="device_ref" ColumnName="device_ref" />
+            <ScalarProperty Name="patient_idPatient" ColumnName="patient_idPatient" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="emergency_contact"><EntityTypeMapping TypeName="patient_info_dbModel.emergency_contact"><MappingFragment StoreEntitySet="emergency_contact">
             <ScalarProperty Name="idemergency_contact" ColumnName="idemergency_contact" />
             <ScalarProperty Name="name" ColumnName="name" />
@@ -187,6 +258,7 @@
             <ScalarProperty Name="register_number" ColumnName="register_number" />
             <ScalarProperty Name="modified_date" ColumnName="modified_date" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="patient_info_dbModel.Store.insertDeviceReference" />
           <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="patient_info_dbModel.Store.insertEmergencyContact" />
           <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
         </EntityContainerMapping>
@@ -209,12 +281,17 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1">
-        <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="2" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1" Height="4.0956022135416656" IsExpanded="true" />
+      <Diagram Name="Model1" ZoomLevel="97">
+        <EntityTypeShape EntityType="patient_info_dbModel.device_reference" Width="1.5" PointX="3" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="3.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.375" Height="4.2879036458333335" IsExpanded="true" />
+        <AssociationConnector Association="patient_info_dbModel.fk_device_reference_patient1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="3" PointY="2.2401432291666667" />
+        </AssociationConnector>
         <AssociationConnector Association="patient_info_dbModel.fk_emergency_contact_Patient" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="3.0862939453125" />
-          <ConnectorPoint PointX="3" PointY="3.0862939453125" />
+          <ConnectorPoint PointX="2.25" PointY="4.7064518229166667" />
+          <ConnectorPoint PointX="3" PointY="4.7064518229166667" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
