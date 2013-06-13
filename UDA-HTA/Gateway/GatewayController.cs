@@ -34,8 +34,10 @@ namespace Gateway
             var importDataController = new ImportDataManagement();
             var report = importDataController.ImportReport(idReport, device);
 
+            string idRef;
+            report.Patient.DevReference.TryGetValue(device, out idRef);
             var patientController = new PatientManagement();
-            var idPatient = patientController.GetPatientIdIfExist(report.Patient.DevicePatientId);
+            var idPatient = patientController.GetPatientIdIfExist(idRef);
             if (idPatient != null)
             {
                 // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo
