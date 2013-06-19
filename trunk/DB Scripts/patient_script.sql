@@ -13,7 +13,6 @@ DROP TABLE IF EXISTS `patient_info_db`.`patient` ;
 
 CREATE  TABLE IF NOT EXISTS `patient_info_db`.`patient` (
   `idPatient` BIGINT NOT NULL AUTO_INCREMENT ,
-  `patientReference` VARCHAR(45) NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `surname` VARCHAR(45) NOT NULL ,
   `document` VARCHAR(45) NOT NULL ,
@@ -46,6 +45,26 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`emergency_contact` (
   PRIMARY KEY (`idemergency_contact`) ,
   INDEX `fk_emergency_contact_Patient_idx` (`patient_idPatient` ASC) ,
   CONSTRAINT `fk_emergency_contact_Patient`
+    FOREIGN KEY (`patient_idPatient` )
+    REFERENCES `patient_info_db`.`patient` (`idPatient` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `patient_info_db`.`device_reference`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `patient_info_db`.`device_reference` ;
+
+CREATE  TABLE IF NOT EXISTS `patient_info_db`.`device_reference` (
+  `iddevice_reference` BIGINT NOT NULL AUTO_INCREMENT ,
+  `device_type` INT NULL ,
+  `device_ref` VARCHAR(45) NULL ,
+  `patient_idPatient` BIGINT NOT NULL ,
+  PRIMARY KEY (`iddevice_reference`) ,
+  INDEX `fk_device_reference_patient1_idx` (`patient_idPatient` ASC) ,
+  CONSTRAINT `fk_device_reference_patient1`
     FOREIGN KEY (`patient_idPatient` )
     REFERENCES `patient_info_db`.`patient` (`idPatient` )
     ON DELETE NO ACTION
