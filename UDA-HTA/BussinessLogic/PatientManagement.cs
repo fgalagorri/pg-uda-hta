@@ -49,10 +49,10 @@ namespace BussinessLogic
             return pda.getPatientData(patientId);
         }
 
-        public long? GetPatientIdIfExist(string patientRefId)
+        public long? GetPatientIdIfExist(string patientRefId, int dev)
         {
             var pda = new PatientDataAccess();
-            return pda.GetPatientId(patientRefId);
+            return pda.GetPatientId(patientRefId,dev);
         }
 
         public bool EditPatient(Patient patient)

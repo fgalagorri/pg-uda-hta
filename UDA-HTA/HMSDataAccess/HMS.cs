@@ -50,8 +50,8 @@ namespace HMSDataAccess
             try
             {
                 org.h2.Driver.load();
-                //_conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
-                _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
+                _conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
+                //_conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
                 _stat = _conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             }
             catch (Exception e)
@@ -98,7 +98,7 @@ namespace HMSDataAccess
                     /*
                      * Datos paciente
                       */
-                    report.Patient.DevReference.Add(DeviceId, rs.getString(1));
+                    report.Patient.DeviceReferences.Add(new DeviceReference(DeviceId,rs.getString(1)));
 
                     var timeStr = rs.getString(2);
                     //Pareseo la fecha y hora para crear el DateTime
@@ -303,7 +303,7 @@ namespace HMSDataAccess
 
             if (rs != null && rs.next())
             {
-                patient.DevReference.Add(DeviceId, rs.getString(2));
+                patient.DeviceReferences.Add(new DeviceReference(DeviceId,rs.getString(2)));
                 
                 var timeStr = rs.getString(3); 
                 //Pareseo la fecha y hora para crear el DateTime
@@ -342,7 +342,7 @@ namespace HMSDataAccess
                 Patient patient = new Patient();
 
                 id = rs.getString(1);
-                patient.DevReference.Add(DeviceId,id);
+                patient.DeviceReferences.Add(new DeviceReference(DeviceId,id));
 
                 timeStr = rs.getString(2);
                 //Pareseo la fecha y hora para crear el DateTime

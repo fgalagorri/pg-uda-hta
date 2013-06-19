@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BussinessLogic;
 using Entities;
 
@@ -34,10 +35,10 @@ namespace Gateway
             var importDataController = new ImportDataManagement();
             var report = importDataController.ImportReport(idReport, device);
 
-            string idRef;
-            report.Patient.DevReference.TryGetValue(device, out idRef);
+            string idRef = report.Patient.DeviceReferences.Where(r => r.deviceType == 0).Select(r => r.deviceReferenceId).First().ToString();
             var patientController = new PatientManagement();
-            var idPatient = patientController.GetPatientIdIfExist(idRef);
+            var idPatient = patientController.GetPatientIdIfExist(idRef,device);
+            report.Patient.UdaId = idPatient;
             if (idPatient != null)
             {
                 // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo

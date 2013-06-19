@@ -27,10 +27,10 @@ namespace DataAccess
             conn.Close(); 
         }
 
-        public Report getReport(int idReport)
+        public Report getReport(long idReport)
         {
             using (udaContext = new udahta_dbEntities())
-            {
+            {                
                 var qry = udaContext.report.Where(r => r.idReport == idReport).Select(r => new 
                     {
                         r.begin_date,
@@ -56,7 +56,7 @@ namespace DataAccess
                         r.temporarydata,
                         r.total_avg_dias,
                         r.total_avg_sys,
-                    }).First();
+                    }).FirstOrDefault();
 
                 Entities.Report rep = new Report()
                 {
@@ -149,8 +149,26 @@ namespace DataAccess
                 rep.TemporaryData.Smoker = qry.temporarydata.smoker;
                 rep.TemporaryData.Weight = qry.temporarydata.weight;
 
+
+                var lmeasures = getMeasures(idReport);
+                rep.Measures = rep.Measures.Concat(lmeasures).ToList();
                 return rep;
             }
+        }
+
+        public ICollection<Measurement> getMeasures(long idReport)
+        {
+            ICollection<Measurement> lmeasures = new List<Measurement>();
+
+            using (udaContext = new udahta_dbEntities())
+            {
+                var qry = udaContext.measurement.Where(m => m.report_idReport == idReport).Select(m => new
+                    {
+                       
+                    }).ToList();
+            }
+            return lmeasures;
+
         }
 
         public bool ExistPatient(long? idPatient)

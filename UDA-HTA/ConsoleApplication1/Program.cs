@@ -73,7 +73,7 @@ namespace ConsoleApplication1
 
             /* Importar datos e impactarlos en base
              * 
-             */
+             *
                         ImportDataManagement idm = new ImportDataManagement();
                         ReportManagement rm = new ReportManagement();
                         PatientManagement pm = new PatientManagement();
@@ -83,11 +83,18 @@ namespace ConsoleApplication1
                         {
                             try
                             {
-                                Patient pat = idm.ImportPatient(pr.PatientId, pr.ReportDevice);
-                                var idPatient = pm.CreatePatient(pat);
-                                DailyCarnet dailyCarnet = new DailyCarnet();
-                                TemporaryData temporaryData = new TemporaryData();
                                 Report rep = idm.ImportReport(pr.ReportId, pr.ReportDevice);
+                                var idPatient = pm.GetPatientIdIfExist(
+                                    rep.Patient.DeviceReferences.Where(r => r.deviceType == 0)
+                                       .Select(r => r.deviceReferenceId)
+                                       .First()
+                                       .ToString(), 0);
+                                if (idPatient == null)
+                                {
+                                    idPatient = pm.CreatePatient(rep.Patient);
+                                }
+                                rep.Patient.UdaId = idPatient;
+
                                 List<Measurement> lMeasurements = idm.ImportMeasures(rep);
                                 rep.Measures = rep.Measures.Concat(lMeasurements).ToList();
                                 rm.AddReport(rep);
@@ -103,7 +110,10 @@ namespace ConsoleApplication1
                                 }
                             }
                         }
-         
+            
+            
+             */
+
             /*
             IImportDataManagement idm = new ImportDataManagement();
             Report rep = idm.ImportReport("7", 0); //HMS
@@ -124,6 +134,32 @@ namespace ConsoleApplication1
                 outfile.Write(sb.ToString());
             }
             */
+
+            /* 
+             * Exportar reporte
+             */ 
+            /*ReportManagement rm = new ReportManagement();
+            Report rep = new Report();
+            rep.Patient.Address = "agraciada 2895";
+            rep.Patient.BirthDate = new DateTime(1988, 05, 16);
+            rep.Patient.CellPhone = "099976263";
+            rep.Patient.RegisterNumer = 11111;
+            rep.Patient.Surnames = "macanskas";
+            rep.Patient.Names = "ivana";
+            rep.Patient.Phone = "22036383";
+            rep.TemporaryData.Weight = 60;
+            rep.TemporaryData.Height = 170;
+            rep.Patient.Sex = SexType.F;
+            rep.Patient.Email = "imacanskas@gmail.com";
+            rep.Diagnosis =
+                "k;jdf;ajk;kjdhf;akjhffh;kajdfhkjhf;kjahfdmncbvi;hjdf;ksdvbnb;ajhdf;nv;jkhvn;kjhfvnk \n lkasflksdnfldsknfldsnfldksnf";
+            */
+
+            ReportManagement rm = new ReportManagement();
+            var rep = rm.getReport(2);
+            string filepath = "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.docx";
+            rm.generateDocument(rep, filepath);
+            
         }
     }
 }

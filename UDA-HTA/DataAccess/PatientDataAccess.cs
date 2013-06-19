@@ -27,6 +27,8 @@ namespace DataAccess
             var udaContext = new patient_info_dbEntities();
 
             ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
+            ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof(int));
+            
             try
             {
                 var sex = SexType.M.ToString();
@@ -38,9 +40,9 @@ namespace DataAccess
                 }
                 udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
                                          p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
-                foreach (var devRef in p.DevReference)
+                foreach (var devRef in p.DeviceReferences)
                 {
-                    udaContext.insertDeviceReference(lastIdPatient, devRef.Key, devRef.Value, (long)lastIdPatient.Value);
+                    udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType, devRef.deviceReferenceId, (long)lastIdPatient.Value);
                 }
 
             }
@@ -136,14 +138,14 @@ namespace DataAccess
             return patientContext.patient.Any(p => p.patientReference == patientRef);
         }
 
-        public long? GetPatientId(string patientRef)
+        public long? GetPatientId(string patientRef, int dev)
         {
             var patientContext = new patient_info_dbEntities();
-            var pat = patientContext.patient.Where(p => p.patientReference == patientRef)
-                                    .Select(p => new {p.idPatient})
+            var pat = patientContext.device_reference.Where(p => (p.device_ref == patientRef && p.device_type == dev))
+                                    .Select(p => new {p.patient_idPatient})
                                     .FirstOrDefault();
 
-            return (pat != null) ? (long?) pat.idPatient : null;
+            return (pat != null) ? (long?) pat.patient_idPatient : null;
         }
     }
 }
