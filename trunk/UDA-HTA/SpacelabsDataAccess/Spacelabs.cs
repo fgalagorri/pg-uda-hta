@@ -182,7 +182,7 @@ namespace SpacelabsDataAccess
                             HeartRateNightMinTime = r.HRNightMinTime,
                         };
 
-                    report.Patient.DevReference.Add(deviceId,r.PatientId.ToString());
+                    report.Patient.DeviceReferences.Add(new DeviceReference(deviceId,r.PatientId.ToString()));
                 }
             }
 

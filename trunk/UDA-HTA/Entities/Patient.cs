@@ -15,6 +15,7 @@ namespace Entities
             EmergencyContactList = new List<EmergencyContact>();
             Background = new List<MedicalRecord>();
             ReportList = new List<Report>();
+            DeviceReferences = new List<DeviceReference>();
         }
         
         public string DocumentId { get; set; }
@@ -33,7 +34,7 @@ namespace Entities
 
         public long? UdaId { get; set; }
         public long? RegisterNumer { get; set; }
-        public IDictionary<int,string> DevReference { get; set; }
+        public ICollection<DeviceReference> DeviceReferences { get; set; } 
 
         public ICollection<EmergencyContact> EmergencyContactList { get; set; } 
         public ICollection<MedicalRecord> Background { get; set; } 
