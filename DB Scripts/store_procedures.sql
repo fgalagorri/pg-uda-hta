@@ -1,9 +1,19 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatient$$
-CREATE PROCEDURE insertPatient(OUT id BIGINT, IN idInDev VARCHAR(45), IN name VARCHAR(45), IN surname VARCHAR(45), IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45), IN register_number BIGINT)
+CREATE PROCEDURE insertPatient(OUT id BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45), IN register_number BIGINT)
 BEGIN
-INSERT INTO `patient_info_db`.`patient`(`patientReference`, `name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, `address`, `city`, `neighborhood`, `birthday`, `e_mail`,`register_number`)
-VALUES (idInDev, name, surname, dni, sex, phone, cell, addr, city, neighbour, birth, email,register_number);
+INSERT INTO `patient_info_db`.`patient`(`name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, `address`, `city`, `neighborhood`, `birthday`, `e_mail`,`register_number`)
+VALUES (name, surname, dni, sex, phone, cell, addr, city, neighbour, birth, email,register_number);
+SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertDeviceReference$$
+CREATE PROCEDURE insertDeviceReference(OUT id BIGINT, IN device_type INT, IN device_ref VARCHAR(45), IN idPatient BIGINT)
+BEGIN
+INSERT INTO `patient_info_db`.`device_reference`(`device_type`, `device_ref`, `patient_idPatient`)
+VALUES (device_type, device_ref, idPatient);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
