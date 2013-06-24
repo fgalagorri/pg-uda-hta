@@ -164,11 +164,31 @@ namespace DataAccess
             {
                 var qry = udaContext.measurement.Where(m => m.report_idReport == idReport).Select(m => new
                     {
-                       
+                        m.average,
+                        m.comment,
+                        m.date,
+                        m.diastolic,
+                        m.heart_rate,
+                        m.idMeasurement,
+                        m.sleep,
+                        m.systolic,
                     }).ToList();
-            }
-            return lmeasures;
 
+                foreach (var qm in qry)
+                {
+                    Measurement measure = new Measurement();
+                    measure.Asleep = qm.sleep;
+                    measure.Comment = qm.comment;
+                    measure.Diastolic = qm.diastolic;
+                    measure.HeartRate = qm.heart_rate;
+                    measure.Middle = qm.average;
+                    measure.Systolic = qm.systolic;
+                    measure.Time = qm.date;
+                    lmeasures.Add(measure);
+                }
+            }
+
+            return lmeasures;
         }
 
         public bool ExistPatient(long? idPatient)
