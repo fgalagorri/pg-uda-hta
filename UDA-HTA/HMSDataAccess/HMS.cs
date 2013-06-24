@@ -202,16 +202,16 @@ namespace HMSDataAccess
             var columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIMESTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
             var rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + report.DeviceReportId);
 
-            int maxDiasDay = 0;
-            int maxDiasNight = 0;
+            int? maxDiasDay = 0;
+            int? maxDiasNight = 0;
 
-            int maxSysDay = 0;
-            int maxSysNight = 0;
+            int? maxSysDay = 0;
+            int? maxSysNight = 0;
 
-            int sumSysDay = 0;
-            int sumSysNight = 0;
-            int sumDiasDay = 0;
-            int sumDiasNight = 0;
+            int? sumSysDay = 0;
+            int? sumSysNight = 0;
+            int? sumDiasDay = 0;
+            int? sumDiasNight = 0;
             int countDay = 0;
             int countNight = 0;
 
