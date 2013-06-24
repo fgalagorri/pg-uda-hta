@@ -21,7 +21,9 @@ namespace BussinessLogic
         public Report getReport(int idReport)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
-            return uhda.getReport(idReport);
+            var rep = uhda.getReport(idReport);
+            rep.Measures = uhda.getMeasures(idReport);
+            return rep;
         }
 
         public void AddDrug(int type, string name)
