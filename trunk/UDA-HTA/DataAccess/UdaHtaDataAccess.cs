@@ -149,6 +149,7 @@ namespace DataAccess
                 rep.TemporaryData.Smoker = qry.temporarydata.smoker;
                 rep.TemporaryData.Weight = qry.temporarydata.weight;
 
+                rep.Patient.UdaId = qry.patientuda.idPatientUda;
 
                 var lmeasures = getMeasures(idReport);
                 rep.Measures = rep.Measures.Concat(lmeasures).ToList();

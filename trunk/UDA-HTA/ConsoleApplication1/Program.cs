@@ -157,6 +157,9 @@ namespace ConsoleApplication1
 
             ReportManagement rm = new ReportManagement();
             var rep = rm.getReport(2);
+            PatientManagement pm = new PatientManagement();
+            var pat = pm.GetPatientData((long) rep.Patient.UdaId);
+            rep.Patient = pat;
             string filepath = "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.docx";
             rm.generateDocument(rep, filepath);
             

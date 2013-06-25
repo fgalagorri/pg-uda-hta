@@ -912,7 +912,7 @@ namespace BussinessLogic
                 RunProperties runProperties6 = new RunProperties();
 
                 Text text30 = new Text() {Space = SpaceProcessingModeValues.Preserve};
-                text30.Text = "Fecha y hora de inicio: ";
+                text30.Text = "Fecha y hora de inicio: " + report.BeginDate.ToString();
 
                 run30.Append(runProperties6);
                 run30.Append(text30);
@@ -939,7 +939,7 @@ namespace BussinessLogic
                 RunProperties runProperties7 = new RunProperties();
 
                 Text text31 = new Text();
-                text31.Text = "Fecha y hora de fin:";
+                text31.Text = "Fecha y hora de fin: " + report.EndDate;
 
                 run31.Append(runProperties7);
                 run31.Append(text31);
@@ -947,10 +947,67 @@ namespace BussinessLogic
                 paragraph20.Append(paragraphProperties4);
                 paragraph20.Append(run31);
 
+                //-----
+                Paragraph paragraph3_1 = new Paragraph()
+                {
+                    RsidParagraphMarkRevision = "004D2B75",
+                    RsidParagraphAddition = "004D2B75",
+                    RsidParagraphProperties = "004D2B75",
+                    RsidRunAdditionDefault = "004D2B75"
+                };
+
+                ParagraphProperties paragraphProperties3_1 = new ParagraphProperties();
+                ParagraphMarkRunProperties paragraphMarkRunProperties3_1 = new ParagraphMarkRunProperties();
+                    
+                paragraphProperties3_1.Append(paragraphMarkRunProperties3_1);
+
+                Run run3_1 = new Run();
+
+                RunProperties runProperties3_1 = new RunProperties();
+
+                Text text3_1 = new Text();
+                text3_1.Text = "\n Hora inicio noche: " + report.Carnet.SleepTimeStart.ToString();
+
+                run3_1.Append(runProperties3_1);
+                run3_1.Append(text3_1);
+
+                paragraph3_1.Append(paragraphProperties3_1);
+                paragraph3_1.Append(run3_1);
+
+                //-----
+                Paragraph paragraph3_2 = new Paragraph()
+                {
+                    RsidParagraphMarkRevision = "004D2B75",
+                    RsidParagraphAddition = "004D2B75",
+                    RsidParagraphProperties = "004D2B75",
+                    RsidRunAdditionDefault = "004D2B75"
+                };
+                
+                ParagraphProperties paragraphProperties3_2 = new ParagraphProperties();
+                ParagraphMarkRunProperties paragraphMarkRunProperties3_2 = new ParagraphMarkRunProperties();
+
+                paragraphProperties3_2.Append(paragraphMarkRunProperties3_2);
+
+                Run run3_2 = new Run();
+
+                RunProperties runProperties3_2 = new RunProperties();
+
+                Text text3_2 = new Text();
+                text3_2.Text = "Hora fin noche: " + report.Carnet.SleepTimeEnd.ToString();
+
+                run3_2.Append(runProperties3_2);
+                run3_2.Append(text3_2);
+
+                paragraph3_2.Append(paragraphProperties3_2);
+                paragraph3_2.Append(run3_2);
+
+                //-----
                 tableCell18.Append(tableCellProperties18);
                 tableCell18.Append(paragraph18);
                 tableCell18.Append(paragraph19);
                 tableCell18.Append(paragraph20);
+                tableCell18.Append(paragraph3_1);
+                tableCell18.Append(paragraph3_2);
 
                 tableRow10.Append(tableCell17);
                 tableRow10.Append(tableCell18);

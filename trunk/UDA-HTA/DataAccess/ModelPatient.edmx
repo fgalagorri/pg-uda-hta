@@ -181,7 +181,6 @@
             <PropertyRef Name="idPatient" />
           </Key>
           <Property Name="idPatient" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="patientReference" Type="String" />
           <Property Name="name" Type="String" Nullable="false" />
           <Property Name="surname" Type="String" Nullable="false" />
           <Property Name="document" Type="String" Nullable="false" />
@@ -243,7 +242,6 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="patient"><EntityTypeMapping TypeName="patient_info_dbModel.patient"><MappingFragment StoreEntitySet="patient">
             <ScalarProperty Name="idPatient" ColumnName="idPatient" />
-            <ScalarProperty Name="patientReference" ColumnName="patientReference" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="surname" ColumnName="surname" />
             <ScalarProperty Name="document" ColumnName="document" />
@@ -284,14 +282,14 @@
       <Diagram Name="Model1" ZoomLevel="97">
         <EntityTypeShape EntityType="patient_info_dbModel.device_reference" Width="1.5" PointX="3" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="3.75" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.375" Height="4.2879036458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.375" Height="4.0956022135416656" IsExpanded="true" />
         <AssociationConnector Association="patient_info_dbModel.fk_device_reference_patient1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.2401432291666667" />
           <ConnectorPoint PointX="3" PointY="2.2401432291666667" />
         </AssociationConnector>
         <AssociationConnector Association="patient_info_dbModel.fk_emergency_contact_Patient" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.7064518229166667" />
-          <ConnectorPoint PointX="3" PointY="4.7064518229166667" />
+          <ConnectorPoint PointX="2.25" PointY="4.6103011067708328" />
+          <ConnectorPoint PointX="3" PointY="4.6103011067708328" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
