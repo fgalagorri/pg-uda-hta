@@ -106,7 +106,10 @@ namespace HMSDataAccess
 
                     report.Patient.DocumentId = rs.getString(3);
 
-                    report.Patient.Sex = rs.getInt(5) == 0 ? SexType.M : SexType.F;
+                    report.Patient.Sex = rs.getInt(4) == 0 ? SexType.M : SexType.F;
+
+                    report.TemporaryData.Height = rs.getInt(5);
+                    report.TemporaryData.Weight = rs.getInt(6);
 
                     report.Patient.City = rs.getString(7);
                     report.Patient.Email = rs.getString(9);
@@ -116,7 +119,6 @@ namespace HMSDataAccess
                     report.Patient.Phone = rs.getString(13);
                     report.Patient.Neighbour = rs.getString(14);
                     report.Patient.Address = rs.getString(15);
-
 
                     /*
                      * Datos reporte
