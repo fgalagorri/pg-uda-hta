@@ -819,30 +819,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String patientReference
-        {
-            get
-            {
-                return _patientReference;
-            }
-            set
-            {
-                OnpatientReferenceChanging(value);
-                ReportPropertyChanging("patientReference");
-                _patientReference = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("patientReference");
-                OnpatientReferenceChanged();
-            }
-        }
-        private global::System.String _patientReference;
-        partial void OnpatientReferenceChanging(global::System.String value);
-        partial void OnpatientReferenceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String name

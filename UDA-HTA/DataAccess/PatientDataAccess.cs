@@ -102,9 +102,23 @@ namespace DataAccess
         public Patient getPatientData(long patientId)
         {
             var patientContext = new patient_info_dbEntities();
-            var pat = patientContext.patient.Where(p => p.idPatient == patientId).Select(p => new {p.idPatient, p.address,p.birthday,p.cell_phone,p.city,p.document,
-                                                                                     p.e_mail,p.emergency_contact,p.gender,p.name,p.neighborhood,
-                                                                                     p.patientReference,p.surname,p.telephone}).ToList().First();
+            var pat = patientContext.patient.Where(p => p.idPatient == patientId).
+                                            Select(p => new 
+                                            {
+                                                p.idPatient, 
+                                                p.address,
+                                                p.birthday,
+                                                p.cell_phone,
+                                                p.city,
+                                                p.document,
+                                                p.e_mail,
+                                                p.emergency_contact,
+                                                p.gender,
+                                                p.name,
+                                                p.neighborhood,
+                                                p.surname,
+                                                p.telephone
+                                            }).ToList().First();
             Patient patient = new Patient();
             patient.UdaId = pat.idPatient;
             patient.Address = pat.address;
@@ -132,10 +146,10 @@ namespace DataAccess
             return patient;
         }
 
-        public bool ExistPatientReference(string patientRef)
+        public bool ExistPatientReference(string patientRef, int devType)
         {
             var patientContext = new patient_info_dbEntities();
-            return patientContext.patient.Any(p => p.patientReference == patientRef);
+            return patientContext.device_reference.Any(p => p.device_ref == patientRef && p.device_type == devType);
         }
 
         public long? GetPatientId(string patientRef, int dev)
