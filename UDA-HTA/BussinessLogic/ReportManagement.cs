@@ -817,6 +817,13 @@ namespace BussinessLogic
 
                 TableCellBorders tableCellBorders17 = new TableCellBorders();
                 LeftBorder leftBorder17 = new LeftBorder() {Val = BorderValues.Nil};
+                TopBorder topBorder16_1 = new TopBorder()
+                {
+                    Val = BorderValues.Single,
+                    Color = "auto",
+                    Size = (UInt32Value)4U,
+                    Space = (UInt32Value)0U
+                };
                 BottomBorder bottomBorder16 = new BottomBorder()
                     {
                         Val = BorderValues.Single,
@@ -827,6 +834,7 @@ namespace BussinessLogic
 
                 tableCellBorders17.Append(leftBorder17);
                 tableCellBorders17.Append(bottomBorder16);
+                tableCellBorders17.Append(topBorder16_1);
 
                 tableCellProperties17.Append(tableCellWidth17);
                 tableCellProperties17.Append(tableCellBorders17);
@@ -846,6 +854,13 @@ namespace BussinessLogic
                 TableCellWidth tableCellWidth18 = new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa};
 
                 TableCellBorders tableCellBorders18 = new TableCellBorders();
+                TopBorder topBorder17_1 = new TopBorder()
+                    {
+                        Val = BorderValues.Single,
+                        Color = "auto",
+                        Size = (UInt32Value)4U,
+                        Space = (UInt32Value)0U                        
+                    };
                 BottomBorder bottomBorder17 = new BottomBorder()
                     {
                         Val = BorderValues.Single,
@@ -856,6 +871,7 @@ namespace BussinessLogic
                 RightBorder rightBorder17 = new RightBorder() {Val = BorderValues.Nil};
 
                 tableCellBorders18.Append(bottomBorder17);
+                tableCellBorders18.Append(topBorder17_1);
                 tableCellBorders18.Append(rightBorder17);
 
                 tableCellProperties18.Append(tableCellWidth18);
