@@ -41,20 +41,20 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertReport$$
-CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, IN doctor VARCHAR(45), IN diagnosis TEXT, IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, IN night_max_dias INT, IN idDev INT, IN devReportId VARCHAR(45), IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT)
+CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, IN doctor VARCHAR(45), IN diagnosis TEXT, IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, IN night_max_dias INT, IN idDev INT, IN devReportId VARCHAR(45), IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT, IN day_min_sis INT, IN day_min_dias INT, IN night_min_sis INT, IN night_min_dias INT, IN tot_avg_hr INT, IN day_avg_hr INT, IN night_avg_hr INT, IN max_day_hr INT, IN max_night_hr INT, IN min_day_hr INT, IN min_night_hr INT)
 BEGIN
-INSERT INTO `udahta_db`.`report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, `temporarydata_idTemporaryData`, `dailycarnet_idDailyCarnet`, `patientuda_idPatientUda`) 
-VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, idDailyCarnet, idPatient);
+INSERT INTO `udahta_db`.`report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, `temporarydata_idTemporaryData`, `dailycarnet_idDailyCarnet`, `patientuda_idPatientUda`, `day_min_sis`, `day_min_dias`, `night_min_sis`, `night_min_dias`, `tot_avg_hr`, `day_avg_hr`, `night_avg_hr`, `max_day_hr`, `max_night_hr`, `min_day_hr`, `min_night_hr`) 
+VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, idDailyCarnet, idPatient, day_min_sis, day_min_dias, night_min_sis, night_min_dias, tot_avg_hr, day_avg_hr, night_avg_hr, max_day_hr, max_night_hr, min_day_hr, min_night_hr);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMeasurement$$
-CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN comm TEXT, IN idReport BIGINT, IN idPatient BIGINT)
+CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN isValid INT, IN comm TEXT, IN idReport BIGINT, IN idPatient BIGINT)
 BEGIN
-INSERT INTO `udahta_db`.`measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `comment`, `report_idReport`, `report_patientuda_idPatientUda`) 
-VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, comm, idReport, idPatient);
+INSERT INTO `udahta_db`.`measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `isValid`,`comment`, `report_idReport`, `report_patientuda_idPatientUda`) 
+VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, comm, idReport, idPatient);
 END$$
 DELIMITER ;
 
