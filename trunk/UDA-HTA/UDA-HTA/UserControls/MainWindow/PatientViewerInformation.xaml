@@ -40,24 +40,24 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
                         <TextBlock Style="{StaticResource label}">Nombres:</TextBlock>
-                        <TextBlock Name="lblNames" Margin="15,0">Juan Alberto</TextBlock>
+                        <TextBlock Name="lblNames" Margin="15,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                         <TextBlock Style="{StaticResource label}">Apellidos:</TextBlock>
-                        <TextBlock Name="lblLast" Margin="15,0">Pérez Manzanares</TextBlock>
+                        <TextBlock Name="lblLast" Margin="15,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2">
                         <TextBlock Style="{StaticResource label}">CI:</TextBlock>
-                        <TextBlock Name="lblCI" Margin="15,0">1.234.567-8</TextBlock>
+                        <TextBlock Name="lblCI" Margin="15,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
                         <TextBlock Style="{StaticResource label}">Fecha de Nacimiento:</TextBlock>
-                        <TextBlock Name="lblBirth" Margin="15,0">01/01/1986</TextBlock>
-                        <TextBlock Name="lblAge">25 años</TextBlock>
+                        <TextBlock Name="lblBirth" Margin="15,0" />
+                        <TextBlock Name="lblAge" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="4">
                         <TextBlock Style="{StaticResource label}">Sexo:</TextBlock>
-                        <TextBlock Name="lblSex" Margin="15,0">Masculino</TextBlock>
+                        <TextBlock Name="lblSex" Margin="15,0" />
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -83,52 +83,52 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
-                        <TextBlock Name="txtWeight">95</TextBlock>
+                        <TextBlock Name="lblWeight" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
-                        <TextBlock Name="txtHeight">1.80</TextBlock>
+                        <TextBlock Name="lblHeight" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
-                        <TextBlock Name="lblImc" >29.32</TextBlock>
+                        <TextBlock Name="lblImc" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">%Grasa:</TextBlock>
-                        <TextBlock Name="txtFat">98</TextBlock>
+                        <TextBlock Name="lblFat" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">%Músculo:</TextBlock>
-                        <TextBlock Name="txtMuscle">45</TextBlock>
+                        <TextBlock Name="lblMuscle" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
                         <Border />
                         <TextBlock  Margin="15,0" Style="{StaticResource label}">KCal:</TextBlock>
-                        <TextBlock Name="txtKcal">500</TextBlock>
+                        <TextBlock Name="lblKcal" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
-                        <TextBlock Name="lblSmoker">Si</TextBlock>
+                        <TextBlock Name="lblSmoker" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
-                        <TextBlock Name="lblDiabetes">No</TextBlock>
+                        <TextBlock Name="lblDiabetes" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
-                        <TextBlock Name="lblColesterol">Si</TextBlock>
+                        <TextBlock Name="lblColesterol" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
-                        <TextBlock Name="lblHypertense">No</TextBlock>
+                        <TextBlock Name="lblHypertense" />
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -191,41 +191,41 @@
                     
                     <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
                         <TextBlock Margin="0,0,15,0"  Style="{StaticResource label}">Dirección:</TextBlock>
-                        <TextBlock Name="txtAddress" TextWrapping="Wrap">18 de julio 1586 apto. 303</TextBlock>
+                        <TextBlock Name="lblAddress" TextWrapping="Wrap" />
                     </DockPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Barrio:</TextBlock>
-                        <TextBlock Name="txtNeighbour">La tablada</TextBlock>
+                        <TextBlock Name="lblNeighbour" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Ciudad:</TextBlock>
-                        <TextBlock Name="txtCity">Mercedes</TextBlock>
+                        <TextBlock Name="lblCity" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
                         <Border />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Departamento:</TextBlock>
-                        <TextBlock Name="txtDepartament">Soriano</TextBlock>
+                        <TextBlock Name="lblDepartament" />
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Teléfono:</TextBlock>
-                        <TextBlock Name="txtTel">2200 8855</TextBlock>
+                        <TextBlock Name="lblTel" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                         <Border  />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Celular:</TextBlock>
-                        <TextBlock Name="txtCel">099 123 456</TextBlock>
+                        <TextBlock Name="lblCel" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
                         <Border  />
                         <TextBlock Margin="15,0" Style="{StaticResource label}">Teléfono alternativo:</TextBlock>
-                        <TextBlock Name="txtTelAlt">099 123 456</TextBlock>
+                        <TextBlock Name="lblTelAlt" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                         <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">e-Mail:</TextBlock>
-                        <TextBlock Name="txtMail">japerezm@gmail.com</TextBlock>
+                        <TextBlock Name="lblMail" />
                     </StackPanel>
                 </Grid>
             </GroupBox>

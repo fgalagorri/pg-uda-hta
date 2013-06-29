@@ -66,7 +66,8 @@ namespace UDA_HTA
                     grReports.IsEnabled = false;
                     grReports.IsEnabled = true;
                 }
-                    Close();
+
+                Close();
             }
         }
     }

@@ -19,15 +19,15 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Drug_DrugType", "drugtype", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drugtype), "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.drug), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDosis_Drug1", "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drug), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Measurement_Report1", "report", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.report), "measurement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.measurement), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicalHistory_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "medicalhistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicalhistory), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDose_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "investigation_has_report", "investigation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.investigation), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report))]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Measurement_Report1", "report", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.report), "measurement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.measurement), true)]
 
 #endregion
 
@@ -162,22 +162,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<measurement> measurement
-        {
-            get
-            {
-                if ((_measurement == null))
-                {
-                    _measurement = base.CreateObjectSet<measurement>("measurement");
-                }
-                return _measurement;
-            }
-        }
-        private ObjectSet<measurement> _measurement;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<medicalhistory> medicalhistory
         {
             get
@@ -226,22 +210,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<report> report
-        {
-            get
-            {
-                if ((_report == null))
-                {
-                    _report = base.CreateObjectSet<report>("report");
-                }
-                return _report;
-            }
-        }
-        private ObjectSet<report> _report;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<temporarydata> temporarydata
         {
             get
@@ -270,6 +238,38 @@ namespace DataAccess
             }
         }
         private ObjectSet<user> _user;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<report> report
+        {
+            get
+            {
+                if ((_report == null))
+                {
+                    _report = base.CreateObjectSet<report>("report");
+                }
+                return _report;
+            }
+        }
+        private ObjectSet<report> _report;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<measurement> measurement
+        {
+            get
+            {
+                if ((_measurement == null))
+                {
+                    _measurement = base.CreateObjectSet<measurement>("measurement");
+                }
+                return _measurement;
+            }
+        }
+        private ObjectSet<measurement> _measurement;
 
         #endregion
         #region AddTo Methods
@@ -315,14 +315,6 @@ namespace DataAccess
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the measurement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomeasurement(measurement measurement)
-        {
-            base.AddObject("measurement", measurement);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the medicalhistory EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTomedicalhistory(medicalhistory medicalhistory)
@@ -347,14 +339,6 @@ namespace DataAccess
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the report EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToreport(report report)
-        {
-            base.AddObject("report", report);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the temporarydata EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTotemporarydata(temporarydata temporarydata)
@@ -368,6 +352,22 @@ namespace DataAccess
         public void AddTouser(user user)
         {
             base.AddObject("user", user);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the report EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToreport(report report)
+        {
+            base.AddObject("report", report);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the measurement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTomeasurement(measurement measurement)
+        {
+            base.AddObject("measurement", measurement);
         }
 
         #endregion
@@ -1183,7 +1183,18 @@ namespace DataAccess
         /// <param name="idTemporaryData">No Metadata Documentation available.</param>
         /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
         /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient)
+        /// <param name="day_min_sis">No Metadata Documentation available.</param>
+        /// <param name="day_min_dias">No Metadata Documentation available.</param>
+        /// <param name="night_min_sis">No Metadata Documentation available.</param>
+        /// <param name="night_min_dias">No Metadata Documentation available.</param>
+        /// <param name="tot_avg_hr">No Metadata Documentation available.</param>
+        /// <param name="day_avg_hr">No Metadata Documentation available.</param>
+        /// <param name="night_avg_hr">No Metadata Documentation available.</param>
+        /// <param name="max_day_hr">No Metadata Documentation available.</param>
+        /// <param name="max_night_hr">No Metadata Documentation available.</param>
+        /// <param name="min_day_hr">No Metadata Documentation available.</param>
+        /// <param name="min_night_hr">No Metadata Documentation available.</param>
+        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr)
         {
             ObjectParameter begin_dateParameter;
             if (begin_date.HasValue)
@@ -1395,7 +1406,117 @@ namespace DataAccess
                 idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter);
+            ObjectParameter day_min_sisParameter;
+            if (day_min_sis.HasValue)
+            {
+                day_min_sisParameter = new ObjectParameter("day_min_sis", day_min_sis);
+            }
+            else
+            {
+                day_min_sisParameter = new ObjectParameter("day_min_sis", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter day_min_diasParameter;
+            if (day_min_dias.HasValue)
+            {
+                day_min_diasParameter = new ObjectParameter("day_min_dias", day_min_dias);
+            }
+            else
+            {
+                day_min_diasParameter = new ObjectParameter("day_min_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_min_sisParameter;
+            if (night_min_sis.HasValue)
+            {
+                night_min_sisParameter = new ObjectParameter("night_min_sis", night_min_sis);
+            }
+            else
+            {
+                night_min_sisParameter = new ObjectParameter("night_min_sis", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_min_diasParameter;
+            if (night_min_dias.HasValue)
+            {
+                night_min_diasParameter = new ObjectParameter("night_min_dias", night_min_dias);
+            }
+            else
+            {
+                night_min_diasParameter = new ObjectParameter("night_min_dias", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter tot_avg_hrParameter;
+            if (tot_avg_hr.HasValue)
+            {
+                tot_avg_hrParameter = new ObjectParameter("tot_avg_hr", tot_avg_hr);
+            }
+            else
+            {
+                tot_avg_hrParameter = new ObjectParameter("tot_avg_hr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter day_avg_hrParameter;
+            if (day_avg_hr.HasValue)
+            {
+                day_avg_hrParameter = new ObjectParameter("day_avg_hr", day_avg_hr);
+            }
+            else
+            {
+                day_avg_hrParameter = new ObjectParameter("day_avg_hr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter night_avg_hrParameter;
+            if (night_avg_hr.HasValue)
+            {
+                night_avg_hrParameter = new ObjectParameter("night_avg_hr", night_avg_hr);
+            }
+            else
+            {
+                night_avg_hrParameter = new ObjectParameter("night_avg_hr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter max_day_hrParameter;
+            if (max_day_hr.HasValue)
+            {
+                max_day_hrParameter = new ObjectParameter("max_day_hr", max_day_hr);
+            }
+            else
+            {
+                max_day_hrParameter = new ObjectParameter("max_day_hr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter max_night_hrParameter;
+            if (max_night_hr.HasValue)
+            {
+                max_night_hrParameter = new ObjectParameter("max_night_hr", max_night_hr);
+            }
+            else
+            {
+                max_night_hrParameter = new ObjectParameter("max_night_hr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter min_day_hrParameter;
+            if (min_day_hr.HasValue)
+            {
+                min_day_hrParameter = new ObjectParameter("min_day_hr", min_day_hr);
+            }
+            else
+            {
+                min_day_hrParameter = new ObjectParameter("min_day_hr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter min_night_hrParameter;
+            if (min_night_hr.HasValue)
+            {
+                min_night_hrParameter = new ObjectParameter("min_night_hr", min_night_hr);
+            }
+            else
+            {
+                min_night_hrParameter = new ObjectParameter("min_night_hr", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter);
         }
     
         /// <summary>
@@ -2764,12 +2885,14 @@ namespace DataAccess
         /// Create a new measurement object.
         /// </summary>
         /// <param name="idMeasurement">Initial value of the idMeasurement property.</param>
+        /// <param name="is_valid">Initial value of the is_valid property.</param>
         /// <param name="report_idReport">Initial value of the report_idReport property.</param>
         /// <param name="report_patientuda_idPatientUda">Initial value of the report_patientuda_idPatientUda property.</param>
-        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda)
+        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Boolean is_valid, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda)
         {
             measurement measurement = new measurement();
             measurement.idMeasurement = idMeasurement;
+            measurement.is_valid = is_valid;
             measurement.report_idReport = report_idReport;
             measurement.report_patientuda_idPatientUda = report_patientuda_idPatientUda;
             return measurement;
@@ -2972,6 +3095,30 @@ namespace DataAccess
         private global::System.String _comment;
         partial void OncommentChanging(global::System.String value);
         partial void OncommentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean is_valid
+        {
+            get
+            {
+                return _is_valid;
+            }
+            set
+            {
+                Onis_validChanging(value);
+                ReportPropertyChanging("is_valid");
+                _is_valid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_valid");
+                Onis_validChanged();
+            }
+        }
+        private global::System.Boolean _is_valid;
+        partial void Onis_validChanging(global::System.Boolean value);
+        partial void Onis_validChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4174,6 +4321,270 @@ namespace DataAccess
         private global::System.Int32 _temporarydata_idTemporaryData;
         partial void Ontemporarydata_idTemporaryDataChanging(global::System.Int32 value);
         partial void Ontemporarydata_idTemporaryDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> day_min_sis
+        {
+            get
+            {
+                return _day_min_sis;
+            }
+            set
+            {
+                Onday_min_sisChanging(value);
+                ReportPropertyChanging("day_min_sis");
+                _day_min_sis = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("day_min_sis");
+                Onday_min_sisChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _day_min_sis;
+        partial void Onday_min_sisChanging(Nullable<global::System.Int32> value);
+        partial void Onday_min_sisChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> day_min_dias
+        {
+            get
+            {
+                return _day_min_dias;
+            }
+            set
+            {
+                Onday_min_diasChanging(value);
+                ReportPropertyChanging("day_min_dias");
+                _day_min_dias = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("day_min_dias");
+                Onday_min_diasChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _day_min_dias;
+        partial void Onday_min_diasChanging(Nullable<global::System.Int32> value);
+        partial void Onday_min_diasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> night_min_sis
+        {
+            get
+            {
+                return _night_min_sis;
+            }
+            set
+            {
+                Onnight_min_sisChanging(value);
+                ReportPropertyChanging("night_min_sis");
+                _night_min_sis = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("night_min_sis");
+                Onnight_min_sisChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _night_min_sis;
+        partial void Onnight_min_sisChanging(Nullable<global::System.Int32> value);
+        partial void Onnight_min_sisChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> night_min_dias
+        {
+            get
+            {
+                return _night_min_dias;
+            }
+            set
+            {
+                Onnight_min_diasChanging(value);
+                ReportPropertyChanging("night_min_dias");
+                _night_min_dias = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("night_min_dias");
+                Onnight_min_diasChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _night_min_dias;
+        partial void Onnight_min_diasChanging(Nullable<global::System.Int32> value);
+        partial void Onnight_min_diasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> tot_avg_hr
+        {
+            get
+            {
+                return _tot_avg_hr;
+            }
+            set
+            {
+                Ontot_avg_hrChanging(value);
+                ReportPropertyChanging("tot_avg_hr");
+                _tot_avg_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("tot_avg_hr");
+                Ontot_avg_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _tot_avg_hr;
+        partial void Ontot_avg_hrChanging(Nullable<global::System.Int32> value);
+        partial void Ontot_avg_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> day_avg_hr
+        {
+            get
+            {
+                return _day_avg_hr;
+            }
+            set
+            {
+                Onday_avg_hrChanging(value);
+                ReportPropertyChanging("day_avg_hr");
+                _day_avg_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("day_avg_hr");
+                Onday_avg_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _day_avg_hr;
+        partial void Onday_avg_hrChanging(Nullable<global::System.Int32> value);
+        partial void Onday_avg_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> night_avg_hr
+        {
+            get
+            {
+                return _night_avg_hr;
+            }
+            set
+            {
+                Onnight_avg_hrChanging(value);
+                ReportPropertyChanging("night_avg_hr");
+                _night_avg_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("night_avg_hr");
+                Onnight_avg_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _night_avg_hr;
+        partial void Onnight_avg_hrChanging(Nullable<global::System.Int32> value);
+        partial void Onnight_avg_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> max_day_hr
+        {
+            get
+            {
+                return _max_day_hr;
+            }
+            set
+            {
+                Onmax_day_hrChanging(value);
+                ReportPropertyChanging("max_day_hr");
+                _max_day_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("max_day_hr");
+                Onmax_day_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _max_day_hr;
+        partial void Onmax_day_hrChanging(Nullable<global::System.Int32> value);
+        partial void Onmax_day_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> max_night_hr
+        {
+            get
+            {
+                return _max_night_hr;
+            }
+            set
+            {
+                Onmax_night_hrChanging(value);
+                ReportPropertyChanging("max_night_hr");
+                _max_night_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("max_night_hr");
+                Onmax_night_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _max_night_hr;
+        partial void Onmax_night_hrChanging(Nullable<global::System.Int32> value);
+        partial void Onmax_night_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> min_day_hr
+        {
+            get
+            {
+                return _min_day_hr;
+            }
+            set
+            {
+                Onmin_day_hrChanging(value);
+                ReportPropertyChanging("min_day_hr");
+                _min_day_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("min_day_hr");
+                Onmin_day_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _min_day_hr;
+        partial void Onmin_day_hrChanging(Nullable<global::System.Int32> value);
+        partial void Onmin_day_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> min_night_hr
+        {
+            get
+            {
+                return _min_night_hr;
+            }
+            set
+            {
+                Onmin_night_hrChanging(value);
+                ReportPropertyChanging("min_night_hr");
+                _min_night_hr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("min_night_hr");
+                Onmin_night_hrChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _min_night_hr;
+        partial void Onmin_night_hrChanging(Nullable<global::System.Int32> value);
+        partial void Onmin_night_hrChanged();
 
         #endregion
     
@@ -4213,28 +4624,6 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Measurement_Report1", "measurement")]
-        public EntityCollection<measurement> measurement
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<measurement>("udahta_dbModel.fk_Measurement_Report1", "measurement");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<measurement>("udahta_dbModel.fk_Measurement_Report1", "measurement", value);
                 }
             }
         }
@@ -4333,6 +4722,28 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<investigation>("udahta_dbModel.investigation_has_report", "investigation", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Measurement_Report1", "measurement")]
+        public EntityCollection<measurement> measurement
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<measurement>("udahta_dbModel.fk_Measurement_Report1", "measurement");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<measurement>("udahta_dbModel.fk_Measurement_Report1", "measurement", value);
                 }
             }
         }

@@ -43,10 +43,10 @@ namespace BussinessLogic
             return lp;
         }
 
-        public Patient GetPatientData(long patientId)
+        public Patient GetPatient(long patientId)
         {
             var pda = new PatientDataAccess();
-            return pda.getPatientData(patientId);
+            return pda.GetPatient(patientId);
         }
 
         public long? GetPatientIdIfExist(string patientRefId, int dev)
@@ -60,5 +60,10 @@ namespace BussinessLogic
             return false;
         }
 
+        public TemporaryData GetLastTempData(long patientId)
+        {
+            var uda = new UdaHtaDataAccess();
+            return uda.GetLastTempData(patientId);
+        }
     }
 }

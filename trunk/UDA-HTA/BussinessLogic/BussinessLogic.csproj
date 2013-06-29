@@ -31,7 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\Packages\OpenXml\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="PdfSharp-WPF">
       <HintPath>..\..\Packages\PdfSharp\PdfSharp-WPF.dll</HintPath>
     </Reference>

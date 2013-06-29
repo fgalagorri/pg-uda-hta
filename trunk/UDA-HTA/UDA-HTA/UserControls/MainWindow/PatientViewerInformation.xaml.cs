@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using Entities;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.MainWindow
 {
@@ -34,14 +36,48 @@ namespace UDA_HTA.UserControls.MainWindow
             grBackground.DataContext = b;
         }
 
-        private int calculateAge(DatePicker d)
+
+        public void SetPatientInfo(Patient patient)
         {
-            DateTime now = DateTime.Today;
-            int age = now.Year - d.SelectedDate.Value.Year;
-            if (d.SelectedDate > now.AddYears(-age)) age--;
-            return age;
+            var tempData = patient.LastTempData;
+
+            // Identificación
+            lblNames.Text = patient.Names;
+            lblLast.Text = patient.Surnames;
+            lblCI.Text = patient.DocumentId;
+            lblBirth.Text = patient.BirthDate.Value.ToShortDateString();
+            lblAge.Text = patient.BirthDate.Value.CalculateAge().ToString();
+            lblSex.Text = patient.Sex.Value == SexType.M ? "Masculino" : "Femenino";
+
+            // Condición
+            if (tempData != null)
+            {
+                lblWeight.Text = tempData.Weight.ToString();
+                lblHeight.Text = tempData.Height.ToString();
+                lblImc.Text = tempData.BodyMassIndex.ToString();
+                lblFat.Text = tempData.FatPercentage.ToString();
+                lblMuscle.Text = tempData.MusclePercentage.ToString();
+                lblKcal.Text = tempData.Kcal.ToString();
+                lblSmoker.Text = tempData.Smoker.Value ? "Si" : "No";
+                lblDiabetes.Text = tempData.Diabetic.Value ? "Si" : "No";
+                lblColesterol.Text = tempData.Dyslipidemia.Value ? "Si" : "No";
+                lblHypertense.Text = tempData.Hypertensive.Value ? "Si" : "No";
+            }
+
+            // Dirección
+            lblAddress.Text = patient.Address;
+            lblNeighbour.Text = patient.Neighbour;
+            lblCity.Text = patient.City;
+            lblDepartament.Text = patient.Department;
+            lblTel.Text = patient.Phone;
+            lblCel.Text = patient.CellPhone;
+            lblTelAlt.Text = "Ver...";
+            lblMail.Text = patient.Email;
         }
+
     }
+
+
 
 
     /* PROVISORIO */ // TODO sacar esto para otra dll que tenga las entidades

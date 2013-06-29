@@ -119,7 +119,6 @@ namespace SpacelabsDataAccess
                             EndDate = r.HookupEndTime,
                             Patient = new Patient
                                 {
-                                     
                                     Names = r.FirstName,
                                     Surnames = (r.LastName + " " + r.SecondLastName).Trim(),
                                     DocumentId = r.CI,
@@ -204,7 +203,8 @@ namespace SpacelabsDataAccess
                                    Middle = d.MAP.Value,
                                    HeartRate = d.HR.Value,
                                    Asleep = (report.Carnet.SleepTimeStart <= d.ReadingTime &&
-                                             report.Carnet.SleepTimeEnd >= d.ReadingTime)
+                                             report.Carnet.SleepTimeEnd >= d.ReadingTime),
+                                   Valid = d.EventCode.HasValue && d.EventCode.Value == 0
                                };
 
             return measures.ToList();

@@ -36,8 +36,10 @@ namespace Entities
         public long? RegisterNumer { get; set; }
         public ICollection<DeviceReference> DeviceReferences { get; set; } 
 
+        public TemporaryData LastTempData { get; set; }
+
         public ICollection<EmergencyContact> EmergencyContactList { get; set; } 
         public ICollection<MedicalRecord> Background { get; set; } 
-        private ICollection<Report> ReportList  { get; set; }
+        public ICollection<Report> ReportList  { get; set; }
     }
 }

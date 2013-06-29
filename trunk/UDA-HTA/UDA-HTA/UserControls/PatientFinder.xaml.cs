@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Entities;
 using Gateway;
 
 namespace UDA_HTA.UserControls
@@ -20,17 +10,22 @@ namespace UDA_HTA.UserControls
     /// </summary>
     public partial class PatientFinder : UserControl
     {
-        public PatientFinder()
+        private UDA_HTA.MainWindow container;
+
+        public PatientFinder(UDA_HTA.MainWindow w)
         {
             InitializeComponent();
+            container = w;
         }
 
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            long registry;
             var controller = GatewayController.GetInstance();
-            var patients = controller.ListPatients(txtDocument.Text, txtName.Text, txtSurname.Text,
-                                                   dtBirthDate.SelectedDate, long.Parse(txtRegistry.Text));
+            bool hasRegistry = long.TryParse(txtRegistry.Text, out registry);
+            var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(), txtSurname.Text.Trim(),
+                                                   dtBirthDate.SelectedDate, hasRegistry ? (long?) registry : null);
 
             grPatients.DataContext = patients;
         }
@@ -38,7 +33,8 @@ namespace UDA_HTA.UserControls
 
         private void grPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Open patient viewer for the selected patient...
+            if (((DataGrid) sender).SelectedIndex != -1)
+                container.PatientSelected((PatientSearch) e.AddedItems[0]);
         }
     }
 }

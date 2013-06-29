@@ -99,7 +99,7 @@ namespace DataAccess
             }
         }
 
-        public Patient getPatientData(long patientId)
+        public Patient GetPatient(long patientId)
         {
             var patientContext = new patient_info_dbEntities();
             var pat = patientContext.patient.Where(p => p.idPatient == patientId).

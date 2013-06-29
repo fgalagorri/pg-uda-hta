@@ -223,41 +223,55 @@ namespace DataAccess
             using (udaContext = new udahta_dbEntities())
             {
                 var query = udaContext.report
-                    .Where(r => r.patientuda_idPatientUda == patientId)
-                    .Select(r => new
-                    {
-                        r.idReport,
-                        r.dailycarnet_idDailyCarnet,
-                        r.patientuda_idPatientUda,
-                        r.temporarydata_idTemporaryData,
-                        r.begin_date,
-                        r.dailycarnet,
-                        r.day_avg_dias,
-                        r.day_avg_sys,
-                        r.day_max_dias,
-                        r.day_max_sys,
-                        r.deviceReportId,
-                        r.diagnosis,
-                        r.doctor,
-                        r.end_date,
-                        r.idDevice,
-                        r.investigation,
-                        r.measurement,
-                        r.night_avg_dias,
-                        r.night_avg_sys,
-                        r.night_max_dias,
-                        r.night_max_sys,
-                        r.patientuda,
-                        r.request_doctor,
-                        r.specialty,
-                        r.temporarydata,
-                        r.total_avg_dias,
-                        r.total_avg_sys
-                    }).ToList();
+                                      .Where(r => r.patientuda_idPatientUda == patientId)
+                                      .Select(r => new
+                                          {
+                                              r.idReport,
+                                              r.dailycarnet_idDailyCarnet,
+                                              r.patientuda_idPatientUda,
+                                              r.temporarydata_idTemporaryData,
+                                              r.begin_date,
+                                              r.dailycarnet,
+                                              r.day_avg_dias,
+                                              r.day_avg_sys,
+                                              r.day_max_dias,
+                                              r.day_max_sys,
+                                              r.deviceReportId,
+                                              r.diagnosis,
+                                              r.doctor,
+                                              r.end_date,
+                                              r.idDevice,
+                                              r.investigation,
+                                              r.measurement,
+                                              r.night_avg_dias,
+                                              r.night_avg_sys,
+                                              r.night_max_dias,
+                                              r.night_max_sys,
+                                              r.patientuda,
+                                              r.request_doctor,
+                                              r.specialty,
+                                              r.temporarydata,
+                                              r.total_avg_dias,
+                                              r.total_avg_sys
+                                          });
+
+                var measurements = udaContext.measurement
+                                             .Where(m => m.report_patientuda_idPatientUda == patientId)
+                                             .Select(m => new Measurement
+                                                 {
+                                                     Asleep = m.sleep,
+                                                     Systolic = m.systolic,
+                                                     Middle = m.average,
+                                                     Diastolic = m.diastolic,
+                                                     HeartRate = m.heart_rate,
+                                                     Time = m.date,
+                                                     Comment = m.comment,
+                                                     ReportId = m.report_idReport
+                                                 });
 
                 foreach (var rep in query)
                 {
-                    var report = new Report()
+                    var report = new Report
                     {
                         BeginDate = rep.begin_date,
                         DiastolicDayAvg = rep.day_avg_dias,
@@ -347,6 +361,10 @@ namespace DataAccess
                     report.TemporaryData.Smoker = rep.temporarydata.smoker;
                     report.TemporaryData.Weight = rep.temporarydata.weight;
 
+                    // Measurements del Reporte
+                    report.Measures = measurements.Where(m => m.ReportId == report.UdaId)
+                                                  .OrderBy(m => m.Time).ToList();
+
                     lrep.Add(report);
                 }
 
@@ -368,22 +386,55 @@ namespace DataAccess
             { //si TemporaryData existe, insertar
                 rep.TemporaryDataId = insertTemporaryData(rep.TemporaryData);    
             }
+
+            // Calculo de máximos, mínimos y promedios de Sys, Mid, Dias y HR
+            var valid = rep.Measures.Where(m => m.Valid).ToList();
+
+            int sysTotalAvg = (int)Math.Round(valid.Average(m => m.Systolic.Value));
+            int sysDayAvg = (int) Math.Round(valid.Where(m => !m.Asleep.Value).Average(m => m.Systolic.Value));
+            int sysNightAvg = (int)Math.Round(valid.Where(m => m.Asleep.Value).Average(m => m.Systolic.Value));
+            int sysDayMax = valid.Where(m => !m.Asleep.Value).Max(m => m.Systolic.Value);
+            int sysNightMax = valid.Where(m => m.Asleep.Value).Max(m => m.Systolic.Value);
+            int sysDayMin = valid.Where(m => !m.Asleep.Value).Min(m => m.Systolic.Value);
+            int sysNightMin = valid.Where(m => m.Asleep.Value).Min(m => m.Systolic.Value);
+
+            int diasTotalAvg = (int)Math.Round(valid.Average(m => m.Diastolic.Value));
+            int diasDayAvg = (int)Math.Round(valid.Where(m => !m.Asleep.Value).Average(m => m.Diastolic.Value));
+            int diasNightAvg = (int)Math.Round(valid.Where(m => m.Asleep.Value).Average(m => m.Diastolic.Value));
+            int diasDayMax = valid.Where(m => !m.Asleep.Value).Max(m => m.Diastolic.Value);
+            int diasNightMax = valid.Where(m => m.Asleep.Value).Max(m => m.Diastolic.Value);
+            int diasDayMin = valid.Where(m => !m.Asleep.Value).Min(m => m.Diastolic.Value);
+            int diasNightMin = valid.Where(m => m.Asleep.Value).Min(m => m.Diastolic.Value);
+
+            int hrTotalAvg = (int)Math.Round(valid.Average(m => m.HeartRate.Value));
+            int hrDayAvg = (int)Math.Round(valid.Where(m => !m.Asleep.Value).Average(m => m.HeartRate.Value));
+            int hrNightAvg = (int)Math.Round(valid.Where(m => m.Asleep.Value).Average(m => m.HeartRate.Value));
+            int hrDayMax = valid.Where(m => !m.Asleep.Value).Max(m => m.HeartRate.Value);
+            int hrNightMax = valid.Where(m => m.Asleep.Value).Max(m => m.HeartRate.Value);
+            int hrDayMin = valid.Where(m => !m.Asleep.Value).Min(m => m.HeartRate.Value);
+            int hrNightMin = valid.Where(m => m.Asleep.Value).Min(m => m.HeartRate.Value);
             
+
             using (udaContext = new udahta_dbEntities())
             {
-                ObjectParameter lastIdReport = new ObjectParameter("id", typeof(long));
-                udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name, rep.Diagnosis, rep.RequestDoctor,
-                                        rep.RequestDoctorSpeciality, rep.SystolicDayAvg, rep.SystolicNightAvg, rep.SystolicTotalAvg, rep.SystolicDayMax,
-                                        rep.SystolicNightMax, rep.DiastolicDayAvg, rep.DiastolicNightAvg, rep.DiastolicTotalAvg, rep.DiastolicDayMax,
-                                        rep.DiastolicNightMax, rep.DeviceId, rep.DeviceReportId, rep.TemporaryDataId, rep.DailyCarnetId,
-                                        rep.Patient.UdaId);
+                var lastIdReport = new ObjectParameter("id", typeof(long));
+                udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name,
+                                        rep.Diagnosis, rep.RequestDoctor, rep.RequestDoctorSpeciality,
+                                        sysDayAvg, sysNightAvg, sysTotalAvg, sysDayMax, sysNightMax,
+                                        diasDayAvg, diasNightAvg, diasTotalAvg, diasDayMax, diasNightMax,
+                                        rep.DeviceId, rep.DeviceReportId, rep.TemporaryDataId,
+                                        rep.DailyCarnetId, rep.Patient.UdaId,
+                                        sysDayMin, diasDayMin, sysNightMin, diasNightMin,
+                                        hrTotalAvg, hrDayAvg, hrNightAvg,
+                                        hrDayMax, hrNightMax, hrDayMin, hrNightMin);
 
                 //Obtener lista de medidas para insertar en tabla Measurement
                 ICollection<Measurement> lmeasure = rep.Measures;
 
                 foreach (Measurement m in lmeasure)
                 {
-                    udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate, m.Asleep, m.Comment, (long?)lastIdReport.Value,
+                    udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate,
+                                                 m.Asleep, m.Comment, (long?) lastIdReport.Value,
                                                  rep.Patient.UdaId);
                 }
                 
@@ -422,6 +473,38 @@ namespace DataAccess
 
                 return (long)lastIdDailyReport.Value;
                 
+            }
+        }
+
+        public TemporaryData GetLastTempData(long patientId)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                var tempData = (from r in udaContext.report
+                                join td in udaContext.temporarydata on
+                                    r.temporarydata_idTemporaryData equals td.idTemporaryData
+                                where r.patientuda_idPatientUda == patientId
+                                orderby r.begin_date
+                                select new TemporaryData
+                                    {
+                                        IdTemporaryData = td.idTemporaryData,
+                                        Age = td.age,
+                                        BodyMassIndex = td.body_mass_index,
+                                        Diabetic = td.diabetic,
+                                        Dyslipidemia = td.dyslipidemia,
+                                        FatPercentage = td.fat_percentage,
+                                        Height = td.height,
+                                        Hypertensive = td.known_hypertensive,
+                                        Kcal = td.kcal,
+                                        MusclePercentage = td.muscle_percentage,
+                                        Smoker = td.smoker,
+                                        Weight = td.weight
+                                    }).FirstOrDefault();
+                
+                //if(tempData != null)
+                    // AGREGAR LA LISTA DE MEDICAMENTOS
+
+                return tempData;
             }
         }
 

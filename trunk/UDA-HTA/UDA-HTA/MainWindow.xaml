@@ -30,7 +30,7 @@
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Paciente">
-                    <r:RibbonButton Name="btnFindPatient" Label="Búsqueda" LargeImageSource="/Images/ribbon_findPatient.png"/>
+                    <r:RibbonButton Name="btnFindPatient" Label="Búsqueda" LargeImageSource="/Images/ribbon_findPatient.png" Click="btnFindPatient_Click"/>
                     <r:RibbonButton Name="btnNewPatient" Label="Nuevo" LargeImageSource="/Images/ribbon_newPatient.png"/>
                     <r:RibbonButton Name="btnEditPatient" Label="Editar" LargeImageSource="/Images/ribbon_editPatient.png"/>
                 </r:RibbonGroup>
