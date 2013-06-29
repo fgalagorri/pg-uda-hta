@@ -17,5 +17,15 @@ namespace UDA_HTA.Helpers
 
             return date;
         } 
+
+
+        public static int CalculateAge(this DateTime d)
+        {
+            DateTime now = DateTime.Today;
+            int age = now.Year - d.Year;
+            if (d.Date > now.AddYears(-age))
+                age--;
+            return age;
+        }
     }
 }

@@ -56,24 +56,22 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
-                <TextBlock Name="lblTecnico" Grid.Row="0" Grid.Column="1">José Boggia</TextBlock>
+                <TextBlock Name="lblTechnician" Grid.Row="0" Grid.Column="1" />
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
-                <TextBlock Name="lblEstudioIni" Grid.Row="1" Grid.Column="1">11/11/2012 13.45</TextBlock>
+                <TextBlock Name="lblBeginDate" Grid.Row="1" Grid.Column="1" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
-                <TextBlock Name="lblSuenoIni" Grid.Row="2" Grid.Column="1">12/11/2012 00.30</TextBlock>
+                <TextBlock Name="lblSleepStart" Grid.Row="2" Grid.Column="1" />
                 <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
-                <TextBlock Name="lblSuenoFin" Grid.Row="2" Grid.Column="4">12/11/2012 07.35</TextBlock>
+                <TextBlock Name="lblSleepEnd" Grid.Row="2" Grid.Column="4" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
-                <TextBlock Name="lblSuenoCalidad" Grid.Row="3" Grid.Column="1">Regular</TextBlock>
-                <TextBlock Name="lblSuenoDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5">
-                        Tuvo dificultades para dormir debido a que el aparato lo molestaba al tomar la presión.
-                </TextBlock>
-
+                <TextBlock Name="lblSleepQty" Grid.Row="3" Grid.Column="1">Regular</TextBlock>
+                <TextBlock Name="lblSleepDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5" />
+                
                 <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
-                <TextBlock Name="lblComida" Grid.Row="4" Grid.Column="1">11/11/2012 15.15</TextBlock>
+                <TextBlock Name="lblMealTime" Grid.Row="4" Grid.Column="1" />
             </Grid>
             </GroupBox>
 
@@ -82,7 +80,7 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mediciones iniciales</TextBlock>
                 </GroupBox.Header>
-                                                                                                                                                    <Grid>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition Width="1*" />
@@ -103,22 +101,22 @@
                 <TextBlock Grid.Column="4" Style="{StaticResource columnTitle}">Promedio</TextBlock>
 
                 <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                <TextBlock Name="lblSistIni1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">136</TextBlock>
-                <TextBlock Name="lblSistIni2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}">138</TextBlock>
-                <TextBlock Name="lblSistIni3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">135</TextBlock>
-                <TextBlock Name="lblSistIniP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}">136</TextBlock>
+                <TextBlock Name="lblInitSystolic1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitSystolic2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitSystolic3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitSystolicP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}" />
 
                 <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                <TextBlock Name="lblDiastIni1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">80</TextBlock>
-                <TextBlock Name="lblDiastIni2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}">83</TextBlock>
-                <TextBlock Name="lblDiastIni3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">79</TextBlock>
-                <TextBlock Name="lblDiastIniP" Grid.Row="2" Grid.Column="4" Style="{StaticResource value}">81</TextBlock>
+                <TextBlock Name="lblInitDiastolic1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitDiastolic2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitDiastolic3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitDiastolicP" Grid.Row="2" Grid.Column="4" Style="{StaticResource value}" />
 
                 <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
-                <TextBlock Name="lblFrecIni1" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}">85</TextBlock>
-                <TextBlock Name="lblFrecIni2" Grid.Row="4" Grid.Column="2" Style="{StaticResource value}">89</TextBlock>
-                <TextBlock Name="lblFrecIni3" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}">71</TextBlock>
-                <TextBlock Name="lblFrecIniP" Grid.Row="4" Grid.Column="4" Style="{StaticResource value}">85</TextBlock>
+                <TextBlock Name="lblInitHR1" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitHR2" Grid.Row="4" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitHR3" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitHRP" Grid.Row="4" Grid.Column="4" Style="{StaticResource value}" />
             </Grid>
             </GroupBox>
 
@@ -127,7 +125,7 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mediciones finales</TextBlock>
                 </GroupBox.Header>
-                                                                                                                                                    <Grid>
+                <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition Width="1*" />
@@ -148,22 +146,22 @@
                 <TextBlock Grid.Column="4" Style="{StaticResource columnTitle}">Promedio</TextBlock>
 
                 <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                <TextBlock Name="lblSistFin1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">136</TextBlock>
-                <TextBlock Name="lblSistFin2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}">138</TextBlock>
-                <TextBlock Name="lblSistFin3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">135</TextBlock>
-                <TextBlock Name="lblSistFinP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}">136</TextBlock>
+                <TextBlock Name="lblFinalSystolic1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalSystolic2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalSystolic3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalSystolicP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}" />
 
                 <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                <TextBlock Name="lblDiastFin1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">80</TextBlock>
-                <TextBlock Name="lblDiastFin2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}">83</TextBlock>
-                <TextBlock Name="lblDiastFin3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">79</TextBlock>
-                <TextBlock Name="lblDiastFinP" Grid.Row="2" Grid.Column="4" Style="{StaticResource value}">81</TextBlock>
+                <TextBlock Name="lblFinalDiastolic1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalDiastolic2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalDiastolic3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalDiastolicP" Grid.Row="2" Grid.Column="4" Style="{StaticResource value}" />
 
                 <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
-                <TextBlock Name="lblFrecFin1" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}">85</TextBlock>
-                <TextBlock Name="lblFrecFin2" Grid.Row="4" Grid.Column="2" Style="{StaticResource value}">89</TextBlock>
-                <TextBlock Name="lblFrecFin3" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}">71</TextBlock>
-                <TextBlock Name="lblFrecFinP" Grid.Row="4" Grid.Column="4" Style="{StaticResource value}">85</TextBlock>
+                <TextBlock Name="lblFinalHR1" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalHR2" Grid.Row="4" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalHR3" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalHRP" Grid.Row="4" Grid.Column="4" Style="{StaticResource value}" />
             </Grid>
             </GroupBox>
         </Grid>

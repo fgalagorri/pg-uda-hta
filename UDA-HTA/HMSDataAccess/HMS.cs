@@ -50,8 +50,8 @@ namespace HMSDataAccess
             try
             {
                 org.h2.Driver.load();
-                _conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
-                //_conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
+                //_conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
+                _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
                 _stat = _conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             }
             catch (Exception e)
@@ -216,6 +216,7 @@ namespace HMSDataAccess
             int? sumDiasNight = 0;
             int countDay = 0;
             int countNight = 0;
+            int code;
 
             // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
             while (rs.next())
@@ -231,32 +232,17 @@ namespace HMSDataAccess
                 measure.Middle = rs.getInt(13); //NIBPMAD
                 measure.Systolic = rs.getInt(14); //NIBPSYS
 
-                if (measure.Time >= report.Carnet.SleepTimeStart.Value && measure.Time <= report.Carnet.SleepTimeEnd.Value)
-                { // Medida tomada mientras dormia, actualizar maximos
-                    measure.Asleep = true;
-                    
-                    if (measure.Diastolic > maxDiasNight)
-                        maxDiasNight = measure.Diastolic;
+                code = rs.getInt(10);
 
-                    if (measure.Systolic > maxSysNight)
-                        maxSysNight = measure.Systolic;
+                measure.Valid = (code == 0 || code == 130 ||
+                                 ((measure.HeartRate != 999 && measure.Systolic != 999
+                                   && measure.Diastolic != 999 && measure.Middle != 999)
+                                  &&
+                                  (measure.HeartRate != 0 && measure.Systolic != 0
+                                   && measure.Diastolic != 0 && measure.Middle != 0)));
 
-                    sumDiasNight = sumDiasNight + measure.Diastolic;
-                    sumSysNight = sumSysNight + measure.Systolic;
-                    countNight++;
-                }
-                else
-                { // Si no esta durmiendo, actualizar maximos del dia
-                    if (measure.Diastolic > maxDiasDay)
-                        maxDiasDay = measure.Diastolic;
-
-                    if (measure.Systolic > maxSysDay)
-                        maxSysDay = measure.Systolic;
-
-                    sumDiasDay = sumDiasDay + measure.Diastolic;
-                    sumSysDay = sumSysDay + measure.Systolic;
-                    countDay++;
-                }
+                measure.Asleep = (measure.Time >= report.Carnet.SleepTimeStart.Value &&
+                                  measure.Time <= report.Carnet.SleepTimeEnd.Value);
 
                 list.Add(measure);
 

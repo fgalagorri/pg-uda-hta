@@ -7,6 +7,8 @@ namespace Entities
 {
     public class Measurement
     {
+        public long ReportId { get; set; }
+
         public DateTime? Time { get; set; }
         public int? Systolic { get; set; }
         public int? Diastolic { get; set; }
@@ -15,6 +17,7 @@ namespace Entities
 
         public string Comment { get; set; }
         public bool? Asleep { get; set; }
+        public bool Valid { get; set; }
 
         // TODO: Ver el parámetro extra del spacelabs!!
 

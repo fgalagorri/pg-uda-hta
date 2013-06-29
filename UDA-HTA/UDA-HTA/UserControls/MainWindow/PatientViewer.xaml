@@ -10,12 +10,12 @@
             <ColumnDefinition Width="800" MinWidth="250" />
         </Grid.ColumnDefinitions>
 
-        <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TreeViewItem IsExpanded="True">
+        <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectedItemChanged="treePatient_SelectedItemChanged">
+            <TreeViewItem IsExpanded="True" Name="treePatient" Focusable="False">
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/tree_user.png" />
-                        <Label>Juan Alberto Pérez Manzanares</Label>
+                        <TextBlock Name="lblTreeName" />
                     </StackPanel>
                 </TreeViewItem.Header>
                 <TreeViewItem.Items>
@@ -23,7 +23,7 @@
                         <TreeViewItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Images/tree_study24.png" />
-                                <Label>21/5/2012</Label>
+                                <Label Content="Prueba"></Label>
                             </StackPanel>
                         </TreeViewItem.Header>
                     </TreeViewItem>
@@ -37,35 +37,35 @@
         <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem Header="Paciente">
                 <ContentControl>
-                    <mainWindow:PatientViewerInformation />
+                    <mainWindow:PatientViewerInformation x:Name="TabPaciente" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Header="Información">
+            <TabItem Name="ReportInfo"  Header="Información" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerReportInfo />
+                    <mainWindow:PatientViewerReportInfo x:Name="TabReportInfo" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Header="Resumen">
+            <TabItem Name="ReportSummary" Header="Resumen" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerSummary />
+                    <mainWindow:PatientViewerSummary x:Name="TabReportSummary" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Header="Informe médico">
+            <TabItem Name="ReportDiagnosis" Header="Informe médico" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerDiagnosis />
+                    <mainWindow:PatientViewerDiagnosis x:Name="TabReportDiagnosis" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Header="Mediciones">
+            <TabItem Name="ReportData" Header="Mediciones" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerData />
+                    <mainWindow:PatientViewerData x:Name="TabReportData" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Header="Gráficos">
+            <TabItem Name="ReportCharts"  Header="Gráficos" Visibility="Collapsed">
                 Acá gráficos con las mediciones, etc.
             </TabItem>
 

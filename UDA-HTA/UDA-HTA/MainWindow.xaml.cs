@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Entities;
+using Gateway;
 using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
 
@@ -21,20 +23,14 @@ namespace UDA_HTA
     /// </summary>
     public partial class MainWindow : Window
     {
-        private PatientViewer patientViewer;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            patientViewer = new PatientViewer();
-            Container.Content = patientViewer;
+            Container.Content = new PatientFinder(this);
         }
 
-        private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
+        #region Ribbon Buttons Click
 
         private void btnNewReport_Click(object sender, RoutedEventArgs e)
         {
@@ -46,6 +42,25 @@ namespace UDA_HTA
         {
             var diagnosis = new DiagnosisEditor {Owner = this};
             diagnosis.ShowDialog();
+        }
+
+        private void btnFindPatient_Click(object sender, RoutedEventArgs e)
+        {
+            Container.Content = new PatientFinder(this); ;
+        }
+
+        #endregion
+
+
+        private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        public void PatientSelected(PatientSearch patient)
+        {
+            if (patient.UdaId.HasValue)
+                Container.Content = new PatientViewer(patient);
         }
     }
 }
