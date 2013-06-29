@@ -185,6 +185,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`measurement` (
   `heart_rate` INT NULL ,
   `sleep` BIT NULL ,
   `comment` TEXT NULL ,
+  `is_valid` BIT NOT NULL,
   `report_idReport` BIGINT NOT NULL ,
   `report_patientuda_idPatientUda` BIGINT NOT NULL ,
   PRIMARY KEY (`idMeasurement`, `report_idReport`, `report_patientuda_idPatientUda`) ,
