@@ -702,6 +702,48 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="device_type">No Metadata Documentation available.</param>
+        /// <param name="device_ref">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertDeviceReference(ObjectParameter id, Nullable<global::System.Int32> device_type, global::System.String device_ref, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter device_typeParameter;
+            if (device_type.HasValue)
+            {
+                device_typeParameter = new ObjectParameter("device_type", device_type);
+            }
+            else
+            {
+                device_typeParameter = new ObjectParameter("device_type", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter device_refParameter;
+            if (device_ref != null)
+            {
+                device_refParameter = new ObjectParameter("device_ref", device_ref);
+            }
+            else
+            {
+                device_refParameter = new ObjectParameter("device_ref", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertDeviceReference", id, device_typeParameter, device_refParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         /// <param name="nam">No Metadata Documentation available.</param>
         /// <param name="idDrugType">No Metadata Documentation available.</param>
         public int insertDrug(global::System.String nam, Nullable<global::System.Int32> idDrugType)
@@ -752,6 +794,59 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="nam">No Metadata Documentation available.</param>
         /// <param name="createDat">No Metadata Documentation available.</param>
         public int insertInvestigation(ObjectParameter id, global::System.String nam, Nullable<global::System.DateTime> createDat)
@@ -788,10 +883,11 @@ namespace DataAccess
         /// <param name="diastolic">No Metadata Documentation available.</param>
         /// <param name="heart_rate">No Metadata Documentation available.</param>
         /// <param name="sleep">No Metadata Documentation available.</param>
+        /// <param name="isValid">No Metadata Documentation available.</param>
         /// <param name="comm">No Metadata Documentation available.</param>
         /// <param name="idReport">No Metadata Documentation available.</param>
         /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
+        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Boolean> isValid, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
         {
             ObjectParameter dateMParameter;
             if (dateM.HasValue)
@@ -853,6 +949,16 @@ namespace DataAccess
                 sleepParameter = new ObjectParameter("sleep", typeof(global::System.Boolean));
             }
     
+            ObjectParameter isValidParameter;
+            if (isValid.HasValue)
+            {
+                isValidParameter = new ObjectParameter("isValid", isValid);
+            }
+            else
+            {
+                isValidParameter = new ObjectParameter("isValid", typeof(global::System.Boolean));
+            }
+    
             ObjectParameter commParameter;
             if (comm != null)
             {
@@ -883,7 +989,253 @@ namespace DataAccess
                 idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, commParameter, idReportParameter, idPatientParameter);
+            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, isValidParameter, commParameter, idReportParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="illness">No Metadata Documentation available.</param>
+        /// <param name="fromDate">No Metadata Documentation available.</param>
+        /// <param name="toDate">No Metadata Documentation available.</param>
+        /// <param name="comm">No Metadata Documentation available.</param>
+        /// <param name="idPatientUda">No Metadata Documentation available.</param>
+        public int insertMedicalHistory(ObjectParameter id, global::System.String illness, Nullable<global::System.DateTime> fromDate, Nullable<global::System.DateTime> toDate, global::System.String comm, Nullable<global::System.Int64> idPatientUda)
+        {
+            ObjectParameter illnessParameter;
+            if (illness != null)
+            {
+                illnessParameter = new ObjectParameter("illness", illness);
+            }
+            else
+            {
+                illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
+            }
+    
+            ObjectParameter fromDateParameter;
+            if (fromDate.HasValue)
+            {
+                fromDateParameter = new ObjectParameter("fromDate", fromDate);
+            }
+            else
+            {
+                fromDateParameter = new ObjectParameter("fromDate", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter toDateParameter;
+            if (toDate.HasValue)
+            {
+                toDateParameter = new ObjectParameter("toDate", toDate);
+            }
+            else
+            {
+                toDateParameter = new ObjectParameter("toDate", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter commParameter;
+            if (comm != null)
+            {
+                commParameter = new ObjectParameter("comm", comm);
+            }
+            else
+            {
+                commParameter = new ObjectParameter("comm", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientUdaParameter;
+            if (idPatientUda.HasValue)
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", idPatientUda);
+            }
+            else
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertMedicalHistory", id, illnessParameter, fromDateParameter, toDateParameter, commParameter, idPatientUdaParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="dose">No Metadata Documentation available.</param>
+        /// <param name="idDrug">No Metadata Documentation available.</param>
+        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
+        public int insertMedicineDose(global::System.String dose, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
+        {
+            ObjectParameter doseParameter;
+            if (dose != null)
+            {
+                doseParameter = new ObjectParameter("dose", dose);
+            }
+            else
+            {
+                doseParameter = new ObjectParameter("dose", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDrugParameter;
+            if (idDrug.HasValue)
+            {
+                idDrugParameter = new ObjectParameter("idDrug", idDrug);
+            }
+            else
+            {
+                idDrugParameter = new ObjectParameter("idDrug", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter idTemporaryDataParameter;
+            if (idTemporaryData.HasValue)
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
+            }
+            else
+            {
+                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertMedicineDose", doseParameter, idDrugParameter, idTemporaryDataParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="addr">No Metadata Documentation available.</param>
+        /// <param name="dni">No Metadata Documentation available.</param>
+        /// <param name="birth">No Metadata Documentation available.</param>
+        /// <param name="sex">No Metadata Documentation available.</param>
+        /// <param name="neighbour">No Metadata Documentation available.</param>
+        /// <param name="city">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="cell">No Metadata Documentation available.</param>
+        /// <param name="email">No Metadata Documentation available.</param>
+        /// <param name="register_number">No Metadata Documentation available.</param>
+        public int insertPatient(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter addrParameter;
+            if (addr != null)
+            {
+                addrParameter = new ObjectParameter("addr", addr);
+            }
+            else
+            {
+                addrParameter = new ObjectParameter("addr", typeof(global::System.String));
+            }
+    
+            ObjectParameter dniParameter;
+            if (dni != null)
+            {
+                dniParameter = new ObjectParameter("dni", dni);
+            }
+            else
+            {
+                dniParameter = new ObjectParameter("dni", typeof(global::System.String));
+            }
+    
+            ObjectParameter birthParameter;
+            if (birth.HasValue)
+            {
+                birthParameter = new ObjectParameter("birth", birth);
+            }
+            else
+            {
+                birthParameter = new ObjectParameter("birth", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter sexParameter;
+            if (sex != null)
+            {
+                sexParameter = new ObjectParameter("sex", sex);
+            }
+            else
+            {
+                sexParameter = new ObjectParameter("sex", typeof(global::System.String));
+            }
+    
+            ObjectParameter neighbourParameter;
+            if (neighbour != null)
+            {
+                neighbourParameter = new ObjectParameter("neighbour", neighbour);
+            }
+            else
+            {
+                neighbourParameter = new ObjectParameter("neighbour", typeof(global::System.String));
+            }
+    
+            ObjectParameter cityParameter;
+            if (city != null)
+            {
+                cityParameter = new ObjectParameter("city", city);
+            }
+            else
+            {
+                cityParameter = new ObjectParameter("city", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter cellParameter;
+            if (cell != null)
+            {
+                cellParameter = new ObjectParameter("cell", cell);
+            }
+            else
+            {
+                cellParameter = new ObjectParameter("cell", typeof(global::System.String));
+            }
+    
+            ObjectParameter emailParameter;
+            if (email != null)
+            {
+                emailParameter = new ObjectParameter("email", email);
+            }
+            else
+            {
+                emailParameter = new ObjectParameter("email", typeof(global::System.String));
+            }
+    
+            ObjectParameter register_numberParameter;
+            if (register_number.HasValue)
+            {
+                register_numberParameter = new ObjectParameter("register_number", register_number);
+            }
+            else
+            {
+                register_numberParameter = new ObjectParameter("register_number", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
         }
     
         /// <summary>
@@ -1115,47 +1467,6 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("updatePassword", login_varParameter, pass_varParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="dose">No Metadata Documentation available.</param>
-        /// <param name="idDrug">No Metadata Documentation available.</param>
-        /// <param name="idTemporaryData">No Metadata Documentation available.</param>
-        public int insertMedicineDose(global::System.String dose, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
-        {
-            ObjectParameter doseParameter;
-            if (dose != null)
-            {
-                doseParameter = new ObjectParameter("dose", dose);
-            }
-            else
-            {
-                doseParameter = new ObjectParameter("dose", typeof(global::System.String));
-            }
-    
-            ObjectParameter idDrugParameter;
-            if (idDrug.HasValue)
-            {
-                idDrugParameter = new ObjectParameter("idDrug", idDrug);
-            }
-            else
-            {
-                idDrugParameter = new ObjectParameter("idDrug", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter idTemporaryDataParameter;
-            if (idTemporaryData.HasValue)
-            {
-                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", idTemporaryData);
-            }
-            else
-            {
-                idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("insertMedicineDose", doseParameter, idDrugParameter, idTemporaryDataParameter);
         }
     
         /// <summary>
@@ -1517,70 +1828,6 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="illness">No Metadata Documentation available.</param>
-        /// <param name="fromDate">No Metadata Documentation available.</param>
-        /// <param name="toDate">No Metadata Documentation available.</param>
-        /// <param name="comm">No Metadata Documentation available.</param>
-        /// <param name="idPatientUda">No Metadata Documentation available.</param>
-        public int insertMedicalHistory(ObjectParameter id, global::System.String illness, Nullable<global::System.DateTime> fromDate, Nullable<global::System.DateTime> toDate, global::System.String comm, Nullable<global::System.Int64> idPatientUda)
-        {
-            ObjectParameter illnessParameter;
-            if (illness != null)
-            {
-                illnessParameter = new ObjectParameter("illness", illness);
-            }
-            else
-            {
-                illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
-            }
-    
-            ObjectParameter fromDateParameter;
-            if (fromDate.HasValue)
-            {
-                fromDateParameter = new ObjectParameter("fromDate", fromDate);
-            }
-            else
-            {
-                fromDateParameter = new ObjectParameter("fromDate", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter toDateParameter;
-            if (toDate.HasValue)
-            {
-                toDateParameter = new ObjectParameter("toDate", toDate);
-            }
-            else
-            {
-                toDateParameter = new ObjectParameter("toDate", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter commParameter;
-            if (comm != null)
-            {
-                commParameter = new ObjectParameter("comm", comm);
-            }
-            else
-            {
-                commParameter = new ObjectParameter("comm", typeof(global::System.String));
-            }
-    
-            ObjectParameter idPatientUdaParameter;
-            if (idPatientUda.HasValue)
-            {
-                idPatientUdaParameter = new ObjectParameter("idPatientUda", idPatientUda);
-            }
-            else
-            {
-                idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
-            }
-    
-            return base.ExecuteFunction("insertMedicalHistory", id, illnessParameter, fromDateParameter, toDateParameter, commParameter, idPatientUdaParameter);
         }
 
         #endregion
