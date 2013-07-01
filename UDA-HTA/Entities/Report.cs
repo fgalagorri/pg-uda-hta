@@ -83,6 +83,23 @@ namespace Entities
         public DateTime? DiastolicTotalMaxTime { get; set; }  
         public DateTime? DiastolicTotalMinTime { get; set; }
 
+        public int MiddleDayAvg { get; set; }
+        public int MiddleDayMax { get; set; }
+        public int MiddleDayMin { get; set; }
+        public DateTime MiddleDayMaxTime { get; set; }
+        public DateTime MiddleDayMinTime { get; set; }
+
+        public int MiddleNightAvg { get; set; }
+        public int MiddleNightMax { get; set; }
+        public int MiddleNightMin { get; set; }
+        public DateTime MiddleNightMaxTime { get; set; }
+        public DateTime MiddleNightMinTime { get; set; }
+
+        public int MiddleTotalAvg { get; set; }
+        public int MiddleTotalMax { get; set; }
+        public int MiddleTotalMin { get; set; }
+        public DateTime MiddleTotalMaxTime { get; set; }
+        public DateTime MiddleTotalMinTime { get; set; }
 
         // Heart rate measurements
         public int? HeartRateDayAvg { get; set; }

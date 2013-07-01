@@ -434,7 +434,7 @@ namespace DataAccess
                 foreach (Measurement m in lmeasure)
                 {
                     udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate,
-                                                 m.Asleep, m.Comment, (long?) lastIdReport.Value,
+                                                 m.Asleep, m.Valid, m.Comment, (long?) lastIdReport.Value,
                                                  rep.Patient.UdaId);
                 }
                 

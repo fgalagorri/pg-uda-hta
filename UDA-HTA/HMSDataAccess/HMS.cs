@@ -210,12 +210,6 @@ namespace HMSDataAccess
             int? maxSysDay = 0;
             int? maxSysNight = 0;
 
-            int? sumSysDay = 0;
-            int? sumSysNight = 0;
-            int? sumDiasDay = 0;
-            int? sumDiasNight = 0;
-            int countDay = 0;
-            int countNight = 0;
             int code;
 
             // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
@@ -249,33 +243,43 @@ namespace HMSDataAccess
                 report.EndDate = measure.Time;
             }
 
-            report.DiastolicDayMax = maxDiasDay;
-            report.DiastolicNightMax = maxDiasNight;
-            report.SystolicDayMax = maxSysDay;
-            report.SystolicNightMax = maxSysNight;
+            report.DiastolicDayMax = list.Where(m => m.Valid && (bool) !m.Asleep).Max(m => m.Diastolic);
+            report.DiastolicNightMax = list.Where(m => m.Valid && (bool) m.Asleep).Max(m => m.Diastolic);
 
-            report.HeartRateTotalAvg = list.Sum(m => m.HeartRate)/list.Count;
-            report.DiastolicTotalAvg = list.Sum(m => m.Diastolic)/list.Count;
-            report.SystolicTotalAvg = list.Sum(m => m.Systolic)/list.Count;
+            report.SystolicDayMax = list.Where(m => m.Valid && (bool) !m.Asleep).Max(m => m.Systolic);
+            report.SystolicNightMax = list.Where(m => m.Valid && (bool)m.Asleep).Max(m => m.Systolic);
+
+            int countDay = list.Count(m => (bool) !m.Asleep && m.Valid);
+            int countNight = list.Count(m => (bool)m.Asleep && m.Valid);
+            int countTotal = countDay + countNight;
+            
+            report.HeartRateTotalAvg = list.Where(m => m.Valid).Sum(m => m.HeartRate)/countTotal;
+            report.DiastolicTotalAvg = list.Where(m => m.Valid).Sum(m => m.Diastolic) / countTotal;
+            report.SystolicTotalAvg = list.Where(m => m.Valid).Sum(m => m.Systolic) / countTotal;
+
             if (countDay != 0)
             {
-                report.DiastolicDayAvg = sumDiasDay / countDay;
-                report.SystolicDayAvg = sumSysDay / countDay;                
+                report.HeartRateDayAvg = list.Where(m => m.Valid && (bool) !m.Asleep).Sum(m => m.HeartRate)/countDay;
+                report.DiastolicDayAvg = list.Where(m => m.Valid && (bool)!m.Asleep).Sum(m => m.Diastolic) / countDay;
+                report.SystolicDayAvg = list.Where(m => m.Valid && (bool)!m.Asleep).Sum(m => m.Systolic) / countDay;                
             }
             else
             {
+                report.HeartRateDayAvg = 0;
                 report.DiastolicDayAvg = 0;
                 report.SystolicDayAvg = 0;                                
             }
 
             if (countNight != 0)
             {
-                report.DiastolicNightAvg = sumDiasNight / countNight;
-                report.SystolicNightAvg = sumSysNight / countNight;
+                report.HeartRateNightAvg = list.Where(m => m.Valid && (bool)m.Asleep).Sum(m => m.HeartRate) / countNight;
+                report.DiastolicNightAvg = list.Where(m => m.Valid && (bool)m.Asleep).Sum(m => m.Diastolic) / countNight;
+                report.SystolicNightAvg = list.Where(m => m.Valid && (bool)m.Asleep).Sum(m => m.Systolic) / countNight;
                 
             }
             else
             {
+                report.HeartRateNightAvg = 0;
                 report.DiastolicNightAvg = 0;
                 report.SystolicNightAvg = 0;                
             }
