@@ -51,7 +51,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMeasurement$$
-CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN isValid INT, IN comm TEXT, IN idReport BIGINT, IN idPatient BIGINT)
+CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN isValid BIT, IN comm TEXT, IN idReport BIGINT, IN idPatient BIGINT)
 BEGIN
 INSERT INTO `udahta_db`.`measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `isValid`,`comment`, `report_idReport`, `report_patientuda_idPatientUda`) 
 VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, comm, idReport, idPatient);
