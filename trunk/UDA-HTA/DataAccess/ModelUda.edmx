@@ -220,6 +220,18 @@
           <Property Name="max_night_hr" Type="int" />
           <Property Name="min_day_hr" Type="int" />
           <Property Name="min_night_hr" Type="int" />
+          <Property Name="tot_sd_sis" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_sd_dias" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_sis" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_dias" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_sis" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_dias" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_tam_avg" Type="int" />
+          <Property Name="day_tam_avg" Type="int" />
+          <Property Name="night_tam_avg" Type="int" />
         </EntityType>
         <EntityType Name="temporarydata">
           <Key>
@@ -383,6 +395,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="deleteInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idInvestigation" Type="int" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="hour" Type="int" Mode="In" />
@@ -428,6 +445,11 @@
           <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="nam" Type="varchar" Mode="In" />
           <Parameter Name="createDat" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="insertInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idInvestigation" Type="int" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertMeasurement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="dateM" Type="datetime" Mode="In" />
@@ -491,6 +513,18 @@
           <Parameter Name="max_night_hr" Type="int" Mode="In" />
           <Parameter Name="min_day_hr" Type="int" Mode="In" />
           <Parameter Name="min_night_hr" Type="int" Mode="In" />
+          <Parameter Name="tot_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="tot_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="day_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="night_tam_avg" Type="int" Mode="In" />
         </Function>
         <Function Name="insertTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
@@ -672,9 +706,6 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="register_number" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="insertPatientUda">
-          <Parameter Name="id" Mode="In" Type="Int64" />
-          </FunctionImport>
           <FunctionImport Name="insertTemporaryData">
             <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="weight" Mode="In" Type="Decimal" />
@@ -698,6 +729,9 @@
           <FunctionImport Name="updatePassword">
             <Parameter Name="login_var" Mode="In" Type="String" />
             <Parameter Name="pass_var" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertPatientUda">
+          <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertReport">
             <Parameter Name="id" Mode="Out" Type="Int64" />
@@ -733,6 +767,28 @@
             <Parameter Name="max_night_hr" Mode="In" Type="Int32" />
             <Parameter Name="min_day_hr" Mode="In" Type="Int32" />
             <Parameter Name="min_night_hr" Mode="In" Type="Int32" />
+            <Parameter Name="tot_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="deleteInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -968,6 +1024,18 @@
           <Property Type="Int32" Name="min_day_hr" />
           <Property Type="Int32" Name="min_night_hr" />
           <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
+          <Property Type="Int32" Name="tot_sd_sis" />
+          <Property Type="Int32" Name="tot_sd_dias" />
+          <Property Type="Int32" Name="day_sd_sis" />
+          <Property Type="Int32" Name="day_sd_dias" />
+          <Property Type="Int32" Name="night_sd_sis" />
+          <Property Type="Int32" Name="night_sd_dias" />
+          <Property Type="Decimal" Name="tot_sd_tam" />
+          <Property Type="Decimal" Name="day_sd_tam" />
+          <Property Type="Decimal" Name="night_sd_tam" />
+          <Property Type="Int32" Name="tot_tam_avg" />
+          <Property Type="Int32" Name="day_tam_avg" />
+          <Property Type="Int32" Name="night_tam_avg" />
         </EntityType>
         <Association Name="fk_Report_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1136,6 +1204,18 @@
           <EntitySetMapping Name="report">
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="night_tam_avg" ColumnName="night_tam_avg" />
+                <ScalarProperty Name="day_tam_avg" ColumnName="day_tam_avg" />
+                <ScalarProperty Name="tot_tam_avg" ColumnName="tot_tam_avg" />
+                <ScalarProperty Name="night_sd_tam" ColumnName="night_sd_tam" />
+                <ScalarProperty Name="day_sd_tam" ColumnName="day_sd_tam" />
+                <ScalarProperty Name="tot_sd_tam" ColumnName="tot_sd_tam" />
+                <ScalarProperty Name="night_sd_dias" ColumnName="night_sd_dias" />
+                <ScalarProperty Name="night_sd_sis" ColumnName="night_sd_sis" />
+                <ScalarProperty Name="day_sd_dias" ColumnName="day_sd_dias" />
+                <ScalarProperty Name="day_sd_sis" ColumnName="day_sd_sis" />
+                <ScalarProperty Name="tot_sd_dias" ColumnName="tot_sd_dias" />
+                <ScalarProperty Name="tot_sd_sis" ColumnName="tot_sd_sis" />
                 <ScalarProperty Name="min_night_hr" ColumnName="min_night_hr" />
                 <ScalarProperty Name="min_day_hr" ColumnName="min_day_hr" />
                 <ScalarProperty Name="max_night_hr" ColumnName="max_night_hr" />
@@ -1206,11 +1286,13 @@
           <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
           <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
           <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
-          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
+          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

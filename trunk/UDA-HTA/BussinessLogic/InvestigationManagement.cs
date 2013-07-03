@@ -34,12 +34,13 @@ namespace BussinessLogic
         public void AddReportToInvestigation(Report report, int idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.addReportToInvestigation((long)report.UdaId,(long)report.Patient.UdaId,idInvestigation);
+            uda.addReportToInvestigation(report.UdaId.Value,report.Patient.UdaId.Value,idInvestigation);
         }
 
         public void DeleteReportFromInvestigation(Report report, int idInvestigation)
         {
-            
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.deleteReportFromInvestigation(report.UdaId.Value,report.Patient.UdaId.Value,idInvestigation);
         }
 
     }

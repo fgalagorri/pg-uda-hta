@@ -111,8 +111,8 @@ namespace ConsoleApplication1
                             }
                         }
             
-            
-             */
+            */
+
 
             /*
             IImportDataManagement idm = new ImportDataManagement();
@@ -155,13 +155,17 @@ namespace ConsoleApplication1
                 "k;jdf;ajk;kjdhf;akjhffh;kajdfhkjhf;kjahfdmncbvi;hjdf;ksdvbnb;ajhdf;nv;jkhvn;kjhfvnk \n lkasflksdnfldsknfldsnfldksnf";
             */
 
+            
             ReportManagement rm = new ReportManagement();
-            var rep = rm.getReport(2);
-            PatientManagement pm = new PatientManagement();
-            var pat = pm.GetPatientData((long) rep.Patient.UdaId);
-            rep.Patient = pat;
+            var rep = rm.GetReport(27);
+            if (rep != null)
+            {
+                PatientManagement pm = new PatientManagement();
+                var pat = pm.GetPatient((long)rep.Patient.UdaId);
+                rep.Patient = pat;                
+            }
             string filepath = "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.docx";
-            rm.generateDocument(rep, filepath);
+            rm.GenerateDocument(rep, filepath);
             
         }
     }
