@@ -56,103 +56,148 @@ namespace DataAccess
                         r.temporarydata,
                         r.total_avg_dias,
                         r.total_avg_sys,
+                        r.min_day_hr,
+                        r.min_night_hr,
+                        r.day_min_dias,
+                        r.day_min_sis,
+                        r.night_min_dias,
+                        r.night_min_sis,
+                        r.day_tam_avg,
+                        r.night_tam_avg,
+                        r.tot_tam_avg,
+                        r.day_avg_hr,
+                        r.max_day_hr,
+                        r.max_night_hr,
+                        r.night_avg_hr,
+                        r.tot_avg_hr,
+                        r.day_sd_tam,
+                        r.night_sd_tam,
+                        r.tot_sd_tam,
+                        r.day_sd_dias,
+                        r.night_sd_dias,
+                        r.tot_sd_dias,
+                        r.day_sd_sis,
+                        r.night_sd_sis,
+                        r.tot_sd_sis,
                     }).FirstOrDefault();
 
-                Entities.Report rep = new Report()
+                Entities.Report rep = null;
+
+                if (qry != null)
                 {
-                    BeginDate = qry.begin_date,
-                    DiastolicDayAvg = qry.day_avg_dias,
-                    SystolicDayAvg = qry.day_avg_sys,
-                    DiastolicDayMax = qry.day_max_dias,
-                    SystolicDayMax = qry.day_max_sys,
-                    DeviceReportId = qry.deviceReportId,
-                    Diagnosis = qry.diagnosis,
-                    EndDate = qry.end_date,
-                    DeviceId = qry.idDevice,
-                    DiastolicNightAvg = qry.night_avg_dias,
-                    SystolicNightAvg = qry.night_avg_sys,
-                    DiastolicNightMax = qry.night_max_dias,
-                    SystolicNightMax = qry.night_max_sys,
-                    RequestDoctor = qry.request_doctor,
-                    RequestDoctorSpeciality = qry.specialty,
-                    DiastolicTotalAvg = qry.total_avg_dias,
-                    SystolicTotalAvg = qry.total_avg_sys,
-                    UdaId = qry.idReport
+                    rep = new Report()
+                    {
+                        BeginDate = qry.begin_date,
+                        DiastolicDayAvg = qry.day_avg_dias,
+                        SystolicDayAvg = qry.day_avg_sys,
+                        DiastolicDayMax = qry.day_max_dias,
+                        SystolicDayMax = qry.day_max_sys,
+                        DeviceReportId = qry.deviceReportId,
+                        Diagnosis = qry.diagnosis,
+                        EndDate = qry.end_date,
+                        DeviceId = qry.idDevice,
+                        DiastolicNightAvg = qry.night_avg_dias,
+                        SystolicNightAvg = qry.night_avg_sys,
+                        DiastolicNightMax = qry.night_max_dias,
+                        SystolicNightMax = qry.night_max_sys,
+                        RequestDoctor = qry.request_doctor,
+                        RequestDoctorSpeciality = qry.specialty,
+                        DiastolicTotalAvg = qry.total_avg_dias,
+                        SystolicTotalAvg = qry.total_avg_sys,
+                        MiddleDayAvg = qry.day_tam_avg,
+                        MiddleNightAvg = qry.night_tam_avg,
+                        MiddleTotalAvg = qry.tot_tam_avg,
+                        HeartRateDayAvg = qry.day_avg_hr,
+                        HeartRateNightAvg = qry.night_avg_hr,
+                        HeartRateTotalAvg = qry.tot_avg_hr,
+                        StandarDeviationTamNight = qry.night_sd_tam,
+                        StandardDeviationTamDay = qry.day_sd_tam,
+                        StandardDeviationTamTotal = qry.tot_sd_tam,                        
+                        StandardDeviationDiasDay = qry.day_sd_dias,
+                        StandardDeviationDiasNight = qry.night_sd_dias,
+                        StandardDeviationDiasTotal = qry.tot_sd_dias,
+                        StandardDeviationSysDay = qry.day_sd_sis,
+                        StandardDeviationSysNight = qry.night_sd_sis,
+                        StandardDeviationSysTotal = qry.tot_sd_sis,
+                        UdaId = qry.idReport
 
-                };
+                    };
+                    
+                    //DailyCarnet
+                    rep.Carnet.InitSystolic1 = qry.dailycarnet.init_sys1;
+                    rep.Carnet.InitSystolic2 = qry.dailycarnet.init_sys2;
+                    rep.Carnet.InitSystolic3 = qry.dailycarnet.init_sys3;
 
-                //DailyCarnet
-                rep.Carnet.InitSystolic1 = qry.dailycarnet.init_sys1;
-                rep.Carnet.InitSystolic2 = qry.dailycarnet.init_sys2;
-                rep.Carnet.InitSystolic3 = qry.dailycarnet.init_sys3;
+                    rep.Carnet.InitDiastolic1 = qry.dailycarnet.initial_dias1;
+                    rep.Carnet.InitDiastolic2 = qry.dailycarnet.initial_dias2;
+                    rep.Carnet.InitDiastolic3 = qry.dailycarnet.initial_dias3;
 
-                rep.Carnet.InitDiastolic1 = qry.dailycarnet.initial_dias1;
-                rep.Carnet.InitDiastolic2 = qry.dailycarnet.initial_dias2;
-                rep.Carnet.InitDiastolic3 = qry.dailycarnet.initial_dias3;
+                    rep.Carnet.InitHeartRate1 = qry.dailycarnet.initial_hr1;
+                    rep.Carnet.InitHeartRate2 = qry.dailycarnet.initial_hr2;
+                    rep.Carnet.InitHeartRate3 = qry.dailycarnet.initial_hr3;
 
-                rep.Carnet.InitHeartRate1 = qry.dailycarnet.initial_hr1;
-                rep.Carnet.InitHeartRate2 = qry.dailycarnet.initial_hr2;
-                rep.Carnet.InitHeartRate3 = qry.dailycarnet.initial_hr3;
+                    rep.Carnet.FinalSystolic1 = qry.dailycarnet.final_sys1;
+                    rep.Carnet.FinalSystolic2 = qry.dailycarnet.final_sys2;
+                    rep.Carnet.FinalSystolic3 = qry.dailycarnet.final_sys3;
 
-                rep.Carnet.FinalSystolic1 = qry.dailycarnet.final_sys1;
-                rep.Carnet.FinalSystolic2 = qry.dailycarnet.final_sys2;
-                rep.Carnet.FinalSystolic3 = qry.dailycarnet.final_sys3;
+                    rep.Carnet.FinalDiastolic1 = qry.dailycarnet.final_dias1;
+                    rep.Carnet.FinalDiastolic2 = qry.dailycarnet.final_dias2;
+                    rep.Carnet.FinalDiastolic3 = qry.dailycarnet.final_dias3;
 
-                rep.Carnet.FinalDiastolic1 = qry.dailycarnet.final_dias1;
-                rep.Carnet.FinalDiastolic2 = qry.dailycarnet.final_dias2;
-                rep.Carnet.FinalDiastolic3 = qry.dailycarnet.final_dias3;
+                    rep.Carnet.FinalHeartRate1 = qry.dailycarnet.final_hr1;
+                    rep.Carnet.FinalHeartRate2 = qry.dailycarnet.final_hr2;
+                    rep.Carnet.FinalHeartRate3 = qry.dailycarnet.final_hr3;
 
-                rep.Carnet.FinalHeartRate1 = qry.dailycarnet.final_hr1;
-                rep.Carnet.FinalHeartRate2 = qry.dailycarnet.final_hr2;
-                rep.Carnet.FinalHeartRate3 = qry.dailycarnet.final_hr3;
+                    if (qry.dailycarnet.main_meal_time != null)
+                    {
+                        rep.Carnet.MealTime = new DateTime(qry.dailycarnet.main_meal_time.Value.Year,
+                                                                qry.dailycarnet.main_meal_time.Value.Month,
+                                                                qry.dailycarnet.main_meal_time.Value.Day,
+                                                                qry.dailycarnet.main_meal_time.Value.Hour,
+                                                                qry.dailycarnet.main_meal_time.Value.Minute,
+                                                                qry.dailycarnet.main_meal_time.Value.Second);
+                    }
 
-                if (qry.dailycarnet.main_meal_time != null)
-                {
-                    rep.Carnet.MealTime = new DateTime(qry.dailycarnet.main_meal_time.Value.Year,
-                                                            qry.dailycarnet.main_meal_time.Value.Month,
-                                                            qry.dailycarnet.main_meal_time.Value.Day,
-                                                            qry.dailycarnet.main_meal_time.Value.Hour,
-                                                            qry.dailycarnet.main_meal_time.Value.Minute,
-                                                            qry.dailycarnet.main_meal_time.Value.Second);
+                    rep.Carnet.SleepQuality = qry.dailycarnet.how_sleep;
+
+                    rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
+                                                                qry.dailycarnet.end_sleep_time.Value.Month,
+                                                                qry.dailycarnet.end_sleep_time.Value.Day,
+                                                                qry.dailycarnet.end_sleep_time.Value.Hour,
+                                                                qry.dailycarnet.end_sleep_time.Value.Minute,
+                                                                qry.dailycarnet.end_sleep_time.Value.Second);
+
+                    rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
+                                                                qry.dailycarnet.begin_sleep_time.Value.Month,
+                                                                qry.dailycarnet.begin_sleep_time.Value.Day,
+                                                                qry.dailycarnet.begin_sleep_time.Value.Hour,
+                                                                qry.dailycarnet.begin_sleep_time.Value.Minute,
+                                                                qry.dailycarnet.begin_sleep_time.Value.Second
+                                                                );
+
+                    rep.Carnet.Technician.Name = qry.dailycarnet.technical;
+
+                    //TemporaryData
+                    rep.TemporaryData.IdTemporaryData = qry.temporarydata.idTemporaryData;
+                    rep.TemporaryData.Age = qry.temporarydata.age;
+                    rep.TemporaryData.BodyMassIndex = qry.temporarydata.body_mass_index;
+                    rep.TemporaryData.Diabetic = qry.temporarydata.diabetic;
+                    rep.TemporaryData.Dyslipidemia = qry.temporarydata.dyslipidemia;
+                    rep.TemporaryData.FatPercentage = qry.temporarydata.fat_percentage;
+                    rep.TemporaryData.Height = qry.temporarydata.height;
+                    rep.TemporaryData.Hypertensive = qry.temporarydata.known_hypertensive;
+                    rep.TemporaryData.Kcal = qry.temporarydata.kcal;
+                    rep.TemporaryData.MusclePercentage = qry.temporarydata.muscle_percentage;
+                    rep.TemporaryData.Smoker = qry.temporarydata.smoker;
+                    rep.TemporaryData.Weight = qry.temporarydata.weight;
+
+                    rep.Patient.UdaId = qry.patientuda.idPatientUda;
+
+                    var lmeasures = getMeasures(idReport);
+                    rep.Measures = rep.Measures.Concat(lmeasures).ToList();
+
                 }
 
-                rep.Carnet.SleepQuality = qry.dailycarnet.how_sleep;
-
-                rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
-                                                            qry.dailycarnet.end_sleep_time.Value.Month,
-                                                            qry.dailycarnet.end_sleep_time.Value.Day,
-                                                            qry.dailycarnet.end_sleep_time.Value.Hour,
-                                                            qry.dailycarnet.end_sleep_time.Value.Minute,
-                                                            qry.dailycarnet.end_sleep_time.Value.Second);
-
-                rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
-                                                            qry.dailycarnet.begin_sleep_time.Value.Month,
-                                                            qry.dailycarnet.begin_sleep_time.Value.Day,
-                                                            qry.dailycarnet.begin_sleep_time.Value.Hour,
-                                                            qry.dailycarnet.begin_sleep_time.Value.Minute,
-                                                            qry.dailycarnet.begin_sleep_time.Value.Second
-                                                            );
-
-                rep.Carnet.Technician.Name = qry.dailycarnet.technical;
-
-                //TemporaryData
-                rep.TemporaryData.IdTemporaryData = qry.temporarydata.idTemporaryData;
-                rep.TemporaryData.Age = qry.temporarydata.age;
-                rep.TemporaryData.BodyMassIndex = qry.temporarydata.body_mass_index;
-                rep.TemporaryData.Diabetic = qry.temporarydata.diabetic;
-                rep.TemporaryData.Dyslipidemia = qry.temporarydata.dyslipidemia;
-                rep.TemporaryData.FatPercentage = qry.temporarydata.fat_percentage;
-                rep.TemporaryData.Height = qry.temporarydata.height;
-                rep.TemporaryData.Hypertensive = qry.temporarydata.known_hypertensive;
-                rep.TemporaryData.Kcal = qry.temporarydata.kcal;
-                rep.TemporaryData.MusclePercentage = qry.temporarydata.muscle_percentage;
-                rep.TemporaryData.Smoker = qry.temporarydata.smoker;
-                rep.TemporaryData.Weight = qry.temporarydata.weight;
-
-                rep.Patient.UdaId = qry.patientuda.idPatientUda;
-
-                var lmeasures = getMeasures(idReport);
-                rep.Measures = rep.Measures.Concat(lmeasures).ToList();
                 return rep;
             }
         }
@@ -172,6 +217,7 @@ namespace DataAccess
                         m.heart_rate,
                         m.idMeasurement,
                         m.sleep,
+                        m.is_valid,
                         m.systolic,
                     }).ToList();
 
@@ -185,6 +231,7 @@ namespace DataAccess
                     measure.Middle = qm.average;
                     measure.Systolic = qm.systolic;
                     measure.Time = qm.date;
+                    measure.Valid = qm.is_valid;
                     lmeasures.Add(measure);
                 }
             }
@@ -390,30 +437,108 @@ namespace DataAccess
             // Calculo de máximos, mínimos y promedios de Sys, Mid, Dias y HR
             var valid = rep.Measures.Where(m => m.Valid).ToList();
 
+            //Sobre el total de medidas
             int sysTotalAvg = (int)Math.Round(valid.Average(m => m.Systolic.Value));
-            int sysDayAvg = (int) Math.Round(valid.Where(m => !m.Asleep.Value).Average(m => m.Systolic.Value));
-            int sysNightAvg = (int)Math.Round(valid.Where(m => m.Asleep.Value).Average(m => m.Systolic.Value));
-            int sysDayMax = valid.Where(m => !m.Asleep.Value).Max(m => m.Systolic.Value);
-            int sysNightMax = valid.Where(m => m.Asleep.Value).Max(m => m.Systolic.Value);
-            int sysDayMin = valid.Where(m => !m.Asleep.Value).Min(m => m.Systolic.Value);
-            int sysNightMin = valid.Where(m => m.Asleep.Value).Min(m => m.Systolic.Value);
-
             int diasTotalAvg = (int)Math.Round(valid.Average(m => m.Diastolic.Value));
-            int diasDayAvg = (int)Math.Round(valid.Where(m => !m.Asleep.Value).Average(m => m.Diastolic.Value));
-            int diasNightAvg = (int)Math.Round(valid.Where(m => m.Asleep.Value).Average(m => m.Diastolic.Value));
-            int diasDayMax = valid.Where(m => !m.Asleep.Value).Max(m => m.Diastolic.Value);
-            int diasNightMax = valid.Where(m => m.Asleep.Value).Max(m => m.Diastolic.Value);
-            int diasDayMin = valid.Where(m => !m.Asleep.Value).Min(m => m.Diastolic.Value);
-            int diasNightMin = valid.Where(m => m.Asleep.Value).Min(m => m.Diastolic.Value);
-
             int hrTotalAvg = (int)Math.Round(valid.Average(m => m.HeartRate.Value));
-            int hrDayAvg = (int)Math.Round(valid.Where(m => !m.Asleep.Value).Average(m => m.HeartRate.Value));
-            int hrNightAvg = (int)Math.Round(valid.Where(m => m.Asleep.Value).Average(m => m.HeartRate.Value));
-            int hrDayMax = valid.Where(m => !m.Asleep.Value).Max(m => m.HeartRate.Value);
-            int hrNightMax = valid.Where(m => m.Asleep.Value).Max(m => m.HeartRate.Value);
-            int hrDayMin = valid.Where(m => !m.Asleep.Value).Min(m => m.HeartRate.Value);
-            int hrNightMin = valid.Where(m => m.Asleep.Value).Min(m => m.HeartRate.Value);
-            
+            int middleTotalAvg = (int)Math.Round(valid.Average(m => m.Middle.Value));
+            decimal sdSysTotal = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.Systolic - sysTotalAvg) * (m.Systolic - sysTotalAvg))) / valid.Count));
+            decimal sdDiasTotal = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.Diastolic - diasTotalAvg) * (m.Diastolic - diasTotalAvg))) / valid.Count));
+            decimal sdMiddleTot = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.Middle - middleTotalAvg) * (m.Middle - middleTotalAvg))) / valid.Count));
+
+            //Listas de medidas del dia y la noche
+            var listMeasuresDay = valid.Where(m => !m.Asleep.Value).ToList();
+            var listMeasuresNight = valid.Where(m => m.Asleep.Value);
+
+            int sysDayAvg = 0;
+            int sysDayMax = 0;
+            int sysDayMin = 0;
+
+            int diasDayAvg = 0;
+            int diasDayMax = 0;
+            int diasDayMin = 0;
+
+            int hrDayAvg = 0;
+            int hrDayMax = 0;
+            int hrDayMin = 0;
+
+            int middleDayAvg = 0;
+
+            //Desviacion estand
+            int validDayCount = 0;
+            decimal sdSysDay = 0;
+            decimal sdDiasDay = 0;
+            decimal sdTamDay = 0;
+
+            if (listMeasuresDay.Count() != 0)
+            {
+                //Sobre medidas durante el dia
+                sysDayAvg = (int)Math.Round(listMeasuresDay.Average(m => m.Systolic.Value));
+                sysDayMax = listMeasuresDay.Max(m => m.Systolic.Value);
+                sysDayMin = listMeasuresDay.Min(m => m.Systolic.Value);
+
+                diasDayAvg = (int)Math.Round(listMeasuresDay.Average(m => m.Diastolic.Value));
+                diasDayMax = listMeasuresDay.Max(m => m.Diastolic.Value);
+                diasDayMin = listMeasuresDay.Min(m => m.Diastolic.Value);
+
+                hrDayAvg = (int)Math.Round(listMeasuresDay.Average(m => m.HeartRate.Value));
+                hrDayMax = listMeasuresDay.Max(m => m.HeartRate.Value);
+                hrDayMin = listMeasuresDay.Min(m => m.HeartRate.Value);
+
+                middleDayAvg = (int)Math.Round(listMeasuresDay.Average(m => m.Middle.Value));
+
+                //Desviacion estandar
+                validDayCount = valid.Where(m => !m.Asleep.Value).Count();
+                sdSysDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.Systolic - sysDayAvg) * (m.Systolic - sysDayAvg))) / validDayCount));
+                sdDiasDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.Diastolic - diasDayAvg) * (m.Diastolic - diasDayAvg))) / validDayCount));
+                sdTamDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.Middle - middleDayAvg) * (m.Middle - middleDayAvg))) / validDayCount));
+                
+            }
+
+            int sysNightAvg = 0;
+            int sysNightMax = 0;
+            int sysNightMin = 0;
+
+            int diasNightAvg = 0;
+            int diasNightMax = 0;
+            int diasNightMin = 0;
+
+            int hrNightAvg = 0;
+            int hrNightMax = 0;
+            int hrNightMin = 0;
+
+            int middleNightAvg = 0; 
+
+            //Desviacion estandar
+            int validNightCount = 0;
+            decimal sdSysNight = 0;
+            decimal sdDiasNight = 0;
+            decimal sdTamNight = 0;
+
+            if (listMeasuresNight.Count() != 0)
+            {
+                //Sobre medidas durante la noche
+                sysNightAvg = (int)Math.Round(listMeasuresNight.Average(m => m.Systolic.Value));
+                sysNightMax = listMeasuresNight.Max(m => m.Systolic.Value);
+                sysNightMin = listMeasuresNight.Min(m => m.Systolic.Value);
+
+                diasNightAvg = (int)Math.Round(listMeasuresNight.Average(m => m.Diastolic.Value));
+                diasNightMax = listMeasuresNight.Max(m => m.Diastolic.Value);
+                diasNightMin = listMeasuresNight.Min(m => m.Diastolic.Value);
+
+                hrNightAvg = (int)Math.Round(listMeasuresNight.Average(m => m.HeartRate.Value));
+                hrNightMax = listMeasuresNight.Max(m => m.HeartRate.Value);
+                hrNightMin = listMeasuresNight.Min(m => m.HeartRate.Value);
+
+                middleNightAvg = (int)Math.Round(listMeasuresNight.Average(m => m.Middle.Value));
+
+                //Desviacion estandar
+                validNightCount = listMeasuresNight.Count();
+                sdSysNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.Systolic - sysNightAvg) * (m.Systolic - sysNightAvg))) / validNightCount));
+                sdDiasNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.Diastolic - diasNightAvg) * (m.Diastolic - diasNightAvg))) / validNightCount));
+                sdTamNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.Middle - middleNightAvg) * (m.Middle - middleNightAvg))) / validNightCount));
+                
+            }
 
             using (udaContext = new udahta_dbEntities())
             {
@@ -426,7 +551,9 @@ namespace DataAccess
                                         rep.DailyCarnetId, rep.Patient.UdaId,
                                         sysDayMin, diasDayMin, sysNightMin, diasNightMin,
                                         hrTotalAvg, hrDayAvg, hrNightAvg,
-                                        hrDayMax, hrNightMax, hrDayMin, hrNightMin);
+                                        hrDayMax, hrNightMax, hrDayMin, hrNightMin,
+                                        sdSysTotal, sdDiasTotal, sdSysDay, sdDiasDay, sdSysNight, sdDiasNight,
+                                        sdMiddleTot, sdTamDay, sdTamNight, middleTotalAvg, middleDayAvg, middleNightAvg);
 
                 //Obtener lista de medidas para insertar en tabla Measurement
                 ICollection<Measurement> lmeasure = rep.Measures;
@@ -659,7 +786,18 @@ namespace DataAccess
 
         public void addReportToInvestigation(long idPatient, long idReport, int idInvestigation)
         {
-            
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.insertInvestigationHasReport(idInvestigation, idReport, idPatient);
+            }
+        }
+
+        public void deleteReportFromInvestigation(long idPatient, long idReport, int idInvestigation)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.deleteInvestigationHasReport(idInvestigation, idReport, idPatient);
+            }
         }
 
     }
