@@ -41,10 +41,10 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertReport$$
-CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, IN doctor VARCHAR(45), IN diagnosis TEXT, IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, IN night_max_dias INT, IN idDev INT, IN devReportId VARCHAR(45), IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT, IN day_min_sis INT, IN day_min_dias INT, IN night_min_sis INT, IN night_min_dias INT, IN tot_avg_hr INT, IN day_avg_hr INT, IN night_avg_hr INT, IN max_day_hr INT, IN max_night_hr INT, IN min_day_hr INT, IN min_night_hr INT)
+CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, IN doctor VARCHAR(45), IN diagnosis TEXT, IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, IN night_max_dias INT, IN idDev INT, IN devReportId VARCHAR(45), IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT, IN day_min_sis INT, IN day_min_dias INT, IN night_min_sis INT, IN night_min_dias INT, IN tot_avg_hr INT, IN day_avg_hr INT, IN night_avg_hr INT, IN max_day_hr INT, IN max_night_hr INT, IN min_day_hr INT, IN min_night_hr INT, IN tot_sd_sis DECIMAL(5,2), IN tot_sd_dias DECIMAL(5,2), IN day_sd_sis DECIMAL(5,2), IN day_sd_dias DECIMAL(5,2), IN night_sd_sis DECIMAL(5,2), IN night_sd_dias DECIMAL(5,2), IN tot_sd_tam DECIMAL(5,2), IN day_sd_tam DECIMAL(5,2), IN night_sd_tam DECIMAL(5,2), IN tot_tam_avg INT, IN day_tam_avg INT, IN night_tam_avg INT)
 BEGIN
-INSERT INTO `udahta_db`.`report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, `temporarydata_idTemporaryData`, `dailycarnet_idDailyCarnet`, `patientuda_idPatientUda`, `day_min_sis`, `day_min_dias`, `night_min_sis`, `night_min_dias`, `tot_avg_hr`, `day_avg_hr`, `night_avg_hr`, `max_day_hr`, `max_night_hr`, `min_day_hr`, `min_night_hr`) 
-VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, idDailyCarnet, idPatient, day_min_sis, day_min_dias, night_min_sis, night_min_dias, tot_avg_hr, day_avg_hr, night_avg_hr, max_day_hr, max_night_hr, min_day_hr, min_night_hr);
+INSERT INTO `udahta_db`.`report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, `temporarydata_idTemporaryData`, `dailycarnet_idDailyCarnet`, `patientuda_idPatientUda`, `day_min_sis`, `day_min_dias`, `night_min_sis`, `night_min_dias`, `tot_avg_hr`, `day_avg_hr`, `night_avg_hr`, `max_day_hr`, `max_night_hr`, `min_day_hr`, `min_night_hr`, `tot_sd_sis`, `tot_sd_dias`, `day_sd_sis`, `day_sd_dias`, `night_sd_sis`, `night_sd_dias`, `tot_sd_tam`, `day_sd_tam`, `night_sd_tam`, `tot_tam_avg`, `day_tam_avg`, `night_tam_avg`) 
+VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, idDailyCarnet, idPatient, day_min_sis, day_min_dias, night_min_sis, night_min_dias, tot_avg_hr, day_avg_hr, night_avg_hr, max_day_hr, max_night_hr, min_day_hr, min_night_hr, tot_sd_sis, tot_sd_dias, day_sd_sis, day_sd_dias, night_sd_sis, night_sd_dias, tot_sd_tam, day_sd_tam, night_sd_tam, tot_tam_avg, day_tam_avg, night_tam_avg);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -53,7 +53,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMeasurement$$
 CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, IN diastolic INT, IN heart_rate INT, IN sleep BIT, IN isValid BIT, IN comm TEXT, IN idReport BIGINT, IN idPatient BIGINT)
 BEGIN
-INSERT INTO `udahta_db`.`measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `isValid`,`comment`, `report_idReport`, `report_patientuda_idPatientUda`) 
+INSERT INTO `udahta_db`.`measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, `is_valid`,`comment`, `report_idReport`, `report_patientuda_idPatientUda`) 
 VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, comm, idReport, idPatient);
 END$$
 DELIMITER ;
@@ -154,6 +154,28 @@ INSERT
 INTO `udahta_db`.`investigation`(name, creation_date)
 VALUES(id, nam, createDat);
 SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertInvestigationHasReport$$
+CREATE PROCEDURE insertInvestigationHasReport(IN idInvestigation INT, IN idReport BIGINT, IN idPatientUda BIGINT)
+BEGIN
+INSERT 
+INTO `udahta_db`.`investigation_has_report` (`investigation_idInvestigation`, `report_idReport`, `report_patientuda_idPatientUda`) 
+VALUES (idInvestigation, idReport, idPatientUda);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteInvestigationHasReport$$
+CREATE PROCEDURE deleteInvestigationHasReport(IN idInvestigation INT, IN idReport BIGINT, IN idPatientUda BIGINT)
+BEGIN
+DELETE 
+FROM `udahta_db`.`investigation_has_report` 
+WHERE (`investigation_idInvestigation` = idInvestigation AND 
+	  `report_idReport` = idReport AND
+	  `report_patientuda_idPatientUda` = idPatientUda);
 END$$
 DELIMITER ;
 
