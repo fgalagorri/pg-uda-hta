@@ -111,8 +111,8 @@ namespace ConsoleApplication1
                             }
                         }
             
+            
             */
-
 
             /*
             IImportDataManagement idm = new ImportDataManagement();
@@ -157,7 +157,7 @@ namespace ConsoleApplication1
 
             
             ReportManagement rm = new ReportManagement();
-            var rep = rm.GetReport(27);
+            var rep = rm.GetReport(42);
             if (rep != null)
             {
                 PatientManagement pm = new PatientManagement();
