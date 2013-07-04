@@ -35,25 +35,25 @@ namespace DataAccess
                     {
                         r.begin_date,
                         r.dailycarnet,
-                        r.day_avg_dias,
-                        r.day_avg_sys,
-                        r.day_max_dias,
-                        r.day_max_sys,
                         r.deviceReportId,
                         r.diagnosis,
                         r.doctor,
                         r.end_date,
                         r.idDevice,
                         r.measurement,
-                        r.night_avg_dias,
-                        r.night_avg_sys,
-                        r.night_max_dias,
-                        r.night_max_sys,
                         r.patientuda,
                         r.idReport,
                         r.request_doctor,
                         r.specialty,
                         r.temporarydata,
+                        r.day_avg_dias,
+                        r.day_avg_sys,
+                        r.day_max_dias,
+                        r.day_max_sys,
+                        r.night_avg_dias,
+                        r.night_avg_sys,
+                        r.night_max_dias,
+                        r.night_max_sys,
                         r.total_avg_dias,
                         r.total_avg_sys,
                         r.min_day_hr,
@@ -79,6 +79,9 @@ namespace DataAccess
                         r.day_sd_sis,
                         r.night_sd_sis,
                         r.tot_sd_sis,
+                        r.tot_sd_hr,
+                        r.day_sd_hr,
+                        r.night_sd_hr
                     }).FirstOrDefault();
 
                 Entities.Report rep = null;
@@ -119,6 +122,14 @@ namespace DataAccess
                         StandardDeviationSysDay = qry.day_sd_sis,
                         StandardDeviationSysNight = qry.night_sd_sis,
                         StandardDeviationSysTotal = qry.tot_sd_sis,
+                        StandardDeviationHeartRateDay = qry.day_sd_hr,
+                        StandardDeviationHeartRateNight = qry.night_sd_hr,
+                        StandardDeviationHeartRateTotal = qry.tot_sd_hr,
+                        DiastolicDayMin = qry.day_min_dias,
+                        DiastolicNightMin = qry.night_min_dias,
+                        SystolicDayMin = qry.day_min_sis,
+                        SystolicNightMin = qry.night_min_sis,
+
                         UdaId = qry.idReport
 
                     };
@@ -444,11 +455,8 @@ namespace DataAccess
             int middleTotalAvg = (int)Math.Round(valid.Average(m => m.Middle.Value));
             decimal sdSysTotal = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.Systolic - sysTotalAvg) * (m.Systolic - sysTotalAvg))) / valid.Count));
             decimal sdDiasTotal = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.Diastolic - diasTotalAvg) * (m.Diastolic - diasTotalAvg))) / valid.Count));
+            decimal sdHrTotal = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.HeartRate - hrTotalAvg) * (m.HeartRate - hrTotalAvg))) / valid.Count));
             decimal sdMiddleTot = (decimal)Math.Sqrt((double)((valid.Sum(m => (m.Middle - middleTotalAvg) * (m.Middle - middleTotalAvg))) / valid.Count));
-
-            //Listas de medidas del dia y la noche
-            var listMeasuresDay = valid.Where(m => !m.Asleep.Value).ToList();
-            var listMeasuresNight = valid.Where(m => m.Asleep.Value);
 
             int sysDayAvg = 0;
             int sysDayMax = 0;
@@ -468,8 +476,11 @@ namespace DataAccess
             int validDayCount = 0;
             decimal sdSysDay = 0;
             decimal sdDiasDay = 0;
+            decimal sdHrDay = 0;
             decimal sdTamDay = 0;
 
+            //Lista de medidas del dia
+            var listMeasuresDay = valid.Where(m => !m.Asleep.Value).ToList();
             if (listMeasuresDay.Count() != 0)
             {
                 //Sobre medidas durante el dia
@@ -491,6 +502,7 @@ namespace DataAccess
                 validDayCount = valid.Where(m => !m.Asleep.Value).Count();
                 sdSysDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.Systolic - sysDayAvg) * (m.Systolic - sysDayAvg))) / validDayCount));
                 sdDiasDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.Diastolic - diasDayAvg) * (m.Diastolic - diasDayAvg))) / validDayCount));
+                sdHrDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.HeartRate - hrDayAvg) * (m.HeartRate - hrDayAvg))) / validDayCount));
                 sdTamDay = (decimal)Math.Sqrt((double)((listMeasuresDay.Sum(m => (m.Middle - middleDayAvg) * (m.Middle - middleDayAvg))) / validDayCount));
                 
             }
@@ -514,6 +526,10 @@ namespace DataAccess
             decimal sdSysNight = 0;
             decimal sdDiasNight = 0;
             decimal sdTamNight = 0;
+            decimal sdHrNight = 0;
+
+            //Lista de medidas de la noche
+            var listMeasuresNight = valid.Where(m => m.Asleep.Value).ToList();
 
             if (listMeasuresNight.Count() != 0)
             {
@@ -536,6 +552,7 @@ namespace DataAccess
                 validNightCount = listMeasuresNight.Count();
                 sdSysNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.Systolic - sysNightAvg) * (m.Systolic - sysNightAvg))) / validNightCount));
                 sdDiasNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.Diastolic - diasNightAvg) * (m.Diastolic - diasNightAvg))) / validNightCount));
+                sdHrNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.HeartRate - hrNightAvg) * (m.HeartRate - hrNightAvg))) / validNightCount));
                 sdTamNight = (decimal)Math.Sqrt((double)((listMeasuresNight.Sum(m => (m.Middle - middleNightAvg) * (m.Middle - middleNightAvg))) / validNightCount));
                 
             }
@@ -553,7 +570,8 @@ namespace DataAccess
                                         hrTotalAvg, hrDayAvg, hrNightAvg,
                                         hrDayMax, hrNightMax, hrDayMin, hrNightMin,
                                         sdSysTotal, sdDiasTotal, sdSysDay, sdDiasDay, sdSysNight, sdDiasNight,
-                                        sdMiddleTot, sdTamDay, sdTamNight, middleTotalAvg, middleDayAvg, middleNightAvg);
+                                        sdMiddleTot, sdTamDay, sdTamNight, sdHrTotal, sdHrDay, sdHrNight, 
+                                        middleTotalAvg, middleDayAvg, middleNightAvg);
 
                 //Obtener lista de medidas para insertar en tabla Measurement
                 ICollection<Measurement> lmeasure = rep.Measures;

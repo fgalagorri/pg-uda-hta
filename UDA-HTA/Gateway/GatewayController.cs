@@ -82,6 +82,13 @@ namespace Gateway
 
         #endregion
 
+        #region Report Exportation
+        public void exportReport(Report report, string filePath)
+        {
+            ReportManagement rm = new ReportManagement();
+            rm.GenerateDocument(report, filePath);
+        }
+        #endregion
 
         #region Patient Listing & Viewing
 
@@ -123,5 +130,8 @@ namespace Gateway
         }
 
         #endregion
+
+
+
     }
 }

@@ -229,6 +229,9 @@
           <Property Name="tot_sd_tam" Type="decimal" Precision="5" Scale="2" />
           <Property Name="day_sd_tam" Type="decimal" Precision="5" Scale="2" />
           <Property Name="night_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_sd_hr" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_hr" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_hr" Type="decimal" Precision="5" Scale="2" />
           <Property Name="tot_tam_avg" Type="int" />
           <Property Name="day_tam_avg" Type="int" />
           <Property Name="night_tam_avg" Type="int" />
@@ -522,6 +525,9 @@
           <Parameter Name="tot_sd_tam" Type="decimal" Mode="In" />
           <Parameter Name="day_sd_tam" Type="decimal" Mode="In" />
           <Parameter Name="night_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_hr" Type="decimal" Mode="In" />
           <Parameter Name="tot_tam_avg" Type="int" Mode="In" />
           <Parameter Name="day_tam_avg" Type="int" Mode="In" />
           <Parameter Name="night_tam_avg" Type="int" Mode="In" />
@@ -733,6 +739,16 @@
           <FunctionImport Name="insertPatientUda">
           <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="insertInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="deleteInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="insertReport">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="begin_date" Mode="In" Type="DateTime" />
@@ -776,19 +792,12 @@
             <Parameter Name="tot_sd_tam" Mode="In" Type="Decimal" />
             <Parameter Name="day_sd_tam" Mode="In" Type="Decimal" />
             <Parameter Name="night_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_hr" Mode="In" Type="Decimal" />
             <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="insertInvestigationHasReport">
-            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
-            <Parameter Name="idReport" Mode="In" Type="Int64" />
-            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
-          </FunctionImport>
-          <FunctionImport Name="deleteInvestigationHasReport">
-            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
-            <Parameter Name="idReport" Mode="In" Type="Int64" />
-            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1036,6 +1045,9 @@
           <Property Type="Int32" Name="tot_tam_avg" />
           <Property Type="Int32" Name="day_tam_avg" />
           <Property Type="Int32" Name="night_tam_avg" />
+          <Property Type="Decimal" Name="tot_sd_hr" />
+          <Property Type="Decimal" Name="day_sd_hr" />
+          <Property Type="Decimal" Name="night_sd_hr" />
         </EntityType>
         <Association Name="fk_Report_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1204,6 +1216,9 @@
           <EntitySetMapping Name="report">
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="night_sd_hr" ColumnName="night_sd_hr" />
+                <ScalarProperty Name="day_sd_hr" ColumnName="day_sd_hr" />
+                <ScalarProperty Name="tot_sd_hr" ColumnName="tot_sd_hr" />
                 <ScalarProperty Name="night_tam_avg" ColumnName="night_tam_avg" />
                 <ScalarProperty Name="day_tam_avg" ColumnName="day_tam_avg" />
                 <ScalarProperty Name="tot_tam_avg" ColumnName="tot_tam_avg" />
@@ -1290,9 +1305,9 @@
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
-          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
