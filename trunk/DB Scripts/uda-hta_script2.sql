@@ -77,6 +77,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`dailycarnet` (
   `begin_sleep_time` DATETIME NULL ,
   `end_sleep_time` DATETIME NULL ,
   `how_sleep` VARCHAR(45) NULL ,
+  `sleep_comments` TEXT NULL ,
   `main_meal_time` DATETIME NULL ,
   `init_sys1` INT NULL ,
   `init_sys2` INT NULL ,

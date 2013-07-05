@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Windows.Controls;
+using Entities;
 
 namespace UDA_HTA.UserControls.MainWindow
 {
@@ -12,29 +15,13 @@ namespace UDA_HTA.UserControls.MainWindow
         public PatientViewerData()
         {
             InitializeComponent();
-
-            List<ExampleMedition> l = new List<ExampleMedition>();
-            ExampleMedition em = new ExampleMedition
-            {
-                Date = DateTime.Now,
-                Sistolica = 142,
-                Diastolica = 80,
-                Media = 97,
-                Freq = 66,
-            };
-            l.Add(em); l.Add(em); l.Add(em); l.Add(em); l.Add(em); l.Add(em);
-            l.Add(em); l.Add(em); l.Add(em); l.Add(em); l.Add(em); l.Add(em);
-
-            grid.DataContext = l;
+            colDate.Binding.StringFormat = ConfigurationManager.AppSettings["ShortDateString"];
+            colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
         }
-    }
 
-    public class ExampleMedition
-    {
-        public DateTime Date { get; set; }
-        public int Sistolica { get; set; }
-        public int Diastolica { get; set; }
-        public int Media { get; set; }
-        public int Freq { get; set; }
+        public void SetReport(Report r)
+        {
+            grid.DataContext = r.Measures.OrderBy(m => m.Time.Value);
+        }
     }
 }

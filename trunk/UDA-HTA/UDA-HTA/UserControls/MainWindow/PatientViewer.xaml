@@ -11,7 +11,7 @@
         </Grid.ColumnDefinitions>
 
         <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectedItemChanged="treePatient_SelectedItemChanged">
-            <TreeViewItem IsExpanded="True" Name="treePatient" Focusable="False">
+            <TreeViewItem IsExpanded="True" Name="treePatient">
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/tree_user.png" />

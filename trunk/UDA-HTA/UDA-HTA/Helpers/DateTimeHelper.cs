@@ -19,9 +19,9 @@ namespace UDA_HTA.Helpers
         } 
 
 
-        public static int CalculateAge(this DateTime d)
+        public static int CalculateAge(this DateTime d, DateTime? date = null)
         {
-            DateTime now = DateTime.Today;
+            DateTime now = date.HasValue ? date.Value : DateTime.Today;
             int age = now.Year - d.Year;
             if (d.Date > now.AddYears(-age))
                 age--;

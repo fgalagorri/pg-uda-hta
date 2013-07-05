@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Entities;
@@ -19,6 +20,7 @@ namespace UDA_HTA.UserControls.MainWindow
 
         public PatientViewer(PatientSearch patient)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             _patient = GatewayController.GetInstance().GetPatientFullView(patient.UdaId.Value);
 
             InitializeComponent();
@@ -45,11 +47,13 @@ namespace UDA_HTA.UserControls.MainWindow
                 child.Header = sp;
                 treePatient.Items.Add(child);
             }
+            Mouse.OverrideCursor = null;
         }
 
 
         private void treePatient_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             int index = treePatient.Items.IndexOf(e.NewValue);
             if (index >= 0)
             {
@@ -62,6 +66,7 @@ namespace UDA_HTA.UserControls.MainWindow
                 TabReportSummary.SetReport(_report);
                 ReportSummary.Visibility = Visibility.Visible;
                 ReportDiagnosis.Visibility = Visibility.Visible;
+                TabReportData.SetReport(_report);
                 ReportData.Visibility = Visibility.Visible;
                 ReportCharts.Visibility = Visibility.Visible;
             }
@@ -73,6 +78,7 @@ namespace UDA_HTA.UserControls.MainWindow
                 ReportData.Visibility = Visibility.Collapsed;
                 ReportCharts.Visibility = Visibility.Collapsed;
             }
+            Mouse.OverrideCursor = null;
         }
 
 

@@ -18,12 +18,14 @@ namespace UDA_HTA
 
         public NewReportFinder()
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
 
             var controller = GatewayController.GetInstance();
             _list = controller.GetNewReports();
-
             grReports.DataContext = _list;
+
+            Mouse.OverrideCursor = null;
         }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)

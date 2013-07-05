@@ -256,11 +256,12 @@ namespace DataAccess
         /// <param name="sex">No Metadata Documentation available.</param>
         /// <param name="neighbour">No Metadata Documentation available.</param>
         /// <param name="city">No Metadata Documentation available.</param>
+        /// <param name="department">No Metadata Documentation available.</param>
         /// <param name="phone">No Metadata Documentation available.</param>
         /// <param name="cell">No Metadata Documentation available.</param>
         /// <param name="email">No Metadata Documentation available.</param>
         /// <param name="register_number">No Metadata Documentation available.</param>
-        public int insertPatient(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
+        public int insertPatient(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String department, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
         {
             ObjectParameter nameParameter;
             if (name != null)
@@ -342,6 +343,16 @@ namespace DataAccess
                 cityParameter = new ObjectParameter("city", typeof(global::System.String));
             }
     
+            ObjectParameter departmentParameter;
+            if (department != null)
+            {
+                departmentParameter = new ObjectParameter("department", department);
+            }
+            else
+            {
+                departmentParameter = new ObjectParameter("department", typeof(global::System.String));
+            }
+    
             ObjectParameter phoneParameter;
             if (phone != null)
             {
@@ -382,7 +393,7 @@ namespace DataAccess
                 register_numberParameter = new ObjectParameter("register_number", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
+            return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
         }
 
         #endregion
@@ -1127,6 +1138,30 @@ namespace DataAccess
         private Nullable<global::System.DateTime> _modified_date;
         partial void Onmodified_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodified_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String department
+        {
+            get
+            {
+                return _department;
+            }
+            set
+            {
+                OndepartmentChanging(value);
+                ReportPropertyChanging("department");
+                _department = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("department");
+                OndepartmentChanged();
+            }
+        }
+        private global::System.String _department;
+        partial void OndepartmentChanging(global::System.String value);
+        partial void OndepartmentChanged();
 
         #endregion
     

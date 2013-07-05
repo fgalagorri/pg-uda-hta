@@ -53,7 +53,9 @@
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
                         <TextBlock Style="{StaticResource label}">Fecha de Nacimiento:</TextBlock>
                         <TextBlock Name="lblBirth" Margin="15,0" />
+                        <TextBlock>(</TextBlock> 
                         <TextBlock Name="lblAge" />
+                        <TextBlock Margin="4,0,0,0"> años)</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="4">
                         <TextBlock Style="{StaticResource label}">Sexo:</TextBlock>

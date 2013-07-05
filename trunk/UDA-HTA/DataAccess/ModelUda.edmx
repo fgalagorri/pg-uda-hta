@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -96,6 +96,7 @@
           <Property Name="begin_sleep_time" Type="datetime" />
           <Property Name="end_sleep_time" Type="datetime" />
           <Property Name="how_sleep" Type="varchar" MaxLength="45" />
+          <Property Name="sleep_comments" Type="text" />
           <Property Name="main_meal_time" Type="datetime" />
           <Property Name="init_sys1" Type="int" />
           <Property Name="init_sys2" Type="int" />
@@ -429,6 +430,7 @@
           <Parameter Name="begin_sleep_time" Type="datetime" Mode="In" />
           <Parameter Name="end_sleep_time" Type="datetime" Mode="In" />
           <Parameter Name="how_sleep" Type="varchar" Mode="In" />
+          <Parameter Name="sleep_comments" Type="text" Mode="In" />
           <Parameter Name="main_meal_time" Type="datetime" Mode="In" />
           <Parameter Name="init_sys1" Type="int" Mode="In" />
           <Parameter Name="init_sys2" Type="int" Mode="In" />
@@ -437,12 +439,25 @@
           <Parameter Name="final_sys2" Type="int" Mode="In" />
           <Parameter Name="final_sys3" Type="int" Mode="In" />
         </Function>
+        <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="device_type" Type="int" Mode="In" />
+          <Parameter Name="device_ref" Type="varchar" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="insertDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="nam" Type="varchar" Mode="In" />
           <Parameter Name="idDrugType" Type="int" Mode="In" />
         </Function>
         <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="typ" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
@@ -478,6 +493,22 @@
           <Parameter Name="dose" Type="text" Mode="In" />
           <Parameter Name="idDrug" Type="int" Mode="In" />
           <Parameter Name="idTemporaryData" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="addr" Type="text" Mode="In" />
+          <Parameter Name="dni" Type="varchar" Mode="In" />
+          <Parameter Name="birth" Type="datetime" Mode="In" />
+          <Parameter Name="sex" Type="enum" Mode="In" />
+          <Parameter Name="neighbour" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="department" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="cell" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="register_number" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
@@ -639,6 +670,7 @@
             <Parameter Name="begin_sleep_time" Mode="In" Type="DateTime" />
             <Parameter Name="end_sleep_time" Mode="In" Type="DateTime" />
             <Parameter Name="how_sleep" Mode="In" Type="String" />
+            <Parameter Name="sleep_comments" Mode="In" Type="String" />
             <Parameter Name="main_meal_time" Mode="In" Type="DateTime" />
             <Parameter Name="init_sys1" Mode="In" Type="Int32" />
             <Parameter Name="init_sys2" Mode="In" Type="Int32" />
@@ -647,25 +679,12 @@
             <Parameter Name="final_sys2" Mode="In" Type="Int32" />
             <Parameter Name="final_sys3" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertDeviceReference">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="device_type" Mode="In" Type="Int32" />
-            <Parameter Name="device_ref" Mode="In" Type="String" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
-          </FunctionImport>
           <FunctionImport Name="insertDrug">
             <Parameter Name="nam" Mode="In" Type="String" />
             <Parameter Name="idDrugType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertDrugType">
           <Parameter Name="typ" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="insertEmergencyContact">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="surname" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertInvestigation">
             <Parameter Name="id" Mode="Out" Type="Int32" />
@@ -696,21 +715,6 @@
             <Parameter Name="dose" Mode="In" Type="String" />
             <Parameter Name="idDrug" Mode="In" Type="Int32" />
             <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="insertPatient">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="surname" Mode="In" Type="String" />
-            <Parameter Name="addr" Mode="In" Type="String" />
-            <Parameter Name="dni" Mode="In" Type="String" />
-            <Parameter Name="birth" Mode="In" Type="DateTime" />
-            <Parameter Name="sex" Mode="In" Type="String" />
-            <Parameter Name="neighbour" Mode="In" Type="String" />
-            <Parameter Name="city" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="cell" Mode="In" Type="String" />
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="register_number" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertTemporaryData">
             <Parameter Name="id" Mode="Out" Type="Int32" />
@@ -799,6 +803,35 @@
             <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="insertPatient">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="birth" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="neighbour" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="cell" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="register_number" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertEmergencyContact">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertDeviceReference">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="device_type" Mode="In" Type="Int32" />
+            <Parameter Name="device_ref" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
           <Key>
@@ -842,6 +875,7 @@
           <Property Name="final_sys3" Type="Int32" />
           <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="dailycarnet" ToRole="complications_activities" />
           <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="dailycarnet" ToRole="report" />
+          <Property Type="String" Name="sleep_comments" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="drug">
           <Key>
@@ -1137,7 +1171,8 @@
             <ScalarProperty Name="description" ColumnName="description" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="dailycarnet"><EntityTypeMapping TypeName="udahta_dbModel.dailycarnet"><MappingFragment StoreEntitySet="dailycarnet">
-            <ScalarProperty Name="idDailyCarnet" ColumnName="idDailyCarnet" />
+            <ScalarProperty Name="sleep_comments" ColumnName="sleep_comments" />
+                <ScalarProperty Name="idDailyCarnet" ColumnName="idDailyCarnet" />
             <ScalarProperty Name="technical" ColumnName="technical" />
             <ScalarProperty Name="initial_dias1" ColumnName="initial_dias1" />
             <ScalarProperty Name="initial_dias2" ColumnName="initial_dias2" />
@@ -1308,6 +1343,9 @@
           <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="udahta_dbModel.Store.insertPatient" />
+          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="udahta_dbModel.Store.insertEmergencyContact" />
+          <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="udahta_dbModel.Store.insertDeviceReference" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Entities;
 using Gateway;
 
@@ -22,12 +23,14 @@ namespace UDA_HTA.UserControls
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             long registry;
+            Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
             bool hasRegistry = long.TryParse(txtRegistry.Text, out registry);
             var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(), txtSurname.Text.Trim(),
                                                    dtBirthDate.SelectedDate, hasRegistry ? (long?) registry : null);
 
             grPatients.DataContext = patients;
+            Mouse.OverrideCursor = null;
         }
 
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="patient_info_dbModelStoreContainer">
           <EntitySet Name="device_reference" EntityType="patient_info_dbModel.Store.device_reference" store:Type="Tables" Schema="patient_info_db" />
           <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.Store.emergency_contact" store:Type="Tables" Schema="patient_info_db" />
@@ -22,7 +22,7 @@
           <Key>
             <PropertyRef Name="iddevice_reference" />
           </Key>
-          <Property Name="iddevice_reference" Type="bigint" Nullable="false" />
+          <Property Name="iddevice_reference" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="device_type" Type="int" />
           <Property Name="device_ref" Type="varchar" MaxLength="45" />
           <Property Name="patient_idPatient" Type="bigint" Nullable="false" />
@@ -42,7 +42,6 @@
             <PropertyRef Name="idPatient" />
           </Key>
           <Property Name="idPatient" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="patientReference" Type="varchar" MaxLength="45" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="surname" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="document" Type="varchar" Nullable="false" MaxLength="45" />
@@ -52,6 +51,7 @@
           <Property Name="address" Type="text" />
           <Property Name="city" Type="varchar" MaxLength="45" />
           <Property Name="neighborhood" Type="varchar" MaxLength="45" />
+          <Property Name="department" Type="varchar" MaxLength="45" />
           <Property Name="birthday" Type="datetime" />
           <Property Name="e_mail" Type="text" />
           <Property Name="register_number" Type="bigint" />
@@ -81,11 +81,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="deleteInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="idInvestigation" Type="int" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="hour" Type="int" Mode="In" />
+          <Parameter Name="minutes" Type="int" Mode="In" />
+          <Parameter Name="specification" Type="text" Mode="In" />
+          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
+          <Parameter Name="description" Type="text" Mode="In" />
+        </Function>
+        <Function Name="insertDailyCarnet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="technical" Type="varchar" Mode="In" />
+          <Parameter Name="initial_dias1" Type="int" Mode="In" />
+          <Parameter Name="initial_dias2" Type="int" Mode="In" />
+          <Parameter Name="initial_dias3" Type="int" Mode="In" />
+          <Parameter Name="initial_hr1" Type="int" Mode="In" />
+          <Parameter Name="initial_hr2" Type="int" Mode="In" />
+          <Parameter Name="initial_hr3" Type="int" Mode="In" />
+          <Parameter Name="final_dias1" Type="int" Mode="In" />
+          <Parameter Name="final_dias2" Type="int" Mode="In" />
+          <Parameter Name="final_dias3" Type="int" Mode="In" />
+          <Parameter Name="final_hr1" Type="int" Mode="In" />
+          <Parameter Name="final_hr2" Type="int" Mode="In" />
+          <Parameter Name="final_hr3" Type="int" Mode="In" />
+          <Parameter Name="begin_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="end_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="how_sleep" Type="varchar" Mode="In" />
+          <Parameter Name="sleep_comments" Type="text" Mode="In" />
+          <Parameter Name="main_meal_time" Type="datetime" Mode="In" />
+          <Parameter Name="init_sys1" Type="int" Mode="In" />
+          <Parameter Name="init_sys2" Type="int" Mode="In" />
+          <Parameter Name="init_sys3" Type="int" Mode="In" />
+          <Parameter Name="final_sys1" Type="int" Mode="In" />
+          <Parameter Name="final_sys2" Type="int" Mode="In" />
+          <Parameter Name="final_sys3" Type="int" Mode="In" />
+        </Function>
         <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="device_type" Type="int" Mode="In" />
           <Parameter Name="device_ref" Type="varchar" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="nam" Type="varchar" Mode="In" />
+          <Parameter Name="idDrugType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="typ" Type="varchar" Mode="In" />
         </Function>
         <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
@@ -93,6 +140,41 @@
           <Parameter Name="surname" Type="varchar" Mode="In" />
           <Parameter Name="phone" Type="varchar" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="int" Mode="Out" />
+          <Parameter Name="nam" Type="varchar" Mode="In" />
+          <Parameter Name="createDat" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="insertInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="idInvestigation" Type="int" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMeasurement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="dateM" Type="datetime" Mode="In" />
+          <Parameter Name="systolic" Type="int" Mode="In" />
+          <Parameter Name="average" Type="int" Mode="In" />
+          <Parameter Name="diastolic" Type="int" Mode="In" />
+          <Parameter Name="heart_rate" Type="int" Mode="In" />
+          <Parameter Name="sleep" Type="bit" Mode="In" />
+          <Parameter Name="isValid" Type="bit" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="illness" Type="text" Mode="In" />
+          <Parameter Name="fromDate" Type="datetime" Mode="In" />
+          <Parameter Name="toDate" Type="datetime" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="dose" Type="text" Mode="In" />
+          <Parameter Name="idDrug" Type="int" Mode="In" />
+          <Parameter Name="idTemporaryData" Type="int" Mode="In" />
         </Function>
         <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
@@ -104,13 +186,90 @@
           <Parameter Name="sex" Type="enum" Mode="In" />
           <Parameter Name="neighbour" Type="varchar" Mode="In" />
           <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="department" Type="varchar" Mode="In" />
           <Parameter Name="phone" Type="varchar" Mode="In" />
           <Parameter Name="cell" Type="varchar" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="register_number" Type="bigint" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+        <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="begin_date" Type="datetime" Mode="In" />
+          <Parameter Name="end_date" Type="datetime" Mode="In" />
+          <Parameter Name="doctor" Type="varchar" Mode="In" />
+          <Parameter Name="diagnosis" Type="text" Mode="In" />
+          <Parameter Name="request_doctor" Type="varchar" Mode="In" />
+          <Parameter Name="specialty" Type="varchar" Mode="In" />
+          <Parameter Name="day_avg_sys" Type="int" Mode="In" />
+          <Parameter Name="night_avg_sys" Type="int" Mode="In" />
+          <Parameter Name="total_avg_sys" Type="int" Mode="In" />
+          <Parameter Name="day_max_sys" Type="int" Mode="In" />
+          <Parameter Name="night_max_sys" Type="int" Mode="In" />
+          <Parameter Name="day_avg_dias" Type="int" Mode="In" />
+          <Parameter Name="night_avg_dias" Type="int" Mode="In" />
+          <Parameter Name="total_avg_dias" Type="int" Mode="In" />
+          <Parameter Name="day_max_dias" Type="int" Mode="In" />
+          <Parameter Name="night_max_dias" Type="int" Mode="In" />
+          <Parameter Name="idDev" Type="int" Mode="In" />
+          <Parameter Name="devReportId" Type="varchar" Mode="In" />
+          <Parameter Name="idTemporaryData" Type="int" Mode="In" />
+          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+          <Parameter Name="day_min_sis" Type="int" Mode="In" />
+          <Parameter Name="day_min_dias" Type="int" Mode="In" />
+          <Parameter Name="night_min_sis" Type="int" Mode="In" />
+          <Parameter Name="night_min_dias" Type="int" Mode="In" />
+          <Parameter Name="tot_avg_hr" Type="int" Mode="In" />
+          <Parameter Name="day_avg_hr" Type="int" Mode="In" />
+          <Parameter Name="night_avg_hr" Type="int" Mode="In" />
+          <Parameter Name="max_day_hr" Type="int" Mode="In" />
+          <Parameter Name="max_night_hr" Type="int" Mode="In" />
+          <Parameter Name="min_day_hr" Type="int" Mode="In" />
+          <Parameter Name="min_night_hr" Type="int" Mode="In" />
+          <Parameter Name="tot_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="tot_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="day_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="night_tam_avg" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="int" Mode="Out" />
+          <Parameter Name="weight" Type="decimal" Mode="In" />
+          <Parameter Name="height" Type="decimal" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="body_mass_index" Type="decimal" Mode="In" />
+          <Parameter Name="smoker" Type="bit" Mode="In" />
+          <Parameter Name="dyslipidemia" Type="bit" Mode="In" />
+          <Parameter Name="diabetic" Type="bit" Mode="In" />
+          <Parameter Name="known_hypertensive" Type="bit" Mode="In" />
+          <Parameter Name="fat_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="muscle_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="kcal" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="log" Type="varchar" Mode="In" />
+          <Parameter Name="p" Type="varchar" Mode="In" />
+          <Parameter Name="r" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="login_var" Type="varchar" Mode="In" />
+          <Parameter Name="pass_var" Type="varchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="patient_info_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -149,6 +308,7 @@
             <Parameter Name="sex" Mode="In" Type="String" />
             <Parameter Name="neighbour" Mode="In" Type="String" />
             <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
             <Parameter Name="phone" Mode="In" Type="String" />
             <Parameter Name="cell" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
@@ -196,6 +356,7 @@
           <Property Name="modified_date" Type="DateTime" />
           <NavigationProperty Name="device_reference" Relationship="patient_info_dbModel.fk_device_reference_patient1" FromRole="patient" ToRole="device_reference" />
           <NavigationProperty Name="emergency_contact" Relationship="patient_info_dbModel.fk_emergency_contact_Patient" FromRole="patient" ToRole="emergency_contact" />
+          <Property Type="String" Name="department" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_device_reference_patient1">
           <End Role="patient" Type="patient_info_dbModel.patient" Multiplicity="1" />
@@ -241,7 +402,8 @@
             <ScalarProperty Name="patient_idPatient" ColumnName="patient_idPatient" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="patient"><EntityTypeMapping TypeName="patient_info_dbModel.patient"><MappingFragment StoreEntitySet="patient">
-            <ScalarProperty Name="idPatient" ColumnName="idPatient" />
+            <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="idPatient" ColumnName="idPatient" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="surname" ColumnName="surname" />
             <ScalarProperty Name="document" ColumnName="document" />
