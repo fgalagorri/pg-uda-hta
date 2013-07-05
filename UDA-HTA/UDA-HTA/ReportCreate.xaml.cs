@@ -23,11 +23,10 @@ namespace UDA_HTA
             InitializeComponent();
             _report = report;
             _state = 0;
-            patientInfo = new PatientInformation();
-            admissionForm = new AdmissionForm();
-            otherInfo = new OtherInformation();
+            patientInfo = new PatientInformation(report);
+            admissionForm = new AdmissionForm(report);
+            otherInfo = new OtherInformation(report);
 
-            patientInfo.Report = report;
             CurrentControl.Content = patientInfo;
         }
 
@@ -36,22 +35,34 @@ namespace UDA_HTA
             switch (_state)
             {
                 case 0:
-                    _report = patientInfo.Report;
-                    admissionForm.Report = _report;
-                    CurrentControl.Content = admissionForm;
-                    btnBack.IsEnabled = true;
-                    _state++;
+                    if (patientInfo.IsValid())
+                    {
+                        CurrentControl.Content = admissionForm;
+                        btnBack.IsEnabled = true;
+                        _state++;
+                    }
+                    else
+                    {
+                        //display message error
+                    }
                     break;
                 case 1:
-                    _report = admissionForm.Report;
-                    otherInfo.Report = _report;
-                    CurrentControl.Content = otherInfo;
-                    btnBack.IsEnabled = true;
-                    btnNext.Content = Finalizar;
-                    _state++;
+                    if (admissionForm.IsValid())
+                    {
+                        CurrentControl.Content = otherInfo;
+                        btnBack.IsEnabled = true;
+                        btnNext.Content = Finalizar;
+                        _state++;
+                    }
+                    else
+                    {
+                        //display message error
+                    }
                     break;
                 case 2:
-                    _report = otherInfo.Report;
+                    _report = patientInfo.GetReport(_report);
+                    _report = admissionForm.GetReport(_report);
+                    _report = otherInfo.GetReport(_report);
                     DialogResult = true;
                     GatewayController.GetInstance().AddImportedData(_report, true); // TODO ver modified
 
@@ -65,15 +76,11 @@ namespace UDA_HTA
             switch (_state)
             {
                 case 1:
-                    _report = admissionForm.Report;
-                    patientInfo.Report = _report;
                     CurrentControl.Content = patientInfo;
                     btnBack.IsEnabled = false;
                     _state--;
                     break;
                 case 2:
-                    _report = otherInfo.Report;
-                    admissionForm.Report = _report;
                     CurrentControl.Content = admissionForm;
                     btnBack.IsEnabled = true;
                     btnNext.Content = Siguiente;

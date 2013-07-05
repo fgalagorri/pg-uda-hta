@@ -22,6 +22,7 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`patient` (
   `address` TEXT NULL ,
   `city` VARCHAR(45) NULL ,
   `neighborhood` VARCHAR(45) NULL ,
+  `department` VARCHAR(45) NULL ,
   `birthday` DATETIME NULL ,
   `e_mail` TEXT NULL ,
   `register_number` BIGINT NULL ,

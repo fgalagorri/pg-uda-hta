@@ -311,7 +311,7 @@ namespace DataAccess
                                               r.temporarydata,
                                               r.total_avg_dias,
                                               r.total_avg_sys
-                                          });
+                                          }).ToList();
 
                 var measurements = udaContext.measurement
                                              .Where(m => m.report_patientuda_idPatientUda == patientId)
@@ -324,8 +324,9 @@ namespace DataAccess
                                                      HeartRate = m.heart_rate,
                                                      Time = m.date,
                                                      Comment = m.comment,
-                                                     ReportId = m.report_idReport
-                                                 });
+                                                     ReportId = m.report_idReport,
+                                                     Valid = m.is_valid
+                                                 }).ToList();
 
                 foreach (var rep in query)
                 {
@@ -387,6 +388,7 @@ namespace DataAccess
                     }
 
                     report.Carnet.SleepQuality = rep.dailycarnet.how_sleep;
+                    report.Carnet.SleepQualityDescription = rep.dailycarnet.sleep_comments;
 
                     report.Carnet.SleepTimeEnd = new DateTime(rep.dailycarnet.end_sleep_time.Value.Year,
                                                               rep.dailycarnet.end_sleep_time.Value.Month,
@@ -597,10 +599,10 @@ namespace DataAccess
                                              dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
                                              dCarnet.FinalDiastolic1, dCarnet.FinalDiastolic2, dCarnet.FinalDiastolic3,
                                              dCarnet.FinalHeartRate1, dCarnet.FinalHeartRate2, dCarnet.FinalHeartRate3,
-                                             dCarnet.SleepTimeStart, dCarnet.SleepTimeEnd, dCarnet.SleepQuality, dCarnet.MealTime,
+                                             dCarnet.SleepTimeStart, dCarnet.SleepTimeEnd, dCarnet.SleepQuality,
+                                             dCarnet.SleepQualityDescription, dCarnet.MealTime,
                                              dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
-                                             dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3
-                                             );
+                                             dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3);
 
                 ObjectParameter lastIdCA = new ObjectParameter("id", typeof(int));
                 foreach (var compl in dCarnet.Complications)

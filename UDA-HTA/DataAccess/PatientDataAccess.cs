@@ -39,7 +39,8 @@ namespace DataAccess
                     sex = p.Sex.Value.ToString();
                 }
                 udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
-                                         p.BirthDate, sex, p.Neighbour, p.City, p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
+                                         p.BirthDate, sex, p.Neighbour, p.City, p.Department, 
+                                         p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
                 foreach (var devRef in p.DeviceReferences)
                 {
                     udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType, devRef.deviceReferenceId, (long)lastIdPatient.Value);
@@ -116,22 +117,26 @@ namespace DataAccess
                                                 p.gender,
                                                 p.name,
                                                 p.neighborhood,
+                                                p.department,
                                                 p.surname,
                                                 p.telephone
                                             }).ToList().First();
-            Patient patient = new Patient();
-            patient.UdaId = pat.idPatient;
-            patient.Address = pat.address;
-            patient.BirthDate = pat.birthday;
-            patient.CellPhone = pat.cell_phone;
-            patient.City = pat.city;
-            patient.DocumentId = pat.document;
-            patient.Email = pat.e_mail;
-            patient.Names = pat.name;
-            patient.Neighbour = pat.neighborhood;
-            patient.Phone = pat.telephone;
-            patient.Sex = pat.gender == "M" ? SexType.M : SexType.F;
-            patient.Surnames = pat.surname;
+            Patient patient = new Patient
+                {
+                    UdaId = pat.idPatient,
+                    Address = pat.address,
+                    BirthDate = pat.birthday,
+                    CellPhone = pat.cell_phone,
+                    City = pat.city,
+                    DocumentId = pat.document,
+                    Email = pat.e_mail,
+                    Names = pat.name,
+                    Neighbour = pat.neighborhood,
+                    Department = pat.department,
+                    Phone = pat.telephone,
+                    Sex = pat.gender == "M" ? SexType.M : SexType.F,
+                    Surnames = pat.surname
+                };
 
             foreach (var ec in pat.emergency_contact)
             {

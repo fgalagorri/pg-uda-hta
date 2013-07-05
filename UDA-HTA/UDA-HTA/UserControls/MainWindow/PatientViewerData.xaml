@@ -5,18 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <DataGrid Name="grid" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding}" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Fecha" Width="2*" IsReadOnly="True" Binding="{Binding Path=Date, StringFormat=d}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Hora" Width="2*" IsReadOnly="True" Binding="{Binding Path=Date, StringFormat=t}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Sistólico" Width="1*" IsReadOnly="True" Binding="{Binding Path=Sistolica}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Diastólico" Width="1*" IsReadOnly="True" Binding="{Binding Path=Diastolica}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Media" Width="1*" IsReadOnly="True" Binding="{Binding Path=Media}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Frec. Cardíaca" Width="1*" IsReadOnly="True" Binding="{Binding Path=Freq}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-    </ScrollViewer>
+    <UserControl.Resources>
+        <Style TargetType="DataGridRow">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Asleep}" Value="True">
+                    <Setter Property="Background" Value="LightSteelBlue" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid Name="grid" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*" x:Name="colDate" Header="Fecha" IsReadOnly="True" Binding="{Binding Path=Time}" />
+                <DataGridTextColumn Width="1*" x:Name="colTime" Header="Hora" IsReadOnly="True" Binding="{Binding Path=Time}" />
+                <DataGridTextColumn Width="1*" Header="Sistólico" IsReadOnly="True" Binding="{Binding Path=Systolic}" />
+                <DataGridTextColumn Width="1*" Header="Diastólico" IsReadOnly="True" Binding="{Binding Path=Diastolic}" />
+                <DataGridTextColumn Width="1*" Header="Media" IsReadOnly="True" Binding="{Binding Path=Middle}" />
+                <DataGridTextColumn Width="1*" Header="Frec. Cardíaca" IsReadOnly="True" Binding="{Binding Path=HeartRate}" />
+                <DataGridTextColumn Width="1*"  Header="Dormido" Visibility="Hidden" IsReadOnly="True" Binding="{Binding Path=Asleep}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

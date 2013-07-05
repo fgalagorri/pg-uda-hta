@@ -38,41 +38,48 @@
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">General</TextBlock>
                 </GroupBox.Header>
-                                                                                                                                            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="35"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
-                <TextBlock Name="lblTechnician" Grid.Row="0" Grid.Column="1" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
+                    <TextBlock Name="lblTechnician" Grid.Row="0" Grid.Column="1" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
-                <TextBlock Name="lblBeginDate" Grid.Row="1" Grid.Column="1" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
+                    <TextBlock Name="lblBeginDate" Grid.Row="1" Grid.Column="1" />
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
-                <TextBlock Name="lblSleepStart" Grid.Row="2" Grid.Column="1" />
-                <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
-                <TextBlock Name="lblSleepEnd" Grid.Row="2" Grid.Column="4" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Edad al inicio:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                        <TextBlock Name="lblBeginAge" />
+                        <TextBlock Margin="4,0,0,0"> años.</TextBlock>
+                    </StackPanel>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
-                <TextBlock Name="lblSleepQty" Grid.Row="3" Grid.Column="1">Regular</TextBlock>
-                <TextBlock Name="lblSleepDesc" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5" />
-                
-                <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
-                <TextBlock Name="lblMealTime" Grid.Row="4" Grid.Column="1" />
-            </Grid>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
+                    <TextBlock Name="lblSleepStart" Grid.Row="3" Grid.Column="1" />
+                    <TextBlock Grid.Row="3" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
+                    <TextBlock Name="lblSleepEnd" Grid.Row="3" Grid.Column="4" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
+                    <TextBlock Name="lblSleepQty" Grid.Row="4" Grid.Column="1" />
+                    <TextBlock Name="lblSleepDesc" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
+                    <TextBlock Name="lblMealTime" Grid.Row="5" Grid.Column="1" />
+                </Grid>
             </GroupBox>
 
             <!-- Mediciones Iniciales -->

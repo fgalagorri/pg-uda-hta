@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities
 {
-    public enum SexType { F, M };
+    public enum SexType { M, F };
 
     public class Patient
     {

@@ -1,9 +1,9 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatient$$
-CREATE PROCEDURE insertPatient(OUT id BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45), IN register_number BIGINT)
+CREATE PROCEDURE insertPatient(OUT id BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), department VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), IN email VARCHAR(45), IN register_number BIGINT)
 BEGIN
-INSERT INTO `patient_info_db`.`patient`(`name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, `address`, `city`, `neighborhood`, `birthday`, `e_mail`,`register_number`)
-VALUES (name, surname, dni, sex, phone, cell, addr, city, neighbour, birth, email,register_number);
+INSERT INTO `patient_info_db`.`patient`(`name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, `address`, `city`, `neighborhood`, `department`, `birthday`, `e_mail`,`register_number`)
+VALUES (name, surname, dni, sex, phone, cell, addr, city, neighbour, department, birth, email,register_number);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -60,10 +60,10 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertDailyCarnet$$
-CREATE PROCEDURE insertDailyCarnet(OUT id BIGINT, IN technical VARCHAR(45), IN initial_dias1 INT, IN initial_dias2 INT, IN initial_dias3 INT, IN initial_hr1 INT, IN initial_hr2 INT, IN initial_hr3 INT, IN final_dias1 INT, IN final_dias2 INT, IN final_dias3 INT, IN final_hr1 INT, IN final_hr2 INT, IN final_hr3 INT, IN begin_sleep_time DATETIME, IN end_sleep_time DATETIME, IN how_sleep VARCHAR(45), IN main_meal_time DATETIME, IN init_sys1 INT, IN init_sys2 INT, IN init_sys3 INT, IN final_sys1 INT, IN final_sys2 INT, IN final_sys3 INT)
+CREATE PROCEDURE insertDailyCarnet(OUT id BIGINT, IN technical VARCHAR(45), IN initial_dias1 INT, IN initial_dias2 INT, IN initial_dias3 INT, IN initial_hr1 INT, IN initial_hr2 INT, IN initial_hr3 INT, IN final_dias1 INT, IN final_dias2 INT, IN final_dias3 INT, IN final_hr1 INT, IN final_hr2 INT, IN final_hr3 INT, IN begin_sleep_time DATETIME, IN end_sleep_time DATETIME, IN how_sleep VARCHAR(45), IN sleep_comments TEXT, IN main_meal_time DATETIME, IN init_sys1 INT, IN init_sys2 INT, IN init_sys3 INT, IN final_sys1 INT, IN final_sys2 INT, IN final_sys3 INT)
 BEGIN
-INSERT INTO `udahta_db`.`dailycarnet` (`technical`, `initial_dias1`, `initial_dias2`, `initial_dias3`, `initial_hr1`, `initial_hr2`, `initial_hr3`, `final_dias1`, `final_dias2`, `final_dias3`, `final_hr1`, `final_hr2`, `final_hr3`, `begin_sleep_time`, `end_sleep_time`, `how_sleep`, `main_meal_time`, `init_sys1`, `init_sys2`, `init_sys3`, `final_sys1`, `final_sys2`, `final_sys3`) 
-VALUES (technical, initial_dias1, initial_dias2, initial_dias3, initial_hr1, initial_hr2, initial_hr3, final_dias1, final_dias2, final_dias3, final_hr1, final_hr2, final_hr3, begin_sleep_time, end_sleep_time, how_sleep, main_meal_time, init_sys1, init_sys2, init_sys3, final_sys1, final_sys2, final_sys3);
+INSERT INTO `udahta_db`.`dailycarnet` (`technical`, `initial_dias1`, `initial_dias2`, `initial_dias3`, `initial_hr1`, `initial_hr2`, `initial_hr3`, `final_dias1`, `final_dias2`, `final_dias3`, `final_hr1`, `final_hr2`, `final_hr3`, `begin_sleep_time`, `end_sleep_time`, `how_sleep`, `sleep_comments`, `main_meal_time`, `init_sys1`, `init_sys2`, `init_sys3`, `final_sys1`, `final_sys2`, `final_sys3`) 
+VALUES (technical, initial_dias1, initial_dias2, initial_dias3, initial_hr1, initial_hr2, initial_hr3, final_dias1, final_dias2, final_dias3, final_hr1, final_hr2, final_hr3, begin_sleep_time, end_sleep_time, how_sleep, sleep_comments, main_meal_time, init_sys1, init_sys2, init_sys3, final_sys1, final_sys2, final_sys3);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
