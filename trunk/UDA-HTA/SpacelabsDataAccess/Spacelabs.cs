@@ -123,7 +123,7 @@ namespace SpacelabsDataAccess
                                     Surnames = (r.LastName + " " + r.SecondLastName).Trim(),
                                     DocumentId = r.CI,
                                     BirthDate = r.BirthDate,
-                                    Sex = (SexType?) r.GenderId,
+                                    Sex = (SexType?) r.GenderId - 1,
                                     Address = (r.Street1 + " " + r.Street2).Trim(),
                                     // Neighbourhood
                                     City = r.City,

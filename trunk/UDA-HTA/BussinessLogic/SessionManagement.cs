@@ -51,8 +51,6 @@ namespace BussinessLogic
 
             string pswd = dataAccess.getPassword(userName);
 
-            dataAccess.CloseConnectionDataBase();
-
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,
             //entonces login exitos, sino falla login 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using Entities;
 
@@ -11,7 +13,8 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class PatientInformation : UserControl
     {
-        decimal _imc;
+        private ICollection<EmergencyContact> _emContacts;
+
 
         public PatientInformation()
         {
@@ -32,38 +35,17 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtBirthDay.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Day.ToString() : "";
                 txtBirthMon.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Month.ToString() : "";
                 txtBirthYear.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Year.ToString() : "";
-                cmbSex.SelectedIndex = p.Sex.HasValue ? (int)p.Sex.Value - 1 : -1;
+                cmbSex.SelectedIndex = p.Sex.HasValue ? (int)p.Sex.Value : -1;
                 txtAddress.Text = p.Address;
                 txtNeighbour.Text = p.Neighbour;
                 txtCity.Text = p.City;
                 cmbDepartment.SelectedValue = p.Department;
                 txtTel.Text = p.Phone;
+                txtTelAlt.Text = p.Phone2;
                 txtCel.Text = p.CellPhone;
                 txtMail.Text = p.Email;
 
-                // Datos posiblemente modificados
-                if (report.TemporaryData != null)
-                {
-                    var t = report.TemporaryData;
-                    txtWeight.Text = t.Weight.ToString();
-                    txtHeight.Text = t.Height.ToString();
-                    _imc = t.BodyMassIndex.HasValue ? t.BodyMassIndex.Value : -1;
-                    lblImc.Text = t.BodyMassIndex.ToString();
-                    txtFat.Text = t.FatPercentage.ToString();
-                    txtMuscle.Text = t.MusclePercentage.ToString();
-                    txtKcal.Text = t.Kcal.ToString();
-                    chkSmoker.IsChecked = t.Smoker ?? false;
-                    chkDiabetic.IsChecked = t.Diabetic ?? false;
-                    chkDyslipidemia.IsChecked = t.Dyslipidemia ?? false;
-                    chkHypertense.IsChecked = t.Hypertensive ?? false;
-                }
-                else
-                {
-                    chkSmoker.IsChecked = false;
-                    chkDiabetic.IsChecked = false;
-                    chkDyslipidemia.IsChecked = false;
-                    chkHypertense.IsChecked = false;
-                }
+                _emContacts = p.EmergencyContactList ?? new List<EmergencyContact>();
             }
         }
 
@@ -85,32 +67,18 @@ namespace UDA_HTA.UserControls.ReportCreation
             p.Department = cmbDepartment.Text;
             p.Phone = txtTel.Text;
             p.CellPhone = txtCel.Text;
+            p.Phone2 = txtTelAlt.Text;
             p.Email = txtMail.Text;
 
+            p.EmergencyContactList = _emContacts;
+
             r.Patient = p;
-            var t = r.TemporaryData ?? new TemporaryData();
-
-            t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
-            t.Height = decimal.Parse(txtHeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
-            t.BodyMassIndex = _imc;
-            t.FatPercentage = decimal.Parse(txtFat.Text.Replace(",", "."), NumberStyles.Float,
-                                            CultureInfo.InvariantCulture);
-            t.MusclePercentage = decimal.Parse(txtMuscle.Text.Replace(",", "."), NumberStyles.Float,
-                                               CultureInfo.InvariantCulture);
-            t.Kcal = int.Parse(txtKcal.Text);
-            t.Smoker = chkSmoker.IsChecked.Value;
-            t.Diabetic = chkDiabetic.IsChecked.Value;
-            t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;
-            t.Hypertensive = chkHypertense.IsChecked.Value;
-
-            r.TemporaryData = t;
             return r;
         }
 
         public bool IsValid()
         {
             int i;
-            decimal d;
             return !string.IsNullOrWhiteSpace(txtNames.Text) &&
                    !string.IsNullOrWhiteSpace(txtSurnames.Text) &&
                    !string.IsNullOrWhiteSpace(txtCI.Text) &&
@@ -122,32 +90,54 @@ namespace UDA_HTA.UserControls.ReportCreation
                    !string.IsNullOrWhiteSpace(txtNeighbour.Text) &&
                    !string.IsNullOrWhiteSpace(txtCity.Text) &&
                    cmbDepartment.SelectedIndex != -1 &&
-                   !string.IsNullOrWhiteSpace(txtTel.Text) &&
-                   !string.IsNullOrWhiteSpace(txtCel.Text) &&
-                   !string.IsNullOrWhiteSpace(txtMail.Text) &&
-                   decimal.TryParse(txtWeight.Text.Replace(",", "."), NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out d) &&
-                   decimal.TryParse(txtHeight.Text.Replace(",", "."), NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out d) &&
-                   int.TryParse(txtFat.Text, out i) &&
-                   int.TryParse(txtMuscle.Text, out i) &&
-                   int.TryParse(txtKcal.Text, out i) &&
-                   _imc > 0;
+                   (!string.IsNullOrWhiteSpace(txtTel.Text) ||
+                   !string.IsNullOrWhiteSpace(txtCel.Text)) &&
+                   !string.IsNullOrWhiteSpace(txtMail.Text);
         }
 
-        private void CalculateImc(object sender, TextChangedEventArgs e)
+
+        #region Contactos de Emegencia
+
+        private void btnAddEmContact_Click(object sender, RoutedEventArgs e)
         {
-            decimal height, weight;
-            string h = txtHeight.Text.Replace(",", ".");
-
-            if (decimal.TryParse(h, NumberStyles.Float, CultureInfo.InvariantCulture, out height)
-                && decimal.TryParse(txtWeight.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out weight))
+            if (!String.IsNullOrWhiteSpace(txtEmCName.Text) &&
+                !String.IsNullOrWhiteSpace(txtEmCSurname.Text) &&
+                !String.IsNullOrWhiteSpace(txtEmCPhone.Text))
             {
-                _imc = weight/(height*height);
-                lblImc.Text = _imc.ToString("0.##", CultureInfo.InvariantCulture);
+                grContacts.DataContext = null;
+
+                _emContacts.Add(new EmergencyContact
+                    {
+                        Name = txtEmCName.Text,
+                        Surname = txtEmCSurname.Text,
+                        Phone = txtEmCPhone.Text
+                    });
+
+                txtEmCName.Clear();
+                txtEmCSurname.Clear();
+                txtEmCPhone.Clear();
+                grContacts.DataContext = _emContacts;
             }
-            else
-                lblImc.Text = "";
         }
+
+        private void grContacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnRemove.IsEnabled = grContacts.SelectedIndex >= 0;
+        }
+
+        private void btnRmvEmContact_Click(object sender, RoutedEventArgs e)
+        {
+            if (grContacts.SelectedIndex >= 0)
+            {
+                var selItems = grContacts.SelectedItems;
+                foreach (EmergencyContact c in selItems)
+                    _emContacts.Remove(c);
+
+                grContacts.DataContext = null;
+                grContacts.DataContext = _emContacts;
+            }
+        }
+
+        #endregion
     }
 }

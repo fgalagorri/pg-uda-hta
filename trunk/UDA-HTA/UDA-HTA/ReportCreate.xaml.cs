@@ -15,6 +15,7 @@ namespace UDA_HTA
         private int _state;
         private Report _report;
         private PatientInformation patientInfo;
+        private PatientCondition patientCondition;
         private AdmissionForm admissionForm;
         private OtherInformation otherInfo;
 
@@ -24,6 +25,7 @@ namespace UDA_HTA
             _report = report;
             _state = 0;
             patientInfo = new PatientInformation(report);
+            patientCondition = new PatientCondition(report);
             admissionForm = new AdmissionForm(report);
             otherInfo = new OtherInformation(report);
 
@@ -37,7 +39,7 @@ namespace UDA_HTA
                 case 0:
                     if (patientInfo.IsValid())
                     {
-                        CurrentControl.Content = admissionForm;
+                        CurrentControl.Content = patientCondition;
                         btnBack.IsEnabled = true;
                         _state++;
                     }
@@ -47,11 +49,9 @@ namespace UDA_HTA
                     }
                     break;
                 case 1:
-                    if (admissionForm.IsValid())
+                    if (patientCondition.IsValid())
                     {
-                        CurrentControl.Content = otherInfo;
-                        btnBack.IsEnabled = true;
-                        btnNext.Content = Finalizar;
+                        CurrentControl.Content = admissionForm;
                         _state++;
                     }
                     else
@@ -60,7 +60,20 @@ namespace UDA_HTA
                     }
                     break;
                 case 2:
+                    if (admissionForm.IsValid())
+                    {
+                        CurrentControl.Content = otherInfo;
+                        btnNext.Content = Finalizar;
+                        _state++;
+                    }
+                    else
+                    {
+                        //display message error
+                    }
+                    break;
+                case 3:
                     _report = patientInfo.GetReport(_report);
+                    _report = patientCondition.GetReport(_report);
                     _report = admissionForm.GetReport(_report);
                     _report = otherInfo.GetReport(_report);
                     DialogResult = true;
@@ -81,8 +94,11 @@ namespace UDA_HTA
                     _state--;
                     break;
                 case 2:
+                    CurrentControl.Content = patientCondition;
+                    _state--;
+                    break;
+                case 3:
                     CurrentControl.Content = admissionForm;
-                    btnBack.IsEnabled = true;
                     btnNext.Content = Siguiente;
                     _state--;
                     break;

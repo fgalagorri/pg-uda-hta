@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.PatientViewerCondition"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <Style TargetType="Border">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+        </Style>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Datos del estado del paciente -->
+            <GroupBox Grid.Row="0">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">Condición</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                        <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
+                        <TextBlock Name="lblWeight" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
+                        <TextBlock Name="lblHeight" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
+                        <TextBlock Name="lblImc" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                        <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">%Grasa:</TextBlock>
+                        <TextBlock Name="lblFat" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">%Músculo:</TextBlock>
+                        <TextBlock Name="lblMuscle" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                        <Border />
+                        <TextBlock  Margin="15,0" Style="{StaticResource label}">KCal:</TextBlock>
+                        <TextBlock Name="lblKcal" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                        <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
+                        <TextBlock Name="lblSmoker" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
+                        <TextBlock Name="lblDiabetes" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
+                        <TextBlock Name="lblColesterol" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
+                        <Border />
+                        <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
+                        <TextBlock Name="lblHypertense" />
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <!-- Medicación -->
+            <GroupBox Grid.Row="1">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">Medicación</TextBlock>
+                </GroupBox.Header>
+                <DataGrid Name="grMedication" Background="White" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding}" IsReadOnly="True" Height="100">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Categoría" Width="1*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Categoria}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Nombre}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Principio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Dosificación" Width="2*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Dosis}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <!-- Antecedentes médicos-->
+            <GroupBox Grid.Row="2">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
+                </GroupBox.Header>
+                <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False"
+                            ItemsSource="{Binding}" IsReadOnly="True" Height="100">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True"
+                                            Binding="{Binding Path=Enfermedad}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"
+                                            Binding="{Binding Path=Comentario}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

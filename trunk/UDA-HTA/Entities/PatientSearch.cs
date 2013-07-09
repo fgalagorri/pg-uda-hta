@@ -13,6 +13,6 @@ namespace Entities
         public string Names { get; set; }
         public string Surnames { get; set; }
         public DateTime? BirthDate { get; set; }
-        public long? RegisterNumer { get; set; }
+        public string RegisterNumer { get; set; }
     }
 }

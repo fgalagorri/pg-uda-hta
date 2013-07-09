@@ -259,9 +259,10 @@ namespace DataAccess
         /// <param name="department">No Metadata Documentation available.</param>
         /// <param name="phone">No Metadata Documentation available.</param>
         /// <param name="cell">No Metadata Documentation available.</param>
+        /// <param name="phone2">No Metadata Documentation available.</param>
         /// <param name="email">No Metadata Documentation available.</param>
         /// <param name="register_number">No Metadata Documentation available.</param>
-        public int insertPatient(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String department, global::System.String phone, global::System.String cell, global::System.String email, Nullable<global::System.Int64> register_number)
+        public int insertPatient(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String department, global::System.String phone, global::System.String cell, global::System.String phone2, global::System.String email, global::System.String register_number)
         {
             ObjectParameter nameParameter;
             if (name != null)
@@ -373,6 +374,16 @@ namespace DataAccess
                 cellParameter = new ObjectParameter("cell", typeof(global::System.String));
             }
     
+            ObjectParameter phone2Parameter;
+            if (phone2 != null)
+            {
+                phone2Parameter = new ObjectParameter("phone2", phone2);
+            }
+            else
+            {
+                phone2Parameter = new ObjectParameter("phone2", typeof(global::System.String));
+            }
+    
             ObjectParameter emailParameter;
             if (email != null)
             {
@@ -384,16 +395,16 @@ namespace DataAccess
             }
     
             ObjectParameter register_numberParameter;
-            if (register_number.HasValue)
+            if (register_number != null)
             {
                 register_numberParameter = new ObjectParameter("register_number", register_number);
             }
             else
             {
-                register_numberParameter = new ObjectParameter("register_number", typeof(global::System.Int64));
+                register_numberParameter = new ObjectParameter("register_number", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, emailParameter, register_numberParameter);
+            return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, phone2Parameter, emailParameter, register_numberParameter);
         }
 
         #endregion
@@ -1048,6 +1059,30 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String department
+        {
+            get
+            {
+                return _department;
+            }
+            set
+            {
+                OndepartmentChanging(value);
+                ReportPropertyChanging("department");
+                _department = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("department");
+                OndepartmentChanged();
+            }
+        }
+        private global::System.String _department;
+        partial void OndepartmentChanging(global::System.String value);
+        partial void OndepartmentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.DateTime> birthday
         {
             get
@@ -1096,7 +1131,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> register_number
+        public global::System.String register_number
         {
             get
             {
@@ -1106,13 +1141,13 @@ namespace DataAccess
             {
                 Onregister_numberChanging(value);
                 ReportPropertyChanging("register_number");
-                _register_number = StructuralObject.SetValidValue(value);
+                _register_number = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("register_number");
                 Onregister_numberChanged();
             }
         }
-        private Nullable<global::System.Int64> _register_number;
-        partial void Onregister_numberChanging(Nullable<global::System.Int64> value);
+        private global::System.String _register_number;
+        partial void Onregister_numberChanging(global::System.String value);
         partial void Onregister_numberChanged();
     
         /// <summary>
@@ -1144,24 +1179,24 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String department
+        public global::System.String telephone_alt
         {
             get
             {
-                return _department;
+                return _telephone_alt;
             }
             set
             {
-                OndepartmentChanging(value);
-                ReportPropertyChanging("department");
-                _department = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("department");
-                OndepartmentChanged();
+                Ontelephone_altChanging(value);
+                ReportPropertyChanging("telephone_alt");
+                _telephone_alt = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("telephone_alt");
+                Ontelephone_altChanged();
             }
         }
-        private global::System.String _department;
-        partial void OndepartmentChanging(global::System.String value);
-        partial void OndepartmentChanged();
+        private global::System.String _telephone_alt;
+        partial void Ontelephone_altChanging(global::System.String value);
+        partial void Ontelephone_altChanged();
 
         #endregion
     

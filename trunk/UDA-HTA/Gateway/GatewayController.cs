@@ -56,28 +56,59 @@ namespace Gateway
 
         public void AddImportedData(Report report, bool patientModified)
         {
+            bool created = false;
+            Patient bakPatient = null;
             var reportController = new ReportManagement();
             var patientController = new PatientManagement();
             var importController = new ImportDataManagement();
-            
-            /*
-             * Si report.UdaId != null, entonces el paciente ya fue creado
-             * Si la fecha de modificacion del paciente es de hoy, actualizar
-             * En caso de que el id fuera null, dar de alta el paciente
-             */
-            if (report.Patient.UdaId != null)
-            {
-                if (patientModified)
-                    patientController.EditPatient(report.Patient);
-            }
-            else
-            {
-                report.Patient.UdaId = patientController.CreatePatient(report.Patient);
-            }
 
-			report.Measures = importController.ImportMeasures(report);
+            try
+            {
+                /*
+                 * Si report.UdaId != null, entonces el paciente ya fue creado
+                 * Si la fecha de modificacion del paciente es de hoy, actualizar
+                 * En caso de que el id fuera null, dar de alta el paciente
+                 */
+                // TODO: ver de pasar report como ref o preguntar a la BD si existe el paciente
+                if (report.Patient.UdaId.HasValue)
+                {
+                    bakPatient = patientController.GetPatient(report.Patient.UdaId.Value);
+                    if (patientModified)
+                        patientController.EditPatient(report.Patient);
+                }
+                else
+                {   
+                    created = true;
+                    report.Patient.UdaId = patientController.CreatePatient(report.Patient);
+                }
 
-            reportController.AddReport(report);
+
+                try
+                {
+                    report.Measures = importController.ImportMeasures(report);
+                    reportController.AddReport(report);
+                }
+                catch (Exception ex)
+                {
+                    /* TODO VER SI OPTAMOS POR BORRAR EL PACIENTE O SI ACEPTAMOS 
+                     * EL PACIENTE CREADO SI FALLÓ LA INSERCIÓN DEL REPORTE */
+
+                    // Borrar el paciente
+                    if (created)
+                    {
+                        var i = report.Patient.UdaId;
+                    }
+                    if (!created && patientModified)
+                        patientController.EditPatient(bakPatient);
+
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO tirar excepción con un mensaje legible y hacer algo con errores
+                throw;
+            }
         }
 
         #endregion
@@ -93,7 +124,7 @@ namespace Gateway
         #region Patient Listing & Viewing
 
         public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
-                                                       DateTime? birthDate, long? registerNo)
+                                                       DateTime? birthDate, string registerNo)
         {
             var patientController = new PatientManagement();
             return patientController.ListPatients(documentId, names, surnames, birthDate, registerNo);

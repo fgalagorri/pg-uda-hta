@@ -13,7 +13,6 @@ namespace Entities
             Technician = new User();
             Efforts = new List<Effort>();
             Complications = new List<Complication>();
-            Medications = new List<Medication>();
         }
 
         public User Technician { get; set; }
@@ -44,9 +43,8 @@ namespace Entities
         public string SleepQualityDescription { get; set; }
         public DateTime? MealTime { get; set; }
 
-        public List<Effort> Efforts { get; set; }
-        public List<Complication> Complications { get; set; }
-        public List<Medication> Medications { get; set; } 
+        public ICollection<Effort> Efforts { get; set; }
+        public ICollection<Complication> Complications { get; set; }
     }
 
 }
