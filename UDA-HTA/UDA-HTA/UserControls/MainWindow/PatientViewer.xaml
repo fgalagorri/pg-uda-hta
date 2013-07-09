@@ -5,12 +5,13 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="50" />
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="800" MinWidth="250" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectedItemChanged="treePatient_SelectedItemChanged">
+        <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                  SelectedItemChanged="treePatient_SelectedItemChanged">
             <TreeViewItem IsExpanded="True" Name="treePatient">
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -19,29 +20,27 @@
                     </StackPanel>
                 </TreeViewItem.Header>
                 <TreeViewItem.Items>
-                    <TreeViewItem>
-                        <TreeViewItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="/Images/tree_study24.png" />
-                                <Label Content="Prueba"></Label>
-                            </StackPanel>
-                        </TreeViewItem.Header>
-                    </TreeViewItem>
+                    
                 </TreeViewItem.Items>
             </TreeViewItem>
         </TreeView>
 
-        <GridSplitter ResizeDirection="Columns" HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch" Margin="0" Grid.Column="1" Width="5" />
+        <Border Grid.Column="1" Width="5" />
 
         <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem Header="Paciente">
                 <ContentControl>
-                    <mainWindow:PatientViewerInformation x:Name="TabPaciente" />
+                    <mainWindow:PatientViewerInformation x:Name="TabPatient" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Name="ReportInfo"  Header="Información" Visibility="Collapsed">
+            <TabItem Header="Condición">
+                <ContentControl>
+                    <mainWindow:PatientViewerCondition x:Name="TabCondition" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportInfo"  Header="Info. Gral." Visibility="Collapsed">
                 <ContentControl>
                     <mainWindow:PatientViewerReportInfo x:Name="TabReportInfo" />
                 </ContentControl>

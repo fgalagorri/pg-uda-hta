@@ -9,84 +9,68 @@ namespace DataAccess
 {
     public class PatientDataAccess
     {
-        private const string ConnectionString = "SERVER=localhost;DATABASE=patient_info_db;UID=root;PASSWORD=rootudahta;";
-        private readonly MySqlConnection _conn;
-
         public PatientDataAccess()
         {
-            _conn = new MySqlConnection(ConnectionString);
-        }
-
-        public void CloseConnectionDataBase()
-        {
-            _conn.Close();
         }
 
         public long InsertPatient(Patient p)
         {
-            var udaContext = new patient_info_dbEntities();
-
-            ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
-            ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof(int));
-            
-            try
+            using (var udaContext = new patient_info_dbEntities())
             {
+                ObjectParameter lastIdPatient = new ObjectParameter("id", typeof (int));
+                ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof (int));
+
                 var sex = SexType.M.ToString();
-                if ( p.Sex != null &&
-                    ((p.Sex.Value == SexType.F) || 
-                    (p.Sex.Value == SexType.M)) )
-                {
+                if (p.Sex != null && ((p.Sex.Value == SexType.F) || (p.Sex.Value == SexType.M)))
                     sex = p.Sex.Value.ToString();
-                }
+
                 udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
-                                         p.BirthDate, sex, p.Neighbour, p.City, p.Department, 
-                                         p.Phone, p.CellPhone, p.Email, p.RegisterNumer);
+                                         p.BirthDate, sex, p.Neighbour, p.City, p.Department,
+                                         p.Phone, p.CellPhone, p.Phone2, p.Email, p.RegisterNumer);
+
                 foreach (var devRef in p.DeviceReferences)
-                {
-                    udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType, devRef.deviceReferenceId, (long)lastIdPatient.Value);
-                }
+                    udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType, 
+                                                     devRef.deviceReferenceId,
+                                                     (long) lastIdPatient.Value);
 
+                return (long) lastIdPatient.Value;
             }
-            catch (MySql.Data.MySqlClient.MySqlException e)
-            {
-                throw (e);
-            }
-            return (long) lastIdPatient.Value;
         }
 
-        public void insertEmergencyContact(Patient patient)
+
+        public void InsertEmergencyContact(long patientId, ICollection<EmergencyContact> contacts)
         {
-            var patientContext = new patient_info_dbEntities();
-            ObjectParameter lastIdEmergencyContact = new ObjectParameter("id", typeof(long));
-
-            foreach (var ec in patient.EmergencyContactList)
+            using (var patientContext = new patient_info_dbEntities())
             {
-                patientContext.insertEmergencyContact(lastIdEmergencyContact,ec.Name,ec.Surname,ec.Phone,Convert.ToInt32(patient.UdaId));
+                ObjectParameter lastId = new ObjectParameter("id", typeof (long));
+
+                // TODO: ver si usando AddToemergency_contact(ec) no mejora
+                foreach (var ec in contacts)
+                    patientContext.insertEmergencyContact(lastId, ec.Name, ec.Surname, ec.Phone, patientId);
             }
         }
+
 
         /*
          * Lista todos los pacientes existentes en la base.
          */
-
         public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
-                                                       DateTime? birthDate, long? registerNo)
+                                                       DateTime? birthDate, string registerNo)
         {
-
             using (var patientContext = new patient_info_dbEntities())
             {
                 var list = patientContext.patient.AsQueryable();
 
                 if (!string.IsNullOrWhiteSpace(documentId))
-                    list = list.Where(p => p.document == documentId);
+                    list = list.Where(p => p.document.Contains(documentId));
                 if (!string.IsNullOrWhiteSpace(names))
-                    list = list.Where(p => p.name == names);
+                    list = list.Where(p => p.name.Contains(names));
                 if (!string.IsNullOrWhiteSpace(surnames))
-                    list = list.Where(p => p.surname == surnames);
+                    list = list.Where(p => p.surname.Contains(surnames));
                 if (birthDate.HasValue)
                     list = list.Where(p => p.birthday.Value.Date == birthDate.Value.Date);
-                if (registerNo.HasValue)
-                    list = list.Where(p => p.register_number == registerNo.Value);
+                if (!String.IsNullOrWhiteSpace(registerNo))
+                    list = list.Where(p => p.register_number.Contains(registerNo));
 
                 return list.Select(p => new PatientSearch
                     {
@@ -100,13 +84,15 @@ namespace DataAccess
             }
         }
 
+
         public Patient GetPatient(long patientId)
         {
-            var patientContext = new patient_info_dbEntities();
-            var pat = patientContext.patient.Where(p => p.idPatient == patientId).
-                                            Select(p => new 
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                var pat = patientContext.patient.Where(p => p.idPatient == patientId)
+                                        .Select(p => new
                                             {
-                                                p.idPatient, 
+                                                p.idPatient,
                                                 p.address,
                                                 p.birthday,
                                                 p.cell_phone,
@@ -119,52 +105,64 @@ namespace DataAccess
                                                 p.neighborhood,
                                                 p.department,
                                                 p.surname,
-                                                p.telephone
+                                                p.telephone,
+                                                p.telephone_alt
                                             }).ToList().First();
-            Patient patient = new Patient
+
+                Patient patient = new Patient
+                    {
+                        UdaId = pat.idPatient,
+                        Address = pat.address,
+                        BirthDate = pat.birthday,
+                        CellPhone = pat.cell_phone,
+                        City = pat.city,
+                        DocumentId = pat.document,
+                        Email = pat.e_mail,
+                        Names = pat.name,
+                        Neighbour = pat.neighborhood,
+                        Department = pat.department,
+                        Phone = pat.telephone,
+                        Phone2 = pat.telephone_alt,
+                        Sex = pat.gender == "M" ? SexType.M : SexType.F,
+                        Surnames = pat.surname
+                    };
+
+                foreach (var ec in pat.emergency_contact)
                 {
-                    UdaId = pat.idPatient,
-                    Address = pat.address,
-                    BirthDate = pat.birthday,
-                    CellPhone = pat.cell_phone,
-                    City = pat.city,
-                    DocumentId = pat.document,
-                    Email = pat.e_mail,
-                    Names = pat.name,
-                    Neighbour = pat.neighborhood,
-                    Department = pat.department,
-                    Phone = pat.telephone,
-                    Sex = pat.gender == "M" ? SexType.M : SexType.F,
-                    Surnames = pat.surname
-                };
+                    patient.EmergencyContactList.Add(new EmergencyContact
+                        {
+                            EmergencyContactId = ec.idemergency_contact,
+                            Name = ec.name,
+                            Phone = ec.phone,
+                            Surname = ec.surname
+                        });
+                }
 
-            foreach (var ec in pat.emergency_contact)
-            {
-                EmergencyContact emergencyContact = new EmergencyContact();
-                emergencyContact.EmergencyContactId = ec.idemergency_contact;
-                emergencyContact.Name = ec.name;
-                emergencyContact.Phone = ec.phone;
-                emergencyContact.Surname = ec.surname;
-                patient.EmergencyContactList.Add(emergencyContact);
+                return patient;
             }
-
-            return patient;
         }
+
 
         public bool ExistPatientReference(string patientRef, int devType)
         {
-            var patientContext = new patient_info_dbEntities();
-            return patientContext.device_reference.Any(p => p.device_ref == patientRef && p.device_type == devType);
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                return patientContext.device_reference.Any(p => p.device_ref == patientRef && p.device_type == devType);
+            }
         }
+
 
         public long? GetPatientId(string patientRef, int dev)
         {
-            var patientContext = new patient_info_dbEntities();
-            var pat = patientContext.device_reference.Where(p => (p.device_ref == patientRef && p.device_type == dev))
-                                    .Select(p => new {p.patient_idPatient})
-                                    .FirstOrDefault();
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                var pat =
+                    patientContext.device_reference.Where(p => (p.device_ref == patientRef && p.device_type == dev))
+                                  .Select(p => new {p.patient_idPatient})
+                                  .FirstOrDefault();
 
-            return (pat != null) ? (long?) pat.patient_idPatient : null;
+                return (pat != null) ? (long?) pat.patient_idPatient : null;
+            }
         }
     }
 }

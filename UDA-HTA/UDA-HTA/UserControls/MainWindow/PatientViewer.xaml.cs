@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Entities;
 using Gateway;
@@ -26,7 +25,8 @@ namespace UDA_HTA.UserControls.MainWindow
             InitializeComponent();
 
             treePatient.Items.Clear();
-            TabPaciente.SetPatientInfo(_patient);
+            TabPatient.SetPatientInfo(_patient);
+            TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
             lblTreeName.Text = _patient.Names + " " + _patient.Surnames;
 
             foreach (var r in _patient.ReportList.OrderByDescending(r=>r.BeginDate))
@@ -61,6 +61,7 @@ namespace UDA_HTA.UserControls.MainWindow
                                   .OrderByDescending(r => r.BeginDate)
                                   .ElementAt(index);
 
+                TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
                 TabReportInfo.SetReport(_report);
                 ReportInfo.Visibility = Visibility.Visible;
                 TabReportSummary.SetReport(_report);

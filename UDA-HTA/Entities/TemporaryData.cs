@@ -9,7 +9,7 @@ namespace Entities
     {
         public TemporaryData()
         {
-            LMedicines = new List<MedicineDose>();        
+            Medication = new List<Medication>();        
         }
 
         public int IdTemporaryData { get; set; }
@@ -25,6 +25,6 @@ namespace Entities
         public decimal? MusclePercentage { get; set; }
         public int? Kcal { get; set; }
 
-        public ICollection<MedicineDose> LMedicines { get; set; }
+        public ICollection<Medication> Medication { get; set; }
     }
 }

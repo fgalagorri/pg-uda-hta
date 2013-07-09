@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Configuration;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Entities;
@@ -16,18 +17,17 @@ namespace UDA_HTA.UserControls
         public PatientFinder(UDA_HTA.MainWindow w)
         {
             InitializeComponent();
+            colBirth.Binding.StringFormat = ConfigurationManager.AppSettings["ShortDateString"];
             container = w;
         }
 
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            long registry;
             Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
-            bool hasRegistry = long.TryParse(txtRegistry.Text, out registry);
             var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(), txtSurname.Text.Trim(),
-                                                   dtBirthDate.SelectedDate, hasRegistry ? (long?) registry : null);
+                                                   dtBirthDate.SelectedDate, txtRegistry.Text);
 
             grPatients.DataContext = patients;
             Mouse.OverrideCursor = null;
@@ -38,6 +38,13 @@ namespace UDA_HTA.UserControls
         {
             if (((DataGrid) sender).SelectedIndex != -1)
                 container.PatientSelected((PatientSearch) e.AddedItems[0]);
+        }
+
+
+        private void patientName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                btnSearch_Click(sender, e);
         }
     }
 }

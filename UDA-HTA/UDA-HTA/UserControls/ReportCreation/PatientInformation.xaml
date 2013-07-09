@@ -1,6 +1,6 @@
 ﻿<UserControl x:Class="UDA_HTA.UserControls.ReportCreation.PatientInformation"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="auto" Width="auto">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
         <Style TargetType="RowDefinition">
             <Setter Property="MinHeight" Value="28" />
@@ -12,7 +12,6 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -28,23 +27,42 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                     <TextBlock Style="{StaticResource label}">Nombres:</TextBlock>
-                    <TextBox Name="txtNames" Margin="15,0" Width="200" />
+                    <TextBox Name="txtNames" Margin="15,0" Width="150" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <TextBlock Style="{StaticResource label}">Apellidos:</TextBlock>
-                    <TextBox Name="txtSurnames" Margin="15,0"  Width="200" />
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                    <Border />
+                    <TextBlock Style="{StaticResource label}" Margin="15,0">Apellidos:</TextBlock>
+                    <TextBox Name="txtSurnames" Width="170" Margin="0,0,15,0" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2">
-                    <TextBlock Style="{StaticResource label}">CI:</TextBlock>
-                    <TextBox Name="txtCI" Margin="15,0" Width="100" />
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <Border />
+                    <TextBlock Style="{StaticResource label}" Margin="15,0">CI:</TextBlock>
+                    <TextBox Name="txtCI" Width="80" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="3">
-                    <TextBlock Style="{StaticResource label}">Fecha de Nacimiento (dd/mm/yyyy):</TextBlock>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <TextBlock Style="{StaticResource label}">Nro. Registro:</TextBlock>
+                    <TextBox Name="txtNroReg" Margin="15,0" Width="90" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <TextBlock Style="{StaticResource label}" Margin="15,0">Sexo:</TextBlock>
+                    <ComboBox Name="cmbSex" Width="100" VerticalAlignment="Center">
+                        <ComboBoxItem Content="Masculino" />
+                        <ComboBoxItem Content="Femenino" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <TextBlock Style="{StaticResource label}">Fecha de Nacimiento (d/m/a):</TextBlock>
                     <StackPanel Margin="15,0" Orientation="Horizontal">
                         <TextBox Name="txtBirthDay" Margin="2,0" Style="{StaticResource TBlockSmall}" />
                         <TextBlock>/</TextBlock>
@@ -53,13 +71,7 @@
                         <TextBox Name="txtBirthYear" Margin="2,0" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="4">
-                    <TextBlock Style="{StaticResource label}">Sexo:</TextBlock>
-                    <ComboBox Name="cmbSex" Margin="15,0" Width="100" VerticalAlignment="Center">
-                        <ComboBoxItem Content="Masculino" />
-                        <ComboBoxItem Content="Femenino" />
-                    </ComboBox>
-                </StackPanel>
+                
             </Grid>
         </GroupBox>
 
@@ -131,6 +143,12 @@
                     <TextBlock Margin="15,0" Style="{StaticResource label}">Celular:</TextBlock>
                     <TextBox Name="txtCel" Width="130" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                    <Border  />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Teléfono 2:</TextBlock>
+                    <TextBox Name="txtTelAlt" Width="120" />
+                </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                     <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">e-Mail:</TextBlock>
                     <TextBox Name="txtMail" Width="300" />
@@ -139,75 +157,42 @@
         </GroupBox>
 
 
-        <!-- Datos del estado del paciente -->
-        <GroupBox Grid.Row="2">
-            <GroupBox.Header >
-                <TextBlock Style="{StaticResource groupTitle}">Condición</TextBlock>
+        <!-- Contactos de Emergencia -->
+        <GroupBox Grid.Row="2" Name="EmContact">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Contactos de Emergencia</TextBlock>
             </GroupBox.Header>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="0.5*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <StackPanel>
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource label}">Nombre:</TextBlock>
+                    <TextBox Name="txtEmCName" Width="90" Margin="10,0,20,0" />
 
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
-                    <TextBox Name="txtWeight" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                    <Border />
-                    <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
-                    <TextBox Name="txtHeight" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                    <Border />
-                    <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
-                    <TextBlock Name="lblImc" />
-                </StackPanel>
+                    <TextBlock Style="{StaticResource label}">Apellido:</TextBlock>
+                    <TextBox Name="txtEmCSurname" Width="90" Margin="10,0,20,0" />
 
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">%Grasa:</TextBlock>
-                    <TextBox Name="txtFat" Style="{StaticResource TBlockSmall}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <Border />
-                    <TextBlock Margin="15,0" Style="{StaticResource label}">%Músculo:</TextBlock>
-                    <TextBox Name="txtMuscle" Style="{StaticResource TBlockSmall}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
-                    <Border />
-                    <TextBlock  Margin="15,0" Style="{StaticResource label}">KCal:</TextBlock>
-                    <TextBox Name="txtKcal" Style="{StaticResource TBlockSmall}" />
-                </StackPanel>
+                    <TextBlock Style="{StaticResource label}">Teléfono:</TextBlock>
+                    <TextBox Name="txtEmCPhone" Width="80" Margin="10,0,0,0" />
 
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
-                    <CheckBox Name="chkSmoker" VerticalAlignment="Center" />
+                    <Button Name="btnAdd" Padding="5,2" VerticalAlignment="Center" 
+                            Margin="30,0,15,0" Click="btnAddEmContact_Click">Agregar</Button>
+                    <Button Name="btnRemove" Padding="5,2" VerticalAlignment="Center" 
+                            IsEnabled="False" Click="btnRmvEmContact_Click">Quitar</Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                    <Border />
-                    <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
-                    <CheckBox Name="chkDiabetic" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
-                    <Border />
-                    <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
-                    <CheckBox Name="chkDyslipidemia" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
-                    <Border />
-                    <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
-                    <CheckBox Name="chkHypertense" VerticalAlignment="Center" />
-                </StackPanel>
-            </Grid>
+                <DataGrid Name="grContacts" Background="White" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding}" IsReadOnly="True" Height="90" SelectionChanged="grContacts_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Width="*" IsReadOnly="True"
+                                            Binding="{Binding Path=Name}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Apellido" Width="*" IsReadOnly="True"
+                                            Binding="{Binding Path=Surname}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Teléfono" Width="*" IsReadOnly="True"
+                                            Binding="{Binding Path=Phone}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </GroupBox>
     </Grid>
 </UserControl>

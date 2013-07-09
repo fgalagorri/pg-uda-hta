@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -21,9 +22,8 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class OtherInformation : UserControl
     {
-        private List<Effort> _lstEffort;
-        private List<Complication> _lstComplication;
-        private List<Medication> _lstMedication;
+        private ICollection<Effort> _lstEffort;
+        private ICollection<Complication> _lstComplication;
 
         public OtherInformation()
         {
@@ -32,9 +32,8 @@ namespace UDA_HTA.UserControls.ReportCreation
         public OtherInformation(Report report)
         {
             InitializeComponent();
-
-            _lstMedication = report.Carnet.Medications ?? new List<Medication>();
-            grMedication.DataContext = _lstMedication;
+            colEffortTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
+            colCompTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
 
             _lstEffort = report.Carnet.Efforts ?? new List<Effort>();
             grEffort.DataContext = _lstEffort;
@@ -55,44 +54,12 @@ namespace UDA_HTA.UserControls.ReportCreation
                 e.Time = DateTimeHelper.SetDateTime(report.BeginDate.Value, e.Time.Hour, e.Time.Minute);
             carnet.Efforts = _lstEffort;
 
-            foreach (var m in _lstMedication)
-                m.Time = DateTimeHelper.SetDateTime(report.BeginDate.Value, m.Time.Hour, m.Time.Minute);
-            carnet.Medications = _lstMedication;
-
             report.Carnet = carnet;
             return report;
         }
 
 
-        private void btnMedication_Click(object sender, RoutedEventArgs e)
-        {
-            /*_ms = new MedicationSelector();
-            _ms.ShowDialog();
-            if (!String.IsNullOrWhiteSpace(_ms.name))
-                txtMedication.Text = _ms.name;*/
-        }
-
-        private void btnAddMedication_Click(object sender, RoutedEventArgs e)
-        {
-            grMedication.DataContext = null;
-
-            int hour, min;
-            if (int.TryParse(txtHourMedication.Text, out hour)
-                && int.TryParse(txtMinMedication.Text, out min)
-                && 0 <= hour && hour < 24 && 0 <= min && min < 60)
-            {
-                // TODO : Ver Drug!!!
-                var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
-                _lstMedication.Add(new Medication(date, new Drug("ver", "ver", "ver")));
-            }
-
-
-            // Clears the textboxes after insertion
-            txtHourMedication.Clear();
-            txtMinMedication.Clear();
-            txtMedication.Clear();
-            grMedication.DataContext = _lstMedication;
-        }
+        #region Esfuerzo
 
         private void btnAddEffort_Click(object sender, RoutedEventArgs e)
         {
@@ -116,6 +83,35 @@ namespace UDA_HTA.UserControls.ReportCreation
             grEffort.DataContext = _lstEffort;
         }
 
+        private void btnRmvEffort_Click(object sender, RoutedEventArgs e)
+        {
+            if (grEffort.SelectedIndex >= 0)
+            {
+                var selItems = grEffort.SelectedItems;
+                foreach (Effort c in selItems)
+                    _lstEffort.Remove(c);
+
+                grEffort.DataContext = null;
+                grEffort.DataContext = _lstEffort;
+            }
+        }
+
+        private void grEffort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnRmvEffort.IsEnabled = grEffort.SelectedIndex >= 0;
+        }
+
+        #endregion
+
+
+        #region Complicaciones
+
+        private void cmbTypeComp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+                txtCompOther.IsEnabled = ((ComboBoxItem)e.AddedItems[0]).Content.Equals("Otros");
+        }
+
         private void btnAddComp_Click(object sender, RoutedEventArgs e)
         {
             grComplications.DataContext = null;
@@ -128,7 +124,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             {
                 type = cmbTypeComp.Text;
                 if (cmbTypeComp.Text.Equals("Otros"))
-                    type += ": " + txtCompOther;
+                    type += ": " + txtCompOther.Text;
 
                 var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
                 _lstComplication.Add(new Complication(date, type));
@@ -144,10 +140,24 @@ namespace UDA_HTA.UserControls.ReportCreation
             grComplications.DataContext = _lstComplication;
         }
 
-        private void cmbTypeComp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnRmvComp_Click(object sender, RoutedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
-                txtCompOther.IsEnabled = ((ComboBoxItem)e.AddedItems[0]).Content.Equals("Otros");
+            if (grComplications.SelectedIndex >= 0)
+            {
+                var selItems = grComplications.SelectedItems;
+                foreach (Complication c in selItems)
+                    _lstComplication.Remove(c);
+
+                grComplications.DataContext = null;
+                grComplications.DataContext = _lstComplication;
+            }
         }
+
+        private void grComplications_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnRmvComp.IsEnabled = grComplications.SelectedIndex >= 0;
+        }
+
+        #endregion
     }
 }

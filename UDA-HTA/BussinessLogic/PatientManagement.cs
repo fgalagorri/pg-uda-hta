@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 using Entities;
 using DataAccess;
 
@@ -9,33 +10,40 @@ namespace BussinessLogic
     {
         public long CreatePatient(Patient patient)
         {
-            long id;
-            try
+            //using (TransactionScope transaction = new TransactionScope())
             {
+                long id;
+
                 var pda = new PatientDataAccess();
                 id = pda.InsertPatient(patient);
-                pda.CloseConnectionDataBase();
 
                 var uda = new UdaHtaDataAccess();
                 uda.insertPatientUda(id);
+
                 //Insertar Medical History
                 foreach (var mh in patient.Background)
-                {
                     uda.insertMedicalHistory(id, mh);
-                }
-                
-                uda.CloseConnectionDataBase();    
+
+                pda.InsertEmergencyContact(id, patient.EmergencyContactList);
+
                 return id;
             }
-            catch (Exception e)
+        }
+
+
+        public void EditPatient(Patient patient)
+        {
+            using (TransactionScope transaction = new TransactionScope())
             {
-                throw e;
+                // Para los background y medical history 
+                // hacer update de los que tienen id e 
+                // insertar los que no tienen id
             }
         }
 
 
         public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
-                                                       DateTime? birthDate, long? registerNo)
+                                                       DateTime? birthDate, string registerNo)
         {
             var pda = new PatientDataAccess();
             var lp = pda.ListPatients(documentId, names, surnames, birthDate, registerNo);
@@ -43,11 +51,13 @@ namespace BussinessLogic
             return lp;
         }
 
+
         public Patient GetPatient(long patientId)
         {
             var pda = new PatientDataAccess();
             return pda.GetPatient(patientId);
         }
+
 
         public long? GetPatientIdIfExist(string patientRefId, int dev)
         {
@@ -55,10 +65,6 @@ namespace BussinessLogic
             return pda.GetPatientId(patientRefId,dev);
         }
 
-        public bool EditPatient(Patient patient)
-        {
-            return false;
-        }
 
         public TemporaryData GetLastTempData(long patientId)
         {

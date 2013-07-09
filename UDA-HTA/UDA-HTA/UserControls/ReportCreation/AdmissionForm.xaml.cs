@@ -12,7 +12,6 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class AdmissionForm : UserControl
     {
-        private ICollection<MedicalRecord> _lstBackground;
 
         public AdmissionForm()
         {
@@ -69,9 +68,6 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtHeartRateEnd2.Text = c.FinalHeartRate2.ToString();
                 txtHeartRateEnd3.Text = c.FinalHeartRate3.ToString();
             }
-
-            _lstBackground = r.Patient.Background ?? new List<MedicalRecord>();
-            grBackground.DataContext = _lstBackground;
         }
 
 
@@ -121,12 +117,9 @@ namespace UDA_HTA.UserControls.ReportCreation
             c.FinalHeartRate3 = int.Parse(txtHeartRateEnd3.Text);
 
             report.Carnet = c;
-            report.Patient.Background = _lstBackground;
 
             return report;
         }
-
-
 
 
         public bool IsValid()
@@ -160,31 +153,6 @@ namespace UDA_HTA.UserControls.ReportCreation
                    int.TryParse(txtHeartRateEnd1.Text, out n) &&
                    int.TryParse(txtHeartRateEnd2.Text, out n) &&
                    int.TryParse(txtHeartRateEnd3.Text, out n);
-        }
-
-        private void btnAddIllness_Click(object sender, RoutedEventArgs e)
-        {
-            grBackground.DataContext = null;
-
-            _lstBackground.Add(new MedicalRecord
-                {
-                    Illness = txtIllness.Text,
-                    Comment = txtComments.Text
-                });
-
-            txtIllness.Clear();
-            txtComments.Clear();
-            grBackground.DataContext = _lstBackground;
-        }
-
-        private void btnDelIllness_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void grBackground_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

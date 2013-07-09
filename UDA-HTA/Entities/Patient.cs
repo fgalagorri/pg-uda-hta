@@ -28,12 +28,13 @@ namespace Entities
         public string City { get; set; }
         public string Department { get; set; }
         public string Phone { get; set; }
+        public string Phone2 { get; set; }
         public string CellPhone { get; set; }
         public string Email { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
         public long? UdaId { get; set; }
-        public long? RegisterNumer { get; set; }
+        public string RegisterNumer { get; set; }
         public ICollection<DeviceReference> DeviceReferences { get; set; } 
 
         public TemporaryData LastTempData { get; set; }

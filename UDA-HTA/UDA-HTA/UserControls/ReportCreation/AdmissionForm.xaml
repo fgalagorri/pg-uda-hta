@@ -14,7 +14,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- General -->
@@ -179,40 +178,6 @@
                     </StackPanel>
                     <TextBox Name="txtHeartRateEnd3" Style="{StaticResource TBlockSmall}" Grid.Row="3" Grid.Column="3" />
                 </Grid>
-            </GroupBox>
-            
-            
-            <!-- Antecedentes médicos-->
-            <GroupBox Grid.Row="3">
-                <GroupBox.Header>
-                    <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
-                </GroupBox.Header>
-
-                <StackPanel>
-                    <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource label}">Enfermedad:</TextBlock>
-                        <TextBox Name="txtIllness" Margin="20,0" Width="150" />
-
-                        <TextBlock Style="{StaticResource label}">Comentario:</TextBlock>
-                        <TextBox Name="txtComments"  Margin="20,0" Width="150" />
-
-                        <Button Name="btnAddIllness" Padding="5,2" VerticalAlignment="Center" 
-                                Margin="15,0,0,0" Click="btnAddIllness_Click">Agregar</Button>
-                        <Button Name="btnDelIllness" Padding="5,2" VerticalAlignment="Center" 
-                                Margin="15,0" IsEnabled="False" Click="btnDelIllness_Click">Borrar</Button>
-                    </StackPanel>
-                    <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}"
-                              IsReadOnly="True" SelectionChanged="grBackground_SelectionChanged" Height="90">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True"
-                                                Binding="{Binding Path=Illness}">
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"
-                                                Binding="{Binding Path=Comment}">
-                            </DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
             </GroupBox>
         </Grid>
     </ScrollViewer>

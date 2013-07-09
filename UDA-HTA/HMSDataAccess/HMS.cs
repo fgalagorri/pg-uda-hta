@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using DeviceDataAccess;
@@ -108,8 +109,10 @@ namespace HMSDataAccess
 
                     report.Patient.Sex = rs.getInt(4) == 0 ? SexType.M : SexType.F;
 
-                    report.TemporaryData.Height = rs.getInt(5);
                     report.TemporaryData.Weight = rs.getInt(6);
+                    report.TemporaryData.Height = decimal.Parse(rs.getString(5).Replace(",", "."),
+                                                                 NumberStyles.Float,
+                                                                 CultureInfo.InvariantCulture);
 
                     report.Patient.City = rs.getString(7);
                     report.Patient.Email = rs.getString(9);
@@ -190,7 +193,8 @@ namespace HMSDataAccess
                     md.Dose = rs.getString(20);
                     md.Drug = new Drug("", rs.getString(22), rs.getString(21));
 
-                    report.TemporaryData.LMedicines.Add(md);                    
+                    // TODO MEDICINE 
+                    // report.TemporaryData.LMedicines.Add(md);                    
                 }
 
             }

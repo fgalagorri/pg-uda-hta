@@ -439,25 +439,12 @@
           <Parameter Name="final_sys2" Type="int" Mode="In" />
           <Parameter Name="final_sys3" Type="int" Mode="In" />
         </Function>
-        <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="device_type" Type="int" Mode="In" />
-          <Parameter Name="device_ref" Type="varchar" Mode="In" />
-          <Parameter Name="idPatient" Type="bigint" Mode="In" />
-        </Function>
         <Function Name="insertDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="nam" Type="varchar" Mode="In" />
           <Parameter Name="idDrugType" Type="int" Mode="In" />
         </Function>
         <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="typ" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="name" Type="varchar" Mode="In" />
-          <Parameter Name="surname" Type="varchar" Mode="In" />
-          <Parameter Name="phone" Type="varchar" Mode="In" />
-          <Parameter Name="idPatient" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
@@ -493,22 +480,6 @@
           <Parameter Name="dose" Type="text" Mode="In" />
           <Parameter Name="idDrug" Type="int" Mode="In" />
           <Parameter Name="idTemporaryData" Type="int" Mode="In" />
-        </Function>
-        <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="name" Type="varchar" Mode="In" />
-          <Parameter Name="surname" Type="varchar" Mode="In" />
-          <Parameter Name="addr" Type="text" Mode="In" />
-          <Parameter Name="dni" Type="varchar" Mode="In" />
-          <Parameter Name="birth" Type="datetime" Mode="In" />
-          <Parameter Name="sex" Type="enum" Mode="In" />
-          <Parameter Name="neighbour" Type="varchar" Mode="In" />
-          <Parameter Name="city" Type="varchar" Mode="In" />
-          <Parameter Name="department" Type="varchar" Mode="In" />
-          <Parameter Name="phone" Type="varchar" Mode="In" />
-          <Parameter Name="cell" Type="varchar" Mode="In" />
-          <Parameter Name="email" Type="varchar" Mode="In" />
-          <Parameter Name="register_number" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
@@ -1343,9 +1314,6 @@
           <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
-          <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="udahta_dbModel.Store.insertPatient" />
-          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="udahta_dbModel.Store.insertEmergencyContact" />
-          <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="udahta_dbModel.Store.insertDeviceReference" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

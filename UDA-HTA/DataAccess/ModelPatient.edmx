@@ -48,13 +48,14 @@
           <Property Name="gender" Type="enum" Nullable="false" />
           <Property Name="telephone" Type="varchar" MaxLength="45" />
           <Property Name="cell_phone" Type="varchar" MaxLength="45" />
+          <Property Name="telephone_alt" Type="varchar" MaxLength="45" />
           <Property Name="address" Type="text" />
           <Property Name="city" Type="varchar" MaxLength="45" />
           <Property Name="neighborhood" Type="varchar" MaxLength="45" />
           <Property Name="department" Type="varchar" MaxLength="45" />
           <Property Name="birthday" Type="datetime" />
           <Property Name="e_mail" Type="text" />
-          <Property Name="register_number" Type="bigint" />
+          <Property Name="register_number" Type="varchar" MaxLength="20" />
           <Property Name="modified_date" Type="datetime" />
         </EntityType>
         <Association Name="fk_device_reference_patient1">
@@ -81,58 +82,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="deleteInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="idInvestigation" Type="int" Mode="In" />
-          <Parameter Name="idReport" Type="bigint" Mode="In" />
-          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="hour" Type="int" Mode="In" />
-          <Parameter Name="minutes" Type="int" Mode="In" />
-          <Parameter Name="specification" Type="text" Mode="In" />
-          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
-          <Parameter Name="description" Type="text" Mode="In" />
-        </Function>
-        <Function Name="insertDailyCarnet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="technical" Type="varchar" Mode="In" />
-          <Parameter Name="initial_dias1" Type="int" Mode="In" />
-          <Parameter Name="initial_dias2" Type="int" Mode="In" />
-          <Parameter Name="initial_dias3" Type="int" Mode="In" />
-          <Parameter Name="initial_hr1" Type="int" Mode="In" />
-          <Parameter Name="initial_hr2" Type="int" Mode="In" />
-          <Parameter Name="initial_hr3" Type="int" Mode="In" />
-          <Parameter Name="final_dias1" Type="int" Mode="In" />
-          <Parameter Name="final_dias2" Type="int" Mode="In" />
-          <Parameter Name="final_dias3" Type="int" Mode="In" />
-          <Parameter Name="final_hr1" Type="int" Mode="In" />
-          <Parameter Name="final_hr2" Type="int" Mode="In" />
-          <Parameter Name="final_hr3" Type="int" Mode="In" />
-          <Parameter Name="begin_sleep_time" Type="datetime" Mode="In" />
-          <Parameter Name="end_sleep_time" Type="datetime" Mode="In" />
-          <Parameter Name="how_sleep" Type="varchar" Mode="In" />
-          <Parameter Name="sleep_comments" Type="text" Mode="In" />
-          <Parameter Name="main_meal_time" Type="datetime" Mode="In" />
-          <Parameter Name="init_sys1" Type="int" Mode="In" />
-          <Parameter Name="init_sys2" Type="int" Mode="In" />
-          <Parameter Name="init_sys3" Type="int" Mode="In" />
-          <Parameter Name="final_sys1" Type="int" Mode="In" />
-          <Parameter Name="final_sys2" Type="int" Mode="In" />
-          <Parameter Name="final_sys3" Type="int" Mode="In" />
-        </Function>
         <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="device_type" Type="int" Mode="In" />
           <Parameter Name="device_ref" Type="varchar" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="nam" Type="varchar" Mode="In" />
-          <Parameter Name="idDrugType" Type="int" Mode="In" />
-        </Function>
-        <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="typ" Type="varchar" Mode="In" />
         </Function>
         <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
@@ -140,41 +94,6 @@
           <Parameter Name="surname" Type="varchar" Mode="In" />
           <Parameter Name="phone" Type="varchar" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="int" Mode="Out" />
-          <Parameter Name="nam" Type="varchar" Mode="In" />
-          <Parameter Name="createDat" Type="datetime" Mode="In" />
-        </Function>
-        <Function Name="insertInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="idInvestigation" Type="int" Mode="In" />
-          <Parameter Name="idReport" Type="bigint" Mode="In" />
-          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertMeasurement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="dateM" Type="datetime" Mode="In" />
-          <Parameter Name="systolic" Type="int" Mode="In" />
-          <Parameter Name="average" Type="int" Mode="In" />
-          <Parameter Name="diastolic" Type="int" Mode="In" />
-          <Parameter Name="heart_rate" Type="int" Mode="In" />
-          <Parameter Name="sleep" Type="bit" Mode="In" />
-          <Parameter Name="isValid" Type="bit" Mode="In" />
-          <Parameter Name="comm" Type="text" Mode="In" />
-          <Parameter Name="idReport" Type="bigint" Mode="In" />
-          <Parameter Name="idPatient" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="illness" Type="text" Mode="In" />
-          <Parameter Name="fromDate" Type="datetime" Mode="In" />
-          <Parameter Name="toDate" Type="datetime" Mode="In" />
-          <Parameter Name="comm" Type="text" Mode="In" />
-          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="dose" Type="text" Mode="In" />
-          <Parameter Name="idDrug" Type="int" Mode="In" />
-          <Parameter Name="idTemporaryData" Type="int" Mode="In" />
         </Function>
         <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
@@ -189,85 +108,9 @@
           <Parameter Name="department" Type="varchar" Mode="In" />
           <Parameter Name="phone" Type="varchar" Mode="In" />
           <Parameter Name="cell" Type="varchar" Mode="In" />
+          <Parameter Name="phone2" Type="varchar" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
-          <Parameter Name="register_number" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="insertReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="begin_date" Type="datetime" Mode="In" />
-          <Parameter Name="end_date" Type="datetime" Mode="In" />
-          <Parameter Name="doctor" Type="varchar" Mode="In" />
-          <Parameter Name="diagnosis" Type="text" Mode="In" />
-          <Parameter Name="request_doctor" Type="varchar" Mode="In" />
-          <Parameter Name="specialty" Type="varchar" Mode="In" />
-          <Parameter Name="day_avg_sys" Type="int" Mode="In" />
-          <Parameter Name="night_avg_sys" Type="int" Mode="In" />
-          <Parameter Name="total_avg_sys" Type="int" Mode="In" />
-          <Parameter Name="day_max_sys" Type="int" Mode="In" />
-          <Parameter Name="night_max_sys" Type="int" Mode="In" />
-          <Parameter Name="day_avg_dias" Type="int" Mode="In" />
-          <Parameter Name="night_avg_dias" Type="int" Mode="In" />
-          <Parameter Name="total_avg_dias" Type="int" Mode="In" />
-          <Parameter Name="day_max_dias" Type="int" Mode="In" />
-          <Parameter Name="night_max_dias" Type="int" Mode="In" />
-          <Parameter Name="idDev" Type="int" Mode="In" />
-          <Parameter Name="devReportId" Type="varchar" Mode="In" />
-          <Parameter Name="idTemporaryData" Type="int" Mode="In" />
-          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
-          <Parameter Name="idPatient" Type="bigint" Mode="In" />
-          <Parameter Name="day_min_sis" Type="int" Mode="In" />
-          <Parameter Name="day_min_dias" Type="int" Mode="In" />
-          <Parameter Name="night_min_sis" Type="int" Mode="In" />
-          <Parameter Name="night_min_dias" Type="int" Mode="In" />
-          <Parameter Name="tot_avg_hr" Type="int" Mode="In" />
-          <Parameter Name="day_avg_hr" Type="int" Mode="In" />
-          <Parameter Name="night_avg_hr" Type="int" Mode="In" />
-          <Parameter Name="max_day_hr" Type="int" Mode="In" />
-          <Parameter Name="max_night_hr" Type="int" Mode="In" />
-          <Parameter Name="min_day_hr" Type="int" Mode="In" />
-          <Parameter Name="min_night_hr" Type="int" Mode="In" />
-          <Parameter Name="tot_sd_sis" Type="decimal" Mode="In" />
-          <Parameter Name="tot_sd_dias" Type="decimal" Mode="In" />
-          <Parameter Name="day_sd_sis" Type="decimal" Mode="In" />
-          <Parameter Name="day_sd_dias" Type="decimal" Mode="In" />
-          <Parameter Name="night_sd_sis" Type="decimal" Mode="In" />
-          <Parameter Name="night_sd_dias" Type="decimal" Mode="In" />
-          <Parameter Name="tot_sd_tam" Type="decimal" Mode="In" />
-          <Parameter Name="day_sd_tam" Type="decimal" Mode="In" />
-          <Parameter Name="night_sd_tam" Type="decimal" Mode="In" />
-          <Parameter Name="tot_sd_hr" Type="decimal" Mode="In" />
-          <Parameter Name="day_sd_hr" Type="decimal" Mode="In" />
-          <Parameter Name="night_sd_hr" Type="decimal" Mode="In" />
-          <Parameter Name="tot_tam_avg" Type="int" Mode="In" />
-          <Parameter Name="day_tam_avg" Type="int" Mode="In" />
-          <Parameter Name="night_tam_avg" Type="int" Mode="In" />
-        </Function>
-        <Function Name="insertTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="int" Mode="Out" />
-          <Parameter Name="weight" Type="decimal" Mode="In" />
-          <Parameter Name="height" Type="decimal" Mode="In" />
-          <Parameter Name="age" Type="int" Mode="In" />
-          <Parameter Name="body_mass_index" Type="decimal" Mode="In" />
-          <Parameter Name="smoker" Type="bit" Mode="In" />
-          <Parameter Name="dyslipidemia" Type="bit" Mode="In" />
-          <Parameter Name="diabetic" Type="bit" Mode="In" />
-          <Parameter Name="known_hypertensive" Type="bit" Mode="In" />
-          <Parameter Name="fat_percentage" Type="decimal" Mode="In" />
-          <Parameter Name="muscle_percentage" Type="decimal" Mode="In" />
-          <Parameter Name="kcal" Type="int" Mode="In" />
-        </Function>
-        <Function Name="insertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="log" Type="varchar" Mode="In" />
-          <Parameter Name="p" Type="varchar" Mode="In" />
-          <Parameter Name="r" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
-          <Parameter Name="login_var" Type="varchar" Mode="In" />
-          <Parameter Name="pass_var" Type="varchar" Mode="In" />
+          <Parameter Name="register_number" Type="varchar" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -276,15 +119,6 @@
         <EntityContainer Name="patient_info_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="device_reference" EntityType="patient_info_dbModel.device_reference" />
           <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.emergency_contact" />
-          <EntitySet Name="patient" EntityType="patient_info_dbModel.patient" />
-          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.fk_device_reference_patient1">
-            <End Role="patient" EntitySet="patient" />
-            <End Role="device_reference" EntitySet="device_reference" />
-          </AssociationSet>
-          <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.fk_emergency_contact_Patient">
-            <End Role="patient" EntitySet="patient" />
-            <End Role="emergency_contact" EntitySet="emergency_contact" />
-          </AssociationSet>
           <FunctionImport Name="insertDeviceReference">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="device_type" Mode="In" Type="Int32" />
@@ -311,9 +145,19 @@
             <Parameter Name="department" Mode="In" Type="String" />
             <Parameter Name="phone" Mode="In" Type="String" />
             <Parameter Name="cell" Mode="In" Type="String" />
+            <Parameter Name="phone2" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="register_number" Mode="In" Type="Int64" />
+            <Parameter Name="register_number" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="patient" EntityType="patient_info_dbModel.patient" />
+          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.fk_device_reference_patient1">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="device_reference" EntitySet="device_reference" />
+          </AssociationSet>
+          <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.fk_emergency_contact_Patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="emergency_contact" EntitySet="emergency_contact" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="device_reference">
           <Key>
@@ -340,27 +184,28 @@
           <Key>
             <PropertyRef Name="idPatient" />
           </Key>
-          <Property Name="idPatient" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" />
-          <Property Name="surname" Type="String" Nullable="false" />
-          <Property Name="document" Type="String" Nullable="false" />
-          <Property Name="gender" Type="String" Nullable="false" />
-          <Property Name="telephone" Type="String" />
-          <Property Name="cell_phone" Type="String" />
-          <Property Name="address" Type="String" />
-          <Property Name="city" Type="String" />
-          <Property Name="neighborhood" Type="String" />
-          <Property Name="birthday" Type="DateTime" />
-          <Property Name="e_mail" Type="String" />
-          <Property Name="register_number" Type="Int64" />
-          <Property Name="modified_date" Type="DateTime" />
+          <Property Type="Int64" Name="idPatient" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="surname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="document" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="gender" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="telephone" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cell_phone" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="city" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="neighborhood" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="department" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="birthday" />
+          <Property Type="String" Name="e_mail" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="register_number" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="modified_date" />
           <NavigationProperty Name="device_reference" Relationship="patient_info_dbModel.fk_device_reference_patient1" FromRole="patient" ToRole="device_reference" />
           <NavigationProperty Name="emergency_contact" Relationship="patient_info_dbModel.fk_emergency_contact_Patient" FromRole="patient" ToRole="emergency_contact" />
-          <Property Type="String" Name="department" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="telephone_alt" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_device_reference_patient1">
-          <End Role="patient" Type="patient_info_dbModel.patient" Multiplicity="1" />
-          <End Role="device_reference" Type="patient_info_dbModel.device_reference" Multiplicity="*" />
+          <End Type="patient_info_dbModel.patient" Role="patient" Multiplicity="1" />
+          <End Type="patient_info_dbModel.device_reference" Role="device_reference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="patient">
               <PropertyRef Name="idPatient" />
@@ -371,8 +216,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_emergency_contact_Patient">
-          <End Role="patient" Type="patient_info_dbModel.patient" Multiplicity="1" />
-          <End Role="emergency_contact" Type="patient_info_dbModel.emergency_contact" Multiplicity="*" />
+          <End Type="patient_info_dbModel.patient" Role="patient" Multiplicity="1" />
+          <End Type="patient_info_dbModel.emergency_contact" Role="emergency_contact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="patient">
               <PropertyRef Name="idPatient" />
@@ -382,7 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -401,26 +246,31 @@
             <ScalarProperty Name="phone" ColumnName="phone" />
             <ScalarProperty Name="patient_idPatient" ColumnName="patient_idPatient" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="patient"><EntityTypeMapping TypeName="patient_info_dbModel.patient"><MappingFragment StoreEntitySet="patient">
-            <ScalarProperty Name="department" ColumnName="department" />
-                <ScalarProperty Name="idPatient" ColumnName="idPatient" />
-            <ScalarProperty Name="name" ColumnName="name" />
-            <ScalarProperty Name="surname" ColumnName="surname" />
-            <ScalarProperty Name="document" ColumnName="document" />
-            <ScalarProperty Name="gender" ColumnName="gender" />
-            <ScalarProperty Name="telephone" ColumnName="telephone" />
-            <ScalarProperty Name="cell_phone" ColumnName="cell_phone" />
-            <ScalarProperty Name="address" ColumnName="address" />
-            <ScalarProperty Name="city" ColumnName="city" />
-            <ScalarProperty Name="neighborhood" ColumnName="neighborhood" />
-            <ScalarProperty Name="birthday" ColumnName="birthday" />
-            <ScalarProperty Name="e_mail" ColumnName="e_mail" />
-            <ScalarProperty Name="register_number" ColumnName="register_number" />
-            <ScalarProperty Name="modified_date" ColumnName="modified_date" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="patient_info_dbModel.Store.insertDeviceReference" />
           <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="patient_info_dbModel.Store.insertEmergencyContact" />
           <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
+          <EntitySetMapping Name="patient">
+            <EntityTypeMapping TypeName="patient_info_dbModel.patient">
+              <MappingFragment StoreEntitySet="patient">
+                <ScalarProperty Name="telephone_alt" ColumnName="telephone_alt" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="register_number" ColumnName="register_number" />
+                <ScalarProperty Name="e_mail" ColumnName="e_mail" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="neighborhood" ColumnName="neighborhood" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="cell_phone" ColumnName="cell_phone" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="document" ColumnName="document" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idPatient" ColumnName="idPatient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -444,16 +294,16 @@
       <Diagram Name="Model1" ZoomLevel="97">
         <EntityTypeShape EntityType="patient_info_dbModel.device_reference" Width="1.5" PointX="3" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="3.75" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.375" Height="4.0956022135416656" IsExpanded="true" />
-        <AssociationConnector Association="patient_info_dbModel.fk_device_reference_patient1" ManuallyRouted="false">
+        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.375" Height="4.2879036458333335" />
+        <AssociationConnector Association="patient_info_dbModel.fk_device_reference_patient1" >
           <ConnectorPoint PointX="2.25" PointY="2.2401432291666667" />
           <ConnectorPoint PointX="3" PointY="2.2401432291666667" />
         </AssociationConnector>
-        <AssociationConnector Association="patient_info_dbModel.fk_emergency_contact_Patient" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.6103011067708328" />
-          <ConnectorPoint PointX="3" PointY="4.6103011067708328" />
+        <AssociationConnector Association="patient_info_dbModel.fk_emergency_contact_Patient" >
+          <ConnectorPoint PointX="2.25" PointY="4.7064518229166667" />
+          <ConnectorPoint PointX="3" PointY="4.7064518229166667" />
         </AssociationConnector>
-      </Diagram>
+        </Diagram>
     </Diagrams>
   </Designer>
 </edmx:Edmx>
