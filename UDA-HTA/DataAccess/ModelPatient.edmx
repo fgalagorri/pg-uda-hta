@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="patient_info_dbModelStoreContainer">
           <EntitySet Name="device_reference" EntityType="patient_info_dbModel.Store.device_reference" store:Type="Tables" Schema="patient_info_db" />
           <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.Store.emergency_contact" store:Type="Tables" Schema="patient_info_db" />
@@ -119,6 +119,15 @@
         <EntityContainer Name="patient_info_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="device_reference" EntityType="patient_info_dbModel.device_reference" />
           <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.emergency_contact" />
+          <EntitySet Name="patient" EntityType="patient_info_dbModel.patient" />
+          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.fk_device_reference_patient1">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="device_reference" EntitySet="device_reference" />
+          </AssociationSet>
+          <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.fk_emergency_contact_Patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="emergency_contact" EntitySet="emergency_contact" />
+          </AssociationSet>
           <FunctionImport Name="insertDeviceReference">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="device_type" Mode="In" Type="Int32" />
@@ -149,15 +158,6 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="register_number" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="patient" EntityType="patient_info_dbModel.patient" />
-          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.fk_device_reference_patient1">
-            <End Role="patient" EntitySet="patient" />
-            <End Role="device_reference" EntitySet="device_reference" />
-          </AssociationSet>
-          <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.fk_emergency_contact_Patient">
-            <End Role="patient" EntitySet="patient" />
-            <End Role="emergency_contact" EntitySet="emergency_contact" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="device_reference">
           <Key>
@@ -246,9 +246,6 @@
             <ScalarProperty Name="phone" ColumnName="phone" />
             <ScalarProperty Name="patient_idPatient" ColumnName="patient_idPatient" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="patient_info_dbModel.Store.insertDeviceReference" />
-          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="patient_info_dbModel.Store.insertEmergencyContact" />
-          <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
           <EntitySetMapping Name="patient">
             <EntityTypeMapping TypeName="patient_info_dbModel.patient">
               <MappingFragment StoreEntitySet="patient">
@@ -271,6 +268,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="patient_info_dbModel.Store.insertDeviceReference" />
+          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="patient_info_dbModel.Store.insertEmergencyContact" />
+          <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -291,7 +291,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1" ZoomLevel="97">
+      <Diagram Name="Model1" ZoomLevel="88">
         <EntityTypeShape EntityType="patient_info_dbModel.device_reference" Width="1.5" PointX="3" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="3.75" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.375" Height="4.2879036458333335" />
