@@ -197,10 +197,19 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertUser$$
-CREATE PROCEDURE insertUser(IN id INT, IN log VARCHAR(45), IN p VARCHAR(45), IN r VARCHAR(45))
+CREATE PROCEDURE insertUser(OUT id INT, IN log VARCHAR(45), IN p VARCHAR(45), IN r VARCHAR(45))
 BEGIN
-INSERT INTO `user`(`idUsuario`, `login`, `pass`, `rol`)
-VALUES(id, log, p, r);
+INSERT INTO `user`( `login`, `pass`, `rol`)
+VALUES(log, p, r);
+SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS getPassword$$
+CREATE PROCEDURE getPassword(OUT pass_var VARCHAR(45), IN login_var VARCHAR(45))
+BEGIN
+SET pass_var = (SELECT `pass` FROM `user` WHERE `login` = login_var LIMIT 1);
 END$$
 DELIMITER ;
 
