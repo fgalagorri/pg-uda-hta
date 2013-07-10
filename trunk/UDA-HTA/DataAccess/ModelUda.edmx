@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -404,6 +404,10 @@
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="pass_var" Type="varchar" Mode="Out" />
+          <Parameter Name="login_var" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="hour" Type="int" Mode="In" />
@@ -549,7 +553,7 @@
           <Parameter Name="kcal" Type="int" Mode="In" />
         </Function>
         <Function Name="insertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="log" Type="varchar" Mode="In" />
           <Parameter Name="p" Type="varchar" Mode="In" />
           <Parameter Name="r" Type="varchar" Mode="In" />
@@ -615,6 +619,11 @@
             <End Role="report" EntitySet="report" />
             <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
+          <FunctionImport Name="deleteInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="insertComplications_Activities">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="hour" Mode="In" Type="Int32" />
@@ -654,13 +663,18 @@
             <Parameter Name="nam" Mode="In" Type="String" />
             <Parameter Name="idDrugType" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertDrugType">
-          <Parameter Name="typ" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="insertInvestigation">
             <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="nam" Mode="In" Type="String" />
             <Parameter Name="createDat" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="insertDrugType">
+          <Parameter Name="typ" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertMeasurement">
             <Parameter Name="dateM" Mode="In" Type="DateTime" />
@@ -687,42 +701,8 @@
             <Parameter Name="idDrug" Mode="In" Type="Int32" />
             <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertTemporaryData">
-            <Parameter Name="id" Mode="Out" Type="Int32" />
-            <Parameter Name="weight" Mode="In" Type="Decimal" />
-            <Parameter Name="height" Mode="In" Type="Decimal" />
-            <Parameter Name="age" Mode="In" Type="Int32" />
-            <Parameter Name="body_mass_index" Mode="In" Type="Decimal" />
-            <Parameter Name="smoker" Mode="In" Type="Boolean" />
-            <Parameter Name="dyslipidemia" Mode="In" Type="Boolean" />
-            <Parameter Name="diabetic" Mode="In" Type="Boolean" />
-            <Parameter Name="known_hypertensive" Mode="In" Type="Boolean" />
-            <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
-            <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
-            <Parameter Name="kcal" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="insertUser">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="log" Mode="In" Type="String" />
-            <Parameter Name="p" Mode="In" Type="String" />
-            <Parameter Name="r" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="updatePassword">
-            <Parameter Name="login_var" Mode="In" Type="String" />
-            <Parameter Name="pass_var" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="insertPatientUda">
           <Parameter Name="id" Mode="In" Type="Int64" />
-          </FunctionImport>
-          <FunctionImport Name="insertInvestigationHasReport">
-            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
-            <Parameter Name="idReport" Mode="In" Type="Int64" />
-            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
-          </FunctionImport>
-          <FunctionImport Name="deleteInvestigationHasReport">
-            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
-            <Parameter Name="idReport" Mode="In" Type="Int64" />
-            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertReport">
             <Parameter Name="id" Mode="Out" Type="Int64" />
@@ -774,34 +754,33 @@
             <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertPatient">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="surname" Mode="In" Type="String" />
-            <Parameter Name="addr" Mode="In" Type="String" />
-            <Parameter Name="dni" Mode="In" Type="String" />
-            <Parameter Name="birth" Mode="In" Type="DateTime" />
-            <Parameter Name="sex" Mode="In" Type="String" />
-            <Parameter Name="neighbour" Mode="In" Type="String" />
-            <Parameter Name="city" Mode="In" Type="String" />
-            <Parameter Name="department" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="cell" Mode="In" Type="String" />
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="register_number" Mode="In" Type="Int64" />
+          <FunctionImport Name="insertTemporaryData">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Decimal" />
+            <Parameter Name="height" Mode="In" Type="Decimal" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="body_mass_index" Mode="In" Type="Decimal" />
+            <Parameter Name="smoker" Mode="In" Type="Boolean" />
+            <Parameter Name="dyslipidemia" Mode="In" Type="Boolean" />
+            <Parameter Name="diabetic" Mode="In" Type="Boolean" />
+            <Parameter Name="known_hypertensive" Mode="In" Type="Boolean" />
+            <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="kcal" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertEmergencyContact">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="surname" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          <FunctionImport Name="updatePassword">
+            <Parameter Name="login_var" Mode="In" Type="String" />
+            <Parameter Name="pass_var" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="insertDeviceReference">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="device_type" Mode="In" Type="Int32" />
-            <Parameter Name="device_ref" Mode="In" Type="String" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          <FunctionImport Name="insertUser">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
+            <Parameter Name="log" Mode="In" Type="String" />
+            <Parameter Name="p" Mode="In" Type="String" />
+            <Parameter Name="r" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getPassword">
+            <Parameter Name="pass_var" Mode="Out" Type="String" />
+            <Parameter Name="login_var" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1299,21 +1278,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
           <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
           <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
-          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
           <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
+          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
+          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
           <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
           <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
-          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
-          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
-          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
-          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
-          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
+          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
+          <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1334,7 +1314,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1" ZoomLevel="69">
+      <Diagram Name="Model1" ZoomLevel="63">
         <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3" Height="6.0186165364583317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.375" Height="1.9802864583333317" IsExpanded="true" />

@@ -727,26 +727,13 @@ namespace DataAccess
         //en caso de no existr devuelvo null
         public string getPassword(string userName)
         {
-            /*using (udaContext = new udahta_dbEntities())
+            using (udaContext = new udahta_dbEntities())
             {
-                string stm = "SELECT pass FROM User WHERE login = '" + userName + "' LIMIT 1";
-                MySqlCommand mc = new MySqlCommand(stm, conn);
+                ObjectParameter pswd = new ObjectParameter("id", typeof(int));
+                udaContext.getPassword(pswd, userName);
 
-                udaContext.Open();
-                MySqlDataReader rdr = mc.ExecuteReader();
-
-                string pswd = "";
-                while (rdr.Read())
-                {
-                    pswd = rdr.GetString(0);
-                }
-
-                rdr.Close();
-                conn.Close();
-
-                return pswd;
-            }*/
-            throw new NotImplementedException();
+                return pswd.Value.ToString();
+            }
         }
         
         //Actualiza la contrasena del usuario userName
@@ -780,12 +767,15 @@ namespace DataAccess
         }
         
         //Inserta un nuevo usuario en la base de datos
-        public void insertUser(int idUsuario, string login, string pass, string rol)
+        public int insertUser(string login, string pass, string rol)
         {
             using (udaContext = new udahta_dbEntities())
             {
-                udaContext.insertUser(idUsuario, login, pass, rol);                
+                var lastIdUser = new ObjectParameter("id", typeof(long));
+                udaContext.insertUser(lastIdUser,login, pass, rol);
+                return (int)lastIdUser.Value;
             }
+            
         }
 
         //Inserta un nuevo tipo de droga en la base de datos
