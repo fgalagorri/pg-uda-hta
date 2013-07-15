@@ -21,7 +21,7 @@ namespace UDA_HTA.UserControls.MainWindow
             lblNames.Text = patient.Names;
             lblLast.Text = patient.Surnames;
             lblCI.Text = patient.DocumentId;
-            lblNroReg.Text = patient.RegisterNumer;
+            lblNroReg.Text = patient.RegisterNumber;
             lblBirth.Text = patient.BirthDate.Value.ToShortDateString();
             lblAge.Text = patient.BirthDate.Value.CalculateAge().ToString();
             lblSex.Text = patient.Sex.Value == SexType.M ? "Masculino" : "Femenino";

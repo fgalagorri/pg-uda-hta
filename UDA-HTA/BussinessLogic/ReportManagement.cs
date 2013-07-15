@@ -20,13 +20,19 @@ namespace BussinessLogic
         public Report GetReport(int idReport)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
-            return uhda.getReport(idReport);
+            return uhda.GetReport(idReport);
         }
 
-        public void AddReport(Report report)
+        public long AddReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
-            uhda.insertReport(report);
+            return uhda.InsertReport(report);
+        }
+
+        public void UpdateDiagnosis(long reportId, string diagnosis, DateTime diagnosisDate, string doctor)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateDiagnosis(reportId, diagnosis, diagnosisDate, doctor);
         }
 
         public ICollection<Report> ListPatientReports(long idPatient)
@@ -39,7 +45,7 @@ namespace BussinessLogic
         public void AddDrug(int type, string name)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
-            uhda.insertDrug(name, type);
+            uhda.InsertDrug(name, type);
         }
 
         public void DeleteDrug(string name)
@@ -276,9 +282,9 @@ namespace BussinessLogic
 
                     Run run5 = new Run();
                     Text text5 = new Text();
-                    if (report.Patient.RegisterNumer != null)
+                    if (report.Patient.RegisterNumber != null)
                     {
-                        text5.Text = "Nro. Registro: " + report.Patient.RegisterNumer.ToString();
+                        text5.Text = "Nro. Registro: " + report.Patient.RegisterNumber.ToString();
                     }
                     else
                     {
@@ -5137,8 +5143,6 @@ namespace BussinessLogic
 
         }
         
-        #endregion
-        
         public void exportReportPDF(Report report, string fileName)
         {/*
             //Crear documento PDF
@@ -5163,5 +5167,7 @@ namespace BussinessLogic
             Process.Start(fileName);
           */
         }
+        
+        #endregion
     }
 }

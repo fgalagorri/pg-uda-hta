@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -153,6 +153,7 @@
           <Property Name="sleep" Type="bit" />
           <Property Name="comment" Type="text" />
           <Property Name="is_valid" Type="bit" Nullable="false" />
+          <Property Name="is_retry" Type="bit" Nullable="false" />
           <Property Name="report_idReport" Type="bigint" Nullable="false" />
           <Property Name="report_patientuda_idPatientUda" Type="bigint" Nullable="false" />
         </EntityType>
@@ -193,6 +194,7 @@
           <Property Name="end_date" Type="datetime" />
           <Property Name="doctor" Type="varchar" MaxLength="45" />
           <Property Name="diagnosis" Type="text" />
+          <Property Name="diagnosis_date" Type="datetime" />
           <Property Name="request_doctor" Type="varchar" MaxLength="45" />
           <Property Name="specialty" Type="varchar" MaxLength="45" />
           <Property Name="day_avg_sys" Type="int" />
@@ -468,6 +470,7 @@
           <Parameter Name="heart_rate" Type="int" Mode="In" />
           <Parameter Name="sleep" Type="bit" Mode="In" />
           <Parameter Name="isValid" Type="bit" Mode="In" />
+          <Parameter Name="isRetry" Type="bit" Mode="In" />
           <Parameter Name="comm" Type="text" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
@@ -494,6 +497,7 @@
           <Parameter Name="end_date" Type="datetime" Mode="In" />
           <Parameter Name="doctor" Type="varchar" Mode="In" />
           <Parameter Name="diagnosis" Type="text" Mode="In" />
+          <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
           <Parameter Name="request_doctor" Type="varchar" Mode="In" />
           <Parameter Name="specialty" Type="varchar" Mode="In" />
           <Parameter Name="day_avg_sys" Type="int" Mode="In" />
@@ -557,6 +561,12 @@
           <Parameter Name="log" Type="varchar" Mode="In" />
           <Parameter Name="p" Type="varchar" Mode="In" />
           <Parameter Name="r" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updateDiagnosis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="reportId" Type="bigint" Mode="In" />
+          <Parameter Name="doctor" Type="varchar" Mode="In" />
+          <Parameter Name="diagnosis" Type="text" Mode="In" />
+          <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
         </Function>
         <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login_var" Type="varchar" Mode="In" />
@@ -684,6 +694,7 @@
             <Parameter Name="heart_rate" Mode="In" Type="Int32" />
             <Parameter Name="sleep" Mode="In" Type="Boolean" />
             <Parameter Name="isValid" Mode="In" Type="Boolean" />
+            <Parameter Name="isRetry" Mode="In" Type="Boolean" />
             <Parameter Name="comm" Mode="In" Type="String" />
             <Parameter Name="idReport" Mode="In" Type="Int64" />
             <Parameter Name="idPatient" Mode="In" Type="Int64" />
@@ -710,6 +721,7 @@
             <Parameter Name="end_date" Mode="In" Type="DateTime" />
             <Parameter Name="doctor" Mode="In" Type="String" />
             <Parameter Name="diagnosis" Mode="In" Type="String" />
+            <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
             <Parameter Name="request_doctor" Mode="In" Type="String" />
             <Parameter Name="specialty" Mode="In" Type="String" />
             <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
@@ -781,6 +793,12 @@
           <FunctionImport Name="getPassword">
             <Parameter Name="pass_var" Mode="Out" Type="String" />
             <Parameter Name="login_var" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateDiagnosis">
+            <Parameter Name="reportId" Mode="In" Type="Int64" />
+            <Parameter Name="doctor" Mode="In" Type="String" />
+            <Parameter Name="diagnosis" Mode="In" Type="String" />
+            <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1032,6 +1050,7 @@
           <Property Type="Decimal" Name="tot_sd_hr" />
           <Property Type="Decimal" Name="day_sd_hr" />
           <Property Type="Decimal" Name="night_sd_hr" />
+          <Property Type="DateTime" Name="diagnosis_date" />
         </EntityType>
         <Association Name="fk_Report_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1091,6 +1110,7 @@
           <Property Type="Int64" Name="report_idReport" Nullable="false" />
           <Property Type="Int64" Name="report_patientuda_idPatientUda" Nullable="false" />
           <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="measurement" ToRole="report" />
+          <Property Type="Boolean" Name="is_retry" Nullable="false" />
         </EntityType>
         <Association Name="fk_Measurement_Report1">
           <End Type="udahta_dbModel.report" Role="report" Multiplicity="1" />
@@ -1201,6 +1221,7 @@
           <EntitySetMapping Name="report">
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="diagnosis_date" ColumnName="diagnosis_date" />
                 <ScalarProperty Name="night_sd_hr" ColumnName="night_sd_hr" />
                 <ScalarProperty Name="day_sd_hr" ColumnName="day_sd_hr" />
                 <ScalarProperty Name="tot_sd_hr" ColumnName="tot_sd_hr" />
@@ -1264,6 +1285,7 @@
           <EntitySetMapping Name="measurement">
             <EntityTypeMapping TypeName="udahta_dbModel.measurement">
               <MappingFragment StoreEntitySet="measurement">
+                <ScalarProperty Name="is_retry" ColumnName="is_retry" />
                 <ScalarProperty Name="report_patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
                 <ScalarProperty Name="report_idReport" ColumnName="report_idReport" />
                 <ScalarProperty Name="is_valid" ColumnName="is_valid" />
@@ -1294,6 +1316,7 @@
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
+          <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

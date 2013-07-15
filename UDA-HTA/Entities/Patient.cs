@@ -34,7 +34,7 @@ namespace Entities
         public DateTime? ModifiedDate { get; set; }
 
         public long? UdaId { get; set; }
-        public string RegisterNumer { get; set; }
+        public string RegisterNumber { get; set; }
         public ICollection<DeviceReference> DeviceReferences { get; set; } 
 
         public TemporaryData LastTempData { get; set; }

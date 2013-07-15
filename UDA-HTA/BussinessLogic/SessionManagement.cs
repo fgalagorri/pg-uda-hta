@@ -38,7 +38,7 @@ namespace BussinessLogic
                 // guardar nuevo paswd en la base
                 UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
 
-                bool ret = dataAccess.updatePassword(userName,newPswd);
+                bool ret = dataAccess.UpdatePassword(userName,newPswd);
                 return ret;
             }
             return false;
@@ -49,7 +49,7 @@ namespace BussinessLogic
             // Verificar que el nombre de usuario es correcto
             UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
 
-            string pswd = dataAccess.getPassword(userName);
+            string pswd = dataAccess.GetPassword(userName);
 
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,

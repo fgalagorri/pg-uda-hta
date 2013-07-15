@@ -882,10 +882,11 @@ namespace DataAccess
         /// <param name="heart_rate">No Metadata Documentation available.</param>
         /// <param name="sleep">No Metadata Documentation available.</param>
         /// <param name="isValid">No Metadata Documentation available.</param>
+        /// <param name="isRetry">No Metadata Documentation available.</param>
         /// <param name="comm">No Metadata Documentation available.</param>
         /// <param name="idReport">No Metadata Documentation available.</param>
         /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Boolean> isValid, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
+        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Boolean> isValid, Nullable<global::System.Boolean> isRetry, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
         {
             ObjectParameter dateMParameter;
             if (dateM.HasValue)
@@ -957,6 +958,16 @@ namespace DataAccess
                 isValidParameter = new ObjectParameter("isValid", typeof(global::System.Boolean));
             }
     
+            ObjectParameter isRetryParameter;
+            if (isRetry.HasValue)
+            {
+                isRetryParameter = new ObjectParameter("isRetry", isRetry);
+            }
+            else
+            {
+                isRetryParameter = new ObjectParameter("isRetry", typeof(global::System.Boolean));
+            }
+    
             ObjectParameter commParameter;
             if (comm != null)
             {
@@ -987,7 +998,7 @@ namespace DataAccess
                 idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, isValidParameter, commParameter, idReportParameter, idPatientParameter);
+            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, isValidParameter, isRetryParameter, commParameter, idReportParameter, idPatientParameter);
         }
     
         /// <summary>
@@ -1122,6 +1133,7 @@ namespace DataAccess
         /// <param name="end_date">No Metadata Documentation available.</param>
         /// <param name="doctor">No Metadata Documentation available.</param>
         /// <param name="diagnosis">No Metadata Documentation available.</param>
+        /// <param name="diagnosis_dt">No Metadata Documentation available.</param>
         /// <param name="request_doctor">No Metadata Documentation available.</param>
         /// <param name="specialty">No Metadata Documentation available.</param>
         /// <param name="day_avg_sys">No Metadata Documentation available.</param>
@@ -1165,7 +1177,7 @@ namespace DataAccess
         /// <param name="tot_tam_avg">No Metadata Documentation available.</param>
         /// <param name="day_tam_avg">No Metadata Documentation available.</param>
         /// <param name="night_tam_avg">No Metadata Documentation available.</param>
-        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr, Nullable<global::System.Decimal> tot_sd_sis, Nullable<global::System.Decimal> tot_sd_dias, Nullable<global::System.Decimal> day_sd_sis, Nullable<global::System.Decimal> day_sd_dias, Nullable<global::System.Decimal> night_sd_sis, Nullable<global::System.Decimal> night_sd_dias, Nullable<global::System.Decimal> tot_sd_tam, Nullable<global::System.Decimal> day_sd_tam, Nullable<global::System.Decimal> night_sd_tam, Nullable<global::System.Decimal> tot_sd_hr, Nullable<global::System.Decimal> day_sd_hr, Nullable<global::System.Decimal> night_sd_hr, Nullable<global::System.Int32> tot_tam_avg, Nullable<global::System.Int32> day_tam_avg, Nullable<global::System.Int32> night_tam_avg)
+        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, Nullable<global::System.DateTime> diagnosis_dt, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr, Nullable<global::System.Decimal> tot_sd_sis, Nullable<global::System.Decimal> tot_sd_dias, Nullable<global::System.Decimal> day_sd_sis, Nullable<global::System.Decimal> day_sd_dias, Nullable<global::System.Decimal> night_sd_sis, Nullable<global::System.Decimal> night_sd_dias, Nullable<global::System.Decimal> tot_sd_tam, Nullable<global::System.Decimal> day_sd_tam, Nullable<global::System.Decimal> night_sd_tam, Nullable<global::System.Decimal> tot_sd_hr, Nullable<global::System.Decimal> day_sd_hr, Nullable<global::System.Decimal> night_sd_hr, Nullable<global::System.Int32> tot_tam_avg, Nullable<global::System.Int32> day_tam_avg, Nullable<global::System.Int32> night_tam_avg)
         {
             ObjectParameter begin_dateParameter;
             if (begin_date.HasValue)
@@ -1205,6 +1217,16 @@ namespace DataAccess
             else
             {
                 diagnosisParameter = new ObjectParameter("diagnosis", typeof(global::System.String));
+            }
+    
+            ObjectParameter diagnosis_dtParameter;
+            if (diagnosis_dt.HasValue)
+            {
+                diagnosis_dtParameter = new ObjectParameter("diagnosis_dt", diagnosis_dt);
+            }
+            else
+            {
+                diagnosis_dtParameter = new ObjectParameter("diagnosis_dt", typeof(global::System.DateTime));
             }
     
             ObjectParameter request_doctorParameter;
@@ -1637,7 +1659,7 @@ namespace DataAccess
                 night_tam_avgParameter = new ObjectParameter("night_tam_avg", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter);
+            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter);
         }
     
         /// <summary>
@@ -1860,6 +1882,58 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("getPassword", pass_var, login_varParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="reportId">No Metadata Documentation available.</param>
+        /// <param name="doctor">No Metadata Documentation available.</param>
+        /// <param name="diagnosis">No Metadata Documentation available.</param>
+        /// <param name="diagnosis_dt">No Metadata Documentation available.</param>
+        public int updateDiagnosis(Nullable<global::System.Int64> reportId, global::System.String doctor, global::System.String diagnosis, Nullable<global::System.DateTime> diagnosis_dt)
+        {
+            ObjectParameter reportIdParameter;
+            if (reportId.HasValue)
+            {
+                reportIdParameter = new ObjectParameter("reportId", reportId);
+            }
+            else
+            {
+                reportIdParameter = new ObjectParameter("reportId", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter doctorParameter;
+            if (doctor != null)
+            {
+                doctorParameter = new ObjectParameter("doctor", doctor);
+            }
+            else
+            {
+                doctorParameter = new ObjectParameter("doctor", typeof(global::System.String));
+            }
+    
+            ObjectParameter diagnosisParameter;
+            if (diagnosis != null)
+            {
+                diagnosisParameter = new ObjectParameter("diagnosis", diagnosis);
+            }
+            else
+            {
+                diagnosisParameter = new ObjectParameter("diagnosis", typeof(global::System.String));
+            }
+    
+            ObjectParameter diagnosis_dtParameter;
+            if (diagnosis_dt.HasValue)
+            {
+                diagnosis_dtParameter = new ObjectParameter("diagnosis_dt", diagnosis_dt);
+            }
+            else
+            {
+                diagnosis_dtParameter = new ObjectParameter("diagnosis_dt", typeof(global::System.DateTime));
+            }
+    
+            return base.ExecuteFunction("updateDiagnosis", reportIdParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter);
         }
 
         #endregion
@@ -3191,13 +3265,15 @@ namespace DataAccess
         /// <param name="is_valid">Initial value of the is_valid property.</param>
         /// <param name="report_idReport">Initial value of the report_idReport property.</param>
         /// <param name="report_patientuda_idPatientUda">Initial value of the report_patientuda_idPatientUda property.</param>
-        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Boolean is_valid, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda)
+        /// <param name="is_retry">Initial value of the is_retry property.</param>
+        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Boolean is_valid, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda, global::System.Boolean is_retry)
         {
             measurement measurement = new measurement();
             measurement.idMeasurement = idMeasurement;
             measurement.is_valid = is_valid;
             measurement.report_idReport = report_idReport;
             measurement.report_patientuda_idPatientUda = report_patientuda_idPatientUda;
+            measurement.is_retry = is_retry;
             return measurement;
         }
 
@@ -3476,6 +3552,30 @@ namespace DataAccess
         private global::System.Int64 _report_patientuda_idPatientUda;
         partial void Onreport_patientuda_idPatientUdaChanging(global::System.Int64 value);
         partial void Onreport_patientuda_idPatientUdaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean is_retry
+        {
+            get
+            {
+                return _is_retry;
+            }
+            set
+            {
+                Onis_retryChanging(value);
+                ReportPropertyChanging("is_retry");
+                _is_retry = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_retry");
+                Onis_retryChanged();
+            }
+        }
+        private global::System.Boolean _is_retry;
+        partial void Onis_retryChanging(global::System.Boolean value);
+        partial void Onis_retryChanged();
 
         #endregion
     
@@ -5248,6 +5348,30 @@ namespace DataAccess
         private Nullable<global::System.Decimal> _night_sd_hr;
         partial void Onnight_sd_hrChanging(Nullable<global::System.Decimal> value);
         partial void Onnight_sd_hrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> diagnosis_date
+        {
+            get
+            {
+                return _diagnosis_date;
+            }
+            set
+            {
+                Ondiagnosis_dateChanging(value);
+                ReportPropertyChanging("diagnosis_date");
+                _diagnosis_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("diagnosis_date");
+                Ondiagnosis_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _diagnosis_date;
+        partial void Ondiagnosis_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Ondiagnosis_dateChanged();
 
         #endregion
     

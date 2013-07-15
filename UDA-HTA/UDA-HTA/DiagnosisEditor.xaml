@@ -1,9 +1,8 @@
 ﻿<Window x:Class="UDA_HTA.DiagnosisEditor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ctrl="clr-namespace:UDA_HTA.UserControls.RichTextBox"
-        WindowStartupLocation="CenterOwner" Height="400" Width="400"
-        Title="Informe médico" MinHeight="200" MinWidth="400">
+        WindowStartupLocation="CenterOwner" Title="Informe médico" 
+        MinHeight="400" MinWidth="600" Height="400" Width="600">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -11,7 +10,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <ctrl:RichTextEditor Grid.Row="0" VerticalAlignment="Stretch" />
+        <TextBox Grid.Row="0" Name="txtDiagnosis" VerticalAlignment="Stretch" Margin="10"  AcceptsTab="True"
+                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                     Margin="0,10,30,5" VerticalAlignment="Bottom" Grid.Row="1">

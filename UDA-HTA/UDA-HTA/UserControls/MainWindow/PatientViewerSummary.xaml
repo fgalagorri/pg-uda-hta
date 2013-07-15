@@ -84,11 +84,11 @@
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Válidas:</TextBlock>
                     <TextBlock Name="lblValidMeasuresT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}"/>
-                    <TextBlock Name="lblValidMeasuresTP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}">(83%)</TextBlock>
-                    <TextBlock Name="lblValidMeasuresD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">25</TextBlock>
-                    <TextBlock Name="lblValidMeasuresDP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}">(80%)</TextBlock>
-                    <TextBlock Name="lblValidMeasuresN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}">16</TextBlock>
-                    <TextBlock Name="lblValidMeasuresNP" Grid.Row="2" Grid.Column="6" Style="{StaticResource extraValue}">(88%)</TextBlock>
+                    <TextBlock Name="lblValidMeasuresTP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}" />
+                    <TextBlock Name="lblValidMeasuresD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblValidMeasuresDP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}" />
+                    <TextBlock Name="lblValidMeasuresN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}" />
+                    <TextBlock Name="lblValidMeasuresNP" Grid.Row="2" Grid.Column="6" Style="{StaticResource extraValue}" />
                 </Grid>
             </GroupBox>
             
@@ -120,24 +120,24 @@
                     <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <TextBlock Name="lblSystolicAvgT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">136</TextBlock>
-                    <TextBlock Name="lblSystolicAvgD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">138</TextBlock>
-                    <TextBlock Name="lblSystolicAvgN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}">135</TextBlock>
+                    <TextBlock Name="lblSystolicAvgT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSystolicAvgD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSystolicAvgN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}" />
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <TextBlock Name="lblDiastolicAvgT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">80</TextBlock>
-                    <TextBlock Name="lblDiastolicAvgD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">83</TextBlock>
-                    <TextBlock Name="lblDiastolicAvgN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}">79</TextBlock>
+                    <TextBlock Name="lblDiastolicAvgT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblDiastolicAvgD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblDiastolicAvgN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}" />
 
                     <TextBlock Grid.Row="3" Style="{StaticResource label}">Tension Arterial Media:</TextBlock>
-                    <TextBlock Name="lblTamAvgT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}">115</TextBlock>
-                    <TextBlock Name="lblTamAvgD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}">121</TextBlock>
-                    <TextBlock Name="lblTamAvgN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}">96</TextBlock>
+                    <TextBlock Name="lblTamAvgT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblTamAvgD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblTamAvgN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}" />
 
                     <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
-                    <TextBlock Name="lblHRAvgT" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}">85</TextBlock>
-                    <TextBlock Name="lblHRAvgD" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}">89</TextBlock>
-                    <TextBlock Name="lblHRAvgN" Grid.Row="4" Grid.Column="5" Style="{StaticResource value}">71</TextBlock>
+                    <TextBlock Name="lblHRAvgT" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblHRAvgD" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblHRAvgN" Grid.Row="4" Grid.Column="5" Style="{StaticResource value}" />
 
                     <!-- Más datos se pueden agregar -->
                 </Grid>
@@ -166,17 +166,17 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <TextBlock Name="lblSystolicOverLimD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">52</TextBlock>
-                    <TextBlock Name="lblSystolicOverLimDP" Grid.Row="1" Grid.Column="2" Style="{StaticResource extraValue}">(63%)</TextBlock>
-                    <TextBlock Name="lblSystolicOverLimN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">5</TextBlock>
-                    <TextBlock Name="lblSystolicOverLimNP" Grid.Row="1" Grid.Column="4" Style="{StaticResource extraValue}">(25%)</TextBlock>
+                    <TextBlock Name="lblSystolicOverLimD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSystolicOverLimDP" Grid.Row="1" Grid.Column="2" Style="{StaticResource extraValue}" />
+                    <TextBlock Name="lblSystolicOverLimN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSystolicOverLimNP" Grid.Row="1" Grid.Column="4" Style="{StaticResource extraValue}" />
                     
                     <!-- Diastólico -->
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <TextBlock Name="lblDiastolicOverLimD"  Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">68</TextBlock>
-                    <TextBlock Name="lblDiastolicOverLimDP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}">(75%)</TextBlock>
-                    <TextBlock Name="lblDiastolicOverLimN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">10</TextBlock>
-                    <TextBlock Name="lblDiastolicOverLimNP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}">(50%)</TextBlock>
+                    <TextBlock Name="lblDiastolicOverLimD"  Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblDiastolicOverLimDP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}" />
+                    <TextBlock Name="lblDiastolicOverLimN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblDiastolicOverLimNP" Grid.Row="2" Grid.Column="4" Style="{StaticResource extraValue}" />
                 </Grid>
             </GroupBox>
 
@@ -204,39 +204,39 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <TextBlock Name="lblSystolicMaxD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">201</TextBlock>
+                    <TextBlock Name="lblSystolicMaxD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblSystolicMaxDT">09:30</TextBlock>
+                        <TextBlock Name="lblSystolicMaxDT" />
                     </StackPanel>
-                    <TextBlock Name="lblSystolicMaxN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">137</TextBlock>
+                    <TextBlock Name="lblSystolicMaxN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="1" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblSystolicMaxNT">23:30</TextBlock>
+                        <TextBlock Name="lblSystolicMaxNT" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <TextBlock Name="lblDiastolicMaxD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">138</TextBlock>
+                    <TextBlock Name="lblDiastolicMaxD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblDiastolicMaxDT">09:30</TextBlock>
+                        <TextBlock Name="lblDiastolicMaxDT" />
                     </StackPanel>
-                    <TextBlock Name="lblDiastolicMaxN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">103</TextBlock>
+                    <TextBlock Name="lblDiastolicMaxN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="2" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblDiastolicMaxNT">07:18</TextBlock>
+                        <TextBlock Name="lblDiastolicMaxNT" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="3" Style="{StaticResource label}">Frec. cardíaca:</TextBlock>
-                    <TextBlock Name="lblHRMaxD" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}">138</TextBlock>
+                    <TextBlock Name="lblHRMaxD" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="3" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblHRMaxDT">09:30</TextBlock>
+                        <TextBlock Name="lblHRMaxDT" />
                     </StackPanel>
-                    <TextBlock Name="lblHRMaxN" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}">103</TextBlock>
+                    <TextBlock Name="lblHRMaxN" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="3" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblHRMaxNT">07:18</TextBlock>
+                        <TextBlock Name="lblHRMaxNT" />
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -265,39 +265,39 @@
                     <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
-                    <TextBlock Name="lblSystolicMinD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}">96</TextBlock>
+                    <TextBlock Name="lblSystolicMinD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblSystolicMinDT">11:03</TextBlock>
+                        <TextBlock Name="lblSystolicMinDT" />
                     </StackPanel>
-                    <TextBlock Name="lblSystolicMinN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}">99</TextBlock>
+                    <TextBlock Name="lblSystolicMinN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="1" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblSystolicMinNT">01:30</TextBlock>
+                        <TextBlock Name="lblSystolicMinNT" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
-                    <TextBlock Name="lblDiastolicMinD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}">54</TextBlock>
+                    <TextBlock Name="lblDiastolicMinD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblDiastolicMinDT">15:45</TextBlock>
+                        <TextBlock Name="lblDiastolicMinDT" />
                     </StackPanel>
-                    <TextBlock Name="lblDiastolicMinN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}">60</TextBlock>
+                    <TextBlock Name="lblDiastolicMinN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="2" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblDiastolicMinNT">01:30</TextBlock>
+                        <TextBlock Name="lblDiastolicMinNT" />
                     </StackPanel>
 
                     <TextBlock Grid.Row="3" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
-                    <TextBlock Name="lblHRMinD" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}">54</TextBlock>
+                    <TextBlock Name="lblHRMinD" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="3" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblHRMinDT">15:45</TextBlock>
+                        <TextBlock Name="lblHRMinDT" />
                     </StackPanel>
-                    <TextBlock Name="lblHRMinN" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}">60</TextBlock>
+                    <TextBlock Name="lblHRMinN" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="3" Grid.Column="4" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
-                        <TextBlock Name="lblHRMinNT">01:30</TextBlock>
+                        <TextBlock Name="lblHRMinNT" />
                     </StackPanel>
                 </Grid>
             </GroupBox>

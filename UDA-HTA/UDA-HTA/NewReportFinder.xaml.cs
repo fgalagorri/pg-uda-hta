@@ -61,9 +61,9 @@ namespace UDA_HTA
                 var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice);
                 var rc = new ReportCreate(report) {Owner = this};
                 Mouse.OverrideCursor = null;
-                var cancelled = rc.ShowDialog();
+                var imported = rc.ShowDialog();
 
-                if (cancelled.HasValue && !cancelled.Value)
+                if (imported.HasValue && !imported.Value)
                 {
                     //grReports.UnselectAll();
                     // Hack to disable selected row style
@@ -71,7 +71,10 @@ namespace UDA_HTA
                     grReports.IsEnabled = true;
                 }
                 else
+                {
+                    DialogResult = true;
                     Close();
+                }
             }
         }
     }

@@ -59,6 +59,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             p.Names = txtNames.Text;
             p.Surnames = txtSurnames.Text;
             p.DocumentId = txtCI.Text;
+            p.RegisterNumber = txtNroReg.Text;
             p.BirthDate = new DateTime(year, mon, day);
             p.Sex = cmbSex.SelectedIndex != -1 ? (SexType?) (cmbSex.SelectedIndex + 1) : null;
             p.Address = txtAddress.Text;
@@ -117,6 +118,7 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtEmCSurname.Clear();
                 txtEmCPhone.Clear();
                 grContacts.DataContext = _emContacts;
+                txtEmCName.Focus();
             }
         }
 

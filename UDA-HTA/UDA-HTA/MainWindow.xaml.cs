@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -30,19 +31,53 @@ namespace UDA_HTA
         }
 
 
-        #region Ribbon Buttons Click
+        #region Ribbon Buttons
 
         private void btnNewReport_Click(object sender, RoutedEventArgs e)
         {
             var newReportPopup = new NewReportFinder { Owner = this };
-            newReportPopup.ShowDialog();
+            var imported = newReportPopup.ShowDialog();
+
+            if (imported.HasValue && imported.Value)
+            {
+                long patientId, reportId;
+                // Despliego el nuevo informe
+                GatewayController.GetInstance().GetLastInsertedReport(out patientId, out reportId);
+                Container.Content = new PatientViewer(patientId, reportId);
+            }
         }
 
-        private void btnReportComments_Click(object sender, RoutedEventArgs e)
+        private void btnEditDiagnosis_Click(object sender, RoutedEventArgs e)
         {
-            var diagnosis = new DiagnosisEditor {Owner = this};
-            diagnosis.ShowDialog();
+            var pv = Container.Content as PatientViewer;
+            if (pv != null && pv.GetSelectedReport() != null)
+            {
+                var de = new DiagnosisEditor {Owner = this};
+                de.Closing += DiagnosisEditorClosed;
+                de.SetReport(pv.GetSelectedReport());
+                de.Show();
+            }
         }
+        private void DiagnosisEditorClosed(object sender, CancelEventArgs e)
+        {
+            long reportId;
+            string diagnosis;
+
+            var de = (DiagnosisEditor) sender;
+            var saveChanges = de.ChangesCommited(out reportId, out diagnosis);
+
+            if (saveChanges)
+            {
+                var d = GatewayController.GetInstance().UpdateDiagnosis(reportId, diagnosis);
+
+                var pv = Container.Content as PatientViewer;
+                if (pv != null && pv.GetSelectedReport() != null)
+                {
+                    pv.UpdateDiagnosis(d);
+                }
+            }
+        }
+
 
         private void btnFindPatient_Click(object sender, RoutedEventArgs e)
         {
