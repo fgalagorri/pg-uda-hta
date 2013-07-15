@@ -81,6 +81,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             txtMinEffort.Clear();
             cmbTypeEffort.SelectedIndex = -1;
             grEffort.DataContext = _lstEffort;
+            txtHourEffort.Focus();
         }
 
         private void btnRmvEffort_Click(object sender, RoutedEventArgs e)
@@ -138,6 +139,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             txtCompOther.Clear();
             txtCompOther.IsEnabled = false;
             grComplications.DataContext = _lstComplication;
+            txtHourComp.Focus();
         }
 
         private void btnRmvComp_Click(object sender, RoutedEventArgs e)

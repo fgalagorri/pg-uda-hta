@@ -113,9 +113,6 @@
     <Compile Include="UserControls\ReportCreation\Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RichTextBox\RichTextEditor.xaml.cs">
-      <DependentUpon>RichTextEditor.xaml</DependentUpon>
-    </Compile>
     <Page Include="DiagnosisEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,10 +196,6 @@
     <Page Include="UserControls\ReportCreation\Summary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\RichTextBox\RichTextEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

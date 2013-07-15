@@ -51,8 +51,8 @@ namespace HMSDataAccess
             try
             {
                 org.h2.Driver.load();
-                _conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
-                //_conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
+                //_conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
+                _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
                 _stat = _conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
             }
             catch (Exception e)
@@ -213,16 +213,18 @@ namespace HMSDataAccess
             // Para cada medida obtenida, agregarla a la lista de medidas incluida en el estudio.
             while (rs.next())
             {
-                var measure = new Measurement();
-                measure.Comment = rs.getString(5); //Kommentar
+                var measure = new Measurement
+                    {
+                        Comment = rs.getString(5),
+                        Time = parseDateTime(rs.getString(7)),
+                        HeartRate = rs.getInt(11),
+                        Diastolic = rs.getInt(12),
+                        Middle = rs.getInt(13),
+                        Systolic = rs.getInt(14),
+                        Retry = false
+                    };
 
                 //Pareseo la fecha y hora para crear el DateTime
-                measure.Time = parseDateTime(rs.getString(7));
-
-                measure.HeartRate = rs.getInt(11); //HR
-                measure.Diastolic = rs.getInt(12); //NIBPDIAS
-                measure.Middle = rs.getInt(13); //NIBPMAD
-                measure.Systolic = rs.getInt(14); //NIBPSYS
 
                 code = rs.getInt(10);
 
@@ -459,7 +461,9 @@ namespace HMSDataAccess
                 Console.Write(rs.getInt(i) + "|");
 
                 m.HeartRate = rs.getInt(++i);
-                Console.WriteLine(rs.getInt(i) + "|");
+                Console.WriteLine(rs.getInt(i) + "|"); // TODO CONSOLE.WRITELINE
+                
+                m.Retry = false;
 
                 //Si id es igual al ultimo id, agrego las medidas al reporte
                 if (id == lastId)

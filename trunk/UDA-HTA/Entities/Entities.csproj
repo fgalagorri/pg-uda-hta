@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceReference.cs" />
+    <Compile Include="DiagnosisEdited.cs" />
     <Compile Include="MedicineDose.cs" />
     <Compile Include="EmergencyContact.cs" />
     <Compile Include="Drug.cs" />

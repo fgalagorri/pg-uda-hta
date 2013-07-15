@@ -66,7 +66,7 @@ DELIMITER ;
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertReport$$
 CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, 
-							  IN doctor VARCHAR(45), IN diagnosis TEXT, 
+							  IN doctor VARCHAR(45), IN diagnosis TEXT, IN diagnosis_dt DATETIME,
 							  IN request_doctor VARCHAR (45), IN specialty VARCHAR(45), 
 							  IN day_avg_sys INT, IN night_avg_sys INT, IN total_avg_sys INT, 
 							  IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, 
@@ -85,26 +85,36 @@ CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date
 							  IN night_sd_hr DECIMAL(5,2), IN tot_tam_avg INT, 
 							  IN day_tam_avg INT, IN night_tam_avg INT)
 BEGIN
-INSERT INTO `report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `request_doctor`, 
-					  `specialty`, `day_avg_sys`, `night_avg_sys`, `total_avg_sys`, `day_max_sys`,
-					  `night_max_sys`, `day_avg_dias`, `night_avg_dias`, `total_avg_dias`, 
-					  `day_max_dias`, `night_max_dias`, `idDevice`, `deviceReportId`, 
-					  `temporarydata_idTemporaryData`, `dailycarnet_idDailyCarnet`, 
-					  `patientuda_idPatientUda`, `day_min_sis`, `day_min_dias`, `night_min_sis`, 
-					  `night_min_dias`, `tot_avg_hr`, `day_avg_hr`, `night_avg_hr`, `max_day_hr`,
-					  `max_night_hr`, `min_day_hr`, `min_night_hr`, `tot_sd_sis`, `tot_sd_dias`, 
-					  `day_sd_sis`, `day_sd_dias`, `night_sd_sis`, `night_sd_dias`, `tot_sd_tam`,
-					  `day_sd_tam`, `night_sd_tam`, `tot_sd_hr`, `day_sd_hr`, `night_sd_hr`, 
-					  `tot_tam_avg`, `day_tam_avg`, `night_tam_avg`) 
-VALUES (begin_date, end_date, doctor, diagnosis, request_doctor, specialty, day_avg_sys, 
-		night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, night_avg_dias, 
-		total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, idTemporaryData, 
-		idDailyCarnet, idPatient, day_min_sis, day_min_dias, night_min_sis, night_min_dias, 
-		tot_avg_hr, day_avg_hr, night_avg_hr, max_day_hr, max_night_hr, min_day_hr, min_night_hr, 
-		tot_sd_sis, tot_sd_dias, day_sd_sis, day_sd_dias, night_sd_sis, night_sd_dias, tot_sd_tam, 
-		day_sd_tam, night_sd_tam, tot_sd_hr, day_sd_hr, night_sd_hr, tot_tam_avg, 
+INSERT INTO `report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `diagnosis_date`, 
+					  `request_doctor`, `specialty`, `day_avg_sys`, `night_avg_sys`, 
+					  `total_avg_sys`, `day_max_sys`, `night_max_sys`, `day_avg_dias`, 
+					  `night_avg_dias`, `total_avg_dias`, `day_max_dias`, `night_max_dias`, 
+					  `idDevice`, `deviceReportId`, `temporarydata_idTemporaryData`, 
+					  `dailycarnet_idDailyCarnet`, `patientuda_idPatientUda`, `day_min_sis`, 
+					  `day_min_dias`, `night_min_sis`, `night_min_dias`, `tot_avg_hr`, `day_avg_hr`,
+					  `night_avg_hr`, `max_day_hr`, `max_night_hr`, `min_day_hr`, `min_night_hr`, 
+					  `tot_sd_sis`, `tot_sd_dias`, `day_sd_sis`, `day_sd_dias`, `night_sd_sis`, 
+					  `night_sd_dias`, `tot_sd_tam`,`day_sd_tam`, `night_sd_tam`, `tot_sd_hr`, 
+					  `day_sd_hr`, `night_sd_hr`, `tot_tam_avg`, `day_tam_avg`, `night_tam_avg`) 
+VALUES (begin_date, end_date, doctor, diagnosis, diagnosis_dt, request_doctor, specialty, 
+		day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, 
+		night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, 
+		idTemporaryData, idDailyCarnet, idPatient, day_min_sis, day_min_dias, night_min_sis, 
+		night_min_dias, tot_avg_hr, day_avg_hr, night_avg_hr, max_day_hr, max_night_hr, min_day_hr, 
+		min_night_hr, tot_sd_sis, tot_sd_dias, day_sd_sis, day_sd_dias, night_sd_sis, night_sd_dias,
+		tot_sd_tam, day_sd_tam, night_sd_tam, tot_sd_hr, day_sd_hr, night_sd_hr, tot_tam_avg, 
 		day_tam_avg, night_tam_avg);
 SET id = (SELECT Last_Insert_Id());
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateDiagnosis$$
+CREATE PROCEDURE updateDiagnosis(IN reportId BIGINT, IN doctor VARCHAR(45), IN diagnosis TEXT, IN diagnosis_dt DATETIME)
+BEGIN
+UPDATE `report` SET `doctor` = doctor, `diagnosis` = diagnosis, `diagnosis_date` = diagnosis_dt
+WHERE `idReport` = reportId;
 END$$
 DELIMITER ;
 
@@ -113,13 +123,14 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMeasurement$$
 CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, 
 								   IN diastolic INT, IN heart_rate INT, IN sleep BIT, 
-								   IN isValid BIT, IN comm TEXT, IN idReport BIGINT, 
-								   IN idPatient BIGINT)
+								   IN isValid BIT, IN isRetry BIT, IN comm TEXT, 
+								   IN idReport BIGINT, IN idPatient BIGINT)
 BEGIN
 INSERT INTO `measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, 
-						   `is_valid`,`comment`, `report_idReport`, 
+						   `is_valid`, `is_retry`,`comment`, `report_idReport`, 
 						   `report_patientuda_idPatientUda`) 
-VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, comm, idReport, idPatient);
+VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, isRetry,
+		comm, idReport, idPatient);
 END$$
 DELIMITER ;
 

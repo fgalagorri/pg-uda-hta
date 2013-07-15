@@ -27,9 +27,9 @@ namespace UDA_HTA.UserControls.MainWindow
         public void SetReport(Report r)
         {
             int aux, validTotal, validDay, validNight;
-            int total = r.Measures.Count;
-            int totalDay = r.Measures.Count(m => m.Asleep.HasValue && !m.Asleep.Value);
-            int totalNight = r.Measures.Count(m => m.Asleep.HasValue && m.Asleep.Value);
+            int total = r.Measures.Count(m => !m.Retry);
+            int totalDay = r.Measures.Count(m => m.Asleep.HasValue && !m.Asleep.Value && !m.Retry);
+            int totalNight = r.Measures.Count(m => m.Asleep.HasValue && m.Asleep.Value && !m.Retry);
 
             // Totales
             lblTotalMeasuresT.Text = total.ToString();

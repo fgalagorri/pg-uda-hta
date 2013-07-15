@@ -20,9 +20,12 @@ namespace Entities
         #region UDA Properties
 
         public long? UdaId { get; set; }
-        public User Doctor { get; set; }
         public string RequestDoctor { get; set; }
         public string RequestDoctorSpeciality { get; set; }
+
+        // Informe médico
+        public User Doctor { get; set; }
+        public DateTime? DiagnosisDate { get; set; }
         public string Diagnosis { get; set; }
 
         public long? DailyCarnetId { get; set; }

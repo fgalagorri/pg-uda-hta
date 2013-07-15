@@ -141,6 +141,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             txtIllness.Clear();
             txtComments.Clear();
             grBackground.DataContext = _lstBackground;
+            txtIllness.Focus();
         }
 
         private void btnDelIllness_Click(object sender, RoutedEventArgs e)
@@ -193,6 +194,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             txtMinMedication.Clear();
             txtMedication.Clear();
             grMedication.DataContext = _lstMedication;
+            txtHourMedication.Focus();
         }
 
         private void btnRmvMedication_Click(object sender, RoutedEventArgs e)

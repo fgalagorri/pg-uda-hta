@@ -20,113 +20,116 @@ namespace DataAccess
         {
         }
 
-        public Report getReport(long idReport)
+        public Report GetReport(long idReport)
         {
             using (udaContext = new udahta_dbEntities())
-            {                
-                var qry = udaContext.report.Where(r => r.idReport == idReport).Select(r => new 
-                    {
-                        r.begin_date,
-                        r.dailycarnet,
-                        r.deviceReportId,
-                        r.diagnosis,
-                        r.doctor,
-                        r.end_date,
-                        r.idDevice,
-                        r.measurement,
-                        r.patientuda,
-                        r.idReport,
-                        r.request_doctor,
-                        r.specialty,
-                        r.temporarydata,
-                        r.day_avg_dias,
-                        r.day_avg_sys,
-                        r.day_max_dias,
-                        r.day_max_sys,
-                        r.night_avg_dias,
-                        r.night_avg_sys,
-                        r.night_max_dias,
-                        r.night_max_sys,
-                        r.total_avg_dias,
-                        r.total_avg_sys,
-                        r.min_day_hr,
-                        r.min_night_hr,
-                        r.day_min_dias,
-                        r.day_min_sis,
-                        r.night_min_dias,
-                        r.night_min_sis,
-                        r.day_tam_avg,
-                        r.night_tam_avg,
-                        r.tot_tam_avg,
-                        r.day_avg_hr,
-                        r.max_day_hr,
-                        r.max_night_hr,
-                        r.night_avg_hr,
-                        r.tot_avg_hr,
-                        r.day_sd_tam,
-                        r.night_sd_tam,
-                        r.tot_sd_tam,
-                        r.day_sd_dias,
-                        r.night_sd_dias,
-                        r.tot_sd_dias,
-                        r.day_sd_sis,
-                        r.night_sd_sis,
-                        r.tot_sd_sis,
-                        r.tot_sd_hr,
-                        r.day_sd_hr,
-                        r.night_sd_hr
-                    }).FirstOrDefault();
+            {
+                var qry = udaContext.report.Where(r => r.idReport == idReport)
+                                    .Select(r => new
+                                        {
+                                            r.begin_date,
+                                            r.dailycarnet,
+                                            r.deviceReportId,
+                                            r.diagnosis,
+                                            r.diagnosis_date,
+                                            r.doctor,
+                                            r.end_date,
+                                            r.idDevice,
+                                            r.measurement,
+                                            r.patientuda,
+                                            r.idReport,
+                                            r.request_doctor,
+                                            r.specialty,
+                                            r.temporarydata,
+                                            r.day_avg_dias,
+                                            r.day_avg_sys,
+                                            r.day_max_dias,
+                                            r.day_max_sys,
+                                            r.night_avg_dias,
+                                            r.night_avg_sys,
+                                            r.night_max_dias,
+                                            r.night_max_sys,
+                                            r.total_avg_dias,
+                                            r.total_avg_sys,
+                                            r.min_day_hr,
+                                            r.min_night_hr,
+                                            r.day_min_dias,
+                                            r.day_min_sis,
+                                            r.night_min_dias,
+                                            r.night_min_sis,
+                                            r.day_tam_avg,
+                                            r.night_tam_avg,
+                                            r.tot_tam_avg,
+                                            r.day_avg_hr,
+                                            r.max_day_hr,
+                                            r.max_night_hr,
+                                            r.night_avg_hr,
+                                            r.tot_avg_hr,
+                                            r.day_sd_tam,
+                                            r.night_sd_tam,
+                                            r.tot_sd_tam,
+                                            r.day_sd_dias,
+                                            r.night_sd_dias,
+                                            r.tot_sd_dias,
+                                            r.day_sd_sis,
+                                            r.night_sd_sis,
+                                            r.tot_sd_sis,
+                                            r.tot_sd_hr,
+                                            r.day_sd_hr,
+                                            r.night_sd_hr
+                                        }).FirstOrDefault();
 
                 Report rep = null;
 
                 if (qry != null)
                 {
                     rep = new Report
-                    {
-                        BeginDate = qry.begin_date,
-                        DiastolicDayAvg = qry.day_avg_dias,
-                        SystolicDayAvg = qry.day_avg_sys,
-                        DiastolicDayMax = qry.day_max_dias,
-                        SystolicDayMax = qry.day_max_sys,
-                        DeviceReportId = qry.deviceReportId,
-                        Diagnosis = qry.diagnosis,
-                        EndDate = qry.end_date,
-                        DeviceId = qry.idDevice,
-                        DiastolicNightAvg = qry.night_avg_dias,
-                        SystolicNightAvg = qry.night_avg_sys,
-                        DiastolicNightMax = qry.night_max_dias,
-                        SystolicNightMax = qry.night_max_sys,
-                        RequestDoctor = qry.request_doctor,
-                        RequestDoctorSpeciality = qry.specialty,
-                        DiastolicTotalAvg = qry.total_avg_dias,
-                        SystolicTotalAvg = qry.total_avg_sys,
-                        MiddleDayAvg = qry.day_tam_avg,
-                        MiddleNightAvg = qry.night_tam_avg,
-                        MiddleTotalAvg = qry.tot_tam_avg,
-                        HeartRateDayAvg = qry.day_avg_hr,
-                        HeartRateNightAvg = qry.night_avg_hr,
-                        HeartRateTotalAvg = qry.tot_avg_hr,
-                        StandarDeviationTamNight = qry.night_sd_tam,
-                        StandardDeviationTamDay = qry.day_sd_tam,
-                        StandardDeviationTamTotal = qry.tot_sd_tam,                        
-                        StandardDeviationDiasDay = qry.day_sd_dias,
-                        StandardDeviationDiasNight = qry.night_sd_dias,
-                        StandardDeviationDiasTotal = qry.tot_sd_dias,
-                        StandardDeviationSysDay = qry.day_sd_sis,
-                        StandardDeviationSysNight = qry.night_sd_sis,
-                        StandardDeviationSysTotal = qry.tot_sd_sis,
-                        StandardDeviationHeartRateDay = qry.day_sd_hr,
-                        StandardDeviationHeartRateNight = qry.night_sd_hr,
-                        StandardDeviationHeartRateTotal = qry.tot_sd_hr,
-                        DiastolicDayMin = qry.day_min_dias,
-                        DiastolicNightMin = qry.night_min_dias,
-                        SystolicDayMin = qry.day_min_sis,
-                        SystolicNightMin = qry.night_min_sis,
+                        {
+                            BeginDate = qry.begin_date,
+                            DiastolicDayAvg = qry.day_avg_dias,
+                            SystolicDayAvg = qry.day_avg_sys,
+                            DiastolicDayMax = qry.day_max_dias,
+                            SystolicDayMax = qry.day_max_sys,
+                            DeviceReportId = qry.deviceReportId,
+                            Diagnosis = qry.diagnosis,
+                            DiagnosisDate = qry.diagnosis_date,
+                            EndDate = qry.end_date,
+                            DeviceId = qry.idDevice,
+                            DiastolicNightAvg = qry.night_avg_dias,
+                            SystolicNightAvg = qry.night_avg_sys,
+                            DiastolicNightMax = qry.night_max_dias,
+                            SystolicNightMax = qry.night_max_sys,
+                            RequestDoctor = qry.request_doctor,
+                            RequestDoctorSpeciality = qry.specialty,
+                            DiastolicTotalAvg = qry.total_avg_dias,
+                            SystolicTotalAvg = qry.total_avg_sys,
+                            MiddleDayAvg = qry.day_tam_avg,
+                            MiddleNightAvg = qry.night_tam_avg,
+                            MiddleTotalAvg = qry.tot_tam_avg,
+                            HeartRateDayAvg = qry.day_avg_hr,
+                            HeartRateNightAvg = qry.night_avg_hr,
+                            HeartRateTotalAvg = qry.tot_avg_hr,
+                            StandarDeviationTamNight = qry.night_sd_tam,
+                            StandardDeviationTamDay = qry.day_sd_tam,
+                            StandardDeviationTamTotal = qry.tot_sd_tam,
+                            StandardDeviationDiasDay = qry.day_sd_dias,
+                            StandardDeviationDiasNight = qry.night_sd_dias,
+                            StandardDeviationDiasTotal = qry.tot_sd_dias,
+                            StandardDeviationSysDay = qry.day_sd_sis,
+                            StandardDeviationSysNight = qry.night_sd_sis,
+                            StandardDeviationSysTotal = qry.tot_sd_sis,
+                            StandardDeviationHeartRateDay = qry.day_sd_hr,
+                            StandardDeviationHeartRateNight = qry.night_sd_hr,
+                            StandardDeviationHeartRateTotal = qry.tot_sd_hr,
+                            DiastolicDayMin = qry.day_min_dias,
+                            DiastolicNightMin = qry.night_min_dias,
+                            SystolicDayMin = qry.day_min_sis,
+                            SystolicNightMin = qry.night_min_sis,
 
-                        UdaId = qry.idReport
+                            UdaId = qry.idReport
 
-                    };
-                    
+                        };
+
                     //DailyCarnet
                     rep.Carnet.InitSystolic1 = qry.dailycarnet.init_sys1;
                     rep.Carnet.InitSystolic2 = qry.dailycarnet.init_sys2;
@@ -155,29 +158,29 @@ namespace DataAccess
                     if (qry.dailycarnet.main_meal_time != null)
                     {
                         rep.Carnet.MealTime = new DateTime(qry.dailycarnet.main_meal_time.Value.Year,
-                                                                qry.dailycarnet.main_meal_time.Value.Month,
-                                                                qry.dailycarnet.main_meal_time.Value.Day,
-                                                                qry.dailycarnet.main_meal_time.Value.Hour,
-                                                                qry.dailycarnet.main_meal_time.Value.Minute,
-                                                                qry.dailycarnet.main_meal_time.Value.Second);
+                                                           qry.dailycarnet.main_meal_time.Value.Month,
+                                                           qry.dailycarnet.main_meal_time.Value.Day,
+                                                           qry.dailycarnet.main_meal_time.Value.Hour,
+                                                           qry.dailycarnet.main_meal_time.Value.Minute,
+                                                           qry.dailycarnet.main_meal_time.Value.Second);
                     }
 
                     rep.Carnet.SleepQuality = qry.dailycarnet.how_sleep;
 
                     rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
-                                                                qry.dailycarnet.end_sleep_time.Value.Month,
-                                                                qry.dailycarnet.end_sleep_time.Value.Day,
-                                                                qry.dailycarnet.end_sleep_time.Value.Hour,
-                                                                qry.dailycarnet.end_sleep_time.Value.Minute,
-                                                                qry.dailycarnet.end_sleep_time.Value.Second);
+                                                           qry.dailycarnet.end_sleep_time.Value.Month,
+                                                           qry.dailycarnet.end_sleep_time.Value.Day,
+                                                           qry.dailycarnet.end_sleep_time.Value.Hour,
+                                                           qry.dailycarnet.end_sleep_time.Value.Minute,
+                                                           qry.dailycarnet.end_sleep_time.Value.Second);
 
                     rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
-                                                                qry.dailycarnet.begin_sleep_time.Value.Month,
-                                                                qry.dailycarnet.begin_sleep_time.Value.Day,
-                                                                qry.dailycarnet.begin_sleep_time.Value.Hour,
-                                                                qry.dailycarnet.begin_sleep_time.Value.Minute,
-                                                                qry.dailycarnet.begin_sleep_time.Value.Second
-                                                                );
+                                                             qry.dailycarnet.begin_sleep_time.Value.Month,
+                                                             qry.dailycarnet.begin_sleep_time.Value.Day,
+                                                             qry.dailycarnet.begin_sleep_time.Value.Hour,
+                                                             qry.dailycarnet.begin_sleep_time.Value.Minute,
+                                                             qry.dailycarnet.begin_sleep_time.Value.Second
+                        );
 
                     rep.Carnet.Technician.Name = qry.dailycarnet.technical;
 
@@ -197,7 +200,7 @@ namespace DataAccess
 
                     rep.Patient.UdaId = qry.patientuda.idPatientUda;
 
-                    var lmeasures = getMeasures(idReport);
+                    var lmeasures = GetMeasures(idReport);
                     rep.Measures = rep.Measures.Concat(lmeasures).ToList();
 
                 }
@@ -206,43 +209,26 @@ namespace DataAccess
             }
         }
 
-        public ICollection<Measurement> getMeasures(long idReport)
+        public ICollection<Measurement> GetMeasures(long idReport)
         {
-            ICollection<Measurement> lmeasures = new List<Measurement>();
-
             using (udaContext = new udahta_dbEntities())
             {
-                var qry = udaContext.measurement.Where(m => m.report_idReport == idReport).Select(m => new
-                    {
-                        m.average,
-                        m.comment,
-                        m.date,
-                        m.diastolic,
-                        m.heart_rate,
-                        m.idMeasurement,
-                        m.sleep,
-                        m.is_valid,
-                        m.systolic,
-                    }).ToList();
-
-                foreach (var qm in qry)
-                {
-                    Measurement measure = new Measurement
-                        {
-                            Asleep = qm.sleep,
-                            Comment = qm.comment,
-                            Diastolic = qm.diastolic,
-                            HeartRate = qm.heart_rate,
-                            Middle = qm.average,
-                            Systolic = qm.systolic,
-                            Time = qm.date,
-                            Valid = qm.is_valid
-                        };
-                    lmeasures.Add(measure);
-                }
+                return udaContext.measurement
+                                 .Where(m => m.report_idReport == idReport)
+                                 .Select(m => new Measurement
+                                     {
+                                         Id = m.idMeasurement,
+                                         Time = m.date,
+                                         Systolic = m.systolic,
+                                         Diastolic = m.diastolic,
+                                         Middle = m.average,
+                                         HeartRate = m.heart_rate,
+                                         Asleep = m.sleep,
+                                         Valid = m.is_valid,
+                                         Retry = m.is_retry,
+                                         Comment = m.comment
+                                     }).ToList();
             }
-
-            return lmeasures;
         }
 
         public bool ExistPatient(long? idPatient)
@@ -253,6 +239,13 @@ namespace DataAccess
             }
         }
 
+        public void UpdateDiagnosis(long reportId, string diagnosis, DateTime diagnosisDate, string doctor)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateDiagnosis(reportId, doctor, diagnosis, diagnosisDate);
+            }
+        }
 
         public ICollection<PatientReport> ListAllReports()
         {
@@ -312,15 +305,17 @@ namespace DataAccess
                                              .Where(m => m.report_patientuda_idPatientUda == patientId)
                                              .Select(m => new Measurement
                                                  {
-                                                     Asleep = m.sleep,
+                                                     Id = m.idMeasurement,
+                                                     ReportId = m.report_idReport,
+                                                     Time = m.date,
                                                      Systolic = m.systolic,
                                                      Middle = m.average,
                                                      Diastolic = m.diastolic,
                                                      HeartRate = m.heart_rate,
-                                                     Time = m.date,
-                                                     Comment = m.comment,
-                                                     ReportId = m.report_idReport,
-                                                     Valid = m.is_valid
+                                                     Valid = m.is_valid,
+                                                     Retry = m.is_retry,
+                                                     Asleep = m.sleep,
+                                                     Comment = m.comment
                                                  }).ToList();
 
                 foreach (var rep in query)
@@ -428,20 +423,21 @@ namespace DataAccess
         }
 
 
-        public void insertReport(Report rep)
+        public long InsertReport(Report rep)
         {
+            ObjectParameter lastIdReport;
             using (TransactionScope transaction = new TransactionScope())
             {
                 if (rep.Carnet != null)
                 {
                     //si DailyCarnet existe, insertar
-                    rep.DailyCarnetId = insertDailyCarnet(rep.Carnet);
+                    rep.DailyCarnetId = InsertDailyCarnet(rep.Carnet);
                 }
 
                 if (rep.TemporaryData != null)
                 {
                     //si TemporaryData existe, insertar
-                    rep.TemporaryDataId = insertTemporaryData(rep.TemporaryData);
+                    rep.TemporaryDataId = InsertTemporaryData(rep.TemporaryData);
                 }
 
                 // Calculo de máximos, mínimos y promedios de Sys, Mid, Dias y HR
@@ -455,20 +451,24 @@ namespace DataAccess
                 decimal sdSysTotal =
                     (decimal)
                     Math.Sqrt(
-                        (double)((valid.Sum(m => (m.Systolic - sysTotalAvg) * (m.Systolic - sysTotalAvg))) / (double)valid.Count));
+                        (double)
+                        ((valid.Sum(m => (m.Systolic - sysTotalAvg)*(m.Systolic - sysTotalAvg)))/(double) valid.Count));
                 decimal sdDiasTotal =
                     (decimal)
                     Math.Sqrt(
                         (double)
-                        ((valid.Sum(m => (m.Diastolic - diasTotalAvg) * (m.Diastolic - diasTotalAvg))) / (double)valid.Count));
+                        ((valid.Sum(m => (m.Diastolic - diasTotalAvg)*(m.Diastolic - diasTotalAvg)))/
+                         (double) valid.Count));
                 decimal sdHrTotal =
                     (decimal)
                     Math.Sqrt(
-                        (double)((valid.Sum(m => (m.HeartRate - hrTotalAvg) * (m.HeartRate - hrTotalAvg))) / (double)valid.Count));
+                        (double)
+                        ((valid.Sum(m => (m.HeartRate - hrTotalAvg)*(m.HeartRate - hrTotalAvg)))/(double) valid.Count));
                 decimal sdMiddleTot =
                     (decimal)
                     Math.Sqrt(
-                        (double)((valid.Sum(m => (m.Middle - middleTotalAvg) * (m.Middle - middleTotalAvg))) / (double)valid.Count));
+                        (double)
+                        ((valid.Sum(m => (m.Middle - middleTotalAvg)*(m.Middle - middleTotalAvg)))/(double) valid.Count));
 
                 int sysDayAvg = 0;
                 int sysDayMax = 0;
@@ -516,24 +516,26 @@ namespace DataAccess
                         (decimal)
                         Math.Sqrt(
                             (double)
-                            ((listMeasuresDay.Sum(m => (m.Systolic - sysDayAvg) * (m.Systolic - sysDayAvg))) / (double)validDayCount));
+                            ((listMeasuresDay.Sum(m => (m.Systolic - sysDayAvg)*(m.Systolic - sysDayAvg)))/
+                             (double) validDayCount));
                     sdDiasDay =
                         (decimal)
                         Math.Sqrt(
                             (double)
                             ((listMeasuresDay.Sum(m => (m.Diastolic - diasDayAvg)*(m.Diastolic - diasDayAvg)))/
-                             (double)validDayCount));
+                             (double) validDayCount));
                     sdHrDay =
                         (decimal)
                         Math.Sqrt(
                             (double)
-                            ((listMeasuresDay.Sum(m => (m.HeartRate - hrDayAvg) * (m.HeartRate - hrDayAvg))) / (double)validDayCount));
+                            ((listMeasuresDay.Sum(m => (m.HeartRate - hrDayAvg)*(m.HeartRate - hrDayAvg)))/
+                             (double) validDayCount));
                     sdTamDay =
                         (decimal)
                         Math.Sqrt(
                             (double)
                             ((listMeasuresDay.Sum(m => (m.Middle - middleDayAvg)*(m.Middle - middleDayAvg)))/
-                             (double)validDayCount));
+                             (double) validDayCount));
 
                 }
 
@@ -582,31 +584,32 @@ namespace DataAccess
                     validNightCount = listMeasuresNight.Count();
                     sdSysNight = (decimal) Math.Sqrt((double) ((listMeasuresNight
                                                                    .Sum(m =>
-                                                                       (m.Systolic - sysNightAvg)*
-                                                                       (m.Systolic - sysNightAvg)))/
+                                                                        (m.Systolic - sysNightAvg)*
+                                                                        (m.Systolic - sysNightAvg)))/
                                                                (double) validNightCount));
                     sdDiasNight = (decimal) Math.Sqrt((double) ((listMeasuresNight
                                                                     .Sum(m =>
-                                                                        (m.Diastolic - diasNightAvg)*
-                                                                        (m.Diastolic - diasNightAvg)))/
+                                                                         (m.Diastolic - diasNightAvg)*
+                                                                         (m.Diastolic - diasNightAvg)))/
                                                                 (double) validNightCount));
                     sdHrNight = (decimal) Math.Sqrt((double) ((listMeasuresNight
                                                                   .Sum(m =>
-                                                                      (m.HeartRate - hrNightAvg)*
-                                                                      (m.HeartRate - hrNightAvg)))/
+                                                                       (m.HeartRate - hrNightAvg)*
+                                                                       (m.HeartRate - hrNightAvg)))/
                                                               (double) validNightCount));
                     sdTamNight = (decimal) Math.Sqrt((double) ((listMeasuresNight
                                                                    .Sum(m =>
-                                                                       (m.Middle - middleNightAvg)*
-                                                                       (m.Middle - middleNightAvg)))/
+                                                                        (m.Middle - middleNightAvg)*
+                                                                        (m.Middle - middleNightAvg)))/
                                                                (double) validNightCount));
                 }
 
                 using (udaContext = new udahta_dbEntities())
                 {
-                    var lastIdReport = new ObjectParameter("id", typeof (long));
+                    lastIdReport = new ObjectParameter("id", typeof (long));
                     udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name,
-                                            rep.Diagnosis, rep.RequestDoctor, rep.RequestDoctorSpeciality,
+                                            rep.Diagnosis, rep.DiagnosisDate, rep.RequestDoctor,
+                                            rep.RequestDoctorSpeciality,
                                             sysDayAvg, sysNightAvg, sysTotalAvg, sysDayMax, sysNightMax,
                                             diasDayAvg, diasNightAvg, diasTotalAvg, diasDayMax, diasNightMax,
                                             rep.DeviceId, rep.DeviceReportId, rep.TemporaryDataId,
@@ -624,16 +627,17 @@ namespace DataAccess
                     foreach (Measurement m in lmeasure)
                     {
                         udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate,
-                                                     m.Asleep, m.Valid, m.Comment, (long?) lastIdReport.Value,
+                                                     m.Asleep, m.Valid, m.Retry, m.Comment, (long?) lastIdReport.Value,
                                                      rep.Patient.UdaId);
                     }
                 }
 
                 transaction.Complete();
+                return (long) lastIdReport.Value;
             }
         }
 
-        public long? insertDailyCarnet(DailyCarnet dCarnet)
+        public long? InsertDailyCarnet(DailyCarnet dCarnet)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -699,7 +703,7 @@ namespace DataAccess
             }
         }
 
-        public int? insertTemporaryData(TemporaryData temporaryData)
+        public int? InsertTemporaryData(TemporaryData temporaryData)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -718,14 +722,14 @@ namespace DataAccess
             }
         }
 
-        public void insertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
+        public void InsertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
         {
             //udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Drug.Id, idTemporaryData);
         }
 
         //Verifica que existe el nombre de usuario 'userName' en la base de datos y devuelve el password,
         //en caso de no existr devuelvo null
-        public string getPassword(string userName)
+        public string GetPassword(string userName)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -737,7 +741,7 @@ namespace DataAccess
         }
         
         //Actualiza la contrasena del usuario userName
-        public bool updatePassword(string userName, string newPswd)
+        public bool UpdatePassword(string userName, string newPswd)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -747,7 +751,7 @@ namespace DataAccess
         }
 
         //Inserta la referencia a la base de pacientes
-        public void insertPatientUda(long id)
+        public void InsertPatientUda(long id)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -756,7 +760,7 @@ namespace DataAccess
         }
 
         //Inserta una nueva instancia de la historia clinca del paciente
-        public void insertMedicalHistory(long patientId, MedicalRecord medicalRecord)
+        public void InsertMedicalHistory(long patientId, MedicalRecord medicalRecord)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -767,7 +771,7 @@ namespace DataAccess
         }
         
         //Inserta un nuevo usuario en la base de datos
-        public int insertUser(string login, string pass, string rol)
+        public int InsertUser(string login, string pass, string rol)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -779,7 +783,7 @@ namespace DataAccess
         }
 
         //Inserta un nuevo tipo de droga en la base de datos
-        public void insertDrugType(string type)
+        public void InsertDrugType(string type)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -788,7 +792,7 @@ namespace DataAccess
         }
 
         //Inserta una nueva droga en la base de datos
-        public void insertDrug(string name, int idDrugTyp)
+        public void InsertDrug(string name, int idDrugTyp)
         {
             using (udaContext = new udahta_dbEntities())
             {

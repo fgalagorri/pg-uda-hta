@@ -44,8 +44,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                
-                <RichTextBox Name="txtDiagnosis" Grid.Row="0" Margin="5" VerticalScrollBarVisibility="Auto" />
+
+                <TextBox Name="txtDiagnosis" Grid.Row="0" Margin="5" AcceptsTab="True" IsReadOnly="True"
+                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" />
             </Grid>
         </GroupBox>
     </Grid>

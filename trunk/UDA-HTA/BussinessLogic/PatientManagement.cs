@@ -18,11 +18,11 @@ namespace BussinessLogic
                 id = pda.InsertPatient(patient);
 
                 var uda = new UdaHtaDataAccess();
-                uda.insertPatientUda(id);
+                uda.InsertPatientUda(id);
 
                 //Insertar Medical History
                 foreach (var mh in patient.Background)
-                    uda.insertMedicalHistory(id, mh);
+                    uda.InsertMedicalHistory(id, mh);
 
                 pda.InsertEmergencyContact(id, patient.EmergencyContactList);
 

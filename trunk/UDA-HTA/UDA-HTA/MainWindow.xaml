@@ -26,7 +26,7 @@
             <r:RibbonTab Header="Inicio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <r:RibbonGroup>
                     <r:RibbonButton Name="btnNewReport" Label="Nuevo Registro" LargeImageSource="/Images/ribbon_newReport.png" Click="btnNewReport_Click" />
-                    <r:RibbonButton Name="btnReportComments" Label="Informar" LargeImageSource="/Images/ribbon_newReport.png" Click="btnReportComments_Click" />
+                    <r:RibbonButton Name="btnEditDiagnosis" Label="Informar" LargeImageSource="/Images/ribbon_newReport.png" Click="btnEditDiagnosis_Click" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Paciente">

@@ -204,7 +204,8 @@ namespace SpacelabsDataAccess
                                    HeartRate = d.HR.Value,
                                    Asleep = (report.Carnet.SleepTimeStart <= d.ReadingTime &&
                                              report.Carnet.SleepTimeEnd >= d.ReadingTime),
-                                   Valid = d.EventCode.HasValue && d.EventCode.Value == 0
+                                   Valid = d.EventCode.HasValue && d.EventCode.Value == 0,
+                                   Retry = d.ReadingCode == 2
                                };
 
             return measures.ToList();

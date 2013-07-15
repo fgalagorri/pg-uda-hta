@@ -26,7 +26,7 @@ namespace DataAccess
 
                 udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
                                          p.BirthDate, sex, p.Neighbour, p.City, p.Department,
-                                         p.Phone, p.CellPhone, p.Phone2, p.Email, p.RegisterNumer);
+                                         p.Phone, p.CellPhone, p.Phone2, p.Email, p.RegisterNumber);
 
                 foreach (var devRef in p.DeviceReferences)
                     udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType, 
@@ -79,7 +79,7 @@ namespace DataAccess
                         Names = p.name,
                         Surnames = p.surname,
                         BirthDate = p.birthday,
-                        RegisterNumer = p.register_number
+                        RegisterNumber = p.register_number
                     }).ToList();
             }
         }

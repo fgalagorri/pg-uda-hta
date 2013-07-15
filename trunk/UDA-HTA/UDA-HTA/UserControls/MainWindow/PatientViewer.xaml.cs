@@ -24,30 +24,62 @@ namespace UDA_HTA.UserControls.MainWindow
 
             InitializeComponent();
 
-            treePatient.Items.Clear();
             TabPatient.SetPatientInfo(_patient);
             TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
+            
+            PopulateTree();
+
+            Mouse.OverrideCursor = null;
+        }
+        public PatientViewer(long patientId, long reportId)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            _patient = GatewayController.GetInstance().GetPatientFullView(patientId);
+
+            InitializeComponent();
+
+            PopulateTree(reportId);
+            _report = _patient.ReportList.First(r => r.UdaId.Value.Equals(reportId));
+
+            TabPatient.SetPatientInfo(_patient);
+            TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
+            TabReportInfo.SetReport(_report);
+            ReportInfo.Visibility = Visibility.Visible;
+            TabReportSummary.SetReport(_report);
+            ReportSummary.Visibility = Visibility.Visible;
+            TabReportDiagnosis.SetReport(_report);
+            ReportDiagnosis.Visibility = Visibility.Visible;
+            TabReportData.SetReport(_report);
+            ReportData.Visibility = Visibility.Visible;
+            ReportCharts.Visibility = Visibility.Visible;
+
+            Mouse.OverrideCursor = null;
+        }
+        private void PopulateTree(long? reportId = null)
+        {
+            treePatient.Items.Clear();
             lblTreeName.Text = _patient.Names + " " + _patient.Surnames;
 
-            foreach (var r in _patient.ReportList.OrderByDescending(r=>r.BeginDate))
+            foreach (var r in _patient.ReportList.OrderByDescending(r => r.BeginDate))
             {
                 TreeViewItem child = new TreeViewItem();
-                StackPanel sp = new StackPanel {Orientation = Orientation.Horizontal};
+                StackPanel sp = new StackPanel { Orientation = Orientation.Horizontal };
 
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
                 src.UriSource = new Uri("/Images/tree_study24.png", UriKind.Relative);
                 src.EndInit();
-                Image img = new Image{Source = src};
+                Image img = new Image { Source = src };
                 sp.Children.Add(img);
 
-                Label lbl = new Label{Content = r.BeginDate.Value.ToShortDateString()};
+                Label lbl = new Label { Content = r.BeginDate.Value.ToShortDateString() };
                 sp.Children.Add(lbl);
 
                 child.Header = sp;
+                if (reportId.HasValue && r.UdaId.Equals(reportId))
+                    child.IsSelected = true;
                 treePatient.Items.Add(child);
             }
-            Mouse.OverrideCursor = null;
         }
 
 
@@ -66,6 +98,7 @@ namespace UDA_HTA.UserControls.MainWindow
                 ReportInfo.Visibility = Visibility.Visible;
                 TabReportSummary.SetReport(_report);
                 ReportSummary.Visibility = Visibility.Visible;
+                TabReportDiagnosis.SetReport(_report);
                 ReportDiagnosis.Visibility = Visibility.Visible;
                 TabReportData.SetReport(_report);
                 ReportData.Visibility = Visibility.Visible;
@@ -83,5 +116,23 @@ namespace UDA_HTA.UserControls.MainWindow
         }
 
 
+        public Report GetSelectedReport()
+        {
+            return _report;
+        }
+
+        public void UpdateDiagnosis(DiagnosisEdited d)
+        {
+            var report = _patient.ReportList.First(r => r.UdaId == d.ReportId);
+            report.Diagnosis = d.Diagnosis;
+            report.DiagnosisDate = d.DiagnosisDate;
+            report.Doctor = d.Doctor;
+
+            _report.Diagnosis = d.Diagnosis;
+            _report.DiagnosisDate = d.DiagnosisDate;
+            _report.Doctor = d.Doctor;
+
+            TabReportDiagnosis.UpdateDiagnosis(d);
+        }
     }
 }
