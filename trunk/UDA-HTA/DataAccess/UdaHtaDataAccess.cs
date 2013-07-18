@@ -800,7 +800,14 @@ namespace DataAccess
             }
         }
 
-
+        public void EditMedicalHistory(MedicalRecord medicalRecord, long patient_id)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness, medicalRecord.Since,
+                                               medicalRecord.Until, medicalRecord.Comment);
+            }
+        }
 
         /*
          * INVESTIGACIONES

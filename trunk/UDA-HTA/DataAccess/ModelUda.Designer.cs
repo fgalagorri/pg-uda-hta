@@ -1935,6 +1935,80 @@ namespace DataAccess
     
             return base.ExecuteFunction("updateDiagnosis", reportIdParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="patient_id">No Metadata Documentation available.</param>
+        /// <param name="illness">No Metadata Documentation available.</param>
+        /// <param name="since">No Metadata Documentation available.</param>
+        /// <param name="to_">No Metadata Documentation available.</param>
+        /// <param name="comment_">No Metadata Documentation available.</param>
+        public int updateMedicalRecord(Nullable<global::System.Int64> id, Nullable<global::System.Int64> patient_id, global::System.String illness, Nullable<global::System.DateTime> since, Nullable<global::System.DateTime> to_, global::System.String comment_)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter patient_idParameter;
+            if (patient_id.HasValue)
+            {
+                patient_idParameter = new ObjectParameter("patient_id", patient_id);
+            }
+            else
+            {
+                patient_idParameter = new ObjectParameter("patient_id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter illnessParameter;
+            if (illness != null)
+            {
+                illnessParameter = new ObjectParameter("illness", illness);
+            }
+            else
+            {
+                illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
+            }
+    
+            ObjectParameter sinceParameter;
+            if (since.HasValue)
+            {
+                sinceParameter = new ObjectParameter("since", since);
+            }
+            else
+            {
+                sinceParameter = new ObjectParameter("since", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter to_Parameter;
+            if (to_.HasValue)
+            {
+                to_Parameter = new ObjectParameter("to_", to_);
+            }
+            else
+            {
+                to_Parameter = new ObjectParameter("to_", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter comment_Parameter;
+            if (comment_ != null)
+            {
+                comment_Parameter = new ObjectParameter("comment_", comment_);
+            }
+            else
+            {
+                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateMedicalRecord", idParameter, patient_idParameter, illnessParameter, sinceParameter, to_Parameter, comment_Parameter);
+        }
 
         #endregion
     }

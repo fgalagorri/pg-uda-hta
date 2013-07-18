@@ -53,8 +53,10 @@ namespace Gateway
             var importDataController = new ImportDataManagement();
             var report = importDataController.ImportReport(idReport, device);
 
+            _importedReport = report.UdaId.Value;
+
             string idRef = report.Patient.DeviceReferences
-                                 .Where(r => r.deviceType == 0)
+                                 .Where(r => r.deviceType == device)
                                  .Select(r => r.deviceReferenceId)
                                  .FirstOrDefault();
             if (!String.IsNullOrWhiteSpace(idRef))
@@ -72,7 +74,13 @@ namespace Gateway
             return report;
         }
 
-        public void AddImportedData(Report report, bool patientModified)
+        /*
+         * Devuelve:
+         * 1 - OK
+         * 2 - error al crear el paciente
+         * 3 - error al crear el reporte
+         */
+        public int AddImportedData(Report report, bool patientModified)
         {
             bool created = false;
             Patient bakPatient = null;
@@ -83,51 +91,42 @@ namespace Gateway
             try
             {
                 /*
-                 * Si report.UdaId != null, entonces el paciente ya fue creado
-                 * Si la fecha de modificacion del paciente es de hoy, actualizar
-                 * En caso de que el id fuera null, dar de alta el paciente
-                 */
-                // TODO: ver de pasar report como ref o preguntar a la BD si existe el paciente
-                if (report.Patient.UdaId.HasValue)
+                     * Si report.UdaId != null, entonces el paciente ya fue creado
+                     * Si la fecha de modificacion del paciente es de hoy, actualizar
+                     * En caso de que el id fuera null, dar de alta el paciente
+                     */
+                if (report.UdaId != null)
                 {
                     bakPatient = patientController.GetPatient(report.Patient.UdaId.Value);
                     if (patientModified)
                         patientController.EditPatient(report.Patient);
                 }
                 else
-                {   
-                    created = true;
+                {
+                    //Creo el paciente
                     report.Patient.UdaId = patientController.CreatePatient(report.Patient);
                 }
-
-                _importedPatient = report.Patient.UdaId.Value;
-
-                try
-                {
-                    report.Measures = importController.ImportMeasures(report);
-                    _importedReport = reportController.AddReport(report);
-                }
-                catch (Exception ex)
-                {
-                    /* TODO VER SI OPTAMOS POR BORRAR EL PACIENTE O SI ACEPTAMOS 
-                     * EL PACIENTE CREADO SI FALLÓ LA INSERCIÓN DEL REPORTE */
-
-                    // Borrar el paciente
-                    if (created)
-                    {
-                        var i = report.Patient.UdaId;
-                    }
-                    if (!created && patientModified)
-                        patientController.EditPatient(bakPatient);
-
-                    throw;
-                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // TODO tirar excepción con un mensaje legible y hacer algo con errores
-                throw;
+                // TODO indicar al usuario que hubo un error
+                // TODO definir constantes para los errores
+                return 2;
             }
+
+            _importedPatient = report.Patient.UdaId.Value;
+
+            try
+            {
+                report.Measures = importController.ImportMeasures(report);
+                reportController.AddReport(report);
+            }
+            catch (Exception)
+            {
+                return 3;
+            }
+
+            return 1;
         }
 
         #endregion

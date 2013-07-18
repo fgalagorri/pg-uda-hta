@@ -115,6 +115,10 @@ namespace BussinessLogic
 
                 SpreadsheetPrinterSettingsPart spreadsheetPrinterSettingsPart1 = worksheetPart3.AddNewPart<SpreadsheetPrinterSettingsPart>("rId1");
                 GenerateSpreadsheetPrinterSettingsPart1Content(spreadsheetPrinterSettingsPart1);
+
+                WorkbookStylesPart workbookStylesPart1 = workbookPart1.AddNewPart<WorkbookStylesPart>("rId5");
+                GenerateWorkbookStylesPart1Content(workbookStylesPart1);
+
             }
         }
 
@@ -261,11 +265,11 @@ namespace BussinessLogic
 
             cell5.Append(cellValue5);
 
-            Cell cell6 = new Cell() { CellReference = "F1", StyleIndex = (UInt32Value)1U };
+            Cell cell6 = new Cell() { CellReference = "F1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue6 = new CellValue();
             cellValue5.Text = "Durmiendo";
 
-            cell5.Append(cellValue6);
+            cell6.Append(cellValue6);
 
             row1.Append(cell1);
             row1.Append(cell2);
@@ -284,7 +288,7 @@ namespace BussinessLogic
                 
                 //Fecha y hora
                 string cellRefDate = "A" + i;
-                Cell cellDate = new Cell() { CellReference = cellRefDate, StyleIndex = (UInt32Value)3U };
+                Cell cellDate = new Cell() { CellReference = cellRefDate, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueDate = new CellValue();
                 cellValueDate.Text = measurement.Time.Value.ToString();
                 cellDate.Append(cellValueDate);
@@ -292,7 +296,7 @@ namespace BussinessLogic
 
                 //Sistolica
                 string cellRefSys = "B" + i;
-                Cell cellSys = new Cell() { CellReference = cellRefSys, StyleIndex = (UInt32Value)3U };
+                Cell cellSys = new Cell() { CellReference = cellRefSys, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueSys = new CellValue();
                 cellValueSys.Text = measurement.Systolic.Value.ToString();
                 cellSys.Append(cellValueSys);
@@ -300,7 +304,7 @@ namespace BussinessLogic
 
                 //Diastolica
                 string cellRefDias = "C" + i;
-                Cell cellDias = new Cell() { CellReference = cellRefDias, StyleIndex = (UInt32Value)3U };
+                Cell cellDias = new Cell() { CellReference = cellRefDias, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueDias = new CellValue();
                 cellValueDias.Text = measurement.Diastolic.Value.ToString();
                 cellDias.Append(cellValueDias);
@@ -308,15 +312,15 @@ namespace BussinessLogic
 
                 //Media
                 string cellRefMiddle = "D" + i;
-                Cell cellMiddle = new Cell() { CellReference = cellRefMiddle, StyleIndex = (UInt32Value)3U };
+                Cell cellMiddle = new Cell() { CellReference = cellRefMiddle, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueMiddle = new CellValue();
-                cellValueDias.Text = measurement.Middle.Value.ToString();
-                cellDias.Append(cellValueMiddle);
+                cellValueMiddle.Text = measurement.Middle.Value.ToString();
+                cellMiddle.Append(cellValueMiddle);
                 row2.Append(cellMiddle);
 
                 //FC
                 string cellRefHr = "E" + i;
-                Cell cellHr = new Cell() { CellReference = cellRefHr, StyleIndex = (UInt32Value)3U };
+                Cell cellHr = new Cell() { CellReference = cellRefHr, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueHr = new CellValue();
                 cellValueHr.Text = measurement.HeartRate.Value.ToString();
                 cellHr.Append(cellValueHr);
@@ -324,7 +328,7 @@ namespace BussinessLogic
 
                 //Durmiendo
                 string cellRefAsleep = "F" + i;
-                Cell cellAsleep = new Cell() { CellReference = cellRefAsleep, StyleIndex = (UInt32Value)3U };
+                Cell cellAsleep = new Cell() { CellReference = cellRefAsleep, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueAsleep = new CellValue();
                 cellValueAsleep.Text = measurement.Asleep.Value.ToString();
                 cellAsleep.Append(cellValueAsleep);
@@ -546,6 +550,128 @@ namespace BussinessLogic
             spreadsheetPrinterSettingsPart1.FeedData(data);
             data.Close();
         }
+
+        // Generates content of workbookStylesPart1.
+        private void GenerateWorkbookStylesPart1Content(WorkbookStylesPart workbookStylesPart1)
+        {
+            Stylesheet stylesheet1 = new Stylesheet();
+
+            Fonts fonts1 = new Fonts() { Count = (UInt32Value)3U };
+
+            Font font1 = new Font();
+            FontSize fontSize1 = new FontSize() { Val = 11D };
+            Color color1 = new Color() { Theme = (UInt32Value)1U };
+            FontName fontName1 = new FontName() { Val = "Calibri" };
+            FontFamilyNumbering fontFamilyNumbering1 = new FontFamilyNumbering() { Val = 2 };
+            FontScheme fontScheme1 = new FontScheme() { Val = FontSchemeValues.Minor };
+
+            font1.Append(fontSize1);
+            font1.Append(color1);
+            font1.Append(fontName1);
+            font1.Append(fontFamilyNumbering1);
+            font1.Append(fontScheme1);
+
+            Font font2 = new Font();
+            Bold bold1 = new Bold();
+            FontSize fontSize2 = new FontSize() { Val = 11D };
+            Color color2 = new Color() { Theme = (UInt32Value)1U };
+            FontName fontName2 = new FontName() { Val = "Calibri" };
+            FontFamilyNumbering fontFamilyNumbering2 = new FontFamilyNumbering() { Val = 2 };
+            FontScheme fontScheme2 = new FontScheme() { Val = FontSchemeValues.Minor };
+
+            font2.Append(bold1);
+            font2.Append(fontSize2);
+            font2.Append(color2);
+            font2.Append(fontName2);
+            font2.Append(fontFamilyNumbering2);
+            font2.Append(fontScheme2);
+
+            Font font3 = new Font();
+            Bold bold2 = new Bold();
+            FontSize fontSize3 = new FontSize() { Val = 14D };
+            Color color3 = new Color() { Theme = (UInt32Value)1U };
+            FontName fontName3 = new FontName() { Val = "Calibri" };
+            FontFamilyNumbering fontFamilyNumbering3 = new FontFamilyNumbering() { Val = 2 };
+            FontScheme fontScheme3 = new FontScheme() { Val = FontSchemeValues.Minor };
+
+            font3.Append(bold2);
+            font3.Append(fontSize3);
+            font3.Append(color3);
+            font3.Append(fontName3);
+            font3.Append(fontFamilyNumbering3);
+            font3.Append(fontScheme3);
+
+            fonts1.Append(font1);
+            fonts1.Append(font2);
+            fonts1.Append(font3);
+
+            Fills fills1 = new Fills() { Count = (UInt32Value)2U };
+
+            Fill fill1 = new Fill();
+            PatternFill patternFill1 = new PatternFill() { PatternType = PatternValues.None };
+
+            fill1.Append(patternFill1);
+
+            Fill fill2 = new Fill();
+            PatternFill patternFill2 = new PatternFill() { PatternType = PatternValues.Gray125 };
+
+            fill2.Append(patternFill2);
+
+            fills1.Append(fill1);
+            fills1.Append(fill2);
+
+            Borders borders1 = new Borders() { Count = (UInt32Value)1U };
+
+            Border border1 = new Border();
+            LeftBorder leftBorder1 = new LeftBorder();
+            RightBorder rightBorder1 = new RightBorder();
+            TopBorder topBorder1 = new TopBorder();
+            BottomBorder bottomBorder1 = new BottomBorder();
+            DiagonalBorder diagonalBorder1 = new DiagonalBorder();
+
+            border1.Append(leftBorder1);
+            border1.Append(rightBorder1);
+            border1.Append(topBorder1);
+            border1.Append(bottomBorder1);
+            border1.Append(diagonalBorder1);
+
+            borders1.Append(border1);
+
+            CellStyleFormats cellStyleFormats1 = new CellStyleFormats() { Count = (UInt32Value)1U };
+            CellFormat cellFormat1 = new CellFormat() { NumberFormatId = (UInt32Value)0U, FontId = (UInt32Value)0U, FillId = (UInt32Value)0U, BorderId = (UInt32Value)0U };
+
+            cellStyleFormats1.Append(cellFormat1);
+
+            CellFormats cellFormats1 = new CellFormats() { Count = (UInt32Value)4U };
+            CellFormat cellFormat2 = new CellFormat() { NumberFormatId = (UInt32Value)0U, FontId = (UInt32Value)0U, FillId = (UInt32Value)0U, BorderId = (UInt32Value)0U, FormatId = (UInt32Value)0U };
+            CellFormat cellFormat3 = new CellFormat() { NumberFormatId = (UInt32Value)0U, FontId = (UInt32Value)1U, FillId = (UInt32Value)0U, BorderId = (UInt32Value)0U, FormatId = (UInt32Value)0U, ApplyFont = true };
+            CellFormat cellFormat4 = new CellFormat() { NumberFormatId = (UInt32Value)0U, FontId = (UInt32Value)2U, FillId = (UInt32Value)0U, BorderId = (UInt32Value)0U, FormatId = (UInt32Value)0U, ApplyFont = true };
+            CellFormat cellFormat5 = new CellFormat() { NumberFormatId = (UInt32Value)0U, FontId = (UInt32Value)0U, FillId = (UInt32Value)0U, BorderId = (UInt32Value)0U, FormatId = (UInt32Value)0U, ApplyFont = true };
+
+            cellFormats1.Append(cellFormat2);
+            cellFormats1.Append(cellFormat3);
+            cellFormats1.Append(cellFormat4);
+            cellFormats1.Append(cellFormat5);
+
+            CellStyles cellStyles1 = new CellStyles() { Count = (UInt32Value)1U };
+            CellStyle cellStyle1 = new CellStyle() { Name = "Normal", FormatId = (UInt32Value)0U, BuiltinId = (UInt32Value)0U };
+
+            cellStyles1.Append(cellStyle1);
+            DifferentialFormats differentialFormats1 = new DifferentialFormats() { Count = (UInt32Value)0U };
+            TableStyles tableStyles1 = new TableStyles() { Count = (UInt32Value)0U, DefaultTableStyle = "TableStyleMedium9", DefaultPivotStyle = "PivotStyleLight16" };
+
+            stylesheet1.Append(fonts1);
+            stylesheet1.Append(fills1);
+            stylesheet1.Append(borders1);
+            stylesheet1.Append(cellStyleFormats1);
+            stylesheet1.Append(cellFormats1);
+            stylesheet1.Append(cellStyles1);
+            stylesheet1.Append(differentialFormats1);
+            stylesheet1.Append(tableStyles1);
+
+            workbookStylesPart1.Stylesheet = stylesheet1;
+        }
+
 
         // Genera contenido de vbaProjectPart1.
         private void GenerateVbaProjectPart1Content(VbaProjectPart vbaProjectPart1)

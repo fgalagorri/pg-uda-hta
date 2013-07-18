@@ -406,6 +406,179 @@ namespace DataAccess
     
             return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, phone2Parameter, emailParameter, register_numberParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name_">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="addr">No Metadata Documentation available.</param>
+        /// <param name="dni">No Metadata Documentation available.</param>
+        /// <param name="birth">No Metadata Documentation available.</param>
+        /// <param name="sex">No Metadata Documentation available.</param>
+        /// <param name="neighbour">No Metadata Documentation available.</param>
+        /// <param name="city">No Metadata Documentation available.</param>
+        /// <param name="department">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="cell">No Metadata Documentation available.</param>
+        /// <param name="phone2">No Metadata Documentation available.</param>
+        /// <param name="email">No Metadata Documentation available.</param>
+        /// <param name="register_number">No Metadata Documentation available.</param>
+        public int editPatient(Nullable<global::System.Int64> id, global::System.String name_, global::System.String surname, global::System.String addr, global::System.String dni, Nullable<global::System.DateTime> birth, global::System.String sex, global::System.String neighbour, global::System.String city, global::System.String department, global::System.String phone, global::System.String cell, global::System.String phone2, global::System.String email, global::System.String register_number)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter name_Parameter;
+            if (name_ != null)
+            {
+                name_Parameter = new ObjectParameter("name_", name_);
+            }
+            else
+            {
+                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter addrParameter;
+            if (addr != null)
+            {
+                addrParameter = new ObjectParameter("addr", addr);
+            }
+            else
+            {
+                addrParameter = new ObjectParameter("addr", typeof(global::System.String));
+            }
+    
+            ObjectParameter dniParameter;
+            if (dni != null)
+            {
+                dniParameter = new ObjectParameter("dni", dni);
+            }
+            else
+            {
+                dniParameter = new ObjectParameter("dni", typeof(global::System.String));
+            }
+    
+            ObjectParameter birthParameter;
+            if (birth.HasValue)
+            {
+                birthParameter = new ObjectParameter("birth", birth);
+            }
+            else
+            {
+                birthParameter = new ObjectParameter("birth", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter sexParameter;
+            if (sex != null)
+            {
+                sexParameter = new ObjectParameter("sex", sex);
+            }
+            else
+            {
+                sexParameter = new ObjectParameter("sex", typeof(global::System.String));
+            }
+    
+            ObjectParameter neighbourParameter;
+            if (neighbour != null)
+            {
+                neighbourParameter = new ObjectParameter("neighbour", neighbour);
+            }
+            else
+            {
+                neighbourParameter = new ObjectParameter("neighbour", typeof(global::System.String));
+            }
+    
+            ObjectParameter cityParameter;
+            if (city != null)
+            {
+                cityParameter = new ObjectParameter("city", city);
+            }
+            else
+            {
+                cityParameter = new ObjectParameter("city", typeof(global::System.String));
+            }
+    
+            ObjectParameter departmentParameter;
+            if (department != null)
+            {
+                departmentParameter = new ObjectParameter("department", department);
+            }
+            else
+            {
+                departmentParameter = new ObjectParameter("department", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter cellParameter;
+            if (cell != null)
+            {
+                cellParameter = new ObjectParameter("cell", cell);
+            }
+            else
+            {
+                cellParameter = new ObjectParameter("cell", typeof(global::System.String));
+            }
+    
+            ObjectParameter phone2Parameter;
+            if (phone2 != null)
+            {
+                phone2Parameter = new ObjectParameter("phone2", phone2);
+            }
+            else
+            {
+                phone2Parameter = new ObjectParameter("phone2", typeof(global::System.String));
+            }
+    
+            ObjectParameter emailParameter;
+            if (email != null)
+            {
+                emailParameter = new ObjectParameter("email", email);
+            }
+            else
+            {
+                emailParameter = new ObjectParameter("email", typeof(global::System.String));
+            }
+    
+            ObjectParameter register_numberParameter;
+            if (register_number != null)
+            {
+                register_numberParameter = new ObjectParameter("register_number", register_number);
+            }
+            else
+            {
+                register_numberParameter = new ObjectParameter("register_number", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("editPatient", idParameter, name_Parameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, phone2Parameter, emailParameter, register_numberParameter);
+        }
 
         #endregion
     }
