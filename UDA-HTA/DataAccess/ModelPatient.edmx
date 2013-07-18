@@ -82,6 +82,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="editPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="name_" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="addr" Type="text" Mode="In" />
+          <Parameter Name="dni" Type="varchar" Mode="In" />
+          <Parameter Name="birth" Type="datetime" Mode="In" />
+          <Parameter Name="sex" Type="enum" Mode="In" />
+          <Parameter Name="neighbour" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="department" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="cell" Type="varchar" Mode="In" />
+          <Parameter Name="phone2" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="register_number" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="device_type" Type="int" Mode="In" />
@@ -144,6 +161,23 @@
           <FunctionImport Name="insertPatient">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="birth" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="neighbour" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="cell" Mode="In" Type="String" />
+            <Parameter Name="phone2" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="register_number" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="editPatient">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="name_" Mode="In" Type="String" />
             <Parameter Name="surname" Mode="In" Type="String" />
             <Parameter Name="addr" Mode="In" Type="String" />
             <Parameter Name="dni" Mode="In" Type="String" />
@@ -271,6 +305,7 @@
           <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="patient_info_dbModel.Store.insertDeviceReference" />
           <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="patient_info_dbModel.Store.insertEmergencyContact" />
           <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
+          <FunctionImportMapping FunctionImportName="editPatient" FunctionName="patient_info_dbModel.Store.editPatient" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

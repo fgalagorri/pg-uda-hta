@@ -28,12 +28,16 @@ namespace DataAccess
                                          p.BirthDate, sex, p.Neighbour, p.City, p.Department,
                                          p.Phone, p.CellPhone, p.Phone2, p.Email, p.RegisterNumber);
 
-                foreach (var devRef in p.DeviceReferences)
-                    udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType, 
-                                                     devRef.deviceReferenceId,
-                                                     (long) lastIdPatient.Value);
+                long id = (long) lastIdPatient.Value;
+                if ( id != 0)
+                {
+                    foreach (var devRef in p.DeviceReferences)
+                        udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType,
+                                                         devRef.deviceReferenceId,
+                                                         id);
+                }
 
-                return (long) lastIdPatient.Value;
+                return id;
             }
         }
 
@@ -162,6 +166,17 @@ namespace DataAccess
                                   .FirstOrDefault();
 
                 return (pat != null) ? (long?) pat.patient_idPatient : null;
+            }
+        }
+
+        public void EditPatient(Patient patient)
+        {
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                patientContext.editPatient(patient.UdaId.Value, patient.Names, patient.Surnames, patient.Address, patient.DocumentId,
+                                           patient.BirthDate, patient.Sex.Value.ToString(), patient.Neighbour, patient.City,
+                                           patient.Department, patient.Phone, patient.CellPhone,
+                                           patient.Phone2, patient.Email, patient.RegisterNumber);
             }
         }
     }

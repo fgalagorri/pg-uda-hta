@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Transactions;
 using Entities;
 using DataAccess;
@@ -10,35 +11,61 @@ namespace BussinessLogic
     {
         public long CreatePatient(Patient patient)
         {
-            //using (TransactionScope transaction = new TransactionScope())
+            try
             {
                 long id;
 
                 var pda = new PatientDataAccess();
                 id = pda.InsertPatient(patient);
 
-                var uda = new UdaHtaDataAccess();
-                uda.InsertPatientUda(id);
+                if (id != 0)
+                {
+                    pda.InsertEmergencyContact(id, patient.EmergencyContactList);
 
-                //Insertar Medical History
-                foreach (var mh in patient.Background)
-                    uda.InsertMedicalHistory(id, mh);
+                    var uda = new UdaHtaDataAccess();
+                    uda.InsertPatientUda(id);
 
-                pda.InsertEmergencyContact(id, patient.EmergencyContactList);
+                    //Insertar Medical History
+                    foreach (var mh in patient.Background)
+                        uda.InsertMedicalHistory(id, mh);
+                }
+                else
+                {
+                    Exception e = new InvalidDataException();
+                    throw e;
+                }
 
                 return id;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
 
         public void EditPatient(Patient patient)
         {
-            using (TransactionScope transaction = new TransactionScope())
+            // Para el medical history 
+            // hacer update de los que tienen id e 
+            // insertar los que no tienen id
+            PatientDataAccess pda = new PatientDataAccess();
+            pda.EditPatient(patient);
+
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            foreach (var medicalRecord in patient.Background)
             {
-                // Para los background y medical history 
-                // hacer update de los que tienen id e 
-                // insertar los que no tienen id
-            }
+                if (medicalRecord.Id != null)
+                {
+                    //actualizar medicalRecord
+                    uda.EditMedicalHistory(medicalRecord,patient.UdaId.Value);
+                }
+                else
+                {
+                    //insertar medicalRecord
+                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+                }
+            }                
         }
 
 
