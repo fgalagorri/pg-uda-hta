@@ -26,13 +26,27 @@ namespace BussinessLogic
         public long AddReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
-            return uhda.InsertReport(report);
+            try
+            {
+                return uhda.InsertReport(report);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void UpdateDiagnosis(long reportId, string diagnosis, DateTime diagnosisDate, string doctor)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.UpdateDiagnosis(reportId, diagnosis, diagnosisDate, doctor);
+            try
+            {
+                uda.UpdateDiagnosis(reportId, diagnosis, diagnosisDate, doctor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ICollection<Report> ListPatientReports(long idPatient)
@@ -45,15 +59,25 @@ namespace BussinessLogic
         public void AddDrug(int type, string name)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
-            uhda.InsertDrug(name, type);
+            try
+            {
+                uhda.InsertDrug(name, type);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
         }
 
         public void DeleteDrug(string name)
         {
+            // TODO
         }
 
         public void EditDrug(string type, string name)
         {
+            // TODO
         }
         #endregion
 

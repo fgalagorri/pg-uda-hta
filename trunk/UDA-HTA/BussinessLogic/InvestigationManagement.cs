@@ -26,7 +26,14 @@ namespace BussinessLogic
         public int CreateInvestigation(string name, DateTime creationDate)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            return uda.insertInvestigation(name, creationDate);
+            try
+            {
+                return uda.insertInvestigation(name, creationDate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void EditInvestigation(string name, DateTime creationDate)
@@ -37,13 +44,28 @@ namespace BussinessLogic
         public void AddReportToInvestigation(Report report, int idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.addReportToInvestigation(report.UdaId.Value, report.Patient.UdaId.Value, idInvestigation);
+            try
+            {
+                uda.addReportToInvestigation(report.UdaId.Value, report.Patient.UdaId.Value, idInvestigation);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void DeleteReportFromInvestigation(Report report, int idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.deleteReportFromInvestigation(report.UdaId.Value, report.Patient.UdaId.Value, idInvestigation);
+            try
+            {
+                uda.deleteReportFromInvestigation(report.UdaId.Value, report.Patient.UdaId.Value, idInvestigation);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
         }
 
 

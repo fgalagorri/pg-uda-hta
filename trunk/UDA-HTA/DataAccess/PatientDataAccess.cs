@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Objects;
 using System.Linq;
+using System.Transactions;
 using MySql.Data.MySqlClient;
 using Entities;
 
@@ -15,42 +16,79 @@ namespace DataAccess
 
         public long InsertPatient(Patient p)
         {
-            using (var udaContext = new patient_info_dbEntities())
+            long id = 0;
+
+            using (TransactionScope scope = new TransactionScope())
             {
-                ObjectParameter lastIdPatient = new ObjectParameter("id", typeof (int));
-                ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof (int));
-
-                var sex = SexType.M.ToString();
-                if (p.Sex != null && ((p.Sex.Value == SexType.F) || (p.Sex.Value == SexType.M)))
-                    sex = p.Sex.Value.ToString();
-
-                udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
-                                         p.BirthDate, sex, p.Neighbour, p.City, p.Department,
-                                         p.Phone, p.CellPhone, p.Phone2, p.Email, p.RegisterNumber);
-
-                long id = (long) lastIdPatient.Value;
-                if ( id != 0)
+                using (var udaContext = new patient_info_dbEntities())
                 {
-                    foreach (var devRef in p.DeviceReferences)
-                        udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType,
-                                                         devRef.deviceReferenceId,
-                                                         id);
+                    ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
+                    ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof(int));
+
+                    var sex = SexType.M.ToString();
+                    if (p.Sex != null && ((p.Sex.Value == SexType.F) || (p.Sex.Value == SexType.M)))
+                        sex = p.Sex.Value.ToString();
+
+                    try
+                    {
+                        //Insertar paciente
+                        udaContext.insertPatient(lastIdPatient, p.Names, p.Surnames, p.Address, p.DocumentId,
+                                                 p.BirthDate, sex, p.Neighbour, p.City, p.Department,
+                                                 p.Phone, p.CellPhone, p.Phone2, p.Email, p.RegisterNumber);
+
+                        id = (long)lastIdPatient.Value;
+                        if (id != 0)
+                        {
+                            try
+                            {
+                                //Insertar referencia a dispositivo
+                                foreach (var devRef in p.DeviceReferences)
+                                    udaContext.insertDeviceReference(lastIdDevRef, devRef.deviceType,
+                                                                     devRef.deviceReferenceId,
+                                                                     id);
+                            }
+                            catch (Exception ex)
+                            {
+                                //Error al insertar el device
+                                throw ex;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Error al insertar el paciente
+                        throw ex;
+                    }
                 }
 
-                return id;
+                scope.Complete();
             }
+
+            return id;
         }
 
 
         public void InsertEmergencyContact(long patientId, ICollection<EmergencyContact> contacts)
         {
-            using (var patientContext = new patient_info_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                ObjectParameter lastId = new ObjectParameter("id", typeof (long));
+                using (var patientContext = new patient_info_dbEntities())
+                {
+                    ObjectParameter lastId = new ObjectParameter("id", typeof(long));
 
-                // TODO: ver si usando AddToemergency_contact(ec) no mejora
-                foreach (var ec in contacts)
-                    patientContext.insertEmergencyContact(lastId, ec.Name, ec.Surname, ec.Phone, patientId);
+                    // TODO: ver si usando AddToemergency_contact(ec) no mejora
+                    try
+                    {
+                        foreach (var ec in contacts)
+                            patientContext.insertEmergencyContact(lastId, ec.Name, ec.Surname, ec.Phone, patientId);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                
+                scope.Complete();
             }
         }
 
@@ -171,12 +209,26 @@ namespace DataAccess
 
         public void EditPatient(Patient patient)
         {
-            using (var patientContext = new patient_info_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                patientContext.editPatient(patient.UdaId.Value, patient.Names, patient.Surnames, patient.Address, patient.DocumentId,
-                                           patient.BirthDate, patient.Sex.Value.ToString(), patient.Neighbour, patient.City,
-                                           patient.Department, patient.Phone, patient.CellPhone,
-                                           patient.Phone2, patient.Email, patient.RegisterNumber);
+                using (var patientContext = new patient_info_dbEntities())
+                {
+                    try
+                    {
+                        patientContext.editPatient(patient.UdaId.Value, patient.Names, patient.Surnames, patient.Address, patient.DocumentId,
+                                                   patient.BirthDate, patient.Sex.Value.ToString(), patient.Neighbour, patient.City,
+                                                   patient.Department, patient.Phone, patient.CellPhone,
+                                                   patient.Phone2, patient.Email, patient.RegisterNumber);                    
+
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
             }
         }
     }

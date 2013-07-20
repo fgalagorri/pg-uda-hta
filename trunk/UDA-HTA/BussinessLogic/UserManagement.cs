@@ -12,17 +12,24 @@ namespace UserManagement
         public void createUser(User usr)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.InsertUser(usr.Login,usr.Password,usr.Role);
+            try
+            {
+                uda.InsertUser(usr.Login, usr.Password, usr.Role);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void deleteUser(User usr)
         {
-            
+            // TODO
         }
 
         public void editUser(User usr)
         {
-            
+            // TODO
         }
 
     }

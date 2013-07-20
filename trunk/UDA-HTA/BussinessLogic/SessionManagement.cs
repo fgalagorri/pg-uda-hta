@@ -37,9 +37,15 @@ namespace BussinessLogic
             {
                 // guardar nuevo paswd en la base
                 UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
-
-                bool ret = dataAccess.UpdatePassword(userName,newPswd);
-                return ret;
+                try
+                {
+                    dataAccess.UpdatePassword(userName, newPswd);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
             return false;
         }
@@ -58,11 +64,9 @@ namespace BussinessLogic
             {
                 return true;                        
             }
-            else
-            {
-                return false;
-            }
 
+            return false;
+            
         }
 
     }

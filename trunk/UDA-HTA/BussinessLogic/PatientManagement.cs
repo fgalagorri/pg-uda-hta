@@ -49,23 +49,31 @@ namespace BussinessLogic
             // Para el medical history 
             // hacer update de los que tienen id e 
             // insertar los que no tienen id
-            PatientDataAccess pda = new PatientDataAccess();
-            pda.EditPatient(patient);
-
-            UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            foreach (var medicalRecord in patient.Background)
+            try
             {
-                if (medicalRecord.Id != null)
+                PatientDataAccess pda = new PatientDataAccess();
+                pda.EditPatient(patient);
+
+                UdaHtaDataAccess uda = new UdaHtaDataAccess();
+                foreach (var medicalRecord in patient.Background)
                 {
-                    //actualizar medicalRecord
-                    uda.EditMedicalHistory(medicalRecord,patient.UdaId.Value);
-                }
-                else
-                {
-                    //insertar medicalRecord
-                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
-                }
-            }                
+                    if (medicalRecord.Id != null)
+                    {
+                        //actualizar medicalRecord
+                        uda.EditMedicalHistory(medicalRecord, patient.UdaId.Value);
+                    }
+                    else
+                    {
+                        //insertar medicalRecord
+                        uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+                    }
+                }                
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 

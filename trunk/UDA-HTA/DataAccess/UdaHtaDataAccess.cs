@@ -741,43 +741,92 @@ namespace DataAccess
         }
         
         //Actualiza la contrasena del usuario userName
-        public bool UpdatePassword(string userName, string newPswd)
+        public void UpdatePassword(string userName, string newPswd)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.updatePassword(userName, newPswd);
-                return true;                    
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.updatePassword(userName, newPswd);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
             }
         }
 
         //Inserta la referencia a la base de pacientes
         public void InsertPatientUda(long id)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.insertPatientUda(id);
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.insertPatientUda(id);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
             }
         }
 
         //Inserta una nueva instancia de la historia clinca del paciente
         public void InsertMedicalHistory(long patientId, MedicalRecord medicalRecord)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof(int));
-                udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness, medicalRecord.Since,
-                                               medicalRecord.Until, medicalRecord.Comment, patientId);                
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof (int));
+                        udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness, medicalRecord.Since,
+                                                        medicalRecord.Until, medicalRecord.Comment, patientId);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
             }
         }
         
         //Inserta un nuevo usuario en la base de datos
         public int InsertUser(string login, string pass, string rol)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                var lastIdUser = new ObjectParameter("id", typeof(long));
-                udaContext.insertUser(lastIdUser,login, pass, rol);
+                ObjectParameter lastIdUser;
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        lastIdUser = new ObjectParameter("id", typeof (long));
+                        udaContext.insertUser(lastIdUser, login, pass, rol);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
                 return (int)lastIdUser.Value;
+
             }
             
         }
@@ -785,27 +834,65 @@ namespace DataAccess
         //Inserta un nuevo tipo de droga en la base de datos
         public void InsertDrugType(string type)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.insertDrugType(type);                
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.insertDrugType(type);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                
+                scope.Complete();
             }
         }
 
         //Inserta una nueva droga en la base de datos
         public void InsertDrug(string name, int idDrugTyp)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.insertDrug(name, idDrugTyp);                
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.insertDrug(name, idDrugTyp);
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw ex;
+                    }
+                }
+                
+                scope.Complete();
             }
         }
 
         public void EditMedicalHistory(MedicalRecord medicalRecord, long patient_id)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness, medicalRecord.Since,
-                                               medicalRecord.Until, medicalRecord.Comment);
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness, medicalRecord.Since,
+                                                       medicalRecord.Until, medicalRecord.Comment);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
             }
         }
 
@@ -827,27 +914,67 @@ namespace DataAccess
         //Inserta una nueva investigacion en la base de datos
         public int insertInvestigation(string nam, DateTime createDat)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                ObjectParameter id = new ObjectParameter("id", typeof(int));
-                udaContext.insertInvestigation(id, nam, createDat);
-                return Convert.ToInt16(id.Value.ToString());                
+                ObjectParameter id;
+
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        id = new ObjectParameter("id", typeof(int));
+                        udaContext.insertInvestigation(id, nam, createDat);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
+                return Convert.ToInt16(id.Value.ToString());
             }
         }
 
         public void addReportToInvestigation(long idPatient, long idReport, int idInvestigation)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.insertInvestigationHasReport(idInvestigation, idReport, idPatient);
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.insertInvestigationHasReport(idInvestigation, idReport, idPatient);
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw ex;
+                    }
+                }
+
+                scope.Complete();
             }
         }
 
         public void deleteReportFromInvestigation(long idPatient, long idReport, int idInvestigation)
         {
-            using (udaContext = new udahta_dbEntities())
+            using (TransactionScope scope = new TransactionScope())
             {
-                udaContext.deleteInvestigationHasReport(idInvestigation, idReport, idPatient);
+                using (udaContext = new udahta_dbEntities())
+                {
+                    try
+                    {
+                        udaContext.deleteInvestigationHasReport(idInvestigation, idReport, idPatient);
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw ex;
+                    }
+                }
+                
+                scope.Complete();
             }
         }
 
