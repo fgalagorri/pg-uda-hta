@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using DocumentFormat.OpenXml;
@@ -10,8 +11,15 @@ using V = DocumentFormat.OpenXml.Vml;
 using Ovml = DocumentFormat.OpenXml.Vml.Office;
 using PageSize = DocumentFormat.OpenXml.Wordprocessing.PageSize;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Office.Interop.Word;
 using Entities;
 using DataAccess;
+using Columns = DocumentFormat.OpenXml.Wordprocessing.Columns;
+using Document = Microsoft.Office.Interop.Word.Document;
+using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
+using Shading = DocumentFormat.OpenXml.Wordprocessing.Shading;
+using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
+using TableStyle = DocumentFormat.OpenXml.Wordprocessing.TableStyle;
 
 namespace BussinessLogic
 {
@@ -97,8 +105,8 @@ namespace BussinessLogic
                                                                                     WordprocessingDocumentType.Document)
                     )
                 {
-                    MainDocumentPart mainDocumentPart1 = document.AddMainDocumentPart();
-                    Document document1 = new Document();
+                    DocumentFormat.OpenXml.Packaging.MainDocumentPart mainDocumentPart1 = document.AddMainDocumentPart();
+                    DocumentFormat.OpenXml.Wordprocessing.Document document1 = new DocumentFormat.OpenXml.Wordprocessing.Document();
                     Body body1 = new Body();
                     //Create a Table
                     Table table1 = new Table();
@@ -1635,16 +1643,16 @@ namespace BussinessLogic
                         };
 
 
-                    PageSize pageSize1 = new PageSize() {Width = (UInt32Value) 12240U, Height = (UInt32Value) 15840U};
+                    PageSize pageSize1 = new PageSize() {Width = 12240U, Height = 15840U};
                     PageMargin pageMargin1 = new PageMargin()
                         {
                             Top = 1440,
-                            Right = (UInt32Value) 1440U,
+                            Right = 1440U,
                             Bottom = 1440,
-                            Left = (UInt32Value) 1440U,
-                            Header = (UInt32Value) 720U,
-                            Footer = (UInt32Value) 720U,
-                            Gutter = (UInt32Value) 0U
+                            Left = 1440U,
+                            Header = 720U,
+                            Footer = 720U,
+                            Gutter = 0U
                         };
                     Columns columns1 = new Columns() {Space = "720"};
                     DocGrid docGrid1 = new DocGrid() {LinePitch = 360};
@@ -5167,8 +5175,56 @@ namespace BussinessLogic
 
         }
         
-        public void exportReportPDF(Report report, string fileName)
-        {/*
+        public void exportReportPDF(string fileName, string directory)
+        {
+            // Create a new Microsoft Word application object
+            Application word = new Application();
+
+            // C# doesn't have optional arguments so we'll need a dummy value
+            object oMissing = System.Reflection.Missing.Value;
+
+            // Get list of Word files in specified directory
+            DirectoryInfo dirInfo = new DirectoryInfo(directory);
+            FileInfo[] wordFiles = dirInfo.GetFiles(fileName);
+
+            word.Visible = false;
+            word.ScreenUpdating = false;
+
+            foreach (FileInfo wordFile in wordFiles)
+            {
+                // Cast as Object for word Open method
+                Object filename = (Object)wordFile.FullName;
+
+                // Use the dummy value as a placeholder for optional arguments
+                Document doc = word.Documents.Open(ref filename, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+                doc.Activate();
+
+                object outputFileName = wordFile.FullName.Replace(".docx", ".pdf");
+                object fileFormat = WdSaveFormat.wdFormatPDF;
+
+                // Save document into PDF Format
+                doc.SaveAs(ref outputFileName,
+                    ref fileFormat, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                    ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+
+                // Close the Word document, but leave the Word application open.
+                // doc has to be cast to type _Document so that it will find the
+                // correct Close method.                
+                object saveChanges = WdSaveOptions.wdDoNotSaveChanges;
+                ((_Document)doc).Close(ref saveChanges, ref oMissing, ref oMissing);
+                doc = null;
+            }
+
+            // word has to be cast to type _Application so that it will find
+            // the correct Quit method.
+            ((_Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
+            word = null;
+            /*
             //Crear documento PDF
             PdfDocument doc = new PdfDocument();
             doc.Info.Title = "Informe de Hipertensión Arterial";
