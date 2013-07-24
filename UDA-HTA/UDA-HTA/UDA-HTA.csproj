@@ -266,25 +266,6 @@
     <Resource Include="Images\ribbon_editDoctor.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\RichTextEditor\charactergrowfont.png" />
-    <Resource Include="Images\RichTextEditor\charactershrinkfont.png" />
-    <Resource Include="Images\RichTextEditor\editcopy.png" />
-    <Resource Include="Images\RichTextEditor\editcut.png" />
-    <Resource Include="Images\RichTextEditor\editpaste.png" />
-    <Resource Include="Images\RichTextEditor\editredo.png" />
-    <Resource Include="Images\RichTextEditor\editundo.png" />
-    <Resource Include="Images\RichTextEditor\fileopen.png" />
-    <Resource Include="Images\RichTextEditor\filesave.png" />
-    <Resource Include="Images\RichTextEditor\listbullets.png" />
-    <Resource Include="Images\RichTextEditor\listnumbering.png" />
-    <Resource Include="Images\RichTextEditor\paragraphcenterjustify.png" />
-    <Resource Include="Images\RichTextEditor\paragraphdecreaseindentation.png" />
-    <Resource Include="Images\RichTextEditor\paragraphfulljustify.png" />
-    <Resource Include="Images\RichTextEditor\paragraphincreaseindentation.png" />
-    <Resource Include="Images\RichTextEditor\paragraphleftjustify.png" />
-    <Resource Include="Images\RichTextEditor\paragraphrightjustify.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
@@ -293,6 +274,13 @@
       <Project>{99BA066D-A192-4101-843D-D9E6DA95C4C4}</Project>
       <Name>Gateway</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_inform.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_saveDoc.png" />
+    <Resource Include="Images\ribbon_savePdf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

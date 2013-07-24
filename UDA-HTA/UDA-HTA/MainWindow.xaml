@@ -19,35 +19,50 @@
             <r:Ribbon.ApplicationMenu>
                 <r:RibbonApplicationMenu SmallImageSource="/Images/ribbon_menu.png">
                     <!-- TODO incluir los elementos del menú, manejo de mi usuario (cambio pwd, logout) -->
+                    <r:RibbonApplicationMenuItem Header="Nuevo Usuario" />
+                    <r:RibbonApplicationMenuItem Header="Buscar Usuario" />
+                    <r:RibbonApplicationMenuItem Header="Cambio Password" />
                     <r:RibbonApplicationMenuItem Header="Logout" />
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
 
-            <r:RibbonTab Header="Inicio" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <r:RibbonGroup>
-                    <r:RibbonButton Name="btnNewReport" Label="Nuevo Registro" LargeImageSource="/Images/ribbon_newReport.png" Click="btnNewReport_Click" />
-                    <r:RibbonButton Name="btnEditDiagnosis" Label="Informar" LargeImageSource="/Images/ribbon_newReport.png" Click="btnEditDiagnosis_Click" />
+            <r:RibbonTab Header="Pacientes" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <r:RibbonGroup Header="Registro">
+                    <r:RibbonButton Name="btnNewReport" Label="Nuevo Registro" 
+                                    LargeImageSource="/Images/ribbon_newReport.png" 
+                                    Click="CreateNewReport" />
+                    <r:RibbonButton Name="btnEditDiagnosis" Label="Informar" 
+                                    LargeImageSource="/Images/ribbon_inform.png" 
+                                    Click="EditDiagnosis" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Paciente">
-                    <r:RibbonButton Name="btnFindPatient" Label="Búsqueda" LargeImageSource="/Images/ribbon_findPatient.png" Click="btnFindPatient_Click"/>
-                    <r:RibbonButton Name="btnNewPatient" Label="Nuevo" LargeImageSource="/Images/ribbon_newPatient.png"/>
-                    <r:RibbonButton Name="btnEditPatient" Label="Editar" LargeImageSource="/Images/ribbon_editPatient.png"/>
+                    <r:RibbonButton Label="Buscar" Click="FindPatient"
+                                    LargeImageSource="/Images/ribbon_findPatient.png" />
+                    <r:RibbonButton Label="Nuevo" LargeImageSource="/Images/ribbon_newPatient.png"/>
+                    <r:RibbonButton Label="Editar" LargeImageSource="/Images/ribbon_editPatient.png"/>
                 </r:RibbonGroup>
                 
-                <r:RibbonGroup Header="Investigación">
-                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png"></r:RibbonButton>
-                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_editResearch.png"></r:RibbonButton>
+                <r:RibbonGroup Header="Reporte">
+                    <r:RibbonButton Label="Exportar PDF" Click="ExportPdf"
+                                    LargeImageSource="/Images/ribbon_SavePdf.png" />
+                    <r:RibbonButton Label="Exportar DOC" Click="ExportDoc"
+                                    LargeImageSource="/Images/ribbon_SaveDoc.png" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Name="administration" Header="Administración">
-                    <r:RibbonButton Name="btnEditDrugs" Label="Drogas" LargeImageSource="/Images/ribbon_editDrugs.png"></r:RibbonButton>
-                    <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="/Images/ribbon_newDoctor.png"></r:RibbonButton>
-                    <r:RibbonButton Name="btnFindDoctor" Label="Buscar Usuario" LargeImageSource="/Images/ribbon_findDoctor.png"></r:RibbonButton>
+                    <!--r:RibbonButton Name="btnEditDrugs" Label="Drogas" LargeImageSource="/Images/ribbon_editDrugs.png" />
+                    <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="/Images/ribbon_newDoctor.png" />
+                    <r:RibbonButton Name="btnFindDoctor" Label="Buscar Usuario" LargeImageSource="/Images/ribbon_findDoctor.png" /-->
                 </r:RibbonGroup>
             </r:RibbonTab>
 
-            <r:RibbonTab Header="Investigación" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
+            <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
+                <r:RibbonGroup Header="Investigación">
+                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" />
+                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_editResearch.png" />
+                </r:RibbonGroup>
+                
                 <r:RibbonGroup>
                     <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png"/>
                     <r:RibbonButton Name="btnAddStudyResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png"/>
@@ -58,11 +73,6 @@
                     </r:RibbonSplitButton>
                 </r:RibbonGroup>
             </r:RibbonTab>
-
-            <r:RibbonTab Header="Paciente" Name="tabPaciente"> <!-- Visibility="Collapsed" -->
-
-            </r:RibbonTab>
-            
         </r:Ribbon>
 
         <ContentControl Name="Container" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
