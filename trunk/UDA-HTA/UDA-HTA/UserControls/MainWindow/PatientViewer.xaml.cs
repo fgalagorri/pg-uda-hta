@@ -92,6 +92,7 @@ namespace UDA_HTA.UserControls.MainWindow
                 _report = _patient.ReportList
                                   .OrderByDescending(r => r.BeginDate)
                                   .ElementAt(index);
+                _report.Patient = _patient;
 
                 TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
                 TabReportInfo.SetReport(_report);
@@ -106,6 +107,7 @@ namespace UDA_HTA.UserControls.MainWindow
             }
             else
             {
+                _report = null;
                 ReportInfo.Visibility = Visibility.Collapsed;
                 ReportSummary.Visibility = Visibility.Collapsed;
                 ReportDiagnosis.Visibility = Visibility.Collapsed;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using BussinessLogic;
 using Entities;
@@ -53,8 +54,6 @@ namespace Gateway
             var importDataController = new ImportDataManagement();
             var report = importDataController.ImportReport(idReport, device);
 
-            _importedReport = report.UdaId.Value;
-
             string idRef = report.Patient.DeviceReferences
                                  .Where(r => r.deviceType == device)
                                  .Select(r => r.deviceReferenceId)
@@ -105,7 +104,9 @@ namespace Gateway
                 {
                     //Creo el paciente
                     report.Patient.UdaId = patientController.CreatePatient(report.Patient);
-                }
+                }   
+                
+                _importedPatient = report.Patient.UdaId.Value;
             }
             catch (Exception)
             {
@@ -114,12 +115,11 @@ namespace Gateway
                 return 2;
             }
 
-            _importedPatient = report.Patient.UdaId.Value;
 
             try
             {
                 report.Measures = importController.ImportMeasures(report);
-                reportController.AddReport(report);
+                _importedReport = reportController.AddReport(report);
             }
             catch (Exception)
             {
@@ -165,10 +165,23 @@ namespace Gateway
 
         #region Report Exportation
 
-        public void exportReport(Report report, string filePath)
+        public void ExportToPdf(Report report, string filePath)
+        {
+            if (!Directory.Exists("Temp"))
+                Directory.CreateDirectory("Temp");
+
+            string tempFile = "Temp\\tempfile" + report.UdaId + ".uda";
+            ReportManagement rm = new ReportManagement();
+            rm.ExportReportDocx(report, tempFile);
+
+            rm.ExportReportPDF(tempFile, filePath);
+            File.Delete(tempFile);
+        }
+
+        public void ExportToDocx(Report report, string filePath)
         {
             ReportManagement rm = new ReportManagement();
-            rm.GenerateDocument(report, filePath);
+            rm.ExportReportDocx(report, filePath);
         }
 
         #endregion

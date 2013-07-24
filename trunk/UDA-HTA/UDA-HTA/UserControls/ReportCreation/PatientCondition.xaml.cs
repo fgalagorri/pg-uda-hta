@@ -45,7 +45,7 @@ namespace UDA_HTA.UserControls.ReportCreation
 
                 var t = r.TemporaryData;
                 txtWeight.Text = t.Weight.ToString();
-                txtHeight.Text = t.Height.ToString();
+                txtHeight.Text = t.Height.HasValue ? t.Height.Value.ToString("F") : "";
                 _imc = t.BodyMassIndex.HasValue ? t.BodyMassIndex.Value : -1;
                 lblImc.Text = t.BodyMassIndex.ToString();
                 txtFat.Text = t.FatPercentage.ToString();
@@ -114,9 +114,10 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             decimal height, weight;
             string h = txtHeight.Text.Replace(",", ".");
+            string w = txtWeight.Text.Replace(",", ".");
 
             if (decimal.TryParse(h, NumberStyles.Float, CultureInfo.InvariantCulture, out height)
-                && decimal.TryParse(txtWeight.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out weight))
+                && decimal.TryParse(w, NumberStyles.Float, CultureInfo.InvariantCulture, out weight))
             {
                 _imc = weight / (height * height);
                 lblImc.Text = _imc.ToString("0.##", CultureInfo.InvariantCulture);

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -175,7 +175,7 @@
           </Key>
           <Property Name="idMedicineDosis" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="dose" Type="text" Nullable="false" />
-          <Property Name="drug_idDrug" Type="int" Nullable="false" />
+          <Property Name="drug_idDrug" Type="int" />
           <Property Name="temporarydata_idTemporaryData" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="patientuda">
@@ -354,7 +354,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_MedicineDosis_Drug1">
-          <End Role="drug" Type="udahta_dbModel.Store.drug" Multiplicity="1" />
+          <End Role="drug" Type="udahta_dbModel.Store.drug" Multiplicity="0..1" />
           <End Role="medicinedose" Type="udahta_dbModel.Store.medicinedose" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="drug">
@@ -567,14 +567,6 @@
           <Parameter Name="doctor" Type="varchar" Mode="In" />
           <Parameter Name="diagnosis" Type="text" Mode="In" />
           <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
-        </Function>
-        <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="In" />
-          <Parameter Name="patient_id" Type="bigint" Mode="In" />
-          <Parameter Name="illness" Type="text" Mode="In" />
-          <Parameter Name="since" Type="datetime" Mode="In" />
-          <Parameter Name="to_" Type="datetime" Mode="In" />
-          <Parameter Name="comment_" Type="text" Mode="In" />
         </Function>
         <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login_var" Type="varchar" Mode="In" />
@@ -1206,7 +1198,7 @@
             <ScalarProperty Name="patientuda_idPatientUda" ColumnName="patientuda_idPatientUda" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="medicinedose"><EntityTypeMapping TypeName="udahta_dbModel.medicinedose"><MappingFragment StoreEntitySet="medicinedose">
-            <ScalarProperty Name="idMedicineDosis" ColumnName="idMedicineDosis" />
+                <ScalarProperty Name="idMedicineDosis" ColumnName="idMedicineDosis" />
             <ScalarProperty Name="dose" ColumnName="dose" />
             <ScalarProperty Name="drug_idDrug" ColumnName="drug_idDrug" />
             <ScalarProperty Name="temporarydata_idTemporaryData" ColumnName="temporarydata_idTemporaryData" />
@@ -1332,7 +1324,6 @@
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
-          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1356,39 +1347,35 @@
       <Diagram Name="Model1" ZoomLevel="63">
         <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3" Height="6.0186165364583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.375" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.5" PointY="15.625" Height="1.5956835937499978" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.25" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.625" PointY="16.25" Height="1.5956835937499978" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="1.625" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="6" PointY="14.75" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="6" PointY="11.25" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.25" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="10.5" Height="3.7109993489583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="1.5" PointY="9.875" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="1.5" PointY="12.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="11.125" Height="3.7109993489583317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
         <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="5.9324446614583337" />
           <ConnectorPoint PointX="3" PointY="5.9324446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="16.422841796874998" />
-          <ConnectorPoint PointX="3.75" PointY="16.422841796874998" />
+          <ConnectorPoint PointX="3.125" PointY="16.740143229166666" />
+          <ConnectorPoint PointX="3.75" PointY="16.740143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDosis_Drug1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="15.376152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="15.001152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="12.23144321604153" />
-          <ConnectorPoint PointX="6" PointY="12.23144321604153" />
+          <ConnectorPoint PointX="3.75" PointY="15.71875" />
+          <ConnectorPoint PointX="1.53125" PointY="15.71875" />
+          <ConnectorPoint PointX="1.53125" PointY="15.047587890625" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicalHistory_Patient1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="9.7833749014423077" />
-          <ConnectorPoint PointX="5.6875" PointY="10.220874901442308" />
-          <ConnectorPoint PointX="5.6875" PointY="15.932444661458334" />
-          <ConnectorPoint PointX="6" PointY="15.932444661458334" />
+          <ConnectorPoint PointX="3.75" PointY="9.574208484375" />
+          <ConnectorPoint PointX="2.65625" PointY="9.574208484375" />
+          <ConnectorPoint PointX="2.65625" PointY="9.875" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDose_TemporaryData1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="11.678221608020765" />
-          <ConnectorPoint PointX="5.604166666666667" PointY="11.678221608020765" />
-          <ConnectorPoint PointX="5.770833333333333" PointY="11.678221608020765" />
-          <ConnectorPoint PointX="6" PointY="11.678221608020765" />
+          <ConnectorPoint PointX="3.75" PointY="13.855499674479166" />
+          <ConnectorPoint PointX="3" PointY="13.855499674479166" />
         </AssociationConnector>
         <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.875" Height="11.403056640625" />
         <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
@@ -1396,14 +1383,12 @@
           <ConnectorPoint PointX="6" PointY="7.6824446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_Patient1" >
-          <ConnectorPoint PointX="5.25" PointY="8.9854349507211531" />
-          <ConnectorPoint PointX="6" PointY="8.9854349507211531" />
+          <ConnectorPoint PointX="5.25" PointY="9.297841796875" />
+          <ConnectorPoint PointX="6" PointY="9.297841796875" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_TemporaryData1" >
-          <ConnectorPoint PointX="5.25" PointY="13.283721282499931" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="13.283721282499931" />
-          <ConnectorPoint PointX="5.770833333333333" PointY="13.283721282499931" />
-          <ConnectorPoint PointX="6" PointY="13.283721282499931" />
+          <ConnectorPoint PointX="5.25" PointY="12.980499674479166" />
+          <ConnectorPoint PointX="6" PointY="12.980499674479166" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.investigation_has_report" >
           <ConnectorPoint PointX="5.25" PointY="2.5189925130208337" />

@@ -42,6 +42,7 @@ namespace Entities
             Drug = drug;
         }
 
+        public string Dose { get; set; }
         public Drug Drug { get; set; }
     }
 

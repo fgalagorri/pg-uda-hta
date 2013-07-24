@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
+using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Entities;
 using Gateway;
+using Microsoft.Win32;
 using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
 
@@ -33,7 +26,7 @@ namespace UDA_HTA
 
         #region Ribbon Buttons
 
-        private void btnNewReport_Click(object sender, RoutedEventArgs e)
+        private void CreateNewReport(object sender, RoutedEventArgs e)
         {
             var newReportPopup = new NewReportFinder { Owner = this };
             var imported = newReportPopup.ShowDialog();
@@ -47,7 +40,7 @@ namespace UDA_HTA
             }
         }
 
-        private void btnEditDiagnosis_Click(object sender, RoutedEventArgs e)
+        private void EditDiagnosis(object sender, RoutedEventArgs e)
         {
             var pv = Container.Content as PatientViewer;
             if (pv != null && pv.GetSelectedReport() != null)
@@ -78,10 +71,74 @@ namespace UDA_HTA
             }
         }
 
-
-        private void btnFindPatient_Click(object sender, RoutedEventArgs e)
+        private void FindPatient(object sender, RoutedEventArgs e)
         {
             Container.Content = new PatientFinder(this); ;
+        }
+
+
+        private void ExportPdf(object sender, RoutedEventArgs e)
+        {
+            var pv = Container.Content as PatientViewer;
+            if (pv != null && pv.GetSelectedReport() != null)
+            {
+                var report = pv.GetSelectedReport();
+
+                SaveFileDialog saveAs = new SaveFileDialog
+                {
+                    FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
+                    DefaultExt = ".pdf",
+                    Filter = "PDF Document|*.pdf"
+                };
+                if (report.BeginDate.HasValue)
+                {
+                    saveAs.FileName += " " +
+                                       report.BeginDate.Value
+                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
+                                             .Replace('/', '-');
+                }
+                var result = saveAs.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    GatewayController.GetInstance().ExportToPdf(report, saveAs.FileName);
+                    // Abro el archivo exportado
+                    Process.Start(saveAs.FileName);
+                    Mouse.OverrideCursor = null;
+                }
+            }
+        }
+
+        private void ExportDoc(object sender, RoutedEventArgs e)
+        {
+            var pv = Container.Content as PatientViewer;
+            if (pv != null && pv.GetSelectedReport() != null)
+            {
+                var report = pv.GetSelectedReport();
+
+                SaveFileDialog saveAs = new SaveFileDialog
+                    {
+                        FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
+                        DefaultExt = ".docx",
+                        Filter = "Microsoft Word Document|*.docx"
+                    };
+                if (report.BeginDate.HasValue)
+                {
+                    saveAs.FileName += " " +
+                                       report.BeginDate.Value
+                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
+                                             .Replace('/', '-');
+                }
+                var result = saveAs.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    GatewayController.GetInstance().ExportToDocx(report, saveAs.FileName);
+                    // Abro el archivo exportado
+                    Process.Start(saveAs.FileName);
+                    Mouse.OverrideCursor = null;
+                }
+            }
         }
 
         #endregion
