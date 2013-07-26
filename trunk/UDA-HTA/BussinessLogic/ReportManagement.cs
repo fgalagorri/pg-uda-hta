@@ -1688,7 +1688,7 @@ namespace BussinessLogic
 
 
                 GenerateCoverHeader(coverHeader);
-                GenerateHeader(headerPart1);
+                GenerateHeader(headerPart1, report.Patient);
 
 
                 mainDocumentPart1.Document.Save();
@@ -5011,7 +5011,7 @@ namespace BussinessLogic
             coverHeaderPart.Header = coverHeader;
         }
 
-        private void GenerateHeader(HeaderPart headerPart1)
+        private void GenerateHeader(HeaderPart headerPart1, Patient patient)
         {
             Header header1 = new Header();
             Paragraph paragraph59 = new Paragraph() { RsidParagraphAddition = "00AA46B2", RsidRunAdditionDefault = "00F4078F" };
@@ -5118,7 +5118,7 @@ namespace BussinessLogic
 
             RunProperties runProperties29 = new RunProperties();
             Text text47 = new Text();
-            text47.Text = "<nro reg>";
+            text47.Text = patient.RegisterNumber;
 
             run52.Append(runProperties29);
             run52.Append(text47);
@@ -5128,7 +5128,7 @@ namespace BussinessLogic
             RunProperties runProperties33 = new RunProperties();
             TabChar tabChar3 = new TabChar();
             Text text51 = new Text();
-            text51.Text = "<nombre apellido>";
+            text51.Text = patient.Names + " " + patient.Surnames;
 
             run56.Append(runProperties33);
             run56.Append(tabChar3);
@@ -5139,7 +5139,7 @@ namespace BussinessLogic
             RunProperties runProperties34 = new RunProperties();
             TabChar tabChar4 = new TabChar();
             Text text52 = new Text();
-            text52.Text = "<documento>";
+            text52.Text = patient.DocumentId;
 
             run57.Append(runProperties34);
             run57.Append(tabChar4);
@@ -5163,7 +5163,7 @@ namespace BussinessLogic
         public void ExportReportPDF(string docxPath, string pdfDestination)
         {
             // Create a new Microsoft Word application object
-            Application word = new Application();
+            Microsoft.Office.Interop.Word.Application word = new Application();
 
             // C# doesn't have optional arguments so we'll need a dummy value
             object oMissing = System.Reflection.Missing.Value;
@@ -5180,7 +5180,7 @@ namespace BussinessLogic
             Object filename = wordFile.FullName;
 
             // Use the dummy value as a placeholder for optional arguments
-            Document doc = word.Documents.Open(ref filename, ref oMissing,
+            Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref filename, ref oMissing,
                                                ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                ref oMissing, ref oMissing, ref oMissing, ref oMissing);
@@ -5208,28 +5208,6 @@ namespace BussinessLogic
             // the correct Quit method.
             word.Quit(ref oMissing, ref oMissing, ref oMissing);
             word = null;
-            /*
-            //Crear documento PDF
-            PdfDocument doc = new PdfDocument();
-            doc.Info.Title = "Informe de Hipertensión Arterial";
-
-            //Crear pagina vacia
-            PdfPage page = doc.AddPage();
-
-            // Drawing
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-
-            // Crear fuente
-            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
-
-            // Escribe texto
-            gfx.DrawString("Hello, World!", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormat.Center);
-
-            //Guardar el documento
-            doc.Save(fileName);
-            // Muestra archivo
-            Process.Start(fileName);
-            */
         }
 
         #endregion

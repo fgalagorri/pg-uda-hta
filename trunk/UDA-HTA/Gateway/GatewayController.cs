@@ -73,16 +73,8 @@ namespace Gateway
             return report;
         }
 
-        /*
-         * Devuelve:
-         * 1 - OK
-         * 2 - error al crear el paciente
-         * 3 - error al crear el reporte
-         */
-        public int AddImportedData(Report report, bool patientModified)
+        public void AddImportedData(Report report, bool patientModified)
         {
-            bool created = false;
-            Patient bakPatient = null;
             var reportController = new ReportManagement();
             var patientController = new PatientManagement();
             var importController = new ImportDataManagement();
@@ -96,7 +88,6 @@ namespace Gateway
                      */
                 if (report.UdaId != null)
                 {
-                    bakPatient = patientController.GetPatient(report.Patient.UdaId.Value);
                     if (patientModified)
                         patientController.EditPatient(report.Patient);
                 }
@@ -110,9 +101,8 @@ namespace Gateway
             }
             catch (Exception)
             {
-                // TODO indicar al usuario que hubo un error
-                // TODO definir constantes para los errores
-                return 2;
+                var e = new Exception("El paciente no pudo ser creado, por favor, intentelo nuevamente");
+                throw e;
             }
 
 
@@ -123,10 +113,10 @@ namespace Gateway
             }
             catch (Exception)
             {
-                return 3;
+                var e = new Exception("El reporte no pudo ser creado, por favor, intentelo nuevamente");
+                throw e;
             }
 
-            return 1;
         }
 
         #endregion
