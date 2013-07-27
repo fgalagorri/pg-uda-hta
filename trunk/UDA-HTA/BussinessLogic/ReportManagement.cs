@@ -14,6 +14,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Office.Interop.Word;
 using Entities;
 using DataAccess;
+using Break = DocumentFormat.OpenXml.Wordprocessing.Break;
 using Columns = DocumentFormat.OpenXml.Wordprocessing.Columns;
 using Document = Microsoft.Office.Interop.Word.Document;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
@@ -1311,18 +1312,23 @@ namespace BussinessLogic
 
                 RunProperties runProperties11 = new RunProperties();
 
-                Text text35 = new Text();
                 if (report.Diagnosis != null)
                 {
-                    text35.Text = report.Diagnosis;
+                    string[] diagnosis = report.Diagnosis.Split("\r\n".ToCharArray());
+                    foreach (string d in diagnosis)
+                    {
+                        run35.AppendChild(new Text(d));
+                        RunProperties runProp = run35.AppendChild(new RunProperties());
+                        Break lineBreak = new Break();
+                        runProp.AppendChild(lineBreak);
+                    }
                 }
                 else
                 {
+                    Text text35 = new Text();
                     text35.Text = "<No se ha realizado el diagnóstico aún>";
                 }
 
-                run35.Append(runProperties11);
-                run35.Append(text35);
 
                 paragraph24.Append(paragraphProperties8);
                 paragraph24.Append(run35);

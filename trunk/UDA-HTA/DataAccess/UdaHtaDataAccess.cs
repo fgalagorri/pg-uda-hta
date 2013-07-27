@@ -415,7 +415,6 @@ namespace DataAccess
                     report.Measures = measurements.Where(m => m.ReportId == report.UdaId)
                                                   .OrderBy(m => m.Time).ToList();
 
-                    report.Diagnosis = report.Diagnosis.Replace("<\br>", "\r\n");
                     
                     lrep.Add(report);
                 }
@@ -608,7 +607,6 @@ namespace DataAccess
 
                 using (udaContext = new udahta_dbEntities())
                 {
-                    rep.Diagnosis = rep.Diagnosis.Replace("\r\n", "<\br>");
                     lastIdReport = new ObjectParameter("id", typeof (long));
                     udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name,
                                             rep.Diagnosis, rep.DiagnosisDate, rep.RequestDoctor,
