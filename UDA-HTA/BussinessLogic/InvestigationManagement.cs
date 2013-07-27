@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using Entities;
@@ -289,7 +290,7 @@ namespace BussinessLogic
 
             Cell cell6 = new Cell() { CellReference = "F1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue6 = new CellValue();
-            cellValue5.Text = "Durmiendo";
+            cellValue6.Text = "Durmiendo";
 
             cell6.Append(cellValue6);
 
@@ -312,7 +313,8 @@ namespace BussinessLogic
                 string cellRefDate = "A" + i;
                 Cell cellDate = new Cell() { CellReference = cellRefDate, StyleIndex = (UInt32Value)1U };
                 CellValue cellValueDate = new CellValue();
-                cellValueDate.Text = measurement.Time.Value.ToString();
+                cellValueDate.Text = measurement.Time.Value.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
+
                 cellDate.Append(cellValueDate);
                 row2.Append(cellDate);
 
