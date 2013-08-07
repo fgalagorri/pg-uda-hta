@@ -3,16 +3,18 @@
 -- -----------------------------------------------------
 USE `patient_info_db` ;
 
+-- INSERTS --
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatient$$
 CREATE PROCEDURE insertPatient(OUT id BIGINT, IN name VARCHAR(45), IN surname VARCHAR(45), 
 							   IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, 
 							   IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), 
-							   department VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), 
+							   IN department VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), 
 							   IN phone2 VARCHAR(45), IN email VARCHAR(45), 
 							   IN register_number VARCHAR(45))
 BEGIN
+SET id = 0;
 INSERT INTO `patient`(`name`, `surname`, `document`, `gender`, `telephone`, `cell_phone`, 
 					  `telephone_alt`,`address`, `city`, `neighborhood`, `department`, `birthday`,
 					  `e_mail`,`register_number`)
@@ -46,12 +48,44 @@ SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
+-- UPDATES --
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS editPatient$$
+CREATE PROCEDURE editPatient(IN id BIGINT, IN name_ VARCHAR(45), IN surname VARCHAR(45), 
+							 IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, 
+							 IN sex ENUM('F','M'), IN neighbour VARCHAR(45), IN city VARCHAR(45), 
+							 IN department VARCHAR(45), IN phone VARCHAR(45), IN cell VARCHAR(45), 
+							 IN phone2 VARCHAR(45), IN email VARCHAR(45), 
+							 IN register_number VARCHAR(45))
+BEGIN
+UPDATE `patient`
+SET `name` = name_, 
+    `surname` = surname, 
+	`document` = dni, 
+	`gender`= sex, 
+	`telephone` = phone, 
+	`cell_phone` = cell, 
+	`telephone_alt` = phone2,
+	`address` = addr, 
+	`city` = city, 
+	`neighborhood` = neighbour, 
+	`department` = department, 
+	`birthday` = birth,
+	`e_mail` = email,
+	`register_number` = register_number
+WHERE `idPatientUda` = id;
+END$$
+DELIMITER ;
+
 
 
 -- -----------------------------------------------------
 --   UDAHTA_DB SCRIPTS
 -- -----------------------------------------------------
 USE `udahta_db` ;
+
+-- INSERTS --
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertPatientUda$$
@@ -105,16 +139,6 @@ VALUES (begin_date, end_date, doctor, diagnosis, diagnosis_dt, request_doctor, s
 		tot_sd_tam, day_sd_tam, night_sd_tam, tot_sd_hr, day_sd_hr, night_sd_hr, tot_tam_avg, 
 		day_tam_avg, night_tam_avg);
 SET id = (SELECT Last_Insert_Id());
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS updateDiagnosis$$
-CREATE PROCEDURE updateDiagnosis(IN reportId BIGINT, IN doctor VARCHAR(45), IN diagnosis TEXT, IN diagnosis_dt DATETIME)
-BEGIN
-UPDATE `report` SET `doctor` = doctor, `diagnosis` = diagnosis, `diagnosis_date` = diagnosis_dt
-WHERE `idReport` = reportId;
 END$$
 DELIMITER ;
 
@@ -196,8 +220,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicalHistory$$
-CREATE PROCEDURE insertMedicalHistory(OUT id BIGINT, IN illness TEXT, IN fromDate DATETIME, 
-									  IN toDate DATETIME, IN comm TEXT, IN idPatientUda BIGINT)
+CREATE PROCEDURE insertMedicalHistory(OUT id BIGINT, IN illness TEXT, IN comm TEXT, IN idPatientUda BIGINT)
 BEGIN
 INSERT INTO `medicalhistory` (`illness`, `from`, `to`, `comment`, `patientuda_idPatientUda`)
 VALUES (illness, fromDate, toDate, comm, idPatientUda);
@@ -213,25 +236,6 @@ BEGIN
 INSERT INTO `user`( `login`, `pass`, `rol`)
 VALUES(log, p, r);
 SET id = (SELECT Last_Insert_Id());
-END$$
-DELIMITER ;
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS getPassword$$
-CREATE PROCEDURE getPassword(OUT pass_var VARCHAR(45), IN login_var VARCHAR(45))
-BEGIN
-SET pass_var = (SELECT `pass` FROM `user` WHERE `login` = login_var LIMIT 1);
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS updatePassword$$
-CREATE PROCEDURE updatePassword(IN login_var VARCHAR(45), IN pass_var VARCHAR(45))
-BEGIN
-UPDATE `user`
-SET pass = pass_var
-WHERE login = login_var;
 END$$
 DELIMITER ;
 
@@ -258,21 +262,21 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicineDose$$
-CREATE PROCEDURE insertMedicineDose(IN dose TEXT, IN idDrug INT, IN idTemporaryData INT)
+CREATE PROCEDURE insertMedicineDose(IN dose TEXT, IN time_ DATETIME, IN idDrug INT, IN idTemporaryData INT)
 BEGIN
-INSERT INTO `medicinedose` (`dose`, `drug_idDrug`, `temporarydata_idTemporaryData`)
-VALUES(dose, idDrug, idTemporaryData);
+INSERT INTO `medicinedose` (`dose`, `time`, `drug_idDrug`, `temporarydata_idTemporaryData`)
+VALUES(dose, time_, idDrug, idTemporaryData);
 END$$
 DELIMITER ;
 
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertInvestigation$$
-CREATE PROCEDURE insertInvestigation(OUT id INT, IN nam VARCHAR(45), IN createDat DATETIME)
+CREATE PROCEDURE insertInvestigation(OUT id INT, IN nam VARCHAR(45), IN createDat DATETIME, IN comm TEXT)
 BEGIN
 INSERT 
-INTO `investigation`(name, creation_date)
-VALUES(id, nam, createDat);
+INTO `investigation`(`name`, `creation_date`, `comment`)
+VALUES(id, nam, createDat, comm);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -290,6 +294,17 @@ VALUES (idInvestigation, idReport, idPatientUda);
 END$$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertLimitMeasures$$
+CREATE PROCEDURE insertLimitMeasures(IN maxdiasday INT, IN maxdiasdayavg INT, IN maxdiasnight INT, IN maxdiasnightavg INT, IN maxdiastotal INT, IN maxsysday INT, IN maxsysdayavg INT, IN maxsysnight INT, IN maxsysnightavg INT, IN maxsystotal INT)
+BEGIN
+INSERT 
+INTO `udahta_db`.`limitmeasure` (`idlimitmeasure`, `maxdiasday`, `maxdiasdayavg`, `maxdiasnight`, `maxdiasnightavg`, `maxdiastotal`, `maxsysday`, `maxsysdayavg`, `maxsysnight`, `maxsysnightavg`, `maxsystotal`) 
+VALUES (maxdiasday, maxdiasdayavg, maxdiasnight, maxdiasnightavg, maxdiastotal, maxsysday, maxsysdayavg, maxsysnight, maxsysnightavg, maxsystotal);
+END$$
+DELIMITER ;
+
+-- DELETES --
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteInvestigationHasReport$$
@@ -303,6 +318,53 @@ WHERE (`investigation_idInvestigation` = idInvestigation AND
 	  `report_patientuda_idPatientUda` = idPatientUda);
 END$$
 DELIMITER ;
+
+-- UPDATES --
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateDiagnosis$$
+CREATE PROCEDURE updateDiagnosis(IN reportId BIGINT, IN doctor VARCHAR(45), IN diagnosis TEXT, IN diagnosis_dt DATETIME)
+BEGIN
+UPDATE `report` SET `doctor` = doctor, `diagnosis` = diagnosis, `diagnosis_date` = diagnosis_dt
+WHERE `idReport` = reportId;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateMedicalRecord$$
+CREATE PROCEDURE updateMedicalRecord(IN id BIGINT, IN patient_id BIGINT, IN illness TEXT, IN since DATETIME, IN to_ DATETIME, IN comment_ TEXT)
+BEGIN
+UPDATE `medicalhistory`
+SET `illness` = illness, 
+	`from` = since, 
+	`to` = to_, 
+	`comment` = comment_
+WHERE `idMedicalHistory` = id AND `idPatientUda` = patient_id;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updatePassword$$
+CREATE PROCEDURE updatePassword(IN login_var VARCHAR(45), IN pass_var VARCHAR(45))
+BEGIN
+UPDATE `user`
+SET pass = pass_var
+WHERE login = login_var;
+END$$
+DELIMITER ;
+
+-- GETS -- 
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS getPassword$$
+CREATE PROCEDURE getPassword(OUT pass_var VARCHAR(45), IN login_var VARCHAR(45))
+BEGIN
+SET pass_var = (SELECT `pass` FROM `user` WHERE `login` = login_var LIMIT 1);
+END$$
+DELIMITER ;
+
+
 
 SELECT * FROM User;
 
