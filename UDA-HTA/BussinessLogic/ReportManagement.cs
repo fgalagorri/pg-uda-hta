@@ -1827,7 +1827,7 @@ namespace BussinessLogic
 
             runProperties11.Append(bold11);
             Text text35 = new Text();
-            text35.Text = "Total";
+            text35.Text = "24 horas";
 
             run35.Append(runProperties11);
             run35.Append(text35);
@@ -4093,7 +4093,7 @@ namespace BussinessLogic
 
             RunProperties runProperties251 = new RunProperties();
             Text text275 = new Text();
-            text275.Text = "Diástole";
+            text275.Text = "Presión arterial diastólica";
 
             run275.Append(runProperties251);
             run275.Append(text275);
@@ -4274,7 +4274,7 @@ namespace BussinessLogic
 
             RunProperties runProperties272 = new RunProperties();
             Text text296 = new Text();
-            text296.Text = "Sistole";
+            text296.Text = "Presión arterial sistólica";
 
             run296.Append(runProperties272);
             run296.Append(text296);
