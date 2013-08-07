@@ -77,7 +77,6 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`dailycarnet` (
   `begin_sleep_time` DATETIME NULL ,
   `end_sleep_time` DATETIME NULL ,
   `how_sleep` VARCHAR(45) NULL ,
-  `sleep_comments` TEXT NULL ,
   `main_meal_time` DATETIME NULL ,
   `init_sys1` INT NULL ,
   `init_sys2` INT NULL ,
@@ -133,7 +132,6 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `end_date` DATETIME NULL ,
   `doctor` VARCHAR(45) NULL ,
   `diagnosis` TEXT NULL ,
-  `diagnosis_date` DATETIME NULL ,
   `request_doctor` VARCHAR(45) NULL ,
   `specialty` VARCHAR(45) NULL ,
   `day_avg_sys` INT NULL ,
@@ -214,7 +212,6 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`measurement` (
   `sleep` BIT NULL ,
   `comment` TEXT NULL ,
   `is_valid` BIT NOT NULL ,
-  `is_retry` BIT NOT NULL ,
   `report_idReport` BIGINT NOT NULL ,
   `report_patientuda_idPatientUda` BIGINT NOT NULL ,
   PRIMARY KEY (`idMeasurement`, `report_idReport`, `report_patientuda_idPatientUda`) ,
@@ -236,6 +233,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation` (
   `idInvestigation` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `creation_date` DATETIME NOT NULL ,
+  `comment` TEXT NULL ,
   PRIMARY KEY (`idInvestigation`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
@@ -248,7 +246,8 @@ DROP TABLE IF EXISTS `udahta_db`.`medicinedose` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicinedose` (
   `idMedicineDosis` INT NOT NULL AUTO_INCREMENT ,
-  `dose` TEXT NOT NULL ,
+  `dose` TEXT NULL ,
+  `time` DATETIME NULL ,
   `drug_idDrug` INT NOT NULL ,
   `temporarydata_idTemporaryData` INT NOT NULL ,
   PRIMARY KEY (`idMedicineDosis`) ,
@@ -322,8 +321,6 @@ DROP TABLE IF EXISTS `udahta_db`.`medicalhistory` ;
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
   `idMedicalHistory` BIGINT NOT NULL AUTO_INCREMENT ,
   `illness` TEXT NULL ,
-  `from` DATETIME NULL ,
-  `to` DATETIME NULL ,
   `comment` TEXT NULL ,
   `patientuda_idPatientUda` BIGINT NOT NULL ,
   PRIMARY KEY (`idMedicalHistory`, `patientuda_idPatientUda`) ,
@@ -333,6 +330,27 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
     REFERENCES `udahta_db`.`patientuda` (`idPatientUda` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `udahta_db`.`limitmeasure`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`limitmeasure` ;
+
+CREATE  TABLE IF NOT EXISTS `udahta_db`.`limitmeasure` (
+  `idlimitmeasure` INT NOT NULL ,
+  `maxdiasday` INT NULL ,
+  `maxdiasdayavg` INT NULL ,
+  `maxdiasnight` INT NULL ,
+  `maxdiasnightavg` INT NULL ,
+  `maxdiastotal` INT NULL ,
+  `maxsysday` INT NULL ,
+  `maxsysdayavg` INT NULL ,
+  `maxsysnight` INT NULL ,
+  `maxsysnightavg` INT NULL ,
+  `maxsystotal` INT NULL ,
+  PRIMARY KEY (`idlimitmeasure`) )
 ENGINE = InnoDB;
 
 
