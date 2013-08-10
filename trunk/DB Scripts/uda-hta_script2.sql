@@ -84,6 +84,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`dailycarnet` (
   `final_sys1` INT NULL ,
   `final_sys2` INT NULL ,
   `final_sys3` INT NULL ,
+  `sleep_comments` TEXT NULL ,
   PRIMARY KEY (`idDailyCarnet`) )
 ENGINE = InnoDB;
 
@@ -175,6 +176,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `tot_tam_avg` INT NULL ,
   `day_tam_avg` INT NULL ,
   `night_tam_avg` INT NULL ,
+  `diagnosis_date` DATETIME NULL ,
   PRIMARY KEY (`idReport`, `patientuda_idPatientUda`) ,
   INDEX `fk_Report_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
   INDEX `fk_Report_Patient1_idx` (`patientuda_idPatientUda` ASC) ,
@@ -214,6 +216,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`measurement` (
   `is_valid` BIT NOT NULL ,
   `report_idReport` BIGINT NOT NULL ,
   `report_patientuda_idPatientUda` BIGINT NOT NULL ,
+  `is_retry` BIT NULL ,
   PRIMARY KEY (`idMeasurement`, `report_idReport`, `report_patientuda_idPatientUda`) ,
   INDEX `fk_Measurement_Report1_idx` (`report_idReport` ASC, `report_patientuda_idPatientUda` ASC) ,
   CONSTRAINT `fk_Measurement_Report1`
