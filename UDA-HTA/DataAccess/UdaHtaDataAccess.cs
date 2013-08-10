@@ -415,7 +415,6 @@ namespace DataAccess
                     report.Measures = measurements.Where(m => m.ReportId == report.UdaId)
                                                   .OrderBy(m => m.Time).ToList();
 
-                    
                     lrep.Add(report);
                 }
 
@@ -793,8 +792,8 @@ namespace DataAccess
                     try
                     {
                         ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof (int));
-                        udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness, medicalRecord.Since,
-                                                        medicalRecord.Until, medicalRecord.Comment, patientId);
+                        udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness,
+                                                        medicalRecord.Comment, patientId);
                     }
                     catch (Exception ex)
                     {

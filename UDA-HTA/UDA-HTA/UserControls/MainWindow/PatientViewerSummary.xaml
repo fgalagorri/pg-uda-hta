@@ -73,9 +73,9 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Total</TextBlock>
-                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Día</TextBlock>
-                    <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Noche</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">24 Hs</TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
+                    <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Sueño</TextBlock>
 
                     <TextBlock Grid.Row="1" Style="{StaticResource label}">Total:</TextBlock>
                     <TextBlock Name="lblTotalMeasuresT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
@@ -115,21 +115,21 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Total</TextBlock>
-                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Día</TextBlock>
-                    <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Noche</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">24 Hs</TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
+                    <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Sueño</TextBlock>
 
-                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
                     <TextBlock Name="lblSystolicAvgT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                     <TextBlock Name="lblSystolicAvgD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
                     <TextBlock Name="lblSystolicAvgN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}" />
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
                     <TextBlock Name="lblDiastolicAvgT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                     <TextBlock Name="lblDiastolicAvgD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
                     <TextBlock Name="lblDiastolicAvgN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}" />
 
-                    <TextBlock Grid.Row="3" Style="{StaticResource label}">Tension Arterial Media:</TextBlock>
+                    <TextBlock Grid.Row="3" Style="{StaticResource label}">Presión Arterial Media:</TextBlock>
                     <TextBlock Name="lblTamAvgT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}" />
                     <TextBlock Name="lblTamAvgD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}" />
                     <TextBlock Name="lblTamAvgN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}" />
@@ -150,7 +150,7 @@
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="0.85*" />
                         <ColumnDefinition Width="1*" />
@@ -162,17 +162,17 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Día</TextBlock>
-                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Sueño</TextBlock>
 
-                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
                     <TextBlock Name="lblSystolicOverLimD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                     <TextBlock Name="lblSystolicOverLimDP" Grid.Row="1" Grid.Column="2" Style="{StaticResource extraValue}" />
                     <TextBlock Name="lblSystolicOverLimN" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
                     <TextBlock Name="lblSystolicOverLimNP" Grid.Row="1" Grid.Column="4" Style="{StaticResource extraValue}" />
                     
                     <!-- Diastólico -->
-                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
                     <TextBlock Name="lblDiastolicOverLimD"  Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                     <TextBlock Name="lblDiastolicOverLimDP" Grid.Row="2" Grid.Column="2" Style="{StaticResource extraValue}" />
                     <TextBlock Name="lblDiastolicOverLimN" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
@@ -187,7 +187,7 @@
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="0.8*" />
                         <ColumnDefinition Width="1*" />
@@ -200,10 +200,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Día</TextBlock>
-                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Sueño</TextBlock>
 
-                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
                     <TextBlock Name="lblSystolicMaxD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
@@ -215,7 +215,7 @@
                         <TextBlock Name="lblSystolicMaxNT" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
                     <TextBlock Name="lblDiastolicMaxD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
@@ -248,7 +248,7 @@
                 </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="0.85*" />
                         <ColumnDefinition Width="1*" />
@@ -261,10 +261,10 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Día</TextBlock>
-                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Noche</TextBlock>
+                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Sueño</TextBlock>
 
-                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
                     <TextBlock Name="lblSystolicMinD" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>
@@ -276,7 +276,7 @@
                         <TextBlock Name="lblSystolicMinNT" />
                     </StackPanel>
 
-                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
+                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
                     <TextBlock Name="lblDiastolicMinD" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                     <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource stackExtra}">
                         <TextBlock>Hora:</TextBlock>

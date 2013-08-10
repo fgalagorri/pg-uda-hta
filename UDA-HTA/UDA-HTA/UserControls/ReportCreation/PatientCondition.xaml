@@ -145,7 +145,7 @@
 
             <StackPanel>
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource label}">Enfermedad:</TextBlock>
+                    <TextBlock Style="{StaticResource label}">Patología:</TextBlock>
                     <TextBox Name="txtIllness" Margin="20,0" Width="150" />
 
                     <TextBlock Style="{StaticResource label}">Comentario:</TextBlock>
@@ -159,7 +159,7 @@
                 <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}"
                           IsReadOnly="True" SelectionChanged="grBackground_SelectionChanged" Height="90">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True"
+                        <DataGridTextColumn Header="Patología" Width="1*" IsReadOnly="True"
                                                 Binding="{Binding Path=Illness}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"

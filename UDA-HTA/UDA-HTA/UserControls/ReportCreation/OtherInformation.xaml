@@ -50,7 +50,7 @@
         <!-- Complicaciones -->
         <GroupBox Grid.Row="1">
             <GroupBox.Header>
-                <TextBlock Style="{StaticResource groupTitle}">Complicaciones</TextBlock>
+                <TextBlock Style="{StaticResource groupTitle}">Síntomas</TextBlock>
             </GroupBox.Header>
             <StackPanel>
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">

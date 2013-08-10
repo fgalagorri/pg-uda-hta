@@ -45,6 +45,8 @@ namespace UDA_HTA.UserControls.MainWindow
             TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
             TabReportInfo.SetReport(_report);
             ReportInfo.Visibility = Visibility.Visible;
+            TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
+            ReportEvents.Visibility = Visibility.Visible;
             TabReportSummary.SetReport(_report);
             ReportSummary.Visibility = Visibility.Visible;
             TabReportDiagnosis.SetReport(_report);
@@ -83,7 +85,7 @@ namespace UDA_HTA.UserControls.MainWindow
         }
 
 
-        private void treePatient_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
+        private void treePatient_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             int index = treePatient.Items.IndexOf(e.NewValue);
@@ -97,6 +99,8 @@ namespace UDA_HTA.UserControls.MainWindow
                 TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
                 TabReportInfo.SetReport(_report);
                 ReportInfo.Visibility = Visibility.Visible;
+                TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
+                ReportEvents.Visibility = Visibility.Visible;
                 TabReportSummary.SetReport(_report);
                 ReportSummary.Visibility = Visibility.Visible;
                 TabReportDiagnosis.SetReport(_report);
@@ -109,6 +113,7 @@ namespace UDA_HTA.UserControls.MainWindow
             {
                 _report = null;
                 ReportInfo.Visibility = Visibility.Collapsed;
+                ReportEvents.Visibility = Visibility.Collapsed;
                 ReportSummary.Visibility = Visibility.Collapsed;
                 ReportDiagnosis.Visibility = Visibility.Collapsed;
                 ReportData.Visibility = Visibility.Collapsed;
