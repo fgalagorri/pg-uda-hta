@@ -279,7 +279,7 @@
           </Key>
           <Property Name="idUser" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="login" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="password" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="password" Type="text" Nullable="false" />
           <Property Name="rol" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <Association Name="fk_Complications_Activities_DailyCarnet1">
@@ -424,7 +424,7 @@
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
         </Function>
         <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="pass_var" Type="varchar" Mode="Out" />
+          <Parameter Name="pass_var" Type="text" Mode="Out" />
           <Parameter Name="login_var" Type="varchar" Mode="In" />
         </Function>
         <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
@@ -588,7 +588,7 @@
         <Function Name="insertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="log" Type="varchar" Mode="In" />
-          <Parameter Name="p" Type="varchar" Mode="In" />
+          <Parameter Name="p" Type="text" Mode="In" />
           <Parameter Name="r" Type="varchar" Mode="In" />
         </Function>
         <Function Name="updateDiagnosis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
