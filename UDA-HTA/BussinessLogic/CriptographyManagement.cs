@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 namespace BussinessLogic
 {
-    class CriptographyManagement
+    public class CriptographyManagement
     {
         public string Sha256Encryipt(string clearPswd)
         {

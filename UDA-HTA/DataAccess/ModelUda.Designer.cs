@@ -270,6 +270,22 @@ namespace DataAccess
             }
         }
         private ObjectSet<measurement> _measurement;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<limitmeasure> limitmeasure
+        {
+            get
+            {
+                if ((_limitmeasure == null))
+                {
+                    _limitmeasure = base.CreateObjectSet<limitmeasure>("limitmeasure");
+                }
+                return _limitmeasure;
+            }
+        }
+        private ObjectSet<limitmeasure> _limitmeasure;
 
         #endregion
         #region AddTo Methods
@@ -368,6 +384,14 @@ namespace DataAccess
         public void AddTomeasurement(measurement measurement)
         {
             base.AddObject("measurement", measurement);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the limitmeasure EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTolimitmeasure(limitmeasure limitmeasure)
+        {
+            base.AddObject("limitmeasure", limitmeasure);
         }
 
         #endregion
@@ -3410,6 +3434,30 @@ namespace DataAccess
         private global::System.DateTime _creation_date;
         partial void Oncreation_dateChanging(global::System.DateTime value);
         partial void Oncreation_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String comment
+        {
+            get
+            {
+                return _comment;
+            }
+            set
+            {
+                OncommentChanging(value);
+                ReportPropertyChanging("comment");
+                _comment = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("comment");
+                OncommentChanged();
+            }
+        }
+        private global::System.String _comment;
+        partial void OncommentChanging(global::System.String value);
+        partial void OncommentChanged();
 
         #endregion
     
@@ -3438,6 +3486,301 @@ namespace DataAccess
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="udahta_dbModel", Name="limitmeasure")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class limitmeasure : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new limitmeasure object.
+        /// </summary>
+        /// <param name="idlimitmeasure">Initial value of the idlimitmeasure property.</param>
+        public static limitmeasure Createlimitmeasure(global::System.Int32 idlimitmeasure)
+        {
+            limitmeasure limitmeasure = new limitmeasure();
+            limitmeasure.idlimitmeasure = idlimitmeasure;
+            return limitmeasure;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 idlimitmeasure
+        {
+            get
+            {
+                return _idlimitmeasure;
+            }
+            set
+            {
+                if (_idlimitmeasure != value)
+                {
+                    OnidlimitmeasureChanging(value);
+                    ReportPropertyChanging("idlimitmeasure");
+                    _idlimitmeasure = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idlimitmeasure");
+                    OnidlimitmeasureChanged();
+                }
+            }
+        }
+        private global::System.Int32 _idlimitmeasure;
+        partial void OnidlimitmeasureChanging(global::System.Int32 value);
+        partial void OnidlimitmeasureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxdiasday
+        {
+            get
+            {
+                return _maxdiasday;
+            }
+            set
+            {
+                OnmaxdiasdayChanging(value);
+                ReportPropertyChanging("maxdiasday");
+                _maxdiasday = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxdiasday");
+                OnmaxdiasdayChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxdiasday;
+        partial void OnmaxdiasdayChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxdiasdayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxdiasdayavg
+        {
+            get
+            {
+                return _maxdiasdayavg;
+            }
+            set
+            {
+                OnmaxdiasdayavgChanging(value);
+                ReportPropertyChanging("maxdiasdayavg");
+                _maxdiasdayavg = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxdiasdayavg");
+                OnmaxdiasdayavgChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxdiasdayavg;
+        partial void OnmaxdiasdayavgChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxdiasdayavgChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxdiasnight
+        {
+            get
+            {
+                return _maxdiasnight;
+            }
+            set
+            {
+                OnmaxdiasnightChanging(value);
+                ReportPropertyChanging("maxdiasnight");
+                _maxdiasnight = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxdiasnight");
+                OnmaxdiasnightChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxdiasnight;
+        partial void OnmaxdiasnightChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxdiasnightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxdiasnightavg
+        {
+            get
+            {
+                return _maxdiasnightavg;
+            }
+            set
+            {
+                OnmaxdiasnightavgChanging(value);
+                ReportPropertyChanging("maxdiasnightavg");
+                _maxdiasnightavg = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxdiasnightavg");
+                OnmaxdiasnightavgChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxdiasnightavg;
+        partial void OnmaxdiasnightavgChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxdiasnightavgChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxdiastotal
+        {
+            get
+            {
+                return _maxdiastotal;
+            }
+            set
+            {
+                OnmaxdiastotalChanging(value);
+                ReportPropertyChanging("maxdiastotal");
+                _maxdiastotal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxdiastotal");
+                OnmaxdiastotalChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxdiastotal;
+        partial void OnmaxdiastotalChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxdiastotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxsysday
+        {
+            get
+            {
+                return _maxsysday;
+            }
+            set
+            {
+                OnmaxsysdayChanging(value);
+                ReportPropertyChanging("maxsysday");
+                _maxsysday = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxsysday");
+                OnmaxsysdayChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxsysday;
+        partial void OnmaxsysdayChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxsysdayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxsysdayavg
+        {
+            get
+            {
+                return _maxsysdayavg;
+            }
+            set
+            {
+                OnmaxsysdayavgChanging(value);
+                ReportPropertyChanging("maxsysdayavg");
+                _maxsysdayavg = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxsysdayavg");
+                OnmaxsysdayavgChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxsysdayavg;
+        partial void OnmaxsysdayavgChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxsysdayavgChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxsysnight
+        {
+            get
+            {
+                return _maxsysnight;
+            }
+            set
+            {
+                OnmaxsysnightChanging(value);
+                ReportPropertyChanging("maxsysnight");
+                _maxsysnight = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxsysnight");
+                OnmaxsysnightChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxsysnight;
+        partial void OnmaxsysnightChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxsysnightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxsysnightavg
+        {
+            get
+            {
+                return _maxsysnightavg;
+            }
+            set
+            {
+                OnmaxsysnightavgChanging(value);
+                ReportPropertyChanging("maxsysnightavg");
+                _maxsysnightavg = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxsysnightavg");
+                OnmaxsysnightavgChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxsysnightavg;
+        partial void OnmaxsysnightavgChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxsysnightavgChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> maxsystotal
+        {
+            get
+            {
+                return _maxsystotal;
+            }
+            set
+            {
+                OnmaxsystotalChanging(value);
+                ReportPropertyChanging("maxsystotal");
+                _maxsystotal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("maxsystotal");
+                OnmaxsystotalChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _maxsystotal;
+        partial void OnmaxsystotalChanging(Nullable<global::System.Int32> value);
+        partial void OnmaxsystotalChanged();
+
+        #endregion
+    
     }
     
     /// <summary>
@@ -3896,54 +4239,6 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> from
-        {
-            get
-            {
-                return _from;
-            }
-            set
-            {
-                OnfromChanging(value);
-                ReportPropertyChanging("from");
-                _from = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("from");
-                OnfromChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _from;
-        partial void OnfromChanging(Nullable<global::System.DateTime> value);
-        partial void OnfromChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> to
-        {
-            get
-            {
-                return _to;
-            }
-            set
-            {
-                OntoChanging(value);
-                ReportPropertyChanging("to");
-                _to = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("to");
-                OntoChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _to;
-        partial void OntoChanging(Nullable<global::System.DateTime> value);
-        partial void OntoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String comment
         {
             get
@@ -4163,6 +4458,30 @@ namespace DataAccess
         private global::System.Int32 _temporarydata_idTemporaryData;
         partial void Ontemporarydata_idTemporaryDataChanging(global::System.Int32 value);
         partial void Ontemporarydata_idTemporaryDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> time
+        {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                OntimeChanging(value);
+                ReportPropertyChanging("time");
+                _time = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("time");
+                OntimeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _time;
+        partial void OntimeChanging(Nullable<global::System.DateTime> value);
+        partial void OntimeChanged();
 
         #endregion
     

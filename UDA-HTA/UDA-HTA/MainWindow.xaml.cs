@@ -17,12 +17,12 @@ namespace UDA_HTA
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public MainWindow(User usr)
         {
             InitializeComponent();
             Container.Content = new PatientFinder(this);
         }
-
 
         #region Ribbon Buttons
 
