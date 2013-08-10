@@ -5,11 +5,11 @@ using System.Text;
 using Entities;
 using DataAccess;
 
-namespace UserManagement
+namespace BussinessLogic
 {
     public class UserManagement
     {
-        public void createUser(User usr)
+        public void CreateUser(User usr)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             try
@@ -22,14 +22,20 @@ namespace UserManagement
             }
         }
 
-        public void deleteUser(User usr)
+        public void DeleteUser(User usr)
         {
             // TODO
         }
 
-        public void editUser(User usr)
+        public void EditUser(User usr)
         {
             // TODO
+        }
+
+        public User GetUser(string userName)
+        {
+            // TODO
+            return null;
         }
 
     }

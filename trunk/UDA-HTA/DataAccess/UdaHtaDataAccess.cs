@@ -912,7 +912,7 @@ namespace DataAccess
         }
 
         //Inserta una nueva investigacion en la base de datos
-        public int insertInvestigation(string nam, DateTime createDat)
+        public int insertInvestigation(string nam, DateTime createDat, string comment)
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -923,7 +923,7 @@ namespace DataAccess
                     try
                     {
                         id = new ObjectParameter("id", typeof(int));
-                        udaContext.insertInvestigation(id, nam, createDat);
+                        udaContext.insertInvestigation(id, nam, createDat, comment);
                     }
                     catch (Exception ex)
                     {

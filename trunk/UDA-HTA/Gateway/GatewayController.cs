@@ -221,8 +221,22 @@ namespace Gateway
 
         #region Login Management
 
-        public void Login()
+        public User Login(string userName, string pswd)
         {
+            var cm = new CriptographyManagement();
+            var encryptedPswd = cm.Sha256Encryipt(pswd);
+            var um = new SessionManagement();
+            _loggedUser = um.Login(userName, encryptedPswd);
+            if (_loggedUser == null)
+            {
+                // El usuario y/o password no son correctos
+                var exception = new Exception("El nombre de usuario y/o password no son correctos");
+                throw exception;
+            }
+
+            return _loggedUser;
+             
+            /*
             _loggedUser = new User
             {
                 Login = "fgalagorri",
@@ -230,6 +244,7 @@ namespace Gateway
                 Password = "1234567890",
                 Role = ""
             };
+             */
         }
 
         #endregion

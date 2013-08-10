@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess;
+using Entities;
 
 namespace BussinessLogic
 {
@@ -10,19 +11,16 @@ namespace BussinessLogic
     {
         public string CurrentUser { get; set; }
 
-        public bool Login(string userName, string pswdHashed)
+        public User Login(string userName, string pswdHashed)
         {
+            var um = new UserManagement();
             if (verifyPassword(userName, pswdHashed))
             {
                 CurrentUser = userName;
-                return true;
+                return um.GetUser(userName);
             }
-            else
-            {
-                return false;
-            }
-
-
+ 
+            return null;
         }
 
         public void Logout()
@@ -59,7 +57,7 @@ namespace BussinessLogic
 
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,
-            //entonces login exitos, sino falla login 
+            //entonces login exitoso, sino falla login 
             if (!pswd.Equals("") && pswd.Equals(pswdHashed))
             {
                 return true;                        
