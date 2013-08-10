@@ -733,7 +733,7 @@ namespace DataAccess
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ObjectParameter pswd = new ObjectParameter("id", typeof(int));
+                ObjectParameter pswd = new ObjectParameter("pass_var", typeof(string));
                 udaContext.getPassword(pswd, userName);
 
                 return pswd.Value.ToString();
