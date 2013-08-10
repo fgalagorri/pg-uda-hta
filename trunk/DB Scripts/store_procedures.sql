@@ -231,9 +231,9 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertUser$$
-CREATE PROCEDURE insertUser(OUT id INT, IN log VARCHAR(45), IN p VARCHAR(45), IN r VARCHAR(45))
+CREATE PROCEDURE insertUser(OUT id INT, IN log VARCHAR(45), IN p TEXT, IN r VARCHAR(45))
 BEGIN
-INSERT INTO `user`( `login`, `pass`, `rol`)
+INSERT INTO `user`( `login`, `password`, `rol`)
 VALUES(log, p, r);
 SET id = (SELECT Last_Insert_Id());
 END$$
@@ -358,7 +358,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS getPassword$$
-CREATE PROCEDURE getPassword(OUT pass_var VARCHAR(45), IN login_var VARCHAR(45))
+CREATE PROCEDURE getPassword(OUT pass_var TEXT, IN login_var VARCHAR(45))
 BEGIN
 SET pass_var = (SELECT `pass` FROM `user` WHERE `login` = login_var LIMIT 1);
 END$$
@@ -391,3 +391,4 @@ TRUNCATE Report;
 TRUNCATE Measurement;
 TRUNCATE PatientUda;
 SET foreign_key_checks = 1;
+
