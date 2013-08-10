@@ -456,11 +456,24 @@
           <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="nam" Type="varchar" Mode="In" />
           <Parameter Name="createDat" Type="datetime" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
         </Function>
         <Function Name="insertInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idInvestigation" Type="int" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertLimitMeasures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="maxdiasday" Type="int" Mode="In" />
+          <Parameter Name="maxdiasdayavg" Type="int" Mode="In" />
+          <Parameter Name="maxdiasnight" Type="int" Mode="In" />
+          <Parameter Name="maxdiasnightavg" Type="int" Mode="In" />
+          <Parameter Name="maxdiastotal" Type="int" Mode="In" />
+          <Parameter Name="maxsysday" Type="int" Mode="In" />
+          <Parameter Name="maxsysdayavg" Type="int" Mode="In" />
+          <Parameter Name="maxsysnight" Type="int" Mode="In" />
+          <Parameter Name="maxsysnightavg" Type="int" Mode="In" />
+          <Parameter Name="maxsystotal" Type="int" Mode="In" />
         </Function>
         <Function Name="insertMeasurement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="dateM" Type="datetime" Mode="In" />
@@ -478,13 +491,12 @@
         <Function Name="insertMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="illness" Type="text" Mode="In" />
-          <Parameter Name="fromDate" Type="datetime" Mode="In" />
-          <Parameter Name="toDate" Type="datetime" Mode="In" />
           <Parameter Name="comm" Type="text" Mode="In" />
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
         </Function>
         <Function Name="insertMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="dose" Type="text" Mode="In" />
+          <Parameter Name="time_" Type="datetime" Mode="In" />
           <Parameter Name="idDrug" Type="int" Mode="In" />
           <Parameter Name="idTemporaryData" Type="int" Mode="In" />
         </Function>
@@ -567,6 +579,14 @@
           <Parameter Name="doctor" Type="varchar" Mode="In" />
           <Parameter Name="diagnosis" Type="text" Mode="In" />
           <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="patient_id" Type="bigint" Mode="In" />
+          <Parameter Name="illness" Type="text" Mode="In" />
+          <Parameter Name="since" Type="datetime" Mode="In" />
+          <Parameter Name="to_" Type="datetime" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
         </Function>
         <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login_var" Type="varchar" Mode="In" />
@@ -677,6 +697,7 @@
             <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="nam" Mode="In" Type="String" />
             <Parameter Name="createDat" Mode="In" Type="DateTime" />
+            <Parameter Name="comm" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insertDrugType">
           <Parameter Name="typ" Mode="In" Type="String" />
@@ -702,13 +723,12 @@
           <FunctionImport Name="insertMedicalHistory">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="illness" Mode="In" Type="String" />
-            <Parameter Name="fromDate" Mode="In" Type="DateTime" />
-            <Parameter Name="toDate" Mode="In" Type="DateTime" />
             <Parameter Name="comm" Mode="In" Type="String" />
             <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="insertMedicineDose">
             <Parameter Name="dose" Mode="In" Type="String" />
+            <Parameter Name="time_" Mode="In" Type="DateTime" />
             <Parameter Name="idDrug" Mode="In" Type="Int32" />
             <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -807,6 +827,18 @@
             <Parameter Name="since" Mode="In" Type="DateTime" />
             <Parameter Name="to_" Mode="In" Type="DateTime" />
             <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertLimitMeasures">
+            <Parameter Name="maxdiasday" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasdayavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasnight" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasnightavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiastotal" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysday" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysdayavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysnight" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysnightavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxsystotal" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1324,6 +1356,9 @@
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
+          <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
+          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
+          <FunctionImportMapping FunctionImportName="insertLimitMeasures" FunctionName="udahta_dbModel.Store.insertLimitMeasures" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

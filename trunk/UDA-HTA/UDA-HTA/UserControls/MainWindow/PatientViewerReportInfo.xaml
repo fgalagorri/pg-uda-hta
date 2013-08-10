@@ -107,13 +107,13 @@
                 <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Medición 3</TextBlock>
                 <TextBlock Grid.Column="4" Style="{StaticResource columnTitle}">Promedio</TextBlock>
 
-                <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
+                <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
                 <TextBlock Name="lblInitSystolic1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                 <TextBlock Name="lblInitSystolic2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}" />
                 <TextBlock Name="lblInitSystolic3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
                 <TextBlock Name="lblInitSystolicP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}" />
 
-                <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
+                <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
                 <TextBlock Name="lblInitDiastolic1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                 <TextBlock Name="lblInitDiastolic2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}" />
                 <TextBlock Name="lblInitDiastolic3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
@@ -152,13 +152,13 @@
                 <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Medición 3</TextBlock>
                 <TextBlock Grid.Column="4" Style="{StaticResource columnTitle}">Promedio</TextBlock>
 
-                <TextBlock Grid.Row="1" Style="{StaticResource label}">Sistólico:</TextBlock>
+                <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
                 <TextBlock Name="lblFinalSystolic1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
                 <TextBlock Name="lblFinalSystolic2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}" />
                 <TextBlock Name="lblFinalSystolic3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
                 <TextBlock Name="lblFinalSystolicP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}" />
 
-                <TextBlock Grid.Row="2" Style="{StaticResource label}">Diastólico:</TextBlock>
+                <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
                 <TextBlock Name="lblFinalDiastolic1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
                 <TextBlock Name="lblFinalDiastolic2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}" />
                 <TextBlock Name="lblFinalDiastolic3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />

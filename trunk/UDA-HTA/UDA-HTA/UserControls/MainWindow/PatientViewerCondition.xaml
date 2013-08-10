@@ -122,7 +122,7 @@
                 <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False"
                             ItemsSource="{Binding}" IsReadOnly="True" Height="100">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Enfermedad" Width="1*" IsReadOnly="True"
+                        <DataGridTextColumn Header="Patología" Width="1*" IsReadOnly="True"
                                             Binding="{Binding Path=Enfermedad}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"

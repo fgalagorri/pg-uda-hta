@@ -787,7 +787,8 @@ namespace DataAccess
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="nam">No Metadata Documentation available.</param>
         /// <param name="createDat">No Metadata Documentation available.</param>
-        public int insertInvestigation(ObjectParameter id, global::System.String nam, Nullable<global::System.DateTime> createDat)
+        /// <param name="comm">No Metadata Documentation available.</param>
+        public int insertInvestigation(ObjectParameter id, global::System.String nam, Nullable<global::System.DateTime> createDat, global::System.String comm)
         {
             ObjectParameter namParameter;
             if (nam != null)
@@ -809,7 +810,17 @@ namespace DataAccess
                 createDatParameter = new ObjectParameter("createDat", typeof(global::System.DateTime));
             }
     
-            return base.ExecuteFunction("insertInvestigation", id, namParameter, createDatParameter);
+            ObjectParameter commParameter;
+            if (comm != null)
+            {
+                commParameter = new ObjectParameter("comm", comm);
+            }
+            else
+            {
+                commParameter = new ObjectParameter("comm", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertInvestigation", id, namParameter, createDatParameter, commParameter);
         }
     
         /// <summary>
@@ -1006,11 +1017,9 @@ namespace DataAccess
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="illness">No Metadata Documentation available.</param>
-        /// <param name="fromDate">No Metadata Documentation available.</param>
-        /// <param name="toDate">No Metadata Documentation available.</param>
         /// <param name="comm">No Metadata Documentation available.</param>
         /// <param name="idPatientUda">No Metadata Documentation available.</param>
-        public int insertMedicalHistory(ObjectParameter id, global::System.String illness, Nullable<global::System.DateTime> fromDate, Nullable<global::System.DateTime> toDate, global::System.String comm, Nullable<global::System.Int64> idPatientUda)
+        public int insertMedicalHistory(ObjectParameter id, global::System.String illness, global::System.String comm, Nullable<global::System.Int64> idPatientUda)
         {
             ObjectParameter illnessParameter;
             if (illness != null)
@@ -1020,26 +1029,6 @@ namespace DataAccess
             else
             {
                 illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
-            }
-    
-            ObjectParameter fromDateParameter;
-            if (fromDate.HasValue)
-            {
-                fromDateParameter = new ObjectParameter("fromDate", fromDate);
-            }
-            else
-            {
-                fromDateParameter = new ObjectParameter("fromDate", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter toDateParameter;
-            if (toDate.HasValue)
-            {
-                toDateParameter = new ObjectParameter("toDate", toDate);
-            }
-            else
-            {
-                toDateParameter = new ObjectParameter("toDate", typeof(global::System.DateTime));
             }
     
             ObjectParameter commParameter;
@@ -1062,16 +1051,17 @@ namespace DataAccess
                 idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertMedicalHistory", id, illnessParameter, fromDateParameter, toDateParameter, commParameter, idPatientUdaParameter);
+            return base.ExecuteFunction("insertMedicalHistory", id, illnessParameter, commParameter, idPatientUdaParameter);
         }
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="dose">No Metadata Documentation available.</param>
+        /// <param name="time_">No Metadata Documentation available.</param>
         /// <param name="idDrug">No Metadata Documentation available.</param>
         /// <param name="idTemporaryData">No Metadata Documentation available.</param>
-        public int insertMedicineDose(global::System.String dose, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
+        public int insertMedicineDose(global::System.String dose, Nullable<global::System.DateTime> time_, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
         {
             ObjectParameter doseParameter;
             if (dose != null)
@@ -1081,6 +1071,16 @@ namespace DataAccess
             else
             {
                 doseParameter = new ObjectParameter("dose", typeof(global::System.String));
+            }
+    
+            ObjectParameter time_Parameter;
+            if (time_.HasValue)
+            {
+                time_Parameter = new ObjectParameter("time_", time_);
+            }
+            else
+            {
+                time_Parameter = new ObjectParameter("time_", typeof(global::System.DateTime));
             }
     
             ObjectParameter idDrugParameter;
@@ -1103,7 +1103,7 @@ namespace DataAccess
                 idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("insertMedicineDose", doseParameter, idDrugParameter, idTemporaryDataParameter);
+            return base.ExecuteFunction("insertMedicineDose", doseParameter, time_Parameter, idDrugParameter, idTemporaryDataParameter);
         }
     
         /// <summary>
@@ -2008,6 +2008,124 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("updateMedicalRecord", idParameter, patient_idParameter, illnessParameter, sinceParameter, to_Parameter, comment_Parameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="maxdiasday">No Metadata Documentation available.</param>
+        /// <param name="maxdiasdayavg">No Metadata Documentation available.</param>
+        /// <param name="maxdiasnight">No Metadata Documentation available.</param>
+        /// <param name="maxdiasnightavg">No Metadata Documentation available.</param>
+        /// <param name="maxdiastotal">No Metadata Documentation available.</param>
+        /// <param name="maxsysday">No Metadata Documentation available.</param>
+        /// <param name="maxsysdayavg">No Metadata Documentation available.</param>
+        /// <param name="maxsysnight">No Metadata Documentation available.</param>
+        /// <param name="maxsysnightavg">No Metadata Documentation available.</param>
+        /// <param name="maxsystotal">No Metadata Documentation available.</param>
+        public int insertLimitMeasures(Nullable<global::System.Int32> maxdiasday, Nullable<global::System.Int32> maxdiasdayavg, Nullable<global::System.Int32> maxdiasnight, Nullable<global::System.Int32> maxdiasnightavg, Nullable<global::System.Int32> maxdiastotal, Nullable<global::System.Int32> maxsysday, Nullable<global::System.Int32> maxsysdayavg, Nullable<global::System.Int32> maxsysnight, Nullable<global::System.Int32> maxsysnightavg, Nullable<global::System.Int32> maxsystotal)
+        {
+            ObjectParameter maxdiasdayParameter;
+            if (maxdiasday.HasValue)
+            {
+                maxdiasdayParameter = new ObjectParameter("maxdiasday", maxdiasday);
+            }
+            else
+            {
+                maxdiasdayParameter = new ObjectParameter("maxdiasday", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxdiasdayavgParameter;
+            if (maxdiasdayavg.HasValue)
+            {
+                maxdiasdayavgParameter = new ObjectParameter("maxdiasdayavg", maxdiasdayavg);
+            }
+            else
+            {
+                maxdiasdayavgParameter = new ObjectParameter("maxdiasdayavg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxdiasnightParameter;
+            if (maxdiasnight.HasValue)
+            {
+                maxdiasnightParameter = new ObjectParameter("maxdiasnight", maxdiasnight);
+            }
+            else
+            {
+                maxdiasnightParameter = new ObjectParameter("maxdiasnight", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxdiasnightavgParameter;
+            if (maxdiasnightavg.HasValue)
+            {
+                maxdiasnightavgParameter = new ObjectParameter("maxdiasnightavg", maxdiasnightavg);
+            }
+            else
+            {
+                maxdiasnightavgParameter = new ObjectParameter("maxdiasnightavg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxdiastotalParameter;
+            if (maxdiastotal.HasValue)
+            {
+                maxdiastotalParameter = new ObjectParameter("maxdiastotal", maxdiastotal);
+            }
+            else
+            {
+                maxdiastotalParameter = new ObjectParameter("maxdiastotal", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxsysdayParameter;
+            if (maxsysday.HasValue)
+            {
+                maxsysdayParameter = new ObjectParameter("maxsysday", maxsysday);
+            }
+            else
+            {
+                maxsysdayParameter = new ObjectParameter("maxsysday", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxsysdayavgParameter;
+            if (maxsysdayavg.HasValue)
+            {
+                maxsysdayavgParameter = new ObjectParameter("maxsysdayavg", maxsysdayavg);
+            }
+            else
+            {
+                maxsysdayavgParameter = new ObjectParameter("maxsysdayavg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxsysnightParameter;
+            if (maxsysnight.HasValue)
+            {
+                maxsysnightParameter = new ObjectParameter("maxsysnight", maxsysnight);
+            }
+            else
+            {
+                maxsysnightParameter = new ObjectParameter("maxsysnight", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxsysnightavgParameter;
+            if (maxsysnightavg.HasValue)
+            {
+                maxsysnightavgParameter = new ObjectParameter("maxsysnightavg", maxsysnightavg);
+            }
+            else
+            {
+                maxsysnightavgParameter = new ObjectParameter("maxsysnightavg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter maxsystotalParameter;
+            if (maxsystotal.HasValue)
+            {
+                maxsystotalParameter = new ObjectParameter("maxsystotal", maxsystotal);
+            }
+            else
+            {
+                maxsystotalParameter = new ObjectParameter("maxsystotal", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("insertLimitMeasures", maxdiasdayParameter, maxdiasdayavgParameter, maxdiasnightParameter, maxdiasnightavgParameter, maxdiastotalParameter, maxsysdayParameter, maxsysdayavgParameter, maxsysnightParameter, maxsysnightavgParameter, maxsystotalParameter);
         }
 
         #endregion

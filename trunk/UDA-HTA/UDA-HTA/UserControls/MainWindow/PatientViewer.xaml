@@ -39,10 +39,16 @@
                     <mainWindow:PatientViewerCondition x:Name="TabCondition" />
                 </ContentControl>
             </TabItem>
-
+            
             <TabItem Name="ReportInfo"  Header="Info. Gral." Visibility="Collapsed">
                 <ContentControl>
                     <mainWindow:PatientViewerReportInfo x:Name="TabReportInfo" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportEvents"  Header="Eventos" Visibility="Collapsed">
+                <ContentControl>
+                    <mainWindow:PatientViewerOtherInfo x:Name="TabEvents" />
                 </ContentControl>
             </TabItem>
 
