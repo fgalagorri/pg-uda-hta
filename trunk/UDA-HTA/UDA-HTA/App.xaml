@@ -1,7 +1,7 @@
 ﻿<Application x:Class="UDA_HTA.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml" xml:lang="es-UY">
+             StartupUri="Login.xaml" xml:lang="es-UY">
     <Application.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />

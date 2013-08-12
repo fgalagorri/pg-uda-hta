@@ -14,7 +14,8 @@ DROP TABLE IF EXISTS `udahta_db`.`user` ;
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`user` (
   `idUser` INT NOT NULL AUTO_INCREMENT ,
   `login` VARCHAR(45) NOT NULL ,
-  `password` VARCHAR(45) NOT NULL ,
+  `password` TEXT NOT NULL ,
+  `name` VARCHAR(45) NOT NULL ,
   `rol` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`idUser`) ,
   UNIQUE INDEX `login_UNIQUE` (`login` ASC) )

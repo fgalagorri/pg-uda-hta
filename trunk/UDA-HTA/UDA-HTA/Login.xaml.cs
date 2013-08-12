@@ -39,6 +39,10 @@ namespace UDA_HTA
             {
                 MessageBoxResult result = MessageBox.Show(exception.Message, "Error");
             }
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
         }
     }
 }

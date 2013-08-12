@@ -9,18 +9,11 @@ namespace BussinessLogic
 {
     public class SessionManagement
     {
-        public string CurrentUser { get; set; }
 
         public User Login(string userName, string pswdHashed)
         {
-            var um = new UserManagement();
-            if (verifyPassword(userName, pswdHashed))
-            {
-                CurrentUser = userName;
-                return um.GetUser(userName);
-            }
- 
-            return null;
+            User u = verifyPassword(userName, pswdHashed);
+            return u;
         }
 
         public void Logout()
@@ -31,40 +24,31 @@ namespace BussinessLogic
         public bool ChangePassword(string userName, string currentPswd, string newPswd)
         {
             // Verificar que el pswd actual es correcto
-            if ( verifyPassword(userName,currentPswd) )
+            if (verifyPassword(userName, currentPswd) != null)
             {
                 // guardar nuevo paswd en la base
                 UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
-                try
-                {
-                    dataAccess.UpdatePassword(userName, newPswd);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                dataAccess.UpdatePassword(userName, newPswd);
+                return true;
             }
             return false;
         }
 
-        private bool verifyPassword(string userName, string pswdHashed)
+        // Devuelve el usuario si el Pwd es correcto
+        private User verifyPassword(string userName, string pswdHashed)
         {
             // Verificar que el nombre de usuario es correcto
             UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
-
-            string pswd = dataAccess.GetPassword(userName);
+            User u = dataAccess.GetUser(userName);
 
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,
             //entonces login exitoso, sino falla login 
-            if (!pswd.Equals("") && pswd.Equals(pswdHashed))
-            {
-                return true;                        
-            }
+            if (!u.Password.Equals("") && u.Password.Equals(pswdHashed))
+                return u;
 
-            return false;
-            
+            return null;
+
         }
 
     }

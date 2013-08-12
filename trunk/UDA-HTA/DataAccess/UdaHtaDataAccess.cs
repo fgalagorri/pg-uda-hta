@@ -252,12 +252,12 @@ namespace DataAccess
             using (udaContext = new udahta_dbEntities())
             {
                 ICollection<PatientReport> udaQuery = udaContext.report.Select(r => new PatientReport()
-                {
-                    ReportDevice = r.idDevice,
-                    ReportId = r.deviceReportId
-                }).ToList();
+                    {
+                        ReportDevice = r.idDevice,
+                        ReportId = r.deviceReportId
+                    }).ToList();
 
-                return udaQuery;                
+                return udaQuery;
             }
         }
 
@@ -321,26 +321,26 @@ namespace DataAccess
                 foreach (var rep in query)
                 {
                     var report = new Report
-                    {
-                        BeginDate = rep.begin_date,
-                        DiastolicDayAvg = rep.day_avg_dias,
-                        SystolicDayAvg = rep.day_avg_sys,
-                        DiastolicDayMax = rep.day_max_dias,
-                        SystolicDayMax = rep.day_max_sys,
-                        DeviceReportId = rep.deviceReportId,
-                        Diagnosis = rep.diagnosis,
-                        EndDate = rep.end_date,
-                        DeviceId = rep.idDevice,
-                        DiastolicNightAvg = rep.night_avg_dias,
-                        SystolicNightAvg = rep.night_avg_sys,
-                        DiastolicNightMax = rep.night_max_dias,
-                        SystolicNightMax = rep.night_max_sys,
-                        RequestDoctor = rep.request_doctor,
-                        RequestDoctorSpeciality = rep.specialty,
-                        DiastolicTotalAvg = rep.total_avg_dias,
-                        SystolicTotalAvg = rep.total_avg_sys,
-                        UdaId = rep.idReport
-                    };
+                        {
+                            BeginDate = rep.begin_date,
+                            DiastolicDayAvg = rep.day_avg_dias,
+                            SystolicDayAvg = rep.day_avg_sys,
+                            DiastolicDayMax = rep.day_max_dias,
+                            SystolicDayMax = rep.day_max_sys,
+                            DeviceReportId = rep.deviceReportId,
+                            Diagnosis = rep.diagnosis,
+                            EndDate = rep.end_date,
+                            DeviceId = rep.idDevice,
+                            DiastolicNightAvg = rep.night_avg_dias,
+                            SystolicNightAvg = rep.night_avg_sys,
+                            DiastolicNightMax = rep.night_max_dias,
+                            SystolicNightMax = rep.night_max_sys,
+                            RequestDoctor = rep.request_doctor,
+                            RequestDoctorSpeciality = rep.specialty,
+                            DiastolicTotalAvg = rep.total_avg_dias,
+                            SystolicTotalAvg = rep.total_avg_sys,
+                            UdaId = rep.idReport
+                        };
 
                     //DailyCarnet
                     report.Carnet.InitSystolic1 = rep.dailycarnet.init_sys1;
@@ -393,7 +393,7 @@ namespace DataAccess
                                                                 rep.dailycarnet.begin_sleep_time.Value.Hour,
                                                                 rep.dailycarnet.begin_sleep_time.Value.Minute,
                                                                 rep.dailycarnet.begin_sleep_time.Value.Second
-                                                                );
+                        );
 
                     report.Carnet.Technician.Name = rep.dailycarnet.technical;
 
@@ -641,7 +641,7 @@ namespace DataAccess
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof(long));
+                ObjectParameter lastIdDailyReport = new ObjectParameter("id", typeof (long));
                 udaContext.insertDailyCarnet(lastIdDailyReport, dCarnet.Technician.Name, dCarnet.InitDiastolic1,
                                              dCarnet.InitDiastolic2, dCarnet.InitDiastolic3,
                                              dCarnet.InitHeartRate1, dCarnet.InitHeartRate2, dCarnet.InitHeartRate3,
@@ -652,22 +652,24 @@ namespace DataAccess
                                              dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
                                              dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3);
 
-                ObjectParameter lastIdCA = new ObjectParameter("id", typeof(int));
+                ObjectParameter lastIdCA = new ObjectParameter("id", typeof (int));
                 foreach (var compl in dCarnet.Complications)
                 {
-                    udaContext.insertComplications_Activities(lastIdCA, compl.Time.Hour, compl.Time.Minute, "COMPLICACION",
-                                                              (long)lastIdDailyReport.Value, compl.Description);
+                    udaContext.insertComplications_Activities(lastIdCA, compl.Time.Hour, compl.Time.Minute,
+                                                              "COMPLICACION",
+                                                              (long) lastIdDailyReport.Value, compl.Description);
                 }
 
-                ObjectParameter lastIdEff = new ObjectParameter("id", typeof(int));
+                ObjectParameter lastIdEff = new ObjectParameter("id", typeof (int));
                 foreach (var effort in dCarnet.Efforts)
                 {
-                    udaContext.insertComplications_Activities(lastIdEff, effort.Time.Hour, effort.Time.Minute, "ACTIVIDAD",
-                                                              (long)lastIdDailyReport.Value, effort.Description);
+                    udaContext.insertComplications_Activities(lastIdEff, effort.Time.Hour, effort.Time.Minute,
+                                                              "ACTIVIDAD",
+                                                              (long) lastIdDailyReport.Value, effort.Description);
                 }
 
-                return (long)lastIdDailyReport.Value;
-                
+                return (long) lastIdDailyReport.Value;
+
             }
         }
 
@@ -695,9 +697,9 @@ namespace DataAccess
                                         Smoker = td.smoker,
                                         Weight = td.weight
                                     }).FirstOrDefault();
-                
+
                 //if(tempData != null)
-                    // AGREGAR LA LISTA DE MEDICAMENTOS
+                // AGREGAR LA LISTA DE MEDICAMENTOS
 
                 return tempData;
             }
@@ -707,10 +709,13 @@ namespace DataAccess
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ObjectParameter lastIdTempData = new ObjectParameter("id", typeof(int));
-                udaContext.insertTemporaryData(lastIdTempData, temporaryData.Weight, temporaryData.Height, temporaryData.Age,
-                                               temporaryData.BodyMassIndex, temporaryData.Smoker, temporaryData.Dyslipidemia,
-                                               temporaryData.Diabetic, temporaryData.Hypertensive, temporaryData.FatPercentage,
+                ObjectParameter lastIdTempData = new ObjectParameter("id", typeof (int));
+                udaContext.insertTemporaryData(lastIdTempData, temporaryData.Weight, temporaryData.Height,
+                                               temporaryData.Age,
+                                               temporaryData.BodyMassIndex, temporaryData.Smoker,
+                                               temporaryData.Dyslipidemia,
+                                               temporaryData.Diabetic, temporaryData.Hypertensive,
+                                               temporaryData.FatPercentage,
                                                temporaryData.MusclePercentage, temporaryData.Kcal);
                 // TODO MEDICINE 
                 /*foreach (var med in temporaryData.Medication)
@@ -718,7 +723,7 @@ namespace DataAccess
                     insertMedicineDose(med, temporaryData.IdTemporaryData);
                 }*/
 
-                return (int?)lastIdTempData.Value;                    
+                return (int?) lastIdTempData.Value;
             }
         }
 
@@ -726,6 +731,24 @@ namespace DataAccess
         {
             //udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Drug.Id, idTemporaryData);
         }
+
+
+
+        public User GetUser(string userName)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                return udaContext.user
+                                 .Where(u => u.login.Equals(userName))
+                                 .Select(u => new User
+                                     {
+                                         Login = u.login,
+                                         Name = u.name,
+                                         Password = u.password,
+                                         Role = u.rol
+                                     }).FirstOrDefault();
+            }
+        } 
 
         //Verifica que existe el nombre de usuario 'userName' en la base de datos y devuelve el password,
         //en caso de no existr devuelvo null
@@ -739,7 +762,7 @@ namespace DataAccess
                 return pswd.Value.ToString();
             }
         }
-        
+
         //Actualiza la contrasena del usuario userName
         public void UpdatePassword(string userName, string newPswd)
         {
@@ -747,14 +770,7 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.updatePassword(userName, newPswd);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    udaContext.updatePassword(userName, newPswd);
                 }
 
                 scope.Complete();
@@ -768,14 +784,7 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.insertPatientUda(id);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    udaContext.insertPatientUda(id);
                 }
 
                 scope.Complete();
@@ -789,22 +798,15 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof (int));
-                        udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness,
-                                                        medicalRecord.Comment, patientId);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof (int));
+                    udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness,
+                                                    medicalRecord.Comment, patientId);
                 }
 
                 scope.Complete();
             }
         }
-        
+
         //Inserta un nuevo usuario en la base de datos
         public int InsertUser(string login, string pass, string rol)
         {
@@ -813,22 +815,15 @@ namespace DataAccess
                 ObjectParameter lastIdUser;
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        lastIdUser = new ObjectParameter("id", typeof (long));
-                        udaContext.insertUser(lastIdUser, login, pass, rol);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    lastIdUser = new ObjectParameter("id", typeof (long));
+                    udaContext.insertUser(lastIdUser, login, pass, rol);
                 }
 
                 scope.Complete();
-                return (int)lastIdUser.Value;
+                return (int) lastIdUser.Value;
 
             }
-            
+
         }
 
         //Inserta un nuevo tipo de droga en la base de datos
@@ -838,16 +833,9 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.insertDrugType(type);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    udaContext.insertDrugType(type);
                 }
-                
+
                 scope.Complete();
             }
         }
@@ -859,17 +847,9 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.insertDrug(name, idDrugTyp);
-                    }
-                    catch (Exception ex)
-                    {
-                        
-                        throw ex;
-                    }
+                    udaContext.insertDrug(name, idDrugTyp);
                 }
-                
+
                 scope.Complete();
             }
         }
@@ -880,16 +860,9 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness, medicalRecord.Since,
-                                                       medicalRecord.Until, medicalRecord.Comment);
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness,
+                                                   medicalRecord.Since,
+                                                   medicalRecord.Until, medicalRecord.Comment);
                 }
 
                 scope.Complete();
@@ -899,6 +872,7 @@ namespace DataAccess
         /*
          * INVESTIGACIONES
          */
+
         #region Investigaciones
 
         //Listar investigaciones 
@@ -906,7 +880,9 @@ namespace DataAccess
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ICollection<Investigation> list = udaContext.investigation.Select(i => new Investigation(i.idInvestigation, i.name, i.creation_date)).ToList();
+                ICollection<Investigation> list =
+                    udaContext.investigation.Select(i => new Investigation(i.idInvestigation, i.name, i.creation_date))
+                              .ToList();
                 return list;
             }
         }
@@ -920,15 +896,8 @@ namespace DataAccess
 
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        id = new ObjectParameter("id", typeof(int));
-                        udaContext.insertInvestigation(id, nam, createDat, comment);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    id = new ObjectParameter("id", typeof (int));
+                    udaContext.insertInvestigation(id, nam, createDat, comment);
                 }
 
                 scope.Complete();
@@ -942,15 +911,7 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.insertInvestigationHasReport(idInvestigation, idReport, idPatient);
-                    }
-                    catch (Exception ex)
-                    {
-                        
-                        throw ex;
-                    }
+                    udaContext.insertInvestigationHasReport(idInvestigation, idReport, idPatient);
                 }
 
                 scope.Complete();
@@ -963,17 +924,9 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    try
-                    {
-                        udaContext.deleteInvestigationHasReport(idInvestigation, idReport, idPatient);
-                    }
-                    catch (Exception ex)
-                    {
-                        
-                        throw ex;
-                    }
+                    udaContext.deleteInvestigationHasReport(idInvestigation, idReport, idPatient);
                 }
-                
+
                 scope.Complete();
             }
         }

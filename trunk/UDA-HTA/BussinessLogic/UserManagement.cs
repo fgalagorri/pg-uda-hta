@@ -12,14 +12,7 @@ namespace BussinessLogic
         public void CreateUser(User usr)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            try
-            {
-                uda.InsertUser(usr.Login, usr.Password, usr.Role);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            uda.InsertUser(usr.Login, usr.Password, usr.Role);
         }
 
         public void DeleteUser(User usr)
@@ -34,8 +27,8 @@ namespace BussinessLogic
 
         public User GetUser(string userName)
         {
-            // TODO
-            return null;
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            return uda.GetUser(userName);
         }
 
     }
