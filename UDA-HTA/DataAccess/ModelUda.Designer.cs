@@ -6432,13 +6432,15 @@ namespace DataAccess
         /// <param name="login">Initial value of the login property.</param>
         /// <param name="password">Initial value of the password property.</param>
         /// <param name="rol">Initial value of the rol property.</param>
-        public static user Createuser(global::System.Int32 idUser, global::System.String login, global::System.String password, global::System.String rol)
+        /// <param name="name">Initial value of the name property.</param>
+        public static user Createuser(global::System.Int32 idUser, global::System.String login, global::System.String password, global::System.String rol, global::System.String name)
         {
             user user = new user();
             user.idUser = idUser;
             user.login = login;
             user.password = password;
             user.rol = rol;
+            user.name = name;
             return user;
         }
 
@@ -6543,6 +6545,30 @@ namespace DataAccess
         private global::System.String _rol;
         partial void OnrolChanging(global::System.String value);
         partial void OnrolChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
 
         #endregion
     

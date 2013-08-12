@@ -225,8 +225,8 @@ namespace Gateway
         {
             var cm = new CriptographyManagement();
             var encryptedPswd = cm.Sha256Encryipt(pswd);
-            var um = new SessionManagement();
-            _loggedUser = um.Login(userName, encryptedPswd);
+            var sm = new SessionManagement();
+            _loggedUser = sm.Login(userName, encryptedPswd);
             if (_loggedUser == null)
             {
                 // El usuario y/o password no son correctos
@@ -235,16 +235,6 @@ namespace Gateway
             }
 
             return _loggedUser;
-             
-            /*
-            _loggedUser = new User
-            {
-                Login = "fgalagorri",
-                Name = "Federico Galagorri",
-                Password = "1234567890",
-                Role = ""
-            };
-             */
         }
 
         #endregion
