@@ -9,20 +9,23 @@ namespace BussinessLogic
 {
     public class UserManagement
     {
+        //El password del usuario debe estar encriptado
         public void CreateUser(User usr)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.InsertUser(usr.Login, usr.Password, usr.Role);
+            uda.InsertUser(usr.Login, usr.Password, usr.Role, usr.Name);
         }
 
         public void DeleteUser(User usr)
         {
-            // TODO
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.DeleteUSer(usr);
         }
 
         public void EditUser(User usr)
         {
-            // TODO
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.EditUSer(usr);
         }
 
         public User GetUser(string userName)

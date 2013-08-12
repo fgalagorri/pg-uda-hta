@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -281,7 +281,7 @@
           <Property Name="login" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="password" Type="text" Nullable="false" />
           <Property Name="rol" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="name" Type="text" />
         </EntityType>
         <Association Name="fk_Complications_Activities_DailyCarnet1">
           <End Role="dailycarnet" Type="udahta_dbModel.Store.dailycarnet" Multiplicity="1" />
@@ -423,6 +423,9 @@
           <Parameter Name="idInvestigation" Type="int" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="login" Type="varchar" Mode="In" />
         </Function>
         <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="pass_var" Type="text" Mode="Out" />
@@ -591,6 +594,7 @@
           <Parameter Name="log" Type="varchar" Mode="In" />
           <Parameter Name="p" Type="text" Mode="In" />
           <Parameter Name="r" Type="varchar" Mode="In" />
+          <Parameter Name="nam" Type="text" Mode="In" />
         </Function>
         <Function Name="updateDiagnosis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="reportId" Type="bigint" Mode="In" />
@@ -609,6 +613,11 @@
         <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login_var" Type="varchar" Mode="In" />
           <Parameter Name="pass_var" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="login_" Type="varchar" Mode="In" />
+          <Parameter Name="name_" Type="text" Mode="In" />
+          <Parameter Name="rol" Type="varchar" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -667,10 +676,15 @@
             <End Role="report" EntitySet="report" />
             <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
+          <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
           <FunctionImport Name="deleteInvestigationHasReport">
             <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
             <Parameter Name="idReport" Mode="In" Type="Int64" />
             <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="getPassword">
+            <Parameter Name="pass_var" Mode="Out" Type="String" />
+            <Parameter Name="login_var" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insertComplications_Activities">
             <Parameter Name="id" Mode="Out" Type="Int64" />
@@ -724,6 +738,18 @@
             <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
             <Parameter Name="idReport" Mode="In" Type="Int64" />
             <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertLimitMeasures">
+            <Parameter Name="maxdiasday" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasdayavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasnight" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasnightavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiastotal" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysday" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysdayavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysnight" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysnightavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxsystotal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertMeasurement">
             <Parameter Name="dateM" Mode="In" Type="DateTime" />
@@ -818,20 +844,6 @@
             <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
             <Parameter Name="kcal" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="updatePassword">
-            <Parameter Name="login_var" Mode="In" Type="String" />
-            <Parameter Name="pass_var" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="insertUser">
-            <Parameter Name="id" Mode="Out" Type="Int32" />
-            <Parameter Name="log" Mode="In" Type="String" />
-            <Parameter Name="p" Mode="In" Type="String" />
-            <Parameter Name="r" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="getPassword">
-            <Parameter Name="pass_var" Mode="Out" Type="String" />
-            <Parameter Name="login_var" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="updateDiagnosis">
             <Parameter Name="reportId" Mode="In" Type="Int64" />
             <Parameter Name="doctor" Mode="In" Type="String" />
@@ -846,18 +858,24 @@
             <Parameter Name="to_" Mode="In" Type="DateTime" />
             <Parameter Name="comment_" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
-          <FunctionImport Name="insertLimitMeasures">
-            <Parameter Name="maxdiasday" Mode="In" Type="Int32" />
-            <Parameter Name="maxdiasdayavg" Mode="In" Type="Int32" />
-            <Parameter Name="maxdiasnight" Mode="In" Type="Int32" />
-            <Parameter Name="maxdiasnightavg" Mode="In" Type="Int32" />
-            <Parameter Name="maxdiastotal" Mode="In" Type="Int32" />
-            <Parameter Name="maxsysday" Mode="In" Type="Int32" />
-            <Parameter Name="maxsysdayavg" Mode="In" Type="Int32" />
-            <Parameter Name="maxsysnight" Mode="In" Type="Int32" />
-            <Parameter Name="maxsysnightavg" Mode="In" Type="Int32" />
-            <Parameter Name="maxsystotal" Mode="In" Type="Int32" />
+          <FunctionImport Name="updatePassword">
+            <Parameter Name="login_var" Mode="In" Type="String" />
+            <Parameter Name="pass_var" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="deleteUser">
+          <Parameter Name="login" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateUser">
+            <Parameter Name="login_" Mode="In" Type="String" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="rol" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertUser">
+            <Parameter Name="id" Mode="Out" Type="Int32" />
+            <Parameter Name="log" Mode="In" Type="String" />
+            <Parameter Name="p" Mode="In" Type="String" />
+            <Parameter Name="r" Mode="In" Type="String" />
+            <Parameter Name="nam" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1289,7 +1307,7 @@
             <ScalarProperty Name="kcal" ColumnName="kcal" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="user"><EntityTypeMapping TypeName="udahta_dbModel.user"><MappingFragment StoreEntitySet="user">
-            <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
             <ScalarProperty Name="login" ColumnName="login" />
             <ScalarProperty Name="password" ColumnName="password" />
@@ -1377,22 +1395,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
-          <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
-          <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
-          <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
-          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
-          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
-          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
-          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
-          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
-          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
-          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
-          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
-          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
-          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
-          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
-          <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
           <EntitySetMapping Name="limitmeasure">
             <EntityTypeMapping TypeName="udahta_dbModel.limitmeasure">
               <MappingFragment StoreEntitySet="limitmeasure">
@@ -1410,7 +1412,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
+          <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
+          <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
+          <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
+          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
+          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
+          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="insertLimitMeasures" FunctionName="udahta_dbModel.Store.insertLimitMeasures" />
+          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
+          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
+          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
+          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
+          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
+          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
+          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
+          <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
+          <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
+          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1441,7 +1463,7 @@
         <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="1.5" PointY="12.875" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.5" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="11.125" Height="3.7109993489583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="1.9802864583333331" IsExpanded="true" />
         <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="5.9324446614583337" />
           <ConnectorPoint PointX="3" PointY="5.9324446614583337" />

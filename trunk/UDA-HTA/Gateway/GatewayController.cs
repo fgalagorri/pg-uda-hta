@@ -239,5 +239,23 @@ namespace Gateway
 
         #endregion
 
+        #region User Management
+
+        public void CreateUser(string userName, string login, string role, string password)
+        {
+            var um = new UserManagement();
+            User usr = new User();
+            usr.Login = login;
+            usr.Name = userName;
+            usr.Role = role;
+
+            var cm = new CriptographyManagement();
+            var encryptedPswd = cm.Sha256Encryipt(password);
+            usr.Password = encryptedPswd;
+            
+            um.CreateUser(usr);
+        }
+        #endregion
+
     }
 }
