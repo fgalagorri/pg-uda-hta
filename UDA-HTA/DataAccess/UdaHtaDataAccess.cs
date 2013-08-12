@@ -743,7 +743,7 @@ namespace DataAccess
                                  .Select(u => new User
                                      {
                                          Login = u.login,
-                                         Name = u.name,
+//                                         Name = u.name,
                                          Password = u.password,
                                          Role = u.rol
                                      }).FirstOrDefault();
@@ -808,7 +808,7 @@ namespace DataAccess
         }
 
         //Inserta un nuevo usuario en la base de datos
-        public int InsertUser(string login, string pass, string rol)
+        public int InsertUser(string login, string pass, string rol, string name)
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -816,7 +816,7 @@ namespace DataAccess
                 using (udaContext = new udahta_dbEntities())
                 {
                     lastIdUser = new ObjectParameter("id", typeof (long));
-                    udaContext.insertUser(lastIdUser, login, pass, rol);
+                    udaContext.insertUser(lastIdUser, login, pass, rol, name);
                 }
 
                 scope.Complete();
@@ -824,6 +824,32 @@ namespace DataAccess
 
             }
 
+        }
+
+        //Eliminar usuario
+        public void DeleteUSer(User usr)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    udaContext.deleteUser(usr.Login);
+                }
+                scope.Complete();
+            }
+        }
+
+        //Editar usuario
+        public void EditUSer(User usr)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    udaContext.updateUser(usr.Login, usr.Name, usr.Role);
+                }
+                scope.Complete();
+            }
         }
 
         //Inserta un nuevo tipo de droga en la base de datos

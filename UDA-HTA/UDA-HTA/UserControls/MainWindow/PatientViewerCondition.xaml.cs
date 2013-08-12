@@ -36,10 +36,10 @@ namespace UDA_HTA.UserControls.MainWindow
                 lblFat.Text = tempData.FatPercentage.ToString();
                 lblMuscle.Text = tempData.MusclePercentage.ToString();
                 lblKcal.Text = tempData.Kcal.ToString();
-                lblSmoker.Text = tempData.Smoker.Value ? "Si" : "No";
-                lblDiabetes.Text = tempData.Diabetic.Value ? "Si" : "No";
-                lblColesterol.Text = tempData.Dyslipidemia.Value ? "Si" : "No";
-                lblHypertense.Text = tempData.Hypertensive.Value ? "Si" : "No";
+                lblSmoker.Text = tempData.Smoker != null && tempData.Smoker.Value ? "Si" : "No";
+                lblDiabetes.Text = tempData.Diabetic != null && tempData.Diabetic.Value ? "Si" : "No";
+                lblColesterol.Text = tempData.Dyslipidemia != null && tempData.Dyslipidemia.Value ? "Si" : "No";
+                lblHypertense.Text = tempData.Hypertensive != null && tempData.Hypertensive.Value ? "Si" : "No";
 
                 grMedication.DataContext = tempData.Medication;
             }

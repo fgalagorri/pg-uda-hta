@@ -154,5 +154,26 @@ namespace UDA_HTA
             if (patient.UdaId.HasValue)
                 Container.Content = new PatientViewer(patient);
         }
+
+        private void NewUser(object sender, RoutedEventArgs e)
+        {
+            var newUserWindow = new NewUser();
+            newUserWindow.ShowDialog();
+        }
+
+        private void FindUser(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void ChangePassword(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void Logout(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

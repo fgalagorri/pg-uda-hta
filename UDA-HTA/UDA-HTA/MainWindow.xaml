@@ -19,10 +19,10 @@
             <r:Ribbon.ApplicationMenu>
                 <r:RibbonApplicationMenu SmallImageSource="/Images/ribbon_menu.png">
                     <!-- TODO incluir los elementos del menú, manejo de mi usuario (cambio pwd, logout) -->
-                    <r:RibbonApplicationMenuItem Header="Nuevo Usuario" />
-                    <r:RibbonApplicationMenuItem Header="Buscar Usuario" />
-                    <r:RibbonApplicationMenuItem Header="Cambio Password" />
-                    <r:RibbonApplicationMenuItem Header="Logout" />
+                    <r:RibbonApplicationMenuItem Header="Nuevo Usuario" Click="NewUser"/>
+                    <r:RibbonApplicationMenuItem Header="Buscar Usuario" Click="FindUser"/>
+                    <r:RibbonApplicationMenuItem Header="Cambio Password" Click="ChangePassword"/>
+                    <r:RibbonApplicationMenuItem Header="Logout" Click="Logout"/>
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
 
