@@ -15,8 +15,8 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`user` (
   `idUser` INT NOT NULL AUTO_INCREMENT ,
   `login` VARCHAR(45) NOT NULL ,
   `password` TEXT NOT NULL ,
-  `name` VARCHAR(45) NOT NULL ,
   `rol` VARCHAR(45) NOT NULL ,
+  `name` TEXT NULL ,
   PRIMARY KEY (`idUser`) ,
   UNIQUE INDEX `login_UNIQUE` (`login` ASC) )
 ENGINE = InnoDB;

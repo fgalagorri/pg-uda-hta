@@ -222,8 +222,8 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicalHistory$$
 CREATE PROCEDURE insertMedicalHistory(OUT id BIGINT, IN illness TEXT, IN comm TEXT, IN idPatientUda BIGINT)
 BEGIN
-INSERT INTO `medicalhistory` (`illness`, `from`, `to`, `comment`, `patientuda_idPatientUda`)
-VALUES (illness, fromDate, toDate, comm, idPatientUda);
+INSERT INTO `medicalhistory` (`illness`, `comment`, `patientuda_idPatientUda`)
+VALUES (illness, comm, idPatientUda);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -231,10 +231,10 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertUser$$
-CREATE PROCEDURE insertUser(OUT id INT, IN log VARCHAR(45), IN p TEXT, IN r VARCHAR(45))
+CREATE PROCEDURE insertUser(OUT id INT, IN log VARCHAR(45), IN p TEXT, IN r VARCHAR(45), IN nam TEXT)
 BEGIN
-INSERT INTO `user`( `login`, `password`, `rol`)
-VALUES(log, p, r);
+INSERT INTO `user`( `login`, `password`, `rol`,`name`)
+VALUES(log, p, r, nam);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -307,6 +307,16 @@ DELIMITER ;
 -- DELETES --
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteUser$$
+CREATE PROCEDURE deleteUser(IN login VARCHAR(45))
+BEGIN
+DELETE 
+FROM `user` 
+WHERE (`login` = login);
+END$$
+DELIMITER ;
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteInvestigationHasReport$$
 CREATE PROCEDURE deleteInvestigationHasReport(IN idInvestigation INT, IN idReport BIGINT, 
 											  IN idPatientUda BIGINT)
@@ -343,14 +353,25 @@ WHERE `idMedicalHistory` = id AND `idPatientUda` = patient_id;
 END$$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateUser$$
+CREATE PROCEDURE updateUser(IN login_ VARCHAR(45), IN name_ TEXT, IN rol VARCHAR(45))
+BEGIN
+UPDATE `user`
+SET `login` = login_,
+	`name` = name_,
+	`rol` = rol 
+WHERE login = login_;
+END$$
+DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updatePassword$$
-CREATE PROCEDURE updatePassword(IN login_var VARCHAR(45), IN pass_var VARCHAR(45))
+CREATE PROCEDURE updatePassword(IN login_var VARCHAR(45), IN pass_var TEXT)
 BEGIN
 UPDATE `user`
-SET pass = pass_var
-WHERE login = login_var;
+SET `password` = pass_var
+WHERE `login` = login_var;
 END$$
 DELIMITER ;
 
