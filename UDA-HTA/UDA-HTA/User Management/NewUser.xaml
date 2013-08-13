@@ -6,9 +6,7 @@
         <Label Content="Nombre y apellido:" Height="28" HorizontalAlignment="Left" Margin="12,55,0,0" Name="lblUserName" VerticalAlignment="Top" />
         <Label Content="Login:" Height="28" HorizontalAlignment="Left" Margin="12,89,0,0" Name="lblLogin" VerticalAlignment="Top" />
         <Label Content="Rol:" Height="28" HorizontalAlignment="Left" Margin="12,123,0,0" Name="lblRole" VerticalAlignment="Top" />
-        <Label Content="Password:" Height="28" HorizontalAlignment="Left" Margin="12,157,0,0" Name="lblPassword" VerticalAlignment="Top" />
-        <Button Content="Crear" Height="23" HorizontalAlignment="Left" Margin="191,192,0,0" Name="buttonCreate" VerticalAlignment="Top" Width="75" Click="buttonCreate_Click" />
-        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="130,157,0,0" Name="passwordBox" VerticalAlignment="Top" Width="120" />
+        <Label Content="Contraseña:" Height="28" HorizontalAlignment="Left" Margin="12,157,0,0" Name="lblPassword" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="130,55,0,0" Name="txtUserName" VerticalAlignment="Top" Width="120" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="130,89,0,0" Name="txtLogin" VerticalAlignment="Top" Width="120" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="130,123,0,0" Name="comboRole" VerticalAlignment="Top" Width="120">
@@ -16,7 +14,8 @@
             <ComboBoxItem Content="Tecnico"></ComboBoxItem>
             <ComboBoxItem Content="Clinico"></ComboBoxItem>
         </ComboBox>
-
+        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="130,157,0,0" Name="passwordBox" VerticalAlignment="Top" Width="120" />
+        <Button Content="Crear" Height="23" HorizontalAlignment="Left" Margin="191,192,0,0" Name="buttonCreate" VerticalAlignment="Top" Width="75" Click="buttonCreate_Click" />
 
     </Grid>
 </Window>

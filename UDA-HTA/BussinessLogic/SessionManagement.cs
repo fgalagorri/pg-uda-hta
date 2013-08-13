@@ -31,7 +31,9 @@ namespace BussinessLogic
                 dataAccess.UpdatePassword(userName, newPswd);
                 return true;
             }
-            return false;
+
+            var exception = new Exception("changePassword failed");
+            throw exception;
         }
 
         // Devuelve el usuario si el Pwd es correcto
@@ -47,8 +49,8 @@ namespace BussinessLogic
             if (!u.Password.Equals("") && u.Password.Equals(pswdHashed))
                 return u;
 
-            return null;
-
+            var exception = new Exception("verifyPassword failed");
+            throw exception;
         }
 
     }

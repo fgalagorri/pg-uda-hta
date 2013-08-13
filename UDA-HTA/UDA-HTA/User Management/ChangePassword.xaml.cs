@@ -12,38 +12,32 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gateway;
 
-namespace UDA_HTA
+namespace UDA_HTA.User_Management
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class ChangePassword : Window
     {
-        public Login()
+        public ChangePassword()
         {
             InitializeComponent();
         }
 
-        private void buttonLogin_Click(object sender, RoutedEventArgs e)
+        private void buttonChange_Click(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
             try
             {
-                var usr = controller.Login(userLogin.Text.Trim(), userPassword.Password);
-                var mainWindow = new MainWindow(usr);
-                mainWindow.Show();
+                controller.ChangePassword(txtLogin.Text, txtOldPassword.Password, txtNewPassword.Password);
                 this.Close();
             }
             catch (Exception exception)
             {
-                userLogin.Text = " ";
-                userPassword.Password = " ";
+                txtLogin.Text = "";
+                txtNewPassword.Password = "";
+                txtOldPassword.Password = "";
                 lblError.Content = exception.Message;
-            }
-            finally
-            {
-                Mouse.OverrideCursor = null;
             }
         }
     }

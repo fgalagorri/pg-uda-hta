@@ -9,6 +9,7 @@ using Gateway;
 using Microsoft.Win32;
 using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
+using UDA_HTA.User_Management;
 
 namespace UDA_HTA
 {
@@ -168,7 +169,8 @@ namespace UDA_HTA
 
         private void ChangePassword(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var changePswdWindow = new ChangePassword();
+            changePswdWindow.ShowDialog();
         }
 
         private void Logout(object sender, RoutedEventArgs e)
