@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -211,8 +211,7 @@
           <Property Name="end_date" Type="datetime" />
           <Property Name="doctor" Type="varchar" MaxLength="45" />
           <Property Name="diagnosis" Type="text" />
-          <Property Name="request_doctor" Type="varchar" MaxLength="45" />
-          <Property Name="specialty" Type="varchar" MaxLength="45" />
+          <Property Name="requester" Type="varchar" MaxLength="45" />
           <Property Name="day_avg_sys" Type="int" />
           <Property Name="night_avg_sys" Type="int" />
           <Property Name="total_avg_sys" Type="int" />
@@ -531,8 +530,7 @@
           <Parameter Name="doctor" Type="varchar" Mode="In" />
           <Parameter Name="diagnosis" Type="text" Mode="In" />
           <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
-          <Parameter Name="request_doctor" Type="varchar" Mode="In" />
-          <Parameter Name="specialty" Type="varchar" Mode="In" />
+          <Parameter Name="requester" Type="varchar" Mode="In" />
           <Parameter Name="day_avg_sys" Type="int" Mode="In" />
           <Parameter Name="night_avg_sys" Type="int" Mode="In" />
           <Parameter Name="total_avg_sys" Type="int" Mode="In" />
@@ -612,7 +610,7 @@
         </Function>
         <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login_var" Type="varchar" Mode="In" />
-          <Parameter Name="pass_var" Type="varchar" Mode="In" />
+          <Parameter Name="pass_var" Type="text" Mode="In" />
         </Function>
         <Function Name="updateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login_" Type="varchar" Mode="In" />
@@ -786,8 +784,7 @@
             <Parameter Name="doctor" Mode="In" Type="String" />
             <Parameter Name="diagnosis" Mode="In" Type="String" />
             <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
-            <Parameter Name="request_doctor" Mode="In" Type="String" />
-            <Parameter Name="specialty" Mode="In" Type="String" />
+            <Parameter Name="requester" Mode="In" Type="String" />
             <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
             <Parameter Name="night_avg_sys" Mode="In" Type="Int32" />
             <Parameter Name="total_avg_sys" Mode="In" Type="Int32" />
@@ -1080,8 +1077,6 @@
           <Property Type="DateTime" Name="end_date" />
           <Property Type="String" Name="doctor" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="diagnosis" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="request_doctor" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="specialty" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="day_avg_sys" />
           <Property Type="Int32" Name="night_avg_sys" />
           <Property Type="Int32" Name="total_avg_sys" />
@@ -1129,6 +1124,7 @@
           <Property Type="Decimal" Name="day_sd_hr" />
           <Property Type="Decimal" Name="night_sd_hr" />
           <Property Type="DateTime" Name="diagnosis_date" />
+          <Property Type="String" Name="requester" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_Report_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1316,6 +1312,7 @@
           <EntitySetMapping Name="report">
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="requester" ColumnName="requester" />
                 <ScalarProperty Name="diagnosis_date" ColumnName="diagnosis_date" />
                 <ScalarProperty Name="night_sd_hr" ColumnName="night_sd_hr" />
                 <ScalarProperty Name="day_sd_hr" ColumnName="day_sd_hr" />
@@ -1358,8 +1355,6 @@
                 <ScalarProperty Name="total_avg_sys" ColumnName="total_avg_sys" />
                 <ScalarProperty Name="night_avg_sys" ColumnName="night_avg_sys" />
                 <ScalarProperty Name="day_avg_sys" ColumnName="day_avg_sys" />
-                <ScalarProperty Name="specialty" ColumnName="specialty" />
-                <ScalarProperty Name="request_doctor" ColumnName="request_doctor" />
                 <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
                 <ScalarProperty Name="doctor" ColumnName="doctor" />
                 <ScalarProperty Name="end_date" ColumnName="end_date" />
@@ -1486,7 +1481,7 @@
           <ConnectorPoint PointX="3.75" PointY="13.855499674479166" />
           <ConnectorPoint PointX="3" PointY="13.855499674479166" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.875" Height="11.403056640625" />
+        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.875" Height="11.210755208333334" />
         <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
           <ConnectorPoint PointX="2.25" PointY="7.8074446614583337" />
           <ConnectorPoint PointX="6" PointY="7.8074446614583337" />

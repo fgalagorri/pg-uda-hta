@@ -1,4 +1,4 @@
-﻿<Window x:Class="UDA_HTA.NewUser"
+﻿<Window x:Class="UDA_HTA.UserManagement.NewUser"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Creacion de usuario" Height="266" Width="300" xmlns:my="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon">

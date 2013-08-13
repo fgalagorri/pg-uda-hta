@@ -45,6 +45,7 @@ namespace UDA_HTA.UserControls.MainWindow
             lblSleepDesc.Text = carnet.SleepQualityDescription;
             if (carnet.MealTime != null)
                 lblMealTime.Text = carnet.MealTime.Value.ToString(ConfigurationManager.AppSettings["ShortTimeString"]);
+            lblRequester.Text = report.Requester;
 
             double avg;
             // Mediciones Iniciales

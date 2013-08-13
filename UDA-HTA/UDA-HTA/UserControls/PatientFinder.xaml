@@ -13,22 +13,22 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Style="{StaticResource label}">CI:</TextBlock>
-                    <TextBox Name="txtDocument" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown" />
+                    <TextBox Name="txtDocument" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
                     <TextBlock Style="{StaticResource label}">Nro. Registro:</TextBlock>
-                    <TextBox Name="txtRegistry" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown" />
+                    <TextBox Name="txtRegistry" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
                 </StackPanel>
             </StackPanel>
             
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Style="{StaticResource label}">Nombres:</TextBlock>
-                    <TextBox Name="txtName" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown" />
+                    <TextBox Name="txtName" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
                     <TextBlock Style="{StaticResource label}">Apellidos:</TextBlock>
-                    <TextBox Name="txtSurname" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown" />
+                    <TextBox Name="txtSurname" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
                 </StackPanel>
             </StackPanel>
             

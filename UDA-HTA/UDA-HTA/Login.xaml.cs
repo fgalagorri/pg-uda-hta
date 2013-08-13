@@ -46,5 +46,11 @@ namespace UDA_HTA
                 Mouse.OverrideCursor = null;
             }
         }
+
+        private void enterSubmit(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                buttonLogin_Click(sender, e);
+        }
     }
 }
