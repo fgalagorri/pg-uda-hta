@@ -226,12 +226,15 @@ namespace Gateway
             var cm = new CriptographyManagement();
             var encryptedPswd = cm.Sha256Encryipt(pswd);
             var sm = new SessionManagement();
-            _loggedUser = sm.Login(userName, encryptedPswd);
-            if (_loggedUser == null)
+            try
+            {
+                _loggedUser = sm.Login(userName, encryptedPswd);
+            }
+            catch (Exception)
             {
                 // El usuario y/o password no son correctos
-                var exception = new Exception("El nombre de usuario y/o password no son correctos");
-                throw exception;
+                var exception = new Exception("Nombre de usuario y/o contraseña no son correctos");
+                throw exception;                
             }
 
             return _loggedUser;
@@ -255,6 +258,24 @@ namespace Gateway
             
             um.CreateUser(usr);
         }
+
+        public void ChangePassword(string login, string oldPswd, string newPswd)
+        {
+            var sm = new SessionManagement();
+            var cm = new CriptographyManagement();
+            oldPswd = cm.Sha256Encryipt(oldPswd);
+            newPswd = cm.Sha256Encryipt(newPswd);
+            try
+            {
+                sm.ChangePassword(login, oldPswd, newPswd);
+            }
+            catch (Exception)
+            {
+                var exception = new Exception("Alguno de los campos ingresados no son correctos");
+                throw exception;
+            }
+        }
+
         #endregion
 
     }
