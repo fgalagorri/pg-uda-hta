@@ -102,6 +102,15 @@
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Management\ChangePassword.xaml.cs">
+      <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Investigations\NewResearch.xaml.cs">
+      <DependentUpon>NewResearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml.cs">
+      <DependentUpon>ResearchFinder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainWindow\PatientViewerCondition.xaml.cs">
       <DependentUpon>PatientViewerCondition.xaml</DependentUpon>
     </Compile>
@@ -150,6 +159,9 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Management\NewUser.xaml.cs">
+      <DependentUpon>NewUser.xaml</DependentUpon>
+    </Compile>
     <Page Include="DiagnosisEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +183,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReportCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Management\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Investigations\NewResearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,6 +263,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Management\NewUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -348,6 +376,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Investigations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

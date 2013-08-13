@@ -278,5 +278,15 @@ namespace Gateway
 
         #endregion
 
+        #region Investigation Listing & Viewing
+
+        public ICollection<InvestigationSearch> ListInvestigations(int? id, string name, DateTime? creationDate)
+        {
+            var im = new InvestigationManagement();
+            return im.listInvestigations(id, name, creationDate);
+        } 
+
+        #endregion
+
     }
 }
