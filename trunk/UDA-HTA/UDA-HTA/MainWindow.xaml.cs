@@ -9,8 +9,8 @@ using Gateway;
 using Microsoft.Win32;
 using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
+using UDA_HTA.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Investigations;
-using UDA_HTA.User_Management;
 
 namespace UDA_HTA
 {

@@ -41,7 +41,7 @@ namespace UDA_HTA.UserControls
         }
 
 
-        private void patientName_KeyDown(object sender, KeyEventArgs e)
+        private void enterSubmit(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
                 btnSearch_Click(sender, e);

@@ -102,8 +102,11 @@
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Management\ChangePassword.xaml.cs">
+    <Compile Include="UserManagement\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement\NewUser.xaml.cs">
+      <DependentUpon>NewUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainWindow\Investigations\NewResearch.xaml.cs">
       <DependentUpon>NewResearch.xaml</DependentUpon>
@@ -186,9 +189,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="User Management\ChangePassword.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="UserManagement\ChangePassword.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserManagement\NewUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\MainWindow\Investigations\NewResearch.xaml">
       <SubType>Designer</SubType>

@@ -24,6 +24,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             dtStart.SelectedDate = r.BeginDate;
             txtStartHour.Text = r.BeginDate.HasValue ? r.BeginDate.Value.Hour.ToString() : "";
             txtStartMinutes.Text = r.BeginDate.HasValue ? r.BeginDate.Value.Minute.ToString() : "";
+            txtRequester.Text = r.Requester;
 
             if (r.Carnet != null)
             {
@@ -79,6 +80,7 @@ namespace UDA_HTA.UserControls.ReportCreation
 
             report.TemporaryData.Age = report.Patient.BirthDate.Value
                                              .CalculateAge(report.BeginDate);
+            report.Requester = txtRequester.Text;
 
             var c = report.Carnet ?? new DailyCarnet();
 

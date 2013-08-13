@@ -1296,8 +1296,7 @@ namespace DataAccess
         /// <param name="doctor">No Metadata Documentation available.</param>
         /// <param name="diagnosis">No Metadata Documentation available.</param>
         /// <param name="diagnosis_dt">No Metadata Documentation available.</param>
-        /// <param name="request_doctor">No Metadata Documentation available.</param>
-        /// <param name="specialty">No Metadata Documentation available.</param>
+        /// <param name="requester">No Metadata Documentation available.</param>
         /// <param name="day_avg_sys">No Metadata Documentation available.</param>
         /// <param name="night_avg_sys">No Metadata Documentation available.</param>
         /// <param name="total_avg_sys">No Metadata Documentation available.</param>
@@ -1339,7 +1338,7 @@ namespace DataAccess
         /// <param name="tot_tam_avg">No Metadata Documentation available.</param>
         /// <param name="day_tam_avg">No Metadata Documentation available.</param>
         /// <param name="night_tam_avg">No Metadata Documentation available.</param>
-        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, Nullable<global::System.DateTime> diagnosis_dt, global::System.String request_doctor, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr, Nullable<global::System.Decimal> tot_sd_sis, Nullable<global::System.Decimal> tot_sd_dias, Nullable<global::System.Decimal> day_sd_sis, Nullable<global::System.Decimal> day_sd_dias, Nullable<global::System.Decimal> night_sd_sis, Nullable<global::System.Decimal> night_sd_dias, Nullable<global::System.Decimal> tot_sd_tam, Nullable<global::System.Decimal> day_sd_tam, Nullable<global::System.Decimal> night_sd_tam, Nullable<global::System.Decimal> tot_sd_hr, Nullable<global::System.Decimal> day_sd_hr, Nullable<global::System.Decimal> night_sd_hr, Nullable<global::System.Int32> tot_tam_avg, Nullable<global::System.Int32> day_tam_avg, Nullable<global::System.Int32> night_tam_avg)
+        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, Nullable<global::System.DateTime> diagnosis_dt, global::System.String requester, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr, Nullable<global::System.Decimal> tot_sd_sis, Nullable<global::System.Decimal> tot_sd_dias, Nullable<global::System.Decimal> day_sd_sis, Nullable<global::System.Decimal> day_sd_dias, Nullable<global::System.Decimal> night_sd_sis, Nullable<global::System.Decimal> night_sd_dias, Nullable<global::System.Decimal> tot_sd_tam, Nullable<global::System.Decimal> day_sd_tam, Nullable<global::System.Decimal> night_sd_tam, Nullable<global::System.Decimal> tot_sd_hr, Nullable<global::System.Decimal> day_sd_hr, Nullable<global::System.Decimal> night_sd_hr, Nullable<global::System.Int32> tot_tam_avg, Nullable<global::System.Int32> day_tam_avg, Nullable<global::System.Int32> night_tam_avg)
         {
             ObjectParameter begin_dateParameter;
             if (begin_date.HasValue)
@@ -1391,24 +1390,14 @@ namespace DataAccess
                 diagnosis_dtParameter = new ObjectParameter("diagnosis_dt", typeof(global::System.DateTime));
             }
     
-            ObjectParameter request_doctorParameter;
-            if (request_doctor != null)
+            ObjectParameter requesterParameter;
+            if (requester != null)
             {
-                request_doctorParameter = new ObjectParameter("request_doctor", request_doctor);
+                requesterParameter = new ObjectParameter("requester", requester);
             }
             else
             {
-                request_doctorParameter = new ObjectParameter("request_doctor", typeof(global::System.String));
-            }
-    
-            ObjectParameter specialtyParameter;
-            if (specialty != null)
-            {
-                specialtyParameter = new ObjectParameter("specialty", specialty);
-            }
-            else
-            {
-                specialtyParameter = new ObjectParameter("specialty", typeof(global::System.String));
+                requesterParameter = new ObjectParameter("requester", typeof(global::System.String));
             }
     
             ObjectParameter day_avg_sysParameter;
@@ -1821,7 +1810,7 @@ namespace DataAccess
                 night_tam_avgParameter = new ObjectParameter("night_tam_avg", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter, request_doctorParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter);
+            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter, requesterParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter);
         }
     
         /// <summary>
@@ -4901,54 +4890,6 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String request_doctor
-        {
-            get
-            {
-                return _request_doctor;
-            }
-            set
-            {
-                Onrequest_doctorChanging(value);
-                ReportPropertyChanging("request_doctor");
-                _request_doctor = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("request_doctor");
-                Onrequest_doctorChanged();
-            }
-        }
-        private global::System.String _request_doctor;
-        partial void Onrequest_doctorChanging(global::System.String value);
-        partial void Onrequest_doctorChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String specialty
-        {
-            get
-            {
-                return _specialty;
-            }
-            set
-            {
-                OnspecialtyChanging(value);
-                ReportPropertyChanging("specialty");
-                _specialty = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("specialty");
-                OnspecialtyChanged();
-            }
-        }
-        private global::System.String _specialty;
-        partial void OnspecialtyChanging(global::System.String value);
-        partial void OnspecialtyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> day_avg_sys
         {
             get
@@ -5954,6 +5895,30 @@ namespace DataAccess
         private Nullable<global::System.DateTime> _diagnosis_date;
         partial void Ondiagnosis_dateChanging(Nullable<global::System.DateTime> value);
         partial void Ondiagnosis_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String requester
+        {
+            get
+            {
+                return _requester;
+            }
+            set
+            {
+                OnrequesterChanging(value);
+                ReportPropertyChanging("requester");
+                _requester = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("requester");
+                OnrequesterChanged();
+            }
+        }
+        private global::System.String _requester;
+        partial void OnrequesterChanging(global::System.String value);
+        partial void OnrequesterChanged();
 
         #endregion
     

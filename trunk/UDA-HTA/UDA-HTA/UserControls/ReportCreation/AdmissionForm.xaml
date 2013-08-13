@@ -35,6 +35,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
@@ -75,6 +76,10 @@
                         <TextBlock Margin="2,0">:</TextBlock>
                         <TextBox Name="txtMealMinutes" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Solicitante:</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" 
+                             HorizontalAlignment="Left" Name="txtRequester" Width="200" />    
                 </Grid>
             </GroupBox>
 
