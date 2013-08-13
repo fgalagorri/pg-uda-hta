@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Investigations.ResearchFinder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="313" d:DesignWidth="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="91*" />
+            <ColumnDefinition Width="209*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="-281,15" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">ID:</TextBlock>
+                    <TextBox Name="txtId" Width="150" Margin="15,0,40,0" KeyDown="researchId_KeyDown" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Nombre:</TextBlock>
+                    <TextBox Name="txtName" Width="150" Margin="15,0,40,0" KeyDown="researchId_KeyDown" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Fecha de Creación:</TextBlock>
+                    <DatePicker Name="dtCreationDate" Margin="15,0,40,0" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button Padding="10,0" Click="btnSearch_Click">Buscar</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid Name="grResearch" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
+                  AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
+                  SelectionChanged="grResearch_SelectionChanged" SelectionMode="Single" SelectionUnit="FullRow" Grid.ColumnSpan="2">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" 
+                                    Binding="{Binding Path=idInvestigation}" />
+                <DataGridTextColumn Header="Nombre" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=name}" />
+                <DataGridTextColumn x:Name="colCreation" Header="Fecha de Creacion" 
+                                    Width="1*" Binding="{Binding Path=creationDate}" />
+                <DataGridTextColumn Header="Comentario" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=comment}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

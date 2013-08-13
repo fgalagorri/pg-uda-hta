@@ -9,6 +9,7 @@ using Gateway;
 using Microsoft.Win32;
 using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
+using UDA_HTA.UserControls.MainWindow.Investigations;
 using UDA_HTA.User_Management;
 
 namespace UDA_HTA
@@ -147,7 +148,7 @@ namespace UDA_HTA
 
         private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Container.Content = new ResearchFinder(this);
         }
 
         public void PatientSelected(PatientSearch patient)
@@ -155,6 +156,8 @@ namespace UDA_HTA
             if (patient.UdaId.HasValue)
                 Container.Content = new PatientViewer(patient);
         }
+
+        #region Usuario
 
         private void NewUser(object sender, RoutedEventArgs e)
         {
@@ -177,5 +180,17 @@ namespace UDA_HTA
         {
             throw new System.NotImplementedException();
         }
+
+        #endregion
+
+        #region Investigaciones
+
+        private void BtnNewResearch_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+
     }
 }

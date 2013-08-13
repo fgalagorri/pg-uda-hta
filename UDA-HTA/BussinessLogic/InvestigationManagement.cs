@@ -18,10 +18,10 @@ namespace BussinessLogic
 {
     public class InvestigationManagement
     {
-        public ICollection<Investigation> listInvestigations()
+        public ICollection<InvestigationSearch> listInvestigations(int? id, string name, DateTime? creationDate)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            return uda.listInvestigations();
+            return uda.listInvestigations(id, name, creationDate);
         }
 
         public int CreateInvestigation(string name, DateTime creationDate, string comment)

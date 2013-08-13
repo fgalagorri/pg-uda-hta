@@ -59,7 +59,7 @@
 
             <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
                 <r:RibbonGroup Header="Investigación">
-                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" />
+                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" Click="BtnNewResearch_OnClick"/>
                     <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_editResearch.png" />
                 </r:RibbonGroup>
                 

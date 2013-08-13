@@ -902,12 +902,15 @@ namespace DataAccess
         #region Investigaciones
 
         //Listar investigaciones 
-        public ICollection<Investigation> listInvestigations()
+        public ICollection<InvestigationSearch> listInvestigations(int? id, string name, DateTime? creationDate)
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ICollection<Investigation> list =
-                    udaContext.investigation.Select(i => new Investigation(i.idInvestigation, i.name, i.creation_date))
+                ICollection<InvestigationSearch> list =
+                    udaContext.investigation.Where(i => (id.HasValue && i.idInvestigation == id.Value) || 
+                                                        (!string.IsNullOrWhiteSpace(name) && i.name.Contains(name)) || 
+                                                        (creationDate.HasValue && i.creation_date == creationDate.Value))
+                    .Select(i => new InvestigationSearch(i.idInvestigation, i.name, i.creation_date, i.comment))
                               .ToList();
                 return list;
             }
