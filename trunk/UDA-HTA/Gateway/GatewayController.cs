@@ -283,8 +283,14 @@ namespace Gateway
         public ICollection<InvestigationSearch> ListInvestigations(int? id, string name, DateTime? creationDate)
         {
             var im = new InvestigationManagement();
-            return im.listInvestigations(id, name, creationDate);
-        } 
+            return im.ListInvestigations(id, name, creationDate);
+        }
+
+        public void CreateInvestigation(string name, string comment, DateTime creationDate)
+        {
+            var im = new InvestigationManagement();
+            im.CreateInvestigation(name, creationDate, comment);
+        }
 
         #endregion
 

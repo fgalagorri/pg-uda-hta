@@ -52,13 +52,13 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="Auto" 
-                                    Binding="{Binding Path=idInvestigation}" />
+                                    Binding="{Binding Path=IdInvestigation}" />
                 <DataGridTextColumn Header="Nombre" Width="1*" IsReadOnly="True" 
-                                    Binding="{Binding Path=name}" />
+                                    Binding="{Binding Path=Name}" />
                 <DataGridTextColumn x:Name="colCreation" Header="Fecha de Creacion" 
-                                    Width="1*" Binding="{Binding Path=creationDate}" />
+                                    Width="1*" Binding="{Binding Path=CreationDate}" />
                 <DataGridTextColumn Header="Comentario" Width="1*" IsReadOnly="True" 
-                                    Binding="{Binding Path=comment}" />
+                                    Binding="{Binding Path=Comment}" />
             </DataGrid.Columns>
         </DataGrid>
 

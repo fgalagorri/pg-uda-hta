@@ -9,19 +9,42 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Gateway;
 
-namespace UDA_HTA.UserControls.MainWindow.Investigation
+namespace UDA_HTA.UserControls.MainWindow.Investigations
 {
     /// <summary>
     /// Interaction logic for NewResearch.xaml
     /// </summary>
-    public partial class NewResearch : UserControl
+    public partial class NewResearch : Window
     {
         public NewResearch()
         {
             InitializeComponent();
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var controller = GatewayController.GetInstance();
+            try
+            {
+                if (dpDate.SelectedDate != null)
+                    controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(),
+                                                   dpDate.SelectedDate.Value);
+                else
+                    controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
+            }
+            catch(Exception)
+            {
+                MessageBoxResult result = MessageBox.Show("Error al intenter crear la investigacion", "Error");
+            }
+            this.Close();
+        }
+
+        private void btnAddReports_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

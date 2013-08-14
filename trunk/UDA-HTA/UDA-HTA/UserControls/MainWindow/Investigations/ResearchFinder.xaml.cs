@@ -36,8 +36,12 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         {
             Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
-            int? id = int.Parse(txtId.Text.Trim());
-            var researches = controller.ListInvestigations(id, txtName.Text.Trim(), dtCreationDate.SelectedDate);
+            int? id = null;
+            if (txtId.Text.Length > 0)
+            {
+                id = int.Parse(txtId.Text);                
+            }
+            var researches = controller.ListInvestigations(id, txtName.Text, dtCreationDate.SelectedDate);
 
             grResearch.DataContext = researches;
             Mouse.OverrideCursor = null;
@@ -51,7 +55,8 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void grResearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (((DataGrid)sender).SelectedIndex != -1)
+                container.InvestigationSelected((InvestigationSearch)e.AddedItems[0]);
         }
     }
 }
