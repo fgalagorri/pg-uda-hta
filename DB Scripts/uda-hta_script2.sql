@@ -135,6 +135,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `doctor` VARCHAR(45) NULL ,
   `diagnosis` TEXT NULL ,
   `requester` VARCHAR(45) NULL ,
+  `specialty` VARCHAR(45) NULL ,
   `day_avg_sys` INT NULL ,
   `night_avg_sys` INT NULL ,
   `total_avg_sys` INT NULL ,
