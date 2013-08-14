@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Entities;
 
 namespace UDA_HTA.UserControls.MainWindow.Investigations
 {
@@ -22,6 +23,14 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         public ResearchViewerInformation()
         {
             InitializeComponent();
+        }
+
+        public void SetInformationInfo(Investigation investigation)
+        {
+            lblName.Content = investigation.Name;
+            lblCant.Content = investigation.LReports.LongCount().ToString();
+            lblDate.Content = investigation.CreationDate;
+            txtComment.Text = investigation.Comment;
         }
     }
 }

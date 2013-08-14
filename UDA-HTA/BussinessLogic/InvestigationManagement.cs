@@ -18,6 +18,14 @@ namespace BussinessLogic
 {
     public class InvestigationManagement
     {
+        //Obtiene la investigacion 'id'
+        public Investigation GetInvestigation(int id)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            return uda.GetInvestigation(id);
+        }
+
+        //Obtiene una lista de investigaciones, filtrando por id, nombre y/o fecha de creacion
         public ICollection<InvestigationSearch> ListInvestigations(int? id, string name, DateTime? creationDate)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
@@ -581,7 +589,7 @@ namespace BussinessLogic
                 Cell cell20 = new Cell() { CellReference = cellRefF };
                 CellValue cellValue20 = new CellValue();
                 //Altura del paciente
-                cellValue20.Text = r.DeviceId.ToString();
+                cellValue20.Text = r.TemporaryData.Height.ToString();
 
                 string cellRefG = "G" + i.ToString();
                 Cell cell21 = new Cell() { CellReference = cellRefG };
