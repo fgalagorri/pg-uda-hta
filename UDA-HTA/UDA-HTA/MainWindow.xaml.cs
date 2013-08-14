@@ -185,9 +185,15 @@ namespace UDA_HTA
 
         #region Investigaciones
 
+        public void InvestigationSelected(InvestigationSearch investigation)
+        {
+            Container.Content = new ResearchViewer(investigation);
+        }
+
         private void BtnNewResearch_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var newResearchWindow = new NewResearch();
+            newResearchWindow.ShowDialog();
         }
 
         #endregion

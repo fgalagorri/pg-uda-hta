@@ -105,14 +105,23 @@
     <Compile Include="UserManagement\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement\NewUser.xaml.cs">
-      <DependentUpon>NewUser.xaml</DependentUpon>
+    <Compile Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml.cs">
+      <DependentUpon>ResearchFinder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Investigations\ResearchViewer.xaml.cs">
+      <DependentUpon>ResearchViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainWindow\Investigations\NewResearch.xaml.cs">
       <DependentUpon>NewResearch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml.cs">
-      <DependentUpon>ResearchFinder.xaml</DependentUpon>
+    <Compile Include="UserControls\MainWindow\Investigations\ResearchViewerInformation.xaml.cs">
+      <DependentUpon>ResearchViewerInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Investigations\ResearchViewerReportSummary.xaml.cs">
+      <DependentUpon>ResearchViewerReportSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Investigations\ResearchViewerReport.xaml.cs">
+      <DependentUpon>ResearchViewerReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainWindow\PatientViewerCondition.xaml.cs">
       <DependentUpon>PatientViewerCondition.xaml</DependentUpon>
@@ -162,7 +171,7 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Management\NewUser.xaml.cs">
+    <Compile Include="UserManagement\NewUser.xaml.cs">
       <DependentUpon>NewUser.xaml</DependentUpon>
     </Compile>
     <Page Include="DiagnosisEditor.xaml">
@@ -190,18 +199,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserManagement\ChangePassword.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserManagement\NewUser.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Investigations\ResearchViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MainWindow\Investigations\NewResearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml">
+    <Page Include="UserControls\MainWindow\Investigations\ResearchViewerInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Investigations\ResearchViewerReportSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Investigations\ResearchViewerReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,7 +294,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="User Management\NewUser.xaml">
+    <Page Include="UserManagement\NewUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,9 +405,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Investigations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
