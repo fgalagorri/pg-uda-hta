@@ -24,6 +24,7 @@ namespace Entities
 
         // Informe médico
         public User Doctor { get; set; }
+        public string Specialty { get; set; }
         public DateTime? DiagnosisDate { get; set; }
         public string Diagnosis { get; set; }
 

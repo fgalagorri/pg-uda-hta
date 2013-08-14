@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Entities;
+using Gateway;
 
 namespace UDA_HTA.UserControls.MainWindow.Investigations
 {
@@ -20,9 +21,17 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
     /// </summary>
     public partial class ResearchViewer : UserControl
     {
+        private Investigation _investigation;
+
         public ResearchViewer(InvestigationSearch investigation)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
+            _investigation = GatewayController.GetInstance().GetInvestigation(investigation.IdInvestigation);
+
             InitializeComponent();
+            
+            TabInvestigation.SetInformationInfo(_investigation);
+            TabReports.SetReportList(_investigation.LReports);
         }
 
 

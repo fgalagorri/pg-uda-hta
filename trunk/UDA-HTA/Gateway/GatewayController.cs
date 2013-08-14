@@ -292,6 +292,12 @@ namespace Gateway
             im.CreateInvestigation(name, creationDate, comment);
         }
 
+        public Investigation GetInvestigation(int idInvestigation)
+        {
+            var im = new InvestigationManagement();
+            return im.GetInvestigation(idInvestigation);
+        }
+
         #endregion
 
     }

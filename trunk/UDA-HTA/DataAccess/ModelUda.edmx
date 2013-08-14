@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -212,6 +212,7 @@
           <Property Name="doctor" Type="varchar" MaxLength="45" />
           <Property Name="diagnosis" Type="text" />
           <Property Name="requester" Type="varchar" MaxLength="45" />
+          <Property Name="specialty" Type="varchar" MaxLength="45" />
           <Property Name="day_avg_sys" Type="int" />
           <Property Name="night_avg_sys" Type="int" />
           <Property Name="total_avg_sys" Type="int" />
@@ -531,6 +532,7 @@
           <Parameter Name="diagnosis" Type="text" Mode="In" />
           <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
           <Parameter Name="requester" Type="varchar" Mode="In" />
+          <Parameter Name="specialty" Type="varchar" Mode="In" />
           <Parameter Name="day_avg_sys" Type="int" Mode="In" />
           <Parameter Name="night_avg_sys" Type="int" Mode="In" />
           <Parameter Name="total_avg_sys" Type="int" Mode="In" />
@@ -777,56 +779,6 @@
           <FunctionImport Name="insertPatientUda">
           <Parameter Name="id" Mode="In" Type="Int64" />
           </FunctionImport>
-          <FunctionImport Name="insertReport">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
-            <Parameter Name="end_date" Mode="In" Type="DateTime" />
-            <Parameter Name="doctor" Mode="In" Type="String" />
-            <Parameter Name="diagnosis" Mode="In" Type="String" />
-            <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
-            <Parameter Name="requester" Mode="In" Type="String" />
-            <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
-            <Parameter Name="night_avg_sys" Mode="In" Type="Int32" />
-            <Parameter Name="total_avg_sys" Mode="In" Type="Int32" />
-            <Parameter Name="day_max_sys" Mode="In" Type="Int32" />
-            <Parameter Name="night_max_sys" Mode="In" Type="Int32" />
-            <Parameter Name="day_avg_dias" Mode="In" Type="Int32" />
-            <Parameter Name="night_avg_dias" Mode="In" Type="Int32" />
-            <Parameter Name="total_avg_dias" Mode="In" Type="Int32" />
-            <Parameter Name="day_max_dias" Mode="In" Type="Int32" />
-            <Parameter Name="night_max_dias" Mode="In" Type="Int32" />
-            <Parameter Name="idDev" Mode="In" Type="Int32" />
-            <Parameter Name="devReportId" Mode="In" Type="String" />
-            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
-            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
-            <Parameter Name="day_min_sis" Mode="In" Type="Int32" />
-            <Parameter Name="day_min_dias" Mode="In" Type="Int32" />
-            <Parameter Name="night_min_sis" Mode="In" Type="Int32" />
-            <Parameter Name="night_min_dias" Mode="In" Type="Int32" />
-            <Parameter Name="tot_avg_hr" Mode="In" Type="Int32" />
-            <Parameter Name="day_avg_hr" Mode="In" Type="Int32" />
-            <Parameter Name="night_avg_hr" Mode="In" Type="Int32" />
-            <Parameter Name="max_day_hr" Mode="In" Type="Int32" />
-            <Parameter Name="max_night_hr" Mode="In" Type="Int32" />
-            <Parameter Name="min_day_hr" Mode="In" Type="Int32" />
-            <Parameter Name="min_night_hr" Mode="In" Type="Int32" />
-            <Parameter Name="tot_sd_sis" Mode="In" Type="Decimal" />
-            <Parameter Name="tot_sd_dias" Mode="In" Type="Decimal" />
-            <Parameter Name="day_sd_sis" Mode="In" Type="Decimal" />
-            <Parameter Name="day_sd_dias" Mode="In" Type="Decimal" />
-            <Parameter Name="night_sd_sis" Mode="In" Type="Decimal" />
-            <Parameter Name="night_sd_dias" Mode="In" Type="Decimal" />
-            <Parameter Name="tot_sd_tam" Mode="In" Type="Decimal" />
-            <Parameter Name="day_sd_tam" Mode="In" Type="Decimal" />
-            <Parameter Name="night_sd_tam" Mode="In" Type="Decimal" />
-            <Parameter Name="tot_sd_hr" Mode="In" Type="Decimal" />
-            <Parameter Name="day_sd_hr" Mode="In" Type="Decimal" />
-            <Parameter Name="night_sd_hr" Mode="In" Type="Decimal" />
-            <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
-            <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
-            <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="insertTemporaryData">
             <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="weight" Mode="In" Type="Decimal" />
@@ -873,6 +825,57 @@
             <Parameter Name="p" Mode="In" Type="String" />
             <Parameter Name="r" Mode="In" Type="String" />
             <Parameter Name="nam" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertReport">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+            <Parameter Name="doctor" Mode="In" Type="String" />
+            <Parameter Name="diagnosis" Mode="In" Type="String" />
+            <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
+            <Parameter Name="requester" Mode="In" Type="String" />
+            <Parameter Name="specialty" Mode="In" Type="String" />
+            <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="total_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="day_max_sys" Mode="In" Type="Int32" />
+            <Parameter Name="night_max_sys" Mode="In" Type="Int32" />
+            <Parameter Name="day_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="total_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="day_max_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_max_dias" Mode="In" Type="Int32" />
+            <Parameter Name="idDev" Mode="In" Type="Int32" />
+            <Parameter Name="devReportId" Mode="In" Type="String" />
+            <Parameter Name="idTemporaryData" Mode="In" Type="Int32" />
+            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+            <Parameter Name="day_min_sis" Mode="In" Type="Int32" />
+            <Parameter Name="day_min_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_min_sis" Mode="In" Type="Int32" />
+            <Parameter Name="night_min_dias" Mode="In" Type="Int32" />
+            <Parameter Name="tot_avg_hr" Mode="In" Type="Int32" />
+            <Parameter Name="day_avg_hr" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_hr" Mode="In" Type="Int32" />
+            <Parameter Name="max_day_hr" Mode="In" Type="Int32" />
+            <Parameter Name="max_night_hr" Mode="In" Type="Int32" />
+            <Parameter Name="min_day_hr" Mode="In" Type="Int32" />
+            <Parameter Name="min_night_hr" Mode="In" Type="Int32" />
+            <Parameter Name="tot_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1125,6 +1128,7 @@
           <Property Type="Decimal" Name="night_sd_hr" />
           <Property Type="DateTime" Name="diagnosis_date" />
           <Property Type="String" Name="requester" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="specialty" />
         </EntityType>
         <Association Name="fk_Report_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1313,6 +1317,7 @@
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
                 <ScalarProperty Name="requester" ColumnName="requester" />
+                <ScalarProperty Name="specialty" ColumnName="specialty" />
                 <ScalarProperty Name="diagnosis_date" ColumnName="diagnosis_date" />
                 <ScalarProperty Name="night_sd_hr" ColumnName="night_sd_hr" />
                 <ScalarProperty Name="day_sd_hr" ColumnName="day_sd_hr" />
@@ -1420,7 +1425,6 @@
           <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
           <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
-          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
           <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
           <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
@@ -1428,6 +1432,7 @@
           <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
           <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
+          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1481,7 +1486,7 @@
           <ConnectorPoint PointX="3.75" PointY="13.855499674479166" />
           <ConnectorPoint PointX="3" PointY="13.855499674479166" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.875" Height="11.210755208333334" />
+        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.875" Height="11.403056640625" />
         <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
           <ConnectorPoint PointX="2.25" PointY="7.8074446614583337" />
           <ConnectorPoint PointX="6" PointY="7.8074446614583337" />
