@@ -24,6 +24,7 @@ namespace UDA_HTA
         {
             InitializeComponent();
             Container.Content = new PatientFinder(this);
+            
         }
 
         #region Ribbon Buttons
@@ -148,7 +149,15 @@ namespace UDA_HTA
 
         private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Container.Content = new ResearchFinder(this);
+            if (this.tabPaciente.IsSelected)
+            {
+                Container.Content = new PatientFinder(this);
+            }
+            if (this.tabInvestigacion.IsSelected)
+            {
+                Container.Content = new ResearchFinder(this);
+            }
+
         }
 
         public void PatientSelected(PatientSearch patient)
