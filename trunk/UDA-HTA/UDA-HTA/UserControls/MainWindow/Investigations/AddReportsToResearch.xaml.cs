@@ -128,10 +128,30 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         {
 
             var controller = GatewayController.GetInstance();
-            foreach (Report selectedItem in grReports.SelectedItems)
+            try
             {
-                controller.AddReportToInvestigation(selectedItem.UdaId.Value,selectedItem.Patient.UdaId.Value,_idInvestigation);                
+                foreach (Report selectedItem in grReports.SelectedItems)
+                {
+                    controller.AddReportToInvestigation(selectedItem.UdaId.Value, selectedItem.Patient.UdaId.Value,
+                                                        _idInvestigation);
+                }
+
+                if (MessageBox.Show("Desea agregar más reportes?", "Confirmacion", MessageBoxButton.YesNo) ==
+                    MessageBoxResult.Yes)
+                {
+                   grReports.SelectedItems.Clear();
+                }
+                else
+                {
+                    this.Close();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBoxResult result = MessageBox.Show("Error al intentar agregar reporte");
+            }
+
+
         }
     }
 }
