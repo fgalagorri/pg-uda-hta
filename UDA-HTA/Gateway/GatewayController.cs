@@ -176,6 +176,15 @@ namespace Gateway
 
         #endregion
 
+        #region Report Listing
+        public ICollection<Report> ListFilteredReports(int? patientLowerAge, int? patientUpperAge, DateTime? reportSinceDate,
+            DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHypertense, bool? isDysplidemic)
+        {
+            var rm = new ReportManagement();
+            return rm.ListFilteredReports(patientLowerAge, patientUpperAge, reportSinceDate, reportUntilDate, 
+                                          isSmoker, isDiabetic, isHypertense, isDysplidemic);
+        } 
+        #endregion
 
         #region Patient Listing & Viewing
 
@@ -286,16 +295,22 @@ namespace Gateway
             return im.ListInvestigations(id, name, creationDate);
         }
 
-        public void CreateInvestigation(string name, string comment, DateTime creationDate)
+        public int CreateInvestigation(string name, string comment, DateTime creationDate)
         {
             var im = new InvestigationManagement();
-            im.CreateInvestigation(name, creationDate, comment);
+            return im.CreateInvestigation(name, creationDate, comment);
         }
 
         public Investigation GetInvestigation(int idInvestigation)
         {
             var im = new InvestigationManagement();
             return im.GetInvestigation(idInvestigation);
+        }
+
+        public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
+        {
+            var im = new InvestigationManagement();
+            im.AddReportToInvestigation(idReport, idPatient, idInvestigation);
         }
 
         #endregion

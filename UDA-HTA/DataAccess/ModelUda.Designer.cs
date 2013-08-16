@@ -2222,6 +2222,25 @@ namespace DataAccess
     
             return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter, requesterParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idInvestigation">No Metadata Documentation available.</param>
+        public int getInvestigationReports(Nullable<global::System.Int32> idInvestigation)
+        {
+            ObjectParameter idInvestigationParameter;
+            if (idInvestigation.HasValue)
+            {
+                idInvestigationParameter = new ObjectParameter("idInvestigation", idInvestigation);
+            }
+            else
+            {
+                idInvestigationParameter = new ObjectParameter("idInvestigation", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("getInvestigationReports", idInvestigationParameter);
+        }
 
         #endregion
     }

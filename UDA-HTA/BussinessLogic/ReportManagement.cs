@@ -64,6 +64,22 @@ namespace BussinessLogic
             return uda.GetReportsByPatientId(idPatient);
         }
 
+        public ICollection<Report> ListFilteredReports(int? patientLowerAge, int? patientUpperAge, DateTime? reportSinceDate, 
+            DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHypertense, bool? isDysplidemic)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            var reports = uda.ListFilteredReport(patientLowerAge, patientUpperAge, reportSinceDate, reportUntilDate, isSmoker,
+                                          isDiabetic, isHypertense, isDysplidemic);
+
+            foreach (var report in reports)
+            {   
+                PatientDataAccess pda = new PatientDataAccess();
+                report.Patient = pda.GetPatient(report.Patient.UdaId.Value);
+            }
+
+            return reports;
+        } 
+
         #region Drugs Region
         public void AddDrug(int type, string name)
         {

@@ -44,7 +44,27 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void btnAddReports_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var controller = GatewayController.GetInstance();
+            try
+            {
+                int idInvestigation = 0;
+                if (dpDate.SelectedDate != null)
+                    idInvestigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(),
+                                                   dpDate.SelectedDate.Value);
+                else
+                    idInvestigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
+                this.Close();
+
+                var addReportsWindow = new AddReportsToResearch(idInvestigation);
+                addReportsWindow.Show();
+
+            }
+            catch (Exception)
+            {
+                MessageBoxResult result = MessageBox.Show("Error al intentar crear la investigacion", "Error");
+                this.Close();
+            }
+
         }
     }
 }

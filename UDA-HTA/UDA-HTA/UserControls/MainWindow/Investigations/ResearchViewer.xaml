@@ -33,13 +33,13 @@
                 </ContentControl>
             </TabItem>
 
-            <TabItem Name="Reports"  Header="Reportes Asociados" Visibility="Collapsed">
+            <TabItem Name="Reports"  Header="Reportes Asociados" Visibility="Visible">
                 <ContentControl>
                     <investigations:ResearchViewerReportSummary x:Name="TabReports" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Name="ReportInfo" Header="Resumen" Visibility="Collapsed">
+            <TabItem Name="ReportInfo" Header="Medidas" Visibility="Collapsed">
                 <ContentControl>
                     <investigations:ResearchViewerReport x:Name="TabReportInfo" />
                 </ContentControl>

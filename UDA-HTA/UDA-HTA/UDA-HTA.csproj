@@ -102,6 +102,9 @@
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainWindow\Investigations\AddReportsToResearch.xaml.cs">
+      <DependentUpon>AddReportsToResearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserManagement\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReportCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Investigations\AddReportsToResearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,7 +22,15 @@ namespace BussinessLogic
         public Investigation GetInvestigation(int id)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            return uda.GetInvestigation(id);
+            var investigation = uda.GetInvestigation(id);
+
+            foreach (var report in investigation.LReports)
+            {
+                PatientDataAccess pda = new PatientDataAccess();
+                report.Patient = pda.GetPatient(report.Patient.UdaId.Value);
+            }
+
+            return investigation;
         }
 
         //Obtiene una lista de investigaciones, filtrando por id, nombre y/o fecha de creacion
@@ -50,12 +58,12 @@ namespace BussinessLogic
             // TODO
         }
 
-        public void AddReportToInvestigation(Report report, int idInvestigation)
+        public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             try
             {
-                uda.addReportToInvestigation(report.UdaId.Value, report.Patient.UdaId.Value, idInvestigation);
+                uda.addReportToInvestigation(idReport, idPatient, idInvestigation);
             }
             catch (Exception ex)
             {
