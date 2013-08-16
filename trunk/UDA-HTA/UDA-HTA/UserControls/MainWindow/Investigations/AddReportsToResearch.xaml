@@ -1,0 +1,101 @@
+﻿<Window x:Class="UDA_HTA.UserControls.MainWindow.Investigations.AddReportsToResearch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Agregar Reportes a Investigación" Height="500" Width="900">
+    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Edad</TextBlock>
+                    <TextBox Name="txtEdad" Width="50" Margin="15,0,40,0" KeyDown="enterAge" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Fumador</TextBlock>
+                    <CheckBox Content="" Height="16" Name="smoker" Margin="5,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Hipertenso</TextBlock>
+                    <CheckBox Content="" Height="16" Name="hypertense" Margin="5,0" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Height="23" Style="{StaticResource label}"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Diabetico</TextBlock>
+                    <CheckBox Content="" Height="16" Name="diabetic" Margin="5,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Dislipidemia</TextBlock>
+                    <CheckBox Content="" Height="16" Name="dislipidemic" Margin="5,0" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Height="22" Style="{StaticResource label}"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Desde:</TextBlock>
+                    <DatePicker Name="dtSinceDate" Margin="15,0,40,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Hasta:</TextBlock>
+                    <DatePicker Name="dtUntilDate" Margin="15,0,40,0" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="0,40,0,0" Orientation="Vertical" VerticalAlignment="Center">
+                <Button Padding="10,0" Click="btnSearch_Click">Buscar</Button>
+            </StackPanel>
+
+            <StackPanel Margin="310,40,0,0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Name="buttonAdd" Padding="10,0" Click="btnAdd_Click">Agregar</Button>
+            </StackPanel>
+
+
+        </StackPanel>
+            
+        <DataGrid Name="grReports" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
+            AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
+            SelectionChanged="grReports_SelectionChanged" SelectionMode="Extended" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" 
+                                    Binding="{Binding Path=UdaId}" />
+                <DataGridTextColumn Header="Dispositivo" Width="Auto" 
+                                    Binding="{Binding Path=DeviceId}" />
+                <DataGridTextColumn x:Name="colDate" Header="Fecha de Reporte" 
+                                    Width="1*" Binding="{Binding Path=BeginDate}" />
+                <DataGridTextColumn Header="Edad Paciente" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=TemporaryData.Age}" />
+                <DataGridTextColumn Header="Sexo" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=Patient.Sex}" />
+                <DataGridTextColumn Header="Fumador" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=TemporaryData.Smoker}" />
+                <DataGridTextColumn Header="Hipertenso" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=TemporaryData.Hypertensive}" />
+                <DataGridTextColumn Header="Diabetico" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=TemporaryData.Diabetic}" />
+                <DataGridTextColumn Header="Dislipidemia" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=TemporaryData.Dyslipidemia}" />
+                <DataGridTextColumn Width="1*" IsReadOnly="True" Visibility="Hidden"
+                                    Binding="{Binding Path=Patient.UdaId}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

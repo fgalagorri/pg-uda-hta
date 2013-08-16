@@ -427,6 +427,9 @@
         <Function Name="deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="getInvestigationReports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idInvestigation" Type="int" Mode="In" />
+        </Function>
         <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="pass_var" Type="text" Mode="Out" />
           <Parameter Name="login_var" Type="varchar" Mode="In" />
@@ -876,6 +879,9 @@
             <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInvestigationReports">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1433,6 +1439,7 @@
           <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="getInvestigationReports" FunctionName="udahta_dbModel.Store.getInvestigationReports" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

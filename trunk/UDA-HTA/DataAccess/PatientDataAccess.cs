@@ -114,6 +114,7 @@ namespace DataAccess
                 if (!String.IsNullOrWhiteSpace(registerNo))
                     list = list.Where(p => p.register_number.Contains(registerNo));
 
+
                 return list.Select(p => new PatientSearch
                     {
                         UdaId = p.idPatient,
