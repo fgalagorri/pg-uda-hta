@@ -29,9 +29,9 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Padding="10,0" Click="btnCreate_Click">Crear</Button>
+                <Button Padding="10,0" Name="btnAddReport" Click="btnAddReports_Click">Agregar Reportes</Button>
                 <TextBlock Height="23" Name="txtBlockBlank3" Text="    " />
-                <Button Padding="10,0" Click="btnAddReports_Click">Agregar Reportes</Button>
+                <Button Padding="10,0" Name="btnCreate" Click="btnCreate_Click">Crear</Button>
             </StackPanel>
 
         </StackPanel>

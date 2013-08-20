@@ -295,7 +295,7 @@ namespace Gateway
             return im.ListInvestigations(id, name, creationDate);
         }
 
-        public int CreateInvestigation(string name, string comment, DateTime creationDate)
+        public Investigation CreateInvestigation(string name, string comment, DateTime creationDate)
         {
             var im = new InvestigationManagement();
             return im.CreateInvestigation(name, creationDate, comment);
@@ -307,10 +307,22 @@ namespace Gateway
             return im.GetInvestigation(idInvestigation);
         }
 
+        public void EditInvestigation(Investigation investigation)
+        {
+            var im = new InvestigationManagement();
+            im.EditInvestigation(investigation);
+        }
+
         public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
         {
             var im = new InvestigationManagement();
             im.AddReportToInvestigation(idReport, idPatient, idInvestigation);
+        }
+
+        public void DeleteReportFromResearch(Report report, Investigation investigation)
+        {
+            var im = new InvestigationManagement();
+            im.DeleteReportFromInvestigation(report, investigation.IdInvestigation);
         }
 
         #endregion

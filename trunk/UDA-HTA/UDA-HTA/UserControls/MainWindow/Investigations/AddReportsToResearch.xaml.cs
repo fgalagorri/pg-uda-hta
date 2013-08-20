@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gateway;
 using Entities;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.MessageBox;
 
 namespace UDA_HTA.UserControls.MainWindow.Investigations
 {
@@ -21,22 +25,20 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
     /// </summary>
     public partial class AddReportsToResearch : Window
     {
-        private int _idInvestigation;
+        private UDA_HTA.MainWindow container;
+        private Investigation _investigation;
+        private ICollection<Report> _lstReport;
 
-        public AddReportsToResearch(int idInvestigation)
+        public AddReportsToResearch(Investigation investigation, UDA_HTA.MainWindow w)
         {
-            _idInvestigation = idInvestigation;
+            _investigation = investigation;
 
             InitializeComponent();
 
             buttonAdd.IsEnabled = false;
+            container = w;
         }
 
-
-        private void enterAge(object sender, KeyEventArgs e)
-        {
-//            this.btnSearch_Click(sender, e);
-        }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -113,10 +115,10 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
             //Obtener reportes segun filtros
             var controller = GatewayController.GetInstance();
-            var reports = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker, isDiabetic, isHypertense,
+            _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker, isDiabetic, isHypertense,
                                            isDyslipidemic);
-            
-            grReports.DataContext = reports;
+
+            grReports.DataContext = _lstReport;
         }
 
         private void grReports_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,6 +128,8 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            int cantSelected = grReports.SelectedItems.Count;
+            var reports = grReports;
 
             var controller = GatewayController.GetInstance();
             try
@@ -133,20 +137,34 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 foreach (Report selectedItem in grReports.SelectedItems)
                 {
                     controller.AddReportToInvestigation(selectedItem.UdaId.Value, selectedItem.Patient.UdaId.Value,
-                                                        _idInvestigation);
+                                                        _investigation.IdInvestigation);
                 }
 
                 if (MessageBox.Show("Desea agregar más reportes?", "Confirmacion", MessageBoxButton.YesNo) ==
                     MessageBoxResult.Yes)
-                {
-                   grReports.SelectedItems.Clear();
+                {                    
+                    //Eliminar selectedItems
+                    if (grReports.SelectedIndex >= 0)
+                    {
+                        var selItems = grReports.SelectedItems;
+                        foreach (Report r in selItems)
+                            _lstReport.Remove(r);
+
+                        grReports.DataContext = null;
+                        grReports.DataContext = _lstReport;
+                    }
+
                 }
+
                 else
                 {
                     this.Close();
                 }
+                
+                container.Container.Content = new ResearchViewer(_investigation.IdInvestigation);
+                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBoxResult result = MessageBox.Show("Error al intentar agregar reporte");
             }

@@ -40,12 +40,13 @@ namespace BussinessLogic
             return uda.ListInvestigations(id, name, creationDate);
         }
 
-        public int CreateInvestigation(string name, DateTime creationDate, string comment)
+        public Investigation CreateInvestigation(string name, DateTime creationDate, string comment)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             try
             {
-                return uda.insertInvestigation(name, creationDate, comment);
+                var id = uda.insertInvestigation(name, creationDate, comment);
+                return new Investigation(id,name,creationDate,comment);
             }
             catch (Exception ex)
             {
@@ -53,7 +54,7 @@ namespace BussinessLogic
             }
         }
 
-        public void EditInvestigation(string name, DateTime creationDate)
+        public void EditInvestigation(Investigation investigation)
         {
             // TODO
         }
