@@ -13,6 +13,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Entities;
 using Gateway;
+using Cursors = System.Windows.Input.Cursors;
+using Label = System.Windows.Controls.Label;
+using Orientation = System.Windows.Controls.Orientation;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace UDA_HTA.UserControls.MainWindow.Investigations
 {
@@ -24,10 +28,10 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         private Investigation _investigation;
         private Report _report ;
 
-        public ResearchViewer(InvestigationSearch investigation)
+        public ResearchViewer(int idInvestigation)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            _investigation = GatewayController.GetInstance().GetInvestigation(investigation.IdInvestigation);
+            _investigation = GatewayController.GetInstance().GetInvestigation(idInvestigation);
 
             InitializeComponent();
             
@@ -37,6 +41,11 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             PopulateTree();
 
             Mouse.OverrideCursor = null;
+        }
+
+        public Investigation GetSelectedInvestigation()
+        {
+            return _investigation;
         }
 
         private void PopulateTree(long? reportId = null)
@@ -63,15 +72,19 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 if (reportId.HasValue && r.UdaId.Equals(reportId))
                     child.IsSelected = true;
                 treeInvestigation.Items.Add(child);
+
             }
+
         }
 
 
 
         private void treeInvestigation_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+
             Mouse.OverrideCursor = Cursors.Wait;
             int index = treeInvestigation.Items.IndexOf(e.NewValue);
+
             if (index >= 0)
             {
                 _report = _investigation.LReports
@@ -90,5 +103,16 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             Mouse.OverrideCursor = null;
           
         }
+
+
+        private void DeleteReportFromResearch_OnClick(object sender, RoutedEventArgs e)
+        {
+            GatewayController.GetInstance().DeleteReportFromResearch(_report,_investigation);
+        }
+
+        private void ResearchContext_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+        }
+
     }
 }

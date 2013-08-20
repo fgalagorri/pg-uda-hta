@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Entities;
 using Gateway;
 
 namespace UDA_HTA.UserControls.MainWindow.Investigations
@@ -19,9 +20,28 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
     /// </summary>
     public partial class NewResearch : Window
     {
-        public NewResearch()
+        private UDA_HTA.MainWindow container;
+        private Investigation _investigation;
+
+        public NewResearch(UDA_HTA.MainWindow w, Investigation investigation)
         {
             InitializeComponent();
+            container = w;
+            if (investigation != null)
+            {
+                //Editar
+                txtName.Text = investigation.Name;
+                txtComment.Text = investigation.Comment;
+                dpDate.SelectedDate = investigation.CreationDate;
+                btnCreate.Content = "Actualizar";
+                btnAddReport.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                //Crear
+                btnCreate.Content = "Crear";
+                btnAddReport.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -29,11 +49,29 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             var controller = GatewayController.GetInstance();
             try
             {
-                if (dpDate.SelectedDate != null)
-                    controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(),
-                                                   dpDate.SelectedDate.Value);
+                if (_investigation != null)
+                {
+                    //Editar
+                    _investigation.Name = txtName.Text;
+                    _investigation.CreationDate = dpDate.SelectedDate.Value;
+                    _investigation.Comment = txtComment.Text;
+                    controller.EditInvestigation(_investigation);
+                }
                 else
-                    controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
+                {
+                    //Crear
+                    if (dpDate.SelectedDate != null)
+                    {
+                        _investigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(),
+                                                       dpDate.SelectedDate.Value);
+                    }
+                    else
+                    {
+                        _investigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
+                    }
+                }
+
+                container.Container.Content = new ResearchViewer(_investigation.IdInvestigation);
             }
             catch(Exception)
             {
@@ -47,15 +85,15 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             var controller = GatewayController.GetInstance();
             try
             {
-                int idInvestigation = 0;
+                Investigation investigation;
                 if (dpDate.SelectedDate != null)
-                    idInvestigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(),
+                    investigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(),
                                                    dpDate.SelectedDate.Value);
                 else
-                    idInvestigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
+                    investigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
                 this.Close();
 
-                var addReportsWindow = new AddReportsToResearch(idInvestigation);
+                var addReportsWindow = new AddReportsToResearch(investigation, container);
                 addReportsWindow.Show();
 
             }

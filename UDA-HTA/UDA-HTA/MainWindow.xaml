@@ -60,12 +60,12 @@
             <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
                 <r:RibbonGroup Header="Investigación">
                     <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" Click="BtnNewResearch_OnClick"/>
-                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_editResearch.png" />
+                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_editResearch.png" Click="BtnFindResearch_OnClick"/>
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup>
-                    <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png"/>
-                    <r:RibbonButton Name="btnAddStudyResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png"/>
+                    <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png" Click="BtnEditResearch_OnClick"/>
+                    <r:RibbonButton Name="btnAddStudyResearch" Label="Agregar Reporte" LargeImageSource="/Images/ribbon_newReport.png" Click="BtnAddReport_OnClick"/>
                     <r:RibbonSplitButton >
                         <r:RibbonMenuItem Name="CSV"/>
                         <r:RibbonMenuItem Name="XLS"/>

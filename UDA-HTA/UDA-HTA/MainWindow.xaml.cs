@@ -24,7 +24,8 @@ namespace UDA_HTA
         {
             InitializeComponent();
             Container.Content = new PatientFinder(this);
-            
+            btnAddStudyResearch.IsEnabled = false;
+
         }
 
         #region Ribbon Buttons
@@ -196,16 +197,46 @@ namespace UDA_HTA
 
         public void InvestigationSelected(InvestigationSearch investigation)
         {
-            Container.Content = new ResearchViewer(investigation);
+            btnAddStudyResearch.IsEnabled = true;
+            Container.Content = new ResearchViewer(investigation.IdInvestigation);
+
         }
 
         private void BtnNewResearch_OnClick(object sender, RoutedEventArgs e)
         {
-            var newResearchWindow = new NewResearch();
+            var newResearchWindow = new NewResearch(this,null);
             newResearchWindow.ShowDialog();
         }
 
         #endregion
 
+        private void BtnAddReport_OnClick(object sender, RoutedEventArgs e)
+        {
+            var rv = Container.Content as ResearchViewer;
+            if (rv != null && rv.GetSelectedInvestigation() != null)
+            {
+                var i = rv.GetSelectedInvestigation();
+                var addReportWindow = new AddReportsToResearch(i, this);
+                addReportWindow.Show();
+                
+            }
+        }
+
+        private void BtnFindResearch_OnClick(object sender, RoutedEventArgs e)
+        {
+            Container.Content = new ResearchFinder(this);
+        }
+
+        private void BtnEditResearch_OnClick(object sender, RoutedEventArgs e)
+        {
+            var rv = Container.Content as ResearchViewer;
+            if (rv != null && rv.GetSelectedInvestigation() != null)
+            {
+                var i = rv.GetSelectedInvestigation();
+
+                var newResearchWindow = new NewResearch(this, i);
+                newResearchWindow.Show();
+            }
+        }
     }
 }
