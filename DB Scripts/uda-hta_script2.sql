@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS `udahta_db`.`drug` ;
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`drug` (
   `idDrug` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
+  `active` VARCHAR(45) NOT NULL ,
   `drugtype_idDrugType` INT NOT NULL ,
   PRIMARY KEY (`idDrug`) ,
   INDEX `fk_Drug_DrugType_idx` (`drugtype_idDrugType` ASC) ,
