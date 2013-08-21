@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Entities;
 using Gateway;
 using Microsoft.Win32;
@@ -11,6 +12,7 @@ using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
 using UDA_HTA.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Investigations;
+using UDA_HTA.UserControls.MainWindow.Administration;
 
 namespace UDA_HTA
 {
@@ -24,11 +26,14 @@ namespace UDA_HTA
         {
             InitializeComponent();
             Container.Content = new PatientFinder(this);
-            btnAddStudyResearch.IsEnabled = false;
 
+            btnAddStudyResearch.IsEnabled = false;
+            btnEditResearch.IsEnabled = false;
+            btnExportXLS.IsEnabled = false;
+            //btnExportCSV.IsEnabled = false;
         }
 
-        #region Ribbon Buttons
+    #region Ribbon Buttons
 
         private void CreateNewReport(object sender, RoutedEventArgs e)
         {
@@ -145,7 +150,7 @@ namespace UDA_HTA
             }
         }
 
-        #endregion
+    #endregion
 
 
         private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -158,6 +163,10 @@ namespace UDA_HTA
             {
                 Container.Content = new ResearchFinder(this);
             }
+            if (this.tabAdministration.IsSelected)
+            {
+                Container.Content = null;
+            }
 
         }
 
@@ -167,7 +176,7 @@ namespace UDA_HTA
                 Container.Content = new PatientViewer(patient);
         }
 
-        #region Usuario
+    #region Usuario
 
         private void NewUser(object sender, RoutedEventArgs e)
         {
@@ -186,18 +195,16 @@ namespace UDA_HTA
             changePswdWindow.ShowDialog();
         }
 
-        private void Logout(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
+    #endregion
 
-        #endregion
-
-        #region Investigaciones
+    #region Investigaciones
 
         public void InvestigationSelected(InvestigationSearch investigation)
         {
             btnAddStudyResearch.IsEnabled = true;
+            btnEditResearch.IsEnabled = true;
+            btnExportXLS.IsEnabled = true;
+            //btnExportCSV.IsEnabled = true;
             Container.Content = new ResearchViewer(investigation.IdInvestigation);
 
         }
@@ -208,7 +215,6 @@ namespace UDA_HTA
             newResearchWindow.ShowDialog();
         }
 
-        #endregion
 
         private void BtnAddReport_OnClick(object sender, RoutedEventArgs e)
         {
@@ -224,6 +230,10 @@ namespace UDA_HTA
 
         private void BtnFindResearch_OnClick(object sender, RoutedEventArgs e)
         {
+            btnAddStudyResearch.IsEnabled = false;
+            btnEditResearch.IsEnabled = false;
+            btnExportXLS.IsEnabled = false;
+            //btnExportCSV.IsEnabled = false;
             Container.Content = new ResearchFinder(this);
         }
 
@@ -238,5 +248,49 @@ namespace UDA_HTA
                 newResearchWindow.Show();
             }
         }
+
+        private void ExportXLS(object sender, RoutedEventArgs e)
+        {
+            var pv = Container.Content as ResearchViewer;
+            if (pv != null && pv.GetSelectedInvestigation() != null)
+            {
+                var investigation = pv.GetSelectedInvestigation();
+
+                SaveFileDialog saveAs = new SaveFileDialog
+                {
+                    FileName = "Investigacion " + investigation.Name,
+                    DefaultExt = ".xlsm"
+//                    Filter = "*.xlsm"
+                };
+                saveAs.FileName += " " + investigation.CreationDate
+                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
+                                             .Replace('/', '-');
+
+                var result = saveAs.ShowDialog();
+                if (result.Value)
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    GatewayController.GetInstance().ExportInvestigationXLS(investigation, saveAs.FileName);
+                    // Abro el archivo exportado
+                    Process.Start(saveAs.FileName);
+                    Mouse.OverrideCursor = null;
+                }
+            }
+
+        }
+
+        private void ExportCSV(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+    #endregion
+
+    #region Drogas
+        private void BtnAddDrugs_OnClick(object sender, RoutedEventArgs e)
+        {
+            Container.Content = new AddDrugs();
+        }
+    #endregion
+
     }
 }

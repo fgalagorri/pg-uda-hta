@@ -107,11 +107,38 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void DeleteReportFromResearch_OnClick(object sender, RoutedEventArgs e)
         {
-            GatewayController.GetInstance().DeleteReportFromResearch(_report,_investigation);
+            MenuItem item = (MenuItem) e.OriginalSource;
+            TreeViewItem selected = (TreeViewItem) TreeReports.SelectedValue;
+            int index = treeInvestigation.Items.IndexOf(selected);
+            ICollection<Report> lstReports = _investigation.LReports.OrderByDescending(r => r.BeginDate).ToList();
+
+            _report = lstReports.ElementAt(index);
+            GatewayController.GetInstance().DeleteReportFromResearch(_report, _investigation);
+            lstReports.Remove(_report);
+            _investigation.LReports = lstReports;
+            treeInvestigation.Items.Remove(selected);
+            TabInvestigation.SetInformationInfo(_investigation);
+            TabReports.SetReportList(_investigation.LReports);
         }
 
-        private void ResearchContext_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+
+        private static DependencyObject SearchTreeView<T>(DependencyObject source)
         {
+            while (source != null && source.GetType() != typeof (T))
+            {
+                source = VisualTreeHelper.GetParent(source);
+            }
+            return source;
+        }
+
+        private void TreeReports_OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem treeViewItem = (TreeViewItem) SearchTreeView<TreeViewItem>((DependencyObject) e.OriginalSource);
+            if (treeViewItem != null)
+            {
+                treeViewItem.IsSelected = true;
+                e.Handled = true;
+            }
         }
 
     }

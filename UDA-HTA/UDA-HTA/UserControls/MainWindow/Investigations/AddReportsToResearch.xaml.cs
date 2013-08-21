@@ -128,9 +128,6 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            int cantSelected = grReports.SelectedItems.Count;
-            var reports = grReports;
-
             var controller = GatewayController.GetInstance();
             try
             {

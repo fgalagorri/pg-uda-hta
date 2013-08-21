@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Administration.AddDrugs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="900">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="15,15,0,15" Grid.Row="0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Tipo:</TextBlock>
+                    <ComboBox ItemsSource="{Binding}" Margin="36,0,40,0" Height="23" Name="comboBoxDrugType" Width="120">
+                    </ComboBox> 
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Nombre:</TextBlock>
+                    <TextBox Name="txtRegistry" Width="150" Margin="15,0,40,0" />
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button Padding="10,0" Click="btnAdd_Click">Agregar</Button>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

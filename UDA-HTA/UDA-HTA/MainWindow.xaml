@@ -22,7 +22,6 @@
                     <r:RibbonApplicationMenuItem Header="Nuevo Usuario" Click="NewUser"/>
                     <r:RibbonApplicationMenuItem Header="Buscar Usuario" Click="FindUser"/>
                     <r:RibbonApplicationMenuItem Header="Cambio Password" Click="ChangePassword"/>
-                    <r:RibbonApplicationMenuItem Header="Logout" Click="Logout"/>
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
 
@@ -50,11 +49,6 @@
                                     LargeImageSource="/Images/ribbon_SaveDoc.png" />
                 </r:RibbonGroup>
                 
-                <r:RibbonGroup Name="administration" Header="Administración">
-                    <!--r:RibbonButton Name="btnEditDrugs" Label="Drogas" LargeImageSource="/Images/ribbon_editDrugs.png" />
-                    <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="/Images/ribbon_newDoctor.png" />
-                    <r:RibbonButton Name="btnFindDoctor" Label="Buscar Usuario" LargeImageSource="/Images/ribbon_findDoctor.png" /-->
-                </r:RibbonGroup>
             </r:RibbonTab>
 
             <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
@@ -62,17 +56,36 @@
                     <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" Click="BtnNewResearch_OnClick"/>
                     <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_editResearch.png" Click="BtnFindResearch_OnClick"/>
                 </r:RibbonGroup>
-                
-                <r:RibbonGroup>
+
+                <r:RibbonGroup Header="Edición">
                     <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png" Click="BtnEditResearch_OnClick"/>
                     <r:RibbonButton Name="btnAddStudyResearch" Label="Agregar Reporte" LargeImageSource="/Images/ribbon_newReport.png" Click="BtnAddReport_OnClick"/>
-                    <r:RibbonSplitButton >
+                    <!--r:RibbonSplitButton >
                         <r:RibbonMenuItem Name="CSV"/>
                         <r:RibbonMenuItem Name="XLS"/>
                         <r:RibbonMenuItem />
-                    </r:RibbonSplitButton>
+                    </r:RibbonSplitButton> -->
+                </r:RibbonGroup>
+
+                <r:RibbonGroup Header="Exportar">
+                    <r:RibbonButton Name="btnExportXLS" Label="Exportar XLS" Click="ExportXLS"
+                                    LargeImageSource="/Images/ribbon_SavePdf.png" />
+                    <!--r:RibbonButton Name="btnExportCSV" Label="Exportar CSV" Click="ExportCSV"
+                                    LargeImageSource="/Images/ribbon_SaveDoc.png" /> -->
+                </r:RibbonGroup>
+
+            </r:RibbonTab>
+
+            <r:RibbonTab Name="tabAdministration" Header="Administración">
+                <r:RibbonGroup Header="Drogas">
+                    <r:RibbonButton Name="btnAddDrugs" Label="Agregar Droga" LargeImageSource="/Images/ribbon_editDrugs.png" Click="BtnAddDrugs_OnClick"/>
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Usuarios">
+                    <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="/Images/ribbon_newDoctor.png" Click="NewUser"/>
+                    <r:RibbonButton Name="btnFindDoctor" Label="Buscar Usuario" LargeImageSource="/Images/ribbon_findDoctor.png" Click="FindUser"/>
                 </r:RibbonGroup>
             </r:RibbonTab>
+
         </r:Ribbon>
 
         <ContentControl Name="Container" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
