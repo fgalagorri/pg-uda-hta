@@ -799,8 +799,9 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="nam">No Metadata Documentation available.</param>
+        /// <param name="active">No Metadata Documentation available.</param>
         /// <param name="idDrugType">No Metadata Documentation available.</param>
-        public int insertDrug(global::System.String nam, Nullable<global::System.Int32> idDrugType)
+        public int insertDrug(global::System.String nam, global::System.String active, Nullable<global::System.Int32> idDrugType)
         {
             ObjectParameter namParameter;
             if (nam != null)
@@ -810,6 +811,16 @@ namespace DataAccess
             else
             {
                 namParameter = new ObjectParameter("nam", typeof(global::System.String));
+            }
+    
+            ObjectParameter activeParameter;
+            if (active != null)
+            {
+                activeParameter = new ObjectParameter("active", active);
+            }
+            else
+            {
+                activeParameter = new ObjectParameter("active", typeof(global::System.String));
             }
     
             ObjectParameter idDrugTypeParameter;
@@ -822,7 +833,7 @@ namespace DataAccess
                 idDrugTypeParameter = new ObjectParameter("idDrugType", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("insertDrug", namParameter, idDrugTypeParameter);
+            return base.ExecuteFunction("insertDrug", namParameter, activeParameter, idDrugTypeParameter);
         }
     
         /// <summary>
@@ -3214,12 +3225,14 @@ namespace DataAccess
         /// <param name="idDrug">Initial value of the idDrug property.</param>
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="drugtype_idDrugType">Initial value of the drugtype_idDrugType property.</param>
-        public static drug Createdrug(global::System.Int32 idDrug, global::System.String name, global::System.Int32 drugtype_idDrugType)
+        /// <param name="active">Initial value of the active property.</param>
+        public static drug Createdrug(global::System.Int32 idDrug, global::System.String name, global::System.Int32 drugtype_idDrugType, global::System.String active)
         {
             drug drug = new drug();
             drug.idDrug = idDrug;
             drug.name = name;
             drug.drugtype_idDrugType = drugtype_idDrugType;
+            drug.active = active;
             return drug;
         }
 
@@ -3300,6 +3313,30 @@ namespace DataAccess
         private global::System.Int32 _drugtype_idDrugType;
         partial void Ondrugtype_idDrugTypeChanging(global::System.Int32 value);
         partial void Ondrugtype_idDrugTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String active
+        {
+            get
+            {
+                return _active;
+            }
+            set
+            {
+                OnactiveChanging(value);
+                ReportPropertyChanging("active");
+                _active = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("active");
+                OnactiveChanged();
+            }
+        }
+        private global::System.String _active;
+        partial void OnactiveChanging(global::System.String value);
+        partial void OnactiveChanged();
 
         #endregion
     

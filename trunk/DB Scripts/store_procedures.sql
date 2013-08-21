@@ -252,9 +252,9 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertDrug$$
-CREATE PROCEDURE insertDrug(IN nam VARCHAR(45), IN idDrugType INT)
+CREATE PROCEDURE insertDrug(IN nam VARCHAR(45), IN active VARCHAR(45), IN idDrugType INT)
 BEGIN
-INSERT INTO `drug`(`name`, `drugtype_idDrugType`)
+INSERT INTO `drug`(`name`, `active`, `drugtype_idDrugType`)
 VALUES(nam, idDrugType);
 END$$
 DELIMITER ;
