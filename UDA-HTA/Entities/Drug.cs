@@ -12,6 +12,10 @@ namespace Entities
         public string Active { get; set; }
         public string Name { get; set; }
 
+        public Drug()
+        {
+        }
+
         public Drug(string category, string active, string name)
         {
             Category = category;

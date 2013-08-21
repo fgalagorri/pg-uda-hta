@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Entities;
+using Gateway;
 using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.ReportCreation
@@ -26,16 +27,19 @@ namespace UDA_HTA.UserControls.ReportCreation
         decimal _imc;
         private ICollection<Medication> _lstMedication;
         private ICollection<MedicalRecord> _lstBackground;
+        private ICollection<Drug> _drugs;
 
         public PatientCondition()
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
+            _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
         }
         public PatientCondition(Report r)
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
+            _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
 
             // Datos posiblemente modificados
             if (r.TemporaryData != null)
@@ -168,6 +172,13 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         #region Medicación
 
+        private void MedicationPopulate(object sender, PopulatingEventArgs e)
+        {
+            string text = autoMedication.Text;
+
+
+        }
+
         private void btnMedication_Click(object sender, RoutedEventArgs e)
         {
             /*_ms = new MedicationSelector();
@@ -193,7 +204,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             // Clears the textboxes after insertion
             txtHourMedication.Clear();
             txtMinMedication.Clear();
-            txtMedication.Clear();
+//            autoMedication.Clear();
             grMedication.DataContext = _lstMedication;
             txtHourMedication.Focus();
         }

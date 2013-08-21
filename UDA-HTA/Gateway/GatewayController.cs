@@ -228,11 +228,18 @@ namespace Gateway
     #endregion
 
     #region Drug Management
-        public void AddDrug(int type, string name)
+        public void AddDrug(int type, string active, string name)
         {
             var rm = new ReportManagement();
-            rm.AddDrug(type, name);
+            rm.AddDrug(type, active, name);
         }
+
+
+        public ICollection<Drug> GetDrugs(string type, string active, string name)
+        {
+            var rm = new ReportManagement();
+            return rm.GetDrugs(type, active, name);
+        } 
 
     #endregion
 
