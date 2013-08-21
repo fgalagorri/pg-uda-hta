@@ -1111,13 +1111,13 @@ namespace DataAccess
         }
 
         //Inserta una nueva droga en la base de datos
-        public void InsertDrug(string name, int idDrugTyp)
+        public void InsertDrug(string name, string active, int idDrugTyp)
         {
             using (TransactionScope scope = new TransactionScope())
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    udaContext.insertDrug(name, idDrugTyp);
+                    udaContext.insertDrug(name, active, idDrugTyp);
                 }
 
                 scope.Complete();
