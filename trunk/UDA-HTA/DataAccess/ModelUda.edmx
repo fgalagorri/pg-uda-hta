@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -112,6 +112,7 @@
           </Key>
           <Property Name="idDrug" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="active" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="drugtype_idDrugType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="drugtype">
@@ -427,9 +428,6 @@
         <Function Name="deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="getInvestigationReports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="idInvestigation" Type="int" Mode="In" />
-        </Function>
         <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="pass_var" Type="text" Mode="Out" />
           <Parameter Name="login_var" Type="varchar" Mode="In" />
@@ -471,6 +469,7 @@
         </Function>
         <Function Name="insertDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="nam" Type="varchar" Mode="In" />
+          <Parameter Name="active" Type="varchar" Mode="In" />
           <Parameter Name="idDrugType" Type="int" Mode="In" />
         </Function>
         <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
@@ -605,12 +604,6 @@
           <Parameter Name="diagnosis" Type="text" Mode="In" />
           <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
         </Function>
-        <Function Name="updateInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="name_" Type="varchar" Mode="In" />
-          <Parameter Name="creationdate_" Type="datetime" Mode="In" />
-          <Parameter Name="comment_" Type="text" Mode="In" />
-        </Function>
         <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
           <Parameter Name="patient_id" Type="bigint" Mode="In" />
@@ -732,6 +725,7 @@
           </FunctionImport>
           <FunctionImport Name="insertDrug">
             <Parameter Name="nam" Mode="In" Type="String" />
+            <Parameter Name="active" Mode="In" Type="String" />
             <Parameter Name="idDrugType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertInvestigation">
@@ -949,6 +943,7 @@
           <Property Name="drugtype_idDrugType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="drugtype" Relationship="udahta_dbModel.fk_Drug_DrugType" FromRole="drug" ToRole="drugtype" />
           <NavigationProperty Name="medicinedose" Relationship="udahta_dbModel.fk_MedicineDosis_Drug1" FromRole="drug" ToRole="medicinedose" />
+          <Property Type="String" Name="active" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="drugtype">
           <Key>
@@ -1280,7 +1275,8 @@
             <ScalarProperty Name="final_sys3" ColumnName="final_sys3" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="drug"><EntityTypeMapping TypeName="udahta_dbModel.drug"><MappingFragment StoreEntitySet="drug">
-            <ScalarProperty Name="idDrug" ColumnName="idDrug" />
+            <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="idDrug" ColumnName="idDrug" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="drugtype_idDrugType" ColumnName="drugtype_idDrugType" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -1451,8 +1447,6 @@
           <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
-          <FunctionImportMapping FunctionImportName="getInvestigationReports" FunctionName="udahta_dbModel.Store.getInvestigationReports" />
-          <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1473,7 +1467,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model1" ZoomLevel="51">
+      <Diagram Name="Model1" ZoomLevel="54">
         <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3" Height="6.2109179687499978" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.25" Height="1.9802864583333317" IsExpanded="true" />
