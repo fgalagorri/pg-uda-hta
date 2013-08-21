@@ -81,18 +81,10 @@ namespace BussinessLogic
         } 
 
         #region Drugs Region
-        public void AddDrug(int type, string name)
+        public void AddDrug(int type, string active, string name)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
-            try
-            {
-                uhda.InsertDrug(name, type);
-            }
-            catch (Exception ex)
-            {
-                
-                throw ex;
-            }
+                uhda.InsertDrug(name, active, type);
         }
 
         public void DeleteDrug(string name)
@@ -104,6 +96,14 @@ namespace BussinessLogic
         {
             // TODO
         }
+
+        public ICollection<Drug> GetDrugs(string type, string active, string name)
+        {
+            UdaHtaDataAccess udaHta = new UdaHtaDataAccess();
+            return udaHta.GetDrugs(type, active, name);
+        }
+
+
         #endregion
 
 

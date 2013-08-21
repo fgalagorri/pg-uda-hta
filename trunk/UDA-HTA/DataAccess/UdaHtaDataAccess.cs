@@ -1124,6 +1124,29 @@ namespace DataAccess
             }
         }
 
+        public ICollection<Drug> GetDrugs(string type, string active, string name)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                var qry = udaContext.drug.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(type))
+                    qry = qry.Where(d => d.drugtype.type == type);
+                if(!string.IsNullOrWhiteSpace(active))
+                    qry = qry.Where(d => d.active == active);
+                if (!string.IsNullOrWhiteSpace(name))
+                    qry = qry.Where(d => d.name == name);
+
+                return qry.Select(d => new Drug
+                                    {
+                                        Id = d.idDrug,
+                                        Name = d.name,
+                                        Active = d.active,
+                                        Category = d.drugtype.type
+                                    }).ToList();
+            }
+        }
+
         public void EditMedicalHistory(MedicalRecord medicalRecord, long patient_id)
         {
             using (TransactionScope scope = new TransactionScope())
