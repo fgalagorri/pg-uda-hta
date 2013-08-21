@@ -11,7 +11,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+            <StackPanel Margin="10,5,0,0" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Style="{StaticResource label}">Edad</TextBlock>
                     <TextBox Name="txtEdad" Width="50" Margin="15,0,40,0" />
@@ -26,7 +26,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Height="23" Style="{StaticResource label}"></TextBlock>
                 </StackPanel>
@@ -40,7 +40,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel>
+            <StackPanel Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Height="22" Style="{StaticResource label}"></TextBlock>
                 </StackPanel>

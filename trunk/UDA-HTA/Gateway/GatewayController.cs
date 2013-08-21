@@ -12,16 +12,16 @@ namespace Gateway
         /* Instance of the GatewayController */
         private static GatewayController _this;
 
-        #region Session Variables
+    #region Session Variables
 
         private long _importedPatient;
         private long _importedReport;
         private User _loggedUser;
 
-        #endregion
+    #endregion
 
 
-        #region Session Variables Methods
+    #region Session Variables Methods
 
         public void GetLastInsertedReport(out long patientId, out long reportId)
         {
@@ -29,7 +29,7 @@ namespace Gateway
             reportId = _importedReport;
         }
 
-        #endregion
+    #endregion
 
 
         private GatewayController()
@@ -41,7 +41,7 @@ namespace Gateway
         }
 
 
-        #region Report Importation
+    #region Report Importation
 
         public ICollection<PatientReport> GetNewReports()
         {
@@ -119,10 +119,10 @@ namespace Gateway
 
         }
 
-        #endregion
+    #endregion
 
 
-        #region Report Updating
+    #region Report Updating
 
         public DiagnosisEdited UpdateDiagnosis(long reportId, string diagnosis)
         {
@@ -150,10 +150,10 @@ namespace Gateway
             return de;
         }
 
-        #endregion
+    #endregion
 
 
-        #region Report Exportation
+    #region Report Exportation
 
         public void ExportToPdf(Report report, string filePath)
         {
@@ -174,9 +174,9 @@ namespace Gateway
             rm.ExportReportDocx(report, filePath);
         }
 
-        #endregion
+    #endregion
 
-        #region Report Listing
+    #region Report Listing
         public ICollection<Report> ListFilteredReports(int? patientLowerAge, int? patientUpperAge, DateTime? reportSinceDate,
             DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHypertense, bool? isDysplidemic)
         {
@@ -184,9 +184,9 @@ namespace Gateway
             return rm.ListFilteredReports(patientLowerAge, patientUpperAge, reportSinceDate, reportUntilDate, 
                                           isSmoker, isDiabetic, isHypertense, isDysplidemic);
         } 
-        #endregion
+    #endregion
 
-        #region Patient Listing & Viewing
+    #region Patient Listing & Viewing
 
         public ICollection<PatientSearch> ListPatients(string documentId, string names, string surnames,
                                                        DateTime? birthDate, string registerNo)
@@ -225,10 +225,19 @@ namespace Gateway
             return reportController.ListPatientReports(patientId);
         }
 
-        #endregion
+    #endregion
+
+    #region Drug Management
+        public void AddDrug(int type, string name)
+        {
+            var rm = new ReportManagement();
+            rm.AddDrug(type, name);
+        }
+
+    #endregion
 
 
-        #region Login Management
+    #region Login Management
 
         public User Login(string userName, string pswd)
         {
@@ -249,9 +258,9 @@ namespace Gateway
             return _loggedUser;
         }
 
-        #endregion
+    #endregion
 
-        #region User Management
+    #region User Management
 
         public void CreateUser(string userName, string login, string role, string password)
         {
@@ -285,9 +294,9 @@ namespace Gateway
             }
         }
 
-        #endregion
+    #endregion
 
-        #region Investigation Listing & Viewing
+    #region Investigation Listing & Viewing
 
         public ICollection<InvestigationSearch> ListInvestigations(int? id, string name, DateTime? creationDate)
         {
@@ -325,7 +334,13 @@ namespace Gateway
             im.DeleteReportFromInvestigation(report, investigation.IdInvestigation);
         }
 
-        #endregion
+        public void ExportInvestigationXLS(Investigation investigation, string filepath)
+        {
+            var im = new InvestigationManagement();
+            im.ExportInvestigation(investigation,filepath);
+        }
+
+    #endregion
 
     }
 }

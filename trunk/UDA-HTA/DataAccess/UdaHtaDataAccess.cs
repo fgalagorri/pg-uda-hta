@@ -1371,6 +1371,20 @@ namespace DataAccess
             }
         }
 
+        public void editInvestigation(Investigation investigation)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    udaContext.updateInvestigation(investigation.IdInvestigation, investigation.Name,investigation.CreationDate,investigation.Comment);
+                }
+
+                scope.Complete();
+            }
+            
+        }
+
         #endregion
     }
 }

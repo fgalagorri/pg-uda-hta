@@ -10,18 +10,13 @@
         </Grid.ColumnDefinitions>
 
         <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-                  Name="Tree" SelectedItemChanged="treeInvestigation_SelectedItemChanged" ContextMenuOpening="ResearchContext_OnContextMenuOpening">
+                  Name="TreeReports" SelectedItemChanged="treeInvestigation_SelectedItemChanged" PreviewMouseRightButtonDown="TreeReports_OnPreviewMouseRightButtonDown">
 
-            <TreeView.Resources>
-                <ContextMenu x:Key="TreeContextMenu">
+            <TreeView.ContextMenu>
+                <ContextMenu>
                     <MenuItem Header="Eliminar" Click="DeleteReportFromResearch_OnClick"/>
                 </ContextMenu>
-            </TreeView.Resources>
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="ContextMenu" Value="{Binding Source={StaticResource TreeContextMenu}}"></Setter>
-                </Style>
-            </TreeView.ItemContainerStyle>
+            </TreeView.ContextMenu>
 
             <TreeViewItem IsExpanded="True" Name="treeInvestigation" >
 
@@ -31,9 +26,6 @@
                         <TextBlock Name="lblTreeName" />
                     </StackPanel>
                 </TreeViewItem.Header>
-                <TreeViewItem.Items>
-                    
-                </TreeViewItem.Items>
             </TreeViewItem>
         </TreeView>
 

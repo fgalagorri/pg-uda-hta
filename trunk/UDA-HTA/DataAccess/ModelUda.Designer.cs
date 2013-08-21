@@ -2241,6 +2241,58 @@ namespace DataAccess
     
             return base.ExecuteFunction("getInvestigationReports", idInvestigationParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name_">No Metadata Documentation available.</param>
+        /// <param name="creationdate_">No Metadata Documentation available.</param>
+        /// <param name="comment_">No Metadata Documentation available.</param>
+        public int updateInvestigation(Nullable<global::System.Int32> id, global::System.String name_, Nullable<global::System.DateTime> creationdate_, global::System.String comment_)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter name_Parameter;
+            if (name_ != null)
+            {
+                name_Parameter = new ObjectParameter("name_", name_);
+            }
+            else
+            {
+                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
+            }
+    
+            ObjectParameter creationdate_Parameter;
+            if (creationdate_.HasValue)
+            {
+                creationdate_Parameter = new ObjectParameter("creationdate_", creationdate_);
+            }
+            else
+            {
+                creationdate_Parameter = new ObjectParameter("creationdate_", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter comment_Parameter;
+            if (comment_ != null)
+            {
+                comment_Parameter = new ObjectParameter("comment_", comment_);
+            }
+            else
+            {
+                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateInvestigation", idParameter, name_Parameter, creationdate_Parameter, comment_Parameter);
+        }
 
         #endregion
     }

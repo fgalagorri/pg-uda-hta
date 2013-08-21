@@ -605,6 +605,12 @@
           <Parameter Name="diagnosis" Type="text" Mode="In" />
           <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="updateInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name_" Type="varchar" Mode="In" />
+          <Parameter Name="creationdate_" Type="datetime" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
+        </Function>
         <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
           <Parameter Name="patient_id" Type="bigint" Mode="In" />
@@ -881,7 +887,13 @@
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getInvestigationReports">
-            <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+          <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updateInvestigation">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
@@ -1440,6 +1452,7 @@
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
           <FunctionImportMapping FunctionImportName="getInvestigationReports" FunctionName="udahta_dbModel.Store.getInvestigationReports" />
+          <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
