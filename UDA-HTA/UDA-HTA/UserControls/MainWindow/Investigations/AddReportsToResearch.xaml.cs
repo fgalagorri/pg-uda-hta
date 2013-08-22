@@ -158,7 +158,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                     this.Close();
                 }
                 
-                container.Container.Content = new ResearchViewer(_investigation.IdInvestigation);
+                container.ContainerInvestigation.Content = new ResearchViewer(_investigation.IdInvestigation);
                 
             }
             catch (Exception)

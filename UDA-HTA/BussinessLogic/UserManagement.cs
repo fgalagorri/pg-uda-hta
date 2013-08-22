@@ -34,5 +34,11 @@ namespace BussinessLogic
             return uda.GetUser(userName);
         }
 
+        public ICollection<User> ListUsers(string name, string role, string login)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            return uda.GetUsers(name, role, login);
+        }
+
     }
 }

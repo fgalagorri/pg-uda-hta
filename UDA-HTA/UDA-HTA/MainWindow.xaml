@@ -9,7 +9,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <r:Ribbon x:Name="MenuRibbon" SelectionChanged="MenuRibbon_SelectionChanged" Grid.RowSpan="1">
+        <r:Ribbon x:Name="MenuRibbon" SelectionChanged="MenuRibbon_SelectionChanged" Grid.RowSpan="1" >
             <r:Ribbon.HelpPaneContentTemplate>
                 <DataTemplate>
                     <r:RibbonButton DataContext="{Binding}" /> <!-- TODO VER ESTO -->
@@ -79,6 +79,8 @@
             <r:RibbonTab Name="tabAdministration" Header="Administración">
                 <r:RibbonGroup Header="Drogas">
                     <r:RibbonButton Name="btnAddDrugs" Label="Agregar Droga" LargeImageSource="/Images/ribbon_editDrugs.png" Click="BtnAddDrugs_OnClick"/>
+                    <r:RibbonButton Name="btnSearchDrugs" Label="Buscar Droga" LargeImageSource="/Images/ribbon_editDrugs.png" Click="BtnSearchDrugs_OnClick"/>
+                    <r:RibbonButton Name="btnEditDrugs" Label="Editar Droga" LargeImageSource="/Images/ribbon_editDrugs.png" Click="BtnEditDrugs_OnClick"/>
                 </r:RibbonGroup>
                 <r:RibbonGroup Header="Usuarios">
                     <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="/Images/ribbon_newDoctor.png" Click="NewUser"/>
@@ -88,7 +90,9 @@
 
         </r:Ribbon>
 
-        <ContentControl Name="Container" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
-        
+        <ContentControl Name="ContainerPatient" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
+        <ContentControl Name="ContainerInvestigation" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
+        <ContentControl Name="ContainerAdministrarion" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
+
     </Grid>
 </Window>

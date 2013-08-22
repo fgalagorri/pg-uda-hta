@@ -20,13 +20,18 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
                     <TextBlock Style="{StaticResource label}">Nombre:</TextBlock>
-                    <TextBox Name="txtRegistry" Width="150" Margin="15,0,40,0" />
+                    <TextBox Name="txtName" Width="150" Margin="15,0,40,0" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Activo:</TextBlock>
+                    <TextBox Name="txtActive" Width="150" Margin="25,0,40,0" />
                 </StackPanel>
             </StackPanel>
 
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <Button Padding="10,0" Click="btnAdd_Click">Agregar</Button>
+                <Button Name="btnAdd" Padding="10,0" Click="btnAdd_Click">Agregar</Button>
             </StackPanel>
         </StackPanel>
 

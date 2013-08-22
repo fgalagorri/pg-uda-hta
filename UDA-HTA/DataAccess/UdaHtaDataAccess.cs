@@ -1051,6 +1051,7 @@ namespace DataAccess
             }
         }
 
+    #region Users
         //Inserta un nuevo usuario en la base de datos
         public int InsertUser(string login, string pass, string rol, string name)
         {
@@ -1096,6 +1097,38 @@ namespace DataAccess
             }
         }
 
+        public ICollection<User> GetUsers(string name, string role, string login)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                var list = udaContext.user.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    list = list.Where(u => u.name.Contains(name));
+                }
+                if (!string.IsNullOrWhiteSpace(role))
+                {
+                    list = list.Where(u => u.rol.Contains(role));
+                }
+                if (!string.IsNullOrWhiteSpace(login))
+                {
+                    list = list.Where(u => u.login.Contains(login));
+                }
+                
+                return list.Select(u => new User
+                                    {
+                                        Login = u.login,
+                                        Name = u.name,
+                                        Password = u.password,
+                                        Role = u.rol
+                                    }).ToList();
+            }
+        } 
+
+    #endregion
+
+    #region Drugs
         //Inserta un nuevo tipo de droga en la base de datos
         public void InsertDrugType(string type)
         {
@@ -1111,18 +1144,51 @@ namespace DataAccess
         }
 
         //Inserta una nueva droga en la base de datos
-        public void InsertDrug(string name, string active, int idDrugTyp)
+        public void InsertDrug(string name, string drugType, string active)
         {
             using (TransactionScope scope = new TransactionScope())
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    udaContext.insertDrug(name, active, idDrugTyp);
+                    var type = udaContext.drugtype.FirstOrDefault(d => d.type == drugType);
+                    udaContext.insertDrug(name, active, type.idDrugType);
                 }
 
                 scope.Complete();
             }
         }
+
+        //Actualiza los datos de una droga
+        public void EditDrug(int id, string name, string drugType, string active)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    var type = udaContext.drugtype.FirstOrDefault(d => d.type == drugType);
+                    udaContext.updateDrug(id, name, active, type.idDrugType);
+                }
+
+                scope.Complete();
+            }
+            
+        }
+        
+        //Obtener tipos de drogas
+        public ICollection<string> GetDrugTypes()
+        {
+            ICollection<string> types = new List<string>();
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    types = udaContext.drugtype.Select(d => d.type).ToList();
+                }
+
+                scope.Complete();
+                return types;
+            }            
+        } 
 
         public ICollection<Drug> GetDrugs(string type, string active, string name)
         {
@@ -1131,11 +1197,11 @@ namespace DataAccess
                 var qry = udaContext.drug.AsQueryable();
 
                 if (!string.IsNullOrWhiteSpace(type))
-                    qry = qry.Where(d => d.drugtype.type == type);
+                    qry = qry.Where(d => d.drugtype.type.Contains(type));
                 if(!string.IsNullOrWhiteSpace(active))
-                    qry = qry.Where(d => d.active == active);
+                    qry = qry.Where(d => d.active.Contains(active));
                 if (!string.IsNullOrWhiteSpace(name))
-                    qry = qry.Where(d => d.name == name);
+                    qry = qry.Where(d => d.name.Contains(name));
 
                 return qry.Select(d => new Drug
                                     {
@@ -1146,6 +1212,8 @@ namespace DataAccess
                                     }).ToList();
             }
         }
+
+    #endregion
 
         public void EditMedicalHistory(MedicalRecord medicalRecord, long patient_id)
         {
