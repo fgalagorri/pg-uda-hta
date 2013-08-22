@@ -2304,6 +2304,58 @@ namespace DataAccess
     
             return base.ExecuteFunction("updateInvestigation", idParameter, name_Parameter, creationdate_Parameter, comment_Parameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name_">No Metadata Documentation available.</param>
+        /// <param name="active">No Metadata Documentation available.</param>
+        /// <param name="idType">No Metadata Documentation available.</param>
+        public int updateDrug(Nullable<global::System.Int32> id, global::System.String name_, global::System.String active, Nullable<global::System.Int32> idType)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter name_Parameter;
+            if (name_ != null)
+            {
+                name_Parameter = new ObjectParameter("name_", name_);
+            }
+            else
+            {
+                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
+            }
+    
+            ObjectParameter activeParameter;
+            if (active != null)
+            {
+                activeParameter = new ObjectParameter("active", active);
+            }
+            else
+            {
+                activeParameter = new ObjectParameter("active", typeof(global::System.String));
+            }
+    
+            ObjectParameter idTypeParameter;
+            if (idType.HasValue)
+            {
+                idTypeParameter = new ObjectParameter("idType", idType);
+            }
+            else
+            {
+                idTypeParameter = new ObjectParameter("idType", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("updateDrug", idParameter, name_Parameter, activeParameter, idTypeParameter);
+        }
 
         #endregion
     }

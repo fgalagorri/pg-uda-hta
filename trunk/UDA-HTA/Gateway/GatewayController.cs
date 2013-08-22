@@ -228,11 +228,23 @@ namespace Gateway
     #endregion
 
     #region Drug Management
-        public void AddDrug(int type, string active, string name)
+        public void AddDrug(string type, string name, string active)
         {
             var rm = new ReportManagement();
             rm.AddDrug(type, active, name);
         }
+
+        public void EditDrug(int id, string type, string name, string active)
+        {
+            var rm = new ReportManagement();
+            rm.EditDrug(id, type, name, active);
+        }
+
+        public ICollection<string> GetDrugTypes()
+        {
+            var rm = new ReportManagement();
+            return rm.GetDrugTypes();
+        } 
 
 
         public ICollection<Drug> GetDrugs(string type, string active, string name)
@@ -300,6 +312,12 @@ namespace Gateway
                 throw exception;
             }
         }
+
+        public ICollection<User> ListUsers(string name, string role, string login)
+        {
+            var um = new UserManagement();
+            return um.ListUsers(name, role, login);
+        } 
 
     #endregion
 
