@@ -255,7 +255,7 @@ DROP PROCEDURE IF EXISTS insertDrug$$
 CREATE PROCEDURE insertDrug(IN nam VARCHAR(45), IN active VARCHAR(45), IN idDrugType INT)
 BEGIN
 INSERT INTO `drug`(`name`, `active`, `drugtype_idDrugType`)
-VALUES(nam, idDrugType);
+VALUES(nam, active, idDrugType);
 END$$
 DELIMITER ;
 
@@ -374,6 +374,17 @@ SET `password` = pass_var
 WHERE `login` = login_var;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateDrug$$
+CREATE PROCEDURE updateDrug(IN id INT, IN name_ VARCHAR(45), IN active VARCHAR(45), IN idType INT)
+BEGIN
+UPDATE `drug` 
+SET `name` = name_, `active` = active, `drugtype_idDrugType` = idType
+WHERE `idDrug` = id;
+END$$
+DELIMITER ;
+
 
 -- GETS -- 
 
