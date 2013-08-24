@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Gateway;
 using Entities;
 
-namespace UDA_HTA.UserControls.MainWindow.Administration
+namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
 {
     /// <summary>
     /// Interaction logic for AddDrugs.xaml

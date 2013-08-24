@@ -2,7 +2,7 @@
 using Entities;
 using UDA_HTA.Helpers;
 
-namespace UDA_HTA.UserControls.MainWindow
+namespace UDA_HTA.UserControls.MainWindow.Patients
 {
     /// <summary>
     /// Interaction logic for PatientViewerInformation.xaml

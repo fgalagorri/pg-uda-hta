@@ -86,7 +86,7 @@ namespace Gateway
                      * Si la fecha de modificacion del paciente es de hoy, actualizar
                      * En caso de que el id fuera null, dar de alta el paciente
                      */
-                if (report.UdaId != null)
+                if (report.Patient.UdaId != null)
                 {
                     if (patientModified)
                         patientController.EditPatient(report.Patient);
@@ -225,6 +225,18 @@ namespace Gateway
             return reportController.ListPatientReports(patientId);
         }
 
+        public void CreatePatient(Patient patient)
+        {
+            var pm = new PatientManagement();
+            pm.CreatePatient(patient);
+        }
+
+        public void EditPatient(Patient patient)
+        {
+            var pm = new PatientManagement();
+            pm.EditPatient(patient);
+        }
+
     #endregion
 
     #region Drug Management
@@ -317,7 +329,18 @@ namespace Gateway
         {
             var um = new UserManagement();
             return um.ListUsers(name, role, login);
-        } 
+        }
+ 
+        public void EditUser(int id, string Name, string role, string login)
+        {
+            var um = new UserManagement();
+            User u = new User();
+            u.Id = id;
+            u.Name = Name;
+            u.Role = role;
+            u.Login = login;
+            um.EditUser(u);
+        }
 
     #endregion
 

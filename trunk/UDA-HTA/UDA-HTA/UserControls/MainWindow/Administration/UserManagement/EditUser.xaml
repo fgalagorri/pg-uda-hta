@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Administration.UserManagement.EditUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="900">
+    
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="15,15,0,15" Grid.Row="0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Nombre y Apellido:</TextBlock>
+                    <TextBox Height="23" Width="150" Margin="15,0,40,0" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Rol:</TextBlock>
+                    <ComboBox Height="23" Margin="103,0,40,0" Name="comboRole" Width="120">
+                        <ComboBoxItem Content="Administrador"></ComboBoxItem>
+                        <ComboBoxItem Content="Tecnico"></ComboBoxItem>
+                        <ComboBoxItem Content="Clinico"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Login:</TextBlock>
+                    <TextBox Width="150" Margin="90,0,40,0" Name="txtLogin" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Contraseña:</TextBlock>
+                    <PasswordBox Width="150" Margin="57,0,40,0" Name="passwordBox" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                    <Button Name="btnEdit" Padding="10,0" Click="btnEdit_Click">Editar</Button>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

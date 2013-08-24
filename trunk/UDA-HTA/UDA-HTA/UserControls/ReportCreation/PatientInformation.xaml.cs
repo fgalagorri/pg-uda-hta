@@ -20,14 +20,12 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             InitializeComponent();
         }
-        public PatientInformation(Report report)
+        public PatientInformation(Patient p)
         {
             InitializeComponent();
 
-            if (report.Patient != null)
+            if (p != null)
             {
-                var p = report.Patient;
-
                 // Datos importados
                 txtNames.Text = p.Names;
                 txtSurnames.Text = p.Surnames;
@@ -47,6 +45,33 @@ namespace UDA_HTA.UserControls.ReportCreation
 
                 _emContacts = p.EmergencyContactList ?? new List<EmergencyContact>();
             }
+        }
+
+        public Patient GetPatient()
+        {
+            int year = int.Parse(txtBirthYear.Text);
+            int mon = int.Parse(txtBirthMon.Text);
+            int day = int.Parse(txtBirthDay.Text);
+            Patient p = new Patient();
+
+            p.Names = txtNames.Text;
+            p.Surnames = txtSurnames.Text;
+            p.DocumentId = txtCI.Text;
+            p.RegisterNumber = txtNroReg.Text;
+            p.BirthDate = new DateTime(year, mon, day);
+            p.Sex = cmbSex.SelectedIndex != -1 ? (SexType?)(cmbSex.SelectedIndex + 1) : null;
+            p.Address = txtAddress.Text;
+            p.Neighbour = txtNeighbour.Text;
+            p.City = txtCity.Text;
+            p.Department = cmbDepartment.Text;
+            p.Phone = txtTel.Text;
+            p.CellPhone = txtCel.Text;
+            p.Phone2 = txtTelAlt.Text;
+            p.Email = txtMail.Text;
+
+            p.EmergencyContactList = _emContacts;
+
+            return p;
         }
 
         public Report GetReport(Report r)

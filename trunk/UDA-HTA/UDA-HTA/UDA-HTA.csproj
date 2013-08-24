@@ -109,16 +109,16 @@
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\Administration\AddDrugs.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Administration\Drugs\AddDrugs.xaml.cs">
       <DependentUpon>AddDrugs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\Administration\DrugFinder.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Administration\Drugs\DrugFinder.xaml.cs">
       <DependentUpon>DrugFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainWindow\Investigations\AddReportsToResearch.xaml.cs">
       <DependentUpon>AddReportsToResearch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement\ChangePassword.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Administration\UserManagement\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MainWindow\Investigations\ResearchFinder.xaml.cs">
@@ -139,37 +139,40 @@
     <Compile Include="UserControls\MainWindow\Investigations\ResearchViewerReport.xaml.cs">
       <DependentUpon>ResearchViewerReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerCondition.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerCondition.xaml.cs">
       <DependentUpon>PatientViewerCondition.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerDiagnosis.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerDiagnosis.xaml.cs">
       <DependentUpon>PatientViewerDiagnosis.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerOtherInfo.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerOtherInfo.xaml.cs">
       <DependentUpon>PatientViewerOtherInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerReportInfo.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerReportInfo.xaml.cs">
       <DependentUpon>PatientViewerReportInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Patients\NewPatient.xaml.cs">
+      <DependentUpon>NewPatient.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MedicationSelector.xaml.cs">
       <DependentUpon>MedicationSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PatientFinder.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientFinder.xaml.cs">
       <DependentUpon>PatientFinder.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ReportCreation\AdmissionForm.xaml.cs">
       <DependentUpon>AdmissionForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewer.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewer.xaml.cs">
       <DependentUpon>PatientViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerData.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerData.xaml.cs">
       <DependentUpon>PatientViewerData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerInformation.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerInformation.xaml.cs">
       <DependentUpon>PatientViewerInformation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\PatientViewerSummary.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerSummary.xaml.cs">
       <DependentUpon>PatientViewerSummary.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ReportCreation\OtherInformation.xaml.cs">
@@ -187,10 +190,13 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement\NewUser.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Administration\UserManagement\NewUser.xaml.cs">
       <DependentUpon>NewUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement\UserFinder.xaml.cs">
+    <Compile Include="UserControls\MainWindow\Administration\UserManagement\EditUser.xaml.cs">
+      <DependentUpon>EditUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MainWindow\Administration\UserManagement\UserFinder.xaml.cs">
       <DependentUpon>UserFinder.xaml</DependentUpon>
     </Compile>
     <Page Include="DiagnosisEditor.xaml">
@@ -217,11 +223,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\Administration\AddDrugs.xaml">
+    <Page Include="UserControls\MainWindow\Administration\Drugs\AddDrugs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\Administration\DrugFinder.xaml">
+    <Page Include="UserControls\MainWindow\Administration\Drugs\DrugFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,7 +235,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserManagement\ChangePassword.xaml">
+    <Page Include="UserControls\MainWindow\Administration\UserManagement\ChangePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,19 +263,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerCondition.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerCondition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerDiagnosis.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerDiagnosis.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerOtherInfo.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerOtherInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerReportInfo.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerReportInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Patients\NewPatient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,7 +287,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PatientFinder.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,19 +299,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewer.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerData.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerInformation.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\PatientViewerSummary.xaml">
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -325,11 +335,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserManagement\NewUser.xaml">
+    <Page Include="UserControls\MainWindow\Administration\UserManagement\NewUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserManagement\UserFinder.xaml">
+    <Page Include="UserControls\MainWindow\Administration\UserManagement\EditUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Administration\UserManagement\UserFinder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

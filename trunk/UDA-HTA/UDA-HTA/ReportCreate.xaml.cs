@@ -24,7 +24,7 @@ namespace UDA_HTA
             InitializeComponent();
             _report = report;
             _state = 0;
-            patientInfo = new PatientInformation(report);
+            patientInfo = new PatientInformation(report.Patient);
             patientCondition = new PatientCondition(report);
             admissionForm = new AdmissionForm(report);
             otherInfo = new OtherInformation(report);
@@ -77,7 +77,7 @@ namespace UDA_HTA
                     _report = admissionForm.GetReport(_report);
                     _report = otherInfo.GetReport(_report);
                     DialogResult = true;
-                    GatewayController.GetInstance().AddImportedData(_report, true); // TODO ver modified
+                    GatewayController.GetInstance().AddImportedData(_report, true); 
 
                     Close();
                     break;

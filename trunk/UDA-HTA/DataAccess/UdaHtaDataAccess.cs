@@ -1118,6 +1118,7 @@ namespace DataAccess
                 
                 return list.Select(u => new User
                                     {
+                                        Id = u.idUser,
                                         Login = u.login,
                                         Name = u.name,
                                         Password = u.password,

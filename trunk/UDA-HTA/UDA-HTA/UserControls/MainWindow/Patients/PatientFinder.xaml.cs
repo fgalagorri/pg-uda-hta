@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Entities;
 using Gateway;
 
-namespace UDA_HTA.UserControls
+namespace UDA_HTA.UserControls.MainWindow.Patients
 {
     /// <summary>
     /// Interaction logic for PatientFinder.xaml
