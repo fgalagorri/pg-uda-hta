@@ -45,80 +45,98 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             int? lowerAge = null;
             int? upperAge = null;
 
+            var error = false;
+
             if (txtEdad.Text.Length > 0)
             {
                 //parsear filtro edad
                 string text = txtEdad.Text.Trim();
                 char firstChar = text[0];
-                char[] destination = new char[2];
+                char[] destination = new char[text.Length - 1];
 
                 string[] ageBetween;
-                
-                switch (firstChar)
-                {
-                    case '>':
-                        text.CopyTo(1,destination,0,text.Length-1);
-                        lowerAge = int.Parse(new string(destination));
-                        break;
-                    case '<':
-                        text.CopyTo(1,destination,0,text.Length-1);
-                        upperAge = int.Parse(destination.ToString());
-                        break;
-                    case '=':
-                        text.CopyTo(1,destination,0,text.Length-1);
-                        lowerAge = int.Parse(destination.ToString());
-                        upperAge = int.Parse(destination.ToString());
-                        break;
-                    default:
-                        if (firstChar >= 0 || firstChar <= 9)
-                        {
-                            //El primer caracter es un numero, verificar si hay un '-'
-                            ageBetween = txtEdad.Text.Trim().Split('-');
 
-                            if (ageBetween.Length == 1)
+                try
+                {
+                    switch (firstChar)
+                    {
+                        case '>':
+                            text.CopyTo(1, destination, 0, text.Length - 1);
+                            lowerAge = int.Parse(new string(destination));
+                            break;
+                        case '<':
+                            text.CopyTo(1, destination, 0, text.Length - 1);
+                            upperAge = int.Parse(new string(destination));
+                            break;
+                        case '=':
+                            text.CopyTo(1, destination, 0, text.Length - 1);
+                            lowerAge = int.Parse(new string(destination));
+                            upperAge = int.Parse(new string(destination));
+                            break;
+                        default:
+                            int val = int.Parse(firstChar.ToString());
+                            if (val >= 0 || val <= 9)
                             {
-                                //No se indico signo, y hay solo un numero, se asumen edades mayores a la indicada
-                                lowerAge = int.Parse(ageBetween[0]);
+                                //El primer caracter es un numero, verificar si hay un '-'
+                                ageBetween = txtEdad.Text.Trim().Split('-');
+
+                                if (ageBetween.Length == 1)
+                                {
+                                    //No se indico signo, y hay solo un numero, se asumen edades mayores a la indicada
+                                    lowerAge = int.Parse(ageBetween[0]);
+                                }
+                                else
+                                {
+                                    lowerAge = int.Parse(ageBetween[0]);
+                                    upperAge = int.Parse(ageBetween[1]);
+                                }
                             }
                             else
                             {
-                                lowerAge = int.Parse(ageBetween[0]);
-                                upperAge = int.Parse(ageBetween[1]);
+                                // Error
+                                error = true;
                             }
-                        }
-                        else
-                        {
-                            // Error
-                            MessageBoxResult result = MessageBox.Show("Formato en campo edad incorrecto");
-                        }
+                            break;
+                    }
 
-                        break;
+                }
+                catch
+                {
+                    error = true;
                 }
             }
 
-            bool? isSomker = smoker.IsChecked;
-            bool? isDiabetic = diabetic.IsChecked;
-            bool? isHypertense = hypertense.IsChecked;
-            bool? isDyslipidemic = dislipidemic.IsChecked;
-
-            DateTime? sinceDate = null;
-            if (dtSinceDate.SelectedDate != null)
+            if (!error)
             {
-                sinceDate = dtSinceDate.SelectedDate.Value;
+                bool? isSomker = smoker.IsChecked;
+                bool? isDiabetic = diabetic.IsChecked;
+                bool? isHypertense = hypertense.IsChecked;
+                bool? isDyslipidemic = dislipidemic.IsChecked;
+
+                DateTime? sinceDate = null;
+                if (dtSinceDate.SelectedDate != null)
+                {
+                    sinceDate = dtSinceDate.SelectedDate.Value;
+                }
+
+                DateTime? untilDate = null;
+                if (dtUntilDate.SelectedDate != null)
+                {
+                    untilDate = dtUntilDate.SelectedDate.Value;
+                }
+
+                //Obtener reportes segun filtros
+                var controller = GatewayController.GetInstance();
+                _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker,
+                                                            isDiabetic, isHypertense,
+                                                            isDyslipidemic);
+
+                grReports.DataContext = _lstReport;
+            }else
+            {
+                MessageBox.Show("Formato en campo edad incorrecto");
             }
 
-            DateTime? untilDate = null;
-            if (dtUntilDate.SelectedDate != null)
-            {
-                untilDate = dtUntilDate.SelectedDate.Value;
-            }
-
-            //Obtener reportes segun filtros
-            var controller = GatewayController.GetInstance();
-            _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker, isDiabetic, isHypertense,
-                                           isDyslipidemic);
-
-            grReports.DataContext = _lstReport;
         }
 
         private void grReports_SelectionChanged(object sender, SelectionChangedEventArgs e)

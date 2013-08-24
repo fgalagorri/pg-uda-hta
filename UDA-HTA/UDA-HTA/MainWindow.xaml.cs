@@ -10,6 +10,9 @@ using Gateway;
 using Microsoft.Win32;
 using UDA_HTA.UserControls;
 using UDA_HTA.UserControls.MainWindow;
+using UDA_HTA.UserControls.MainWindow.Administration.UserManagement;
+using UDA_HTA.UserControls.MainWindow.Administration.Drugs;
+using UDA_HTA.UserControls.MainWindow.Patients;
 using UDA_HTA.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Investigations;
 using UDA_HTA.UserControls.MainWindow.Administration;
@@ -21,20 +24,15 @@ namespace UDA_HTA
     /// </summary>
     public partial class MainWindow : Window
     {
-        public enum tabs { P, I, A };
-
-        private tabs previousTab;
-
         public MainWindow(User usr)
         {
             InitializeComponent();
-            previousTab = tabs.P;
             ContainerPatient.Content = new PatientFinder(this);
             ContainerPatient.Visibility = Visibility.Visible;
             ContainerInvestigation.Content = new ResearchFinder(this);
             ContainerInvestigation.Visibility = Visibility.Hidden;
-            ContainerAdministrarion.Content = null;
-            ContainerAdministrarion.Visibility = Visibility.Hidden;
+            ContainerAdministration.Content = null;
+            ContainerAdministration.Visibility = Visibility.Hidden;
 
             btnAddStudyResearch.IsEnabled = false;
             btnEditResearch.IsEnabled = false;
@@ -42,9 +40,38 @@ namespace UDA_HTA
             //btnExportCSV.IsEnabled = false;
 
             btnEditDrugs.IsEnabled = false;
+
+            btnEditDoctor.IsEnabled = false;
         }
 
-    #region Ribbon Buttons
+        private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.tabPaciente.IsSelected)
+            {
+                ContainerPatient.Visibility = Visibility.Visible;
+                ContainerAdministration.Visibility = Visibility.Hidden;
+                ContainerInvestigation.Visibility = Visibility.Hidden;
+            }
+
+
+            if (this.tabInvestigacion.IsSelected)
+            {
+                ContainerPatient.Visibility = Visibility.Hidden;
+                ContainerAdministration.Visibility = Visibility.Hidden;
+                ContainerInvestigation.Visibility = Visibility.Visible;
+            }
+
+
+            if (this.tabAdministration.IsSelected)
+            {
+                ContainerPatient.Visibility = Visibility.Hidden;
+                ContainerAdministration.Visibility = Visibility.Visible;
+                ContainerInvestigation.Visibility = Visibility.Hidden;
+            }
+        }
+
+
+    #region Report
 
         private void CreateNewReport(object sender, RoutedEventArgs e)
         {
@@ -89,11 +116,6 @@ namespace UDA_HTA
                     pv.UpdateDiagnosis(d);
                 }
             }
-        }
-
-        private void FindPatient(object sender, RoutedEventArgs e)
-        {
-            ContainerPatient.Content = new PatientFinder(this); ;
         }
 
 
@@ -163,49 +185,10 @@ namespace UDA_HTA
 
     #endregion
 
-
-        private void MenuRibbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    #region Patient
+        private void FindPatient(object sender, RoutedEventArgs e)
         {
-            /*
-            if (this.tabPaciente.IsSelected)
-            {
-                Container.Content = new ResearchFinder(this);
-            }
-            
-            
-            if (this.tabInvestigacion.IsSelected)
-            {
-                Container.Content = new ResearchFinder(this);
-            }
-
-
-            if (this.tabAdministration.IsSelected)
-            {
-                Container.Content = null;
-            }
-             */
-            if (this.tabPaciente.IsSelected)
-            {
-                ContainerPatient.Visibility = Visibility.Visible;
-                ContainerAdministrarion.Visibility = Visibility.Hidden;
-                ContainerInvestigation.Visibility = Visibility.Hidden;
-            }
-
-
-            if (this.tabInvestigacion.IsSelected)
-            {
-                ContainerPatient.Visibility = Visibility.Hidden;
-                ContainerAdministrarion.Visibility = Visibility.Hidden;
-                ContainerInvestigation.Visibility = Visibility.Visible;
-            }
-
-
-            if (this.tabAdministration.IsSelected)
-            {
-                ContainerPatient.Visibility = Visibility.Hidden;
-                ContainerAdministrarion.Visibility = Visibility.Visible;
-                ContainerInvestigation.Visibility = Visibility.Hidden;
-            }
+            ContainerPatient.Content = new PatientFinder(this); ;
         }
 
         public void PatientSelected(PatientSearch patient)
@@ -214,24 +197,16 @@ namespace UDA_HTA
                 ContainerPatient.Content = new PatientViewer(patient);
         }
 
-    #region Usuario
-
-        private void NewUser(object sender, RoutedEventArgs e)
+        private void BtnNewPatient_OnClick(object sender, RoutedEventArgs e)
         {
-            var newUserWindow = new NewUser();
-            newUserWindow.ShowDialog();
+            var newPatientWindow = new NewPatient(null) {Owner = this};
+            newPatientWindow.ShowDialog();
         }
 
-        private void FindUser(object sender, RoutedEventArgs e)
+        private void BtnEditPatient_OnClick(object sender, RoutedEventArgs e)
         {
-            ContainerAdministrarion.Content = new UserFinder();
-            
-        }
-
-        private void ChangePassword(object sender, RoutedEventArgs e)
-        {
-            var changePswdWindow = new ChangePassword();
-            changePswdWindow.ShowDialog();
+            var editPatientWindow = new NewPatient(null); //TODO falta terminar, hay q pasar como parametro el paciente
+            editPatientWindow.ShowDialog();
         }
 
     #endregion
@@ -324,17 +299,53 @@ namespace UDA_HTA
         }
     #endregion
 
+    #region Usuario
+
+        private void NewUser(object sender, RoutedEventArgs e)
+        {
+            btnEditDoctor.IsEnabled = false;
+            var newUserWindow = new NewUser();
+            newUserWindow.ShowDialog();
+        }
+
+        private void FindUser(object sender, RoutedEventArgs e)
+        {
+            btnEditDoctor.IsEnabled = false;
+            ContainerAdministration.Content = new UserFinder(this);
+
+        }
+
+        private void EditUser(object sender, RoutedEventArgs e)
+        {
+            var uf = ContainerAdministration.Content as UserFinder;
+            if (uf != null && uf.GetSelectedUser() != null)
+            {
+                var u = uf.GetSelectedUser();
+
+                ContainerAdministration.Content = new EditUser(u);
+            }
+        }
+
+        private void ChangePassword(object sender, RoutedEventArgs e)
+        {
+            btnEditDoctor.IsEnabled = false;
+            var changePswdWindow = new ChangePassword();
+            changePswdWindow.ShowDialog();
+        }
+
+    #endregion
+
     #region Drogas
         private void BtnAddDrugs_OnClick(object sender, RoutedEventArgs e)
         {
             btnEditDrugs.IsEnabled = false;
-            ContainerInvestigation.Content = new AddDrugs(null);
+            ContainerAdministration.Content = new AddDrugs(null);
         }
 
         private void BtnSearchDrugs_OnClick(object sender, RoutedEventArgs e)
         {
             btnEditDrugs.IsEnabled = false;
-            ContainerInvestigation.Content = new DrugFinder(this);
+            ContainerAdministration.Content = new DrugFinder(this);
         }
 
         private void BtnEditDrugs_OnClick(object sender, RoutedEventArgs e)
@@ -344,12 +355,13 @@ namespace UDA_HTA
             {
                 var d = df.GetSelectedDrug();
 
-                ContainerInvestigation.Content = new AddDrugs(d);
+                ContainerAdministration.Content = new AddDrugs(d);
             }
 
         }
 
     #endregion
+
 
     }
 }

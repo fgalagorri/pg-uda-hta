@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 using Entities;
 using Gateway;
 
-namespace UDA_HTA.UserControls.MainWindow
+namespace UDA_HTA.UserControls.MainWindow.Patients
 {
     /// <summary>
     /// Interaction logic for PatientViewer.xaml

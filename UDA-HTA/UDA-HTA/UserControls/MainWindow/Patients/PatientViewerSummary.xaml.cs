@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
 using Entities;
 
-namespace UDA_HTA.UserControls.MainWindow
+namespace UDA_HTA.UserControls.MainWindow.Patients
 {
     /// <summary>
     /// Interaction logic for PatientViewerSummary.xaml

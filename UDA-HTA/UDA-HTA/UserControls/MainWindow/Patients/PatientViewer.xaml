@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.PatientViewer"
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Patients.PatientViewer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mainWindow="clr-namespace:UDA_HTA.UserControls.MainWindow">
+             xmlns:patients="clr-namespace:UDA_HTA.UserControls.MainWindow.Patients">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,43 +30,43 @@
         <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem Header="Paciente">
                 <ContentControl>
-                    <mainWindow:PatientViewerInformation x:Name="TabPatient" />
+                    <patients:PatientViewerInformation x:Name="TabPatient" />
                 </ContentControl>
             </TabItem>
 
             <TabItem Header="Condición">
                 <ContentControl>
-                    <mainWindow:PatientViewerCondition x:Name="TabCondition" />
+                    <patients:PatientViewerCondition x:Name="TabCondition" />
                 </ContentControl>
             </TabItem>
             
             <TabItem Name="ReportInfo"  Header="Info. Gral." Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerReportInfo x:Name="TabReportInfo" />
+                    <patients:PatientViewerReportInfo x:Name="TabReportInfo" />
                 </ContentControl>
             </TabItem>
 
             <TabItem Name="ReportEvents"  Header="Eventos" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerOtherInfo x:Name="TabEvents" />
+                    <patients:PatientViewerOtherInfo x:Name="TabEvents" />
                 </ContentControl>
             </TabItem>
 
             <TabItem Name="ReportSummary" Header="Resumen" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerSummary x:Name="TabReportSummary" />
+                    <patients:PatientViewerSummary x:Name="TabReportSummary" />
                 </ContentControl>
             </TabItem>
 
             <TabItem Name="ReportDiagnosis" Header="Informe médico" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerDiagnosis x:Name="TabReportDiagnosis" />
+                    <patients:PatientViewerDiagnosis x:Name="TabReportDiagnosis" />
                 </ContentControl>
             </TabItem>
 
             <TabItem Name="ReportData" Header="Mediciones" Visibility="Collapsed">
                 <ContentControl>
-                    <mainWindow:PatientViewerData x:Name="TabReportData" />
+                    <patients:PatientViewerData x:Name="TabReportData" />
                 </ContentControl>
             </TabItem>
 

@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Gateway;
+using Entities;
 
-namespace UDA_HTA.UserManagement
+namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
 {
     /// <summary>
     /// Interaction logic for UserFinder.xaml
     /// </summary>
     public partial class UserFinder : UserControl
     {
-        public UserFinder()
+        private User _user;
+        private UDA_HTA.MainWindow container;
+
+        public UserFinder(UDA_HTA.MainWindow w)
         {
             InitializeComponent();
+            container = w;
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -38,6 +33,13 @@ namespace UDA_HTA.UserManagement
 
         private void grUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            container.btnEditDoctor.IsEnabled = true;
         }
+
+        public User GetSelectedUser()
+        {
+            return (User)grUsers.SelectedItem;
+        }
+
     }
 }
