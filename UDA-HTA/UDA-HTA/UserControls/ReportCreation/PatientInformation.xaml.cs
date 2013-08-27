@@ -20,6 +20,7 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             InitializeComponent();
         }
+
         public PatientInformation(Patient p)
         {
             InitializeComponent();
@@ -44,6 +45,10 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtMail.Text = p.Email;
 
                 _emContacts = p.EmergencyContactList ?? new List<EmergencyContact>();
+            }
+            else
+            {
+                _emContacts = new List<EmergencyContact>();                
             }
         }
 

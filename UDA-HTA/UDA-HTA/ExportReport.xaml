@@ -1,0 +1,51 @@
+﻿<Window x:Class="UDA_HTA.ExportReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:r="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+        Title="Exportacion" Height="200" Width="450" WindowStartupLocation="CenterScreen">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="15,15,0,15" Grid.Row="0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,10">
+                    <TextBlock Style="{StaticResource label}">Seleccione la informacion a incluir en el informe:</TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
+                    <CheckBox Content="Hoja de datos del paciente" Height="16" Name="cbPatientData" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
+                    <CheckBox Content="Diagnostico" Height="16" Name="cbDiagnostic" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
+                    <CheckBox Content="Resumen de medidas" Height="16" Name="cbProfile" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
+                    <CheckBox Content="Graficos" Height="16" Name="cbGraphic" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
+                    <CheckBox Content="Valores registrados" Height="16" Name="cbRegisterValues" />
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5,5">
+                <r:RibbonButton Label="Exportar DOC" Click="ExportDoc" Name="btnExportDoc"
+                                    LargeImageSource="/Images/ribbon_SaveDoc.png" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5,5">
+                <r:RibbonButton Label="Exportar PDF" Click="ExportPdf" Name="btnExportPdf"
+                                    LargeImageSource="/Images/ribbon_SavePdf.png" />
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

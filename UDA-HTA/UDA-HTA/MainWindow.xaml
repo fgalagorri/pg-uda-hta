@@ -38,14 +38,17 @@
                 <r:RibbonGroup Header="Paciente">
                     <r:RibbonButton Label="Buscar" Click="FindPatient" LargeImageSource="/Images/ribbon_findPatient.png" />
                     <r:RibbonButton Label="Nuevo" Click="BtnNewPatient_OnClick" LargeImageSource="/Images/ribbon_newPatient.png" />
-                    <r:RibbonButton Label="Editar" Click="BtnEditPatient_OnClick" LargeImageSource="/Images/ribbon_editPatient.png" />
+                    <r:RibbonButton Label="Editar" Name="btnEditPatient" Click="BtnEditPatient_OnClick" LargeImageSource="/Images/ribbon_editPatient.png" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Reporte">
-                    <r:RibbonButton Label="Exportar PDF" Click="ExportPdf"
+ <!--                   <r:RibbonButton Label="Exportar PDF" Click="ExportPdf" Name="btnExportPdf"
                                     LargeImageSource="/Images/ribbon_SavePdf.png" />
-                    <r:RibbonButton Label="Exportar DOC" Click="ExportDoc"
+                    <r:RibbonButton Label="Exportar DOC" Click="ExportDoc" Name="btnExportDoc"
                                     LargeImageSource="/Images/ribbon_SaveDoc.png" />
+-->
+                    <r:RibbonButton Label="Exportar" Click="ExportReport" Name="btnExportReport"
+                                    LargeImageSource="/Images/ribbon_SaveDoc.png" /> <!-- TODO cambiar imagen / cambiar a grupo Registro -->
                 </r:RibbonGroup>
                 
             </r:RibbonTab>

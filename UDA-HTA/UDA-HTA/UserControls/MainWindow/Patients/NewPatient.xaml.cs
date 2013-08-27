@@ -29,8 +29,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             //editar
             patientInfo = new PatientInformation(patient);
-            _crear = false;
-
+            _crear = patient == null;
+            
             InitializeComponent();
 
             CurrentControl.Content = patientInfo;

@@ -34,6 +34,9 @@ namespace UDA_HTA
             ContainerAdministration.Content = null;
             ContainerAdministration.Visibility = Visibility.Hidden;
 
+            btnEditPatient.IsEnabled = false;
+            btnExportReport.IsEnabled = false;
+
             btnAddStudyResearch.IsEnabled = false;
             btnEditResearch.IsEnabled = false;
             btnExportXLS.IsEnabled = false;
@@ -75,6 +78,9 @@ namespace UDA_HTA
 
         private void CreateNewReport(object sender, RoutedEventArgs e)
         {
+            btnEditPatient.IsEnabled = false;
+            btnExportReport.IsEnabled = false;
+
             var newReportPopup = new NewReportFinder { Owner = this };
             var imported = newReportPopup.ShowDialog();
 
@@ -118,83 +124,32 @@ namespace UDA_HTA
             }
         }
 
-
-        private void ExportPdf(object sender, RoutedEventArgs e)
+        private void ExportReport(object sender, RoutedEventArgs e)
         {
             var pv = ContainerPatient.Content as PatientViewer;
             if (pv != null && pv.GetSelectedReport() != null)
             {
-                var report = pv.GetSelectedReport();
-
-                SaveFileDialog saveAs = new SaveFileDialog
-                {
-                    FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
-                    DefaultExt = ".pdf",
-                    Filter = "PDF Document|*.pdf"
-                };
-                if (report.BeginDate.HasValue)
-                {
-                    saveAs.FileName += " " +
-                                       report.BeginDate.Value
-                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
-                                             .Replace('/', '-');
-                }
-                var result = saveAs.ShowDialog();
-                if (result.HasValue && result.Value)
-                {
-                    Mouse.OverrideCursor = Cursors.Wait;
-                    GatewayController.GetInstance().ExportToPdf(report, saveAs.FileName);
-                    // Abro el archivo exportado
-                    Process.Start(saveAs.FileName);
-                    Mouse.OverrideCursor = null;
-                }
+                var er = new ExportReport(this, pv.GetSelectedReport());
+                er.Show();
             }
         }
 
-        private void ExportDoc(object sender, RoutedEventArgs e)
-        {
-            var pv = ContainerPatient.Content as PatientViewer;
-            if (pv != null && pv.GetSelectedReport() != null)
-            {
-                var report = pv.GetSelectedReport();
-
-                SaveFileDialog saveAs = new SaveFileDialog
-                    {
-                        FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
-                        DefaultExt = ".docx",
-                        Filter = "Microsoft Word Document|*.docx"
-                    };
-                if (report.BeginDate.HasValue)
-                {
-                    saveAs.FileName += " " +
-                                       report.BeginDate.Value
-                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
-                                             .Replace('/', '-');
-                }
-                var result = saveAs.ShowDialog();
-                if (result.HasValue && result.Value)
-                {
-                    Mouse.OverrideCursor = Cursors.Wait;
-                    GatewayController.GetInstance().ExportToDocx(report, saveAs.FileName);
-                    // Abro el archivo exportado
-                    Process.Start(saveAs.FileName);
-                    Mouse.OverrideCursor = null;
-                }
-            }
-        }
 
     #endregion
 
     #region Patient
         private void FindPatient(object sender, RoutedEventArgs e)
         {
+            btnEditPatient.IsEnabled = false;
+            btnExportReport.IsEnabled = false;
+
             ContainerPatient.Content = new PatientFinder(this); ;
         }
 
         public void PatientSelected(PatientSearch patient)
         {
             if (patient.UdaId.HasValue)
-                ContainerPatient.Content = new PatientViewer(patient);
+                ContainerPatient.Content = new PatientViewer(patient, this);
         }
 
         private void BtnNewPatient_OnClick(object sender, RoutedEventArgs e)
@@ -205,8 +160,13 @@ namespace UDA_HTA
 
         private void BtnEditPatient_OnClick(object sender, RoutedEventArgs e)
         {
-            var editPatientWindow = new NewPatient(null); //TODO falta terminar, hay q pasar como parametro el paciente
-            editPatientWindow.ShowDialog();
+            var pv = ContainerPatient.Content as PatientViewer;
+            if (pv != null && pv.GetSelectedPatient() != null)
+            {
+                var patient = pv.GetSelectedPatient();
+                var editPatientWindow = new NewPatient(patient);
+                editPatientWindow.ShowDialog();                
+            }
         }
 
     #endregion
@@ -311,6 +271,10 @@ namespace UDA_HTA
         private void FindUser(object sender, RoutedEventArgs e)
         {
             btnEditDoctor.IsEnabled = false;
+            tabAdministration.IsSelected = true;
+            ContainerInvestigation.Visibility = Visibility.Hidden;
+            ContainerPatient.Visibility = Visibility.Hidden;
+            ContainerAdministration.Visibility = Visibility.Visible;
             ContainerAdministration.Content = new UserFinder(this);
 
         }
@@ -361,7 +325,6 @@ namespace UDA_HTA
         }
 
     #endregion
-
 
     }
 }
