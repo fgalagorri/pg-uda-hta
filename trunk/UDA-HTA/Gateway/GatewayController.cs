@@ -155,23 +155,23 @@ namespace Gateway
 
     #region Report Exportation
 
-        public void ExportToPdf(Report report, string filePath)
+        public void ExportToPdf(Report report,bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
             if (!Directory.Exists("Temp"))
                 Directory.CreateDirectory("Temp");
 
             string tempFile = "Temp\\tempfile" + report.UdaId + ".uda";
             ReportManagement rm = new ReportManagement();
-            rm.ExportReportDocx(report, tempFile);
+            rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, tempFile);
 
             rm.ExportReportPDF(tempFile, filePath);
             File.Delete(tempFile);
         }
 
-        public void ExportToDocx(Report report, string filePath)
+        public void ExportToDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
             ReportManagement rm = new ReportManagement();
-            rm.ExportReportDocx(report, filePath);
+            rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, filePath);
         }
 
     #endregion

@@ -199,6 +199,9 @@
     <Compile Include="UserControls\MainWindow\Administration\UserManagement\UserFinder.xaml.cs">
       <DependentUpon>UserFinder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExportReport.xaml.cs">
+      <DependentUpon>ExportReport.xaml</DependentUpon>
+    </Compile>
     <Page Include="DiagnosisEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -344,6 +347,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MainWindow\Administration\UserManagement\UserFinder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExportReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

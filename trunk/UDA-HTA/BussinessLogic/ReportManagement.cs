@@ -120,7 +120,7 @@ namespace BussinessLogic
         {
         }
 
-        public void ExportReportDocx(Report report, string filePath)
+        public void ExportReportDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
             using (var document = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {
@@ -143,12 +143,16 @@ namespace BussinessLogic
                 tableProperties1.Append(tableWidth1);
                 tableProperties1.Append(tableLook1);
 
+                table1.Append(tableProperties1);
+
                 TableGrid tableGrid1 = new TableGrid();
                 GridColumn gridColumn1 = new GridColumn() {Width = "4788"};
                 GridColumn gridColumn2 = new GridColumn() {Width = "4788"};
 
                 tableGrid1.Append(gridColumn1);
                 tableGrid1.Append(gridColumn2);
+
+                table1.Append(tableGrid1);
 
                 TableRow tableRow1 = new TableRow()
                     {
@@ -229,6 +233,8 @@ namespace BussinessLogic
                 tableRow1.Append(tableRowProperties1);
                 tableRow1.Append(tableCell1);
 
+                table1.Append(tableRow1);
+
                 TableRow tableRow2 = new TableRow()
                     {
                         RsidTableRowAddition = "004D2B75",
@@ -298,6 +304,8 @@ namespace BussinessLogic
                 tableRow2.Append(tableCell2);
                 tableRow2.Append(tableCell3);
 
+                table1.Append(tableRow2);
+
                 TableRow tableRow3 = new TableRow()
                     {
                         RsidTableRowAddition = "00AA46B2",
@@ -325,537 +333,553 @@ namespace BussinessLogic
                 tableCellProperties4.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
                 tableCellProperties4.Append(tableCellBorders4);
 
-                Paragraph paragraph4 = new Paragraph()
+                /*
+                 * INCLUIR DATOS PACIENTE
+                 */
+                if (includePatientData)
+                {
+                    Paragraph paragraph4 = new Paragraph()
                     {
                         RsidParagraphAddition = "00AA46B2",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "00AA46B2"
                     };
 
-                Run run5 = new Run();
-                Text text5 = new Text();
-                if (report.Patient.RegisterNumber != null)
-                {
-                    text5.Text = "Nro. Registro: " + report.Patient.RegisterNumber.ToString();
-                }
-                else
-                {
-                    text5.Text = "Nro. Registro: N/E";
-                }
+                    Run run5 = new Run();
+                    Text text5 = new Text();
+                    if (report.Patient.RegisterNumber != null)
+                    {
+                        text5.Text = "Nro. Registro: " + report.Patient.RegisterNumber.ToString();
+                    }
+                    else
+                    {
+                        text5.Text = "Nro. Registro: N/E";
+                    }
 
-                run5.Append(text5);
-                paragraph4.Append(run5);
-                tableCell4.Append(tableCellProperties4);
-                tableCell4.Append(paragraph4);
+                    run5.Append(text5);
+                    paragraph4.Append(run5);
+                    tableCell4.Append(tableCellProperties4);
+                    tableCell4.Append(paragraph4);
 
-                TableCell tableCell5 = new TableCell();
+                    TableCell tableCell5 = new TableCell();
 
-                TableCellProperties tableCellProperties5 = new TableCellProperties();
+                    TableCellProperties tableCellProperties5 = new TableCellProperties();
 
-                TableCellBorders tableCellBorders5 = new TableCellBorders();
-                TopBorder topBorder5 = new TopBorder()
+                    TableCellBorders tableCellBorders5 = new TableCellBorders();
+                    TopBorder topBorder5 = new TopBorder()
                     {
                         Val = BorderValues.Single,
                         Color = "auto",
-                        Size = (UInt32Value) 4U,
-                        Space = (UInt32Value) 0U
+                        Size = (UInt32Value)4U,
+                        Space = (UInt32Value)0U
                     };
 
-                tableCellBorders5.Append(topBorder5);
-                tableCellBorders5.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders5.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders5.Append(new RightBorder() {Val = BorderValues.Nil});
+                    tableCellBorders5.Append(topBorder5);
+                    tableCellBorders5.Append(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders5.Append(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders5.Append(new RightBorder() { Val = BorderValues.Nil });
 
-                tableCellProperties5.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties5.Append(tableCellBorders5);
-                Paragraph paragraph5 = new Paragraph()
+                    tableCellProperties5.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties5.Append(tableCellBorders5);
+                    Paragraph paragraph5 = new Paragraph()
                     {
                         RsidParagraphAddition = "00AA46B2",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "00AA46B2"
                     };
 
-                tableCell5.Append(tableCellProperties5);
-                tableCell5.Append(paragraph5);
+                    tableCell5.Append(tableCellProperties5);
+                    tableCell5.Append(paragraph5);
 
-                tableRow3.Append(tableCell4);
-                tableRow3.Append(tableCell5);
+                    tableRow3.Append(tableCell4);
+                    tableRow3.Append(tableCell5);
 
-                TableRow tableRow4 = new TableRow()
+                    table1.Append(tableRow3);
+
+                    TableRow tableRow4 = new TableRow()
                     {
                         RsidTableRowAddition = "004D2B75",
                         RsidTableRowProperties = "00AA46B2"
                     };
 
-                TableCell tableCell6 = new TableCell();
+                    TableCell tableCell6 = new TableCell();
 
-                TableCellProperties tableCellProperties6 = new TableCellProperties();
+                    TableCellProperties tableCellProperties6 = new TableCellProperties();
 
-                TableCellBorders tableCellBorders6 = new TableCellBorders();
+                    TableCellBorders tableCellBorders6 = new TableCellBorders();
 
-                tableCellBorders6.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders6.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders6.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders6.Append(new RightBorder() {Val = BorderValues.Nil});
+                    tableCellBorders6.Append(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.Append(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.Append(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.Append(new RightBorder() { Val = BorderValues.Nil });
 
-                tableCellProperties6.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties6.Append(tableCellBorders6);
+                    tableCellProperties6.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties6.Append(tableCellBorders6);
 
-                Paragraph paragraph6 = new Paragraph()
+                    Paragraph paragraph6 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00AA46B2",
                         RsidRunAdditionDefault = "00AA46B2"
                     };
 
-                Run run9 = new Run();
-                Text text9 = new Text();
-                if (report.Patient.DocumentId != null)
-                {
-                    text9.Text = "Documento: " + report.Patient.DocumentId;
-                }
-                else
-                {
-                    text9.Text = "Documento: N/E";
-                }
+                    Run run9 = new Run();
+                    Text text9 = new Text();
+                    if (report.Patient.DocumentId != null)
+                    {
+                        text9.Text = "Documento: " + report.Patient.DocumentId;
+                    }
+                    else
+                    {
+                        text9.Text = "Documento: N/E";
+                    }
 
-                run9.Append(text9);
-                paragraph6.Append(run9);
-                tableCell6.Append(tableCellProperties6);
-                tableCell6.Append(paragraph6);
+                    run9.Append(text9);
+                    paragraph6.Append(run9);
+                    tableCell6.Append(tableCellProperties6);
+                    tableCell6.Append(paragraph6);
 
-                TableCell tableCell7 = new TableCell();
+                    TableCell tableCell7 = new TableCell();
 
-                TableCellProperties tableCellProperties7 = new TableCellProperties();
+                    TableCellProperties tableCellProperties7 = new TableCellProperties();
 
-                TableCellBorders tableCellBorders7 = new TableCellBorders();
+                    TableCellBorders tableCellBorders7 = new TableCellBorders();
 
-                tableCellBorders7.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders7.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders7.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders7.Append(new RightBorder() {Val = BorderValues.Nil});
+                    tableCellBorders7.Append(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.Append(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.Append(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.Append(new RightBorder() { Val = BorderValues.Nil });
 
-                tableCellProperties7.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties7.Append(tableCellBorders7);
+                    tableCellProperties7.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties7.Append(tableCellBorders7);
 
-                Paragraph paragraph7 = new Paragraph()
+                    Paragraph paragraph7 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run11 = new Run();
-                Text text11 = new Text();
-                if (report.Patient.BirthDate != null)
-                {
-                    text11.Text = "Fecha de Nacimiento: " +
-                                  report.Patient.BirthDate.Value.ToString(
-                                      ConfigurationManager.AppSettings["ShortDateString"]);
-                }
-                else
-                {
-                    text11.Text = "Fecha de Nacimiento: N/E";
-                }
+                    Run run11 = new Run();
+                    Text text11 = new Text();
+                    if (report.Patient.BirthDate != null)
+                    {
+                        text11.Text = "Fecha de Nacimiento: " +
+                                      report.Patient.BirthDate.Value.ToString(
+                                          ConfigurationManager.AppSettings["ShortDateString"]);
+                    }
+                    else
+                    {
+                        text11.Text = "Fecha de Nacimiento: N/E";
+                    }
 
-                run11.Append(text11);
+                    run11.Append(text11);
 
-                paragraph7.Append(run11);
-                tableCell7.Append(tableCellProperties7);
-                tableCell7.Append(paragraph7);
+                    paragraph7.Append(run11);
+                    tableCell7.Append(tableCellProperties7);
+                    tableCell7.Append(paragraph7);
 
-                tableRow4.Append(tableCell6);
-                tableRow4.Append(tableCell7);
+                    tableRow4.Append(tableCell6);
+                    tableRow4.Append(tableCell7);
 
-                TableRow tableRow5 = new TableRow()
+                    TableRow tableRow5 = new TableRow()
                     {
                         RsidTableRowAddition = "004D2B75",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell8 = new TableCell();
+                    TableCell tableCell8 = new TableCell();
 
-                TableCellProperties tableCellProperties8 = new TableCellProperties();
+                    TableCellProperties tableCellProperties8 = new TableCellProperties();
 
-                TableCellBorders tableCellBorders8 = new TableCellBorders();
+                    TableCellBorders tableCellBorders8 = new TableCellBorders();
 
-                tableCellBorders8.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders8.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders8.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders8.Append(new RightBorder() {Val = BorderValues.Nil});
+                    tableCellBorders8.Append(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.Append(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.Append(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.Append(new RightBorder() { Val = BorderValues.Nil });
 
-                tableCellProperties8.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties8.Append(tableCellBorders8);
+                    tableCellProperties8.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties8.Append(tableCellBorders8);
 
-                Paragraph paragraph8 = new Paragraph()
+                    Paragraph paragraph8 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run15 = new Run();
-                Text text15 = new Text();
-                if (report.Patient.Surnames != null)
-                {
-                    text15.Text = "Apellidos: " + report.Patient.Surnames;
-                }
-                else
-                {
-                    text15.Text = "Apellidos: N/E";
-                }
+                    Run run15 = new Run();
+                    Text text15 = new Text();
+                    if (report.Patient.Surnames != null)
+                    {
+                        text15.Text = "Apellidos: " + report.Patient.Surnames;
+                    }
+                    else
+                    {
+                        text15.Text = "Apellidos: N/E";
+                    }
 
 
-                run15.Append(text15);
-                paragraph8.Append(run15);
+                    run15.Append(text15);
+                    paragraph8.Append(run15);
 
-                tableCell8.Append(tableCellProperties8);
-                tableCell8.Append(paragraph8);
+                    tableCell8.Append(tableCellProperties8);
+                    tableCell8.Append(paragraph8);
 
-                TableCell tableCell9 = new TableCell();
+                    TableCell tableCell9 = new TableCell();
 
-                TableCellProperties tableCellProperties9 = new TableCellProperties();
+                    TableCellProperties tableCellProperties9 = new TableCellProperties();
 
-                TableCellBorders tableCellBorders9 = new TableCellBorders();
+                    TableCellBorders tableCellBorders9 = new TableCellBorders();
 
-                tableCellBorders9.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders9.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders9.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders9.Append(new RightBorder() {Val = BorderValues.Nil});
+                    tableCellBorders9.Append(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.Append(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.Append(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.Append(new RightBorder() { Val = BorderValues.Nil });
 
-                tableCellProperties9.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties9.Append(tableCellBorders9);
+                    tableCellProperties9.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties9.Append(tableCellBorders9);
 
-                Paragraph paragraph9 = new Paragraph()
+                    Paragraph paragraph9 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run17 = new Run();
-                Text text17 = new Text();
-                if (report.TemporaryData.Weight != null)
-                {
-                    text17.Text = "Peso: " + report.TemporaryData.Weight.ToString();
-                }
-                else
-                {
-                    text17.Text = "Peso: N/E";
-                }
+                    Run run17 = new Run();
+                    Text text17 = new Text();
+                    if (report.TemporaryData.Weight != null)
+                    {
+                        text17.Text = "Peso: " + report.TemporaryData.Weight.ToString();
+                    }
+                    else
+                    {
+                        text17.Text = "Peso: N/E";
+                    }
 
-                run17.Append(text17);
+                    run17.Append(text17);
 
-                paragraph9.Append(run17);
+                    paragraph9.Append(run17);
 
-                tableCell9.Append(tableCellProperties9);
-                tableCell9.Append(paragraph9);
+                    tableCell9.Append(tableCellProperties9);
+                    tableCell9.Append(paragraph9);
 
-                tableRow5.Append(tableCell8);
-                tableRow5.Append(tableCell9);
+                    tableRow5.Append(tableCell8);
+                    tableRow5.Append(tableCell9);
 
-                TableRow tableRow6 = new TableRow()
+                    TableRow tableRow6 = new TableRow()
                     {
                         RsidTableRowAddition = "004D2B75",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell10 = new TableCell();
+                    TableCell tableCell10 = new TableCell();
 
-                TableCellProperties tableCellProperties10 = new TableCellProperties();
+                    TableCellProperties tableCellProperties10 = new TableCellProperties();
 
-                TableCellBorders tableCellBorders10 = new TableCellBorders();
+                    TableCellBorders tableCellBorders10 = new TableCellBorders();
 
-                tableCellBorders10.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders10.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders10.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders10.Append(new RightBorder() {Val = BorderValues.Nil});
+                    tableCellBorders10.Append(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.Append(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.Append(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.Append(new RightBorder() { Val = BorderValues.Nil });
 
-                tableCellProperties10.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties10.Append(tableCellBorders10);
+                    tableCellProperties10.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties10.Append(tableCellBorders10);
 
-                Paragraph paragraph10 = new Paragraph()
+                    Paragraph paragraph10 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run18 = new Run();
-                Text text18 = new Text();
-                if (report.Patient.Names != null)
-                {
-                    text18.Text = "Nombre: " + report.Patient.Names;
-                }
-                else
-                {
-                    text18.Text = "Nombre: N/E";
-                }
+                    Run run18 = new Run();
+                    Text text18 = new Text();
+                    if (report.Patient.Names != null)
+                    {
+                        text18.Text = "Nombre: " + report.Patient.Names;
+                    }
+                    else
+                    {
+                        text18.Text = "Nombre: N/E";
+                    }
 
-                run18.Append(text18);
+                    run18.Append(text18);
 
-                paragraph10.Append(run18);
+                    paragraph10.Append(run18);
 
-                tableCell10.Append(tableCellProperties10);
-                tableCell10.Append(paragraph10);
+                    tableCell10.Append(tableCellProperties10);
+                    tableCell10.Append(paragraph10);
 
-                TableCell tableCell11 = new TableCell();
+                    TableCell tableCell11 = new TableCell();
 
-                TableCellProperties tableCellProperties11 = new TableCellProperties();
-                TableCellWidth tableCellWidth11 = new TableCellWidth()
+                    TableCellProperties tableCellProperties11 = new TableCellProperties();
+                    TableCellWidth tableCellWidth11 = new TableCellWidth()
                     {
                         Width = "4788",
                         Type = TableWidthUnitValues.Dxa
                     };
 
-                TableCellBorders tableCellBorders11 = new TableCellBorders();
-                TopBorder topBorder11 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder11 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder11 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder11 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders11 = new TableCellBorders();
+                    TopBorder topBorder11 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder11 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder11 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder11 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders11.Append(topBorder11);
-                tableCellBorders11.Append(leftBorder11);
-                tableCellBorders11.Append(bottomBorder11);
-                tableCellBorders11.Append(rightBorder11);
+                    tableCellBorders11.Append(topBorder11);
+                    tableCellBorders11.Append(leftBorder11);
+                    tableCellBorders11.Append(bottomBorder11);
+                    tableCellBorders11.Append(rightBorder11);
 
-                tableCellProperties11.Append(tableCellWidth11);
-                tableCellProperties11.Append(tableCellBorders11);
+                    tableCellProperties11.Append(tableCellWidth11);
+                    tableCellProperties11.Append(tableCellBorders11);
 
-                Paragraph paragraph11 = new Paragraph()
+                    Paragraph paragraph11 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run20 = new Run();
-                Text text20 = new Text();
-                if (report.TemporaryData.Height != null)
-                {
-                    text20.Text = "Altura: " + report.TemporaryData.Height.ToString();
-                }
-                else
-                {
-                    text20.Text = "Altura: N/E";
-                }
+                    Run run20 = new Run();
+                    Text text20 = new Text();
+                    if (report.TemporaryData.Height != null)
+                    {
+                        text20.Text = "Altura: " + report.TemporaryData.Height.ToString();
+                    }
+                    else
+                    {
+                        text20.Text = "Altura: N/E";
+                    }
 
-                run20.Append(text20);
-                paragraph11.Append(run20);
+                    run20.Append(text20);
+                    paragraph11.Append(run20);
 
-                tableCell11.Append(tableCellProperties11);
-                tableCell11.Append(paragraph11);
+                    tableCell11.Append(tableCellProperties11);
+                    tableCell11.Append(paragraph11);
 
-                tableRow6.Append(tableCell10);
-                tableRow6.Append(tableCell11);
+                    tableRow6.Append(tableCell10);
+                    tableRow6.Append(tableCell11);
 
-                TableRow tableRow7 = new TableRow()
+                    TableRow tableRow7 = new TableRow()
                     {
                         RsidTableRowAddition = "004D2B75",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell12 = new TableCell();
+                    TableCell tableCell12 = new TableCell();
 
-                TableCellProperties tableCellProperties12 = new TableCellProperties();
-                TableCellWidth tableCellWidth12 = new TableCellWidth()
+                    TableCellProperties tableCellProperties12 = new TableCellProperties();
+                    TableCellWidth tableCellWidth12 = new TableCellWidth()
                     {
                         Width = "4788",
                         Type = TableWidthUnitValues.Dxa
                     };
 
-                TableCellBorders tableCellBorders12 = new TableCellBorders();
-                TopBorder topBorder12 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder12 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder12 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder12 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders12 = new TableCellBorders();
+                    TopBorder topBorder12 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder12 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder12 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder12 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders12.Append(topBorder12);
-                tableCellBorders12.Append(leftBorder12);
-                tableCellBorders12.Append(bottomBorder12);
-                tableCellBorders12.Append(rightBorder12);
+                    tableCellBorders12.Append(topBorder12);
+                    tableCellBorders12.Append(leftBorder12);
+                    tableCellBorders12.Append(bottomBorder12);
+                    tableCellBorders12.Append(rightBorder12);
 
-                tableCellProperties12.Append(tableCellWidth12);
-                tableCellProperties12.Append(tableCellBorders12);
+                    tableCellProperties12.Append(tableCellWidth12);
+                    tableCellProperties12.Append(tableCellBorders12);
 
-                Paragraph paragraph12 = new Paragraph()
+                    Paragraph paragraph12 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run22 = new Run();
-                Text text22 = new Text();
-                if (report.Patient.Address != null)
-                {
-                    text22.Text = "Domicilio: " + report.Patient.Address;
-                }
-                else
-                {
-                    text22.Text = "Domicilio: N/E";
-                }
+                    Run run22 = new Run();
+                    Text text22 = new Text();
+                    if (report.Patient.Address != null)
+                    {
+                        text22.Text = "Domicilio: " + report.Patient.Address;
+                    }
+                    else
+                    {
+                        text22.Text = "Domicilio: N/E";
+                    }
 
-                run22.Append(text22);
-                paragraph12.Append(run22);
+                    run22.Append(text22);
+                    paragraph12.Append(run22);
 
-                tableCell12.Append(tableCellProperties12);
-                tableCell12.Append(paragraph12);
+                    tableCell12.Append(tableCellProperties12);
+                    tableCell12.Append(paragraph12);
 
-                TableCell tableCell13 = new TableCell();
+                    TableCell tableCell13 = new TableCell();
 
-                TableCellProperties tableCellProperties13 = new TableCellProperties();
-                TableCellWidth tableCellWidth13 = new TableCellWidth()
+                    TableCellProperties tableCellProperties13 = new TableCellProperties();
+                    TableCellWidth tableCellWidth13 = new TableCellWidth()
                     {
                         Width = "4788",
                         Type = TableWidthUnitValues.Dxa
                     };
 
-                TableCellBorders tableCellBorders13 = new TableCellBorders();
-                TopBorder topBorder13 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder13 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder13 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder13 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders13 = new TableCellBorders();
+                    TopBorder topBorder13 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder13 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder13 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder13 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders13.Append(topBorder13);
-                tableCellBorders13.Append(leftBorder13);
-                tableCellBorders13.Append(bottomBorder13);
-                tableCellBorders13.Append(rightBorder13);
+                    tableCellBorders13.Append(topBorder13);
+                    tableCellBorders13.Append(leftBorder13);
+                    tableCellBorders13.Append(bottomBorder13);
+                    tableCellBorders13.Append(rightBorder13);
 
-                tableCellProperties13.Append(tableCellWidth13);
-                tableCellProperties13.Append(tableCellBorders13);
+                    tableCellProperties13.Append(tableCellWidth13);
+                    tableCellProperties13.Append(tableCellBorders13);
 
-                Paragraph paragraph13 = new Paragraph()
+                    Paragraph paragraph13 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run24 = new Run();
-                Text text24 = new Text();
-                if (report.Patient.Sex != null)
-                {
-                    text24.Text = "Sexo: " + report.Patient.Sex.ToString();
-                }
-                else
-                {
-                    text24.Text = "Sexo: N/E";
-                }
+                    Run run24 = new Run();
+                    Text text24 = new Text();
+                    if (report.Patient.Sex != null)
+                    {
+                        text24.Text = "Sexo: " + report.Patient.Sex.ToString();
+                    }
+                    else
+                    {
+                        text24.Text = "Sexo: N/E";
+                    }
 
-                run24.Append(text24);
-                paragraph13.Append(run24);
+                    run24.Append(text24);
+                    paragraph13.Append(run24);
 
-                tableCell13.Append(tableCellProperties13);
-                tableCell13.Append(paragraph13);
+                    tableCell13.Append(tableCellProperties13);
+                    tableCell13.Append(paragraph13);
 
-                tableRow7.Append(tableCell12);
-                tableRow7.Append(tableCell13);
+                    tableRow7.Append(tableCell12);
+                    tableRow7.Append(tableCell13);
 
-                TableRow tableRow8 = new TableRow()
+                    TableRow tableRow8 = new TableRow()
                     {
                         RsidTableRowAddition = "004D2B75",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell14 = new TableCell();
+                    TableCell tableCell14 = new TableCell();
 
-                TableCellProperties tableCellProperties14 = new TableCellProperties();
-                TableCellWidth tableCellWidth14 = new TableCellWidth()
+                    TableCellProperties tableCellProperties14 = new TableCellProperties();
+                    TableCellWidth tableCellWidth14 = new TableCellWidth()
                     {
                         Width = "4788",
                         Type = TableWidthUnitValues.Dxa
                     };
 
-                TableCellBorders tableCellBorders14 = new TableCellBorders();
-                TopBorder topBorder14 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder14 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder14 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder14 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders14 = new TableCellBorders();
+                    TopBorder topBorder14 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder14 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder14 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder14 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders14.Append(topBorder14);
-                tableCellBorders14.Append(leftBorder14);
-                tableCellBorders14.Append(bottomBorder14);
-                tableCellBorders14.Append(rightBorder14);
+                    tableCellBorders14.Append(topBorder14);
+                    tableCellBorders14.Append(leftBorder14);
+                    tableCellBorders14.Append(bottomBorder14);
+                    tableCellBorders14.Append(rightBorder14);
 
-                tableCellProperties14.Append(tableCellWidth14);
-                tableCellProperties14.Append(tableCellBorders14);
+                    tableCellProperties14.Append(tableCellWidth14);
+                    tableCellProperties14.Append(tableCellBorders14);
 
-                Paragraph paragraph14 = new Paragraph()
+                    Paragraph paragraph14 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run26 = new Run();
-                Text text26 = new Text();
-                if (report.Patient.Phone != null)
-                {
-                    text26.Text = "Teléfono: " + report.Patient.Phone;
-                }
-                else
-                {
-                    text26.Text = "Teléfono: N/E";
-                }
+                    Run run26 = new Run();
+                    Text text26 = new Text();
+                    if (report.Patient.Phone != null)
+                    {
+                        text26.Text = "Teléfono: " + report.Patient.Phone;
+                    }
+                    else
+                    {
+                        text26.Text = "Teléfono: N/E";
+                    }
 
-                run26.Append(text26);
-                paragraph14.Append(run26);
+                    run26.Append(text26);
+                    paragraph14.Append(run26);
 
-                tableCell14.Append(tableCellProperties14);
-                tableCell14.Append(paragraph14);
+                    tableCell14.Append(tableCellProperties14);
+                    tableCell14.Append(paragraph14);
 
-                TableCell tableCell15 = new TableCell();
+                    TableCell tableCell15 = new TableCell();
 
-                TableCellProperties tableCellProperties15 = new TableCellProperties();
-                TableCellWidth tableCellWidth15 = new TableCellWidth()
+                    TableCellProperties tableCellProperties15 = new TableCellProperties();
+                    TableCellWidth tableCellWidth15 = new TableCellWidth()
                     {
                         Width = "4788",
                         Type = TableWidthUnitValues.Dxa
                     };
 
-                TableCellBorders tableCellBorders15 = new TableCellBorders();
-                TopBorder topBorder15 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder15 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder15 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder15 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders15 = new TableCellBorders();
+                    TopBorder topBorder15 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder15 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder15 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder15 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders15.Append(topBorder15);
-                tableCellBorders15.Append(leftBorder15);
-                tableCellBorders15.Append(bottomBorder15);
-                tableCellBorders15.Append(rightBorder15);
+                    tableCellBorders15.Append(topBorder15);
+                    tableCellBorders15.Append(leftBorder15);
+                    tableCellBorders15.Append(bottomBorder15);
+                    tableCellBorders15.Append(rightBorder15);
 
-                tableCellProperties15.Append(tableCellWidth15);
-                tableCellProperties15.Append(tableCellBorders15);
+                    tableCellProperties15.Append(tableCellWidth15);
+                    tableCellProperties15.Append(tableCellBorders15);
 
-                Paragraph paragraph15 = new Paragraph()
+                    Paragraph paragraph15 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                Run run28 = new Run();
-                Text text28 = new Text();
-                if (report.Patient.Email != null)
-                {
-                    text28.Text = "E-mail: " + report.Patient.Email;
-                }
-                else
-                {
-                    text28.Text = "E-mail: N/E";
+                    Run run28 = new Run();
+                    Text text28 = new Text();
+                    if (report.Patient.Email != null)
+                    {
+                        text28.Text = "E-mail: " + report.Patient.Email;
+                    }
+                    else
+                    {
+                        text28.Text = "E-mail: N/E";
+
+                    }
+
+                    run28.Append(text28);
+
+                    paragraph15.Append(run28);
+
+                    tableCell15.Append(tableCellProperties15);
+                    tableCell15.Append(paragraph15);
+
+                    tableRow8.Append(tableCell14);
+                    tableRow8.Append(tableCell15);
+
+                    table1.Append(tableRow4);
+                    table1.Append(tableRow5);
+                    table1.Append(tableRow6);
+                    table1.Append(tableRow7);
+                    table1.Append(tableRow8);
 
                 }
 
-                run28.Append(text28);
-
-                paragraph15.Append(run28);
-
-                tableCell15.Append(tableCellProperties15);
-                tableCell15.Append(paragraph15);
-
-                tableRow8.Append(tableCell14);
-                tableRow8.Append(tableCell15);
 
                 TableRow tableRow9 = new TableRow()
                     {
@@ -902,6 +926,8 @@ namespace BussinessLogic
                 tableCell16.Append(paragraph16);
 
                 tableRow9.Append(tableCell16);
+
+                table1.Append(tableRow9);
 
                 TableRow tableRow10 = new TableRow()
                     {
@@ -1136,6 +1162,8 @@ namespace BussinessLogic
                 tableRow10.Append(tableCell17);
                 tableRow10.Append(tableCell18);
 
+                table1.Append(tableRow10);
+
                 TableRow tableRow11 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
@@ -1176,475 +1204,487 @@ namespace BussinessLogic
                 tableCellProperties19.Append(tableCellBorders19);
                 tableCellProperties19.Append(tableCellVerticalAlignment2);
 
-                Paragraph paragraph21 = new Paragraph()
-                    {
-                        RsidParagraphMarkRevision = "00EC01A4",
-                        RsidParagraphAddition = "00EC01A4",
-                        RsidParagraphProperties = "00EC01A4",
-                        RsidRunAdditionDefault = "00EC01A4"
-                    };
+                /*
+                 * ICLUIR PERFIL de TENSION ARTERIAL
+                 */
+                if (includeProfile)
+                {
+                    Paragraph paragraph21 = new Paragraph()
+                        {
+                            RsidParagraphMarkRevision = "00EC01A4",
+                            RsidParagraphAddition = "00EC01A4",
+                            RsidParagraphProperties = "00EC01A4",
+                            RsidRunAdditionDefault = "00EC01A4"
+                        };
 
-                ParagraphProperties paragraphProperties5 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties5 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties5 = new ParagraphMarkRunProperties();
-                Bold bold8 = new Bold();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties5 = new ParagraphMarkRunProperties();
+                    Bold bold8 = new Bold();
 
-                paragraphMarkRunProperties5.Append(bold8);
+                    paragraphMarkRunProperties5.Append(bold8);
 
-                paragraphProperties5.Append(paragraphMarkRunProperties5);
+                    paragraphProperties5.Append(paragraphMarkRunProperties5);
 
-                Run run32 = new Run() {RsidRunProperties = "00EC01A4"};
+                    Run run32 = new Run() {RsidRunProperties = "00EC01A4"};
 
-                RunProperties runProperties8 = new RunProperties();
-                Bold bold9 = new Bold();
+                    RunProperties runProperties8 = new RunProperties();
+                    Bold bold9 = new Bold();
 
-                runProperties8.Append(bold9);
-                Text text32 = new Text();
-                text32.Text = "Resumen de Medidas";
+                    runProperties8.Append(bold9);
+                    Text text32 = new Text();
+                    text32.Text = "Resumen de Medidas";
 
-                run32.Append(runProperties8);
-                run32.Append(text32);
+                    run32.Append(runProperties8);
+                    run32.Append(text32);
 
-                paragraph21.Append(paragraphProperties5);
-                paragraph21.Append(run32);
+                    paragraph21.Append(paragraphProperties5);
+                    paragraph21.Append(run32);
 
-                tableCell19.Append(tableCellProperties19);
-                tableCell19.Append(paragraph21);
+                    tableCell19.Append(tableCellProperties19);
+                    tableCell19.Append(paragraph21);
 
-                tableRow11.Append(tableRowProperties2);
-                tableRow11.Append(tableCell19);
+                    tableRow11.Append(tableRowProperties2);
+                    tableRow11.Append(tableCell19);
 
-                //Resumen de medidas
-                var tableRow12 = MeasuresSummary(report);
+                    table1.Append(tableRow11);
 
-                TableRow tableRow13 = new TableRow()
+                    //Resumen de medidas
+                    var tableRow12 = MeasuresSummary(report);
+                    table1.Append(tableRow12);
+                }
+
+                /*
+                 * INCLUIR DIAGNOSTICO
+                 */
+                if (includeDiagnostic)
+                {
+                    TableRow tableRow13 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell21 = new TableCell();
+                    TableCell tableCell21 = new TableCell();
 
-                TableCellProperties tableCellProperties21 = new TableCellProperties();
-                TableCellWidth tableCellWidth21 = new TableCellWidth()
+                    TableCellProperties tableCellProperties21 = new TableCellProperties();
+                    TableCellWidth tableCellWidth21 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan5 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan5 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders21 = new TableCellBorders();
-                LeftBorder leftBorder20 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder20 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder20 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders21 = new TableCellBorders();
+                    LeftBorder leftBorder20 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder20 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder20 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders21.Append(leftBorder20);
-                tableCellBorders21.Append(bottomBorder20);
-                tableCellBorders21.Append(rightBorder20);
+                    tableCellBorders21.Append(leftBorder20);
+                    tableCellBorders21.Append(bottomBorder20);
+                    tableCellBorders21.Append(rightBorder20);
 
-                tableCellProperties21.Append(tableCellWidth21);
-                tableCellProperties21.Append(gridSpan5);
-                tableCellProperties21.Append(tableCellBorders21);
+                    tableCellProperties21.Append(tableCellWidth21);
+                    tableCellProperties21.Append(gridSpan5);
+                    tableCellProperties21.Append(tableCellBorders21);
 
-                Paragraph paragraph23 = new Paragraph()
+
+                    Paragraph paragraph23 = new Paragraph()
                     {
                         RsidParagraphMarkRevision = "004D2B75",
                         RsidParagraphAddition = "00EC01A4",
                         RsidRunAdditionDefault = "00EC01A4"
                     };
 
-                ParagraphProperties paragraphProperties7 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties7 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties7 = new ParagraphMarkRunProperties();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties7 = new ParagraphMarkRunProperties();
 
-                paragraphProperties7.Append(paragraphMarkRunProperties7);
+                    paragraphProperties7.Append(paragraphMarkRunProperties7);
 
-                Run run34 = new Run() {RsidRunProperties = "00EC01A4"};
+                    Run run34 = new Run() { RsidRunProperties = "00EC01A4" };
 
-                RunProperties runProperties10 = new RunProperties();
-                Bold bold10 = new Bold();
+                    RunProperties runProperties10 = new RunProperties();
+                    Bold bold10 = new Bold();
 
-                runProperties10.Append(bold10);
-                Text text34 = new Text();
-                text34.Text = "Diagnóstico";
+                    runProperties10.Append(bold10);
+                    Text text34 = new Text();
+                    text34.Text = "Diagnóstico";
 
-                run34.Append(runProperties10);
-                run34.Append(text34);
+                    run34.Append(runProperties10);
+                    run34.Append(text34);
 
-                paragraph23.Append(paragraphProperties7);
-                paragraph23.Append(run34);
+                    paragraph23.Append(paragraphProperties7);
+                    paragraph23.Append(run34);
 
-                tableCell21.Append(tableCellProperties21);
-                tableCell21.Append(paragraph23);
+                    tableCell21.Append(tableCellProperties21);
+                    tableCell21.Append(paragraph23);
 
-                tableRow13.Append(tableCell21);
+                    tableRow13.Append(tableCell21);
 
-                TableRow tableRow14 = new TableRow()
+                    TableRow tableRow14 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell22 = new TableCell();
+                    TableCell tableCell22 = new TableCell();
 
-                TableCellProperties tableCellProperties22 = new TableCellProperties();
-                TableCellWidth tableCellWidth22 = new TableCellWidth()
+                    TableCellProperties tableCellProperties22 = new TableCellProperties();
+                    TableCellWidth tableCellWidth22 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan6 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan6 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders22 = new TableCellBorders();
-                TopBorder topBorder18 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder21 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder21 = new BottomBorder()
+                    TableCellBorders tableCellBorders22 = new TableCellBorders();
+                    TopBorder topBorder18 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder21 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder21 = new BottomBorder()
                     {
                         Val = BorderValues.Single,
                         Color = "auto",
-                        Size = (UInt32Value) 4U,
-                        Space = (UInt32Value) 0U
+                        Size = (UInt32Value)4U,
+                        Space = (UInt32Value)0U
                     };
-                RightBorder rightBorder21 = new RightBorder() {Val = BorderValues.Nil};
+                    RightBorder rightBorder21 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders22.Append(topBorder18);
-                tableCellBorders22.Append(leftBorder21);
-                tableCellBorders22.Append(bottomBorder21);
-                tableCellBorders22.Append(rightBorder21);
+                    tableCellBorders22.Append(topBorder18);
+                    tableCellBorders22.Append(leftBorder21);
+                    tableCellBorders22.Append(bottomBorder21);
+                    tableCellBorders22.Append(rightBorder21);
 
-                tableCellProperties22.Append(tableCellWidth22);
-                tableCellProperties22.Append(gridSpan6);
-                tableCellProperties22.Append(tableCellBorders22);
+                    tableCellProperties22.Append(tableCellWidth22);
+                    tableCellProperties22.Append(gridSpan6);
+                    tableCellProperties22.Append(tableCellBorders22);
 
-                Paragraph paragraph24 = new Paragraph()
+                    Paragraph paragraph24 = new Paragraph()
                     {
                         RsidParagraphMarkRevision = "004D2B75",
                         RsidParagraphAddition = "00EC01A4",
                         RsidRunAdditionDefault = "00EC01A4"
                     };
 
-                ParagraphProperties paragraphProperties8 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties8 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties8 = new ParagraphMarkRunProperties();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties8 = new ParagraphMarkRunProperties();
 
-                paragraphProperties8.Append(paragraphMarkRunProperties8);
+                    paragraphProperties8.Append(paragraphMarkRunProperties8);
 
-                Run run35 = new Run();
+                    Run run35 = new Run();
 
-                RunProperties runProperties11 = new RunProperties();
+                    RunProperties runProperties11 = new RunProperties();
 
-                if (report.Diagnosis != null)
-                {
-                    string[] diagnosis = report.Diagnosis.Split("\r\n".ToCharArray());
-                    foreach (string d in diagnosis)
+                    if (report.Diagnosis != null)
                     {
-                        run35.AppendChild(new Text(d));
-                        RunProperties runProp = run35.AppendChild(new RunProperties());
-                        Break lineBreak = new Break();
-                        runProp.AppendChild(lineBreak);
+                        string[] diagnosis = report.Diagnosis.Split("\r\n".ToCharArray());
+                        foreach (string d in diagnosis)
+                        {
+                            run35.AppendChild(new Text(d));
+                            RunProperties runProp = run35.AppendChild(new RunProperties());
+                            Break lineBreak = new Break();
+                            runProp.AppendChild(lineBreak);
+                        }
                     }
+                    else
+                    {
+                        Text text35 = new Text();
+                        text35.Text = "<No se ha realizado el diagnóstico aún>";
+                    }
+
+
+                    paragraph24.Append(paragraphProperties8);
+                    paragraph24.Append(run35);
+
+                    tableCell22.Append(tableCellProperties22);
+                    tableCell22.Append(paragraph24);
+
+                    tableRow14.Append(tableCell22);
+
+                    table1.Append(tableRow13);
+                    table1.Append(tableRow14);
                 }
-                else
+
+
+                /*
+                 * INLCUIR GRAFICA
+                 */
+                if (includeGraphic)
                 {
-                    Text text35 = new Text();
-                    text35.Text = "<No se ha realizado el diagnóstico aún>";
-                }
-
-
-                paragraph24.Append(paragraphProperties8);
-                paragraph24.Append(run35);
-
-                tableCell22.Append(tableCellProperties22);
-                tableCell22.Append(paragraph24);
-
-                tableRow14.Append(tableCell22);
-
-                TableRow tableRow15 = new TableRow()
+                    TableRow tableRow15 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell23 = new TableCell();
+                    TableCell tableCell23 = new TableCell();
 
-                TableCellProperties tableCellProperties23 = new TableCellProperties();
-                TableCellWidth tableCellWidth23 = new TableCellWidth()
+                    TableCellProperties tableCellProperties23 = new TableCellProperties();
+                    TableCellWidth tableCellWidth23 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan7 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan7 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders23 = new TableCellBorders();
-                LeftBorder leftBorder22 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder22 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder22 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders23 = new TableCellBorders();
+                    LeftBorder leftBorder22 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder22 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder22 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders23.Append(leftBorder22);
-                tableCellBorders23.Append(bottomBorder22);
-                tableCellBorders23.Append(rightBorder22);
+                    tableCellBorders23.Append(leftBorder22);
+                    tableCellBorders23.Append(bottomBorder22);
+                    tableCellBorders23.Append(rightBorder22);
 
-                tableCellProperties23.Append(tableCellWidth23);
-                tableCellProperties23.Append(gridSpan7);
-                tableCellProperties23.Append(tableCellBorders23);
+                    tableCellProperties23.Append(tableCellWidth23);
+                    tableCellProperties23.Append(gridSpan7);
+                    tableCellProperties23.Append(tableCellBorders23);
 
-                Paragraph paragraph25 = new Paragraph()
+                    Paragraph paragraph25 = new Paragraph()
                     {
                         RsidParagraphMarkRevision = "00EC01A4",
                         RsidParagraphAddition = "00EC01A4",
                         RsidRunAdditionDefault = "00EC01A4"
                     };
 
-                ParagraphProperties paragraphProperties9 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties9 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
-                Bold bold11 = new Bold();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
+                    Bold bold11 = new Bold();
 
-                paragraphMarkRunProperties9.Append(bold11);
+                    paragraphMarkRunProperties9.Append(bold11);
 
-                paragraphProperties9.Append(paragraphMarkRunProperties9);
+                    paragraphProperties9.Append(paragraphMarkRunProperties9);
 
-                Run run36 = new Run() {RsidRunProperties = "00EC01A4"};
+                    Run run36 = new Run() { RsidRunProperties = "00EC01A4" };
 
-                RunProperties runProperties12 = new RunProperties();
-                Bold bold12 = new Bold();
+                    RunProperties runProperties12 = new RunProperties();
+                    Bold bold12 = new Bold();
 
-                runProperties12.Append(bold12);
-                Text text36 = new Text();
-                text36.Text = "Perfil de la Tensión Arterial";
+                    runProperties12.Append(bold12);
+                    Text text36 = new Text();
+                    text36.Text = "Perfil de la Tensión Arterial";
 
-                run36.Append(runProperties12);
-                run36.Append(text36);
+                    run36.Append(runProperties12);
+                    run36.Append(text36);
 
-                paragraph25.Append(paragraphProperties9);
-                paragraph25.Append(run36);
+                    paragraph25.Append(paragraphProperties9);
+                    paragraph25.Append(run36);
 
-                tableCell23.Append(tableCellProperties23);
-                tableCell23.Append(paragraph25);
+                    tableCell23.Append(tableCellProperties23);
+                    tableCell23.Append(paragraph25);
 
-                tableRow15.Append(tableCell23);
+                    tableRow15.Append(tableCell23);
 
-                TableRow tableRow16 = new TableRow()
+                    TableRow tableRow16 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell24 = new TableCell();
+                    TableCell tableCell24 = new TableCell();
 
-                TableCellProperties tableCellProperties24 = new TableCellProperties();
-                TableCellWidth tableCellWidth24 = new TableCellWidth()
+                    TableCellProperties tableCellProperties24 = new TableCellProperties();
+                    TableCellWidth tableCellWidth24 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan8 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan8 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders24 = new TableCellBorders();
-                TopBorder topBorder19 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder23 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder23 = new BottomBorder()
+                    TableCellBorders tableCellBorders24 = new TableCellBorders();
+                    TopBorder topBorder19 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder23 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder23 = new BottomBorder()
                     {
                         Val = BorderValues.Single,
                         Color = "auto",
-                        Size = (UInt32Value) 4U,
-                        Space = (UInt32Value) 0U
+                        Size = (UInt32Value)4U,
+                        Space = (UInt32Value)0U
                     };
-                RightBorder rightBorder23 = new RightBorder() {Val = BorderValues.Nil};
+                    RightBorder rightBorder23 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders24.Append(topBorder19);
-                tableCellBorders24.Append(leftBorder23);
-                tableCellBorders24.Append(bottomBorder23);
-                tableCellBorders24.Append(rightBorder23);
+                    tableCellBorders24.Append(topBorder19);
+                    tableCellBorders24.Append(leftBorder23);
+                    tableCellBorders24.Append(bottomBorder23);
+                    tableCellBorders24.Append(rightBorder23);
 
-                tableCellProperties24.Append(tableCellWidth24);
-                tableCellProperties24.Append(gridSpan8);
-                tableCellProperties24.Append(tableCellBorders24);
+                    tableCellProperties24.Append(tableCellWidth24);
+                    tableCellProperties24.Append(gridSpan8);
+                    tableCellProperties24.Append(tableCellBorders24);
 
-                Paragraph paragraph26 = new Paragraph()
+                    Paragraph paragraph26 = new Paragraph()
                     {
                         RsidParagraphMarkRevision = "004D2B75",
                         RsidParagraphAddition = "00EC01A4",
                         RsidRunAdditionDefault = "00EC01A4"
                     };
 
-                ParagraphProperties paragraphProperties10 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties10 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
 
-                paragraphProperties10.Append(paragraphMarkRunProperties10);
+                    paragraphProperties10.Append(paragraphMarkRunProperties10);
 
-                Run run37 = new Run();
+                    Run run37 = new Run();
 
-                RunProperties runProperties13 = new RunProperties();
+                    RunProperties runProperties13 = new RunProperties();
 
-                Text text37 = new Text();
-                text37.Text = "<Gráfica tensión arterial/tiempo>";
+                    Text text37 = new Text();
+                    text37.Text = "<Gráfica tensión arterial/tiempo>";
 
-                run37.Append(runProperties13);
-                run37.Append(text37);
+                    run37.Append(runProperties13);
+                    run37.Append(text37);
 
-                paragraph26.Append(paragraphProperties10);
-                paragraph26.Append(run37);
+                    paragraph26.Append(paragraphProperties10);
+                    paragraph26.Append(run37);
 
-                tableCell24.Append(tableCellProperties24);
-                tableCell24.Append(paragraph26);
+                    tableCell24.Append(tableCellProperties24);
+                    tableCell24.Append(paragraph26);
 
-                tableRow16.Append(tableCell24);
+                    tableRow16.Append(tableCell24);
 
-                TableRow tableRow17 = new TableRow()
+                    TableRow tableRow17 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell25 = new TableCell();
+                    TableCell tableCell25 = new TableCell();
 
-                TableCellProperties tableCellProperties25 = new TableCellProperties();
-                TableCellWidth tableCellWidth25 = new TableCellWidth()
+                    TableCellProperties tableCellProperties25 = new TableCellProperties();
+                    TableCellWidth tableCellWidth25 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan9 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan9 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders25 = new TableCellBorders();
-                LeftBorder leftBorder24 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder24 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder24 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders25 = new TableCellBorders();
+                    LeftBorder leftBorder24 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder24 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder24 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders25.Append(leftBorder24);
-                tableCellBorders25.Append(bottomBorder24);
-                tableCellBorders25.Append(rightBorder24);
+                    tableCellBorders25.Append(leftBorder24);
+                    tableCellBorders25.Append(bottomBorder24);
+                    tableCellBorders25.Append(rightBorder24);
 
-                tableCellProperties25.Append(tableCellWidth25);
-                tableCellProperties25.Append(gridSpan9);
-                tableCellProperties25.Append(tableCellBorders25);
+                    tableCellProperties25.Append(tableCellWidth25);
+                    tableCellProperties25.Append(gridSpan9);
+                    tableCellProperties25.Append(tableCellBorders25);
 
-                Paragraph paragraph27 = new Paragraph()
+                    Paragraph paragraph27 = new Paragraph()
                     {
                         RsidParagraphMarkRevision = "00EC01A4",
                         RsidParagraphAddition = "00EC01A4",
                         RsidRunAdditionDefault = "00EC01A4"
                     };
 
-                ParagraphProperties paragraphProperties11 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties11 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
-                Bold bold13 = new Bold();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
+                    Bold bold13 = new Bold();
 
-                paragraphMarkRunProperties11.Append(bold13);
+                    paragraphMarkRunProperties11.Append(bold13);
 
-                paragraphProperties11.Append(paragraphMarkRunProperties11);
+                    paragraphProperties11.Append(paragraphMarkRunProperties11);
 
-                Run run38 = new Run() {RsidRunProperties = "00EC01A4"};
+                    Run run38 = new Run() { RsidRunProperties = "00EC01A4" };
 
-                RunProperties runProperties14 = new RunProperties();
-                Bold bold14 = new Bold();
+                    RunProperties runProperties14 = new RunProperties();
+                    Bold bold14 = new Bold();
 
-                runProperties14.Append(bold14);
-                Text text38 = new Text();
-                text38.Text = "Valores por encima del límite";
+                    runProperties14.Append(bold14);
+                    Text text38 = new Text();
+                    text38.Text = "Valores por encima del límite";
 
-                run38.Append(runProperties14);
-                run38.Append(text38);
+                    run38.Append(runProperties14);
+                    run38.Append(text38);
 
-                paragraph27.Append(paragraphProperties11);
-                paragraph27.Append(run38);
+                    paragraph27.Append(paragraphProperties11);
+                    paragraph27.Append(run38);
 
-                tableCell25.Append(tableCellProperties25);
-                tableCell25.Append(paragraph27);
+                    tableCell25.Append(tableCellProperties25);
+                    tableCell25.Append(paragraph27);
 
-                tableRow17.Append(tableCell25);
+                    tableRow17.Append(tableCell25);
 
-                TableRow tableRow18 = new TableRow()
+                    TableRow tableRow18 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableCell tableCell26 = new TableCell();
+                    TableCell tableCell26 = new TableCell();
 
-                TableCellProperties tableCellProperties26 = new TableCellProperties();
-                TableCellWidth tableCellWidth26 = new TableCellWidth()
+                    TableCellProperties tableCellProperties26 = new TableCellProperties();
+                    TableCellWidth tableCellWidth26 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan10 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan10 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders26 = new TableCellBorders();
-                TopBorder topBorder20 = new TopBorder() {Val = BorderValues.Nil};
-                LeftBorder leftBorder25 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder25 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder25 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders26 = new TableCellBorders();
+                    TopBorder topBorder20 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder25 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder25 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder25 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders26.Append(topBorder20);
-                tableCellBorders26.Append(leftBorder25);
-                tableCellBorders26.Append(bottomBorder25);
-                tableCellBorders26.Append(rightBorder25);
+                    tableCellBorders26.Append(topBorder20);
+                    tableCellBorders26.Append(leftBorder25);
+                    tableCellBorders26.Append(bottomBorder25);
+                    tableCellBorders26.Append(rightBorder25);
 
-                tableCellProperties26.Append(tableCellWidth26);
-                tableCellProperties26.Append(gridSpan10);
-                tableCellProperties26.Append(tableCellBorders26);
+                    tableCellProperties26.Append(tableCellWidth26);
+                    tableCellProperties26.Append(gridSpan10);
+                    tableCellProperties26.Append(tableCellBorders26);
 
-                Paragraph paragraph28 = new Paragraph()
+                    Paragraph paragraph28 = new Paragraph()
                     {
                         RsidParagraphMarkRevision = "004D2B75",
                         RsidParagraphAddition = "00EC01A4",
                         RsidRunAdditionDefault = "00EC01A4"
                     };
 
-                ParagraphProperties paragraphProperties12 = new ParagraphProperties();
+                    ParagraphProperties paragraphProperties12 = new ParagraphProperties();
 
-                ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
+                    ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
 
-                paragraphProperties12.Append(paragraphMarkRunProperties12);
+                    paragraphProperties12.Append(paragraphMarkRunProperties12);
 
-                Run run39 = new Run();
+                    Run run39 = new Run();
 
-                RunProperties runProperties15 = new RunProperties();
+                    RunProperties runProperties15 = new RunProperties();
 
-                Text text39 = new Text();
-                text39.Text = "<Gráfico de torta>";
+                    Text text39 = new Text();
+                    text39.Text = "<Gráfico de torta>";
 
-                run39.Append(runProperties15);
-                run39.Append(text39);
+                    run39.Append(runProperties15);
+                    run39.Append(text39);
 
-                paragraph28.Append(paragraphProperties12);
-                paragraph28.Append(run39);
+                    paragraph28.Append(paragraphProperties12);
+                    paragraph28.Append(run39);
 
-                tableCell26.Append(tableCellProperties26);
-                tableCell26.Append(paragraph28);
+                    tableCell26.Append(tableCellProperties26);
+                    tableCell26.Append(paragraph28);
 
-                tableRow18.Append(tableCell26);
+                    tableRow18.Append(tableCell26);
 
-                table1.Append(tableProperties1);
-                table1.Append(tableGrid1);
-                table1.Append(tableRow1);
-                table1.Append(tableRow2);
-                table1.Append(tableRow3);
-                table1.Append(tableRow4);
-                table1.Append(tableRow5);
-                table1.Append(tableRow6);
-                table1.Append(tableRow7);
-                table1.Append(tableRow8);
-                table1.Append(tableRow9);
-                table1.Append(tableRow10);
-                table1.Append(tableRow11);
-                table1.Append(tableRow12);
-                table1.Append(tableRow13);
-                table1.Append(tableRow14);
-                table1.Append(tableRow15);
-                table1.Append(tableRow16);
-                table1.Append(tableRow17);
-                table1.Append(tableRow18);
+                    table1.Append(tableRow15);
+                    table1.Append(tableRow16);
+                    table1.Append(tableRow17);
+                    table1.Append(tableRow18);
+                }
+
+
 
                 Paragraph paragraph29 = new Paragraph()
                     {
@@ -2780,7 +2820,7 @@ namespace BussinessLogic
 
             RunProperties runProperties87 = new RunProperties();
             Text text111 = new Text();
-            //Pormedio total tam
+            //Promedio total tam
             text111.Text = report.MiddleTotalAvg.ToString();
 
             run111.Append(runProperties87);

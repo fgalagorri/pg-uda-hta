@@ -36,6 +36,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         private void grPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            container.btnEditPatient.IsEnabled = true;
+
             if (((DataGrid) sender).SelectedIndex != -1)
                 container.PatientSelected((PatientSearch) e.AddedItems[0]);
         }

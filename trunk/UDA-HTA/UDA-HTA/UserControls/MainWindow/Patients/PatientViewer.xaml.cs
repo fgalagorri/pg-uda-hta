@@ -16,9 +16,11 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
     {
         private Patient _patient;
         private Report _report;
+        private UDA_HTA.MainWindow container;
 
-        public PatientViewer(PatientSearch patient)
+        public PatientViewer(PatientSearch patient, UDA_HTA.MainWindow w)
         {
+            container = w;
             Mouse.OverrideCursor = Cursors.Wait;
             _patient = GatewayController.GetInstance().GetPatientFullView(patient.UdaId.Value);
 
@@ -87,6 +89,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         private void treePatient_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            container.btnExportReport.IsEnabled = true;
+
             Mouse.OverrideCursor = Cursors.Wait;
             int index = treePatient.Items.IndexOf(e.NewValue);
             if (index >= 0)
@@ -126,6 +130,11 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public Report GetSelectedReport()
         {
             return _report;
+        }
+
+        public Patient GetSelectedPatient()
+        {
+            return _patient;
         }
 
         public void UpdateDiagnosis(DiagnosisEdited d)
