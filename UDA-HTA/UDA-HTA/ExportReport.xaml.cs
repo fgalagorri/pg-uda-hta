@@ -58,11 +58,11 @@ namespace UDA_HTA
                 var result = saveAs.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
-                    var includePatientData = cbPatientData.IsEnabled;
-                    var includeDiagnostic = cbDiagnostic.IsEnabled;
-                    var includeProfile = cbProfile.IsEnabled;
-                    var includeGraphic = cbGraphic.IsEnabled;
-                    var includeMeasures = cbRegisterValues.IsEnabled;
+                    var includePatientData = cbPatientData.IsChecked != null && cbPatientData.IsChecked.Value;
+                    var includeDiagnostic = cbDiagnostic.IsChecked != null && cbDiagnostic.IsChecked.Value;
+                    var includeProfile = cbProfile.IsChecked != null && cbProfile.IsChecked.Value;
+                    var includeGraphic = cbGraphic.IsChecked != null && cbGraphic.IsChecked.Value;
+                    var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
 
                     Mouse.OverrideCursor = Cursors.Wait;
                     GatewayController.GetInstance().ExportToDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);

@@ -145,16 +145,12 @@
           <Key>
             <PropertyRef Name="idlimitmeasure" />
           </Key>
-          <Property Name="idlimitmeasure" Type="int" Nullable="false" />
+          <Property Name="idlimitmeasure" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="maxdiasday" Type="int" />
-          <Property Name="maxdiasdayavg" Type="int" />
           <Property Name="maxdiasnight" Type="int" />
-          <Property Name="maxdiasnightavg" Type="int" />
           <Property Name="maxdiastotal" Type="int" />
           <Property Name="maxsysday" Type="int" />
-          <Property Name="maxsysdayavg" Type="int" />
           <Property Name="maxsysnight" Type="int" />
-          <Property Name="maxsysnightavg" Type="int" />
           <Property Name="maxsystotal" Type="int" />
         </EntityType>
         <EntityType Name="measurement">
@@ -427,23 +423,6 @@
         </Function>
         <Function Name="deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="editPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="In" />
-          <Parameter Name="name_" Type="varchar" Mode="In" />
-          <Parameter Name="surname" Type="varchar" Mode="In" />
-          <Parameter Name="addr" Type="text" Mode="In" />
-          <Parameter Name="dni" Type="varchar" Mode="In" />
-          <Parameter Name="birth" Type="datetime" Mode="In" />
-          <Parameter Name="sex" Type="enum" Mode="In" />
-          <Parameter Name="neighbour" Type="varchar" Mode="In" />
-          <Parameter Name="city" Type="varchar" Mode="In" />
-          <Parameter Name="department" Type="varchar" Mode="In" />
-          <Parameter Name="phone" Type="varchar" Mode="In" />
-          <Parameter Name="cell" Type="varchar" Mode="In" />
-          <Parameter Name="phone2" Type="varchar" Mode="In" />
-          <Parameter Name="email" Type="varchar" Mode="In" />
-          <Parameter Name="register_number" Type="varchar" Mode="In" />
         </Function>
         <Function Name="getInvestigationReports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idInvestigation" Type="int" Mode="In" />
@@ -1261,14 +1240,10 @@
           </Key>
           <Property Type="Int32" Name="idlimitmeasure" Nullable="false" />
           <Property Type="Int32" Name="maxdiasday" />
-          <Property Type="Int32" Name="maxdiasdayavg" />
           <Property Type="Int32" Name="maxdiasnight" />
-          <Property Type="Int32" Name="maxdiasnightavg" />
           <Property Type="Int32" Name="maxdiastotal" />
           <Property Type="Int32" Name="maxsysday" />
-          <Property Type="Int32" Name="maxsysdayavg" />
           <Property Type="Int32" Name="maxsysnight" />
-          <Property Type="Int32" Name="maxsysnightavg" />
           <Property Type="Int32" Name="maxsystotal" />
         </EntityType>
       </Schema>
@@ -1451,14 +1426,10 @@
             <EntityTypeMapping TypeName="udahta_dbModel.limitmeasure">
               <MappingFragment StoreEntitySet="limitmeasure">
                 <ScalarProperty Name="maxsystotal" ColumnName="maxsystotal" />
-                <ScalarProperty Name="maxsysnightavg" ColumnName="maxsysnightavg" />
                 <ScalarProperty Name="maxsysnight" ColumnName="maxsysnight" />
-                <ScalarProperty Name="maxsysdayavg" ColumnName="maxsysdayavg" />
                 <ScalarProperty Name="maxsysday" ColumnName="maxsysday" />
                 <ScalarProperty Name="maxdiastotal" ColumnName="maxdiastotal" />
-                <ScalarProperty Name="maxdiasnightavg" ColumnName="maxdiasnightavg" />
                 <ScalarProperty Name="maxdiasnight" ColumnName="maxdiasnight" />
-                <ScalarProperty Name="maxdiasdayavg" ColumnName="maxdiasdayavg" />
                 <ScalarProperty Name="maxdiasday" ColumnName="maxdiasday" />
                 <ScalarProperty Name="idlimitmeasure" ColumnName="idlimitmeasure" />
               </MappingFragment>
@@ -1563,7 +1534,7 @@
           <ConnectorPoint PointX="7.5" PointY="8.1343489583333337" />
           <ConnectorPoint PointX="8.25" PointY="8.1343489583333337" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="10.375" PointY="3.75" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="10.375" PointY="3.75" Height="2.3648893229166656" />
       </Diagram>
     </Diagrams>
   </Designer>
