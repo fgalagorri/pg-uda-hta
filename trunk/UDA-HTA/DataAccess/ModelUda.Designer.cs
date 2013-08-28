@@ -3799,30 +3799,6 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> maxdiasdayavg
-        {
-            get
-            {
-                return _maxdiasdayavg;
-            }
-            set
-            {
-                OnmaxdiasdayavgChanging(value);
-                ReportPropertyChanging("maxdiasdayavg");
-                _maxdiasdayavg = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("maxdiasdayavg");
-                OnmaxdiasdayavgChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _maxdiasdayavg;
-        partial void OnmaxdiasdayavgChanging(Nullable<global::System.Int32> value);
-        partial void OnmaxdiasdayavgChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> maxdiasnight
         {
             get
@@ -3841,30 +3817,6 @@ namespace DataAccess
         private Nullable<global::System.Int32> _maxdiasnight;
         partial void OnmaxdiasnightChanging(Nullable<global::System.Int32> value);
         partial void OnmaxdiasnightChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> maxdiasnightavg
-        {
-            get
-            {
-                return _maxdiasnightavg;
-            }
-            set
-            {
-                OnmaxdiasnightavgChanging(value);
-                ReportPropertyChanging("maxdiasnightavg");
-                _maxdiasnightavg = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("maxdiasnightavg");
-                OnmaxdiasnightavgChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _maxdiasnightavg;
-        partial void OnmaxdiasnightavgChanging(Nullable<global::System.Int32> value);
-        partial void OnmaxdiasnightavgChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3919,30 +3871,6 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> maxsysdayavg
-        {
-            get
-            {
-                return _maxsysdayavg;
-            }
-            set
-            {
-                OnmaxsysdayavgChanging(value);
-                ReportPropertyChanging("maxsysdayavg");
-                _maxsysdayavg = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("maxsysdayavg");
-                OnmaxsysdayavgChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _maxsysdayavg;
-        partial void OnmaxsysdayavgChanging(Nullable<global::System.Int32> value);
-        partial void OnmaxsysdayavgChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> maxsysnight
         {
             get
@@ -3961,30 +3889,6 @@ namespace DataAccess
         private Nullable<global::System.Int32> _maxsysnight;
         partial void OnmaxsysnightChanging(Nullable<global::System.Int32> value);
         partial void OnmaxsysnightChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> maxsysnightavg
-        {
-            get
-            {
-                return _maxsysnightavg;
-            }
-            set
-            {
-                OnmaxsysnightavgChanging(value);
-                ReportPropertyChanging("maxsysnightavg");
-                _maxsysnightavg = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("maxsysnightavg");
-                OnmaxsysnightavgChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _maxsysnightavg;
-        partial void OnmaxsysnightavgChanging(Nullable<global::System.Int32> value);
-        partial void OnmaxsysnightavgChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

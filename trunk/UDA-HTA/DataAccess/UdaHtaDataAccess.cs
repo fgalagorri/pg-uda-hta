@@ -1277,6 +1277,25 @@ namespace DataAccess
             }
         }
 
+        public Limits GetLimits()
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                var limits = udaContext.limitmeasure.Select(l => new Limits
+                    {
+                        MaxDiasDay = l.maxdiasday.Value,
+                        MaxDiasNight = l.maxdiasnight.Value,
+                        MaxDiasTotal = l.maxdiastotal.Value,
+                        MaxSysDay = l.maxsysday.Value,
+                        MaxSysNight = l.maxsysnight.Value,
+                        MaxSysTotal = l.maxsystotal.Value
+                    }).FirstOrDefault();
+
+                return limits;
+            }
+        }
+
+
         /*
          * INVESTIGACIONES
          */

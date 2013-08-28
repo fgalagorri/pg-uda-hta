@@ -139,20 +139,20 @@ namespace BussinessLogic
                 TableWidth tableWidth1 = new TableWidth() {Width = "0", Type = TableWidthUnitValues.Auto};
                 TableLook tableLook1 = new TableLook() {Val = "04A0"};
 
-                tableProperties1.Append(tableStyle1);
-                tableProperties1.Append(tableWidth1);
-                tableProperties1.Append(tableLook1);
+                tableProperties1.AppendChild(tableStyle1);
+                tableProperties1.AppendChild(tableWidth1);
+                tableProperties1.AppendChild(tableLook1);
 
-                table1.Append(tableProperties1);
+                table1.AppendChild(tableProperties1);
 
                 TableGrid tableGrid1 = new TableGrid();
                 GridColumn gridColumn1 = new GridColumn() {Width = "4788"};
                 GridColumn gridColumn2 = new GridColumn() {Width = "4788"};
 
-                tableGrid1.Append(gridColumn1);
-                tableGrid1.Append(gridColumn2);
+                tableGrid1.AppendChild(gridColumn1);
+                tableGrid1.AppendChild(gridColumn2);
 
-                table1.Append(tableGrid1);
+                table1.AppendChild(tableGrid1);
 
                 TableRow tableRow1 = new TableRow()
                     {
@@ -163,7 +163,7 @@ namespace BussinessLogic
                 TableRowProperties tableRowProperties1 = new TableRowProperties();
                 TableRowHeight tableRowHeight1 = new TableRowHeight() {Val = (UInt32Value) 547U};
 
-                tableRowProperties1.Append(tableRowHeight1);
+                tableRowProperties1.AppendChild(tableRowHeight1);
 
                 TableCell tableCell1 = new TableCell();
 
@@ -177,19 +177,19 @@ namespace BussinessLogic
 
                 TableCellBorders tableCellBorders1 = new TableCellBorders();
 
-                tableCellBorders1.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders1.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders1.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders1.Append(new RightBorder() {Val = BorderValues.Nil});
+                tableCellBorders1.AppendChild(new TopBorder() {Val = BorderValues.Nil});
+                tableCellBorders1.AppendChild(new LeftBorder() {Val = BorderValues.Nil});
+                tableCellBorders1.AppendChild(new BottomBorder() {Val = BorderValues.Nil});
+                tableCellBorders1.AppendChild(new RightBorder() {Val = BorderValues.Nil});
                 TableCellVerticalAlignment tableCellVerticalAlignment1 = new TableCellVerticalAlignment()
                     {
                         Val = TableVerticalAlignmentValues.Center
                     };
 
-                tableCellProperties1.Append(tableCellWidth1);
-                tableCellProperties1.Append(gridSpan1);
-                tableCellProperties1.Append(tableCellBorders1);
-                tableCellProperties1.Append(tableCellVerticalAlignment1);
+                tableCellProperties1.AppendChild(tableCellWidth1);
+                tableCellProperties1.AppendChild(gridSpan1);
+                tableCellProperties1.AppendChild(tableCellBorders1);
+                tableCellProperties1.AppendChild(tableCellVerticalAlignment1);
 
                 Paragraph paragraph1 = new Paragraph()
                     {
@@ -203,37 +203,37 @@ namespace BussinessLogic
                 Justification justification1 = new Justification() {Val = JustificationValues.Center};
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties1 = new ParagraphMarkRunProperties();
-
-                paragraphMarkRunProperties1.Append(new Bold());
-                paragraphMarkRunProperties1.Append(new FontSize() {Val = "32"});
-                paragraphMarkRunProperties1.Append(new FontSizeComplexScript() {Val = "32"});
-
-                paragraphProperties1.Append(justification1);
-                paragraphProperties1.Append(paragraphMarkRunProperties1);
+                /*
+                paragraphMarkRunProperties1.AppendChild(new Bold());
+                paragraphMarkRunProperties1.AppendChild(new FontSize() {Val = "32"});
+                paragraphMarkRunProperties1.AppendChild(new FontSizeComplexScript() {Val = "32"});
+                */
+                paragraphProperties1.AppendChild(justification1);
+                paragraphProperties1.AppendChild(paragraphMarkRunProperties1);
 
                 Run run1 = new Run() {RsidRunProperties = "004D2B75"};
 
                 RunProperties runProperties1 = new RunProperties();
 
-                runProperties1.Append(new Bold());
-                runProperties1.Append(new FontSize() {Val = "32"});
-                runProperties1.Append(new FontSizeComplexScript() {Val = "32"});
+                runProperties1.AppendChild(new Bold());
+                runProperties1.AppendChild(new FontSize() {Val = "32"});
+                runProperties1.AppendChild(new FontSizeComplexScript() {Val = "32"});
                 Text text1 = new Text();
                 text1.Text = "Informe de Hipertension Arterial";
 
-                run1.Append(runProperties1);
-                run1.Append(text1);
+                run1.AppendChild(runProperties1);
+                run1.AppendChild(text1);
 
-                paragraph1.Append(paragraphProperties1);
-                paragraph1.Append(run1);
+                paragraph1.AppendChild(paragraphProperties1);
+                paragraph1.AppendChild(run1);
 
-                tableCell1.Append(tableCellProperties1);
-                tableCell1.Append(paragraph1);
+                tableCell1.AppendChild(tableCellProperties1);
+                tableCell1.AppendChild(paragraph1);
 
-                tableRow1.Append(tableRowProperties1);
-                tableRow1.Append(tableCell1);
+                tableRow1.AppendChild(tableRowProperties1);
+                tableRow1.AppendChild(tableCell1);
 
-                table1.Append(tableRow1);
+                table1.AppendChild(tableRow1);
 
                 TableRow tableRow2 = new TableRow()
                     {
@@ -254,13 +254,13 @@ namespace BussinessLogic
                         Space = (UInt32Value) 0U
                     };
 
-                tableCellBorders2.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders2.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders2.Append(bottomBorder2);
-                tableCellBorders2.Append(new RightBorder() {Val = BorderValues.Nil});
+                tableCellBorders2.AppendChild(new TopBorder() {Val = BorderValues.Nil});
+                tableCellBorders2.AppendChild(new LeftBorder() {Val = BorderValues.Nil});
+                tableCellBorders2.AppendChild(bottomBorder2);
+                tableCellBorders2.AppendChild(new RightBorder() {Val = BorderValues.Nil});
 
-                tableCellProperties2.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties2.Append(tableCellBorders2);
+                tableCellProperties2.AppendChild(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
+                tableCellProperties2.AppendChild(tableCellBorders2);
                 Paragraph paragraph2 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
@@ -268,8 +268,8 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                tableCell2.Append(tableCellProperties2);
-                tableCell2.Append(paragraph2);
+                tableCell2.AppendChild(tableCellProperties2);
+                tableCell2.AppendChild(paragraph2);
 
                 TableCell tableCell3 = new TableCell();
 
@@ -284,13 +284,13 @@ namespace BussinessLogic
                         Space = (UInt32Value) 0U
                     };
 
-                tableCellBorders3.Append(new TopBorder() {Val = BorderValues.Nil});
-                tableCellBorders3.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders3.Append(bottomBorder3);
-                tableCellBorders3.Append(new RightBorder() {Val = BorderValues.Nil});
+                tableCellBorders3.AppendChild(new TopBorder() {Val = BorderValues.Nil});
+                tableCellBorders3.AppendChild(new LeftBorder() {Val = BorderValues.Nil});
+                tableCellBorders3.AppendChild(bottomBorder3);
+                tableCellBorders3.AppendChild(new RightBorder() {Val = BorderValues.Nil});
 
-                tableCellProperties3.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties3.Append(tableCellBorders3);
+                tableCellProperties3.AppendChild(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
+                tableCellProperties3.AppendChild(tableCellBorders3);
                 Paragraph paragraph3 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
@@ -298,13 +298,13 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                tableCell3.Append(tableCellProperties3);
-                tableCell3.Append(paragraph3);
+                tableCell3.AppendChild(tableCellProperties3);
+                tableCell3.AppendChild(paragraph3);
 
-                tableRow2.Append(tableCell2);
-                tableRow2.Append(tableCell3);
+                tableRow2.AppendChild(tableCell2);
+                tableRow2.AppendChild(tableCell3);
 
-                table1.Append(tableRow2);
+                table1.AppendChild(tableRow2);
 
                 TableRow tableRow3 = new TableRow()
                     {
@@ -325,13 +325,13 @@ namespace BussinessLogic
                         Space = (UInt32Value) 0U
                     };
 
-                tableCellBorders4.Append(topBorder4);
-                tableCellBorders4.Append(new LeftBorder() {Val = BorderValues.Nil});
-                tableCellBorders4.Append(new BottomBorder() {Val = BorderValues.Nil});
-                tableCellBorders4.Append(new RightBorder() {Val = BorderValues.Nil});
+                tableCellBorders4.AppendChild(topBorder4);
+                tableCellBorders4.AppendChild(new LeftBorder() {Val = BorderValues.Nil});
+                tableCellBorders4.AppendChild(new BottomBorder() {Val = BorderValues.Nil});
+                tableCellBorders4.AppendChild(new RightBorder() {Val = BorderValues.Nil});
 
-                tableCellProperties4.Append(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
-                tableCellProperties4.Append(tableCellBorders4);
+                tableCellProperties4.AppendChild(new TableCellWidth() {Width = "4788", Type = TableWidthUnitValues.Dxa});
+                tableCellProperties4.AppendChild(tableCellBorders4);
 
                 /*
                  * INCLUIR DATOS PACIENTE
@@ -356,10 +356,10 @@ namespace BussinessLogic
                         text5.Text = "Nro. Registro: N/E";
                     }
 
-                    run5.Append(text5);
-                    paragraph4.Append(run5);
-                    tableCell4.Append(tableCellProperties4);
-                    tableCell4.Append(paragraph4);
+                    run5.AppendChild(text5);
+                    paragraph4.AppendChild(run5);
+                    tableCell4.AppendChild(tableCellProperties4);
+                    tableCell4.AppendChild(paragraph4);
 
                     TableCell tableCell5 = new TableCell();
 
@@ -374,13 +374,13 @@ namespace BussinessLogic
                         Space = (UInt32Value)0U
                     };
 
-                    tableCellBorders5.Append(topBorder5);
-                    tableCellBorders5.Append(new LeftBorder() { Val = BorderValues.Nil });
-                    tableCellBorders5.Append(new BottomBorder() { Val = BorderValues.Nil });
-                    tableCellBorders5.Append(new RightBorder() { Val = BorderValues.Nil });
+                    tableCellBorders5.AppendChild(topBorder5);
+                    tableCellBorders5.AppendChild(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders5.AppendChild(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders5.AppendChild(new RightBorder() { Val = BorderValues.Nil });
 
-                    tableCellProperties5.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
-                    tableCellProperties5.Append(tableCellBorders5);
+                    tableCellProperties5.AppendChild(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties5.AppendChild(tableCellBorders5);
                     Paragraph paragraph5 = new Paragraph()
                     {
                         RsidParagraphAddition = "00AA46B2",
@@ -388,13 +388,13 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "00AA46B2"
                     };
 
-                    tableCell5.Append(tableCellProperties5);
-                    tableCell5.Append(paragraph5);
+                    tableCell5.AppendChild(tableCellProperties5);
+                    tableCell5.AppendChild(paragraph5);
 
-                    tableRow3.Append(tableCell4);
-                    tableRow3.Append(tableCell5);
+                    tableRow3.AppendChild(tableCell4);
+                    tableRow3.AppendChild(tableCell5);
 
-                    table1.Append(tableRow3);
+                    table1.AppendChild(tableRow3);
 
                     TableRow tableRow4 = new TableRow()
                     {
@@ -408,13 +408,13 @@ namespace BussinessLogic
 
                     TableCellBorders tableCellBorders6 = new TableCellBorders();
 
-                    tableCellBorders6.Append(new TopBorder() { Val = BorderValues.Nil });
-                    tableCellBorders6.Append(new LeftBorder() { Val = BorderValues.Nil });
-                    tableCellBorders6.Append(new BottomBorder() { Val = BorderValues.Nil });
-                    tableCellBorders6.Append(new RightBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.AppendChild(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.AppendChild(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.AppendChild(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders6.AppendChild(new RightBorder() { Val = BorderValues.Nil });
 
-                    tableCellProperties6.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
-                    tableCellProperties6.Append(tableCellBorders6);
+                    tableCellProperties6.AppendChild(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties6.AppendChild(tableCellBorders6);
 
                     Paragraph paragraph6 = new Paragraph()
                     {
@@ -434,10 +434,10 @@ namespace BussinessLogic
                         text9.Text = "Documento: N/E";
                     }
 
-                    run9.Append(text9);
-                    paragraph6.Append(run9);
-                    tableCell6.Append(tableCellProperties6);
-                    tableCell6.Append(paragraph6);
+                    run9.AppendChild(text9);
+                    paragraph6.AppendChild(run9);
+                    tableCell6.AppendChild(tableCellProperties6);
+                    tableCell6.AppendChild(paragraph6);
 
                     TableCell tableCell7 = new TableCell();
 
@@ -445,13 +445,13 @@ namespace BussinessLogic
 
                     TableCellBorders tableCellBorders7 = new TableCellBorders();
 
-                    tableCellBorders7.Append(new TopBorder() { Val = BorderValues.Nil });
-                    tableCellBorders7.Append(new LeftBorder() { Val = BorderValues.Nil });
-                    tableCellBorders7.Append(new BottomBorder() { Val = BorderValues.Nil });
-                    tableCellBorders7.Append(new RightBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.AppendChild(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.AppendChild(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.AppendChild(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders7.AppendChild(new RightBorder() { Val = BorderValues.Nil });
 
-                    tableCellProperties7.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
-                    tableCellProperties7.Append(tableCellBorders7);
+                    tableCellProperties7.AppendChild(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties7.AppendChild(tableCellBorders7);
 
                     Paragraph paragraph7 = new Paragraph()
                     {
@@ -473,14 +473,14 @@ namespace BussinessLogic
                         text11.Text = "Fecha de Nacimiento: N/E";
                     }
 
-                    run11.Append(text11);
+                    run11.AppendChild(text11);
 
-                    paragraph7.Append(run11);
-                    tableCell7.Append(tableCellProperties7);
-                    tableCell7.Append(paragraph7);
+                    paragraph7.AppendChild(run11);
+                    tableCell7.AppendChild(tableCellProperties7);
+                    tableCell7.AppendChild(paragraph7);
 
-                    tableRow4.Append(tableCell6);
-                    tableRow4.Append(tableCell7);
+                    tableRow4.AppendChild(tableCell6);
+                    tableRow4.AppendChild(tableCell7);
 
                     TableRow tableRow5 = new TableRow()
                     {
@@ -494,13 +494,13 @@ namespace BussinessLogic
 
                     TableCellBorders tableCellBorders8 = new TableCellBorders();
 
-                    tableCellBorders8.Append(new TopBorder() { Val = BorderValues.Nil });
-                    tableCellBorders8.Append(new LeftBorder() { Val = BorderValues.Nil });
-                    tableCellBorders8.Append(new BottomBorder() { Val = BorderValues.Nil });
-                    tableCellBorders8.Append(new RightBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.AppendChild(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.AppendChild(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.AppendChild(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders8.AppendChild(new RightBorder() { Val = BorderValues.Nil });
 
-                    tableCellProperties8.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
-                    tableCellProperties8.Append(tableCellBorders8);
+                    tableCellProperties8.AppendChild(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties8.AppendChild(tableCellBorders8);
 
                     Paragraph paragraph8 = new Paragraph()
                     {
@@ -521,11 +521,11 @@ namespace BussinessLogic
                     }
 
 
-                    run15.Append(text15);
-                    paragraph8.Append(run15);
+                    run15.AppendChild(text15);
+                    paragraph8.AppendChild(run15);
 
-                    tableCell8.Append(tableCellProperties8);
-                    tableCell8.Append(paragraph8);
+                    tableCell8.AppendChild(tableCellProperties8);
+                    tableCell8.AppendChild(paragraph8);
 
                     TableCell tableCell9 = new TableCell();
 
@@ -533,13 +533,13 @@ namespace BussinessLogic
 
                     TableCellBorders tableCellBorders9 = new TableCellBorders();
 
-                    tableCellBorders9.Append(new TopBorder() { Val = BorderValues.Nil });
-                    tableCellBorders9.Append(new LeftBorder() { Val = BorderValues.Nil });
-                    tableCellBorders9.Append(new BottomBorder() { Val = BorderValues.Nil });
-                    tableCellBorders9.Append(new RightBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.AppendChild(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.AppendChild(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.AppendChild(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders9.AppendChild(new RightBorder() { Val = BorderValues.Nil });
 
-                    tableCellProperties9.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
-                    tableCellProperties9.Append(tableCellBorders9);
+                    tableCellProperties9.AppendChild(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties9.AppendChild(tableCellBorders9);
 
                     Paragraph paragraph9 = new Paragraph()
                     {
@@ -559,15 +559,15 @@ namespace BussinessLogic
                         text17.Text = "Peso: N/E";
                     }
 
-                    run17.Append(text17);
+                    run17.AppendChild(text17);
 
-                    paragraph9.Append(run17);
+                    paragraph9.AppendChild(run17);
 
-                    tableCell9.Append(tableCellProperties9);
-                    tableCell9.Append(paragraph9);
+                    tableCell9.AppendChild(tableCellProperties9);
+                    tableCell9.AppendChild(paragraph9);
 
-                    tableRow5.Append(tableCell8);
-                    tableRow5.Append(tableCell9);
+                    tableRow5.AppendChild(tableCell8);
+                    tableRow5.AppendChild(tableCell9);
 
                     TableRow tableRow6 = new TableRow()
                     {
@@ -581,13 +581,13 @@ namespace BussinessLogic
 
                     TableCellBorders tableCellBorders10 = new TableCellBorders();
 
-                    tableCellBorders10.Append(new TopBorder() { Val = BorderValues.Nil });
-                    tableCellBorders10.Append(new LeftBorder() { Val = BorderValues.Nil });
-                    tableCellBorders10.Append(new BottomBorder() { Val = BorderValues.Nil });
-                    tableCellBorders10.Append(new RightBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.AppendChild(new TopBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.AppendChild(new LeftBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.AppendChild(new BottomBorder() { Val = BorderValues.Nil });
+                    tableCellBorders10.AppendChild(new RightBorder() { Val = BorderValues.Nil });
 
-                    tableCellProperties10.Append(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
-                    tableCellProperties10.Append(tableCellBorders10);
+                    tableCellProperties10.AppendChild(new TableCellWidth() { Width = "4788", Type = TableWidthUnitValues.Dxa });
+                    tableCellProperties10.AppendChild(tableCellBorders10);
 
                     Paragraph paragraph10 = new Paragraph()
                     {
@@ -607,12 +607,12 @@ namespace BussinessLogic
                         text18.Text = "Nombre: N/E";
                     }
 
-                    run18.Append(text18);
+                    run18.AppendChild(text18);
 
-                    paragraph10.Append(run18);
+                    paragraph10.AppendChild(run18);
 
-                    tableCell10.Append(tableCellProperties10);
-                    tableCell10.Append(paragraph10);
+                    tableCell10.AppendChild(tableCellProperties10);
+                    tableCell10.AppendChild(paragraph10);
 
                     TableCell tableCell11 = new TableCell();
 
@@ -629,13 +629,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder11 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder11 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders11.Append(topBorder11);
-                    tableCellBorders11.Append(leftBorder11);
-                    tableCellBorders11.Append(bottomBorder11);
-                    tableCellBorders11.Append(rightBorder11);
+                    tableCellBorders11.AppendChild(topBorder11);
+                    tableCellBorders11.AppendChild(leftBorder11);
+                    tableCellBorders11.AppendChild(bottomBorder11);
+                    tableCellBorders11.AppendChild(rightBorder11);
 
-                    tableCellProperties11.Append(tableCellWidth11);
-                    tableCellProperties11.Append(tableCellBorders11);
+                    tableCellProperties11.AppendChild(tableCellWidth11);
+                    tableCellProperties11.AppendChild(tableCellBorders11);
 
                     Paragraph paragraph11 = new Paragraph()
                     {
@@ -655,14 +655,14 @@ namespace BussinessLogic
                         text20.Text = "Altura: N/E";
                     }
 
-                    run20.Append(text20);
-                    paragraph11.Append(run20);
+                    run20.AppendChild(text20);
+                    paragraph11.AppendChild(run20);
 
-                    tableCell11.Append(tableCellProperties11);
-                    tableCell11.Append(paragraph11);
+                    tableCell11.AppendChild(tableCellProperties11);
+                    tableCell11.AppendChild(paragraph11);
 
-                    tableRow6.Append(tableCell10);
-                    tableRow6.Append(tableCell11);
+                    tableRow6.AppendChild(tableCell10);
+                    tableRow6.AppendChild(tableCell11);
 
                     TableRow tableRow7 = new TableRow()
                     {
@@ -685,13 +685,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder12 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder12 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders12.Append(topBorder12);
-                    tableCellBorders12.Append(leftBorder12);
-                    tableCellBorders12.Append(bottomBorder12);
-                    tableCellBorders12.Append(rightBorder12);
+                    tableCellBorders12.AppendChild(topBorder12);
+                    tableCellBorders12.AppendChild(leftBorder12);
+                    tableCellBorders12.AppendChild(bottomBorder12);
+                    tableCellBorders12.AppendChild(rightBorder12);
 
-                    tableCellProperties12.Append(tableCellWidth12);
-                    tableCellProperties12.Append(tableCellBorders12);
+                    tableCellProperties12.AppendChild(tableCellWidth12);
+                    tableCellProperties12.AppendChild(tableCellBorders12);
 
                     Paragraph paragraph12 = new Paragraph()
                     {
@@ -711,11 +711,11 @@ namespace BussinessLogic
                         text22.Text = "Domicilio: N/E";
                     }
 
-                    run22.Append(text22);
-                    paragraph12.Append(run22);
+                    run22.AppendChild(text22);
+                    paragraph12.AppendChild(run22);
 
-                    tableCell12.Append(tableCellProperties12);
-                    tableCell12.Append(paragraph12);
+                    tableCell12.AppendChild(tableCellProperties12);
+                    tableCell12.AppendChild(paragraph12);
 
                     TableCell tableCell13 = new TableCell();
 
@@ -732,13 +732,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder13 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder13 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders13.Append(topBorder13);
-                    tableCellBorders13.Append(leftBorder13);
-                    tableCellBorders13.Append(bottomBorder13);
-                    tableCellBorders13.Append(rightBorder13);
+                    tableCellBorders13.AppendChild(topBorder13);
+                    tableCellBorders13.AppendChild(leftBorder13);
+                    tableCellBorders13.AppendChild(bottomBorder13);
+                    tableCellBorders13.AppendChild(rightBorder13);
 
-                    tableCellProperties13.Append(tableCellWidth13);
-                    tableCellProperties13.Append(tableCellBorders13);
+                    tableCellProperties13.AppendChild(tableCellWidth13);
+                    tableCellProperties13.AppendChild(tableCellBorders13);
 
                     Paragraph paragraph13 = new Paragraph()
                     {
@@ -758,14 +758,14 @@ namespace BussinessLogic
                         text24.Text = "Sexo: N/E";
                     }
 
-                    run24.Append(text24);
-                    paragraph13.Append(run24);
+                    run24.AppendChild(text24);
+                    paragraph13.AppendChild(run24);
 
-                    tableCell13.Append(tableCellProperties13);
-                    tableCell13.Append(paragraph13);
+                    tableCell13.AppendChild(tableCellProperties13);
+                    tableCell13.AppendChild(paragraph13);
 
-                    tableRow7.Append(tableCell12);
-                    tableRow7.Append(tableCell13);
+                    tableRow7.AppendChild(tableCell12);
+                    tableRow7.AppendChild(tableCell13);
 
                     TableRow tableRow8 = new TableRow()
                     {
@@ -788,13 +788,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder14 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder14 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders14.Append(topBorder14);
-                    tableCellBorders14.Append(leftBorder14);
-                    tableCellBorders14.Append(bottomBorder14);
-                    tableCellBorders14.Append(rightBorder14);
+                    tableCellBorders14.AppendChild(topBorder14);
+                    tableCellBorders14.AppendChild(leftBorder14);
+                    tableCellBorders14.AppendChild(bottomBorder14);
+                    tableCellBorders14.AppendChild(rightBorder14);
 
-                    tableCellProperties14.Append(tableCellWidth14);
-                    tableCellProperties14.Append(tableCellBorders14);
+                    tableCellProperties14.AppendChild(tableCellWidth14);
+                    tableCellProperties14.AppendChild(tableCellBorders14);
 
                     Paragraph paragraph14 = new Paragraph()
                     {
@@ -814,11 +814,11 @@ namespace BussinessLogic
                         text26.Text = "Teléfono: N/E";
                     }
 
-                    run26.Append(text26);
-                    paragraph14.Append(run26);
+                    run26.AppendChild(text26);
+                    paragraph14.AppendChild(run26);
 
-                    tableCell14.Append(tableCellProperties14);
-                    tableCell14.Append(paragraph14);
+                    tableCell14.AppendChild(tableCellProperties14);
+                    tableCell14.AppendChild(paragraph14);
 
                     TableCell tableCell15 = new TableCell();
 
@@ -835,13 +835,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder15 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder15 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders15.Append(topBorder15);
-                    tableCellBorders15.Append(leftBorder15);
-                    tableCellBorders15.Append(bottomBorder15);
-                    tableCellBorders15.Append(rightBorder15);
+                    tableCellBorders15.AppendChild(topBorder15);
+                    tableCellBorders15.AppendChild(leftBorder15);
+                    tableCellBorders15.AppendChild(bottomBorder15);
+                    tableCellBorders15.AppendChild(rightBorder15);
 
-                    tableCellProperties15.Append(tableCellWidth15);
-                    tableCellProperties15.Append(tableCellBorders15);
+                    tableCellProperties15.AppendChild(tableCellWidth15);
+                    tableCellProperties15.AppendChild(tableCellBorders15);
 
                     Paragraph paragraph15 = new Paragraph()
                     {
@@ -862,21 +862,21 @@ namespace BussinessLogic
 
                     }
 
-                    run28.Append(text28);
+                    run28.AppendChild(text28);
 
-                    paragraph15.Append(run28);
+                    paragraph15.AppendChild(run28);
 
-                    tableCell15.Append(tableCellProperties15);
-                    tableCell15.Append(paragraph15);
+                    tableCell15.AppendChild(tableCellProperties15);
+                    tableCell15.AppendChild(paragraph15);
 
-                    tableRow8.Append(tableCell14);
-                    tableRow8.Append(tableCell15);
+                    tableRow8.AppendChild(tableCell14);
+                    tableRow8.AppendChild(tableCell15);
 
-                    table1.Append(tableRow4);
-                    table1.Append(tableRow5);
-                    table1.Append(tableRow6);
-                    table1.Append(tableRow7);
-                    table1.Append(tableRow8);
+                    table1.AppendChild(tableRow4);
+                    table1.AppendChild(tableRow5);
+                    table1.AppendChild(tableRow6);
+                    table1.AppendChild(tableRow7);
+                    table1.AppendChild(tableRow8);
 
                 }
 
@@ -902,13 +902,13 @@ namespace BussinessLogic
                 LeftBorder leftBorder16 = new LeftBorder() {Val = BorderValues.Nil};
                 RightBorder rightBorder16 = new RightBorder() {Val = BorderValues.Nil};
 
-                tableCellBorders16.Append(topBorder16);
-                tableCellBorders16.Append(leftBorder16);
-                tableCellBorders16.Append(rightBorder16);
+                tableCellBorders16.AppendChild(topBorder16);
+                tableCellBorders16.AppendChild(leftBorder16);
+                tableCellBorders16.AppendChild(rightBorder16);
 
-                tableCellProperties16.Append(tableCellWidth16);
-                tableCellProperties16.Append(gridSpan2);
-                tableCellProperties16.Append(tableCellBorders16);
+                tableCellProperties16.AppendChild(tableCellWidth16);
+                tableCellProperties16.AppendChild(gridSpan2);
+                tableCellProperties16.AppendChild(tableCellBorders16);
 
                 Paragraph paragraph16 = new Paragraph()
                     {
@@ -919,15 +919,15 @@ namespace BussinessLogic
                 BookmarkStart bookmarkStart1 = new BookmarkStart() {Name = "_GoBack", Id = "0"};
                 BookmarkEnd bookmarkEnd1 = new BookmarkEnd() {Id = "0"};
 
-                paragraph16.Append(bookmarkStart1);
-                paragraph16.Append(bookmarkEnd1);
+                paragraph16.AppendChild(bookmarkStart1);
+                paragraph16.AppendChild(bookmarkEnd1);
 
-                tableCell16.Append(tableCellProperties16);
-                tableCell16.Append(paragraph16);
+                tableCell16.AppendChild(tableCellProperties16);
+                tableCell16.AppendChild(paragraph16);
 
-                tableRow9.Append(tableCell16);
+                tableRow9.AppendChild(tableCell16);
 
-                table1.Append(tableRow9);
+                table1.AppendChild(tableRow9);
 
                 TableRow tableRow10 = new TableRow()
                     {
@@ -962,12 +962,12 @@ namespace BussinessLogic
                         Space = (UInt32Value) 0U
                     };
 
-                tableCellBorders17.Append(leftBorder17);
-                tableCellBorders17.Append(bottomBorder16);
-                tableCellBorders17.Append(topBorder16_1);
+                tableCellBorders17.AppendChild(topBorder16_1);
+                tableCellBorders17.AppendChild(leftBorder17);
+                tableCellBorders17.AppendChild(bottomBorder16);
 
-                tableCellProperties17.Append(tableCellWidth17);
-                tableCellProperties17.Append(tableCellBorders17);
+                tableCellProperties17.AppendChild(tableCellWidth17);
+                tableCellProperties17.AppendChild(tableCellBorders17);
                 Paragraph paragraph17 = new Paragraph()
                     {
                         RsidParagraphAddition = "004D2B75",
@@ -975,8 +975,8 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                tableCell17.Append(tableCellProperties17);
-                tableCell17.Append(paragraph17);
+                tableCell17.AppendChild(tableCellProperties17);
+                tableCell17.AppendChild(paragraph17);
 
                 TableCell tableCell18 = new TableCell();
 
@@ -1004,12 +1004,12 @@ namespace BussinessLogic
                     };
                 RightBorder rightBorder17 = new RightBorder() {Val = BorderValues.Nil};
 
-                tableCellBorders18.Append(bottomBorder17);
-                tableCellBorders18.Append(topBorder17_1);
-                tableCellBorders18.Append(rightBorder17);
+                tableCellBorders18.AppendChild(topBorder17_1);
+                tableCellBorders18.AppendChild(bottomBorder17);
+                tableCellBorders18.AppendChild(rightBorder17);
 
-                tableCellProperties18.Append(tableCellWidth18);
-                tableCellProperties18.Append(tableCellBorders18);
+                tableCellProperties18.AppendChild(tableCellWidth18);
+                tableCellProperties18.AppendChild(tableCellBorders18);
 
                 Paragraph paragraph18 = new Paragraph()
                     {
@@ -1024,24 +1024,26 @@ namespace BussinessLogic
                 ParagraphMarkRunProperties paragraphMarkRunProperties2 = new ParagraphMarkRunProperties();
                 Bold bold6 = new Bold();
 
-                paragraphMarkRunProperties2.Append(bold6);
+                paragraphMarkRunProperties2.AppendChild(bold6);
 
-                paragraphProperties2.Append(paragraphMarkRunProperties2);
+                paragraphProperties2.AppendChild(paragraphMarkRunProperties2);
 
                 Run run29 = new Run() {RsidRunProperties = "004D2B75"};
 
                 RunProperties runProperties5 = new RunProperties();
                 Bold bold7 = new Bold();
 
-                runProperties5.Append(bold7);
+                runProperties5.AppendChild(bold7);
+                runProperties5.AppendChild(new FontSize() { Val = "28" });
+                runProperties5.AppendChild(new FontSizeComplexScript() { Val = "28" });
                 Text text29 = new Text();
                 text29.Text = "24h ABDM";
 
-                run29.Append(runProperties5);
-                run29.Append(text29);
+                run29.AppendChild(runProperties5);
+                run29.AppendChild(text29);
 
-                paragraph18.Append(paragraphProperties2);
-                paragraph18.Append(run29);
+                paragraph18.AppendChild(paragraphProperties2);
+                paragraph18.AppendChild(run29);
 
                 Paragraph paragraph19 = new Paragraph()
                     {
@@ -1055,7 +1057,7 @@ namespace BussinessLogic
                 ParagraphMarkRunProperties paragraphMarkRunProperties3 = new ParagraphMarkRunProperties();
 
 
-                paragraphProperties3.Append(paragraphMarkRunProperties3);
+                paragraphProperties3.AppendChild(paragraphMarkRunProperties3);
 
                 Run run30 = new Run() {RsidRunProperties = "004D2B75"};
 
@@ -1064,11 +1066,11 @@ namespace BussinessLogic
                 Text text30 = new Text() {Space = SpaceProcessingModeValues.Preserve};
                 text30.Text = "Fecha y hora de inicio: " + report.BeginDate.ToString();
 
-                run30.Append(runProperties6);
-                run30.Append(text30);
+                run30.AppendChild(runProperties6);
+                run30.AppendChild(text30);
 
-                paragraph19.Append(paragraphProperties3);
-                paragraph19.Append(run30);
+                paragraph19.AppendChild(paragraphProperties3);
+                paragraph19.AppendChild(run30);
 
                 Paragraph paragraph20 = new Paragraph()
                     {
@@ -1082,7 +1084,7 @@ namespace BussinessLogic
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties4 = new ParagraphMarkRunProperties();
 
-                paragraphProperties4.Append(paragraphMarkRunProperties4);
+                paragraphProperties4.AppendChild(paragraphMarkRunProperties4);
 
                 Run run31 = new Run();
 
@@ -1091,11 +1093,11 @@ namespace BussinessLogic
                 Text text31 = new Text();
                 text31.Text = "Fecha y hora de fin: " + report.EndDate;
 
-                run31.Append(runProperties7);
-                run31.Append(text31);
+                run31.AppendChild(runProperties7);
+                run31.AppendChild(text31);
 
-                paragraph20.Append(paragraphProperties4);
-                paragraph20.Append(run31);
+                paragraph20.AppendChild(paragraphProperties4);
+                paragraph20.AppendChild(run31);
 
                 //-----
                 Paragraph paragraph3_1 = new Paragraph()
@@ -1109,7 +1111,7 @@ namespace BussinessLogic
                 ParagraphProperties paragraphProperties3_1 = new ParagraphProperties();
                 ParagraphMarkRunProperties paragraphMarkRunProperties3_1 = new ParagraphMarkRunProperties();
 
-                paragraphProperties3_1.Append(paragraphMarkRunProperties3_1);
+                paragraphProperties3_1.AppendChild(paragraphMarkRunProperties3_1);
 
                 Run run3_1 = new Run();
 
@@ -1118,11 +1120,11 @@ namespace BussinessLogic
                 Text text3_1 = new Text();
                 text3_1.Text = "\n Hora inicio noche: " + report.Carnet.SleepTimeStart.ToString();
 
-                run3_1.Append(runProperties3_1);
-                run3_1.Append(text3_1);
+                run3_1.AppendChild(runProperties3_1);
+                run3_1.AppendChild(text3_1);
 
-                paragraph3_1.Append(paragraphProperties3_1);
-                paragraph3_1.Append(run3_1);
+                paragraph3_1.AppendChild(paragraphProperties3_1);
+                paragraph3_1.AppendChild(run3_1);
 
                 //-----
                 Paragraph paragraph3_2 = new Paragraph()
@@ -1136,7 +1138,7 @@ namespace BussinessLogic
                 ParagraphProperties paragraphProperties3_2 = new ParagraphProperties();
                 ParagraphMarkRunProperties paragraphMarkRunProperties3_2 = new ParagraphMarkRunProperties();
 
-                paragraphProperties3_2.Append(paragraphMarkRunProperties3_2);
+                paragraphProperties3_2.AppendChild(paragraphMarkRunProperties3_2);
 
                 Run run3_2 = new Run();
 
@@ -1145,70 +1147,71 @@ namespace BussinessLogic
                 Text text3_2 = new Text();
                 text3_2.Text = "Hora fin noche: " + report.Carnet.SleepTimeEnd.ToString();
 
-                run3_2.Append(runProperties3_2);
-                run3_2.Append(text3_2);
+                run3_2.AppendChild(runProperties3_2);
+                run3_2.AppendChild(text3_2);
 
-                paragraph3_2.Append(paragraphProperties3_2);
-                paragraph3_2.Append(run3_2);
+                paragraph3_2.AppendChild(paragraphProperties3_2);
+                paragraph3_2.AppendChild(run3_2);
 
                 //-----
-                tableCell18.Append(tableCellProperties18);
-                tableCell18.Append(paragraph18);
-                tableCell18.Append(paragraph19);
-                tableCell18.Append(paragraph20);
-                tableCell18.Append(paragraph3_1);
-                tableCell18.Append(paragraph3_2);
+                tableCell18.AppendChild(tableCellProperties18);
+                tableCell18.AppendChild(paragraph18);
+                tableCell18.AppendChild(paragraph19);
+                tableCell18.AppendChild(paragraph20);
+                tableCell18.AppendChild(paragraph3_1);
+                tableCell18.AppendChild(paragraph3_2);
 
-                tableRow10.Append(tableCell17);
-                tableRow10.Append(tableCell18);
+                tableRow10.AppendChild(tableCell17);
+                tableRow10.AppendChild(tableCell18);
 
-                table1.Append(tableRow10);
+                table1.AppendChild(tableRow10);
 
-                TableRow tableRow11 = new TableRow()
+
+                /*
+                 * ICLUIR RESUMEN DE MEDIDAS
+                 */
+                if (includeProfile)
+                {
+                    TableRow tableRow11 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
 
-                TableRowProperties tableRowProperties2 = new TableRowProperties();
-                TableRowHeight tableRowHeight2 = new TableRowHeight() {Val = (UInt32Value) 242U};
+                    TableRowProperties tableRowProperties2 = new TableRowProperties();
+                    TableRowHeight tableRowHeight2 = new TableRowHeight() { Val = (UInt32Value)242U };
 
-                tableRowProperties2.Append(tableRowHeight2);
+                    tableRowProperties2.AppendChild(tableRowHeight2);
 
-                TableCell tableCell19 = new TableCell();
+                    TableCell tableCell19 = new TableCell();
 
-                TableCellProperties tableCellProperties19 = new TableCellProperties();
-                TableCellWidth tableCellWidth19 = new TableCellWidth()
+                    TableCellProperties tableCellProperties19 = new TableCellProperties();
+                    TableCellWidth tableCellWidth19 = new TableCellWidth()
                     {
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                GridSpan gridSpan3 = new GridSpan() {Val = 2};
+                    GridSpan gridSpan3 = new GridSpan() { Val = 2 };
 
-                TableCellBorders tableCellBorders19 = new TableCellBorders();
-                LeftBorder leftBorder18 = new LeftBorder() {Val = BorderValues.Nil};
-                BottomBorder bottomBorder18 = new BottomBorder() {Val = BorderValues.Nil};
-                RightBorder rightBorder18 = new RightBorder() {Val = BorderValues.Nil};
+                    TableCellBorders tableCellBorders19 = new TableCellBorders();
+                    LeftBorder leftBorder18 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder18 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder18 = new RightBorder() { Val = BorderValues.Nil };
 
-                tableCellBorders19.Append(leftBorder18);
-                tableCellBorders19.Append(bottomBorder18);
-                tableCellBorders19.Append(rightBorder18);
-                TableCellVerticalAlignment tableCellVerticalAlignment2 = new TableCellVerticalAlignment()
+                    tableCellBorders19.AppendChild(leftBorder18);
+                    tableCellBorders19.AppendChild(bottomBorder18);
+                    tableCellBorders19.AppendChild(rightBorder18);
+                    TableCellVerticalAlignment tableCellVerticalAlignment2 = new TableCellVerticalAlignment()
                     {
                         Val = TableVerticalAlignmentValues.Center
                     };
 
-                tableCellProperties19.Append(tableCellWidth19);
-                tableCellProperties19.Append(gridSpan3);
-                tableCellProperties19.Append(tableCellBorders19);
-                tableCellProperties19.Append(tableCellVerticalAlignment2);
+                    tableCellProperties19.AppendChild(tableCellWidth19);
+                    tableCellProperties19.AppendChild(gridSpan3);
+                    tableCellProperties19.AppendChild(tableCellBorders19);
+                    tableCellProperties19.AppendChild(tableCellVerticalAlignment2);
 
-                /*
-                 * ICLUIR PERFIL de TENSION ARTERIAL
-                 */
-                if (includeProfile)
-                {
                     Paragraph paragraph21 = new Paragraph()
                         {
                             RsidParagraphMarkRevision = "00EC01A4",
@@ -1222,36 +1225,38 @@ namespace BussinessLogic
                     ParagraphMarkRunProperties paragraphMarkRunProperties5 = new ParagraphMarkRunProperties();
                     Bold bold8 = new Bold();
 
-                    paragraphMarkRunProperties5.Append(bold8);
+                    paragraphMarkRunProperties5.AppendChild(bold8);
 
-                    paragraphProperties5.Append(paragraphMarkRunProperties5);
+                    paragraphProperties5.AppendChild(paragraphMarkRunProperties5);
 
                     Run run32 = new Run() {RsidRunProperties = "00EC01A4"};
 
                     RunProperties runProperties8 = new RunProperties();
                     Bold bold9 = new Bold();
 
-                    runProperties8.Append(bold9);
+                    runProperties8.AppendChild(bold9);
+                    runProperties8.AppendChild(new FontSize() { Val = "28" });
+                    runProperties8.AppendChild(new FontSizeComplexScript() { Val = "28" });
                     Text text32 = new Text();
                     text32.Text = "Resumen de Medidas";
 
-                    run32.Append(runProperties8);
-                    run32.Append(text32);
+                    run32.AppendChild(runProperties8);
+                    run32.AppendChild(text32);
 
-                    paragraph21.Append(paragraphProperties5);
-                    paragraph21.Append(run32);
+                    paragraph21.AppendChild(paragraphProperties5);
+                    paragraph21.AppendChild(run32);
 
-                    tableCell19.Append(tableCellProperties19);
-                    tableCell19.Append(paragraph21);
+                    tableCell19.AppendChild(tableCellProperties19);
+                    tableCell19.AppendChild(paragraph21);
 
-                    tableRow11.Append(tableRowProperties2);
-                    tableRow11.Append(tableCell19);
+                    tableRow11.AppendChild(tableRowProperties2);
+                    tableRow11.AppendChild(tableCell19);
 
-                    table1.Append(tableRow11);
+                    table1.AppendChild(tableRow11);
 
                     //Resumen de medidas
                     var tableRow12 = MeasuresSummary(report);
-                    table1.Append(tableRow12);
+                    table1.AppendChild(tableRow12);
                 }
 
                 /*
@@ -1274,6 +1279,7 @@ namespace BussinessLogic
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
+
                     GridSpan gridSpan5 = new GridSpan() { Val = 2 };
 
                     TableCellBorders tableCellBorders21 = new TableCellBorders();
@@ -1281,13 +1287,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder20 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder20 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders21.Append(leftBorder20);
-                    tableCellBorders21.Append(bottomBorder20);
-                    tableCellBorders21.Append(rightBorder20);
+                    tableCellBorders21.AppendChild(leftBorder20);
+                    tableCellBorders21.AppendChild(bottomBorder20);
+                    tableCellBorders21.AppendChild(rightBorder20);
 
-                    tableCellProperties21.Append(tableCellWidth21);
-                    tableCellProperties21.Append(gridSpan5);
-                    tableCellProperties21.Append(tableCellBorders21);
+                    tableCellProperties21.AppendChild(tableCellWidth21);
+                    tableCellProperties21.AppendChild(gridSpan5);
+                    tableCellProperties21.AppendChild(tableCellBorders21);
 
 
                     Paragraph paragraph23 = new Paragraph()
@@ -1301,27 +1307,29 @@ namespace BussinessLogic
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties7 = new ParagraphMarkRunProperties();
 
-                    paragraphProperties7.Append(paragraphMarkRunProperties7);
+                    paragraphProperties7.AppendChild(paragraphMarkRunProperties7);
 
                     Run run34 = new Run() { RsidRunProperties = "00EC01A4" };
 
                     RunProperties runProperties10 = new RunProperties();
                     Bold bold10 = new Bold();
 
-                    runProperties10.Append(bold10);
+                    runProperties10.AppendChild(bold10);
+                    runProperties10.AppendChild(new FontSize() { Val = "28" });
+                    runProperties10.AppendChild(new FontSizeComplexScript() { Val = "28" });
                     Text text34 = new Text();
                     text34.Text = "Diagnóstico";
 
-                    run34.Append(runProperties10);
-                    run34.Append(text34);
+                    run34.AppendChild(runProperties10);
+                    run34.AppendChild(text34);
 
-                    paragraph23.Append(paragraphProperties7);
-                    paragraph23.Append(run34);
+                    paragraph23.AppendChild(paragraphProperties7);
+                    paragraph23.AppendChild(run34);
 
-                    tableCell21.Append(tableCellProperties21);
-                    tableCell21.Append(paragraph23);
+                    tableCell21.AppendChild(tableCellProperties21);
+                    tableCell21.AppendChild(paragraph23);
 
-                    tableRow13.Append(tableCell21);
+                    tableRow13.AppendChild(tableCell21);
 
                     TableRow tableRow14 = new TableRow()
                     {
@@ -1343,23 +1351,17 @@ namespace BussinessLogic
                     TableCellBorders tableCellBorders22 = new TableCellBorders();
                     TopBorder topBorder18 = new TopBorder() { Val = BorderValues.Nil };
                     LeftBorder leftBorder21 = new LeftBorder() { Val = BorderValues.Nil };
-                    BottomBorder bottomBorder21 = new BottomBorder()
-                    {
-                        Val = BorderValues.Single,
-                        Color = "auto",
-                        Size = (UInt32Value)4U,
-                        Space = (UInt32Value)0U
-                    };
+                    BottomBorder bottomBorder21 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder21 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders22.Append(topBorder18);
-                    tableCellBorders22.Append(leftBorder21);
-                    tableCellBorders22.Append(bottomBorder21);
-                    tableCellBorders22.Append(rightBorder21);
+                    tableCellBorders22.AppendChild(topBorder18);
+                    tableCellBorders22.AppendChild(leftBorder21);
+                    tableCellBorders22.AppendChild(bottomBorder21);
+                    tableCellBorders22.AppendChild(rightBorder21);
 
-                    tableCellProperties22.Append(tableCellWidth22);
-                    tableCellProperties22.Append(gridSpan6);
-                    tableCellProperties22.Append(tableCellBorders22);
+                    tableCellProperties22.AppendChild(tableCellWidth22);
+                    tableCellProperties22.AppendChild(gridSpan6);
+                    tableCellProperties22.AppendChild(tableCellBorders22);
 
                     Paragraph paragraph24 = new Paragraph()
                     {
@@ -1372,11 +1374,10 @@ namespace BussinessLogic
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties8 = new ParagraphMarkRunProperties();
 
-                    paragraphProperties8.Append(paragraphMarkRunProperties8);
+                    paragraphProperties8.AppendChild(paragraphMarkRunProperties8);
 
                     Run run35 = new Run();
 
-                    RunProperties runProperties11 = new RunProperties();
 
                     if (report.Diagnosis != null)
                     {
@@ -1393,19 +1394,20 @@ namespace BussinessLogic
                     {
                         Text text35 = new Text();
                         text35.Text = "<No se ha realizado el diagnóstico aún>";
+                        run35.AppendChild(text35);
                     }
 
 
-                    paragraph24.Append(paragraphProperties8);
-                    paragraph24.Append(run35);
+                    paragraph24.AppendChild(paragraphProperties8);
+                    paragraph24.AppendChild(run35);
 
-                    tableCell22.Append(tableCellProperties22);
-                    tableCell22.Append(paragraph24);
+                    tableCell22.AppendChild(tableCellProperties22);
+                    tableCell22.AppendChild(paragraph24);
 
-                    tableRow14.Append(tableCell22);
+                    tableRow14.AppendChild(tableCell22);
 
-                    table1.Append(tableRow13);
-                    table1.Append(tableRow14);
+                    table1.AppendChild(tableRow13);
+                    table1.AppendChild(tableRow14);
                 }
 
 
@@ -1436,13 +1438,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder22 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder22 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders23.Append(leftBorder22);
-                    tableCellBorders23.Append(bottomBorder22);
-                    tableCellBorders23.Append(rightBorder22);
+                    tableCellBorders23.AppendChild(leftBorder22);
+                    tableCellBorders23.AppendChild(bottomBorder22);
+                    tableCellBorders23.AppendChild(rightBorder22);
 
-                    tableCellProperties23.Append(tableCellWidth23);
-                    tableCellProperties23.Append(gridSpan7);
-                    tableCellProperties23.Append(tableCellBorders23);
+                    tableCellProperties23.AppendChild(tableCellWidth23);
+                    tableCellProperties23.AppendChild(gridSpan7);
+                    tableCellProperties23.AppendChild(tableCellBorders23);
 
                     Paragraph paragraph25 = new Paragraph()
                     {
@@ -1456,29 +1458,31 @@ namespace BussinessLogic
                     ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
                     Bold bold11 = new Bold();
 
-                    paragraphMarkRunProperties9.Append(bold11);
+                    paragraphMarkRunProperties9.AppendChild(bold11);
 
-                    paragraphProperties9.Append(paragraphMarkRunProperties9);
+                    paragraphProperties9.AppendChild(paragraphMarkRunProperties9);
 
                     Run run36 = new Run() { RsidRunProperties = "00EC01A4" };
 
                     RunProperties runProperties12 = new RunProperties();
                     Bold bold12 = new Bold();
 
-                    runProperties12.Append(bold12);
+                    runProperties12.AppendChild(bold12);
+                    runProperties12.AppendChild(new FontSize() { Val = "28" });
+                    runProperties12.AppendChild(new FontSizeComplexScript() { Val = "28" });
                     Text text36 = new Text();
                     text36.Text = "Perfil de la Tensión Arterial";
 
-                    run36.Append(runProperties12);
-                    run36.Append(text36);
+                    run36.AppendChild(runProperties12);
+                    run36.AppendChild(text36);
 
-                    paragraph25.Append(paragraphProperties9);
-                    paragraph25.Append(run36);
+                    paragraph25.AppendChild(paragraphProperties9);
+                    paragraph25.AppendChild(run36);
 
-                    tableCell23.Append(tableCellProperties23);
-                    tableCell23.Append(paragraph25);
+                    tableCell23.AppendChild(tableCellProperties23);
+                    tableCell23.AppendChild(paragraph25);
 
-                    tableRow15.Append(tableCell23);
+                    tableRow15.AppendChild(tableCell23);
 
                     TableRow tableRow16 = new TableRow()
                     {
@@ -1509,14 +1513,14 @@ namespace BussinessLogic
                     };
                     RightBorder rightBorder23 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders24.Append(topBorder19);
-                    tableCellBorders24.Append(leftBorder23);
-                    tableCellBorders24.Append(bottomBorder23);
-                    tableCellBorders24.Append(rightBorder23);
+                    tableCellBorders24.AppendChild(topBorder19);
+                    tableCellBorders24.AppendChild(leftBorder23);
+                    tableCellBorders24.AppendChild(bottomBorder23);
+                    tableCellBorders24.AppendChild(rightBorder23);
 
-                    tableCellProperties24.Append(tableCellWidth24);
-                    tableCellProperties24.Append(gridSpan8);
-                    tableCellProperties24.Append(tableCellBorders24);
+                    tableCellProperties24.AppendChild(tableCellWidth24);
+                    tableCellProperties24.AppendChild(gridSpan8);
+                    tableCellProperties24.AppendChild(tableCellBorders24);
 
                     Paragraph paragraph26 = new Paragraph()
                     {
@@ -1529,7 +1533,7 @@ namespace BussinessLogic
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
 
-                    paragraphProperties10.Append(paragraphMarkRunProperties10);
+                    paragraphProperties10.AppendChild(paragraphMarkRunProperties10);
 
                     Run run37 = new Run();
 
@@ -1538,16 +1542,16 @@ namespace BussinessLogic
                     Text text37 = new Text();
                     text37.Text = "<Gráfica tensión arterial/tiempo>";
 
-                    run37.Append(runProperties13);
-                    run37.Append(text37);
+                    run37.AppendChild(runProperties13);
+                    run37.AppendChild(text37);
 
-                    paragraph26.Append(paragraphProperties10);
-                    paragraph26.Append(run37);
+                    paragraph26.AppendChild(paragraphProperties10);
+                    paragraph26.AppendChild(run37);
 
-                    tableCell24.Append(tableCellProperties24);
-                    tableCell24.Append(paragraph26);
+                    tableCell24.AppendChild(tableCellProperties24);
+                    tableCell24.AppendChild(paragraph26);
 
-                    tableRow16.Append(tableCell24);
+                    tableRow16.AppendChild(tableCell24);
 
                     TableRow tableRow17 = new TableRow()
                     {
@@ -1571,13 +1575,13 @@ namespace BussinessLogic
                     BottomBorder bottomBorder24 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder24 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders25.Append(leftBorder24);
-                    tableCellBorders25.Append(bottomBorder24);
-                    tableCellBorders25.Append(rightBorder24);
+                    tableCellBorders25.AppendChild(leftBorder24);
+                    tableCellBorders25.AppendChild(bottomBorder24);
+                    tableCellBorders25.AppendChild(rightBorder24);
 
-                    tableCellProperties25.Append(tableCellWidth25);
-                    tableCellProperties25.Append(gridSpan9);
-                    tableCellProperties25.Append(tableCellBorders25);
+                    tableCellProperties25.AppendChild(tableCellWidth25);
+                    tableCellProperties25.AppendChild(gridSpan9);
+                    tableCellProperties25.AppendChild(tableCellBorders25);
 
                     Paragraph paragraph27 = new Paragraph()
                     {
@@ -1591,29 +1595,31 @@ namespace BussinessLogic
                     ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
                     Bold bold13 = new Bold();
 
-                    paragraphMarkRunProperties11.Append(bold13);
+                    paragraphMarkRunProperties11.AppendChild(bold13);
 
-                    paragraphProperties11.Append(paragraphMarkRunProperties11);
+                    paragraphProperties11.AppendChild(paragraphMarkRunProperties11);
 
                     Run run38 = new Run() { RsidRunProperties = "00EC01A4" };
 
                     RunProperties runProperties14 = new RunProperties();
                     Bold bold14 = new Bold();
 
-                    runProperties14.Append(bold14);
+                    runProperties14.AppendChild(bold14);
+                    runProperties14.AppendChild(new FontSize() { Val = "28" });
+                    runProperties14.AppendChild(new FontSizeComplexScript() { Val = "28" });
                     Text text38 = new Text();
                     text38.Text = "Valores por encima del límite";
 
-                    run38.Append(runProperties14);
-                    run38.Append(text38);
+                    run38.AppendChild(runProperties14);
+                    run38.AppendChild(text38);
 
-                    paragraph27.Append(paragraphProperties11);
-                    paragraph27.Append(run38);
+                    paragraph27.AppendChild(paragraphProperties11);
+                    paragraph27.AppendChild(run38);
 
-                    tableCell25.Append(tableCellProperties25);
-                    tableCell25.Append(paragraph27);
+                    tableCell25.AppendChild(tableCellProperties25);
+                    tableCell25.AppendChild(paragraph27);
 
-                    tableRow17.Append(tableCell25);
+                    tableRow17.AppendChild(tableCell25);
 
                     TableRow tableRow18 = new TableRow()
                     {
@@ -1638,14 +1644,14 @@ namespace BussinessLogic
                     BottomBorder bottomBorder25 = new BottomBorder() { Val = BorderValues.Nil };
                     RightBorder rightBorder25 = new RightBorder() { Val = BorderValues.Nil };
 
-                    tableCellBorders26.Append(topBorder20);
-                    tableCellBorders26.Append(leftBorder25);
-                    tableCellBorders26.Append(bottomBorder25);
-                    tableCellBorders26.Append(rightBorder25);
+                    tableCellBorders26.AppendChild(topBorder20);
+                    tableCellBorders26.AppendChild(leftBorder25);
+                    tableCellBorders26.AppendChild(bottomBorder25);
+                    tableCellBorders26.AppendChild(rightBorder25);
 
-                    tableCellProperties26.Append(tableCellWidth26);
-                    tableCellProperties26.Append(gridSpan10);
-                    tableCellProperties26.Append(tableCellBorders26);
+                    tableCellProperties26.AppendChild(tableCellWidth26);
+                    tableCellProperties26.AppendChild(gridSpan10);
+                    tableCellProperties26.AppendChild(tableCellBorders26);
 
                     Paragraph paragraph28 = new Paragraph()
                     {
@@ -1658,7 +1664,7 @@ namespace BussinessLogic
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
 
-                    paragraphProperties12.Append(paragraphMarkRunProperties12);
+                    paragraphProperties12.AppendChild(paragraphMarkRunProperties12);
 
                     Run run39 = new Run();
 
@@ -1667,23 +1673,117 @@ namespace BussinessLogic
                     Text text39 = new Text();
                     text39.Text = "<Gráfico de torta>";
 
-                    run39.Append(runProperties15);
-                    run39.Append(text39);
+                    run39.AppendChild(runProperties15);
+                    run39.AppendChild(text39);
 
-                    paragraph28.Append(paragraphProperties12);
-                    paragraph28.Append(run39);
+                    paragraph28.AppendChild(paragraphProperties12);
+                    paragraph28.AppendChild(run39);
 
-                    tableCell26.Append(tableCellProperties26);
-                    tableCell26.Append(paragraph28);
+                    tableCell26.AppendChild(tableCellProperties26);
+                    tableCell26.AppendChild(paragraph28);
 
-                    tableRow18.Append(tableCell26);
+                    tableRow18.AppendChild(tableCell26);
 
-                    table1.Append(tableRow15);
-                    table1.Append(tableRow16);
-                    table1.Append(tableRow17);
-                    table1.Append(tableRow18);
+                    table1.AppendChild(tableRow15);
+                    table1.AppendChild(tableRow16);
+                    table1.AppendChild(tableRow17);
+                    table1.AppendChild(tableRow18);
                 }
 
+                /*
+                 * TABLA DE MEDIDAS
+                 */
+                if (includeMeasures)
+                {
+                    TableRow tableRow30 = new TableRow()
+                    {
+                        RsidTableRowMarkRevision = "004D2B75",
+                        RsidTableRowAddition = "00EC01A4",
+                        RsidTableRowProperties = "00EC01A4"
+                    };
+
+                    TableRowProperties tableRowProperties30 = new TableRowProperties();
+                    TableRowHeight tableRowHeight30 = new TableRowHeight() { Val = (UInt32Value)242U };
+
+                    tableRowProperties30.AppendChild(tableRowHeight30);
+
+                    TableCell tableCell30 = new TableCell();
+
+                    TableCellProperties tableCellProperties30 = new TableCellProperties();
+                    TableCellWidth tableCellWidth30 = new TableCellWidth()
+                    {
+                        Width = "9576",
+                        Type = TableWidthUnitValues.Dxa
+                    };
+                    GridSpan gridSpan30 = new GridSpan() { Val = 2 };
+
+                    TableCellBorders tableCellBorders30 = new TableCellBorders();
+                    TopBorder topBorder30 = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorder30 = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorder30 = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorder30 = new RightBorder() { Val = BorderValues.Nil };
+
+                    tableCellBorders30.AppendChild(topBorder30);
+                    tableCellBorders30.AppendChild(leftBorder30);
+                    tableCellBorders30.AppendChild(bottomBorder30);
+                    tableCellBorders30.AppendChild(rightBorder30);
+                    TableCellVerticalAlignment tableCellVerticalAlignment30 = new TableCellVerticalAlignment()
+                    {
+                        Val = TableVerticalAlignmentValues.Center
+                    };
+
+                    tableCellProperties30.AppendChild(tableCellWidth30);
+                    tableCellProperties30.AppendChild(gridSpan30);
+                    tableCellProperties30.AppendChild(tableCellBorders30);
+                    tableCellProperties30.AppendChild(tableCellVerticalAlignment30);
+
+                    Paragraph paragraph30 = new Paragraph()
+                    {
+                        RsidParagraphMarkRevision = "00EC01A4",
+                        RsidParagraphAddition = "00EC01A4",
+                        RsidParagraphProperties = "00EC01A4",
+                        RsidRunAdditionDefault = "00EC01A4"
+                    };
+
+                    ParagraphProperties paragraphProperties30 = new ParagraphProperties();
+
+                    ParagraphMarkRunProperties paragraphMarkRunProperties30 = new ParagraphMarkRunProperties();
+                    Bold bold8 = new Bold();
+
+                    paragraphMarkRunProperties30.AppendChild(bold8);
+
+                    paragraphProperties30.AppendChild(paragraphMarkRunProperties30);
+
+                    Run runTabla = new Run() { RsidRunProperties = "00EC01A4" };
+
+                    RunProperties runPropertiesTabla = new RunProperties();
+                    Bold bold = new Bold();
+
+                    runPropertiesTabla.AppendChild(bold);
+                    runPropertiesTabla.AppendChild(new FontSize() { Val = "28" });
+                    runPropertiesTabla.AppendChild(new FontSizeComplexScript() { Val = "28" });
+                    Text textTabla = new Text();
+                    textTabla.Text = "Tabla Completa de Medidas";
+
+                    runTabla.AppendChild(runPropertiesTabla);
+                    runTabla.AppendChild(textTabla);
+
+                    paragraph30.AppendChild(paragraphProperties30);
+                    paragraph30.AppendChild(runTabla);
+
+                    tableCell30.AppendChild(tableCellProperties30);
+                    tableCell30.AppendChild(paragraph30);
+
+                    tableRow30.AppendChild(tableRowProperties30);
+                    tableRow30.AppendChild(tableCell30);
+
+                    table1.AppendChild(tableRow30);
+
+                    //tabla de medidas
+                    var tableRow31 = CompleteMeasuresTable(report);
+                    table1.AppendChild(tableRow31);
+
+                }
 
 
                 Paragraph paragraph29 = new Paragraph()
@@ -1697,9 +1797,9 @@ namespace BussinessLogic
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties13 = new ParagraphMarkRunProperties();
 
-                paragraphProperties13.Append(paragraphMarkRunProperties13);
+                paragraphProperties13.AppendChild(paragraphMarkRunProperties13);
 
-                paragraph29.Append(paragraphProperties13);
+                paragraph29.AppendChild(paragraphProperties13);
 
                 SectionProperties sectionProperties1 = new SectionProperties()
                     {
@@ -1735,20 +1835,20 @@ namespace BussinessLogic
 
                 TitlePage titlepage1 = new TitlePage();
 
-                sectionProperties1.Append(coverHeaderReference);
-                sectionProperties1.Append(headerReference1);
-                //sectionProperties1.Append(footerReference1);
-                sectionProperties1.Append(pageSize1);
-                sectionProperties1.Append(pageMargin1);
-                sectionProperties1.Append(columns1);
-                sectionProperties1.Append(titlepage1);
-                sectionProperties1.Append(docGrid1);
+                sectionProperties1.AppendChild(coverHeaderReference);
+                sectionProperties1.AppendChild(headerReference1);
+                //sectionProperties1.AppendChild(footerReference1);
+                sectionProperties1.AppendChild(pageSize1);
+                sectionProperties1.AppendChild(pageMargin1);
+                sectionProperties1.AppendChild(columns1);
+                sectionProperties1.AppendChild(titlepage1);
+                sectionProperties1.AppendChild(docGrid1);
 
-                body1.Append(table1);
-                body1.Append(paragraph29);
-                body1.Append(sectionProperties1);
+                body1.AppendChild(table1);
+                body1.AppendChild(paragraph29);
+                body1.AppendChild(sectionProperties1);
 
-                document1.Append(body1);
+                document1.AppendChild(body1);
 
 
                 mainDocumentPart1.Document = document1;
@@ -1764,6 +1864,566 @@ namespace BussinessLogic
             }
         }
 
+        private TableRow CompleteMeasuresTable(Report report)
+        {
+
+            TableRow tableRow12 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "004D2B75", RsidTableRowProperties = "00EC01A4" };
+
+            TableRowProperties tableRowProperties3 = new TableRowProperties();
+            TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)1383U };
+
+            tableRowProperties3.AppendChild(tableRowHeight3);
+
+            TableCell tableCell20 = new TableCell();
+
+            TableCellProperties tableCellProperties20 = new TableCellProperties();
+            TableCellWidth tableCellWidth20 = new TableCellWidth() { Width = "9576", Type = TableWidthUnitValues.Dxa };
+            GridSpan gridSpan4 = new GridSpan() { Val = 2 };
+
+            TableCellBorders tableCellBorders20 = new TableCellBorders();
+            TopBorder topBorder19 = new TopBorder() { Val = BorderValues.Nil };
+            LeftBorder leftBorder19 = new LeftBorder() { Val = BorderValues.Nil };
+            BottomBorder bottomBorder19 = new BottomBorder() { Val = BorderValues.Single, Color = "auto", Size = (UInt32Value)4U, Space = (UInt32Value)0U };
+            RightBorder rightBorder19 = new RightBorder() { Val = BorderValues.Nil };
+
+            tableCellBorders20.AppendChild(topBorder19);
+            tableCellBorders20.AppendChild(leftBorder19);
+            tableCellBorders20.AppendChild(bottomBorder19);
+            tableCellBorders20.AppendChild(rightBorder19);
+            TableCellVerticalAlignment tableCellVerticalAlignment3 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
+
+            tableCellProperties20.AppendChild(tableCellWidth20);
+            tableCellProperties20.AppendChild(gridSpan4);
+            tableCellProperties20.AppendChild(tableCellBorders20);
+            tableCellProperties20.AppendChild(tableCellVerticalAlignment3);
+
+            Paragraph paragraph25 = new Paragraph() { RsidParagraphAddition = "004D2B75", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "004D2B75" };
+
+            ParagraphProperties paragraphProperties9 = new ParagraphProperties();
+            Justification justification2 = new Justification() { Val = JustificationValues.Center };
+            
+            ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
+
+            paragraphProperties9.AppendChild(justification2);
+            paragraphProperties9.AppendChild(paragraphMarkRunProperties9);
+
+            paragraph25.AppendChild(paragraphProperties9);
+
+            Table table2 = new Table();
+
+            TableProperties tableProperties2 = new TableProperties();
+            TableStyle tableStyle2 = new TableStyle() { Val = "Tablaconcuadrcula" };
+            TableWidth tableWidth2 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
+            TableLook tableLook2 = new TableLook() { Val = "04A0" };
+
+            tableProperties2.AppendChild(tableStyle2);
+            tableProperties2.AppendChild(tableWidth2);
+            tableProperties2.AppendChild(tableLook2);
+
+            TableGrid tableGrid2 = new TableGrid();
+            GridColumn gridColumn1 = new GridColumn() { Width = "2336" };
+            GridColumn gridColumn2 = new GridColumn() { Width = "2336" };
+            GridColumn gridColumn3 = new GridColumn() { Width = "2336" };
+            GridColumn gridColumn4 = new GridColumn() { Width = "2337" };
+            GridColumn gridColumn5 = new GridColumn() { Width = "2337" };
+            GridColumn gridColumn6 = new GridColumn() { Width = "2337" };
+
+            tableGrid2.AppendChild(gridColumn1);
+            tableGrid2.AppendChild(gridColumn2);
+            tableGrid2.AppendChild(gridColumn3);
+            tableGrid2.AppendChild(gridColumn4);
+            tableGrid2.AppendChild(gridColumn5);
+            tableGrid2.AppendChild(gridColumn6);
+
+            TableRow tableRow13 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "009C2A39" };
+
+            //----------
+            TableCell tableCell21 = new TableCell();
+
+            TableCellProperties tableCellProperties21 = new TableCellProperties();
+            TableCellWidth tableCellWidth21 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
+            Shading shading0 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
+
+            tableCellProperties21.AppendChild(tableCellWidth21);
+            tableCellProperties21.AppendChild(shading0);
+
+            Paragraph paragraph26 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+            ParagraphProperties paragraphProperties10 = new ParagraphProperties();
+            
+            ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
+
+            paragraphMarkRunProperties10.AppendChild(new Bold());
+            paragraphProperties10.AppendChild(new Justification() { Val = JustificationValues.Center });
+            paragraphProperties10.AppendChild(paragraphMarkRunProperties10);
+
+            Run run34 = new Run() { RsidRunProperties = "00A6498A" };
+
+            RunProperties runProperties10 = new RunProperties();
+
+            runProperties10.AppendChild(new Bold());
+            Text text34 = new Text();
+            text34.Text = "Fecha";
+
+            run34.AppendChild(runProperties10);
+            run34.AppendChild(text34);
+
+            paragraph26.AppendChild(paragraphProperties10);
+            paragraph26.AppendChild(run34);
+
+            tableCell21.AppendChild(tableCellProperties21);
+            tableCell21.AppendChild(paragraph26);
+
+            //----------
+
+            TableCell tableCell22 = new TableCell();
+
+            TableCellProperties tableCellProperties22 = new TableCellProperties();
+            TableCellWidth tableCellWidth22 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
+            Shading shading1 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
+
+            tableCellProperties22.AppendChild(tableCellWidth22);
+            tableCellProperties22.AppendChild(shading1);
+
+            Paragraph paragraph27 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+            ParagraphProperties paragraphProperties11 = new ParagraphProperties();
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
+
+            paragraphMarkRunProperties11.AppendChild(new Bold());
+            paragraphProperties11.AppendChild(new Justification() { Val = JustificationValues.Center });
+            paragraphProperties11.AppendChild(paragraphMarkRunProperties11);
+
+            Run run35 = new Run() { RsidRunProperties = "00A6498A" };
+
+            RunProperties runProperties11 = new RunProperties();
+
+            runProperties11.AppendChild(new Bold());
+            Text text35 = new Text();
+            text35.Text = "Hora";
+
+            run35.AppendChild(runProperties11);
+            run35.AppendChild(text35);
+
+            paragraph27.AppendChild(paragraphProperties11);
+            paragraph27.AppendChild(run35);
+
+            tableCell22.AppendChild(tableCellProperties22);
+            tableCell22.AppendChild(paragraph27);
+
+            //----------
+
+            TableCell tableCell23 = new TableCell();
+
+            TableCellProperties tableCellProperties23 = new TableCellProperties();
+            TableCellWidth tableCellWidth23 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
+            Shading shading2 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
+
+            tableCellProperties23.AppendChild(tableCellWidth23);
+            tableCellProperties23.AppendChild(shading2);
+
+            Paragraph paragraph28 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+            ParagraphProperties paragraphProperties12 = new ParagraphProperties();
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
+
+            paragraphMarkRunProperties12.AppendChild(new Bold());
+
+            paragraphProperties12.AppendChild(new Justification() { Val = JustificationValues.Center });
+            paragraphProperties12.AppendChild(paragraphMarkRunProperties12);
+
+            Run run36 = new Run() { RsidRunProperties = "00A6498A" };
+
+            RunProperties runProperties12 = new RunProperties();
+
+            runProperties12.AppendChild(new Bold());
+            Text text36 = new Text();
+            text36.Text = "Presion arterial sistolica";
+
+            run36.AppendChild(runProperties12);
+            run36.AppendChild(text36);
+
+            paragraph28.AppendChild(paragraphProperties12);
+            paragraph28.AppendChild(run36);
+
+            tableCell23.AppendChild(tableCellProperties23);
+            tableCell23.AppendChild(paragraph28);
+
+            //----------
+
+            TableCell tableCell24 = new TableCell();
+
+            TableCellProperties tableCellProperties24 = new TableCellProperties();
+            TableCellWidth tableCellWidth24 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
+            Shading shading3 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
+
+            tableCellProperties24.AppendChild(tableCellWidth24);
+            tableCellProperties24.AppendChild(shading3);
+
+            Paragraph paragraph29 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+            ParagraphProperties paragraphProperties13 = new ParagraphProperties();
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties13 = new ParagraphMarkRunProperties();
+
+            paragraphMarkRunProperties13.AppendChild(new Bold());
+
+            paragraphProperties13.AppendChild(new Justification() { Val = JustificationValues.Center });
+            paragraphProperties13.AppendChild(paragraphMarkRunProperties13);
+
+            Run run37 = new Run() { RsidRunProperties = "00A6498A" };
+
+            RunProperties runProperties13 = new RunProperties();
+
+            runProperties13.AppendChild(new Bold());
+            Text text37 = new Text();
+            text37.Text = "Presion arterial diastolica";
+
+            run37.AppendChild(runProperties13);
+            run37.AppendChild(text37);
+
+            paragraph29.AppendChild(paragraphProperties13);
+            paragraph29.AppendChild(run37);
+
+            tableCell24.AppendChild(tableCellProperties24);
+            tableCell24.AppendChild(paragraph29);
+
+            //----------
+
+            TableCell tableCell25 = new TableCell();
+
+            TableCellProperties tableCellProperties25 = new TableCellProperties();
+            TableCellWidth tableCellWidth25 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
+            Shading shading4 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
+
+            tableCellProperties25.AppendChild(tableCellWidth25);
+            tableCellProperties25.AppendChild(shading4);
+
+            Paragraph paragraph30 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+            ParagraphProperties paragraphProperties14 = new ParagraphProperties();
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
+
+            paragraphMarkRunProperties14.AppendChild(new Bold());
+
+            paragraphProperties14.AppendChild(new Justification() { Val = JustificationValues.Center });
+            paragraphProperties14.AppendChild(paragraphMarkRunProperties14);
+
+            Run run38 = new Run() { RsidRunProperties = "00A6498A" };
+
+            RunProperties runProperties14 = new RunProperties();
+
+            runProperties14.AppendChild(new Bold());
+            Text text38 = new Text();
+            text38.Text = "Presion arterial media";
+
+            run38.AppendChild(runProperties14);
+            run38.AppendChild(text38);
+
+            paragraph30.AppendChild(paragraphProperties14);
+            paragraph30.AppendChild(run38);
+
+            tableCell25.AppendChild(tableCellProperties25);
+            tableCell25.AppendChild(paragraph30);
+
+            //----------
+
+            TableCell tableCell26 = new TableCell();
+
+            TableCellProperties tableCellProperties26 = new TableCellProperties();
+            TableCellWidth tableCellWidth26 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
+            Shading shading5 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
+
+            tableCellProperties26.AppendChild(tableCellWidth26);
+            tableCellProperties26.AppendChild(shading5);
+
+            Paragraph paragraph31 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+            ParagraphProperties paragraphProperties15 = new ParagraphProperties();
+
+            ParagraphMarkRunProperties paragraphMarkRunProperties15 = new ParagraphMarkRunProperties();
+
+            paragraphMarkRunProperties15.AppendChild(new Bold());
+
+            paragraphProperties15.AppendChild(new Justification() { Val = JustificationValues.Center });
+            paragraphProperties15.AppendChild(paragraphMarkRunProperties15);
+
+            Run run39 = new Run() { RsidRunProperties = "00A6498A" };
+
+            RunProperties runProperties15 = new RunProperties();
+
+            runProperties15.AppendChild(new Bold());
+            Text text39 = new Text();
+            text39.Text = "Frecuencia cardiaca";
+
+            run39.AppendChild(runProperties15);
+            run39.AppendChild(text39);
+
+            paragraph31.AppendChild(paragraphProperties15);
+            paragraph31.AppendChild(run39);
+
+            tableCell26.AppendChild(tableCellProperties26);
+            tableCell26.AppendChild(paragraph31);
+
+            //----------
+            
+            tableRow13.AppendChild(tableCell21);
+            tableRow13.AppendChild(tableCell22);
+            tableRow13.AppendChild(tableCell23);
+            tableRow13.AppendChild(tableCell24);
+            tableRow13.AppendChild(tableCell25);
+            tableRow13.AppendChild(tableCell26);
+
+            table2.AppendChild(tableProperties2);
+            table2.AppendChild(tableGrid2);
+            table2.AppendChild(tableRow13);
+
+            foreach (Measurement measure in report.Measures)
+            {
+                TableRow tableRow14 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "009C2A39" };
+
+                //----------
+                TableCell tableCell = new TableCell();
+
+                TableCellProperties tableCellProperties = new TableCellProperties();
+                TableCellWidth tableCellWidth = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
+
+                tableCellProperties21.AppendChild(tableCellWidth);
+
+                Paragraph paragraph = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+                ParagraphProperties paragraphProperties = new ParagraphProperties();
+
+                ParagraphMarkRunProperties paragraphMarkRunProperties = new ParagraphMarkRunProperties();
+
+                paragraphProperties.AppendChild(new Justification() { Val = JustificationValues.Center });
+                paragraphProperties.AppendChild(paragraphMarkRunProperties);
+
+                Run run = new Run() { RsidRunProperties = "00A6498A" };
+
+                RunProperties runProperties = new RunProperties();
+
+                //FECHA
+                Text text = new Text();
+                text.Text = measure.Time.Value.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
+
+                run.AppendChild(runProperties);
+                run.AppendChild(text);
+
+                paragraph.AppendChild(paragraphProperties);
+                paragraph.AppendChild(run);
+
+                tableCell.AppendChild(tableCellProperties);
+                tableCell.AppendChild(paragraph);
+
+                //----------
+
+                TableCell tableCellTime = new TableCell();
+
+                TableCellProperties tableCellPropertiesTime = new TableCellProperties();
+                TableCellWidth tableCellWidthTime = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
+
+                tableCellPropertiesTime.AppendChild(tableCellWidthTime);
+
+                Paragraph paragraphTime = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+                ParagraphProperties paragraphPropertiesTime = new ParagraphProperties();
+
+                ParagraphMarkRunProperties paragraphMarkRunPropertiesTime = new ParagraphMarkRunProperties();
+
+                paragraphPropertiesTime.AppendChild(new Justification() { Val = JustificationValues.Center });
+                paragraphPropertiesTime.AppendChild(paragraphMarkRunPropertiesTime);
+
+                Run runTime = new Run() { RsidRunProperties = "00A6498A" };
+
+                RunProperties runPropertiesTime = new RunProperties();
+
+                //HORA
+                Text textTime = new Text();
+                textTime.Text = measure.Time.Value.ToString(ConfigurationManager.AppSettings["ShortTimeString"]);
+
+                runTime.AppendChild(runPropertiesTime);
+                runTime.AppendChild(textTime);
+
+                paragraphTime.AppendChild(paragraphPropertiesTime);
+                paragraphTime.AppendChild(runTime);
+
+                tableCellTime.AppendChild(tableCellPropertiesTime);
+                tableCellTime.AppendChild(paragraphTime);
+
+                //----------
+
+                TableCell tableCellSys = new TableCell();
+
+                TableCellProperties tableCellPropertiesSys = new TableCellProperties();
+                TableCellWidth tableCellWidthSys = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
+
+                tableCellPropertiesSys.AppendChild(tableCellWidthSys);
+
+                Paragraph paragraphSys = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+                ParagraphProperties paragraphPropertiesSys = new ParagraphProperties();
+
+                ParagraphMarkRunProperties paragraphMarkRunPropertiesSys = new ParagraphMarkRunProperties();
+
+                paragraphPropertiesSys.AppendChild(new Justification() { Val = JustificationValues.Center });
+                paragraphPropertiesSys.AppendChild(paragraphMarkRunPropertiesSys);
+
+                Run runSys = new Run() { RsidRunProperties = "00A6498A" };
+
+                RunProperties runPropertiesSys = new RunProperties();
+
+                //"Presion arterial sistolica"
+                Text textSys = new Text();
+                textSys.Text = measure.Systolic.Value.ToString();
+
+                runSys.AppendChild(runPropertiesSys);
+                runSys.AppendChild(textSys);
+
+                paragraphSys.AppendChild(paragraphPropertiesSys);
+                paragraphSys.AppendChild(runSys);
+
+                tableCellSys.AppendChild(tableCellPropertiesSys);
+                tableCellSys.AppendChild(paragraphSys);
+
+                //----------
+
+                TableCell tableCellDias = new TableCell();
+
+                TableCellProperties tableCellPropertiesDias = new TableCellProperties();
+                TableCellWidth tableCellWidthDias = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
+
+                tableCellPropertiesDias.AppendChild(tableCellWidthDias);
+
+                Paragraph paragraphDias = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+                ParagraphProperties paragraphPropertiesDias = new ParagraphProperties();
+
+                ParagraphMarkRunProperties paragraphMarkRunPropertiesDias = new ParagraphMarkRunProperties();
+
+                paragraphPropertiesDias.AppendChild(new Justification() { Val = JustificationValues.Center });
+                paragraphPropertiesDias.AppendChild(paragraphMarkRunPropertiesDias);
+
+                Run runDias = new Run() { RsidRunProperties = "00A6498A" };
+
+                RunProperties runPropertiesDias = new RunProperties();
+
+                //"Presion arterial diastolica"
+                Text textDias = new Text();
+                textDias.Text = measure.Diastolic.Value.ToString();
+
+                runDias.AppendChild(runPropertiesDias);
+                runDias.AppendChild(textDias);
+
+                paragraphDias.AppendChild(paragraphPropertiesDias);
+                paragraphDias.AppendChild(runDias);
+
+                tableCellDias.AppendChild(tableCellPropertiesDias);
+                tableCellDias.AppendChild(paragraphDias);
+
+                //----------
+
+                TableCell tableCellMid = new TableCell();
+
+                TableCellProperties tableCellPropertiesMid = new TableCellProperties();
+                TableCellWidth tableCellWidthMid = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
+
+                tableCellPropertiesMid.AppendChild(tableCellWidthMid);
+
+                Paragraph paragraphMid = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+                ParagraphProperties paragraphPropertiesMid = new ParagraphProperties();
+
+                ParagraphMarkRunProperties paragraphMarkRunPropertiesMid = new ParagraphMarkRunProperties();
+
+                paragraphPropertiesMid.AppendChild(new Justification() { Val = JustificationValues.Center });
+                paragraphPropertiesMid.AppendChild(paragraphMarkRunPropertiesMid);
+
+                Run runMid = new Run() { RsidRunProperties = "00A6498A" };
+
+                RunProperties runPropertiesMid = new RunProperties();
+
+                //"Presion arterial media"
+                Text textMid = new Text();
+                textMid.Text = measure.Middle.Value.ToString();
+
+                runMid.AppendChild(runPropertiesMid);
+                runMid.AppendChild(textMid);
+
+                paragraphMid.AppendChild(paragraphPropertiesMid);
+                paragraphMid.AppendChild(runMid);
+
+                tableCellMid.AppendChild(tableCellPropertiesMid);
+                tableCellMid.AppendChild(paragraphMid);
+
+                //----------
+
+                TableCell tableCellFc = new TableCell();
+
+                TableCellProperties tableCellPropertiesFc = new TableCellProperties();
+                TableCellWidth tableCellWidthFc = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
+
+                tableCellPropertiesFc.AppendChild(tableCellWidthFc);
+
+                Paragraph paragraphFc = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
+
+                ParagraphProperties paragraphPropertiesFc = new ParagraphProperties();
+
+                ParagraphMarkRunProperties paragraphMarkRunPropertiesFc = new ParagraphMarkRunProperties();
+
+                paragraphPropertiesFc.AppendChild(new Justification() { Val = JustificationValues.Center });
+                paragraphPropertiesFc.AppendChild(paragraphMarkRunPropertiesFc);
+
+                Run runFc = new Run() { RsidRunProperties = "00A6498A" };
+
+                RunProperties runPropertiesFc = new RunProperties();
+
+                //"Frecuencia cardiaca"
+                Text textFc = new Text();
+                textFc.Text = measure.HeartRate.Value.ToString();
+
+                runFc.AppendChild(runPropertiesFc);
+                runFc.AppendChild(textFc);
+
+                paragraphFc.AppendChild(paragraphPropertiesFc);
+                paragraphFc.AppendChild(runFc);
+
+                tableCellFc.AppendChild(tableCellPropertiesFc);
+                tableCellFc.AppendChild(paragraphFc);
+
+                tableRow14.AppendChild(tableCell);
+                tableRow14.AppendChild(tableCellTime);
+                tableRow14.AppendChild(tableCellSys);
+                tableRow14.AppendChild(tableCellDias);
+                tableRow14.AppendChild(tableCellMid);
+                tableRow14.AppendChild(tableCellFc);
+
+                table2.AppendChild(tableRow14);
+                
+            }
+
+
+            Paragraph paragraph115 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "009C2A39", RsidRunAdditionDefault = "00653833" };
+
+            Run run361 = new Run() { RsidRunProperties = "00653833" };
+            Text text361 = new Text() { Space = SpaceProcessingModeValues.Preserve };
+            run361.AppendChild(text361);
+            paragraph115.AppendChild(run361);
+
+            tableCell20.AppendChild(tableCellProperties20);
+            tableCell20.AppendChild(paragraph25);
+            tableCell20.AppendChild(table2);
+            tableCell20.AppendChild(paragraph115);
+
+            tableRow12.AppendChild(tableRowProperties3);
+            tableRow12.AppendChild(tableCell20);
+
+            return tableRow12;
+        }
+
         private TableRow MeasuresSummary(Report report)
         {
             TableRow tableRow12 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "004D2B75", RsidTableRowProperties = "00EC01A4" };
@@ -1771,7 +2431,7 @@ namespace BussinessLogic
             TableRowProperties tableRowProperties3 = new TableRowProperties();
             TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)1383U };
 
-            tableRowProperties3.Append(tableRowHeight3);
+            tableRowProperties3.AppendChild(tableRowHeight3);
 
             TableCell tableCell20 = new TableCell();
 
@@ -1785,16 +2445,16 @@ namespace BussinessLogic
             BottomBorder bottomBorder19 = new BottomBorder() { Val = BorderValues.Single, Color = "auto", Size = (UInt32Value)4U, Space = (UInt32Value)0U };
             RightBorder rightBorder19 = new RightBorder() { Val = BorderValues.Nil };
 
-            tableCellBorders20.Append(topBorder17);
-            tableCellBorders20.Append(leftBorder19);
-            tableCellBorders20.Append(bottomBorder19);
-            tableCellBorders20.Append(rightBorder19);
+            tableCellBorders20.AppendChild(topBorder17);
+            tableCellBorders20.AppendChild(leftBorder19);
+            tableCellBorders20.AppendChild(bottomBorder19);
+            tableCellBorders20.AppendChild(rightBorder19);
             TableCellVerticalAlignment tableCellVerticalAlignment3 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
 
-            tableCellProperties20.Append(tableCellWidth20);
-            tableCellProperties20.Append(gridSpan4);
-            tableCellProperties20.Append(tableCellBorders20);
-            tableCellProperties20.Append(tableCellVerticalAlignment3);
+            tableCellProperties20.AppendChild(tableCellWidth20);
+            tableCellProperties20.AppendChild(gridSpan4);
+            tableCellProperties20.AppendChild(tableCellBorders20);
+            tableCellProperties20.AppendChild(tableCellVerticalAlignment3);
 
             Paragraph paragraph25 = new Paragraph() { RsidParagraphAddition = "004D2B75", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "004D2B75" };
 
@@ -1803,10 +2463,10 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
 
-            paragraphProperties9.Append(justification2);
-            paragraphProperties9.Append(paragraphMarkRunProperties9);
+            paragraphProperties9.AppendChild(justification2);
+            paragraphProperties9.AppendChild(paragraphMarkRunProperties9);
 
-            paragraph25.Append(paragraphProperties9);
+            paragraph25.AppendChild(paragraphProperties9);
 
             Table table2 = new Table();
 
@@ -1815,9 +2475,9 @@ namespace BussinessLogic
             TableWidth tableWidth2 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
             TableLook tableLook2 = new TableLook() { Val = "04A0" };
 
-            tableProperties2.Append(tableStyle2);
-            tableProperties2.Append(tableWidth2);
-            tableProperties2.Append(tableLook2);
+            tableProperties2.AppendChild(tableStyle2);
+            tableProperties2.AppendChild(tableWidth2);
+            tableProperties2.AppendChild(tableLook2);
 
             TableGrid tableGrid2 = new TableGrid();
             GridColumn gridColumn3 = new GridColumn() { Width = "2336" };
@@ -1825,10 +2485,10 @@ namespace BussinessLogic
             GridColumn gridColumn5 = new GridColumn() { Width = "2336" };
             GridColumn gridColumn6 = new GridColumn() { Width = "2337" };
 
-            tableGrid2.Append(gridColumn3);
-            tableGrid2.Append(gridColumn4);
-            tableGrid2.Append(gridColumn5);
-            tableGrid2.Append(gridColumn6);
+            tableGrid2.AppendChild(gridColumn3);
+            tableGrid2.AppendChild(gridColumn4);
+            tableGrid2.AppendChild(gridColumn5);
+            tableGrid2.AppendChild(gridColumn6);
 
             TableRow tableRow13 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "009C2A39" };
 
@@ -1841,11 +2501,11 @@ namespace BussinessLogic
             TopBorder topBorder18 = new TopBorder() { Val = BorderValues.Nil };
             LeftBorder leftBorder20 = new LeftBorder() { Val = BorderValues.Nil };
 
-            tableCellBorders21.Append(topBorder18);
-            tableCellBorders21.Append(leftBorder20);
+            tableCellBorders21.AppendChild(topBorder18);
+            tableCellBorders21.AppendChild(leftBorder20);
 
-            tableCellProperties21.Append(tableCellWidth21);
-            tableCellProperties21.Append(tableCellBorders21);
+            tableCellProperties21.AppendChild(tableCellWidth21);
+            tableCellProperties21.AppendChild(tableCellBorders21);
 
             Paragraph paragraph26 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -1854,13 +2514,13 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
 
-            paragraphProperties10.Append(justification3);
-            paragraphProperties10.Append(paragraphMarkRunProperties10);
+            paragraphProperties10.AppendChild(justification3);
+            paragraphProperties10.AppendChild(paragraphMarkRunProperties10);
 
-            paragraph26.Append(paragraphProperties10);
+            paragraph26.AppendChild(paragraphProperties10);
 
-            tableCell21.Append(tableCellProperties21);
-            tableCell21.Append(paragraph26);
+            tableCell21.AppendChild(tableCellProperties21);
+            tableCell21.AppendChild(paragraph26);
 
             TableCell tableCell22 = new TableCell();
 
@@ -1868,8 +2528,8 @@ namespace BussinessLogic
             TableCellWidth tableCellWidth22 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
             Shading shading1 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties22.Append(tableCellWidth22);
-            tableCellProperties22.Append(shading1);
+            tableCellProperties22.AppendChild(tableCellWidth22);
+            tableCellProperties22.AppendChild(shading1);
 
             Paragraph paragraph27 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -1879,27 +2539,27 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
             Bold bold10 = new Bold();
 
-            paragraphMarkRunProperties11.Append(bold10);
-            paragraphProperties11.Append(justification4);
-            paragraphProperties11.Append(paragraphMarkRunProperties11);
+            paragraphMarkRunProperties11.AppendChild(bold10);
+            paragraphProperties11.AppendChild(justification4);
+            paragraphProperties11.AppendChild(paragraphMarkRunProperties11);
 
             Run run35 = new Run() { RsidRunProperties = "00A6498A" };
 
             RunProperties runProperties11 = new RunProperties();
             Bold bold11 = new Bold();
 
-            runProperties11.Append(bold11);
+            runProperties11.AppendChild(bold11);
             Text text35 = new Text();
             text35.Text = "24 horas";
 
-            run35.Append(runProperties11);
-            run35.Append(text35);
+            run35.AppendChild(runProperties11);
+            run35.AppendChild(text35);
 
-            paragraph27.Append(paragraphProperties11);
-            paragraph27.Append(run35);
+            paragraph27.AppendChild(paragraphProperties11);
+            paragraph27.AppendChild(run35);
 
-            tableCell22.Append(tableCellProperties22);
-            tableCell22.Append(paragraph27);
+            tableCell22.AppendChild(tableCellProperties22);
+            tableCell22.AppendChild(paragraph27);
 
             TableCell tableCell23 = new TableCell();
 
@@ -1907,8 +2567,8 @@ namespace BussinessLogic
             TableCellWidth tableCellWidth23 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
             Shading shading2 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties23.Append(tableCellWidth23);
-            tableCellProperties23.Append(shading2);
+            tableCellProperties23.AppendChild(tableCellWidth23);
+            tableCellProperties23.AppendChild(shading2);
 
             Paragraph paragraph28 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -1918,28 +2578,28 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
             Bold bold12 = new Bold();
 
-            paragraphMarkRunProperties12.Append(bold12);
+            paragraphMarkRunProperties12.AppendChild(bold12);
 
-            paragraphProperties12.Append(justification5);
-            paragraphProperties12.Append(paragraphMarkRunProperties12);
+            paragraphProperties12.AppendChild(justification5);
+            paragraphProperties12.AppendChild(paragraphMarkRunProperties12);
 
             Run run36 = new Run() { RsidRunProperties = "00A6498A" };
 
             RunProperties runProperties12 = new RunProperties();
             Bold bold13 = new Bold();
 
-            runProperties12.Append(bold13);
+            runProperties12.AppendChild(bold13);
             Text text36 = new Text();
             text36.Text = "Día";
 
-            run36.Append(runProperties12);
-            run36.Append(text36);
+            run36.AppendChild(runProperties12);
+            run36.AppendChild(text36);
 
-            paragraph28.Append(paragraphProperties12);
-            paragraph28.Append(run36);
+            paragraph28.AppendChild(paragraphProperties12);
+            paragraph28.AppendChild(run36);
 
-            tableCell23.Append(tableCellProperties23);
-            tableCell23.Append(paragraph28);
+            tableCell23.AppendChild(tableCellProperties23);
+            tableCell23.AppendChild(paragraph28);
 
             TableCell tableCell24 = new TableCell();
 
@@ -1947,8 +2607,8 @@ namespace BussinessLogic
             TableCellWidth tableCellWidth24 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
             Shading shading3 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties24.Append(tableCellWidth24);
-            tableCellProperties24.Append(shading3);
+            tableCellProperties24.AppendChild(tableCellWidth24);
+            tableCellProperties24.AppendChild(shading3);
 
             Paragraph paragraph29 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -1958,33 +2618,33 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties13 = new ParagraphMarkRunProperties();
             Bold bold14 = new Bold();
 
-            paragraphMarkRunProperties13.Append(bold14);
+            paragraphMarkRunProperties13.AppendChild(bold14);
 
-            paragraphProperties13.Append(justification6);
-            paragraphProperties13.Append(paragraphMarkRunProperties13);
+            paragraphProperties13.AppendChild(justification6);
+            paragraphProperties13.AppendChild(paragraphMarkRunProperties13);
 
             Run run37 = new Run() { RsidRunProperties = "00A6498A" };
 
             RunProperties runProperties13 = new RunProperties();
             Bold bold15 = new Bold();
 
-            runProperties13.Append(bold15);
+            runProperties13.AppendChild(bold15);
             Text text37 = new Text();
             text37.Text = "Noche";
 
-            run37.Append(runProperties13);
-            run37.Append(text37);
+            run37.AppendChild(runProperties13);
+            run37.AppendChild(text37);
 
-            paragraph29.Append(paragraphProperties13);
-            paragraph29.Append(run37);
+            paragraph29.AppendChild(paragraphProperties13);
+            paragraph29.AppendChild(run37);
 
-            tableCell24.Append(tableCellProperties24);
-            tableCell24.Append(paragraph29);
+            tableCell24.AppendChild(tableCellProperties24);
+            tableCell24.AppendChild(paragraph29);
 
-            tableRow13.Append(tableCell21);
-            tableRow13.Append(tableCell22);
-            tableRow13.Append(tableCell23);
-            tableRow13.Append(tableCell24);
+            tableRow13.AppendChild(tableCell21);
+            tableRow13.AppendChild(tableCell22);
+            tableRow13.AppendChild(tableCell23);
+            tableRow13.AppendChild(tableCell24);
 
             TableRow tableRow14 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "00A6498A" };
 
@@ -1995,9 +2655,9 @@ namespace BussinessLogic
             GridSpan gridSpan5 = new GridSpan() { Val = 4 };
             Shading shading4 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties25.Append(tableCellWidth25);
-            tableCellProperties25.Append(gridSpan5);
-            tableCellProperties25.Append(shading4);
+            tableCellProperties25.AppendChild(tableCellWidth25);
+            tableCellProperties25.AppendChild(gridSpan5);
+            tableCellProperties25.AppendChild(shading4);
 
             Paragraph paragraph30 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "00A6498A", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2005,27 +2665,27 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
 
-            paragraphProperties14.Append(paragraphMarkRunProperties14);
+            paragraphProperties14.AppendChild(paragraphMarkRunProperties14);
 
             Run run38 = new Run() { RsidRunProperties = "00A6498A" };
 
             RunProperties runProperties14 = new RunProperties();
             Bold bold16 = new Bold();
 
-            runProperties14.Append(bold16);
+            runProperties14.AppendChild(bold16);
             Text text38 = new Text();
             text38.Text = "Mediciones";
 
-            run38.Append(runProperties14);
-            run38.Append(text38);
+            run38.AppendChild(runProperties14);
+            run38.AppendChild(text38);
 
-            paragraph30.Append(paragraphProperties14);
-            paragraph30.Append(run38);
+            paragraph30.AppendChild(paragraphProperties14);
+            paragraph30.AppendChild(run38);
 
-            tableCell25.Append(tableCellProperties25);
-            tableCell25.Append(paragraph30);
+            tableCell25.AppendChild(tableCellProperties25);
+            tableCell25.AppendChild(paragraph30);
 
-            tableRow14.Append(tableCell25);
+            tableRow14.AppendChild(tableCell25);
 
             TableRow tableRow15 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "00A6498A" };
 
@@ -2034,7 +2694,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties26 = new TableCellProperties();
             TableCellWidth tableCellWidth26 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties26.Append(tableCellWidth26);
+            tableCellProperties26.AppendChild(tableCellWidth26);
 
             Paragraph paragraph31 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2043,8 +2703,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties15 = new ParagraphMarkRunProperties();
 
-            paragraphProperties15.Append(justification7);
-            paragraphProperties15.Append(paragraphMarkRunProperties15);
+            paragraphProperties15.AppendChild(justification7);
+            paragraphProperties15.AppendChild(paragraphMarkRunProperties15);
 
             Run run39 = new Run();
 
@@ -2052,28 +2712,28 @@ namespace BussinessLogic
             Text text39 = new Text();
             text39.Text = "Total";
 
-            run39.Append(runProperties15);
-            run39.Append(text39);
+            run39.AppendChild(runProperties15);
+            run39.AppendChild(text39);
 
-            paragraph31.Append(paragraphProperties15);
-            paragraph31.Append(run39);
+            paragraph31.AppendChild(paragraphProperties15);
+            paragraph31.AppendChild(run39);
 
-            tableCell26.Append(tableCellProperties26);
-            tableCell26.Append(paragraph31);
+            tableCell26.AppendChild(tableCellProperties26);
+            tableCell26.AppendChild(paragraph31);
 
             TableCell tableCell27 = new TableCell();
 
             TableCellProperties tableCellProperties27 = new TableCellProperties();
             TableCellWidth tableCellWidth27 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties27.Append(tableCellWidth27);
+            tableCellProperties27.AppendChild(tableCellWidth27);
 
             Paragraph paragraph32 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
             ParagraphProperties paragraphProperties16 = new ParagraphProperties();
             Justification justification8 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties16.Append(justification8);
+            paragraphProperties16.AppendChild(justification8);
 
             Run run40 = new Run();
 
@@ -2083,21 +2743,21 @@ namespace BussinessLogic
             var cantMeasureTotal = report.Measures.Count;
             text40.Text = cantMeasureTotal.ToString();
 
-            run40.Append(runProperties16);
-            run40.Append(text40);
+            run40.AppendChild(runProperties16);
+            run40.AppendChild(text40);
 
-            paragraph32.Append(paragraphProperties16);
-            paragraph32.Append(run40);
+            paragraph32.AppendChild(paragraphProperties16);
+            paragraph32.AppendChild(run40);
 
-            tableCell27.Append(tableCellProperties27);
-            tableCell27.Append(paragraph32);
+            tableCell27.AppendChild(tableCellProperties27);
+            tableCell27.AppendChild(paragraph32);
 
             TableCell tableCell28 = new TableCell();
 
             TableCellProperties tableCellProperties28 = new TableCellProperties();
             TableCellWidth tableCellWidth28 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties28.Append(tableCellWidth28);
+            tableCellProperties28.AppendChild(tableCellWidth28);
 
             Paragraph paragraph33 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2106,8 +2766,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties16 = new ParagraphMarkRunProperties();
 
-            paragraphProperties17.Append(justification9);
-            paragraphProperties17.Append(paragraphMarkRunProperties16);
+            paragraphProperties17.AppendChild(justification9);
+            paragraphProperties17.AppendChild(paragraphMarkRunProperties16);
 
             Run run45 = new Run();
 
@@ -2117,21 +2777,21 @@ namespace BussinessLogic
             var cantMeasureDay = report.Measures.Count(m => !m.Asleep.Value);
             text45.Text = cantMeasureDay.ToString();
 
-            run45.Append(runProperties21);
-            run45.Append(text45);
+            run45.AppendChild(runProperties21);
+            run45.AppendChild(text45);
 
-            paragraph33.Append(paragraphProperties17);
-            paragraph33.Append(run45);
+            paragraph33.AppendChild(paragraphProperties17);
+            paragraph33.AppendChild(run45);
 
-            tableCell28.Append(tableCellProperties28);
-            tableCell28.Append(paragraph33);
+            tableCell28.AppendChild(tableCellProperties28);
+            tableCell28.AppendChild(paragraph33);
 
             TableCell tableCell29 = new TableCell();
 
             TableCellProperties tableCellProperties29 = new TableCellProperties();
             TableCellWidth tableCellWidth29 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties29.Append(tableCellWidth29);
+            tableCellProperties29.AppendChild(tableCellWidth29);
 
             Paragraph paragraph34 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2140,8 +2800,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties17 = new ParagraphMarkRunProperties();
 
-            paragraphProperties18.Append(justification10);
-            paragraphProperties18.Append(paragraphMarkRunProperties17);
+            paragraphProperties18.AppendChild(justification10);
+            paragraphProperties18.AppendChild(paragraphMarkRunProperties17);
 
             Run run50 = new Run();
 
@@ -2151,19 +2811,19 @@ namespace BussinessLogic
             var cantMeasureNight = report.Measures.Count(m => m.Asleep.Value);
             text50.Text = cantMeasureNight.ToString();
 
-            run50.Append(runProperties26);
-            run50.Append(text50);
+            run50.AppendChild(runProperties26);
+            run50.AppendChild(text50);
 
-            paragraph34.Append(paragraphProperties18);
-            paragraph34.Append(run50);
+            paragraph34.AppendChild(paragraphProperties18);
+            paragraph34.AppendChild(run50);
 
-            tableCell29.Append(tableCellProperties29);
-            tableCell29.Append(paragraph34);
+            tableCell29.AppendChild(tableCellProperties29);
+            tableCell29.AppendChild(paragraph34);
 
-            tableRow15.Append(tableCell26);
-            tableRow15.Append(tableCell27);
-            tableRow15.Append(tableCell28);
-            tableRow15.Append(tableCell29);
+            tableRow15.AppendChild(tableCell26);
+            tableRow15.AppendChild(tableCell27);
+            tableRow15.AppendChild(tableCell28);
+            tableRow15.AppendChild(tableCell29);
 
             TableRow tableRow16 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "00A6498A" };
 
@@ -2172,7 +2832,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties30 = new TableCellProperties();
             TableCellWidth tableCellWidth30 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties30.Append(tableCellWidth30);
+            tableCellProperties30.AppendChild(tableCellWidth30);
 
             Paragraph paragraph35 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2181,8 +2841,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties18 = new ParagraphMarkRunProperties();
 
-            paragraphProperties19.Append(justification11);
-            paragraphProperties19.Append(paragraphMarkRunProperties18);
+            paragraphProperties19.AppendChild(justification11);
+            paragraphProperties19.AppendChild(paragraphMarkRunProperties18);
 
             Run run53 = new Run();
 
@@ -2190,21 +2850,21 @@ namespace BussinessLogic
             Text text53 = new Text();
             text53.Text = "Válido";
 
-            run53.Append(runProperties29);
-            run53.Append(text53);
+            run53.AppendChild(runProperties29);
+            run53.AppendChild(text53);
 
-            paragraph35.Append(paragraphProperties19);
-            paragraph35.Append(run53);
+            paragraph35.AppendChild(paragraphProperties19);
+            paragraph35.AppendChild(run53);
 
-            tableCell30.Append(tableCellProperties30);
-            tableCell30.Append(paragraph35);
+            tableCell30.AppendChild(tableCellProperties30);
+            tableCell30.AppendChild(paragraph35);
 
             TableCell tableCell31 = new TableCell();
 
             TableCellProperties tableCellProperties31 = new TableCellProperties();
             TableCellWidth tableCellWidth31 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties31.Append(tableCellWidth31);
+            tableCellProperties31.AppendChild(tableCellWidth31);
 
             Paragraph paragraph36 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2213,8 +2873,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties19 = new ParagraphMarkRunProperties();
 
-            paragraphProperties20.Append(justification12);
-            paragraphProperties20.Append(paragraphMarkRunProperties19);
+            paragraphProperties20.AppendChild(justification12);
+            paragraphProperties20.AppendChild(paragraphMarkRunProperties19);
 
             Run run54 = new Run();
 
@@ -2224,21 +2884,21 @@ namespace BussinessLogic
             var cantValidTot = report.Measures.Count(m => m.Valid);
             text54.Text = cantValidTot.ToString();
 
-            run54.Append(runProperties30);
-            run54.Append(text54);
+            run54.AppendChild(runProperties30);
+            run54.AppendChild(text54);
 
-            paragraph36.Append(paragraphProperties20);
-            paragraph36.Append(run54);
+            paragraph36.AppendChild(paragraphProperties20);
+            paragraph36.AppendChild(run54);
 
-            tableCell31.Append(tableCellProperties31);
-            tableCell31.Append(paragraph36);
+            tableCell31.AppendChild(tableCellProperties31);
+            tableCell31.AppendChild(paragraph36);
 
             TableCell tableCell32 = new TableCell();
 
             TableCellProperties tableCellProperties32 = new TableCellProperties();
             TableCellWidth tableCellWidth32 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties32.Append(tableCellWidth32);
+            tableCellProperties32.AppendChild(tableCellWidth32);
 
             Paragraph paragraph37 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2247,8 +2907,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties20 = new ParagraphMarkRunProperties();
 
-            paragraphProperties21.Append(justification13);
-            paragraphProperties21.Append(paragraphMarkRunProperties20);
+            paragraphProperties21.AppendChild(justification13);
+            paragraphProperties21.AppendChild(paragraphMarkRunProperties20);
 
             Run run57 = new Run();
 
@@ -2258,21 +2918,21 @@ namespace BussinessLogic
             var cantValidDay = report.Measures.Count(m => (m.Valid && (bool)(!m.Asleep)));
             text57.Text = cantValidDay.ToString();
 
-            run57.Append(runProperties33);
-            run57.Append(text57);
+            run57.AppendChild(runProperties33);
+            run57.AppendChild(text57);
 
-            paragraph37.Append(paragraphProperties21);
-            paragraph37.Append(run57);
+            paragraph37.AppendChild(paragraphProperties21);
+            paragraph37.AppendChild(run57);
 
-            tableCell32.Append(tableCellProperties32);
-            tableCell32.Append(paragraph37);
+            tableCell32.AppendChild(tableCellProperties32);
+            tableCell32.AppendChild(paragraph37);
 
             TableCell tableCell33 = new TableCell();
 
             TableCellProperties tableCellProperties33 = new TableCellProperties();
             TableCellWidth tableCellWidth33 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties33.Append(tableCellWidth33);
+            tableCellProperties33.AppendChild(tableCellWidth33);
 
             Paragraph paragraph38 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2281,30 +2941,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties21 = new ParagraphMarkRunProperties();
 
-            paragraphProperties22.Append(justification14);
-            paragraphProperties22.Append(paragraphMarkRunProperties21);
+            paragraphProperties22.AppendChild(justification14);
+            paragraphProperties22.AppendChild(paragraphMarkRunProperties21);
 
             Run run60 = new Run();
 
             RunProperties runProperties36 = new RunProperties();
             Text text60 = new Text();
             //Cantidad de medidas validas tomadas durante la noche
-            var cantValidNight = report.Measures.Count(m => m.Valid && (bool)m.Asleep);
+            var cantValidNight = report.Measures.Count(m => m.Valid && m.Asleep.Value);
             text60.Text = cantValidNight.ToString();
 
-            run60.Append(runProperties36);
-            run60.Append(text60);
+            run60.AppendChild(runProperties36);
+            run60.AppendChild(text60);
 
-            paragraph38.Append(paragraphProperties22);
-            paragraph38.Append(run60);
+            paragraph38.AppendChild(paragraphProperties22);
+            paragraph38.AppendChild(run60);
 
-            tableCell33.Append(tableCellProperties33);
-            tableCell33.Append(paragraph38);
+            tableCell33.AppendChild(tableCellProperties33);
+            tableCell33.AppendChild(paragraph38);
 
-            tableRow16.Append(tableCell30);
-            tableRow16.Append(tableCell31);
-            tableRow16.Append(tableCell32);
-            tableRow16.Append(tableCell33);
+            tableRow16.AppendChild(tableCell30);
+            tableRow16.AppendChild(tableCell31);
+            tableRow16.AppendChild(tableCell32);
+            tableRow16.AppendChild(tableCell33);
 
             TableRow tableRow17 = new TableRow() { RsidTableRowAddition = "00A6498A", RsidTableRowProperties = "00A6498A" };
 
@@ -2313,7 +2973,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties34 = new TableCellProperties();
             TableCellWidth tableCellWidth34 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties34.Append(tableCellWidth34);
+            tableCellProperties34.AppendChild(tableCellWidth34);
 
             Paragraph paragraph39 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2322,8 +2982,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties22 = new ParagraphMarkRunProperties();
 
-            paragraphProperties23.Append(justification15);
-            paragraphProperties23.Append(paragraphMarkRunProperties22);
+            paragraphProperties23.AppendChild(justification15);
+            paragraphProperties23.AppendChild(paragraphMarkRunProperties22);
 
             Run run61 = new Run();
 
@@ -2331,21 +2991,21 @@ namespace BussinessLogic
             Text text61 = new Text();
             text61.Text = "% Válido";
 
-            run61.Append(runProperties37);
-            run61.Append(text61);
+            run61.AppendChild(runProperties37);
+            run61.AppendChild(text61);
 
-            paragraph39.Append(paragraphProperties23);
-            paragraph39.Append(run61);
+            paragraph39.AppendChild(paragraphProperties23);
+            paragraph39.AppendChild(run61);
 
-            tableCell34.Append(tableCellProperties34);
-            tableCell34.Append(paragraph39);
+            tableCell34.AppendChild(tableCellProperties34);
+            tableCell34.AppendChild(paragraph39);
 
             TableCell tableCell35 = new TableCell();
 
             TableCellProperties tableCellProperties35 = new TableCellProperties();
             TableCellWidth tableCellWidth35 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties35.Append(tableCellWidth35);
+            tableCellProperties35.AppendChild(tableCellWidth35);
 
             Paragraph paragraph40 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2354,8 +3014,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties23 = new ParagraphMarkRunProperties();
 
-            paragraphProperties24.Append(justification16);
-            paragraphProperties24.Append(paragraphMarkRunProperties23);
+            paragraphProperties24.AppendChild(justification16);
+            paragraphProperties24.AppendChild(paragraphMarkRunProperties23);
 
             Run run62 = new Run();
 
@@ -2365,21 +3025,21 @@ namespace BussinessLogic
             var percentageTotal = (cantValidTot * 100) / cantMeasureTotal;
             text62.Text = percentageTotal.ToString();
 
-            run62.Append(runProperties38);
-            run62.Append(text62);
+            run62.AppendChild(runProperties38);
+            run62.AppendChild(text62);
 
-            paragraph40.Append(paragraphProperties24);
-            paragraph40.Append(run62);
+            paragraph40.AppendChild(paragraphProperties24);
+            paragraph40.AppendChild(run62);
 
-            tableCell35.Append(tableCellProperties35);
-            tableCell35.Append(paragraph40);
+            tableCell35.AppendChild(tableCellProperties35);
+            tableCell35.AppendChild(paragraph40);
 
             TableCell tableCell36 = new TableCell();
 
             TableCellProperties tableCellProperties36 = new TableCellProperties();
             TableCellWidth tableCellWidth36 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties36.Append(tableCellWidth36);
+            tableCellProperties36.AppendChild(tableCellWidth36);
 
             Paragraph paragraph41 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
@@ -2388,8 +3048,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties24 = new ParagraphMarkRunProperties();
 
-            paragraphProperties25.Append(justification17);
-            paragraphProperties25.Append(paragraphMarkRunProperties24);
+            paragraphProperties25.AppendChild(justification17);
+            paragraphProperties25.AppendChild(paragraphMarkRunProperties24);
 
             Run run63 = new Run();
 
@@ -2399,21 +3059,21 @@ namespace BussinessLogic
             var percentageDay = (cantValidDay * 100) / cantMeasureDay;
             text63.Text = percentageDay.ToString();
 
-            run63.Append(runProperties39);
-            run63.Append(text63);
+            run63.AppendChild(runProperties39);
+            run63.AppendChild(text63);
 
-            paragraph41.Append(paragraphProperties25);
-            paragraph41.Append(run63);
+            paragraph41.AppendChild(paragraphProperties25);
+            paragraph41.AppendChild(run63);
 
-            tableCell36.Append(tableCellProperties36);
-            tableCell36.Append(paragraph41);
+            tableCell36.AppendChild(tableCellProperties36);
+            tableCell36.AppendChild(paragraph41);
 
             TableCell tableCell37 = new TableCell();
 
             TableCellProperties tableCellProperties37 = new TableCellProperties();
             TableCellWidth tableCellWidth37 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties37.Append(tableCellWidth37);
+            tableCellProperties37.AppendChild(tableCellWidth37);
 
             Paragraph paragraph42 = new Paragraph() { RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00C204AF" };
 
@@ -2422,8 +3082,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties25 = new ParagraphMarkRunProperties();
 
-            paragraphProperties26.Append(justification18);
-            paragraphProperties26.Append(paragraphMarkRunProperties25);
+            paragraphProperties26.AppendChild(justification18);
+            paragraphProperties26.AppendChild(paragraphMarkRunProperties25);
 
             Run run67 = new Run();
 
@@ -2433,19 +3093,19 @@ namespace BussinessLogic
             var percentageNight = (cantValidNight * 100) / cantMeasureNight;
             text67.Text = percentageNight.ToString();
 
-            run67.Append(runProperties43);
-            run67.Append(text67);
+            run67.AppendChild(runProperties43);
+            run67.AppendChild(text67);
 
-            paragraph42.Append(paragraphProperties26);
-            paragraph42.Append(run67);
+            paragraph42.AppendChild(paragraphProperties26);
+            paragraph42.AppendChild(run67);
 
-            tableCell37.Append(tableCellProperties37);
-            tableCell37.Append(paragraph42);
+            tableCell37.AppendChild(tableCellProperties37);
+            tableCell37.AppendChild(paragraph42);
 
-            tableRow17.Append(tableCell34);
-            tableRow17.Append(tableCell35);
-            tableRow17.Append(tableCell36);
-            tableRow17.Append(tableCell37);
+            tableRow17.AppendChild(tableCell34);
+            tableRow17.AppendChild(tableCell35);
+            tableRow17.AppendChild(tableCell36);
+            tableRow17.AppendChild(tableCell37);
 
             TableRow tableRow18 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "00C204AF" };
 
@@ -2456,9 +3116,9 @@ namespace BussinessLogic
             GridSpan gridSpan6 = new GridSpan() { Val = 4 };
             Shading shading5 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties38.Append(tableCellWidth38);
-            tableCellProperties38.Append(gridSpan6);
-            tableCellProperties38.Append(shading5);
+            tableCellProperties38.AppendChild(tableCellWidth38);
+            tableCellProperties38.AppendChild(gridSpan6);
+            tableCellProperties38.AppendChild(shading5);
 
             Paragraph paragraph43 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "00C204AF", RsidRunAdditionDefault = "00C204AF" };
 
@@ -2466,28 +3126,28 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties26 = new ParagraphMarkRunProperties();
             Bold bold17 = new Bold();
-            paragraphMarkRunProperties26.Append(bold17);
+            paragraphMarkRunProperties26.AppendChild(bold17);
 
-            paragraphProperties27.Append(paragraphMarkRunProperties26);
+            paragraphProperties27.AppendChild(paragraphMarkRunProperties26);
 
             Run run68 = new Run() { RsidRunProperties = "00C204AF" };
 
             RunProperties runProperties44 = new RunProperties();
             Bold bold18 = new Bold();
-            runProperties44.Append(bold18);
+            runProperties44.AppendChild(bold18);
             Text text68 = new Text();
             text68.Text = "Promedio";
 
-            run68.Append(runProperties44);
-            run68.Append(text68);
+            run68.AppendChild(runProperties44);
+            run68.AppendChild(text68);
 
-            paragraph43.Append(paragraphProperties27);
-            paragraph43.Append(run68);
+            paragraph43.AppendChild(paragraphProperties27);
+            paragraph43.AppendChild(run68);
 
-            tableCell38.Append(tableCellProperties38);
-            tableCell38.Append(paragraph43);
+            tableCell38.AppendChild(tableCellProperties38);
+            tableCell38.AppendChild(paragraph43);
 
-            tableRow18.Append(tableCell38);
+            tableRow18.AppendChild(tableCell38);
 
             TableRow tableRow19 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -2496,7 +3156,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties39 = new TableCellProperties();
             TableCellWidth tableCellWidth39 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties39.Append(tableCellWidth39);
+            tableCellProperties39.AppendChild(tableCellWidth39);
 
             Paragraph paragraph44 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -2505,30 +3165,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties27 = new ParagraphMarkRunProperties();
 
-            paragraphProperties28.Append(justification19);
-            paragraphProperties28.Append(paragraphMarkRunProperties27);
+            paragraphProperties28.AppendChild(justification19);
+            paragraphProperties28.AppendChild(paragraphMarkRunProperties27);
 
             Run run69 = new Run();
 
             RunProperties runProperties45 = new RunProperties();
             Text text69 = new Text();
-            text69.Text = "Sistole";
+            text69.Text = "Presión arterial sistólica";
 
-            run69.Append(runProperties45);
-            run69.Append(text69);
+            run69.AppendChild(runProperties45);
+            run69.AppendChild(text69);
 
-            paragraph44.Append(paragraphProperties28);
-            paragraph44.Append(run69);
+            paragraph44.AppendChild(paragraphProperties28);
+            paragraph44.AppendChild(run69);
 
-            tableCell39.Append(tableCellProperties39);
-            tableCell39.Append(paragraph44);
+            tableCell39.AppendChild(tableCellProperties39);
+            tableCell39.AppendChild(paragraph44);
 
             TableCell tableCell40 = new TableCell();
 
             TableCellProperties tableCellProperties40 = new TableCellProperties();
             TableCellWidth tableCellWidth40 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties40.Append(tableCellWidth40);
+            tableCellProperties40.AppendChild(tableCellWidth40);
 
             Paragraph paragraph45 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2537,8 +3197,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties28 = new ParagraphMarkRunProperties();
 
-            paragraphProperties29.Append(justification20);
-            paragraphProperties29.Append(paragraphMarkRunProperties28);
+            paragraphProperties29.AppendChild(justification20);
+            paragraphProperties29.AppendChild(paragraphMarkRunProperties28);
 
             Run run71 = new Run();
 
@@ -2547,21 +3207,21 @@ namespace BussinessLogic
             //Promedio total de sistolica
             text71.Text = report.SystolicTotalAvg.ToString();
 
-            run71.Append(runProperties47);
-            run71.Append(text71);
+            run71.AppendChild(runProperties47);
+            run71.AppendChild(text71);
 
-            paragraph45.Append(paragraphProperties29);
-            paragraph45.Append(run71);
+            paragraph45.AppendChild(paragraphProperties29);
+            paragraph45.AppendChild(run71);
 
-            tableCell40.Append(tableCellProperties40);
-            tableCell40.Append(paragraph45);
+            tableCell40.AppendChild(tableCellProperties40);
+            tableCell40.AppendChild(paragraph45);
 
             TableCell tableCell41 = new TableCell();
 
             TableCellProperties tableCellProperties41 = new TableCellProperties();
             TableCellWidth tableCellWidth41 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties41.Append(tableCellWidth41);
+            tableCellProperties41.AppendChild(tableCellWidth41);
 
             Paragraph paragraph46 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2570,8 +3230,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties29 = new ParagraphMarkRunProperties();
 
-            paragraphProperties30.Append(justification21);
-            paragraphProperties30.Append(paragraphMarkRunProperties29);
+            paragraphProperties30.AppendChild(justification21);
+            paragraphProperties30.AppendChild(paragraphMarkRunProperties29);
 
             Run run78 = new Run();
 
@@ -2580,21 +3240,21 @@ namespace BussinessLogic
             //Promedio dia sistolica
             text78.Text = report.SystolicDayAvg.ToString();
 
-            run78.Append(runProperties54);
-            run78.Append(text78);
+            run78.AppendChild(runProperties54);
+            run78.AppendChild(text78);
 
-            paragraph46.Append(paragraphProperties30);
-            paragraph46.Append(run78);
+            paragraph46.AppendChild(paragraphProperties30);
+            paragraph46.AppendChild(run78);
 
-            tableCell41.Append(tableCellProperties41);
-            tableCell41.Append(paragraph46);
+            tableCell41.AppendChild(tableCellProperties41);
+            tableCell41.AppendChild(paragraph46);
 
             TableCell tableCell42 = new TableCell();
 
             TableCellProperties tableCellProperties42 = new TableCellProperties();
             TableCellWidth tableCellWidth42 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties42.Append(tableCellWidth42);
+            tableCellProperties42.AppendChild(tableCellWidth42);
 
             Paragraph paragraph47 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2603,8 +3263,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties30 = new ParagraphMarkRunProperties();
 
-            paragraphProperties31.Append(justification22);
-            paragraphProperties31.Append(paragraphMarkRunProperties30);
+            paragraphProperties31.AppendChild(justification22);
+            paragraphProperties31.AppendChild(paragraphMarkRunProperties30);
 
             Run run85 = new Run();
 
@@ -2613,19 +3273,19 @@ namespace BussinessLogic
             //Promedio noche sistolica
             text85.Text = report.SystolicNightAvg.ToString();
 
-            run85.Append(runProperties61);
-            run85.Append(text85);
+            run85.AppendChild(runProperties61);
+            run85.AppendChild(text85);
 
-            paragraph47.Append(paragraphProperties31);
-            paragraph47.Append(run85);
+            paragraph47.AppendChild(paragraphProperties31);
+            paragraph47.AppendChild(run85);
 
-            tableCell42.Append(tableCellProperties42);
-            tableCell42.Append(paragraph47);
+            tableCell42.AppendChild(tableCellProperties42);
+            tableCell42.AppendChild(paragraph47);
 
-            tableRow19.Append(tableCell39);
-            tableRow19.Append(tableCell40);
-            tableRow19.Append(tableCell41);
-            tableRow19.Append(tableCell42);
+            tableRow19.AppendChild(tableCell39);
+            tableRow19.AppendChild(tableCell40);
+            tableRow19.AppendChild(tableCell41);
+            tableRow19.AppendChild(tableCell42);
 
             TableRow tableRow20 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -2634,7 +3294,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties43 = new TableCellProperties();
             TableCellWidth tableCellWidth43 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties43.Append(tableCellWidth43);
+            tableCellProperties43.AppendChild(tableCellWidth43);
 
             Paragraph paragraph48 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -2643,30 +3303,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties31 = new ParagraphMarkRunProperties();
 
-            paragraphProperties32.Append(justification23);
-            paragraphProperties32.Append(paragraphMarkRunProperties31);
+            paragraphProperties32.AppendChild(justification23);
+            paragraphProperties32.AppendChild(paragraphMarkRunProperties31);
 
             Run run90 = new Run();
 
             RunProperties runProperties66 = new RunProperties();
             Text text90 = new Text();
-            text90.Text = "Diástole";
+            text90.Text = "Presión arterial diastólica";
 
-            run90.Append(runProperties66);
-            run90.Append(text90);
+            run90.AppendChild(runProperties66);
+            run90.AppendChild(text90);
 
-            paragraph48.Append(paragraphProperties32);
-            paragraph48.Append(run90);
+            paragraph48.AppendChild(paragraphProperties32);
+            paragraph48.AppendChild(run90);
 
-            tableCell43.Append(tableCellProperties43);
-            tableCell43.Append(paragraph48);
+            tableCell43.AppendChild(tableCellProperties43);
+            tableCell43.AppendChild(paragraph48);
 
             TableCell tableCell44 = new TableCell();
 
             TableCellProperties tableCellProperties44 = new TableCellProperties();
             TableCellWidth tableCellWidth44 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties44.Append(tableCellWidth44);
+            tableCellProperties44.AppendChild(tableCellWidth44);
 
             Paragraph paragraph49 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2675,8 +3335,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties32 = new ParagraphMarkRunProperties();
 
-            paragraphProperties33.Append(justification24);
-            paragraphProperties33.Append(paragraphMarkRunProperties32);
+            paragraphProperties33.AppendChild(justification24);
+            paragraphProperties33.AppendChild(paragraphMarkRunProperties32);
 
             Run run91 = new Run();
 
@@ -2685,21 +3345,21 @@ namespace BussinessLogic
             //Promedio del total de medidas diastolicas
             text91.Text = report.DiastolicTotalAvg.ToString();
 
-            run91.Append(runProperties67);
-            run91.Append(text91);
+            run91.AppendChild(runProperties67);
+            run91.AppendChild(text91);
 
-            paragraph49.Append(paragraphProperties33);
-            paragraph49.Append(run91);
+            paragraph49.AppendChild(paragraphProperties33);
+            paragraph49.AppendChild(run91);
 
-            tableCell44.Append(tableCellProperties44);
-            tableCell44.Append(paragraph49);
+            tableCell44.AppendChild(tableCellProperties44);
+            tableCell44.AppendChild(paragraph49);
 
             TableCell tableCell45 = new TableCell();
 
             TableCellProperties tableCellProperties45 = new TableCellProperties();
             TableCellWidth tableCellWidth45 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties45.Append(tableCellWidth45);
+            tableCellProperties45.AppendChild(tableCellWidth45);
 
             Paragraph paragraph50 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2708,8 +3368,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties33 = new ParagraphMarkRunProperties();
 
-            paragraphProperties34.Append(justification25);
-            paragraphProperties34.Append(paragraphMarkRunProperties33);
+            paragraphProperties34.AppendChild(justification25);
+            paragraphProperties34.AppendChild(paragraphMarkRunProperties33);
 
             Run run98 = new Run();
 
@@ -2718,21 +3378,21 @@ namespace BussinessLogic
             //Promedio dia diastolica
             text98.Text = report.DiastolicDayAvg.ToString();
 
-            run98.Append(runProperties74);
-            run98.Append(text98);
+            run98.AppendChild(runProperties74);
+            run98.AppendChild(text98);
 
-            paragraph50.Append(paragraphProperties34);
-            paragraph50.Append(run98);
+            paragraph50.AppendChild(paragraphProperties34);
+            paragraph50.AppendChild(run98);
 
-            tableCell45.Append(tableCellProperties45);
-            tableCell45.Append(paragraph50);
+            tableCell45.AppendChild(tableCellProperties45);
+            tableCell45.AppendChild(paragraph50);
 
             TableCell tableCell46 = new TableCell();
 
             TableCellProperties tableCellProperties46 = new TableCellProperties();
             TableCellWidth tableCellWidth46 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties46.Append(tableCellWidth46);
+            tableCellProperties46.AppendChild(tableCellWidth46);
 
             Paragraph paragraph51 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2741,8 +3401,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties34 = new ParagraphMarkRunProperties();
 
-            paragraphProperties35.Append(justification26);
-            paragraphProperties35.Append(paragraphMarkRunProperties34);
+            paragraphProperties35.AppendChild(justification26);
+            paragraphProperties35.AppendChild(paragraphMarkRunProperties34);
 
             Run run105 = new Run();
 
@@ -2751,19 +3411,19 @@ namespace BussinessLogic
             //Promedio noche diastolica
             text105.Text = report.DiastolicNightAvg.ToString();
 
-            run105.Append(runProperties81);
-            run105.Append(text105);
+            run105.AppendChild(runProperties81);
+            run105.AppendChild(text105);
 
-            paragraph51.Append(paragraphProperties35);
-            paragraph51.Append(run105);
+            paragraph51.AppendChild(paragraphProperties35);
+            paragraph51.AppendChild(run105);
 
-            tableCell46.Append(tableCellProperties46);
-            tableCell46.Append(paragraph51);
+            tableCell46.AppendChild(tableCellProperties46);
+            tableCell46.AppendChild(paragraph51);
 
-            tableRow20.Append(tableCell43);
-            tableRow20.Append(tableCell44);
-            tableRow20.Append(tableCell45);
-            tableRow20.Append(tableCell46);
+            tableRow20.AppendChild(tableCell43);
+            tableRow20.AppendChild(tableCell44);
+            tableRow20.AppendChild(tableCell45);
+            tableRow20.AppendChild(tableCell46);
 
             TableRow tableRow21 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -2772,7 +3432,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties47 = new TableCellProperties();
             TableCellWidth tableCellWidth47 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties47.Append(tableCellWidth47);
+            tableCellProperties47.AppendChild(tableCellWidth47);
 
             Paragraph paragraph52 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -2781,8 +3441,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties35 = new ParagraphMarkRunProperties();
 
-            paragraphProperties36.Append(justification27);
-            paragraphProperties36.Append(paragraphMarkRunProperties35);
+            paragraphProperties36.AppendChild(justification27);
+            paragraphProperties36.AppendChild(paragraphMarkRunProperties35);
 
             Run run110 = new Run();
 
@@ -2790,21 +3450,21 @@ namespace BussinessLogic
             Text text110 = new Text();
             text110.Text = "TAM";
 
-            run110.Append(runProperties86);
-            run110.Append(text110);
+            run110.AppendChild(runProperties86);
+            run110.AppendChild(text110);
 
-            paragraph52.Append(paragraphProperties36);
-            paragraph52.Append(run110);
+            paragraph52.AppendChild(paragraphProperties36);
+            paragraph52.AppendChild(run110);
 
-            tableCell47.Append(tableCellProperties47);
-            tableCell47.Append(paragraph52);
+            tableCell47.AppendChild(tableCellProperties47);
+            tableCell47.AppendChild(paragraph52);
 
             TableCell tableCell48 = new TableCell();
 
             TableCellProperties tableCellProperties48 = new TableCellProperties();
             TableCellWidth tableCellWidth48 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties48.Append(tableCellWidth48);
+            tableCellProperties48.AppendChild(tableCellWidth48);
 
             Paragraph paragraph53 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2813,8 +3473,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties36 = new ParagraphMarkRunProperties();
 
-            paragraphProperties37.Append(justification28);
-            paragraphProperties37.Append(paragraphMarkRunProperties36);
+            paragraphProperties37.AppendChild(justification28);
+            paragraphProperties37.AppendChild(paragraphMarkRunProperties36);
 
             Run run111 = new Run();
 
@@ -2823,21 +3483,21 @@ namespace BussinessLogic
             //Promedio total tam
             text111.Text = report.MiddleTotalAvg.ToString();
 
-            run111.Append(runProperties87);
-            run111.Append(text111);
+            run111.AppendChild(runProperties87);
+            run111.AppendChild(text111);
 
-            paragraph53.Append(paragraphProperties37);
-            paragraph53.Append(run111);
+            paragraph53.AppendChild(paragraphProperties37);
+            paragraph53.AppendChild(run111);
 
-            tableCell48.Append(tableCellProperties48);
-            tableCell48.Append(paragraph53);
+            tableCell48.AppendChild(tableCellProperties48);
+            tableCell48.AppendChild(paragraph53);
 
             TableCell tableCell49 = new TableCell();
 
             TableCellProperties tableCellProperties49 = new TableCellProperties();
             TableCellWidth tableCellWidth49 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties49.Append(tableCellWidth49);
+            tableCellProperties49.AppendChild(tableCellWidth49);
 
             Paragraph paragraph54 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2846,8 +3506,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties37 = new ParagraphMarkRunProperties();
 
-            paragraphProperties38.Append(justification29);
-            paragraphProperties38.Append(paragraphMarkRunProperties37);
+            paragraphProperties38.AppendChild(justification29);
+            paragraphProperties38.AppendChild(paragraphMarkRunProperties37);
 
             Run run118 = new Run();
 
@@ -2856,21 +3516,21 @@ namespace BussinessLogic
             //Pormedio dia TAM
             text118.Text = report.MiddleDayAvg.ToString();
 
-            run118.Append(runProperties94);
-            run118.Append(text118);
+            run118.AppendChild(runProperties94);
+            run118.AppendChild(text118);
 
-            paragraph54.Append(paragraphProperties38);
-            paragraph54.Append(run118);
+            paragraph54.AppendChild(paragraphProperties38);
+            paragraph54.AppendChild(run118);
 
-            tableCell49.Append(tableCellProperties49);
-            tableCell49.Append(paragraph54);
+            tableCell49.AppendChild(tableCellProperties49);
+            tableCell49.AppendChild(paragraph54);
 
             TableCell tableCell50 = new TableCell();
 
             TableCellProperties tableCellProperties50 = new TableCellProperties();
             TableCellWidth tableCellWidth50 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties50.Append(tableCellWidth50);
+            tableCellProperties50.AppendChild(tableCellWidth50);
 
             Paragraph paragraph55 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2879,8 +3539,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties38 = new ParagraphMarkRunProperties();
 
-            paragraphProperties39.Append(justification30);
-            paragraphProperties39.Append(paragraphMarkRunProperties38);
+            paragraphProperties39.AppendChild(justification30);
+            paragraphProperties39.AppendChild(paragraphMarkRunProperties38);
 
             Run run125 = new Run();
 
@@ -2889,19 +3549,19 @@ namespace BussinessLogic
             //Promedio noche TAM
             text125.Text = report.MiddleNightAvg.ToString();
 
-            run125.Append(runProperties101);
-            run125.Append(text125);
+            run125.AppendChild(runProperties101);
+            run125.AppendChild(text125);
 
-            paragraph55.Append(paragraphProperties39);
-            paragraph55.Append(run125);
+            paragraph55.AppendChild(paragraphProperties39);
+            paragraph55.AppendChild(run125);
 
-            tableCell50.Append(tableCellProperties50);
-            tableCell50.Append(paragraph55);
+            tableCell50.AppendChild(tableCellProperties50);
+            tableCell50.AppendChild(paragraph55);
 
-            tableRow21.Append(tableCell47);
-            tableRow21.Append(tableCell48);
-            tableRow21.Append(tableCell49);
-            tableRow21.Append(tableCell50);
+            tableRow21.AppendChild(tableCell47);
+            tableRow21.AppendChild(tableCell48);
+            tableRow21.AppendChild(tableCell49);
+            tableRow21.AppendChild(tableCell50);
 
             TableRow tableRow22 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -2910,7 +3570,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties51 = new TableCellProperties();
             TableCellWidth tableCellWidth51 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties51.Append(tableCellWidth51);
+            tableCellProperties51.AppendChild(tableCellWidth51);
 
             Paragraph paragraph56 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -2919,8 +3579,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties39 = new ParagraphMarkRunProperties();
 
-            paragraphProperties40.Append(justification31);
-            paragraphProperties40.Append(paragraphMarkRunProperties39);
+            paragraphProperties40.AppendChild(justification31);
+            paragraphProperties40.AppendChild(paragraphMarkRunProperties39);
 
             Run run130 = new Run();
 
@@ -2928,21 +3588,21 @@ namespace BussinessLogic
             Text text130 = new Text();
             text130.Text = "FC";
 
-            run130.Append(runProperties106);
-            run130.Append(text130);
+            run130.AppendChild(runProperties106);
+            run130.AppendChild(text130);
 
-            paragraph56.Append(paragraphProperties40);
-            paragraph56.Append(run130);
+            paragraph56.AppendChild(paragraphProperties40);
+            paragraph56.AppendChild(run130);
 
-            tableCell51.Append(tableCellProperties51);
-            tableCell51.Append(paragraph56);
+            tableCell51.AppendChild(tableCellProperties51);
+            tableCell51.AppendChild(paragraph56);
 
             TableCell tableCell52 = new TableCell();
 
             TableCellProperties tableCellProperties52 = new TableCellProperties();
             TableCellWidth tableCellWidth52 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties52.Append(tableCellWidth52);
+            tableCellProperties52.AppendChild(tableCellWidth52);
 
             Paragraph paragraph57 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2951,8 +3611,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties40 = new ParagraphMarkRunProperties();
 
-            paragraphProperties41.Append(justification32);
-            paragraphProperties41.Append(paragraphMarkRunProperties40);
+            paragraphProperties41.AppendChild(justification32);
+            paragraphProperties41.AppendChild(paragraphMarkRunProperties40);
 
             Run run131 = new Run();
 
@@ -2961,21 +3621,21 @@ namespace BussinessLogic
             //Pormedio total frecuencia cardiaca
             text131.Text = report.HeartRateTotalAvg.ToString();
 
-            run131.Append(runProperties107);
-            run131.Append(text131);
+            run131.AppendChild(runProperties107);
+            run131.AppendChild(text131);
 
-            paragraph57.Append(paragraphProperties41);
-            paragraph57.Append(run131);
+            paragraph57.AppendChild(paragraphProperties41);
+            paragraph57.AppendChild(run131);
 
-            tableCell52.Append(tableCellProperties52);
-            tableCell52.Append(paragraph57);
+            tableCell52.AppendChild(tableCellProperties52);
+            tableCell52.AppendChild(paragraph57);
 
             TableCell tableCell53 = new TableCell();
 
             TableCellProperties tableCellProperties53 = new TableCellProperties();
             TableCellWidth tableCellWidth53 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties53.Append(tableCellWidth53);
+            tableCellProperties53.AppendChild(tableCellWidth53);
 
             Paragraph paragraph58 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -2983,8 +3643,8 @@ namespace BussinessLogic
             Justification justification33 = new Justification() { Val = JustificationValues.Center };
 
             ParagraphMarkRunProperties paragraphMarkRunProperties41 = new ParagraphMarkRunProperties();
-            paragraphProperties42.Append(justification33);
-            paragraphProperties42.Append(paragraphMarkRunProperties41);
+            paragraphProperties42.AppendChild(justification33);
+            paragraphProperties42.AppendChild(paragraphMarkRunProperties41);
 
             Run run138 = new Run();
 
@@ -2993,21 +3653,21 @@ namespace BussinessLogic
             //Promedio dia frecuencia cardiaca
             text138.Text = report.HeartRateDayAvg.ToString();
 
-            run138.Append(runProperties114);
-            run138.Append(text138);
+            run138.AppendChild(runProperties114);
+            run138.AppendChild(text138);
 
-            paragraph58.Append(paragraphProperties42);
-            paragraph58.Append(run138);
+            paragraph58.AppendChild(paragraphProperties42);
+            paragraph58.AppendChild(run138);
 
-            tableCell53.Append(tableCellProperties53);
-            tableCell53.Append(paragraph58);
+            tableCell53.AppendChild(tableCellProperties53);
+            tableCell53.AppendChild(paragraph58);
 
             TableCell tableCell54 = new TableCell();
 
             TableCellProperties tableCellProperties54 = new TableCellProperties();
             TableCellWidth tableCellWidth54 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties54.Append(tableCellWidth54);
+            tableCellProperties54.AppendChild(tableCellWidth54);
 
             Paragraph paragraph59 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3016,8 +3676,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
-            paragraphProperties43.Append(justification34);
-            paragraphProperties43.Append(paragraphMarkRunProperties42);
+            paragraphProperties43.AppendChild(justification34);
+            paragraphProperties43.AppendChild(paragraphMarkRunProperties42);
 
             Run run145 = new Run();
 
@@ -3026,19 +3686,19 @@ namespace BussinessLogic
             //Promedio noche frecuencia cardiaca
             text145.Text = report.HeartRateNightAvg.ToString();
 
-            run145.Append(runProperties121);
-            run145.Append(text145);
+            run145.AppendChild(runProperties121);
+            run145.AppendChild(text145);
 
-            paragraph59.Append(paragraphProperties43);
-            paragraph59.Append(run145);
+            paragraph59.AppendChild(paragraphProperties43);
+            paragraph59.AppendChild(run145);
 
-            tableCell54.Append(tableCellProperties54);
-            tableCell54.Append(paragraph59);
+            tableCell54.AppendChild(tableCellProperties54);
+            tableCell54.AppendChild(paragraph59);
 
-            tableRow22.Append(tableCell51);
-            tableRow22.Append(tableCell52);
-            tableRow22.Append(tableCell53);
-            tableRow22.Append(tableCell54);
+            tableRow22.AppendChild(tableCell51);
+            tableRow22.AppendChild(tableCell52);
+            tableRow22.AppendChild(tableCell53);
+            tableRow22.AppendChild(tableCell54);
 
             TableRow tableRow23 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "00C204AF" };
 
@@ -3049,9 +3709,9 @@ namespace BussinessLogic
             GridSpan gridSpan7 = new GridSpan() { Val = 4 };
             Shading shading6 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties55.Append(tableCellWidth55);
-            tableCellProperties55.Append(gridSpan7);
-            tableCellProperties55.Append(shading6);
+            tableCellProperties55.AppendChild(tableCellWidth55);
+            tableCellProperties55.AppendChild(gridSpan7);
+            tableCellProperties55.AppendChild(shading6);
 
             Paragraph paragraph60 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "00C204AF", RsidRunAdditionDefault = "001B715B" };
 
@@ -3059,28 +3719,28 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties43 = new ParagraphMarkRunProperties();
             Bold bold19 = new Bold();
-            paragraphMarkRunProperties43.Append(bold19);
+            paragraphMarkRunProperties43.AppendChild(bold19);
 
-            paragraphProperties44.Append(paragraphMarkRunProperties43);
+            paragraphProperties44.AppendChild(paragraphMarkRunProperties43);
 
             Run run150 = new Run();
 
             RunProperties runProperties126 = new RunProperties();
             Bold bold20 = new Bold();
-            runProperties126.Append(bold20);
+            runProperties126.AppendChild(bold20);
             Text text150 = new Text();
             text150.Text = "Desviación Estandar";
 
-            run150.Append(runProperties126);
-            run150.Append(text150);
+            run150.AppendChild(runProperties126);
+            run150.AppendChild(text150);
 
-            paragraph60.Append(paragraphProperties44);
-            paragraph60.Append(run150);
+            paragraph60.AppendChild(paragraphProperties44);
+            paragraph60.AppendChild(run150);
 
-            tableCell55.Append(tableCellProperties55);
-            tableCell55.Append(paragraph60);
+            tableCell55.AppendChild(tableCellProperties55);
+            tableCell55.AppendChild(paragraph60);
 
-            tableRow23.Append(tableCell55);
+            tableRow23.AppendChild(tableCell55);
 
             TableRow tableRow24 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -3089,7 +3749,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties56 = new TableCellProperties();
             TableCellWidth tableCellWidth56 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties56.Append(tableCellWidth56);
+            tableCellProperties56.AppendChild(tableCellWidth56);
 
             Paragraph paragraph61 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3098,30 +3758,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties44 = new ParagraphMarkRunProperties();
 
-            paragraphProperties45.Append(justification35);
-            paragraphProperties45.Append(paragraphMarkRunProperties44);
+            paragraphProperties45.AppendChild(justification35);
+            paragraphProperties45.AppendChild(paragraphMarkRunProperties44);
 
             Run run154 = new Run();
 
             RunProperties runProperties130 = new RunProperties();
             Text text154 = new Text();
-            text154.Text = "Sistole";
+            text154.Text = "Presión arterial sistólica";
 
-            run154.Append(runProperties130);
-            run154.Append(text154);
+            run154.AppendChild(runProperties130);
+            run154.AppendChild(text154);
 
-            paragraph61.Append(paragraphProperties45);
-            paragraph61.Append(run154);
+            paragraph61.AppendChild(paragraphProperties45);
+            paragraph61.AppendChild(run154);
 
-            tableCell56.Append(tableCellProperties56);
-            tableCell56.Append(paragraph61);
+            tableCell56.AppendChild(tableCellProperties56);
+            tableCell56.AppendChild(paragraph61);
 
             TableCell tableCell57 = new TableCell();
 
             TableCellProperties tableCellProperties57 = new TableCellProperties();
             TableCellWidth tableCellWidth57 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties57.Append(tableCellWidth57);
+            tableCellProperties57.AppendChild(tableCellWidth57);
 
             Paragraph paragraph62 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3130,8 +3790,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties45 = new ParagraphMarkRunProperties();
 
-            paragraphProperties46.Append(justification36);
-            paragraphProperties46.Append(paragraphMarkRunProperties45);
+            paragraphProperties46.AppendChild(justification36);
+            paragraphProperties46.AppendChild(paragraphMarkRunProperties45);
 
             Run run156 = new Run();
 
@@ -3140,21 +3800,21 @@ namespace BussinessLogic
             //Desviacion estandar total sistolica 
             text156.Text = report.StandardDeviationSysTotal.ToString();
 
-            run156.Append(runProperties132);
-            run156.Append(text156);
+            run156.AppendChild(runProperties132);
+            run156.AppendChild(text156);
 
-            paragraph62.Append(paragraphProperties46);
-            paragraph62.Append(run156);
+            paragraph62.AppendChild(paragraphProperties46);
+            paragraph62.AppendChild(run156);
 
-            tableCell57.Append(tableCellProperties57);
-            tableCell57.Append(paragraph62);
+            tableCell57.AppendChild(tableCellProperties57);
+            tableCell57.AppendChild(paragraph62);
 
             TableCell tableCell58 = new TableCell();
 
             TableCellProperties tableCellProperties58 = new TableCellProperties();
             TableCellWidth tableCellWidth58 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties58.Append(tableCellWidth58);
+            tableCellProperties58.AppendChild(tableCellWidth58);
 
             Paragraph paragraph63 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3163,8 +3823,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties46 = new ParagraphMarkRunProperties();
 
-            paragraphProperties47.Append(justification37);
-            paragraphProperties47.Append(paragraphMarkRunProperties46);
+            paragraphProperties47.AppendChild(justification37);
+            paragraphProperties47.AppendChild(paragraphMarkRunProperties46);
 
             Run run161 = new Run();
 
@@ -3173,21 +3833,21 @@ namespace BussinessLogic
             //Desviacion estandar sistolica del dia
             text161.Text = report.StandardDeviationSysDay.ToString();
 
-            run161.Append(runProperties137);
-            run161.Append(text161);
+            run161.AppendChild(runProperties137);
+            run161.AppendChild(text161);
 
-            paragraph63.Append(paragraphProperties47);
-            paragraph63.Append(run161);
+            paragraph63.AppendChild(paragraphProperties47);
+            paragraph63.AppendChild(run161);
 
-            tableCell58.Append(tableCellProperties58);
-            tableCell58.Append(paragraph63);
+            tableCell58.AppendChild(tableCellProperties58);
+            tableCell58.AppendChild(paragraph63);
 
             TableCell tableCell59 = new TableCell();
 
             TableCellProperties tableCellProperties59 = new TableCellProperties();
             TableCellWidth tableCellWidth59 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties59.Append(tableCellWidth59);
+            tableCellProperties59.AppendChild(tableCellWidth59);
 
             Paragraph paragraph64 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3196,8 +3856,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties47 = new ParagraphMarkRunProperties();
 
-            paragraphProperties48.Append(justification38);
-            paragraphProperties48.Append(paragraphMarkRunProperties47);
+            paragraphProperties48.AppendChild(justification38);
+            paragraphProperties48.AppendChild(paragraphMarkRunProperties47);
 
             Run run166 = new Run();
 
@@ -3206,19 +3866,19 @@ namespace BussinessLogic
             //Desvacion estandar noche sistolica
             text166.Text = report.StandardDeviationSysNight.ToString();
 
-            run166.Append(runProperties142);
-            run166.Append(text166);
+            run166.AppendChild(runProperties142);
+            run166.AppendChild(text166);
 
-            paragraph64.Append(paragraphProperties48);
-            paragraph64.Append(run166);
+            paragraph64.AppendChild(paragraphProperties48);
+            paragraph64.AppendChild(run166);
 
-            tableCell59.Append(tableCellProperties59);
-            tableCell59.Append(paragraph64);
+            tableCell59.AppendChild(tableCellProperties59);
+            tableCell59.AppendChild(paragraph64);
 
-            tableRow24.Append(tableCell56);
-            tableRow24.Append(tableCell57);
-            tableRow24.Append(tableCell58);
-            tableRow24.Append(tableCell59);
+            tableRow24.AppendChild(tableCell56);
+            tableRow24.AppendChild(tableCell57);
+            tableRow24.AppendChild(tableCell58);
+            tableRow24.AppendChild(tableCell59);
 
             TableRow tableRow25 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -3227,7 +3887,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties60 = new TableCellProperties();
             TableCellWidth tableCellWidth60 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties60.Append(tableCellWidth60);
+            tableCellProperties60.AppendChild(tableCellWidth60);
 
             Paragraph paragraph65 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3236,30 +3896,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties48 = new ParagraphMarkRunProperties();
 
-            paragraphProperties49.Append(justification39);
-            paragraphProperties49.Append(paragraphMarkRunProperties48);
+            paragraphProperties49.AppendChild(justification39);
+            paragraphProperties49.AppendChild(paragraphMarkRunProperties48);
 
             Run run169 = new Run();
 
             RunProperties runProperties145 = new RunProperties();
             Text text169 = new Text();
-            text169.Text = "Diástole";
+            text169.Text = "Presión arterial diastólica";
 
-            run169.Append(runProperties145);
-            run169.Append(text169);
+            run169.AppendChild(runProperties145);
+            run169.AppendChild(text169);
 
-            paragraph65.Append(paragraphProperties49);
-            paragraph65.Append(run169);
+            paragraph65.AppendChild(paragraphProperties49);
+            paragraph65.AppendChild(run169);
 
-            tableCell60.Append(tableCellProperties60);
-            tableCell60.Append(paragraph65);
+            tableCell60.AppendChild(tableCellProperties60);
+            tableCell60.AppendChild(paragraph65);
 
             TableCell tableCell61 = new TableCell();
 
             TableCellProperties tableCellProperties61 = new TableCellProperties();
             TableCellWidth tableCellWidth61 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties61.Append(tableCellWidth61);
+            tableCellProperties61.AppendChild(tableCellWidth61);
 
             Paragraph paragraph66 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3268,8 +3928,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties49 = new ParagraphMarkRunProperties();
 
-            paragraphProperties50.Append(justification40);
-            paragraphProperties50.Append(paragraphMarkRunProperties49);
+            paragraphProperties50.AppendChild(justification40);
+            paragraphProperties50.AppendChild(paragraphMarkRunProperties49);
 
             Run run170 = new Run();
 
@@ -3278,21 +3938,21 @@ namespace BussinessLogic
             //desviacion estandar diastolica total
             text170.Text = report.StandardDeviationDiasTotal.ToString();
 
-            run170.Append(runProperties146);
-            run170.Append(text170);
+            run170.AppendChild(runProperties146);
+            run170.AppendChild(text170);
 
-            paragraph66.Append(paragraphProperties50);
-            paragraph66.Append(run170);
+            paragraph66.AppendChild(paragraphProperties50);
+            paragraph66.AppendChild(run170);
 
-            tableCell61.Append(tableCellProperties61);
-            tableCell61.Append(paragraph66);
+            tableCell61.AppendChild(tableCellProperties61);
+            tableCell61.AppendChild(paragraph66);
 
             TableCell tableCell62 = new TableCell();
 
             TableCellProperties tableCellProperties62 = new TableCellProperties();
             TableCellWidth tableCellWidth62 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties62.Append(tableCellWidth62);
+            tableCellProperties62.AppendChild(tableCellWidth62);
 
             Paragraph paragraph67 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3301,8 +3961,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties50 = new ParagraphMarkRunProperties();
 
-            paragraphProperties51.Append(justification41);
-            paragraphProperties51.Append(paragraphMarkRunProperties50);
+            paragraphProperties51.AppendChild(justification41);
+            paragraphProperties51.AppendChild(paragraphMarkRunProperties50);
 
             Run run175 = new Run();
 
@@ -3311,21 +3971,21 @@ namespace BussinessLogic
             //Desviacion estandar dia diastolica
             text175.Text = report.StandardDeviationDiasDay.ToString();
 
-            run175.Append(runProperties151);
-            run175.Append(text175);
+            run175.AppendChild(runProperties151);
+            run175.AppendChild(text175);
 
-            paragraph67.Append(paragraphProperties51);
-            paragraph67.Append(run175);
+            paragraph67.AppendChild(paragraphProperties51);
+            paragraph67.AppendChild(run175);
 
-            tableCell62.Append(tableCellProperties62);
-            tableCell62.Append(paragraph67);
+            tableCell62.AppendChild(tableCellProperties62);
+            tableCell62.AppendChild(paragraph67);
 
             TableCell tableCell63 = new TableCell();
 
             TableCellProperties tableCellProperties63 = new TableCellProperties();
             TableCellWidth tableCellWidth63 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties63.Append(tableCellWidth63);
+            tableCellProperties63.AppendChild(tableCellWidth63);
 
             Paragraph paragraph68 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3334,8 +3994,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties51 = new ParagraphMarkRunProperties();
 
-            paragraphProperties52.Append(justification42);
-            paragraphProperties52.Append(paragraphMarkRunProperties51);
+            paragraphProperties52.AppendChild(justification42);
+            paragraphProperties52.AppendChild(paragraphMarkRunProperties51);
 
             Run run180 = new Run();
 
@@ -3344,19 +4004,19 @@ namespace BussinessLogic
             //Desviacion estandar noche diastolica
             text180.Text = report.StandardDeviationDiasNight.ToString();
 
-            run180.Append(runProperties156);
-            run180.Append(text180);
+            run180.AppendChild(runProperties156);
+            run180.AppendChild(text180);
 
-            paragraph68.Append(paragraphProperties52);
-            paragraph68.Append(run180);
+            paragraph68.AppendChild(paragraphProperties52);
+            paragraph68.AppendChild(run180);
 
-            tableCell63.Append(tableCellProperties63);
-            tableCell63.Append(paragraph68);
+            tableCell63.AppendChild(tableCellProperties63);
+            tableCell63.AppendChild(paragraph68);
 
-            tableRow25.Append(tableCell60);
-            tableRow25.Append(tableCell61);
-            tableRow25.Append(tableCell62);
-            tableRow25.Append(tableCell63);
+            tableRow25.AppendChild(tableCell60);
+            tableRow25.AppendChild(tableCell61);
+            tableRow25.AppendChild(tableCell62);
+            tableRow25.AppendChild(tableCell63);
 
             TableRow tableRow26 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -3365,7 +4025,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties64 = new TableCellProperties();
             TableCellWidth tableCellWidth64 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties64.Append(tableCellWidth64);
+            tableCellProperties64.AppendChild(tableCellWidth64);
 
             Paragraph paragraph69 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3374,8 +4034,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties52 = new ParagraphMarkRunProperties();
 
-            paragraphProperties53.Append(justification43);
-            paragraphProperties53.Append(paragraphMarkRunProperties52);
+            paragraphProperties53.AppendChild(justification43);
+            paragraphProperties53.AppendChild(paragraphMarkRunProperties52);
 
             Run run183 = new Run();
 
@@ -3383,21 +4043,21 @@ namespace BussinessLogic
             Text text183 = new Text();
             text183.Text = "TAM";
 
-            run183.Append(runProperties159);
-            run183.Append(text183);
+            run183.AppendChild(runProperties159);
+            run183.AppendChild(text183);
 
-            paragraph69.Append(paragraphProperties53);
-            paragraph69.Append(run183);
+            paragraph69.AppendChild(paragraphProperties53);
+            paragraph69.AppendChild(run183);
 
-            tableCell64.Append(tableCellProperties64);
-            tableCell64.Append(paragraph69);
+            tableCell64.AppendChild(tableCellProperties64);
+            tableCell64.AppendChild(paragraph69);
 
             TableCell tableCell65 = new TableCell();
 
             TableCellProperties tableCellProperties65 = new TableCellProperties();
             TableCellWidth tableCellWidth65 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties65.Append(tableCellWidth65);
+            tableCellProperties65.AppendChild(tableCellWidth65);
 
             Paragraph paragraph70 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3406,8 +4066,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties53 = new ParagraphMarkRunProperties();
 
-            paragraphProperties54.Append(justification44);
-            paragraphProperties54.Append(paragraphMarkRunProperties53);
+            paragraphProperties54.AppendChild(justification44);
+            paragraphProperties54.AppendChild(paragraphMarkRunProperties53);
 
             Run run184 = new Run();
 
@@ -3416,21 +4076,21 @@ namespace BussinessLogic
             //Desviacion estandar total TAM
             text184.Text = report.StandardDeviationTamTotal.ToString();
 
-            run184.Append(runProperties160);
-            run184.Append(text184);
+            run184.AppendChild(runProperties160);
+            run184.AppendChild(text184);
 
-            paragraph70.Append(paragraphProperties54);
-            paragraph70.Append(run184);
+            paragraph70.AppendChild(paragraphProperties54);
+            paragraph70.AppendChild(run184);
 
-            tableCell65.Append(tableCellProperties65);
-            tableCell65.Append(paragraph70);
+            tableCell65.AppendChild(tableCellProperties65);
+            tableCell65.AppendChild(paragraph70);
 
             TableCell tableCell66 = new TableCell();
 
             TableCellProperties tableCellProperties66 = new TableCellProperties();
             TableCellWidth tableCellWidth66 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties66.Append(tableCellWidth66);
+            tableCellProperties66.AppendChild(tableCellWidth66);
 
             Paragraph paragraph71 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3439,8 +4099,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties54 = new ParagraphMarkRunProperties();
 
-            paragraphProperties55.Append(justification45);
-            paragraphProperties55.Append(paragraphMarkRunProperties54);
+            paragraphProperties55.AppendChild(justification45);
+            paragraphProperties55.AppendChild(paragraphMarkRunProperties54);
 
             Run run189 = new Run();
 
@@ -3449,21 +4109,21 @@ namespace BussinessLogic
             //Desviacion estandar dia TAM
             text189.Text = report.StandardDeviationTamDay.ToString();
 
-            run189.Append(runProperties165);
-            run189.Append(text189);
+            run189.AppendChild(runProperties165);
+            run189.AppendChild(text189);
 
-            paragraph71.Append(paragraphProperties55);
-            paragraph71.Append(run189);
+            paragraph71.AppendChild(paragraphProperties55);
+            paragraph71.AppendChild(run189);
 
-            tableCell66.Append(tableCellProperties66);
-            tableCell66.Append(paragraph71);
+            tableCell66.AppendChild(tableCellProperties66);
+            tableCell66.AppendChild(paragraph71);
 
             TableCell tableCell67 = new TableCell();
 
             TableCellProperties tableCellProperties67 = new TableCellProperties();
             TableCellWidth tableCellWidth67 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties67.Append(tableCellWidth67);
+            tableCellProperties67.AppendChild(tableCellWidth67);
 
             Paragraph paragraph72 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3472,8 +4132,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties55 = new ParagraphMarkRunProperties();
 
-            paragraphProperties56.Append(justification46);
-            paragraphProperties56.Append(paragraphMarkRunProperties55);
+            paragraphProperties56.AppendChild(justification46);
+            paragraphProperties56.AppendChild(paragraphMarkRunProperties55);
 
             Run run194 = new Run();
 
@@ -3482,19 +4142,19 @@ namespace BussinessLogic
             //Desviacion estandar noche TAM
             text194.Text = report.StandarDeviationTamNight.ToString();
 
-            run194.Append(runProperties170);
-            run194.Append(text194);
+            run194.AppendChild(runProperties170);
+            run194.AppendChild(text194);
 
-            paragraph72.Append(paragraphProperties56);
-            paragraph72.Append(run194);
+            paragraph72.AppendChild(paragraphProperties56);
+            paragraph72.AppendChild(run194);
 
-            tableCell67.Append(tableCellProperties67);
-            tableCell67.Append(paragraph72);
+            tableCell67.AppendChild(tableCellProperties67);
+            tableCell67.AppendChild(paragraph72);
 
-            tableRow26.Append(tableCell64);
-            tableRow26.Append(tableCell65);
-            tableRow26.Append(tableCell66);
-            tableRow26.Append(tableCell67);
+            tableRow26.AppendChild(tableCell64);
+            tableRow26.AppendChild(tableCell65);
+            tableRow26.AppendChild(tableCell66);
+            tableRow26.AppendChild(tableCell67);
 
             TableRow tableRow27 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -3503,7 +4163,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties68 = new TableCellProperties();
             TableCellWidth tableCellWidth68 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties68.Append(tableCellWidth68);
+            tableCellProperties68.AppendChild(tableCellWidth68);
 
             Paragraph paragraph73 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3512,8 +4172,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties56 = new ParagraphMarkRunProperties();
 
-            paragraphProperties57.Append(justification47);
-            paragraphProperties57.Append(paragraphMarkRunProperties56);
+            paragraphProperties57.AppendChild(justification47);
+            paragraphProperties57.AppendChild(paragraphMarkRunProperties56);
 
             Run run197 = new Run();
 
@@ -3521,21 +4181,21 @@ namespace BussinessLogic
             Text text197 = new Text();
             text197.Text = "FC";
 
-            run197.Append(runProperties173);
-            run197.Append(text197);
+            run197.AppendChild(runProperties173);
+            run197.AppendChild(text197);
 
-            paragraph73.Append(paragraphProperties57);
-            paragraph73.Append(run197);
+            paragraph73.AppendChild(paragraphProperties57);
+            paragraph73.AppendChild(run197);
 
-            tableCell68.Append(tableCellProperties68);
-            tableCell68.Append(paragraph73);
+            tableCell68.AppendChild(tableCellProperties68);
+            tableCell68.AppendChild(paragraph73);
 
             TableCell tableCell69 = new TableCell();
 
             TableCellProperties tableCellProperties69 = new TableCellProperties();
             TableCellWidth tableCellWidth69 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties69.Append(tableCellWidth69);
+            tableCellProperties69.AppendChild(tableCellWidth69);
 
             Paragraph paragraph74 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3544,8 +4204,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties57 = new ParagraphMarkRunProperties();
 
-            paragraphProperties58.Append(justification48);
-            paragraphProperties58.Append(paragraphMarkRunProperties57);
+            paragraphProperties58.AppendChild(justification48);
+            paragraphProperties58.AppendChild(paragraphMarkRunProperties57);
 
             Run run198 = new Run();
 
@@ -3554,21 +4214,21 @@ namespace BussinessLogic
             //Desviacion estandar total frecuencia cardiaca
             text198.Text = report.StandardDeviationHeartRateTotal.ToString();
 
-            run198.Append(runProperties174);
-            run198.Append(text198);
+            run198.AppendChild(runProperties174);
+            run198.AppendChild(text198);
 
-            paragraph74.Append(paragraphProperties58);
-            paragraph74.Append(run198);
+            paragraph74.AppendChild(paragraphProperties58);
+            paragraph74.AppendChild(run198);
 
-            tableCell69.Append(tableCellProperties69);
-            tableCell69.Append(paragraph74);
+            tableCell69.AppendChild(tableCellProperties69);
+            tableCell69.AppendChild(paragraph74);
 
             TableCell tableCell70 = new TableCell();
 
             TableCellProperties tableCellProperties70 = new TableCellProperties();
             TableCellWidth tableCellWidth70 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties70.Append(tableCellWidth70);
+            tableCellProperties70.AppendChild(tableCellWidth70);
 
             Paragraph paragraph75 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3577,8 +4237,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties58 = new ParagraphMarkRunProperties();
 
-            paragraphProperties59.Append(justification49);
-            paragraphProperties59.Append(paragraphMarkRunProperties58);
+            paragraphProperties59.AppendChild(justification49);
+            paragraphProperties59.AppendChild(paragraphMarkRunProperties58);
 
             Run run203 = new Run();
 
@@ -3587,21 +4247,21 @@ namespace BussinessLogic
             //Desviacion estandar frecuencia cardiaca dia
             text203.Text = report.StandardDeviationHeartRateDay.ToString();
 
-            run203.Append(runProperties179);
-            run203.Append(text203);
+            run203.AppendChild(runProperties179);
+            run203.AppendChild(text203);
 
-            paragraph75.Append(paragraphProperties59);
-            paragraph75.Append(run203);
+            paragraph75.AppendChild(paragraphProperties59);
+            paragraph75.AppendChild(run203);
 
-            tableCell70.Append(tableCellProperties70);
-            tableCell70.Append(paragraph75);
+            tableCell70.AppendChild(tableCellProperties70);
+            tableCell70.AppendChild(paragraph75);
 
             TableCell tableCell71 = new TableCell();
 
             TableCellProperties tableCellProperties71 = new TableCellProperties();
             TableCellWidth tableCellWidth71 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties71.Append(tableCellWidth71);
+            tableCellProperties71.AppendChild(tableCellWidth71);
 
             Paragraph paragraph76 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3610,8 +4270,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties59 = new ParagraphMarkRunProperties();
 
-            paragraphProperties60.Append(justification50);
-            paragraphProperties60.Append(paragraphMarkRunProperties59);
+            paragraphProperties60.AppendChild(justification50);
+            paragraphProperties60.AppendChild(paragraphMarkRunProperties59);
 
             Run run208 = new Run();
 
@@ -3620,19 +4280,19 @@ namespace BussinessLogic
             //Desviacion estandar frecuencia cardiaca noche
             text208.Text = report.StandardDeviationHeartRateNight.ToString();
 
-            run208.Append(runProperties184);
-            run208.Append(text208);
+            run208.AppendChild(runProperties184);
+            run208.AppendChild(text208);
 
-            paragraph76.Append(paragraphProperties60);
-            paragraph76.Append(run208);
+            paragraph76.AppendChild(paragraphProperties60);
+            paragraph76.AppendChild(run208);
 
-            tableCell71.Append(tableCellProperties71);
-            tableCell71.Append(paragraph76);
+            tableCell71.AppendChild(tableCellProperties71);
+            tableCell71.AppendChild(paragraph76);
 
-            tableRow27.Append(tableCell68);
-            tableRow27.Append(tableCell69);
-            tableRow27.Append(tableCell70);
-            tableRow27.Append(tableCell71);
+            tableRow27.AppendChild(tableCell68);
+            tableRow27.AppendChild(tableCell69);
+            tableRow27.AppendChild(tableCell70);
+            tableRow27.AppendChild(tableCell71);
 
             TableRow tableRow28 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "00C204AF" };
 
@@ -3643,9 +4303,9 @@ namespace BussinessLogic
             GridSpan gridSpan8 = new GridSpan() { Val = 4 };
             Shading shading7 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties72.Append(tableCellWidth72);
-            tableCellProperties72.Append(gridSpan8);
-            tableCellProperties72.Append(shading7);
+            tableCellProperties72.AppendChild(tableCellWidth72);
+            tableCellProperties72.AppendChild(gridSpan8);
+            tableCellProperties72.AppendChild(shading7);
 
             Paragraph paragraph77 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "00C204AF", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3654,28 +4314,31 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties60 = new ParagraphMarkRunProperties();
             Bold bold24 = new Bold();
 
-            paragraphMarkRunProperties60.Append(bold24);
+            paragraphMarkRunProperties60.AppendChild(bold24);
 
-            paragraphProperties61.Append(paragraphMarkRunProperties60);
+            paragraphProperties61.AppendChild(paragraphMarkRunProperties60);
 
             Run run211 = new Run() { RsidRunProperties = "00C204AF" };
 
             RunProperties runProperties187 = new RunProperties();
             Bold bold25 = new Bold();
-            runProperties187.Append(bold25);
+            runProperties187.AppendChild(bold25);
             Text text211 = new Text();
             text211.Text = "Valores por encima del límite";
 
-            run211.Append(runProperties187);
-            run211.Append(text211);
+            var uda = new UdaHtaDataAccess();
+            var limits = uda.GetLimits();
 
-            paragraph77.Append(paragraphProperties61);
-            paragraph77.Append(run211);
+            run211.AppendChild(runProperties187);
+            run211.AppendChild(text211);
 
-            tableCell72.Append(tableCellProperties72);
-            tableCell72.Append(paragraph77);
+            paragraph77.AppendChild(paragraphProperties61);
+            paragraph77.AppendChild(run211);
 
-            tableRow28.Append(tableCell72);
+            tableCell72.AppendChild(tableCellProperties72);
+            tableCell72.AppendChild(paragraph77);
+
+            tableRow28.AppendChild(tableCell72);
 
             TableRow tableRow29 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -3684,7 +4347,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties73 = new TableCellProperties();
             TableCellWidth tableCellWidth73 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties73.Append(tableCellWidth73);
+            tableCellProperties73.AppendChild(tableCellWidth73);
 
             Paragraph paragraph78 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3693,30 +4356,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties61 = new ParagraphMarkRunProperties();
 
-            paragraphProperties62.Append(justification51);
-            paragraphProperties62.Append(paragraphMarkRunProperties61);
+            paragraphProperties62.AppendChild(justification51);
+            paragraphProperties62.AppendChild(paragraphMarkRunProperties61);
 
             Run run212 = new Run();
 
             RunProperties runProperties188 = new RunProperties();
             Text text212 = new Text();
-            text212.Text = "Sistole";
+            text212.Text = "Presión arterial sistólica";
 
-            run212.Append(runProperties188);
-            run212.Append(text212);
+            run212.AppendChild(runProperties188);
+            run212.AppendChild(text212);
 
-            paragraph78.Append(paragraphProperties62);
-            paragraph78.Append(run212);
+            paragraph78.AppendChild(paragraphProperties62);
+            paragraph78.AppendChild(run212);
 
-            tableCell73.Append(tableCellProperties73);
-            tableCell73.Append(paragraph78);
+            tableCell73.AppendChild(tableCellProperties73);
+            tableCell73.AppendChild(paragraph78);
 
             TableCell tableCell74 = new TableCell();
 
             TableCellProperties tableCellProperties74 = new TableCellProperties();
             TableCellWidth tableCellWidth74 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties74.Append(tableCellWidth74);
+            tableCellProperties74.AppendChild(tableCellWidth74);
 
             Paragraph paragraph79 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3725,8 +4388,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties62 = new ParagraphMarkRunProperties();
 
-            paragraphProperties63.Append(justification52);
-            paragraphProperties63.Append(paragraphMarkRunProperties62);
+            paragraphProperties63.AppendChild(justification52);
+            paragraphProperties63.AppendChild(paragraphMarkRunProperties62);
 
             Run run214 = new Run();
 
@@ -3735,21 +4398,21 @@ namespace BussinessLogic
             //Porcentaje de valores por encima del limite sistolica
             text214.Text = "";
 
-            run214.Append(runProperties190);
-            run214.Append(text214);
+            run214.AppendChild(runProperties190);
+            run214.AppendChild(text214);
 
-            paragraph79.Append(paragraphProperties63);
-            paragraph79.Append(run214);
+            paragraph79.AppendChild(paragraphProperties63);
+            paragraph79.AppendChild(run214);
 
-            tableCell74.Append(tableCellProperties74);
-            tableCell74.Append(paragraph79);
+            tableCell74.AppendChild(tableCellProperties74);
+            tableCell74.AppendChild(paragraph79);
 
             TableCell tableCell75 = new TableCell();
 
             TableCellProperties tableCellProperties75 = new TableCellProperties();
             TableCellWidth tableCellWidth75 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties75.Append(tableCellWidth75);
+            tableCellProperties75.AppendChild(tableCellWidth75);
 
             Paragraph paragraph80 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3758,31 +4421,32 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties63 = new ParagraphMarkRunProperties();
 
-            paragraphProperties64.Append(justification53);
-            paragraphProperties64.Append(paragraphMarkRunProperties63);
+            paragraphProperties64.AppendChild(justification53);
+            paragraphProperties64.AppendChild(paragraphMarkRunProperties63);
 
             Run run221 = new Run();
 
             RunProperties runProperties197 = new RunProperties();
             Text text221 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite sistolica
-            text221.Text = "< val lim sis>";
+            // val lim sis
+            text221.Text = (report.Measures.Count(m => m.Asleep.Value && m.Systolic > limits.MaxSysDay)*100/cantValidDay).ToString();
 
-            run221.Append(runProperties197);
-            run221.Append(text221);
+            run221.AppendChild(runProperties197);
+            run221.AppendChild(text221);
 
-            paragraph80.Append(paragraphProperties64);
-            paragraph80.Append(run221);
+            paragraph80.AppendChild(paragraphProperties64);
+            paragraph80.AppendChild(run221);
 
-            tableCell75.Append(tableCellProperties75);
-            tableCell75.Append(paragraph80);
+            tableCell75.AppendChild(tableCellProperties75);
+            tableCell75.AppendChild(paragraph80);
 
             TableCell tableCell76 = new TableCell();
 
             TableCellProperties tableCellProperties76 = new TableCellProperties();
             TableCellWidth tableCellWidth76 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties76.Append(tableCellWidth76);
+            tableCellProperties76.AppendChild(tableCellWidth76);
 
             Paragraph paragraph81 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "001B715B", RsidRunAdditionDefault = "001B715B" };
 
@@ -3791,29 +4455,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties64 = new ParagraphMarkRunProperties();
 
-            paragraphProperties65.Append(justification54);
-            paragraphProperties65.Append(paragraphMarkRunProperties64);
+            paragraphProperties65.AppendChild(justification54);
+            paragraphProperties65.AppendChild(paragraphMarkRunProperties64);
 
             Run run228 = new Run();
 
             RunProperties runProperties204 = new RunProperties();
             Text text228 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite sistolica
-            text228.Text = "< val lim noche sis>";
+            //val lim noche sis
+            text228.Text = (report.Measures.Count(m => m.Asleep.Value && m.Systolic > limits.MaxSysNight)*100/cantValidNight).ToString();
 
-            run228.Append(runProperties204);
-            run228.Append(text228);
+            run228.AppendChild(runProperties204);
+            run228.AppendChild(text228);
 
-            paragraph81.Append(paragraphProperties65);
-            paragraph81.Append(run228);
+            paragraph81.AppendChild(paragraphProperties65);
+            paragraph81.AppendChild(run228);
 
-            tableCell76.Append(tableCellProperties76);
-            tableCell76.Append(paragraph81);
+            tableCell76.AppendChild(tableCellProperties76);
+            tableCell76.AppendChild(paragraph81);
 
-            tableRow29.Append(tableCell73);
-            tableRow29.Append(tableCell74);
-            tableRow29.Append(tableCell75);
-            tableRow29.Append(tableCell76);
+            tableRow29.AppendChild(tableCell73);
+            tableRow29.AppendChild(tableCell74);
+            tableRow29.AppendChild(tableCell75);
+            tableRow29.AppendChild(tableCell76);
 
             TableRow tableRow30 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -3822,7 +4487,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties77 = new TableCellProperties();
             TableCellWidth tableCellWidth77 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties77.Append(tableCellWidth77);
+            tableCellProperties77.AppendChild(tableCellWidth77);
 
             Paragraph paragraph82 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3831,30 +4496,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties65 = new ParagraphMarkRunProperties();
 
-            paragraphProperties66.Append(justification55);
-            paragraphProperties66.Append(paragraphMarkRunProperties65);
+            paragraphProperties66.AppendChild(justification55);
+            paragraphProperties66.AppendChild(paragraphMarkRunProperties65);
 
             Run run233 = new Run();
 
             RunProperties runProperties209 = new RunProperties();
             Text text233 = new Text();
-            text233.Text = "Diástole";
+            text233.Text = "Presión arterial diastólica";
 
-            run233.Append(runProperties209);
-            run233.Append(text233);
+            run233.AppendChild(runProperties209);
+            run233.AppendChild(text233);
 
-            paragraph82.Append(paragraphProperties66);
-            paragraph82.Append(run233);
+            paragraph82.AppendChild(paragraphProperties66);
+            paragraph82.AppendChild(run233);
 
-            tableCell77.Append(tableCellProperties77);
-            tableCell77.Append(paragraph82);
+            tableCell77.AppendChild(tableCellProperties77);
+            tableCell77.AppendChild(paragraph82);
 
             TableCell tableCell78 = new TableCell();
 
             TableCellProperties tableCellProperties78 = new TableCellProperties();
             TableCellWidth tableCellWidth78 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties78.Append(tableCellWidth78);
+            tableCellProperties78.AppendChild(tableCellWidth78);
 
             Paragraph paragraph83 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3863,31 +4528,31 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties66 = new ParagraphMarkRunProperties();
 
-            paragraphProperties67.Append(justification56);
-            paragraphProperties67.Append(paragraphMarkRunProperties66);
+            paragraphProperties67.AppendChild(justification56);
+            paragraphProperties67.AppendChild(paragraphMarkRunProperties66);
 
             Run run234 = new Run();
 
             RunProperties runProperties210 = new RunProperties();
             Text text234 = new Text() { Space = SpaceProcessingModeValues.Preserve };
-            //Porcentaje de valores por encima del limite sistolica
+            //Porcentaje de valores por encima del limite diastolica
             text234.Text = "";
 
-            run234.Append(runProperties210);
-            run234.Append(text234);
+            run234.AppendChild(runProperties210);
+            run234.AppendChild(text234);
 
-            paragraph83.Append(paragraphProperties67);
-            paragraph83.Append(run234);
+            paragraph83.AppendChild(paragraphProperties67);
+            paragraph83.AppendChild(run234);
 
-            tableCell78.Append(tableCellProperties78);
-            tableCell78.Append(paragraph83);
+            tableCell78.AppendChild(tableCellProperties78);
+            tableCell78.AppendChild(paragraph83);
 
             TableCell tableCell79 = new TableCell();
 
             TableCellProperties tableCellProperties79 = new TableCellProperties();
             TableCellWidth tableCellWidth79 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties79.Append(tableCellWidth79);
+            tableCellProperties79.AppendChild(tableCellWidth79);
 
             Paragraph paragraph84 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3896,31 +4561,32 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties67 = new ParagraphMarkRunProperties();
 
-            paragraphProperties68.Append(justification57);
-            paragraphProperties68.Append(paragraphMarkRunProperties67);
+            paragraphProperties68.AppendChild(justification57);
+            paragraphProperties68.AppendChild(paragraphMarkRunProperties67);
 
             Run run241 = new Run();
 
             RunProperties runProperties217 = new RunProperties();
             Text text241 = new Text() { Space = SpaceProcessingModeValues.Preserve };
-            //Porcentaje de valores por encima del limite sistolica
-            text241.Text = "< val lim dia dias>";
+            //Porcentaje de valores por encima del limite diastolica
+            // val lim dia dias
+            text241.Text = (report.Measures.Count(m => m.Asleep.Value && m.Diastolic > limits.MaxDiasDay)*100/cantValidDay).ToString();
 
-            run241.Append(runProperties217);
-            run241.Append(text241);
+            run241.AppendChild(runProperties217);
+            run241.AppendChild(text241);
 
-            paragraph84.Append(paragraphProperties68);
-            paragraph84.Append(run241);
+            paragraph84.AppendChild(paragraphProperties68);
+            paragraph84.AppendChild(run241);
 
-            tableCell79.Append(tableCellProperties79);
-            tableCell79.Append(paragraph84);
+            tableCell79.AppendChild(tableCellProperties79);
+            tableCell79.AppendChild(paragraph84);
 
             TableCell tableCell80 = new TableCell();
 
             TableCellProperties tableCellProperties80 = new TableCellProperties();
             TableCellWidth tableCellWidth80 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties80.Append(tableCellWidth80);
+            tableCellProperties80.AppendChild(tableCellWidth80);
 
             Paragraph paragraph85 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -3929,29 +4595,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties68 = new ParagraphMarkRunProperties();
 
-            paragraphProperties69.Append(justification58);
-            paragraphProperties69.Append(paragraphMarkRunProperties68);
+            paragraphProperties69.AppendChild(justification58);
+            paragraphProperties69.AppendChild(paragraphMarkRunProperties68);
 
             Run run248 = new Run();
 
             RunProperties runProperties224 = new RunProperties();
             Text text248 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite sistolica
-            text248.Text = "< val lim noche dias>";
+            // val lim noche dias
+            text248.Text = (report.Measures.Count(m => m.Asleep.Value && m.Diastolic > limits.MaxDiasNight)*100/cantValidNight).ToString();
 
-            run248.Append(runProperties224);
-            run248.Append(text248);
+            run248.AppendChild(runProperties224);
+            run248.AppendChild(text248);
 
-            paragraph85.Append(paragraphProperties69);
-            paragraph85.Append(run248);
+            paragraph85.AppendChild(paragraphProperties69);
+            paragraph85.AppendChild(run248);
 
-            tableCell80.Append(tableCellProperties80);
-            tableCell80.Append(paragraph85);
+            tableCell80.AppendChild(tableCellProperties80);
+            tableCell80.AppendChild(paragraph85);
 
-            tableRow30.Append(tableCell77);
-            tableRow30.Append(tableCell78);
-            tableRow30.Append(tableCell79);
-            tableRow30.Append(tableCell80);
+            tableRow30.AppendChild(tableCell77);
+            tableRow30.AppendChild(tableCell78);
+            tableRow30.AppendChild(tableCell79);
+            tableRow30.AppendChild(tableCell80);
 
             TableRow tableRow31 = new TableRow() { RsidTableRowMarkRevision = "00C204AF", RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "003A3FD4" };
 
@@ -3962,9 +4629,9 @@ namespace BussinessLogic
             GridSpan gridSpan9 = new GridSpan() { Val = 4 };
             Shading shading8 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties81.Append(tableCellWidth81);
-            tableCellProperties81.Append(gridSpan9);
-            tableCellProperties81.Append(shading8);
+            tableCellProperties81.AppendChild(tableCellWidth81);
+            tableCellProperties81.AppendChild(gridSpan9);
+            tableCellProperties81.AppendChild(shading8);
 
             Paragraph paragraph86 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "00C204AF", RsidRunAdditionDefault = "00C204AF" };
 
@@ -3972,28 +4639,28 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties69 = new ParagraphMarkRunProperties();
             Bold bold26 = new Bold();
-            paragraphMarkRunProperties69.Append(bold26);
+            paragraphMarkRunProperties69.AppendChild(bold26);
 
-            paragraphProperties70.Append(paragraphMarkRunProperties69);
+            paragraphProperties70.AppendChild(paragraphMarkRunProperties69);
 
             Run run253 = new Run() { RsidRunProperties = "00C204AF" };
 
             RunProperties runProperties229 = new RunProperties();
             Bold bold27 = new Bold();
-            runProperties229.Append(bold27);
+            runProperties229.AppendChild(bold27);
             Text text253 = new Text();
             text253.Text = "Máximo";
 
-            run253.Append(runProperties229);
-            run253.Append(text253);
+            run253.AppendChild(runProperties229);
+            run253.AppendChild(text253);
 
-            paragraph86.Append(paragraphProperties70);
-            paragraph86.Append(run253);
+            paragraph86.AppendChild(paragraphProperties70);
+            paragraph86.AppendChild(run253);
 
-            tableCell81.Append(tableCellProperties81);
-            tableCell81.Append(paragraph86);
+            tableCell81.AppendChild(tableCellProperties81);
+            tableCell81.AppendChild(paragraph86);
 
-            tableRow31.Append(tableCell81);
+            tableRow31.AppendChild(tableCell81);
 
             TableRow tableRow32 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -4002,7 +4669,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties82 = new TableCellProperties();
             TableCellWidth tableCellWidth82 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties82.Append(tableCellWidth82);
+            tableCellProperties82.AppendChild(tableCellWidth82);
 
             Paragraph paragraph87 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -4011,30 +4678,30 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties70 = new ParagraphMarkRunProperties();
 
-            paragraphProperties71.Append(justification59);
-            paragraphProperties71.Append(paragraphMarkRunProperties70);
+            paragraphProperties71.AppendChild(justification59);
+            paragraphProperties71.AppendChild(paragraphMarkRunProperties70);
 
             Run run254 = new Run();
 
             RunProperties runProperties230 = new RunProperties();
             Text text254 = new Text();
-            text254.Text = "Sistole";
+            text254.Text = "Presión arterial sistólica";
 
-            run254.Append(runProperties230);
-            run254.Append(text254);
+            run254.AppendChild(runProperties230);
+            run254.AppendChild(text254);
 
-            paragraph87.Append(paragraphProperties71);
-            paragraph87.Append(run254);
+            paragraph87.AppendChild(paragraphProperties71);
+            paragraph87.AppendChild(run254);
 
-            tableCell82.Append(tableCellProperties82);
-            tableCell82.Append(paragraph87);
+            tableCell82.AppendChild(tableCellProperties82);
+            tableCell82.AppendChild(paragraph87);
 
             TableCell tableCell83 = new TableCell();
 
             TableCellProperties tableCellProperties83 = new TableCellProperties();
             TableCellWidth tableCellWidth83 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties83.Append(tableCellWidth83);
+            tableCellProperties83.AppendChild(tableCellWidth83);
 
             Paragraph paragraph88 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4043,8 +4710,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties71 = new ParagraphMarkRunProperties();
 
-            paragraphProperties72.Append(justification60);
-            paragraphProperties72.Append(paragraphMarkRunProperties71);
+            paragraphProperties72.AppendChild(justification60);
+            paragraphProperties72.AppendChild(paragraphMarkRunProperties71);
 
             Run run256 = new Run();
 
@@ -4053,21 +4720,21 @@ namespace BussinessLogic
             //Sistolica maxima total
             text256.Text = "";
 
-            run256.Append(runProperties232);
-            run256.Append(text256);
+            run256.AppendChild(runProperties232);
+            run256.AppendChild(text256);
 
-            paragraph88.Append(paragraphProperties72);
-            paragraph88.Append(run256);
+            paragraph88.AppendChild(paragraphProperties72);
+            paragraph88.AppendChild(run256);
 
-            tableCell83.Append(tableCellProperties83);
-            tableCell83.Append(paragraph88);
+            tableCell83.AppendChild(tableCellProperties83);
+            tableCell83.AppendChild(paragraph88);
 
             TableCell tableCell84 = new TableCell();
 
             TableCellProperties tableCellProperties84 = new TableCellProperties();
             TableCellWidth tableCellWidth84 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties84.Append(tableCellWidth84);
+            tableCellProperties84.AppendChild(tableCellWidth84);
 
             Paragraph paragraph89 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4076,8 +4743,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties72 = new ParagraphMarkRunProperties();
 
-            paragraphProperties73.Append(justification61);
-            paragraphProperties73.Append(paragraphMarkRunProperties72);
+            paragraphProperties73.AppendChild(justification61);
+            paragraphProperties73.AppendChild(paragraphMarkRunProperties72);
 
             Run run263 = new Run();
 
@@ -4086,21 +4753,21 @@ namespace BussinessLogic
             //Sistolica maxima del dia
             text263.Text = report.SystolicDayMax.ToString();
 
-            run263.Append(runProperties239);
-            run263.Append(text263);
+            run263.AppendChild(runProperties239);
+            run263.AppendChild(text263);
 
-            paragraph89.Append(paragraphProperties73);
-            paragraph89.Append(run263);
+            paragraph89.AppendChild(paragraphProperties73);
+            paragraph89.AppendChild(run263);
 
-            tableCell84.Append(tableCellProperties84);
-            tableCell84.Append(paragraph89);
+            tableCell84.AppendChild(tableCellProperties84);
+            tableCell84.AppendChild(paragraph89);
 
             TableCell tableCell85 = new TableCell();
 
             TableCellProperties tableCellProperties85 = new TableCellProperties();
             TableCellWidth tableCellWidth85 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties85.Append(tableCellWidth85);
+            tableCellProperties85.AppendChild(tableCellWidth85);
 
             Paragraph paragraph90 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4109,8 +4776,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties73 = new ParagraphMarkRunProperties();
 
-            paragraphProperties74.Append(justification62);
-            paragraphProperties74.Append(paragraphMarkRunProperties73);
+            paragraphProperties74.AppendChild(justification62);
+            paragraphProperties74.AppendChild(paragraphMarkRunProperties73);
 
             Run run270 = new Run();
 
@@ -4119,19 +4786,19 @@ namespace BussinessLogic
             //Sistolica maxima de la noche
             text270.Text = report.SystolicNightMax.ToString();
 
-            run270.Append(runProperties246);
-            run270.Append(text270);
+            run270.AppendChild(runProperties246);
+            run270.AppendChild(text270);
 
-            paragraph90.Append(paragraphProperties74);
-            paragraph90.Append(run270);
+            paragraph90.AppendChild(paragraphProperties74);
+            paragraph90.AppendChild(run270);
 
-            tableCell85.Append(tableCellProperties85);
-            tableCell85.Append(paragraph90);
+            tableCell85.AppendChild(tableCellProperties85);
+            tableCell85.AppendChild(paragraph90);
 
-            tableRow32.Append(tableCell82);
-            tableRow32.Append(tableCell83);
-            tableRow32.Append(tableCell84);
-            tableRow32.Append(tableCell85);
+            tableRow32.AppendChild(tableCell82);
+            tableRow32.AppendChild(tableCell83);
+            tableRow32.AppendChild(tableCell84);
+            tableRow32.AppendChild(tableCell85);
 
             TableRow tableRow33 = new TableRow() { RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "0075392D" };
 
@@ -4140,7 +4807,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties86 = new TableCellProperties();
             TableCellWidth tableCellWidth86 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties86.Append(tableCellWidth86);
+            tableCellProperties86.AppendChild(tableCellWidth86);
 
             Paragraph paragraph91 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "00C204AF" };
 
@@ -4149,8 +4816,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties74 = new ParagraphMarkRunProperties();
 
-            paragraphProperties75.Append(justification63);
-            paragraphProperties75.Append(paragraphMarkRunProperties74);
+            paragraphProperties75.AppendChild(justification63);
+            paragraphProperties75.AppendChild(paragraphMarkRunProperties74);
 
             Run run275 = new Run();
 
@@ -4158,21 +4825,21 @@ namespace BussinessLogic
             Text text275 = new Text();
             text275.Text = "Presión arterial diastólica";
 
-            run275.Append(runProperties251);
-            run275.Append(text275);
+            run275.AppendChild(runProperties251);
+            run275.AppendChild(text275);
 
-            paragraph91.Append(paragraphProperties75);
-            paragraph91.Append(run275);
+            paragraph91.AppendChild(paragraphProperties75);
+            paragraph91.AppendChild(run275);
 
-            tableCell86.Append(tableCellProperties86);
-            tableCell86.Append(paragraph91);
+            tableCell86.AppendChild(tableCellProperties86);
+            tableCell86.AppendChild(paragraph91);
 
             TableCell tableCell87 = new TableCell();
 
             TableCellProperties tableCellProperties87 = new TableCellProperties();
             TableCellWidth tableCellWidth87 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties87.Append(tableCellWidth87);
+            tableCellProperties87.AppendChild(tableCellWidth87);
 
             Paragraph paragraph92 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4181,8 +4848,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties75 = new ParagraphMarkRunProperties();
 
-            paragraphProperties76.Append(justification64);
-            paragraphProperties76.Append(paragraphMarkRunProperties75);
+            paragraphProperties76.AppendChild(justification64);
+            paragraphProperties76.AppendChild(paragraphMarkRunProperties75);
 
             Run run276 = new Run();
 
@@ -4191,21 +4858,21 @@ namespace BussinessLogic
             //Diastolica maxima total
             text276.Text = report.DiastolicTotalMax.ToString();
 
-            run276.Append(runProperties252);
-            run276.Append(text276);
+            run276.AppendChild(runProperties252);
+            run276.AppendChild(text276);
 
-            paragraph92.Append(paragraphProperties76);
-            paragraph92.Append(run276);
+            paragraph92.AppendChild(paragraphProperties76);
+            paragraph92.AppendChild(run276);
 
-            tableCell87.Append(tableCellProperties87);
-            tableCell87.Append(paragraph92);
+            tableCell87.AppendChild(tableCellProperties87);
+            tableCell87.AppendChild(paragraph92);
 
             TableCell tableCell88 = new TableCell();
 
             TableCellProperties tableCellProperties88 = new TableCellProperties();
             TableCellWidth tableCellWidth88 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties88.Append(tableCellWidth88);
+            tableCellProperties88.AppendChild(tableCellWidth88);
 
             Paragraph paragraph93 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4214,8 +4881,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties76 = new ParagraphMarkRunProperties();
 
-            paragraphProperties77.Append(justification65);
-            paragraphProperties77.Append(paragraphMarkRunProperties76);
+            paragraphProperties77.AppendChild(justification65);
+            paragraphProperties77.AppendChild(paragraphMarkRunProperties76);
 
             Run run283 = new Run();
 
@@ -4224,21 +4891,21 @@ namespace BussinessLogic
             //Diastolica maxima del dia
             text283.Text = report.DiastolicDayMax.ToString();
 
-            run283.Append(runProperties259);
-            run283.Append(text283);
+            run283.AppendChild(runProperties259);
+            run283.AppendChild(text283);
 
-            paragraph93.Append(paragraphProperties77);
-            paragraph93.Append(run283);
+            paragraph93.AppendChild(paragraphProperties77);
+            paragraph93.AppendChild(run283);
 
-            tableCell88.Append(tableCellProperties88);
-            tableCell88.Append(paragraph93);
+            tableCell88.AppendChild(tableCellProperties88);
+            tableCell88.AppendChild(paragraph93);
 
             TableCell tableCell89 = new TableCell();
 
             TableCellProperties tableCellProperties89 = new TableCellProperties();
             TableCellWidth tableCellWidth89 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties89.Append(tableCellWidth89);
+            tableCellProperties89.AppendChild(tableCellWidth89);
 
             Paragraph paragraph94 = new Paragraph() { RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4247,8 +4914,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties77 = new ParagraphMarkRunProperties();
 
-            paragraphProperties78.Append(justification66);
-            paragraphProperties78.Append(paragraphMarkRunProperties77);
+            paragraphProperties78.AppendChild(justification66);
+            paragraphProperties78.AppendChild(paragraphMarkRunProperties77);
 
             Run run290 = new Run();
 
@@ -4257,19 +4924,19 @@ namespace BussinessLogic
             //Diastolica maxima de la noche
             text290.Text = report.DiastolicNightMax.ToString();
 
-            run290.Append(runProperties266);
-            run290.Append(text290);
+            run290.AppendChild(runProperties266);
+            run290.AppendChild(text290);
 
-            paragraph94.Append(paragraphProperties78);
-            paragraph94.Append(run290);
+            paragraph94.AppendChild(paragraphProperties78);
+            paragraph94.AppendChild(run290);
 
-            tableCell89.Append(tableCellProperties89);
-            tableCell89.Append(paragraph94);
+            tableCell89.AppendChild(tableCellProperties89);
+            tableCell89.AppendChild(paragraph94);
 
-            tableRow33.Append(tableCell86);
-            tableRow33.Append(tableCell87);
-            tableRow33.Append(tableCell88);
-            tableRow33.Append(tableCell89);
+            tableRow33.AppendChild(tableCell86);
+            tableRow33.AppendChild(tableCell87);
+            tableRow33.AppendChild(tableCell88);
+            tableRow33.AppendChild(tableCell89);
 
             TableRow tableRow34 = new TableRow() { RsidTableRowMarkRevision = "00C204AF", RsidTableRowAddition = "00C204AF", RsidTableRowProperties = "009E0479" };
 
@@ -4280,9 +4947,9 @@ namespace BussinessLogic
             GridSpan gridSpan10 = new GridSpan() { Val = 4 };
             Shading shading9 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties90.Append(tableCellWidth90);
-            tableCellProperties90.Append(gridSpan10);
-            tableCellProperties90.Append(shading9);
+            tableCellProperties90.AppendChild(tableCellWidth90);
+            tableCellProperties90.AppendChild(gridSpan10);
+            tableCellProperties90.AppendChild(shading9);
 
             Paragraph paragraph95 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "00C204AF", RsidParagraphProperties = "00C204AF", RsidRunAdditionDefault = "00C204AF" };
 
@@ -4290,29 +4957,29 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties78 = new ParagraphMarkRunProperties();
             Bold bold28 = new Bold();
-            paragraphMarkRunProperties78.Append(bold28);
+            paragraphMarkRunProperties78.AppendChild(bold28);
 
-            paragraphProperties79.Append(paragraphMarkRunProperties78);
+            paragraphProperties79.AppendChild(paragraphMarkRunProperties78);
 
             Run run295 = new Run() { RsidRunProperties = "00C204AF" };
 
             RunProperties runProperties271 = new RunProperties();
             Bold bold29 = new Bold();
 
-            runProperties271.Append(bold29);
+            runProperties271.AppendChild(bold29);
             Text text295 = new Text();
             text295.Text = "Mínimo";
 
-            run295.Append(runProperties271);
-            run295.Append(text295);
+            run295.AppendChild(runProperties271);
+            run295.AppendChild(text295);
 
-            paragraph95.Append(paragraphProperties79);
-            paragraph95.Append(run295);
+            paragraph95.AppendChild(paragraphProperties79);
+            paragraph95.AppendChild(run295);
 
-            tableCell90.Append(tableCellProperties90);
-            tableCell90.Append(paragraph95);
+            tableCell90.AppendChild(tableCellProperties90);
+            tableCell90.AppendChild(paragraph95);
 
-            tableRow34.Append(tableCell90);
+            tableRow34.AppendChild(tableCell90);
 
             TableRow tableRow35 = new TableRow() { RsidTableRowAddition = "001B715B", RsidTableRowProperties = "0075392D" };
 
@@ -4321,7 +4988,7 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties91 = new TableCellProperties();
             TableCellWidth tableCellWidth91 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties91.Append(tableCellWidth91);
+            tableCellProperties91.AppendChild(tableCellWidth91);
 
             Paragraph paragraph96 = new Paragraph() { RsidParagraphMarkRevision = "00C204AF", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4330,8 +4997,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties79 = new ParagraphMarkRunProperties();
 
-            paragraphProperties80.Append(justification67);
-            paragraphProperties80.Append(paragraphMarkRunProperties79);
+            paragraphProperties80.AppendChild(justification67);
+            paragraphProperties80.AppendChild(paragraphMarkRunProperties79);
 
             Run run296 = new Run();
 
@@ -4339,21 +5006,21 @@ namespace BussinessLogic
             Text text296 = new Text();
             text296.Text = "Presión arterial sistólica";
 
-            run296.Append(runProperties272);
-            run296.Append(text296);
+            run296.AppendChild(runProperties272);
+            run296.AppendChild(text296);
 
-            paragraph96.Append(paragraphProperties80);
-            paragraph96.Append(run296);
+            paragraph96.AppendChild(paragraphProperties80);
+            paragraph96.AppendChild(run296);
 
-            tableCell91.Append(tableCellProperties91);
-            tableCell91.Append(paragraph96);
+            tableCell91.AppendChild(tableCellProperties91);
+            tableCell91.AppendChild(paragraph96);
 
             TableCell tableCell92 = new TableCell();
 
             TableCellProperties tableCellProperties92 = new TableCellProperties();
             TableCellWidth tableCellWidth92 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties92.Append(tableCellWidth92);
+            tableCellProperties92.AppendChild(tableCellWidth92);
 
             Paragraph paragraph97 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4362,8 +5029,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties80 = new ParagraphMarkRunProperties();
 
-            paragraphProperties81.Append(justification68);
-            paragraphProperties81.Append(paragraphMarkRunProperties80);
+            paragraphProperties81.AppendChild(justification68);
+            paragraphProperties81.AppendChild(paragraphMarkRunProperties80);
 
             Run run298 = new Run();
 
@@ -4372,21 +5039,21 @@ namespace BussinessLogic
             //Sistole total minimo
             text298.Text = "";
 
-            run298.Append(runProperties274);
-            run298.Append(text298);
+            run298.AppendChild(runProperties274);
+            run298.AppendChild(text298);
 
-            paragraph97.Append(paragraphProperties81);
-            paragraph97.Append(run298);
+            paragraph97.AppendChild(paragraphProperties81);
+            paragraph97.AppendChild(run298);
 
-            tableCell92.Append(tableCellProperties92);
-            tableCell92.Append(paragraph97);
+            tableCell92.AppendChild(tableCellProperties92);
+            tableCell92.AppendChild(paragraph97);
 
             TableCell tableCell93 = new TableCell();
 
             TableCellProperties tableCellProperties93 = new TableCellProperties();
             TableCellWidth tableCellWidth93 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties93.Append(tableCellWidth93);
+            tableCellProperties93.AppendChild(tableCellWidth93);
 
             Paragraph paragraph98 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4395,8 +5062,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties81 = new ParagraphMarkRunProperties();
 
-            paragraphProperties82.Append(justification69);
-            paragraphProperties82.Append(paragraphMarkRunProperties81);
+            paragraphProperties82.AppendChild(justification69);
+            paragraphProperties82.AppendChild(paragraphMarkRunProperties81);
 
             Run run305 = new Run();
 
@@ -4405,21 +5072,21 @@ namespace BussinessLogic
             //Sistole minimo dia
             text305.Text = report.SystolicDayMin.ToString();
 
-            run305.Append(runProperties281);
-            run305.Append(text305);
+            run305.AppendChild(runProperties281);
+            run305.AppendChild(text305);
 
-            paragraph98.Append(paragraphProperties82);
-            paragraph98.Append(run305);
+            paragraph98.AppendChild(paragraphProperties82);
+            paragraph98.AppendChild(run305);
 
-            tableCell93.Append(tableCellProperties93);
-            tableCell93.Append(paragraph98);
+            tableCell93.AppendChild(tableCellProperties93);
+            tableCell93.AppendChild(paragraph98);
 
             TableCell tableCell94 = new TableCell();
 
             TableCellProperties tableCellProperties94 = new TableCellProperties();
             TableCellWidth tableCellWidth94 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties94.Append(tableCellWidth94);
+            tableCellProperties94.AppendChild(tableCellWidth94);
 
             Paragraph paragraph99 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4428,8 +5095,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties82 = new ParagraphMarkRunProperties();
 
-            paragraphProperties83.Append(justification70);
-            paragraphProperties83.Append(paragraphMarkRunProperties82);
+            paragraphProperties83.AppendChild(justification70);
+            paragraphProperties83.AppendChild(paragraphMarkRunProperties82);
 
             Run run312 = new Run();
 
@@ -4438,19 +5105,19 @@ namespace BussinessLogic
             //Sistole minimo noche
             text312.Text = report.SystolicNightMin.ToString();
 
-            run312.Append(runProperties288);
-            run312.Append(text312);
+            run312.AppendChild(runProperties288);
+            run312.AppendChild(text312);
 
-            paragraph99.Append(paragraphProperties83);
-            paragraph99.Append(run312);
+            paragraph99.AppendChild(paragraphProperties83);
+            paragraph99.AppendChild(run312);
 
-            tableCell94.Append(tableCellProperties94);
-            tableCell94.Append(paragraph99);
+            tableCell94.AppendChild(tableCellProperties94);
+            tableCell94.AppendChild(paragraph99);
 
-            tableRow35.Append(tableCell91);
-            tableRow35.Append(tableCell92);
-            tableRow35.Append(tableCell93);
-            tableRow35.Append(tableCell94);
+            tableRow35.AppendChild(tableCell91);
+            tableRow35.AppendChild(tableCell92);
+            tableRow35.AppendChild(tableCell93);
+            tableRow35.AppendChild(tableCell94);
 
             TableRow tableRow36 = new TableRow() { RsidTableRowAddition = "001B715B", RsidTableRowProperties = "00653833" };
 
@@ -4462,10 +5129,10 @@ namespace BussinessLogic
             TableCellBorders tableCellBorders22 = new TableCellBorders();
             BottomBorder bottomBorder20 = new BottomBorder() { Val = BorderValues.Single, Color = "auto", Size = (UInt32Value)4U, Space = (UInt32Value)0U };
 
-            tableCellBorders22.Append(bottomBorder20);
+            tableCellBorders22.AppendChild(bottomBorder20);
 
-            tableCellProperties95.Append(tableCellWidth95);
-            tableCellProperties95.Append(tableCellBorders22);
+            tableCellProperties95.AppendChild(tableCellWidth95);
+            tableCellProperties95.AppendChild(tableCellBorders22);
 
             Paragraph paragraph100 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4474,23 +5141,23 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties83 = new ParagraphMarkRunProperties();
 
-            paragraphProperties84.Append(justification71);
-            paragraphProperties84.Append(paragraphMarkRunProperties83);
+            paragraphProperties84.AppendChild(justification71);
+            paragraphProperties84.AppendChild(paragraphMarkRunProperties83);
 
             Run run317 = new Run();
 
             RunProperties runProperties293 = new RunProperties();
             Text text317 = new Text();
-            text317.Text = "Diástole";
+            text317.Text = "Presión arterial diastólica";
 
-            run317.Append(runProperties293);
-            run317.Append(text317);
+            run317.AppendChild(runProperties293);
+            run317.AppendChild(text317);
 
-            paragraph100.Append(paragraphProperties84);
-            paragraph100.Append(run317);
+            paragraph100.AppendChild(paragraphProperties84);
+            paragraph100.AppendChild(run317);
 
-            tableCell95.Append(tableCellProperties95);
-            tableCell95.Append(paragraph100);
+            tableCell95.AppendChild(tableCellProperties95);
+            tableCell95.AppendChild(paragraph100);
 
             TableCell tableCell96 = new TableCell();
 
@@ -4500,10 +5167,10 @@ namespace BussinessLogic
             TableCellBorders tableCellBorders23 = new TableCellBorders();
             BottomBorder bottomBorder21 = new BottomBorder() { Val = BorderValues.Single, Color = "auto", Size = (UInt32Value)4U, Space = (UInt32Value)0U };
 
-            tableCellBorders23.Append(bottomBorder21);
+            tableCellBorders23.AppendChild(bottomBorder21);
 
-            tableCellProperties96.Append(tableCellWidth96);
-            tableCellProperties96.Append(tableCellBorders23);
+            tableCellProperties96.AppendChild(tableCellWidth96);
+            tableCellProperties96.AppendChild(tableCellBorders23);
 
             Paragraph paragraph101 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4512,8 +5179,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties84 = new ParagraphMarkRunProperties();
 
-            paragraphProperties85.Append(justification72);
-            paragraphProperties85.Append(paragraphMarkRunProperties84);
+            paragraphProperties85.AppendChild(justification72);
+            paragraphProperties85.AppendChild(paragraphMarkRunProperties84);
 
             Run run318 = new Run();
 
@@ -4522,14 +5189,14 @@ namespace BussinessLogic
             //Diastolica minima total
             text318.Text = "";
 
-            run318.Append(runProperties294);
-            run318.Append(text318);
+            run318.AppendChild(runProperties294);
+            run318.AppendChild(text318);
 
-            paragraph101.Append(paragraphProperties85);
-            paragraph101.Append(run318);
+            paragraph101.AppendChild(paragraphProperties85);
+            paragraph101.AppendChild(run318);
 
-            tableCell96.Append(tableCellProperties96);
-            tableCell96.Append(paragraph101);
+            tableCell96.AppendChild(tableCellProperties96);
+            tableCell96.AppendChild(paragraph101);
 
             TableCell tableCell97 = new TableCell();
 
@@ -4539,10 +5206,10 @@ namespace BussinessLogic
             TableCellBorders tableCellBorders24 = new TableCellBorders();
             BottomBorder bottomBorder22 = new BottomBorder() { Val = BorderValues.Single, Color = "auto", Size = (UInt32Value)4U, Space = (UInt32Value)0U };
 
-            tableCellBorders24.Append(bottomBorder22);
+            tableCellBorders24.AppendChild(bottomBorder22);
 
-            tableCellProperties97.Append(tableCellWidth97);
-            tableCellProperties97.Append(tableCellBorders24);
+            tableCellProperties97.AppendChild(tableCellWidth97);
+            tableCellProperties97.AppendChild(tableCellBorders24);
 
             Paragraph paragraph102 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4551,8 +5218,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties85 = new ParagraphMarkRunProperties();
 
-            paragraphProperties86.Append(justification73);
-            paragraphProperties86.Append(paragraphMarkRunProperties85);
+            paragraphProperties86.AppendChild(justification73);
+            paragraphProperties86.AppendChild(paragraphMarkRunProperties85);
 
             Run run325 = new Run();
 
@@ -4561,14 +5228,14 @@ namespace BussinessLogic
             //Diastolica minima dia
             text325.Text = report.DiastolicDayMin.ToString();
 
-            run325.Append(runProperties301);
-            run325.Append(text325);
+            run325.AppendChild(runProperties301);
+            run325.AppendChild(text325);
 
-            paragraph102.Append(paragraphProperties86);
-            paragraph102.Append(run325);
+            paragraph102.AppendChild(paragraphProperties86);
+            paragraph102.AppendChild(run325);
 
-            tableCell97.Append(tableCellProperties97);
-            tableCell97.Append(paragraph102);
+            tableCell97.AppendChild(tableCellProperties97);
+            tableCell97.AppendChild(paragraph102);
 
             TableCell tableCell98 = new TableCell();
 
@@ -4578,10 +5245,10 @@ namespace BussinessLogic
             TableCellBorders tableCellBorders25 = new TableCellBorders();
             BottomBorder bottomBorder23 = new BottomBorder() { Val = BorderValues.Single, Color = "auto", Size = (UInt32Value)4U, Space = (UInt32Value)0U };
 
-            tableCellBorders25.Append(bottomBorder23);
+            tableCellBorders25.AppendChild(bottomBorder23);
 
-            tableCellProperties98.Append(tableCellWidth98);
-            tableCellProperties98.Append(tableCellBorders25);
+            tableCellProperties98.AppendChild(tableCellWidth98);
+            tableCellProperties98.AppendChild(tableCellBorders25);
 
             Paragraph paragraph103 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4590,8 +5257,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties86 = new ParagraphMarkRunProperties();
 
-            paragraphProperties87.Append(justification74);
-            paragraphProperties87.Append(paragraphMarkRunProperties86);
+            paragraphProperties87.AppendChild(justification74);
+            paragraphProperties87.AppendChild(paragraphMarkRunProperties86);
 
             Run run332 = new Run();
 
@@ -4600,19 +5267,19 @@ namespace BussinessLogic
             //Diastolica minima noche
             text332.Text = report.DiastolicNightMin.ToString();
 
-            run332.Append(runProperties308);
-            run332.Append(text332);
+            run332.AppendChild(runProperties308);
+            run332.AppendChild(text332);
 
-            paragraph103.Append(paragraphProperties87);
-            paragraph103.Append(run332);
+            paragraph103.AppendChild(paragraphProperties87);
+            paragraph103.AppendChild(run332);
 
-            tableCell98.Append(tableCellProperties98);
-            tableCell98.Append(paragraph103);
+            tableCell98.AppendChild(tableCellProperties98);
+            tableCell98.AppendChild(paragraph103);
 
-            tableRow36.Append(tableCell95);
-            tableRow36.Append(tableCell96);
-            tableRow36.Append(tableCell97);
-            tableRow36.Append(tableCell98);
+            tableRow36.AppendChild(tableCell95);
+            tableRow36.AppendChild(tableCell96);
+            tableRow36.AppendChild(tableCell97);
+            tableRow36.AppendChild(tableCell98);
 
             TableRow tableRow37 = new TableRow() { RsidTableRowAddition = "001B715B", RsidTableRowProperties = "00653833" };
 
@@ -4627,13 +5294,13 @@ namespace BussinessLogic
             BottomBorder bottomBorder24 = new BottomBorder() { Val = BorderValues.Nil };
             RightBorder rightBorder20 = new RightBorder() { Val = BorderValues.Nil };
 
-            tableCellBorders26.Append(leftBorder21);
-            tableCellBorders26.Append(bottomBorder24);
-            tableCellBorders26.Append(rightBorder20);
+            tableCellBorders26.AppendChild(leftBorder21);
+            tableCellBorders26.AppendChild(bottomBorder24);
+            tableCellBorders26.AppendChild(rightBorder20);
 
-            tableCellProperties99.Append(tableCellWidth99);
-            tableCellProperties99.Append(gridSpan11);
-            tableCellProperties99.Append(tableCellBorders26);
+            tableCellProperties99.AppendChild(tableCellWidth99);
+            tableCellProperties99.AppendChild(gridSpan11);
+            tableCellProperties99.AppendChild(tableCellBorders26);
 
             Paragraph paragraph104 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "00653833", RsidRunAdditionDefault = "001B715B" };
 
@@ -4641,7 +5308,7 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties87 = new ParagraphMarkRunProperties();
 
-            paragraphProperties88.Append(paragraphMarkRunProperties87);
+            paragraphProperties88.AppendChild(paragraphMarkRunProperties87);
 
             Run run337 = new Run();
 
@@ -4649,16 +5316,16 @@ namespace BussinessLogic
             Text text337 = new Text();
             text337.Text = "Valores por encima del límite";
 
-            run337.Append(runProperties313);
-            run337.Append(text337);
+            run337.AppendChild(runProperties313);
+            run337.AppendChild(text337);
 
-            paragraph104.Append(paragraphProperties88);
-            paragraph104.Append(run337);
+            paragraph104.AppendChild(paragraphProperties88);
+            paragraph104.AppendChild(run337);
 
-            tableCell99.Append(tableCellProperties99);
-            tableCell99.Append(paragraph104);
+            tableCell99.AppendChild(tableCellProperties99);
+            tableCell99.AppendChild(paragraph104);
 
-            tableRow37.Append(tableCell99);
+            tableRow37.AppendChild(tableCell99);
 
             TableRow tableRow38 = new TableRow() { RsidTableRowAddition = "001B715B", RsidTableRowProperties = "00653833" };
 
@@ -4673,13 +5340,13 @@ namespace BussinessLogic
             LeftBorder leftBorder22 = new LeftBorder() { Val = BorderValues.Nil };
             RightBorder rightBorder21 = new RightBorder() { Val = BorderValues.Nil };
 
-            tableCellBorders27.Append(topBorder19);
-            tableCellBorders27.Append(leftBorder22);
-            tableCellBorders27.Append(rightBorder21);
+            tableCellBorders27.AppendChild(topBorder19);
+            tableCellBorders27.AppendChild(leftBorder22);
+            tableCellBorders27.AppendChild(rightBorder21);
 
-            tableCellProperties100.Append(tableCellWidth100);
-            tableCellProperties100.Append(gridSpan12);
-            tableCellProperties100.Append(tableCellBorders27);
+            tableCellProperties100.AppendChild(tableCellWidth100);
+            tableCellProperties100.AppendChild(gridSpan12);
+            tableCellProperties100.AppendChild(tableCellBorders27);
 
             Paragraph paragraph105 = new Paragraph() { RsidParagraphAddition = "001B715B", RsidParagraphProperties = "0075392D", RsidRunAdditionDefault = "001B715B" };
 
@@ -4688,15 +5355,15 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties88 = new ParagraphMarkRunProperties();
 
-            paragraphProperties89.Append(justification75);
-            paragraphProperties89.Append(paragraphMarkRunProperties88);
+            paragraphProperties89.AppendChild(justification75);
+            paragraphProperties89.AppendChild(paragraphMarkRunProperties88);
 
-            paragraph105.Append(paragraphProperties89);
+            paragraph105.AppendChild(paragraphProperties89);
 
-            tableCell100.Append(tableCellProperties100);
-            tableCell100.Append(paragraph105);
+            tableCell100.AppendChild(tableCellProperties100);
+            tableCell100.AppendChild(paragraph105);
 
-            tableRow38.Append(tableCell100);
+            tableRow38.AppendChild(tableCell100);
 
             TableRow tableRow39 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "001B715B", RsidTableRowProperties = "00C31833" };
 
@@ -4707,9 +5374,9 @@ namespace BussinessLogic
             GridSpan gridSpan13 = new GridSpan() { Val = 4 };
             Shading shading10 = new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "BFBFBF", ThemeFill = ThemeColorValues.Background1, ThemeFillShade = "BF" };
 
-            tableCellProperties101.Append(tableCellWidth101);
-            tableCellProperties101.Append(gridSpan13);
-            tableCellProperties101.Append(shading10);
+            tableCellProperties101.AppendChild(tableCellWidth101);
+            tableCellProperties101.AppendChild(gridSpan13);
+            tableCellProperties101.AppendChild(shading10);
 
             Paragraph paragraph106 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "00653833", RsidRunAdditionDefault = "001B715B" };
 
@@ -4718,29 +5385,29 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties89 = new ParagraphMarkRunProperties();
             Bold bold30 = new Bold();
 
-            paragraphMarkRunProperties89.Append(bold30);
+            paragraphMarkRunProperties89.AppendChild(bold30);
 
-            paragraphProperties90.Append(paragraphMarkRunProperties89);
+            paragraphProperties90.AppendChild(paragraphMarkRunProperties89);
 
             Run run338 = new Run() { RsidRunProperties = "00653833" };
 
             RunProperties runProperties314 = new RunProperties();
             Bold bold31 = new Bold();
 
-            runProperties314.Append(bold31);
+            runProperties314.AppendChild(bold31);
             Text text338 = new Text();
             text338.Text = "Dipping";
 
-            run338.Append(runProperties314);
-            run338.Append(text338);
+            run338.AppendChild(runProperties314);
+            run338.AppendChild(text338);
 
-            paragraph106.Append(paragraphProperties90);
-            paragraph106.Append(run338);
+            paragraph106.AppendChild(paragraphProperties90);
+            paragraph106.AppendChild(run338);
 
-            tableCell101.Append(tableCellProperties101);
-            tableCell101.Append(paragraph106);
+            tableCell101.AppendChild(tableCellProperties101);
+            tableCell101.AppendChild(paragraph106);
 
-            tableRow39.Append(tableCell101);
+            tableRow39.AppendChild(tableCell101);
 
             TableRow tableRow40 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "001B715B", RsidTableRowProperties = "00A6498A" };
 
@@ -4749,39 +5416,39 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties102 = new TableCellProperties();
             TableCellWidth tableCellWidth102 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties102.Append(tableCellWidth102);
+            tableCellProperties102.AppendChild(tableCellWidth102);
 
             Paragraph paragraph107 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties91 = new ParagraphProperties();
             Justification justification76 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties91.Append(justification76);
+            paragraphProperties91.AppendChild(justification76);
             Run run339 = new Run() { RsidRunProperties = "00653833" };
             Text text339 = new Text();
-            text339.Text = "Sístole";
+            text339.Text = "Presión arterial Sistólica";
 
-            run339.Append(text339);
+            run339.AppendChild(text339);
 
-            paragraph107.Append(paragraphProperties91);
-            paragraph107.Append(run339);
+            paragraph107.AppendChild(paragraphProperties91);
+            paragraph107.AppendChild(run339);
 
-            tableCell102.Append(tableCellProperties102);
-            tableCell102.Append(paragraph107);
+            tableCell102.AppendChild(tableCellProperties102);
+            tableCell102.AppendChild(paragraph107);
 
             TableCell tableCell103 = new TableCell();
 
             TableCellProperties tableCellProperties103 = new TableCellProperties();
             TableCellWidth tableCellWidth103 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties103.Append(tableCellWidth103);
+            tableCellProperties103.AppendChild(tableCellWidth103);
 
             Paragraph paragraph108 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties92 = new ParagraphProperties();
             Justification justification77 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties92.Append(justification77);
+            paragraphProperties92.AppendChild(justification77);
 
             Run run340 = new Run();
             Text text340 = new Text();
@@ -4789,70 +5456,70 @@ namespace BussinessLogic
             decimal dippingSys = Math.Round(((decimal)(report.SystolicDayAvg.Value - report.SystolicNightAvg.Value) / report.SystolicDayAvg.Value) * 100, 2);
             text340.Text = dippingSys.ToString();
 
-            run340.Append(text340);
+            run340.AppendChild(text340);
 
-            paragraph108.Append(paragraphProperties92);
-            paragraph108.Append(run340);
+            paragraph108.AppendChild(paragraphProperties92);
+            paragraph108.AppendChild(run340);
 
-            tableCell103.Append(tableCellProperties103);
-            tableCell103.Append(paragraph108);
+            tableCell103.AppendChild(tableCellProperties103);
+            tableCell103.AppendChild(paragraph108);
 
             TableCell tableCell104 = new TableCell();
 
             TableCellProperties tableCellProperties104 = new TableCellProperties();
             TableCellWidth tableCellWidth104 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties104.Append(tableCellWidth104);
+            tableCellProperties104.AppendChild(tableCellWidth104);
 
             Paragraph paragraph109 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties93 = new ParagraphProperties();
             Justification justification78 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties93.Append(justification78);
+            paragraphProperties93.AppendChild(justification78);
 
             Run run341 = new Run();
             Text text341 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             text341.Text = "";
 
-            run341.Append(text341);
+            run341.AppendChild(text341);
 
-            paragraph109.Append(paragraphProperties93);
-            paragraph109.Append(run341);
+            paragraph109.AppendChild(paragraphProperties93);
+            paragraph109.AppendChild(run341);
 
-            tableCell104.Append(tableCellProperties104);
-            tableCell104.Append(paragraph109);
+            tableCell104.AppendChild(tableCellProperties104);
+            tableCell104.AppendChild(paragraph109);
 
             TableCell tableCell105 = new TableCell();
 
             TableCellProperties tableCellProperties105 = new TableCellProperties();
             TableCellWidth tableCellWidth105 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties105.Append(tableCellWidth105);
+            tableCellProperties105.AppendChild(tableCellWidth105);
 
             Paragraph paragraph110 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties94 = new ParagraphProperties();
             Justification justification79 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties94.Append(justification79);
+            paragraphProperties94.AppendChild(justification79);
 
             Run run344 = new Run();
             Text text344 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             text344.Text = "";
 
-            run344.Append(text344);
+            run344.AppendChild(text344);
 
-            paragraph110.Append(paragraphProperties94);
-            paragraph110.Append(run344);
+            paragraph110.AppendChild(paragraphProperties94);
+            paragraph110.AppendChild(run344);
 
-            tableCell105.Append(tableCellProperties105);
-            tableCell105.Append(paragraph110);
+            tableCell105.AppendChild(tableCellProperties105);
+            tableCell105.AppendChild(paragraph110);
 
-            tableRow40.Append(tableCell102);
-            tableRow40.Append(tableCell103);
-            tableRow40.Append(tableCell104);
-            tableRow40.Append(tableCell105);
+            tableRow40.AppendChild(tableCell102);
+            tableRow40.AppendChild(tableCell103);
+            tableRow40.AppendChild(tableCell104);
+            tableRow40.AppendChild(tableCell105);
 
             TableRow tableRow41 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "001B715B", RsidTableRowProperties = "00A6498A" };
 
@@ -4861,42 +5528,42 @@ namespace BussinessLogic
             TableCellProperties tableCellProperties106 = new TableCellProperties();
             TableCellWidth tableCellWidth106 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties106.Append(tableCellWidth106);
+            tableCellProperties106.AppendChild(tableCellWidth106);
 
             Paragraph paragraph111 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties95 = new ParagraphProperties();
             Justification justification80 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties95.Append(justification80);
+            paragraphProperties95.AppendChild(justification80);
 
             Run run347 = new Run() { RsidRunProperties = "00653833" };
             LastRenderedPageBreak lastRenderedPageBreak1 = new LastRenderedPageBreak();
             Text text347 = new Text();
-            text347.Text = "Diástole";
+            text347.Text = "Presión arterial diastólica";
 
-            run347.Append(lastRenderedPageBreak1);
-            run347.Append(text347);
+            run347.AppendChild(lastRenderedPageBreak1);
+            run347.AppendChild(text347);
 
-            paragraph111.Append(paragraphProperties95);
-            paragraph111.Append(run347);
+            paragraph111.AppendChild(paragraphProperties95);
+            paragraph111.AppendChild(run347);
 
-            tableCell106.Append(tableCellProperties106);
-            tableCell106.Append(paragraph111);
+            tableCell106.AppendChild(tableCellProperties106);
+            tableCell106.AppendChild(paragraph111);
 
             TableCell tableCell107 = new TableCell();
 
             TableCellProperties tableCellProperties107 = new TableCellProperties();
             TableCellWidth tableCellWidth107 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties107.Append(tableCellWidth107);
+            tableCellProperties107.AppendChild(tableCellWidth107);
 
             Paragraph paragraph112 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties96 = new ParagraphProperties();
             Justification justification81 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties96.Append(justification81);
+            paragraphProperties96.AppendChild(justification81);
 
             Run run348 = new Run();
             Text text348 = new Text() { Space = SpaceProcessingModeValues.Preserve };
@@ -4904,102 +5571,102 @@ namespace BussinessLogic
             decimal dippingDias = Math.Round(((decimal)(report.DiastolicDayAvg.Value - report.DiastolicNightAvg.Value) / report.DiastolicDayAvg.Value) * 100, 2);
             text348.Text = dippingDias.ToString();
 
-            run348.Append(text348);
+            run348.AppendChild(text348);
 
-            paragraph112.Append(paragraphProperties96);
-            paragraph112.Append(run348);
+            paragraph112.AppendChild(paragraphProperties96);
+            paragraph112.AppendChild(run348);
 
-            tableCell107.Append(tableCellProperties107);
-            tableCell107.Append(paragraph112);
+            tableCell107.AppendChild(tableCellProperties107);
+            tableCell107.AppendChild(paragraph112);
 
             TableCell tableCell108 = new TableCell();
 
             TableCellProperties tableCellProperties108 = new TableCellProperties();
             TableCellWidth tableCellWidth108 = new TableCellWidth() { Width = "2336", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties108.Append(tableCellWidth108);
+            tableCellProperties108.AppendChild(tableCellWidth108);
 
             Paragraph paragraph113 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties97 = new ParagraphProperties();
             Justification justification82 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties97.Append(justification82);
+            paragraphProperties97.AppendChild(justification82);
 
             Run run351 = new Run();
             Text text351 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             text351.Text = "";
 
-            run351.Append(text351);
+            run351.AppendChild(text351);
 
-            paragraph113.Append(paragraphProperties97);
-            paragraph113.Append(run351);
+            paragraph113.AppendChild(paragraphProperties97);
+            paragraph113.AppendChild(run351);
 
-            tableCell108.Append(tableCellProperties108);
-            tableCell108.Append(paragraph113);
+            tableCell108.AppendChild(tableCellProperties108);
+            tableCell108.AppendChild(paragraph113);
 
             TableCell tableCell109 = new TableCell();
 
             TableCellProperties tableCellProperties109 = new TableCellProperties();
             TableCellWidth tableCellWidth109 = new TableCellWidth() { Width = "2337", Type = TableWidthUnitValues.Dxa };
 
-            tableCellProperties109.Append(tableCellWidth109);
+            tableCellProperties109.AppendChild(tableCellWidth109);
 
             Paragraph paragraph114 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties98 = new ParagraphProperties();
             Justification justification83 = new Justification() { Val = JustificationValues.Center };
 
-            paragraphProperties98.Append(justification83);
+            paragraphProperties98.AppendChild(justification83);
 
             Run run356 = new Run();
             Text text356 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             text356.Text = "";
 
-            run356.Append(text356);
+            run356.AppendChild(text356);
 
-            paragraph114.Append(paragraphProperties98);
-            paragraph114.Append(run356);
+            paragraph114.AppendChild(paragraphProperties98);
+            paragraph114.AppendChild(run356);
 
-            tableCell109.Append(tableCellProperties109);
-            tableCell109.Append(paragraph114);
+            tableCell109.AppendChild(tableCellProperties109);
+            tableCell109.AppendChild(paragraph114);
 
-            tableRow41.Append(tableCell106);
-            tableRow41.Append(tableCell107);
-            tableRow41.Append(tableCell108);
-            tableRow41.Append(tableCell109);
+            tableRow41.AppendChild(tableCell106);
+            tableRow41.AppendChild(tableCell107);
+            tableRow41.AppendChild(tableCell108);
+            tableRow41.AppendChild(tableCell109);
 
-            table2.Append(tableProperties2);
-            table2.Append(tableGrid2);
-            table2.Append(tableRow13);
-            table2.Append(tableRow14);
-            table2.Append(tableRow15);
-            table2.Append(tableRow16);
-            table2.Append(tableRow17);
-            table2.Append(tableRow18);
-            table2.Append(tableRow19);
-            table2.Append(tableRow20);
-            table2.Append(tableRow21);
-            table2.Append(tableRow22);
-            table2.Append(tableRow23);
-            table2.Append(tableRow24);
-            table2.Append(tableRow25);
-            table2.Append(tableRow26);
-            table2.Append(tableRow27);
-            table2.Append(tableRow28);
-            table2.Append(tableRow29);
-            table2.Append(tableRow30);
-            table2.Append(tableRow31);
-            table2.Append(tableRow32);
-            table2.Append(tableRow33);
-            table2.Append(tableRow34);
-            table2.Append(tableRow35);
-            table2.Append(tableRow36);
-            table2.Append(tableRow37);
-            table2.Append(tableRow38);
-            table2.Append(tableRow39);
-            table2.Append(tableRow40);
-            table2.Append(tableRow41);
+            table2.AppendChild(tableProperties2);
+            table2.AppendChild(tableGrid2);
+            table2.AppendChild(tableRow13);
+            table2.AppendChild(tableRow14);
+            table2.AppendChild(tableRow15);
+            table2.AppendChild(tableRow16);
+            table2.AppendChild(tableRow17);
+            table2.AppendChild(tableRow18);
+            table2.AppendChild(tableRow19);
+            table2.AppendChild(tableRow20);
+            table2.AppendChild(tableRow21);
+            table2.AppendChild(tableRow22);
+            table2.AppendChild(tableRow23);
+            table2.AppendChild(tableRow24);
+            table2.AppendChild(tableRow25);
+            table2.AppendChild(tableRow26);
+            table2.AppendChild(tableRow27);
+            table2.AppendChild(tableRow28);
+            table2.AppendChild(tableRow29);
+            table2.AppendChild(tableRow30);
+            table2.AppendChild(tableRow31);
+            table2.AppendChild(tableRow32);
+            table2.AppendChild(tableRow33);
+            table2.AppendChild(tableRow34);
+            table2.AppendChild(tableRow35);
+            table2.AppendChild(tableRow36);
+            table2.AppendChild(tableRow37);
+            table2.AppendChild(tableRow38);
+            table2.AppendChild(tableRow39);
+            table2.AppendChild(tableRow40);
+            table2.AppendChild(tableRow41);
 
             Paragraph paragraph115 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "009C2A39", RsidRunAdditionDefault = "00653833" };
 
@@ -5007,17 +5674,17 @@ namespace BussinessLogic
             Text text361 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             text361.Text = "Dipping <0% Invertido; <10% Non-Dipper; <20% Normal; >=20% Extremos";
 
-            run361.Append(text361);
+            run361.AppendChild(text361);
 
-            paragraph115.Append(run361);
+            paragraph115.AppendChild(run361);
 
-            tableCell20.Append(tableCellProperties20);
-            tableCell20.Append(paragraph25);
-            tableCell20.Append(table2);
-            tableCell20.Append(paragraph115);
+            tableCell20.AppendChild(tableCellProperties20);
+            tableCell20.AppendChild(paragraph25);
+            tableCell20.AppendChild(table2);
+            tableCell20.AppendChild(paragraph115);
 
-            tableRow12.Append(tableRowProperties3);
-            tableRow12.Append(tableCell20);
+            tableRow12.AppendChild(tableRowProperties3);
+            tableRow12.AppendChild(tableCell20);
 
             return tableRow12;
         }
@@ -5034,8 +5701,8 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
 
-            paragraphProperties43.Append(paragraphStyleId3);
-            paragraphProperties43.Append(paragraphMarkRunProperties42);
+            paragraphProperties43.AppendChild(paragraphStyleId3);
+            paragraphProperties43.AppendChild(paragraphMarkRunProperties42);
 
             Run run47 = new Run();
 
@@ -5043,8 +5710,8 @@ namespace BussinessLogic
             Text text43 = new Text();
             text43.Text = "Hospital de Clínicas";
 
-            run47.Append(runProperties24);
-            run47.Append(text43);
+            run47.AppendChild(runProperties24);
+            run47.AppendChild(text43);
 
             Run run48 = new Run();
 
@@ -5054,9 +5721,9 @@ namespace BussinessLogic
             Text text44 = new Text();
             text44.Text = "Informe de Hipertensión Arterial";
 
-            run48.Append(runProperties25);
-            run48.Append(tabChar1);
-            run48.Append(text44);
+            run48.AppendChild(runProperties25);
+            run48.AppendChild(tabChar1);
+            run48.AppendChild(text44);
 
             Run run49 = new Run();
 
@@ -5066,16 +5733,16 @@ namespace BussinessLogic
             Text text45 = new Text();
             text45.Text = "     " + DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
 
-            run49.Append(runProperties26);
-            run49.Append(tabChar2);
-            run49.Append(text45);
+            run49.AppendChild(runProperties26);
+            run49.AppendChild(tabChar2);
+            run49.AppendChild(text45);
 
-            paragraph59.Append(paragraphProperties43);
-            paragraph59.Append(run47);
-            paragraph59.Append(run48);
-            paragraph59.Append(run49);
+            paragraph59.AppendChild(paragraphProperties43);
+            paragraph59.AppendChild(run47);
+            paragraph59.AppendChild(run48);
+            paragraph59.AppendChild(run49);
 
-            coverHeader.Append(paragraph59);
+            coverHeader.AppendChild(paragraph59);
 
             coverHeaderPart.Header = coverHeader;
         }
@@ -5091,8 +5758,8 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
 
-            paragraphProperties43.Append(paragraphStyleId3);
-            paragraphProperties43.Append(paragraphMarkRunProperties42);
+            paragraphProperties43.AppendChild(paragraphStyleId3);
+            paragraphProperties43.AppendChild(paragraphMarkRunProperties42);
 
             Run run47 = new Run();
 
@@ -5100,8 +5767,8 @@ namespace BussinessLogic
             Text text43 = new Text();
             text43.Text = "Hospital de Clínicas";
 
-            run47.Append(runProperties24);
-            run47.Append(text43);
+            run47.AppendChild(runProperties24);
+            run47.AppendChild(text43);
 
             Run run48 = new Run();
 
@@ -5111,9 +5778,9 @@ namespace BussinessLogic
             Text text44 = new Text();
             text44.Text = "Informe de Hipertensión Arterial";
 
-            run48.Append(runProperties25);
-            run48.Append(tabChar1);
-            run48.Append(text44);
+            run48.AppendChild(runProperties25);
+            run48.AppendChild(tabChar1);
+            run48.AppendChild(text44);
 
             Run run49 = new Run();
 
@@ -5123,14 +5790,14 @@ namespace BussinessLogic
             Text text45 = new Text();
             text45.Text = "     " + DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
 
-            run49.Append(runProperties26);
-            run49.Append(tabChar2);
-            run49.Append(text45);
+            run49.AppendChild(runProperties26);
+            run49.AppendChild(tabChar2);
+            run49.AppendChild(text45);
 
-            paragraph59.Append(paragraphProperties43);
-            paragraph59.Append(run47);
-            paragraph59.Append(run48);
-            paragraph59.Append(run49);
+            paragraph59.AppendChild(paragraphProperties43);
+            paragraph59.AppendChild(run47);
+            paragraph59.AppendChild(run48);
+            paragraph59.AppendChild(run49);
 
             Paragraph paragraph60 = new Paragraph() { RsidParagraphAddition = "00F4078F", RsidRunAdditionDefault = "00F4078F" };
 
@@ -5139,10 +5806,10 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties43 = new ParagraphMarkRunProperties();
 
-            paragraphProperties44.Append(paragraphStyleId4);
-            paragraphProperties44.Append(paragraphMarkRunProperties43);
+            paragraphProperties44.AppendChild(paragraphStyleId4);
+            paragraphProperties44.AppendChild(paragraphMarkRunProperties43);
 
-            paragraph60.Append(paragraphProperties44);
+            paragraph60.AppendChild(paragraphProperties44);
 
             Paragraph paragraph61 = new Paragraph() { RsidParagraphMarkRevision = "00CC4E8A", RsidParagraphAddition = "00CC4E8A", RsidRunAdditionDefault = "00CC4E8A" };
 
@@ -5151,8 +5818,8 @@ namespace BussinessLogic
 
             ParagraphMarkRunProperties paragraphMarkRunProperties44 = new ParagraphMarkRunProperties();
 
-            paragraphProperties45.Append(paragraphStyleId5);
-            paragraphProperties45.Append(paragraphMarkRunProperties44);
+            paragraphProperties45.AppendChild(paragraphStyleId5);
+            paragraphProperties45.AppendChild(paragraphMarkRunProperties44);
 
             Run run50 = new Run();
 
@@ -5164,15 +5831,15 @@ namespace BussinessLogic
             V.Path path1 = new V.Path() { AllowFill = false, ShowArrowhead = true, ConnectionPointType = Ovml.ConnectValues.None };
             Ovml.Lock lock1 = new Ovml.Lock() { Extension = V.ExtensionHandlingBehaviorValues.Edit, ShapeType = true };
 
-            shapetype1.Append(path1);
-            shapetype1.Append(lock1);
+            shapetype1.AppendChild(path1);
+            shapetype1.AppendChild(lock1);
             V.Shape shape1 = new V.Shape() { Id = "_x0000_s3073", Style = "position:absolute;margin-left:-43.45pt;margin-top:13.25pt;width:557.65pt;height:.05pt;z-index:251658240", ConnectorType = Ovml.ConnectorValues.Straight, Type = "#_x0000_t32" };
 
-            picture1.Append(shapetype1);
-            picture1.Append(shape1);
+            picture1.AppendChild(shapetype1);
+            picture1.AppendChild(shape1);
 
-            run50.Append(runProperties27);
-            run50.Append(picture1);
+            run50.AppendChild(runProperties27);
+            run50.AppendChild(picture1);
 
             Run run51 = new Run();
 
@@ -5180,8 +5847,8 @@ namespace BussinessLogic
             Text text46 = new Text();
             text46.Text = "Paciente: ";
 
-            run51.Append(runProperties28);
-            run51.Append(text46);
+            run51.AppendChild(runProperties28);
+            run51.AppendChild(text46);
 
             Run run52 = new Run();
 
@@ -5189,8 +5856,8 @@ namespace BussinessLogic
             Text text47 = new Text();
             text47.Text = patient.RegisterNumber;
 
-            run52.Append(runProperties29);
-            run52.Append(text47);
+            run52.AppendChild(runProperties29);
+            run52.AppendChild(text47);
 
             Run run56 = new Run();
 
@@ -5199,9 +5866,9 @@ namespace BussinessLogic
             Text text51 = new Text();
             text51.Text = patient.Names + " " + patient.Surnames;
 
-            run56.Append(runProperties33);
-            run56.Append(tabChar3);
-            run56.Append(text51);
+            run56.AppendChild(runProperties33);
+            run56.AppendChild(tabChar3);
+            run56.AppendChild(text51);
 
             Run run57 = new Run();
 
@@ -5210,20 +5877,20 @@ namespace BussinessLogic
             Text text52 = new Text();
             text52.Text = patient.DocumentId;
 
-            run57.Append(runProperties34);
-            run57.Append(tabChar4);
-            run57.Append(text52);
+            run57.AppendChild(runProperties34);
+            run57.AppendChild(tabChar4);
+            run57.AppendChild(text52);
 
-            paragraph61.Append(paragraphProperties45);
-            paragraph61.Append(run50);
-            paragraph61.Append(run51);
-            paragraph61.Append(run52);
-            paragraph61.Append(run56);
-            paragraph61.Append(run57);
+            paragraph61.AppendChild(paragraphProperties45);
+            paragraph61.AppendChild(run50);
+            paragraph61.AppendChild(run51);
+            paragraph61.AppendChild(run52);
+            paragraph61.AppendChild(run56);
+            paragraph61.AppendChild(run57);
 
-            header1.Append(paragraph59);
-            header1.Append(paragraph60);
-            header1.Append(paragraph61);
+            header1.AppendChild(paragraph59);
+            header1.AppendChild(paragraph60);
+            header1.AppendChild(paragraph61);
 
             headerPart1.Header = header1;
 
