@@ -314,16 +314,12 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`limitmeasure`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`limitmeasure` (
-  `idlimitmeasure` INT NOT NULL ,
+  `idlimitmeasure` INT NOT NULL AUTO_INCREMENT ,
   `maxdiasday` INT NULL ,
-  `maxdiasdayavg` INT NULL ,
   `maxdiasnight` INT NULL ,
-  `maxdiasnightavg` INT NULL ,
   `maxdiastotal` INT NULL ,
   `maxsysday` INT NULL ,
-  `maxsysdayavg` INT NULL ,
   `maxsysnight` INT NULL ,
-  `maxsysnightavg` INT NULL ,
   `maxsystotal` INT NULL ,
   PRIMARY KEY (`idlimitmeasure`) )
 ENGINE = InnoDB;
