@@ -74,7 +74,7 @@ SET `name` = name_,
 	`birthday` = birth,
 	`e_mail` = email,
 	`register_number` = register_number
-WHERE `idPatientUda` = id;
+WHERE `idPatient` = id;
 END$$
 DELIMITER ;
 
