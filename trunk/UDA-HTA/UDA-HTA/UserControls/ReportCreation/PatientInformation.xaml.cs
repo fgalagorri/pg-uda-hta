@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using Entities;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.ReportCreation
 {
@@ -109,21 +110,20 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public bool IsValid()
         {
-            int i;
-            return !string.IsNullOrWhiteSpace(txtNames.Text) &&
-                   !string.IsNullOrWhiteSpace(txtSurnames.Text) &&
-                   !string.IsNullOrWhiteSpace(txtCI.Text) &&
-                   int.TryParse(txtBirthDay.Text, out i) &&
-                   int.TryParse(txtBirthMon.Text, out i) &&
-                   int.TryParse(txtBirthYear.Text, out i) &&
-                   cmbSex.SelectedIndex != -1 &&
-                   !string.IsNullOrWhiteSpace(txtAddress.Text) &&
-                   !string.IsNullOrWhiteSpace(txtNeighbour.Text) &&
-                   !string.IsNullOrWhiteSpace(txtCity.Text) &&
-                   cmbDepartment.SelectedIndex != -1 &&
-                   (!string.IsNullOrWhiteSpace(txtTel.Text) ||
-                   !string.IsNullOrWhiteSpace(txtCel.Text)) &&
-                   !string.IsNullOrWhiteSpace(txtMail.Text);
+            return txtNames.ValidateString() &
+                   txtSurnames.ValidateString() &
+                   txtCI.ValidateString() &
+                   txtBirthDay.ValidateInt(1, 31) &
+                   txtBirthMon.ValidateInt(1, 12) &
+                   txtBirthYear.ValidateInt(1900, 2100) &
+                   cmbSex.ValidateSelected() &
+                   txtAddress.ValidateString() &
+                   txtNeighbour.ValidateString() &
+                   txtCity.ValidateString() &
+                   cmbDepartment.ValidateSelected() &
+                   (txtTel.ValidateString(false) ||
+                   txtCel.ValidateString(false)) &
+                   txtMail.ValidateString();
         }
 
 

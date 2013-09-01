@@ -10,6 +10,8 @@ namespace UDA_HTA
     /// </summary>
     public partial class ReportCreate : Window
     {
+        private const string ErrorMessage = "Algunos datos obligatorios no fueron" +
+                                            " ingresados o el valor ingresado es incorrecto.";
         private const string Siguiente = "Siguiente >";
         private const string Finalizar = "Finalizar >>";
         private int _state;
@@ -45,7 +47,8 @@ namespace UDA_HTA
                     }
                     else
                     {
-                        //display message error
+                        MessageBox.Show(ErrorMessage, "Datos faltantes",
+                                        MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case 1:
@@ -56,7 +59,8 @@ namespace UDA_HTA
                     }
                     else
                     {
-                        //display message error
+                        MessageBox.Show(ErrorMessage, "Datos faltantes",
+                                        MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case 2:
@@ -68,7 +72,8 @@ namespace UDA_HTA
                     }
                     else
                     {
-                        //display message error
+                        MessageBox.Show(ErrorMessage, "Datos faltantes",
+                                        MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case 3:
