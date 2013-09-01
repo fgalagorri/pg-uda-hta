@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\RichTextboxAssistant.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="NewReportFinder.xaml.cs">
       <DependentUpon>NewReportFinder.xaml</DependentUpon>
     </Compile>
@@ -183,9 +184,6 @@
     </Compile>
     <Compile Include="UserControls\ReportCreation\PatientInformation.xaml.cs">
       <DependentUpon>PatientInformation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ReportCreation\Summary.xaml.cs">
-      <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -327,10 +325,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ReportCreation\PatientInformation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ReportCreation\Summary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

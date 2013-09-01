@@ -27,7 +27,7 @@
         <Style TargetType="TextBox" x:Key="TBlockSmall">
             <Setter Property="Width" Value="40" />
             <Setter Property="Margin" Value="0,3" />
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </Application.Resources>
 </Application>

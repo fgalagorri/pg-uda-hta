@@ -34,12 +34,14 @@ namespace UDA_HTA.UserControls.ReportCreation
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
             _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+            autoMedication.DataContext = _drugs;
         }
         public PatientCondition(Report r)
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
             _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+            autoMedication.DataContext = _drugs;
 
             // Datos posiblemente modificados
             if (r.TemporaryData != null)
@@ -101,15 +103,13 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public bool IsValid()
         {
-            int i;
-            decimal d;
-            return decimal.TryParse(txtWeight.Text.Replace(",", "."), NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out d) &&
-                   decimal.TryParse(txtHeight.Text.Replace(",", "."), NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out d) &&
-                   int.TryParse(txtFat.Text, out i) &&
-                   int.TryParse(txtMuscle.Text, out i) &&
-                   int.TryParse(txtKcal.Text, out i) &&
+            CalculateImc(null, null);
+
+            return txtWeight.ValidateDecimal(0, 400) &
+                   txtHeight.ValidateDecimal(0, 3) &
+                   txtFat.ValidateInt(0, 100) &
+                   txtMuscle.ValidateInt(0, 100) &
+                   txtKcal.ValidateInt(0, int.MaxValue) &
                    _imc > 0;
         }
 
@@ -172,13 +172,6 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         #region Medicación
 
-        private void MedicationPopulate(object sender, PopulatingEventArgs e)
-        {
-            string text = autoMedication.Text;
-
-
-        }
-
         private void btnMedication_Click(object sender, RoutedEventArgs e)
         {
             /*_ms = new MedicationSelector();
@@ -189,24 +182,37 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         private void btnAddMedication_Click(object sender, RoutedEventArgs e)
         {
-            grMedication.DataContext = null;
-
             int hour, min;
+            var drug = _drugs.FirstOrDefault(d => d.Name == autoMedication.Text);
+
             if (int.TryParse(txtHourMedication.Text, out hour)
                 && int.TryParse(txtMinMedication.Text, out min)
-                && 0 <= hour && hour < 24 && 0 <= min && min < 60)
+                && 0 <= hour && hour < 24 && 0 <= min && min < 60
+                && drug != null)
             {
-                // TODO : Ver Drug!!!
                 var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
-                _lstMedication.Add(new Medication(date, new Drug("ver", "ver", "ver")));
+                _lstMedication.Add(new Medication(date, drug));
+
+                // Clears the textboxes after insertion
+                txtHourMedication.Clear();
+                txtMinMedication.Clear();
+                autoMedication.Text = String.Empty;
+                txtHourMedication.Focus();
+            }
+            else if (!(int.TryParse(txtHourMedication.Text, out hour)
+                && int.TryParse(txtMinMedication.Text, out min)
+                && 0 <= hour && hour < 24 && 0 <= min && min < 60))
+            {
+                MessageBox.Show("La hora no está en formato correcto.", "Error!", 
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("La droga indicada no coincide con una en el sistema.", "Error!", 
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            // Clears the textboxes after insertion
-            txtHourMedication.Clear();
-            txtMinMedication.Clear();
-//            autoMedication.Clear();
             grMedication.DataContext = _lstMedication;
-            txtHourMedication.Focus();
         }
 
         private void btnRmvMedication_Click(object sender, RoutedEventArgs e)

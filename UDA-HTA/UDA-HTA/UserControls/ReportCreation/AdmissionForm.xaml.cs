@@ -12,6 +12,10 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class AdmissionForm : UserControl
     {
+        private const int MAXSYS = 20;
+        private const int MAXDIAS = 20;
+        private const int MAXHR = 200;
+
 
         public AdmissionForm()
         {
@@ -126,35 +130,34 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public bool IsValid()
         {
-            int n;
-            return dtStart.SelectedDate.HasValue &&
-                   int.TryParse(txtStartHour.Text, out n) &&
-                   int.TryParse(txtStartMinutes.Text, out n) &&
-                   int.TryParse(txtDreamStartHour.Text, out n) &&
-                   int.TryParse(txtDreamStartMinutes.Text, out n) &&
-                   int.TryParse(txtDreamEndHour.Text, out n) &&
-                   int.TryParse(txtDreamEndMinutes.Text, out n) &&
-                   cmbDreamQty.SelectedIndex != -1 &&
-                   int.TryParse(txtMealHour.Text, out n) &&
-                   int.TryParse(txtMealMinutes.Text, out n) &&
-                   int.TryParse(txtSystolicInitial1.Text, out n) &&
-                   int.TryParse(txtSystolicInitial2.Text, out n) &&
-                   int.TryParse(txtSystolicInitial3.Text, out n) &&
-                   int.TryParse(txtDiastolicInitial1.Text, out n) &&
-                   int.TryParse(txtDiastolicInitial2.Text, out n) &&
-                   int.TryParse(txtDiastolicInitial3.Text, out n) &&
-                   int.TryParse(txtHeartRateInitial1.Text, out n) &&
-                   int.TryParse(txtHeartRateInitial2.Text, out n) &&
-                   int.TryParse(txtHeartRateInitial3.Text, out n) &&
-                   int.TryParse(txtSystolicEnd1.Text, out n) &&
-                   int.TryParse(txtSystolicEnd2.Text, out n) &&
-                   int.TryParse(txtSystolicEnd3.Text, out n) &&
-                   int.TryParse(txtDiastolicEnd1.Text, out n) &&
-                   int.TryParse(txtDiastolicEnd2.Text, out n) &&
-                   int.TryParse(txtDiastolicEnd3.Text, out n) &&
-                   int.TryParse(txtHeartRateEnd1.Text, out n) &&
-                   int.TryParse(txtHeartRateEnd2.Text, out n) &&
-                   int.TryParse(txtHeartRateEnd3.Text, out n);
+            return dtStart.ValidateDate() &
+                   txtStartHour.ValidateInt(0, 23) &
+                   txtStartMinutes.ValidateInt(0, 59) &
+                   txtDreamStartHour.ValidateInt(0, 23) &
+                   txtDreamStartMinutes.ValidateInt(0, 59) &
+                   txtDreamEndHour.ValidateInt(0, 23) &
+                   txtDreamEndMinutes.ValidateInt(0, 60) &
+                   cmbDreamQty.ValidateSelected() &
+                   txtMealHour.ValidateInt(0, 23) &
+                   txtMealMinutes.ValidateInt(0, 59) &
+                   txtSystolicInitial1.ValidateInt(0, MAXSYS) &
+                   txtSystolicInitial2.ValidateInt(0, MAXSYS) &
+                   txtSystolicInitial3.ValidateInt(0, MAXSYS) &
+                   txtDiastolicInitial1.ValidateInt(0, MAXDIAS) &
+                   txtDiastolicInitial2.ValidateInt(0, MAXDIAS) &
+                   txtDiastolicInitial3.ValidateInt(0, MAXDIAS) &
+                   txtHeartRateInitial1.ValidateInt(0, MAXHR) &
+                   txtHeartRateInitial2.ValidateInt(0, MAXHR) &
+                   txtHeartRateInitial3.ValidateInt(0, MAXHR) &
+                   txtSystolicEnd1.ValidateInt(0, MAXSYS) &
+                   txtSystolicEnd2.ValidateInt(0, MAXSYS) &
+                   txtSystolicEnd3.ValidateInt(0, MAXSYS) &
+                   txtDiastolicEnd1.ValidateInt(0, MAXDIAS) &
+                   txtDiastolicEnd2.ValidateInt(0, MAXDIAS) &
+                   txtDiastolicEnd3.ValidateInt(0, MAXDIAS) &
+                   txtHeartRateEnd1.ValidateInt(0, MAXHR) &
+                   txtHeartRateEnd2.ValidateInt(0, MAXHR) &
+                   txtHeartRateEnd3.ValidateInt(0, MAXHR);
         }
     }
 }

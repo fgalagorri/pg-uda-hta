@@ -22,6 +22,7 @@ namespace UDA_HTA
         public Login()
         {
             InitializeComponent();
+            userLogin.Focus();
         }
 
         private void buttonLogin_Click(object sender, RoutedEventArgs e)
