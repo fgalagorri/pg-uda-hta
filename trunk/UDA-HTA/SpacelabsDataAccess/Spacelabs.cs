@@ -304,6 +304,7 @@ namespace SpacelabsDataAccess
                                    Asleep = (report.Carnet.SleepTimeStart <= d.ReadingTime &&
                                              report.Carnet.SleepTimeEnd >= d.ReadingTime),
                                    Valid = d.EventCode.HasValue && d.EventCode.Value == 0,
+                                   IsEnabled = d.EventCode.HasValue && d.EventCode.Value == 0,
                                    Retry = d.ReadingCode == 2
                                };
 

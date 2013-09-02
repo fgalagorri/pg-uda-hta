@@ -223,10 +223,25 @@ namespace DataAccess
                                          HeartRate = m.heart_rate,
                                          Asleep = m.sleep,
                                          Valid = m.is_valid,
-                                         Retry = m.is_retry,
+                                         Retry = m.is_retry.Value,
+                                         IsEnabled = m.is_enabled,
                                          Comment = m.comment
                                      }).ToList();
             }
+        }
+
+        public void UpdateMeasureInformation(long idMeasure, bool enabled, string comment)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    udaContext.updateMeasure(idMeasure, enabled, comment);
+                }            
+
+                scope.Complete();
+            }
+
         }
 
         public bool ExistPatient(long? idPatient)
@@ -581,7 +596,8 @@ namespace DataAccess
                                                      Diastolic = m.diastolic,
                                                      HeartRate = m.heart_rate,
                                                      Valid = m.is_valid,
-                                                     Retry = m.is_retry,
+                                                     Retry = m.is_retry.Value,
+                                                     IsEnabled = m.is_enabled,
                                                      Asleep = m.sleep,
                                                      Comment = m.comment
                                                  }).ToList();
@@ -732,7 +748,7 @@ namespace DataAccess
                 }
 
                 // Calculo de máximos, mínimos y promedios de Sys, Mid, Dias y HR
-                var valid = rep.Measures.Where(m => m.Valid).ToList();
+                var valid = rep.Measures.Where(m => m.Valid && m.IsEnabled).ToList();
 
                 //Sobre el total de medidas
                 int sysTotalAvg = (int) Math.Round(valid.Average(m => m.Systolic.Value));
@@ -912,13 +928,15 @@ namespace DataAccess
                                             middleTotalAvg, middleDayAvg, middleNightAvg);
 
                     //Obtener lista de medidas para insertar en tabla Measurement
-                    ICollection<Measurement> lmeasure = rep.Measures;
-
-                    foreach (Measurement m in lmeasure)
+                    foreach (Measurement m in rep.Measures)
                     {
-                        udaContext.insertMeasurement(m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate,
-                                                     m.Asleep, m.Valid, m.Retry, m.Comment, (long?) lastIdReport.Value,
+                        ObjectParameter lastIdMeasure = new ObjectParameter("id", typeof (long));
+                        //m.IsEnabled, al momento de insertar un conjunto de medidas, siempre es true
+                        m.IsEnabled = true;
+                        udaContext.insertMeasurement(lastIdMeasure, m.Time, m.Systolic, m.Middle, m.Diastolic, m.HeartRate,
+                                                     m.Asleep, m.Valid, m.Retry, m.IsEnabled, m.Comment, (long?) lastIdReport.Value,
                                                      rep.Patient.UdaId);
+                        m.Id = (long) lastIdMeasure.Value;
                     }
                 }
 

@@ -235,6 +235,8 @@ namespace HMSDataAccess
                                   &&
                                   (measure.HeartRate != 0 && measure.Systolic != 0
                                    && measure.Diastolic != 0 && measure.Middle != 0)));
+                
+                measure.IsEnabled = measure.Valid;
 
                 measure.Asleep = (measure.Time >= report.Carnet.SleepTimeStart.Value &&
                                   measure.Time <= report.Carnet.SleepTimeEnd.Value);

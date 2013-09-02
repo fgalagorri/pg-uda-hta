@@ -159,7 +159,7 @@
             <PropertyRef Name="report_idReport" />
             <PropertyRef Name="report_patientuda_idPatientUda" />
           </Key>
-          <Property Name="idMeasurement" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idMeasurement" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="datetime" />
           <Property Name="systolic" Type="int" />
           <Property Name="average" Type="int" />
@@ -171,6 +171,7 @@
           <Property Name="report_idReport" Type="bigint" Nullable="false" />
           <Property Name="report_patientuda_idPatientUda" Type="bigint" Nullable="false" />
           <Property Name="is_retry" Type="bit" />
+          <Property Name="is_enabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="medicalhistory">
           <Key>
@@ -424,9 +425,6 @@
         <Function Name="deleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="login" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="getInvestigationReports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="idInvestigation" Type="int" Mode="In" />
-        </Function>
         <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="pass_var" Type="text" Mode="Out" />
           <Parameter Name="login_var" Type="varchar" Mode="In" />
@@ -498,6 +496,7 @@
           <Parameter Name="maxsystotal" Type="int" Mode="In" />
         </Function>
         <Function Name="insertMeasurement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
           <Parameter Name="dateM" Type="datetime" Mode="In" />
           <Parameter Name="systolic" Type="int" Mode="In" />
           <Parameter Name="average" Type="int" Mode="In" />
@@ -506,6 +505,7 @@
           <Parameter Name="sleep" Type="bit" Mode="In" />
           <Parameter Name="isValid" Type="bit" Mode="In" />
           <Parameter Name="isRetry" Type="bit" Mode="In" />
+          <Parameter Name="isEnabled" Type="bit" Mode="In" />
           <Parameter Name="comm" Type="text" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatient" Type="bigint" Mode="In" />
@@ -609,10 +609,9 @@
           <Parameter Name="active" Type="varchar" Mode="In" />
           <Parameter Name="idType" Type="int" Mode="In" />
         </Function>
-        <Function Name="updateInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="name_" Type="varchar" Mode="In" />
-          <Parameter Name="creationdate_" Type="datetime" Mode="In" />
+        <Function Name="updateMeasure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idMeasure" Type="bigint" Mode="In" />
+          <Parameter Name="isEnabled" Type="bit" Mode="In" />
           <Parameter Name="comment_" Type="text" Mode="In" />
         </Function>
         <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
@@ -683,11 +682,6 @@
           <AssociationSet Name="investigation_has_report" Association="udahta_dbModel.investigation_has_report">
             <End Role="investigation" EntitySet="investigation" />
             <End Role="report" EntitySet="report" />
-          </AssociationSet>
-          <EntitySet Name="measurement" EntityType="udahta_dbModel.measurement" />
-          <AssociationSet Name="fk_Measurement_Report1" Association="udahta_dbModel.fk_Measurement_Report1">
-            <End Role="report" EntitySet="report" />
-            <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
           <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
           <FunctionImport Name="deleteInvestigationHasReport">
@@ -766,6 +760,7 @@
             <Parameter Name="maxsystotal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertMeasurement">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="dateM" Mode="In" Type="DateTime" />
             <Parameter Name="systolic" Mode="In" Type="Int32" />
             <Parameter Name="average" Mode="In" Type="Int32" />
@@ -774,6 +769,7 @@
             <Parameter Name="sleep" Mode="In" Type="Boolean" />
             <Parameter Name="isValid" Mode="In" Type="Boolean" />
             <Parameter Name="isRetry" Mode="In" Type="Boolean" />
+            <Parameter Name="isEnabled" Mode="In" Type="Boolean" />
             <Parameter Name="comm" Mode="In" Type="String" />
             <Parameter Name="idReport" Mode="In" Type="Int64" />
             <Parameter Name="idPatient" Mode="In" Type="Int64" />
@@ -906,6 +902,16 @@
             <Parameter Name="active" Mode="In" Type="String" />
             <Parameter Name="idType" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="updateMeasure">
+            <Parameter Name="idMeasure" Mode="In" Type="Int64" />
+            <Parameter Name="isEnabled" Mode="In" Type="Boolean" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="measurement" EntityType="udahta_dbModel.measurement" />
+          <AssociationSet Name="fk_Measurement_Report1" Association="udahta_dbModel.fk_Measurement_Report1">
+            <End Role="report" EntitySet="report" />
+            <End Role="measurement" EntitySet="measurement" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="complications_activities">
           <Key>
@@ -1140,7 +1146,6 @@
           <Property Type="Int32" Name="max_night_hr" />
           <Property Type="Int32" Name="min_day_hr" />
           <Property Type="Int32" Name="min_night_hr" />
-          <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
           <Property Type="Int32" Name="tot_sd_sis" />
           <Property Type="Int32" Name="tot_sd_dias" />
           <Property Type="Int32" Name="day_sd_sis" />
@@ -1159,6 +1164,7 @@
           <Property Type="DateTime" Name="diagnosis_date" />
           <Property Type="String" Name="requester" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="specialty" />
+          <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
         </EntityType>
         <Association Name="fk_Report_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1200,25 +1206,38 @@
           <End Type="udahta_dbModel.investigation" Role="investigation" Multiplicity="*" />
           <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
         </Association>
+        <EntityType Name="limitmeasure">
+          <Key>
+            <PropertyRef Name="idlimitmeasure" />
+          </Key>
+          <Property Type="Int32" Name="idlimitmeasure" Nullable="false" />
+          <Property Type="Int32" Name="maxdiasday" />
+          <Property Type="Int32" Name="maxdiasnight" />
+          <Property Type="Int32" Name="maxdiastotal" />
+          <Property Type="Int32" Name="maxsysday" />
+          <Property Type="Int32" Name="maxsysnight" />
+          <Property Type="Int32" Name="maxsystotal" />
+        </EntityType>
         <EntityType Name="measurement">
           <Key>
             <PropertyRef Name="idMeasurement" />
             <PropertyRef Name="report_idReport" />
             <PropertyRef Name="report_patientuda_idPatientUda" />
           </Key>
-          <Property Type="Int32" Name="idMeasurement" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="idMeasurement" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="date" />
           <Property Type="Int32" Name="systolic" />
           <Property Type="Int32" Name="average" />
           <Property Type="Int32" Name="diastolic" />
           <Property Type="Int32" Name="heart_rate" />
           <Property Type="Boolean" Name="sleep" />
-          <Property Type="String" Name="comment" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="comment" />
           <Property Type="Boolean" Name="is_valid" Nullable="false" />
           <Property Type="Int64" Name="report_idReport" Nullable="false" />
           <Property Type="Int64" Name="report_patientuda_idPatientUda" Nullable="false" />
+          <Property Type="Boolean" Name="is_retry" />
+          <Property Type="Boolean" Name="is_enabled" Nullable="false" />
           <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="measurement" ToRole="report" />
-          <Property Type="Boolean" Name="is_retry" Nullable="false" />
         </EntityType>
         <Association Name="fk_Measurement_Report1">
           <End Type="udahta_dbModel.report" Role="report" Multiplicity="1" />
@@ -1234,18 +1253,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="limitmeasure">
-          <Key>
-            <PropertyRef Name="idlimitmeasure" />
-          </Key>
-          <Property Type="Int32" Name="idlimitmeasure" Nullable="false" />
-          <Property Type="Int32" Name="maxdiasday" />
-          <Property Type="Int32" Name="maxdiasnight" />
-          <Property Type="Int32" Name="maxdiastotal" />
-          <Property Type="Int32" Name="maxsysday" />
-          <Property Type="Int32" Name="maxsysnight" />
-          <Property Type="Int32" Name="maxsystotal" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1404,24 +1411,6 @@
               <ScalarProperty Name="idInvestigation" ColumnName="investigation_idInvestigation" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="measurement">
-            <EntityTypeMapping TypeName="udahta_dbModel.measurement">
-              <MappingFragment StoreEntitySet="measurement">
-                <ScalarProperty Name="is_retry" ColumnName="is_retry" />
-                <ScalarProperty Name="report_patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
-                <ScalarProperty Name="report_idReport" ColumnName="report_idReport" />
-                <ScalarProperty Name="is_valid" ColumnName="is_valid" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="sleep" ColumnName="sleep" />
-                <ScalarProperty Name="heart_rate" ColumnName="heart_rate" />
-                <ScalarProperty Name="diastolic" ColumnName="diastolic" />
-                <ScalarProperty Name="average" ColumnName="average" />
-                <ScalarProperty Name="systolic" ColumnName="systolic" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="limitmeasure">
             <EntityTypeMapping TypeName="udahta_dbModel.limitmeasure">
               <MappingFragment StoreEntitySet="limitmeasure">
@@ -1456,8 +1445,27 @@
           <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
           <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
           <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
-          <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
           <FunctionImportMapping FunctionImportName="updateDrug" FunctionName="udahta_dbModel.Store.updateDrug" />
+          <FunctionImportMapping FunctionImportName="updateMeasure" FunctionName="udahta_dbModel.Store.updateMeasure" />
+          <EntitySetMapping Name="measurement">
+            <EntityTypeMapping TypeName="udahta_dbModel.measurement">
+              <MappingFragment StoreEntitySet="measurement">
+                <ScalarProperty Name="is_enabled" ColumnName="is_enabled" />
+                <ScalarProperty Name="is_retry" ColumnName="is_retry" />
+                <ScalarProperty Name="report_patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
+                <ScalarProperty Name="report_idReport" ColumnName="report_idReport" />
+                <ScalarProperty Name="is_valid" ColumnName="is_valid" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="sleep" ColumnName="sleep" />
+                <ScalarProperty Name="heart_rate" ColumnName="heart_rate" />
+                <ScalarProperty Name="diastolic" ColumnName="diastolic" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="systolic" ColumnName="systolic" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1529,12 +1537,12 @@
           <ConnectorPoint PointX="6.75" PointY="2.6151432291666667" />
           <ConnectorPoint PointX="6.75" PointY="3.875" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="6.375" Height="3.5186979166666656" />
-        <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" >
-          <ConnectorPoint PointX="7.5" PointY="8.1343489583333337" />
-          <ConnectorPoint PointX="8.25" PointY="8.1343489583333337" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="10.375" PointY="3.75" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="7.75" Height="3.7109993489583388" />
+        <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" >
+          <ConnectorPoint PointX="7.5" PointY="9.60549967447917" />
+          <ConnectorPoint PointX="8.25" PointY="9.60549967447917" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>
