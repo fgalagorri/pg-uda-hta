@@ -9,6 +9,7 @@ namespace SpacelabsDataAccess
     public class Spacelabs : IDeviceDataAccess
     {
         private const int deviceId = 1;
+        private const string deviceName = "Spacelabs";
         private ABPEntities _db;
 
         public Spacelabs()
@@ -327,9 +328,9 @@ namespace SpacelabsDataAccess
                           join patient in _db.tblSysPatient on test.PatientId equals patient.PatientId
                           select new
                               {
-                                  PatientName = test.FirstName,
-                                  PatientLastName = test.LastName,
-                                  PatientSecondLastname = test.SecondLastName,
+                                  PatientName = patient.FirstName,
+                                  PatientLastName = patient.LastName,
+                                  PatientSecondLastname = patient.SecondLastName,
                                   PatientDocument = patient.MRN,
                                   ReportId = test.TestId,
                                   PatientId = patient.PatientId,
@@ -346,7 +347,8 @@ namespace SpacelabsDataAccess
                                 PatientDocument = q.PatientDocument,
                                 ReportId = q.ReportId.ToString(),
                                 ReportDate = q.ReportDate,
-                                ReportDevice = q.ReportDevice
+                                ReportDevice = q.ReportDevice,
+                                ReportDeviceName = deviceName
                             }).ToList();
             }   
         }

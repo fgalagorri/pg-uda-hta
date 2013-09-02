@@ -12,7 +12,8 @@ namespace HMSDataAccess
 {
     public class HMS : IDeviceDataAccess
     {
-        private const int DeviceId = 0;
+        private const int deviceId = 0;
+        private const string deviceName = "HMS";
         private Statement _stat;
         private Connection _conn;
 
@@ -99,7 +100,7 @@ namespace HMSDataAccess
                     /*
                      * Datos paciente
                       */
-                    report.Patient.DeviceReferences.Add(new DeviceReference(DeviceId,rs.getString(1)));
+                    report.Patient.DeviceReferences.Add(new DeviceReference(deviceId,rs.getString(1)));
 
                     var timeStr = rs.getString(2);
                     //Pareseo la fecha y hora para crear el DateTime
@@ -326,7 +327,7 @@ namespace HMSDataAccess
 
             if (rs != null && rs.next())
             {
-                patient.DeviceReferences.Add(new DeviceReference(DeviceId,rs.getString(2)));
+                patient.DeviceReferences.Add(new DeviceReference(deviceId,rs.getString(2)));
                 
                 var timeStr = rs.getString(3); 
                 //Pareseo la fecha y hora para crear el DateTime
@@ -365,7 +366,7 @@ namespace HMSDataAccess
                 Patient patient = new Patient();
 
                 id = rs.getString(1);
-                patient.DeviceReferences.Add(new DeviceReference(DeviceId,id));
+                patient.DeviceReferences.Add(new DeviceReference(deviceId,id));
 
                 timeStr = rs.getString(2);
                 //Pareseo la fecha y hora para crear el DateTime
@@ -400,7 +401,8 @@ namespace HMSDataAccess
                         PatientName = rs.getString(4),
                         PatientLastName = rs.getString(5),
                         ReportId = rs.getString(6),
-                        ReportDevice = DeviceId,
+                        ReportDevice = deviceId,
+                        ReportDeviceName = deviceName,
                         ReportDate = parseDateTime(rs.getString(7))
                     };
 

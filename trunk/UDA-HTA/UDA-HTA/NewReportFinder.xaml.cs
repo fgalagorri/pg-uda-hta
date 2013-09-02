@@ -23,7 +23,7 @@ namespace UDA_HTA
 
             var controller = GatewayController.GetInstance();
             _list = controller.GetNewReports();
-            grReports.DataContext = _list;
+            grReports.DataContext = _list.OrderBy(r => r.ReportDate);
 
             Mouse.OverrideCursor = null;
         }
