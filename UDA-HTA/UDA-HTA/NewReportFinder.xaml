@@ -39,7 +39,7 @@
                 <DataGridTextColumn Header="CI" Width="Auto" Binding="{Binding Path=PatientDocument}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Nombre" Width="1*" IsReadOnly="True" Binding="{Binding Path=PatientName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Apellido" Width="1*" IsReadOnly="True" Binding="{Binding Path=PatientLastName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=ReportDevice}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=ReportDeviceName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="IdPaciente" Width="1*" Binding="{Binding Path=PatientId}" Visibility="Hidden"></DataGridTextColumn>
                 <DataGridTextColumn Header="IdReporte" Width="1*" Binding="{Binding Path=ReportId}" Visibility="Hidden"></DataGridTextColumn>
             </DataGrid.Columns>
