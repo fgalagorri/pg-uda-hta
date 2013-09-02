@@ -17,6 +17,7 @@ namespace Gateway
         private long _importedPatient;
         private long _importedReport;
         private User _loggedUser;
+        private static Limits _limits;
 
     #endregion
 
@@ -29,14 +30,22 @@ namespace Gateway
             reportId = _importedReport;
         }
 
+        public Limits GetLimits()
+        {
+            return _limits;
+        }
+
     #endregion
 
 
         private GatewayController()
         {
         }
+
         public static GatewayController GetInstance()
         {
+            var rm = new ReportManagement();
+            _limits = rm.GetLimits();
             return _this ?? (_this = new GatewayController());
         }
 
@@ -148,6 +157,11 @@ namespace Gateway
             cont.UpdateDiagnosis(de.ReportId, de.Diagnosis, de.DiagnosisDate, de.Doctor.Name);
 
             return de;
+        }
+
+        public void UpdateMeasure(long measureId, bool enabled, string comment)
+        {
+            new ReportManagement().UpdateMeasureInformation(measureId,enabled,comment);
         }
 
     #endregion

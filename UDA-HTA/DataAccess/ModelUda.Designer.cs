@@ -258,22 +258,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<measurement> measurement
-        {
-            get
-            {
-                if ((_measurement == null))
-                {
-                    _measurement = base.CreateObjectSet<measurement>("measurement");
-                }
-                return _measurement;
-            }
-        }
-        private ObjectSet<measurement> _measurement;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<limitmeasure> limitmeasure
         {
             get
@@ -286,6 +270,22 @@ namespace DataAccess
             }
         }
         private ObjectSet<limitmeasure> _limitmeasure;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<measurement> measurement
+        {
+            get
+            {
+                if ((_measurement == null))
+                {
+                    _measurement = base.CreateObjectSet<measurement>("measurement");
+                }
+                return _measurement;
+            }
+        }
+        private ObjectSet<measurement> _measurement;
 
         #endregion
         #region AddTo Methods
@@ -379,19 +379,19 @@ namespace DataAccess
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the measurement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomeasurement(measurement measurement)
-        {
-            base.AddObject("measurement", measurement);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the limitmeasure EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTolimitmeasure(limitmeasure limitmeasure)
         {
             base.AddObject("limitmeasure", limitmeasure);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the measurement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTomeasurement(measurement measurement)
+        {
+            base.AddObject("measurement", measurement);
         }
 
         #endregion
@@ -1059,6 +1059,7 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="dateM">No Metadata Documentation available.</param>
         /// <param name="systolic">No Metadata Documentation available.</param>
         /// <param name="average">No Metadata Documentation available.</param>
@@ -1067,10 +1068,11 @@ namespace DataAccess
         /// <param name="sleep">No Metadata Documentation available.</param>
         /// <param name="isValid">No Metadata Documentation available.</param>
         /// <param name="isRetry">No Metadata Documentation available.</param>
+        /// <param name="isEnabled">No Metadata Documentation available.</param>
         /// <param name="comm">No Metadata Documentation available.</param>
         /// <param name="idReport">No Metadata Documentation available.</param>
         /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertMeasurement(Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Boolean> isValid, Nullable<global::System.Boolean> isRetry, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
+        public int insertMeasurement(ObjectParameter id, Nullable<global::System.DateTime> dateM, Nullable<global::System.Int32> systolic, Nullable<global::System.Int32> average, Nullable<global::System.Int32> diastolic, Nullable<global::System.Int32> heart_rate, Nullable<global::System.Boolean> sleep, Nullable<global::System.Boolean> isValid, Nullable<global::System.Boolean> isRetry, Nullable<global::System.Boolean> isEnabled, global::System.String comm, Nullable<global::System.Int64> idReport, Nullable<global::System.Int64> idPatient)
         {
             ObjectParameter dateMParameter;
             if (dateM.HasValue)
@@ -1152,6 +1154,16 @@ namespace DataAccess
                 isRetryParameter = new ObjectParameter("isRetry", typeof(global::System.Boolean));
             }
     
+            ObjectParameter isEnabledParameter;
+            if (isEnabled.HasValue)
+            {
+                isEnabledParameter = new ObjectParameter("isEnabled", isEnabled);
+            }
+            else
+            {
+                isEnabledParameter = new ObjectParameter("isEnabled", typeof(global::System.Boolean));
+            }
+    
             ObjectParameter commParameter;
             if (comm != null)
             {
@@ -1182,7 +1194,7 @@ namespace DataAccess
                 idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("insertMeasurement", dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, isValidParameter, isRetryParameter, commParameter, idReportParameter, idPatientParameter);
+            return base.ExecuteFunction("insertMeasurement", id, dateMParameter, systolicParameter, averageParameter, diastolicParameter, heart_rateParameter, sleepParameter, isValidParameter, isRetryParameter, isEnabledParameter, commParameter, idReportParameter, idPatientParameter);
         }
     
         /// <summary>
@@ -2355,6 +2367,47 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("updateDrug", idParameter, name_Parameter, activeParameter, idTypeParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idMeasure">No Metadata Documentation available.</param>
+        /// <param name="isEnabled">No Metadata Documentation available.</param>
+        /// <param name="comment_">No Metadata Documentation available.</param>
+        public int updateMeasure(Nullable<global::System.Int64> idMeasure, Nullable<global::System.Boolean> isEnabled, global::System.String comment_)
+        {
+            ObjectParameter idMeasureParameter;
+            if (idMeasure.HasValue)
+            {
+                idMeasureParameter = new ObjectParameter("idMeasure", idMeasure);
+            }
+            else
+            {
+                idMeasureParameter = new ObjectParameter("idMeasure", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter isEnabledParameter;
+            if (isEnabled.HasValue)
+            {
+                isEnabledParameter = new ObjectParameter("isEnabled", isEnabled);
+            }
+            else
+            {
+                isEnabledParameter = new ObjectParameter("isEnabled", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter comment_Parameter;
+            if (comment_ != null)
+            {
+                comment_Parameter = new ObjectParameter("comment_", comment_);
+            }
+            else
+            {
+                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateMeasure", idMeasureParameter, isEnabledParameter, comment_Parameter);
         }
 
         #endregion
@@ -3935,15 +3988,15 @@ namespace DataAccess
         /// <param name="is_valid">Initial value of the is_valid property.</param>
         /// <param name="report_idReport">Initial value of the report_idReport property.</param>
         /// <param name="report_patientuda_idPatientUda">Initial value of the report_patientuda_idPatientUda property.</param>
-        /// <param name="is_retry">Initial value of the is_retry property.</param>
-        public static measurement Createmeasurement(global::System.Int32 idMeasurement, global::System.Boolean is_valid, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda, global::System.Boolean is_retry)
+        /// <param name="is_enabled">Initial value of the is_enabled property.</param>
+        public static measurement Createmeasurement(global::System.Int64 idMeasurement, global::System.Boolean is_valid, global::System.Int64 report_idReport, global::System.Int64 report_patientuda_idPatientUda, global::System.Boolean is_enabled)
         {
             measurement measurement = new measurement();
             measurement.idMeasurement = idMeasurement;
             measurement.is_valid = is_valid;
             measurement.report_idReport = report_idReport;
             measurement.report_patientuda_idPatientUda = report_patientuda_idPatientUda;
-            measurement.is_retry = is_retry;
+            measurement.is_enabled = is_enabled;
             return measurement;
         }
 
@@ -3955,7 +4008,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idMeasurement
+        public global::System.Int64 idMeasurement
         {
             get
             {
@@ -3973,8 +4026,8 @@ namespace DataAccess
                 }
             }
         }
-        private global::System.Int32 _idMeasurement;
-        partial void OnidMeasurementChanging(global::System.Int32 value);
+        private global::System.Int64 _idMeasurement;
+        partial void OnidMeasurementChanging(global::System.Int64 value);
         partial void OnidMeasurementChanged();
     
         /// <summary>
@@ -4226,9 +4279,9 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Boolean is_retry
+        public Nullable<global::System.Boolean> is_retry
         {
             get
             {
@@ -4243,9 +4296,33 @@ namespace DataAccess
                 Onis_retryChanged();
             }
         }
-        private global::System.Boolean _is_retry;
-        partial void Onis_retryChanging(global::System.Boolean value);
+        private Nullable<global::System.Boolean> _is_retry;
+        partial void Onis_retryChanging(Nullable<global::System.Boolean> value);
         partial void Onis_retryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean is_enabled
+        {
+            get
+            {
+                return _is_enabled;
+            }
+            set
+            {
+                Onis_enabledChanging(value);
+                ReportPropertyChanging("is_enabled");
+                _is_enabled = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_enabled");
+                Onis_enabledChanged();
+            }
+        }
+        private global::System.Boolean _is_enabled;
+        partial void Onis_enabledChanging(global::System.Boolean value);
+        partial void Onis_enabledChanged();
 
         #endregion
     

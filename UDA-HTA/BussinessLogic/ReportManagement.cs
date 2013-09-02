@@ -58,6 +58,12 @@ namespace BussinessLogic
             }
         }
 
+        public void UpdateMeasureInformation(long measureId, bool enabled, string comment)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateMeasureInformation(measureId,enabled,comment);
+        }
+
         public ICollection<Report> ListPatientReports(long idPatient)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
@@ -79,6 +85,12 @@ namespace BussinessLogic
 
             return reports;
         } 
+
+        public Limits GetLimits()
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            return uda.GetLimits();
+        }
 
         #region Drugs Region
         public void AddDrug(string type, string active, string name)

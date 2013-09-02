@@ -33,6 +33,8 @@
                     <r:RibbonButton Name="btnEditDiagnosis" Label="Informar" 
                                     LargeImageSource="/Images/ribbon_inform.png" 
                                     Click="EditDiagnosis" />
+                    <r:RibbonButton Label="Exportar" Click="ExportReport" Name="btnExportReport"
+                                    LargeImageSource="/Images/ribbon_SaveDoc.png" />
                 </r:RibbonGroup>
                 
                 <r:RibbonGroup Header="Paciente">
@@ -40,17 +42,6 @@
                     <r:RibbonButton Label="Nuevo" Click="BtnNewPatient_OnClick" LargeImageSource="/Images/ribbon_newPatient.png" />
                     <r:RibbonButton Label="Editar" Name="btnEditPatient" Click="BtnEditPatient_OnClick" LargeImageSource="/Images/ribbon_editPatient.png" />
                 </r:RibbonGroup>
-                
-                <r:RibbonGroup Header="Reporte">
- <!--                   <r:RibbonButton Label="Exportar PDF" Click="ExportPdf" Name="btnExportPdf"
-                                    LargeImageSource="/Images/ribbon_SavePdf.png" />
-                    <r:RibbonButton Label="Exportar DOC" Click="ExportDoc" Name="btnExportDoc"
-                                    LargeImageSource="/Images/ribbon_SaveDoc.png" />
--->
-                    <r:RibbonButton Label="Exportar" Click="ExportReport" Name="btnExportReport"
-                                    LargeImageSource="/Images/ribbon_SaveDoc.png" /> <!-- TODO cambiar imagen / cambiar a grupo Registro -->
-                </r:RibbonGroup>
-                
             </r:RibbonTab>
 
             <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
@@ -62,11 +53,6 @@
                 <r:RibbonGroup Header="Edición">
                     <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_newReport.png" Click="BtnEditResearch_OnClick"/>
                     <r:RibbonButton Name="btnAddStudyResearch" Label="Agregar Reporte" LargeImageSource="/Images/ribbon_newReport.png" Click="BtnAddReport_OnClick"/>
-                    <!--r:RibbonSplitButton >
-                        <r:RibbonMenuItem Name="CSV"/>
-                        <r:RibbonMenuItem Name="XLS"/>
-                        <r:RibbonMenuItem />
-                    </r:RibbonSplitButton> -->
                 </r:RibbonGroup>
 
                 <r:RibbonGroup Header="Exportar">

@@ -140,6 +140,7 @@
     <Compile Include="UserControls\MainWindow\Investigations\ResearchViewerReport.xaml.cs">
       <DependentUpon>ResearchViewerReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainWindow\Patients\HighlightSystolicCells.cs" />
     <Compile Include="UserControls\MainWindow\Patients\PatientViewerCondition.xaml.cs">
       <DependentUpon>PatientViewerCondition.xaml</DependentUpon>
     </Compile>

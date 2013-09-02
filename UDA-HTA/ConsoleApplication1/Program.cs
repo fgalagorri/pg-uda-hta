@@ -68,12 +68,12 @@ namespace ConsoleApplication1
              * Exportar PDF
 
             IReportManagement irm = new ReportManagement();
-            irm.exportReportPDF(new Report(), "HelloWorld.pdf");
+            irm.exportReportPDF(new Report(), "HelloWorld.pdf")
              */
 
             /* Importar datos e impactarlos en base
              * 
-             *
+             */
                         ImportDataManagement idm = new ImportDataManagement();
                         ReportManagement rm = new ReportManagement();
                         PatientManagement pm = new PatientManagement();
@@ -111,62 +111,81 @@ namespace ConsoleApplication1
                             }
                         }
             
+            /*/
             
-            */
 
-            /*
-            IImportDataManagement idm = new ImportDataManagement();
-            Report rep = idm.ImportReport("7", 0); //HMS
-            Console.WriteLine(rep.Ident.ToString());
-            ICollection<Measurement> lm = rep.getMeasureList();
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("HORA" + "," + "PROMEDIO" + "," + "DIASTOLICA" + "," + "SISTOLICA" + "," + "HR" + "," + "COMENTARIO");
-
-            foreach (Measurement m in lm)
-            {
-                sb.AppendLine(m.Time + "," + m.Average + "," + m.Diastolic + "," + m.Systolic + "," + m.HeartRate + "," + m.Comment);
-            }
-
-            using (StreamWriter outfile = new StreamWriter("reportOutFile.txt"))
-            {
-                outfile.Write(sb.ToString());
-            }
-            */
 
             /* 
              * Exportar reporte
-             */ 
-            /*ReportManagement rm = new ReportManagement();
-            Report rep = new Report();
-            rep.Patient.Address = "agraciada 2895";
-            rep.Patient.BirthDate = new DateTime(1988, 05, 16);
-            rep.Patient.CellPhone = "099976263";
-            rep.Patient.RegisterNumer = 11111;
-            rep.Patient.Surnames = "macanskas";
-            rep.Patient.Names = "ivana";
-            rep.Patient.Phone = "22036383";
-            rep.TemporaryData.Weight = 60;
-            rep.TemporaryData.Height = 170;
-            rep.Patient.Sex = SexType.F;
-            rep.Patient.Email = "imacanskas@gmail.com";
-            rep.Diagnosis =
-                "k;jdf;ajk;kjdhf;akjhffh;kajdfhkjhf;kjahfdmncbvi;hjdf;ksdvbnb;ajhdf;nv;jkhvn;kjhfvnk \n lkasflksdnfldsknfldsnfldksnf";
-            */
-
-            
+             *
             ReportManagement rm = new ReportManagement();
-            var rep = rm.GetReport(42);
+            var rep = rm.GetReport(6);
             if (rep != null)
             {
                 PatientManagement pm = new PatientManagement();
                 var pat = pm.GetPatient((long)rep.Patient.UdaId);
-                rep.Patient = pat;                
+                rep.Patient = pat;
+                rep.Diagnosis = "Diagnostico bla\r\nblablablabla\r\nulala lalalala\r\nDr. Who";
             }
-            string filepath = "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.docx";
-            rm.GenerateDocument(rep, filepath);
             
+            string filepath = "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.docx";
+            rm.ExportReportDocx(rep, filepath);
+
+            rm.ExportReportPDF("C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.docx", "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\prueba.pdf");
+            */
+
+            /*
+             * Exportar investigacion
+             */
+            /*
+            ICollection<Report> reports = new List<Report>();
+            int i = 0;
+                
+            while (i <= 10)
+            {
+                Report report = new Report();
+                report.UdaId = i;
+                report.BeginDate = new DateTime(2013,i+1,i+1);
+                
+                reports.Add(report);
+                i++;
+            }
+            */
+            /*
+            ReportManagement rm = new ReportManagement();
+            var rep = rm.GetReport(6);
+            var rep2 = rm.GetReport(7);
+            
+            InvestigationManagement im = new InvestigationManagement();
+            Investigation investigation = new Investigation(1,"investigacion 1",new DateTime());
+            investigation.LReports.Add(rep);
+            investigation.LReports.Add(rep2); 
+            
+            im.ExportInvestigation(investigation, "C:\\Users\\Public\\Documents\\Proyecto\\Generated doc\\planilla_investigacion.xlsm");
+             */
+             
+            /*
+            Patient p = new Patient();
+            p.DocumentId = "11111211";
+            p.Names = "pepe";
+            p.Surnames = "perez";
+            p.DeviceReferences.Add(new DeviceReference(0,"8"));
+
+            PatientManagement pm = new PatientManagement();
+            pm.CreatePatient(p);
+             */
+
+            /*
+             * Insertar usuario
+             */
+            var um = new UserManagement();
+            User usr = new User();
+            usr.Login = "SysAdmin";
+            var uc = new CriptographyManagement();
+            usr.Password = uc.Sha256Encryipt("password");
+            usr.Role = "Admin";
+            um.CreateUser(usr);
+            //*/
         }
     }
 }
