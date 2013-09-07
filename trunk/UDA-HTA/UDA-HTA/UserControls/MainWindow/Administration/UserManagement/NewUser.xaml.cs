@@ -1,7 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Gateway;
 
-namespace UDA_HTA.UserManagement
+namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
 {
     /// <summary>
     /// Interaction logic for NewUser.xaml
@@ -11,14 +12,20 @@ namespace UDA_HTA.UserManagement
         public NewUser()
         {
             InitializeComponent();
-
         }
 
         private void buttonCreate_Click(object sender, RoutedEventArgs e)
         {
             var controller = GatewayController.GetInstance();
-            controller.CreateUser(txtUserName.Text,txtLogin.Text,comboRole.Text,passwordBox.Password);
-            this.Close();
+            try
+            {
+                controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
+                this.Close();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

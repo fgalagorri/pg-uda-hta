@@ -40,22 +40,30 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             if (patientInfo.IsValid())
             {
-                var patient = patientInfo.GetPatient();
-                if (_crear)
+                try
                 {
-                    //Crear paciente
-                    GatewayController.GetInstance().CreatePatient(patient);                    
+                    var patient = patientInfo.GetPatient();
+                    if (_crear)
+                    {
+                        //Crear paciente
+                        GatewayController.GetInstance().CreatePatient(patient);
+                    }
+                    else
+                    {
+                        //Editar paciente
+                        GatewayController.GetInstance().EditPatient(patient);
+                    }
+                    Close();                
+
                 }
-                else
+                catch (Exception exception)
                 {
-                    //Editar paciente
-                    GatewayController.GetInstance().EditPatient(patient);
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                Close();                
             }
             else
             {
-                MessageBox.Show("Alguno de los datos no es correcto"); //TODO indicar que datos no son correctos
+                MessageBox.Show("Alguno de los datos no es correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Error); //TODO indicar que datos no son correctos
             }
         }
     }

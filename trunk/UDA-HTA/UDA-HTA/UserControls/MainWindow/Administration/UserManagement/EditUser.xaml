@@ -16,7 +16,7 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
                     <TextBlock Style="{StaticResource label}">Nombre y Apellido:</TextBlock>
-                    <TextBox Height="23" Width="150" Margin="15,0,40,0" />
+                    <TextBox Name="txtName" Height="23" Width="150" Margin="15,0,40,0" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
@@ -31,11 +31,6 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
                     <TextBlock Style="{StaticResource label}">Login:</TextBlock>
                     <TextBox Width="150" Margin="90,0,40,0" Name="txtLogin" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
-                    <TextBlock Style="{StaticResource label}">Contraseña:</TextBlock>
-                    <PasswordBox Width="150" Margin="57,0,40,0" Name="passwordBox" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">

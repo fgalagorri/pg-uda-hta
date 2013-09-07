@@ -43,55 +43,26 @@ namespace BussinessLogic
         public Investigation CreateInvestigation(string name, DateTime creationDate, string comment)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            try
-            {
-                var id = uda.insertInvestigation(name, creationDate, comment);
-                return new Investigation(id,name,creationDate,comment);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var id = uda.insertInvestigation(name, creationDate, comment);
+            return new Investigation(id,name,creationDate,comment);
         }
 
         public void EditInvestigation(Investigation investigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            try
-            {
-                uda.editInvestigation(investigation);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            uda.editInvestigation(investigation);
         }
 
         public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            try
-            {
-                uda.addReportToInvestigation(idReport, idPatient, idInvestigation);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            uda.addReportToInvestigation(idReport, idPatient, idInvestigation);
         }
 
         public void DeleteReportFromInvestigation(Report report, int idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            try
-            {
-                uda.deleteReportFromInvestigation(report.Patient.UdaId.Value, report.UdaId.Value, idInvestigation);
-            }
-            catch (Exception ex)
-            {
-                
-                throw ex;
-            }
+            uda.deleteReportFromInvestigation(report.Patient.UdaId.Value, report.UdaId.Value, idInvestigation);
         }
 
 

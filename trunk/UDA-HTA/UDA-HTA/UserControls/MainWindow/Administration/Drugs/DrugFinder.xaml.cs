@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using Gateway;
 using Entities;
 
-namespace UDA_HTA.UserControls.MainWindow.Administration
+namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
 {
     /// <summary>
     /// Interaction logic for DrugFinder.xaml
@@ -38,9 +38,16 @@ namespace UDA_HTA.UserControls.MainWindow.Administration
         {
             Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
-            var drugs = controller.GetDrugs(txtType.Text,txtActive.Text,txtName.Text);
+            try
+            {
+                var drugs = controller.GetDrugs(txtType.Text, txtActive.Text, txtName.Text);
+                grDrugs.DataContext = drugs;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            grDrugs.DataContext = drugs;
             Mouse.OverrideCursor = null;
         }
 

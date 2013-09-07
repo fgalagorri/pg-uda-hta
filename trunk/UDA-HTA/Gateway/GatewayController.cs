@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using BussinessLogic;
 using Entities;
+using EventLogger;
 
 namespace Gateway
 {
@@ -55,31 +57,50 @@ namespace Gateway
         public ICollection<PatientReport> GetNewReports()
         {
             var controller = new ImportDataManagement();
-            return controller.ListNewPatientReports();
+            try
+            {
+                return controller.ListNewPatientReports();
+            }
+            catch(Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No ha sido posible obtener la lista de estudios sin importar.");
+            }
         }
 
         public Report ImportReport(string idReport, int device)
         {
             var importDataController = new ImportDataManagement();
-            var report = importDataController.ImportReport(idReport, device);
-
-            string idRef = report.Patient.DeviceReferences
-                                 .Where(r => r.deviceType == device)
-                                 .Select(r => r.deviceReferenceId)
-                                 .FirstOrDefault();
-            if (!String.IsNullOrWhiteSpace(idRef))
+            try
             {
-                var patientController = new PatientManagement();
-                var idPatient = patientController.GetPatientIdIfExist(idRef, device);
-                report.Patient.UdaId = idPatient;
-                if (idPatient != null)
+                var report = importDataController.ImportReport(idReport, device);
+
+                string idRef = report.Patient.DeviceReferences
+                                     .Where(r => r.deviceType == device)
+                                     .Select(r => r.deviceReferenceId)
+                                     .FirstOrDefault();
+                if (!String.IsNullOrWhiteSpace(idRef))
                 {
-                    // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo
-                    report.Patient = patientController.GetPatient((long) idPatient);
+                    var patientController = new PatientManagement();
+                    var idPatient = patientController.GetPatientIdIfExist(idRef, device);
+                    report.Patient.UdaId = idPatient;
+                    if (idPatient != null)
+                    {
+                        // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo
+                        report.Patient = patientController.GetPatient((long)idPatient);
+                    }
                 }
+
+                return report;
+            }
+            catch(Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No ha sido posible importar los datos solicitados");
             }
 
-            return report;
         }
 
         public void AddImportedData(Report report, bool patientModified)
@@ -108,10 +129,11 @@ namespace Gateway
                 
                 _importedPatient = report.Patient.UdaId.Value;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                var e = new Exception("El paciente no pudo ser creado, por favor, intentelo nuevamente");
-                throw e;
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("El paciente no pudo ser creado, por favor, intentelo nuevamente");
             }
 
 
@@ -120,8 +142,10 @@ namespace Gateway
                 report.Measures = importController.ImportMeasures(report);
                 _importedReport = reportController.AddReport(report);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
                 var e = new Exception("El reporte no pudo ser creado, por favor, intentelo nuevamente");
                 throw e;
             }
@@ -135,16 +159,6 @@ namespace Gateway
 
         public DiagnosisEdited UpdateDiagnosis(long reportId, string diagnosis)
         {
-            // TODO - Ver el manejo de usuarios
-            if (_loggedUser == null)
-                _loggedUser = new User
-                    {
-                        Login = "fgalagorri",
-                        Name = "Federico Galagorri",
-                        Password = "1234567890",
-                        Role = ""
-                    };
-
             var de = new DiagnosisEdited
                 {
                     ReportId = reportId,
@@ -154,14 +168,32 @@ namespace Gateway
                 };
 
             var cont = new ReportManagement();
-            cont.UpdateDiagnosis(de.ReportId, de.Diagnosis, de.DiagnosisDate, de.Doctor.Name);
+            try
+            {
+                cont.UpdateDiagnosis(de.ReportId, de.Diagnosis, de.DiagnosisDate, de.Doctor.Name);
+            }
+            catch(Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido actualizar el diagnóstico, por favor, inténtelo nuevamente");
+            }
 
             return de;
         }
 
         public void UpdateMeasure(long measureId, bool enabled, string comment)
         {
-            new ReportManagement().UpdateMeasureInformation(measureId,enabled,comment);
+            try
+            {
+                new ReportManagement().UpdateMeasureInformation(measureId, enabled, comment);
+            }
+            catch(Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No ha sido posible actualizar la información");
+            }
         }
 
     #endregion
@@ -171,21 +203,41 @@ namespace Gateway
 
         public void ExportToPdf(Report report,bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
-            if (!Directory.Exists("Temp"))
-                Directory.CreateDirectory("Temp");
+            try
+            {
+                if (!Directory.Exists("Temp"))
+                    Directory.CreateDirectory("Temp");
 
-            string tempFile = "Temp\\tempfile" + report.UdaId + ".uda";
-            ReportManagement rm = new ReportManagement();
-            rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, tempFile);
+                string tempFile = "Temp\\tempfile" + report.UdaId + ".uda";
+                ReportManagement rm = new ReportManagement();
+                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic,
+                                    includeMeasures, tempFile);
 
-            rm.ExportReportPDF(tempFile, filePath);
-            File.Delete(tempFile);
+                rm.ExportReportPDF(tempFile, filePath);
+                File.Delete(tempFile);
+            }
+            catch(Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido exportar el informe, por favor, inténtelo nuevamente");
+            }
         }
 
         public void ExportToDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
             ReportManagement rm = new ReportManagement();
-            rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, filePath);
+            try
+            {
+                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic,
+                                    includeMeasures, filePath);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido exportar el informe, por favor, inténtelo nuevamente");
+            }
         }
 
     #endregion
@@ -195,8 +247,17 @@ namespace Gateway
             DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHypertense, bool? isDysplidemic)
         {
             var rm = new ReportManagement();
-            return rm.ListFilteredReports(patientLowerAge, patientUpperAge, reportSinceDate, reportUntilDate, 
-                                          isSmoker, isDiabetic, isHypertense, isDysplidemic);
+            try
+            {
+                return rm.ListFilteredReports(patientLowerAge, patientUpperAge, reportSinceDate, reportUntilDate,
+                                              isSmoker, isDiabetic, isHypertense, isDysplidemic);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         } 
     #endregion
 
@@ -206,49 +267,112 @@ namespace Gateway
                                                        DateTime? birthDate, string registerNo)
         {
             var patientController = new PatientManagement();
-            return patientController.ListPatients(documentId, names, surnames, birthDate, registerNo);
+            try
+            {
+                return patientController.ListPatients(documentId, names, surnames, birthDate, registerNo);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public Patient GetPatient(long patientId)
         {
             var patientController = new PatientManagement();
-            return patientController.GetPatient(patientId);
+            try
+            {
+                return patientController.GetPatient(patientId);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public Patient GetPatientFullView(long patientId)
         {
             var patientController = new PatientManagement();
-            var patient = patientController.GetPatient(patientId);
-            patient.LastTempData = patientController.GetLastTempData(patientId);
+            try
+            {
+                var patient = patientController.GetPatient(patientId);
+                patient.LastTempData = patientController.GetLastTempData(patientId);
 
-            var reportController = new ReportManagement();
-            patient.ReportList = reportController.ListPatientReports(patientId);
+                var reportController = new ReportManagement();
+                patient.ReportList = reportController.ListPatientReports(patientId);
 
-            return patient;
+                return patient;
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public TemporaryData GetPatientLastTempData(long patientId)
         {
             var patientController = new PatientManagement();
-            return patientController.GetLastTempData(patientId);
+            try
+            {
+                return patientController.GetLastTempData(patientId);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public ICollection<Report> GetReportsOfPatient(long patientId)
         {
             var reportController = new ReportManagement();
-            return reportController.ListPatientReports(patientId);
+            try
+            {
+                return reportController.ListPatientReports(patientId);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public void CreatePatient(Patient patient)
         {
             var pm = new PatientManagement();
-            pm.CreatePatient(patient);
+            try
+            {
+                pm.CreatePatient(patient);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No fue posible crear el paciente, por favor, inténtelo nuevamente");
+            }
         }
 
         public void EditPatient(Patient patient)
         {
             var pm = new PatientManagement();
-            pm.EditPatient(patient);
+            try
+            {
+                pm.EditPatient(patient);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No fue posible actualizar la información del paciente");
+            }
         }
 
     #endregion
@@ -257,26 +381,62 @@ namespace Gateway
         public void AddDrug(string type, string name, string active)
         {
             var rm = new ReportManagement();
-            rm.AddDrug(type, active, name);
+            try
+            {
+                rm.AddDrug(type, active, name);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("Error al intentar insertar la droga");
+            }
         }
 
         public void EditDrug(int id, string type, string name, string active)
         {
             var rm = new ReportManagement();
-            rm.EditDrug(id, type, name, active);
+            try
+            {
+                rm.EditDrug(id, type, name, active);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No ha sido posible actualizar la información");
+            }
         }
 
         public ICollection<string> GetDrugTypes()
         {
             var rm = new ReportManagement();
-            return rm.GetDrugTypes();
+            try
+            {
+                return rm.GetDrugTypes();
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se pudieron obtener los tipos de drogas");
+            }
         } 
 
 
         public ICollection<Drug> GetDrugs(string type, string active, string name)
         {
             var rm = new ReportManagement();
-            return rm.GetDrugs(type, active, name);
+            try
+            {
+                return rm.GetDrugs(type, active, name);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la informaciòn solicitada");
+            }
         } 
 
     #endregion
@@ -316,33 +476,53 @@ namespace Gateway
             usr.Role = role;
 
             var cm = new CriptographyManagement();
-            var encryptedPswd = cm.Sha256Encryipt(password);
-            usr.Password = encryptedPswd;
-            
-            um.CreateUser(usr);
+            try
+            {
+                var encryptedPswd = cm.Sha256Encryipt(password);
+                usr.Password = encryptedPswd;
+
+                um.CreateUser(usr);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No ha sido posible crear el usuario");
+            }
         }
 
         public void ChangePassword(string login, string oldPswd, string newPswd)
         {
             var sm = new SessionManagement();
             var cm = new CriptographyManagement();
-            oldPswd = cm.Sha256Encryipt(oldPswd);
-            newPswd = cm.Sha256Encryipt(newPswd);
             try
             {
+                oldPswd = cm.Sha256Encryipt(oldPswd);
+                newPswd = cm.Sha256Encryipt(newPswd);
                 sm.ChangePassword(login, oldPswd, newPswd);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                var exception = new Exception("Alguno de los campos ingresados no son correctos");
-                throw exception;
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("Alguno de los campos ingresados no es correcto");
+                
             }
         }
 
         public ICollection<User> ListUsers(string name, string role, string login)
         {
             var um = new UserManagement();
-            return um.ListUsers(name, role, login);
+            try
+            {
+                return um.ListUsers(name, role, login);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
  
         public void EditUser(int id, string Name, string role, string login)
@@ -353,7 +533,16 @@ namespace Gateway
             u.Name = Name;
             u.Role = role;
             u.Login = login;
-            um.EditUser(u);
+            try
+            {
+                um.EditUser(u);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido actualizar la información");
+            }
         }
 
     #endregion
@@ -363,43 +552,106 @@ namespace Gateway
         public ICollection<InvestigationSearch> ListInvestigations(int? id, string name, DateTime? creationDate)
         {
             var im = new InvestigationManagement();
-            return im.ListInvestigations(id, name, creationDate);
+            try
+            {
+                return im.ListInvestigations(id, name, creationDate);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public Investigation CreateInvestigation(string name, string comment, DateTime creationDate)
         {
             var im = new InvestigationManagement();
-            return im.CreateInvestigation(name, creationDate, comment);
+            try
+            {
+                return im.CreateInvestigation(name, creationDate, comment);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No ha sido posible crear la investigación");
+            }
         }
 
         public Investigation GetInvestigation(int idInvestigation)
         {
             var im = new InvestigationManagement();
-            return im.GetInvestigation(idInvestigation);
+            try
+            {
+                return im.GetInvestigation(idInvestigation);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido obtener la información solicitada");
+            }
         }
 
         public void EditInvestigation(Investigation investigation)
         {
             var im = new InvestigationManagement();
-            im.EditInvestigation(investigation);
+            try
+            {
+                im.EditInvestigation(investigation);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido actualizar la información");
+            }
         }
 
         public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
         {
             var im = new InvestigationManagement();
-            im.AddReportToInvestigation(idReport, idPatient, idInvestigation);
+            try
+            {
+                im.AddReportToInvestigation(idReport, idPatient, idInvestigation);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se pudo agregar el estudio a la investigación");
+            }
         }
 
         public void DeleteReportFromResearch(Report report, Investigation investigation)
         {
             var im = new InvestigationManagement();
-            im.DeleteReportFromInvestigation(report, investigation.IdInvestigation);
+            try
+            {
+                im.DeleteReportFromInvestigation(report, investigation.IdInvestigation);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido eliminar el reporte de la investigación");
+            }
         }
 
         public void ExportInvestigationXLS(Investigation investigation, string filepath)
         {
             var im = new InvestigationManagement();
-            im.ExportInvestigation(investigation,filepath);
+            try
+            {
+                im.ExportInvestigation(investigation, filepath);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                throw new Exception("No se ha podido exportar la información");
+            }
         }
 
     #endregion

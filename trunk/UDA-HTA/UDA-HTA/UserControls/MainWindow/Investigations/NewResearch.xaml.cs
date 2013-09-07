@@ -73,9 +73,9 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
                 container.ContainerInvestigation.Content = new ResearchViewer(_investigation.IdInvestigation);
             }
-            catch(Exception)
+            catch(Exception exception)
             {
-                MessageBoxResult result = MessageBox.Show("Error al intenter crear la investigacion", "Error");
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             this.Close();
         }
@@ -97,9 +97,9 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 addReportsWindow.Show();
 
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBoxResult result = MessageBox.Show("Error al intentar crear la investigacion", "Error");
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
 

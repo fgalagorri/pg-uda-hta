@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows;
@@ -88,8 +89,15 @@ namespace UDA_HTA
             {
                 long patientId, reportId;
                 // Despliego el nuevo informe
-                GatewayController.GetInstance().GetLastInsertedReport(out patientId, out reportId);
-                ContainerPatient.Content = new PatientViewer(patientId, reportId);
+                try
+                {
+                    GatewayController.GetInstance().GetLastInsertedReport(out patientId, out reportId);
+                    ContainerPatient.Content = new PatientViewer(patientId, reportId);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -114,13 +122,20 @@ namespace UDA_HTA
 
             if (saveChanges)
             {
-                var d = GatewayController.GetInstance().UpdateDiagnosis(reportId, diagnosis);
-
-                var pv = ContainerPatient.Content as PatientViewer;
-                if (pv != null && pv.GetSelectedReport() != null)
+                try
                 {
-                    pv.UpdateDiagnosis(d);
+                    var d = GatewayController.GetInstance().UpdateDiagnosis(reportId, diagnosis);
+                    var pv = ContainerPatient.Content as PatientViewer;
+                    if (pv != null && pv.GetSelectedReport() != null)
+                    {
+                        pv.UpdateDiagnosis(d);
+                    }
                 }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
             }
         }
 

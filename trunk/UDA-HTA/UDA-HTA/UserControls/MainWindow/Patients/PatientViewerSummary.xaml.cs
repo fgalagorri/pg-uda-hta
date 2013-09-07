@@ -200,6 +200,34 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 lblHRMinN.Text = min.ToString();
                 lblHRMinNT.Text = valid.First(m => m.Asleep.Value && m.HeartRate == min).Time.Value
                                        .ToString(ConfigurationManager.AppSettings["ShortTimeString"]);
+
+                //DESVIACION ESTANDAR
+                //Presion sistolica
+                lblSDSysT.Text = r.StandardDeviationSysTotal.ToString();
+                lblSDSysD.Text = r.StandardDeviationSysDay.ToString();
+                lblSDSysN.Text = r.StandardDeviationSysNight.ToString();
+
+                //Presion diastolica
+                lblSDDiasT.Text = r.StandardDeviationDiasTotal.ToString();
+                lblSDDiasD.Text = r.StandardDeviationDiasDay.ToString();
+                lblSDDiasN.Text = r.StandardDeviationDiasNight.ToString();
+
+                //TAM
+                lblSDTAMT.Text = r.StandardDeviationTamTotal.ToString();
+                lblSDTAMD.Text = r.StandardDeviationTamDay.ToString();
+                lblSDTAMN.Text = r.StandarDeviationTamNight.ToString();
+
+                //Frecuencia cardiaca
+                lblSDFCT.Text = r.StandardDeviationHeartRateTotal.ToString();
+                lblSDFCD.Text = r.StandardDeviationHeartRateDay.ToString();
+                lblSDFCN.Text = r.StandardDeviationHeartRateNight.ToString();
+
+                //DIPPING
+                decimal dippingSys = Math.Round(((decimal)(r.SystolicDayAvg.Value - r.SystolicNightAvg.Value) / r.SystolicDayAvg.Value) * 100, 2);
+                decimal dippingDias = Math.Round(((decimal)(r.DiastolicDayAvg.Value - r.DiastolicNightAvg.Value) / r.DiastolicDayAvg.Value) * 100, 2);
+
+                lblDippingSysT.Text = dippingSys.ToString();
+                lblDippingDiasT.Text = dippingDias.ToString();
             }
         }
 

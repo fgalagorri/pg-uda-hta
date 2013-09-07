@@ -49,18 +49,18 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
                 {
                     //Crear
                     controller.AddDrug(comboBoxDrugType.Text, txtName.Text, txtActive.Text);
-                    MessageBox.Show("La droga se ha insertado correctamente");                    
+                    MessageBox.Show("La droga se ha insertado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     //Editar
                     controller.EditDrug(_drug.Id.Value, comboBoxDrugType.Text, txtName.Text, txtActive.Text);
-                    MessageBox.Show("La droga se ha actualizado correctamente");                                        
+                    MessageBox.Show("La droga se ha actualizado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            catch
+            catch(Exception exception)
             {
-                MessageBox.Show("Error al intentar insertar la droga");
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

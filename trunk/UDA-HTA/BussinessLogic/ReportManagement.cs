@@ -35,27 +35,13 @@ namespace BussinessLogic
         public long AddReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
-            try
-            {
-                return uhda.InsertReport(report);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return uhda.InsertReport(report);
         }
 
         public void UpdateDiagnosis(long reportId, string diagnosis, DateTime diagnosisDate, string doctor)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            try
-            {
-                uda.UpdateDiagnosis(reportId, diagnosis, diagnosisDate, doctor);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            uda.UpdateDiagnosis(reportId, diagnosis, diagnosisDate, doctor);
         }
 
         public void UpdateMeasureInformation(long measureId, bool enabled, string comment)

@@ -11,36 +11,29 @@ namespace BussinessLogic
     {
         public long CreatePatient(Patient patient)
         {
-            try
+            long id;
+
+            var pda = new PatientDataAccess();
+            id = pda.InsertPatient(patient);
+
+            if (id != 0)
             {
-                long id;
+                pda.InsertEmergencyContact(id, patient.EmergencyContactList);
 
-                var pda = new PatientDataAccess();
-                id = pda.InsertPatient(patient);
+                var uda = new UdaHtaDataAccess();
+                uda.InsertPatientUda(id);
 
-                if (id != 0)
-                {
-                    pda.InsertEmergencyContact(id, patient.EmergencyContactList);
-
-                    var uda = new UdaHtaDataAccess();
-                    uda.InsertPatientUda(id);
-
-                    //Insertar Medical History
-                    foreach (var mh in patient.Background)
-                        uda.InsertMedicalHistory(id, mh);
-                }
-                else
-                {
-                    Exception e = new InvalidDataException();
-                    throw e;
-                }
-
-                return id;
+                //Insertar Medical History
+                foreach (var mh in patient.Background)
+                    uda.InsertMedicalHistory(id, mh);
             }
-            catch (Exception e)
+            else
             {
+                Exception e = new InvalidDataException();
                 throw e;
             }
+
+            return id;
         }
 
 
@@ -49,31 +42,23 @@ namespace BussinessLogic
             // Para el medical history 
             // hacer update de los que tienen id e 
             // insertar los que no tienen id
-            try
-            {
-                PatientDataAccess pda = new PatientDataAccess();
-                pda.EditPatient(patient);
+            PatientDataAccess pda = new PatientDataAccess();
+            pda.EditPatient(patient);
 
-                UdaHtaDataAccess uda = new UdaHtaDataAccess();
-                foreach (var medicalRecord in patient.Background)
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            foreach (var medicalRecord in patient.Background)
+            {
+                if (medicalRecord.Id != null)
                 {
-                    if (medicalRecord.Id != null)
-                    {
-                        //actualizar medicalRecord
-                        uda.EditMedicalHistory(medicalRecord, patient.UdaId.Value);
-                    }
-                    else
-                    {
-                        //insertar medicalRecord
-                        uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
-                    }
-                }                
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                    //actualizar medicalRecord
+                    uda.EditMedicalHistory(medicalRecord, patient.UdaId.Value);
+                }
+                else
+                {
+                    //insertar medicalRecord
+                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+                }
+            }                
         }
 
 

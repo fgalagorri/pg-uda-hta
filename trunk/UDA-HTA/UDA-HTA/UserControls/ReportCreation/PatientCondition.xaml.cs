@@ -33,14 +33,30 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
-            _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+            try
+            {
+                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             autoMedication.DataContext = _drugs;
         }
         public PatientCondition(Report r)
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
-            _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+            try
+            {
+                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             autoMedication.DataContext = _drugs;
 
             // Datos posiblemente modificados

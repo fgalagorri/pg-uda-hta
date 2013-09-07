@@ -127,14 +127,21 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
                 //Obtener reportes segun filtros
                 var controller = GatewayController.GetInstance();
-                _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker,
-                                                            isDiabetic, isHypertense,
-                                                            isDyslipidemic);
+                try
+                {
+                    _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker,
+                                                                isDiabetic, isHypertense,
+                                                                isDyslipidemic);
+                    grReports.DataContext = _lstReport;
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
-                grReports.DataContext = _lstReport;
             }else
             {
-                MessageBox.Show("Formato en campo edad incorrecto");
+                MessageBox.Show("Formato en campo edad incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -179,9 +186,9 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 container.ContainerInvestigation.Content = new ResearchViewer(_investigation.IdInvestigation);
                 
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBoxResult result = MessageBox.Show("Error al intentar agregar reporte");
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 

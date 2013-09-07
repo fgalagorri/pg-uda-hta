@@ -58,22 +58,29 @@ namespace UDA_HTA
             {
                 Mouse.OverrideCursor = Cursors.Wait;
                 var pr = (PatientReport) e.AddedItems[0];
-                var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice);
-                var rc = new ReportCreate(report) {Owner = this};
-                Mouse.OverrideCursor = null;
-                var imported = rc.ShowDialog();
+                try
+                {
+                    var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice);
+                    var rc = new ReportCreate(report) { Owner = this };
+                    Mouse.OverrideCursor = null;
+                    var imported = rc.ShowDialog();
 
-                if (imported.HasValue && !imported.Value)
-                {
-                    //grReports.UnselectAll();
-                    // Hack to disable selected row style
-                    grReports.IsEnabled = false;
-                    grReports.IsEnabled = true;
+                    if (imported.HasValue && !imported.Value)
+                    {
+                        //grReports.UnselectAll();
+                        // Hack to disable selected row style
+                        grReports.IsEnabled = false;
+                        grReports.IsEnabled = true;
+                    }
+                    else
+                    {
+                        DialogResult = true;
+                        Close();
+                    }
                 }
-                else
+                catch (Exception exception)
                 {
-                    DialogResult = true;
-                    Close();
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

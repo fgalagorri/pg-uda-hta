@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Windows;
@@ -42,7 +43,14 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             //actualizar base
             Measurement m = (Measurement) grid.SelectedItem;
             var controller = GatewayController.GetInstance();
-            controller.UpdateMeasure(m.Id, m.IsEnabled, m.Comment);
+            try
+            {
+                controller.UpdateMeasure(m.Id, m.IsEnabled, m.Comment);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Comment_OnKeyDown(object sender, KeyEventArgs e)

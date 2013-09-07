@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Gateway;
@@ -24,9 +25,15 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
         {
             Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
-            var users = controller.ListUsers(txtName.Text,comboBoxRole.Text,txtLogin.Text);
-
-            grUsers.DataContext = users;
+            try
+            {
+                var users = controller.ListUsers(txtName.Text, comboBoxRole.Text, txtLogin.Text);
+                grUsers.DataContext = users;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             Mouse.OverrideCursor = null;
 
         }

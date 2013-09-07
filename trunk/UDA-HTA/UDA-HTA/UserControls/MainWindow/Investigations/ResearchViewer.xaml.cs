@@ -31,7 +31,14 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         public ResearchViewer(int idInvestigation)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            _investigation = GatewayController.GetInstance().GetInvestigation(idInvestigation);
+            try
+            {
+                _investigation = GatewayController.GetInstance().GetInvestigation(idInvestigation);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             InitializeComponent();
             
@@ -113,7 +120,15 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             ICollection<Report> lstReports = _investigation.LReports.OrderByDescending(r => r.BeginDate).ToList();
 
             _report = lstReports.ElementAt(index);
-            GatewayController.GetInstance().DeleteReportFromResearch(_report, _investigation);
+            try
+            {
+                GatewayController.GetInstance().DeleteReportFromResearch(_report, _investigation);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             lstReports.Remove(_report);
             _investigation.LReports = lstReports;
             treeInvestigation.Items.Remove(selected);

@@ -75,7 +75,7 @@ namespace DataAccess
                                             r.tot_sd_sis,
                                             r.tot_sd_hr,
                                             r.day_sd_hr,
-                                            r.night_sd_hr
+                                            r.night_sd_hr,
                                         }).FirstOrDefault();
 
                 Report rep = null;
