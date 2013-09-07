@@ -1,4 +1,4 @@
-﻿<Window x:Class="UDA_HTA.UserManagement.NewUser"
+﻿<Window x:Class="UDA_HTA.UserControls.MainWindow.Administration.UserManagement.NewUser"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Creacion de usuario" WindowStartupLocation="CenterScreen" Height="266" Width="300" >

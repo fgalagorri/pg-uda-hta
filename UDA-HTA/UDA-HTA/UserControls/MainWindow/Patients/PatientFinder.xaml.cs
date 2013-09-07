@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -26,10 +27,17 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
-            var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(), txtSurname.Text.Trim(),
-                                                   dtBirthDate.SelectedDate, txtRegistry.Text);
+            try
+            {
+                var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(), txtSurname.Text.Trim(),
+                                                       dtBirthDate.SelectedDate, txtRegistry.Text);
 
-            grPatients.DataContext = patients;
+                grPatients.DataContext = patients;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             Mouse.OverrideCursor = null;
         }
 

@@ -65,7 +65,15 @@ namespace UDA_HTA
                     var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
 
                     Mouse.OverrideCursor = Cursors.Wait;
-                    GatewayController.GetInstance().ExportToDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);
+                    try
+                    {
+                        GatewayController.GetInstance().ExportToDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
                     // Abro el archivo exportado
                     Process.Start(saveAs.FileName);
                     Mouse.OverrideCursor = null;
@@ -103,7 +111,15 @@ namespace UDA_HTA
                     var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
 
                     Mouse.OverrideCursor = Cursors.Wait;
-                    GatewayController.GetInstance().ExportToPdf(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);
+                    try
+                    {
+                        GatewayController.GetInstance().ExportToPdf(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                     // Abro el archivo exportado
                     Process.Start(saveAs.FileName);
                     Mouse.OverrideCursor = null;

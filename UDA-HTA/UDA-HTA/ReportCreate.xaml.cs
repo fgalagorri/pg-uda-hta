@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Entities;
 using Gateway;
 using UDA_HTA.UserControls.ReportCreation;
@@ -82,7 +83,14 @@ namespace UDA_HTA
                     _report = admissionForm.GetReport(_report);
                     _report = otherInfo.GetReport(_report);
                     DialogResult = true;
-                    GatewayController.GetInstance().AddImportedData(_report, true); 
+                    try
+                    {
+                        GatewayController.GetInstance().AddImportedData(_report, true); 
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
 
                     Close();
                     break;

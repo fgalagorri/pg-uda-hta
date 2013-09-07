@@ -22,8 +22,15 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             container = w;
             Mouse.OverrideCursor = Cursors.Wait;
-            _patient = GatewayController.GetInstance().GetPatientFullView(patient.UdaId.Value);
-
+            try
+            {
+                _patient = GatewayController.GetInstance().GetPatientFullView(patient.UdaId.Value);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
             InitializeComponent();
 
             TabPatient.SetPatientInfo(_patient);
@@ -36,7 +43,14 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public PatientViewer(long patientId, long reportId)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            _patient = GatewayController.GetInstance().GetPatientFullView(patientId);
+            try
+            {
+                _patient = GatewayController.GetInstance().GetPatientFullView(patientId);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             InitializeComponent();
 

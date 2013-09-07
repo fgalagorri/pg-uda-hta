@@ -41,9 +41,16 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             {
                 id = int.Parse(txtId.Text);                
             }
-            var researches = controller.ListInvestigations(id, txtName.Text, dtCreationDate.SelectedDate);
+            try
+            {
+                var researches = controller.ListInvestigations(id, txtName.Text, dtCreationDate.SelectedDate);
+                grResearch.DataContext = researches;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            grResearch.DataContext = researches;
             Mouse.OverrideCursor = null;
         }
 
