@@ -71,7 +71,7 @@
             </TabItem>
 
             <TabItem Name="ReportCharts"  Header="Gráficos" Visibility="Collapsed">
-                Acá gráficos con las mediciones, etc.
+                <patients:PatientViewerOverLimitPie x:Name="TabOverLimit" />
             </TabItem>
 
         </TabControl>

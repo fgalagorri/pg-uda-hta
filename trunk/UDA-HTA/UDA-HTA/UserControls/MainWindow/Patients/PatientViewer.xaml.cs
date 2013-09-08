@@ -125,6 +125,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 ReportDiagnosis.Visibility = Visibility.Visible;
                 TabReportData.SetReport(_report);
                 ReportData.Visibility = Visibility.Visible;
+                TabOverLimit.SetReport(_report);
                 ReportCharts.Visibility = Visibility.Visible;
             }
             else
