@@ -2,12 +2,15 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+DROP SCHEMA IF EXISTS `udahta_db` ;
 CREATE SCHEMA IF NOT EXISTS `udahta_db` ;
 USE `udahta_db` ;
 
 -- -----------------------------------------------------
 -- Table `udahta_db`.`user`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`user` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`user` (
   `idUser` INT NOT NULL AUTO_INCREMENT ,
   `login` VARCHAR(45) NOT NULL ,
@@ -22,6 +25,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`drugtype`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`drugtype` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`drugtype` (
   `idDrugType` INT NOT NULL AUTO_INCREMENT ,
   `type` VARCHAR(45) NOT NULL ,
@@ -33,6 +38,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`drug`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`drug` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`drug` (
   `idDrug` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
@@ -51,6 +58,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`dailycarnet`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`dailycarnet` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`dailycarnet` (
   `idDailyCarnet` BIGINT NOT NULL AUTO_INCREMENT ,
   `technical` VARCHAR(45) NULL ,
@@ -84,6 +93,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`patientuda`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`patientuda` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`patientuda` (
   `idPatientUda` BIGINT NOT NULL ,
   PRIMARY KEY (`idPatientUda`) )
@@ -93,6 +104,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`temporarydata`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`temporarydata` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`temporarydata` (
   `idTemporaryData` INT NOT NULL AUTO_INCREMENT ,
   `weight` DECIMAL(5,2) NULL ,
@@ -113,6 +126,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`report`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`report` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `idReport` BIGINT NOT NULL AUTO_INCREMENT ,
   `begin_date` DATETIME NULL ,
@@ -188,8 +203,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`measurement`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`measurement` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`measurement` (
-  `idMeasurement` INT NOT NULL AUTO_INCREMENT ,
+  `idMeasurement` BIGINT NOT NULL AUTO_INCREMENT ,
   `date` DATETIME NULL ,
   `systolic` INT NULL ,
   `average` INT NULL ,
@@ -201,6 +218,7 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`measurement` (
   `report_idReport` BIGINT NOT NULL ,
   `report_patientuda_idPatientUda` BIGINT NOT NULL ,
   `is_retry` BIT NULL ,
+  `is_enabled` BIT NOT NULL ,
   PRIMARY KEY (`idMeasurement`, `report_idReport`, `report_patientuda_idPatientUda`) ,
   INDEX `fk_Measurement_Report1_idx` (`report_idReport` ASC, `report_patientuda_idPatientUda` ASC) ,
   CONSTRAINT `fk_Measurement_Report1`
@@ -214,6 +232,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`investigation`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`investigation` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation` (
   `idInvestigation` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
@@ -227,6 +247,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`medicinedose`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`medicinedose` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicinedose` (
   `idMedicineDosis` INT NOT NULL AUTO_INCREMENT ,
   `dose` TEXT NULL ,
@@ -252,6 +274,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`investigation_has_report`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`investigation_has_report` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation_has_report` (
   `investigation_idInvestigation` INT NOT NULL ,
   `report_idReport` BIGINT NOT NULL ,
@@ -275,6 +299,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`complications_activities`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`complications_activities` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`complications_activities` (
   `idComplications_Activities` INT NOT NULL AUTO_INCREMENT ,
   `hour` INT NULL ,
@@ -295,6 +321,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`medicalhistory`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`medicalhistory` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicalhistory` (
   `idMedicalHistory` BIGINT NOT NULL AUTO_INCREMENT ,
   `illness` TEXT NULL ,
@@ -313,6 +341,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `udahta_db`.`limitmeasure`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `udahta_db`.`limitmeasure` ;
+
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`limitmeasure` (
   `idlimitmeasure` INT NOT NULL AUTO_INCREMENT ,
   `maxdiasday` INT NULL ,

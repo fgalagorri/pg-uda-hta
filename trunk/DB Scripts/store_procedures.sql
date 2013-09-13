@@ -145,16 +145,17 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMeasurement$$
-CREATE PROCEDURE insertMeasurement(IN dateM DATETIME, IN systolic INT, IN average INT, 
+CREATE PROCEDURE insertMeasurement(OUT id BIGINT, IN dateM DATETIME, IN systolic INT, IN average INT, 
 								   IN diastolic INT, IN heart_rate INT, IN sleep BIT, 
-								   IN isValid BIT, IN isRetry BIT, IN comm TEXT, 
-								   IN idReport BIGINT, IN idPatient BIGINT)
+								   IN isValid BIT, IN isRetry BIT, IN isEnabled BIT, 
+								   IN comm TEXT, IN idReport BIGINT, IN idPatient BIGINT)
 BEGIN
 INSERT INTO `measurement` (`date`, `systolic`, `average`, `diastolic`, `heart_rate`, `sleep`, 
-						   `is_valid`, `is_retry`,`comment`, `report_idReport`, 
+						   `is_valid`, `is_retry`, `is_enabled`, `comment`, `report_idReport`, 
 						   `report_patientuda_idPatientUda`) 
-VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, isRetry,
+VALUES (dateM, systolic, average, diastolic, heart_rate, sleep, isValid, isRetry, isEnabled,
 		comm, idReport, idPatient);
+SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
@@ -330,6 +331,15 @@ END$$
 DELIMITER ;
 
 -- UPDATES --
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateMeasure$$
+CREATE PROCEDURE updateMeasure(IN idMeasure BIGINT, IN isEnabled BIT, IN comment_ TEXT)
+BEGIN
+UPDATE `measurement` SET `is_enabled` = isEnabled, `comment` = comment_
+WHERE `idMeasurement` = idMeasure;
+END$$
+DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateDiagnosis$$
