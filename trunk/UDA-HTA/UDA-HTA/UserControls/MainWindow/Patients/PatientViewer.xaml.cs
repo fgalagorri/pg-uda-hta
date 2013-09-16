@@ -40,9 +40,10 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
             Mouse.OverrideCursor = null;
         }
-        public PatientViewer(long patientId, long reportId)
+        public PatientViewer(long patientId, long reportId, UDA_HTA.MainWindow w)
         {
             Mouse.OverrideCursor = Cursors.Wait;
+            container = w;
             try
             {
                 _patient = GatewayController.GetInstance().GetPatientFullView(patientId);

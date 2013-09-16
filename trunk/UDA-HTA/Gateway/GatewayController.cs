@@ -242,6 +242,7 @@ namespace Gateway
 
     #endregion
 
+
     #region Report Listing
         public ICollection<Report> ListFilteredReports(int? patientLowerAge, int? patientUpperAge, DateTime? reportSinceDate,
             DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHypertense, bool? isDysplidemic)
@@ -260,6 +261,7 @@ namespace Gateway
             }
         } 
     #endregion
+
 
     #region Patient Listing & Viewing
 
@@ -377,7 +379,9 @@ namespace Gateway
 
     #endregion
 
+
     #region Drug Management
+
         public void AddDrug(string type, string name, string active)
         {
             var rm = new ReportManagement();
@@ -465,6 +469,7 @@ namespace Gateway
 
     #endregion
 
+
     #region User Management
 
         public void CreateUser(string userName, string login, string role, string password)
@@ -546,6 +551,7 @@ namespace Gateway
         }
 
     #endregion
+
 
     #region Investigation Listing & Viewing
 

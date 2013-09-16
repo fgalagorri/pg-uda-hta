@@ -107,7 +107,7 @@ namespace DataAccess
                             HeartRateDayAvg = qry.day_avg_hr,
                             HeartRateNightAvg = qry.night_avg_hr,
                             HeartRateTotalAvg = qry.tot_avg_hr,
-                            StandarDeviationTamNight = qry.night_sd_tam,
+                            StandardDeviationTamNight = qry.night_sd_tam,
                             StandardDeviationTamDay = qry.day_sd_tam,
                             StandardDeviationTamTotal = qry.tot_sd_tam,
                             StandardDeviationDiasDay = qry.day_sd_dias,
@@ -421,7 +421,7 @@ namespace DataAccess
                         HeartRateDayAvg = qry.day_avg_hr,
                         HeartRateNightAvg = qry.night_avg_hr,
                         HeartRateTotalAvg = qry.tot_avg_hr,
-                        StandarDeviationTamNight = qry.night_sd_tam,
+                        StandardDeviationTamNight = qry.night_sd_tam,
                         StandardDeviationTamDay = qry.day_sd_tam,
                         StandardDeviationTamTotal = qry.tot_sd_tam,
                         StandardDeviationDiasDay = qry.day_sd_dias,
@@ -629,7 +629,7 @@ namespace DataAccess
                             HeartRateDayAvg = rep.day_avg_hr,
                             HeartRateNightAvg = rep.night_avg_hr,
                             HeartRateTotalAvg = rep.tot_avg_hr,
-                            StandarDeviationTamNight = rep.night_sd_tam,
+                            StandardDeviationTamNight = rep.night_sd_tam,
                             StandardDeviationTamDay = rep.day_sd_tam,
                             StandardDeviationTamTotal = rep.tot_sd_tam,
                             StandardDeviationDiasDay = rep.day_sd_dias,
@@ -1051,7 +1051,7 @@ namespace DataAccess
                                  .Select(u => new User
                                      {
                                          Login = u.login,
-//                                         Name = u.name,
+                                         Name = u.name,
                                          Password = u.password,
                                          Role = u.rol
                                      }).FirstOrDefault();
@@ -1209,7 +1209,7 @@ namespace DataAccess
         }
 
         //Inserta una nueva droga en la base de datos
-        public void InsertDrug(string name, string drugType, string active)
+        public void InsertDrug(string drugType, string active, string name)
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -1366,7 +1366,7 @@ namespace DataAccess
                             HeartRateDayAvg = qry.day_avg_hr,
                             HeartRateNightAvg = qry.night_avg_hr,
                             HeartRateTotalAvg = qry.tot_avg_hr,
-                            StandarDeviationTamNight = qry.night_sd_tam,
+                            StandardDeviationTamNight = qry.night_sd_tam,
                             StandardDeviationTamDay = qry.day_sd_tam,
                             StandardDeviationTamTotal = qry.tot_sd_tam,
                             StandardDeviationDiasDay = qry.day_sd_dias,

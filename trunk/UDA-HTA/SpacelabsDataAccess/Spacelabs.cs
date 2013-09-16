@@ -249,7 +249,7 @@ namespace SpacelabsDataAccess
                             MiddleNightMin = r.MiddleNightMin,
                             MiddleNightMax = r.MiddleNightMax,
                             MiddleNightAvg = r.MiddleNightAvg,
-                            StandarDeviationTamNight = r.MiddleNightSD,
+                            StandardDeviationTamNight = r.MiddleNightSD,
                             MiddleNightMaxTime = r.MiddleNightMaxTime,
                             MiddleNightMinTime = r.MiddleNightMinTime,
                             HeartRateNightAvg = r.HRNightAvg,

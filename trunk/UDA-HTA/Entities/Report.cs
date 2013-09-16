@@ -140,7 +140,7 @@ namespace Entities
         
         public decimal? StandardDeviationSysNight { get; set; }
         public decimal? StandardDeviationDiasNight { get; set; }
-        public decimal? StandarDeviationTamNight { get; set; }
+        public decimal? StandardDeviationTamNight { get; set; }
         public decimal? StandardDeviationHeartRateNight { get; set; }
 
         // Dipping

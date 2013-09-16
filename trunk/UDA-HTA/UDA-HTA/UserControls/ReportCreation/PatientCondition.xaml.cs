@@ -206,6 +206,7 @@ namespace UDA_HTA.UserControls.ReportCreation
                 && 0 <= hour && hour < 24 && 0 <= min && min < 60
                 && drug != null)
             {
+                grMedication.DataContext = null;
                 var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
                 _lstMedication.Add(new Medication(date, drug));
 

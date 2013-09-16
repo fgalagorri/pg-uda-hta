@@ -37,93 +37,100 @@ namespace UDA_HTA
 
         private void ExportDoc(object sender, RoutedEventArgs e)
         {
-            var pv = container.ContainerPatient.Content as PatientViewer;
-            if (pv != null && pv.GetSelectedReport() != null)
+            try
             {
-                var report = pv.GetSelectedReport();
+                var pv = container.ContainerPatient.Content as PatientViewer;
+                if (pv != null && pv.GetSelectedReport() != null)
+                {
+                    var report = pv.GetSelectedReport();
 
-                SaveFileDialog saveAs = new SaveFileDialog
-                {
-                    FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
-                    DefaultExt = ".docx",
-                    Filter = "Microsoft Word Document|*.docx"
-                };
-                if (report.BeginDate.HasValue)
-                {
-                    saveAs.FileName += " " +
-                                       report.BeginDate.Value
-                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
-                                             .Replace('/', '-');
-                }
-                var result = saveAs.ShowDialog();
-                if (result.HasValue && result.Value)
-                {
-                    var includePatientData = cbPatientData.IsChecked != null && cbPatientData.IsChecked.Value;
-                    var includeDiagnostic = cbDiagnostic.IsChecked != null && cbDiagnostic.IsChecked.Value;
-                    var includeProfile = cbProfile.IsChecked != null && cbProfile.IsChecked.Value;
-                    var includeGraphic = cbGraphic.IsChecked != null && cbGraphic.IsChecked.Value;
-                    var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
-
-                    Mouse.OverrideCursor = Cursors.Wait;
-                    try
+                    SaveFileDialog saveAs = new SaveFileDialog
+                        {
+                            FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
+                            DefaultExt = ".docx",
+                            Filter = "Microsoft Word Document|*.docx"
+                        };
+                    if (report.BeginDate.HasValue)
                     {
-                        GatewayController.GetInstance().ExportToDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);
+                        saveAs.FileName += " " +
+                                           report.BeginDate.Value
+                                                 .ToString(ConfigurationManager.AppSettings["ShortDateString"])
+                                                 .Replace('/', '-');
                     }
-                    catch (Exception exception)
+                    var result = saveAs.ShowDialog();
+                    if (result.HasValue && result.Value)
                     {
-                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        var includePatientData = cbPatientData.IsChecked != null && cbPatientData.IsChecked.Value;
+                        var includeDiagnostic = cbDiagnostic.IsChecked != null && cbDiagnostic.IsChecked.Value;
+                        var includeProfile = cbProfile.IsChecked != null && cbProfile.IsChecked.Value;
+                        var includeGraphic = cbGraphic.IsChecked != null && cbGraphic.IsChecked.Value;
+                        var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
 
+                        Mouse.OverrideCursor = Cursors.Wait;
+
+                        GatewayController.GetInstance().ExportToDocx(report, includePatientData,
+                                                                     includeDiagnostic, includeProfile,
+                                                                     includeGraphic, includeMeasures, saveAs.FileName);
+
+                        // Abro el archivo exportado
+                        Process.Start(saveAs.FileName);
+                        Mouse.OverrideCursor = null;
                     }
-                    // Abro el archivo exportado
-                    Process.Start(saveAs.FileName);
-                    Mouse.OverrideCursor = null;
                 }
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
         }
 
         private void ExportPdf(object sender, RoutedEventArgs e)
         {
-            var pv = container.ContainerPatient.Content as PatientViewer;
-            if (pv != null && pv.GetSelectedReport() != null)
+            try
             {
-                var report = pv.GetSelectedReport();
+                var pv = container.ContainerPatient.Content as PatientViewer;
+                if (pv != null && pv.GetSelectedReport() != null)
+                {
+                    var report = pv.GetSelectedReport();
 
-                SaveFileDialog saveAs = new SaveFileDialog
-                {
-                    FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
-                    DefaultExt = ".pdf",
-                    Filter = "PDF Document|*.pdf"
-                };
-                if (report.BeginDate.HasValue)
-                {
-                    saveAs.FileName += " " +
-                                       report.BeginDate.Value
-                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
-                                             .Replace('/', '-');
-                }
-                var result = saveAs.ShowDialog();
-                if (result.HasValue && result.Value)
-                {
-                    var includePatientData = cbPatientData.IsChecked != null && cbPatientData.IsChecked.Value;
-                    var includeDiagnostic = cbDiagnostic.IsChecked != null && cbDiagnostic.IsChecked.Value;
-                    var includeProfile = cbProfile.IsChecked != null && cbProfile.IsChecked.Value;
-                    var includeGraphic = cbGraphic.IsChecked != null && cbGraphic.IsChecked.Value;
-                    var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
-
-                    Mouse.OverrideCursor = Cursors.Wait;
-                    try
+                    SaveFileDialog saveAs = new SaveFileDialog
+                        {
+                            FileName = "Registro " + report.Patient.Names + " " + report.Patient.Surnames,
+                            DefaultExt = ".pdf",
+                            Filter = "PDF Document|*.pdf"
+                        };
+                    if (report.BeginDate.HasValue)
                     {
-                        GatewayController.GetInstance().ExportToPdf(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, includeMeasures, saveAs.FileName);
+                        saveAs.FileName += " " +
+                                           report.BeginDate.Value
+                                                 .ToString(ConfigurationManager.AppSettings["ShortDateString"])
+                                                 .Replace('/', '-');
                     }
-                    catch (Exception exception)
+                    var result = saveAs.ShowDialog();
+                    if (result.HasValue && result.Value)
                     {
-                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                        var includePatientData = cbPatientData.IsChecked != null && cbPatientData.IsChecked.Value;
+                        var includeDiagnostic = cbDiagnostic.IsChecked != null && cbDiagnostic.IsChecked.Value;
+                        var includeProfile = cbProfile.IsChecked != null && cbProfile.IsChecked.Value;
+                        var includeGraphic = cbGraphic.IsChecked != null && cbGraphic.IsChecked.Value;
+                        var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
 
-                    // Abro el archivo exportado
-                    Process.Start(saveAs.FileName);
-                    Mouse.OverrideCursor = null;
+                        Mouse.OverrideCursor = Cursors.Wait;
+
+                        GatewayController.GetInstance()
+                                         .ExportToPdf(report, includePatientData, includeDiagnostic, includeProfile,
+                                                      includeGraphic, includeMeasures, saveAs.FileName);
+                        // Abro el archivo exportado
+                        Process.Start(saveAs.FileName);
+                        Mouse.OverrideCursor = null;
+                    }
                 }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
