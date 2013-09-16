@@ -215,7 +215,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 //TAM
                 lblSDTAMT.Text = r.StandardDeviationTamTotal.ToString();
                 lblSDTAMD.Text = r.StandardDeviationTamDay.ToString();
-                lblSDTAMN.Text = r.StandarDeviationTamNight.ToString();
+                lblSDTAMN.Text = r.StandardDeviationTamNight.ToString();
 
                 //Frecuencia cardiaca
                 lblSDFCT.Text = r.StandardDeviationHeartRateTotal.ToString();

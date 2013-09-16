@@ -28,6 +28,7 @@ namespace UDA_HTA
         public MainWindow(User usr)
         {
             InitializeComponent();
+
             ContainerPatient.Content = new PatientFinder(this);
             ContainerPatient.Visibility = Visibility.Visible;
             ContainerInvestigation.Content = new ResearchFinder(this);
@@ -75,29 +76,31 @@ namespace UDA_HTA
         }
 
 
-    #region Report
+        #region Report
 
         private void CreateNewReport(object sender, RoutedEventArgs e)
         {
-            btnEditPatient.IsEnabled = false;
-            btnExportReport.IsEnabled = false;
-
-            var newReportPopup = new NewReportFinder { Owner = this };
-            var imported = newReportPopup.ShowDialog();
-
-            if (imported.HasValue && imported.Value)
+            try
             {
-                long patientId, reportId;
-                // Despliego el nuevo informe
-                try
+                btnEditPatient.IsEnabled = false;
+                btnExportReport.IsEnabled = false;
+
+                var newReportPopup = new NewReportFinder {Owner = this};
+                var imported = newReportPopup.ShowDialog();
+
+                if (imported.HasValue && imported.Value)
                 {
+                    long patientId, reportId;
+                    // Despliego el nuevo informe
+
                     GatewayController.GetInstance().GetLastInsertedReport(out patientId, out reportId);
-                    ContainerPatient.Content = new PatientViewer(patientId, reportId);
+                    ContainerPatient.Content = new PatientViewer(patientId, reportId, this);
                 }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -112,17 +115,18 @@ namespace UDA_HTA
                 de.Show();
             }
         }
+
         private void DiagnosisEditorClosed(object sender, CancelEventArgs e)
         {
-            long reportId;
-            string diagnosis;
-
-            var de = (DiagnosisEditor) sender;
-            var saveChanges = de.ChangesCommited(out reportId, out diagnosis);
-
-            if (saveChanges)
+            try
             {
-                try
+                long reportId;
+                string diagnosis;
+
+                var de = (DiagnosisEditor) sender;
+                var saveChanges = de.ChangesCommited(out reportId, out diagnosis);
+
+                if (saveChanges)
                 {
                     var d = GatewayController.GetInstance().UpdateDiagnosis(reportId, diagnosis);
                     var pv = ContainerPatient.Content as PatientViewer;
@@ -131,11 +135,10 @@ namespace UDA_HTA
                         pv.UpdateDiagnosis(d);
                     }
                 }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -145,7 +148,7 @@ namespace UDA_HTA
             if (pv != null && pv.GetSelectedReport() != null)
             {
                 var er = new ExportReport(this, pv.GetSelectedReport());
-                er.Show();
+                er.ShowDialog();
             }
         }
 

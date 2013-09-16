@@ -82,7 +82,7 @@ namespace BussinessLogic
         public void AddDrug(string type, string active, string name)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
-            uhda.InsertDrug(name, active, type);
+            uhda.InsertDrug(type, active, name);
         }
 
         public void DeleteDrug(string name)
@@ -4138,7 +4138,7 @@ namespace BussinessLogic
             RunProperties runProperties170 = new RunProperties();
             Text text194 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar noche TAM
-            text194.Text = report.StandarDeviationTamNight.ToString();
+            text194.Text = report.StandardDeviationTamNight.ToString();
 
             run194.AppendChild(runProperties170);
             run194.AppendChild(text194);
@@ -5897,7 +5897,7 @@ namespace BussinessLogic
         public void ExportReportPDF(string docxPath, string pdfDestination)
         {
             // Create a new Microsoft Word application object
-            Microsoft.Office.Interop.Word.Application word = new Application();
+            Application word = new Application();
 
             // C# doesn't have optional arguments so we'll need a dummy value
             object oMissing = System.Reflection.Missing.Value;
@@ -5914,7 +5914,7 @@ namespace BussinessLogic
             Object filename = wordFile.FullName;
 
             // Use the dummy value as a placeholder for optional arguments
-            Microsoft.Office.Interop.Word.Document doc = word.Documents.Open(ref filename, ref oMissing,
+            Document doc = word.Documents.Open(ref filename, ref oMissing,
                                                ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                                ref oMissing, ref oMissing, ref oMissing, ref oMissing);
@@ -5934,13 +5934,13 @@ namespace BussinessLogic
             // doc has to be cast to type _Document so that it will find the
             // correct Close method.                
             object saveChanges = WdSaveOptions.wdDoNotSaveChanges;
-            doc.Close(ref saveChanges, ref oMissing, ref oMissing);
+            ((_Document)doc).Close(ref saveChanges, ref oMissing, ref oMissing);
             doc = null;
             //}
 
             // word has to be cast to type _Application so that it will find
             // the correct Quit method.
-            word.Quit(ref oMissing, ref oMissing, ref oMissing);
+            ((_Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
             word = null;
         }
 

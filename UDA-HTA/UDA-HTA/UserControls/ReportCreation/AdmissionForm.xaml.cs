@@ -12,9 +12,12 @@ namespace UDA_HTA.UserControls.ReportCreation
     /// </summary>
     public partial class AdmissionForm : UserControl
     {
-        private const int MAXSYS = 20;
-        private const int MAXDIAS = 20;
+        private const int MAXSYS = 200;
+        private const int MAXDIAS = 200; 
+        private const int MINSYS = 20;
+        private const int MINDIAS = 20;
         private const int MAXHR = 200;
+        private const int MINHR = 20;
 
 
         public AdmissionForm()
@@ -140,24 +143,24 @@ namespace UDA_HTA.UserControls.ReportCreation
                    cmbDreamQty.ValidateSelected() &
                    txtMealHour.ValidateInt(0, 23) &
                    txtMealMinutes.ValidateInt(0, 59) &
-                   txtSystolicInitial1.ValidateInt(0, MAXSYS) &
-                   txtSystolicInitial2.ValidateInt(0, MAXSYS) &
-                   txtSystolicInitial3.ValidateInt(0, MAXSYS) &
-                   txtDiastolicInitial1.ValidateInt(0, MAXDIAS) &
-                   txtDiastolicInitial2.ValidateInt(0, MAXDIAS) &
-                   txtDiastolicInitial3.ValidateInt(0, MAXDIAS) &
-                   txtHeartRateInitial1.ValidateInt(0, MAXHR) &
-                   txtHeartRateInitial2.ValidateInt(0, MAXHR) &
-                   txtHeartRateInitial3.ValidateInt(0, MAXHR) &
-                   txtSystolicEnd1.ValidateInt(0, MAXSYS) &
-                   txtSystolicEnd2.ValidateInt(0, MAXSYS) &
-                   txtSystolicEnd3.ValidateInt(0, MAXSYS) &
-                   txtDiastolicEnd1.ValidateInt(0, MAXDIAS) &
-                   txtDiastolicEnd2.ValidateInt(0, MAXDIAS) &
-                   txtDiastolicEnd3.ValidateInt(0, MAXDIAS) &
-                   txtHeartRateEnd1.ValidateInt(0, MAXHR) &
-                   txtHeartRateEnd2.ValidateInt(0, MAXHR) &
-                   txtHeartRateEnd3.ValidateInt(0, MAXHR);
+                   txtSystolicInitial1.ValidateInt(MINSYS, MAXSYS) &
+                   txtSystolicInitial2.ValidateInt(MINSYS, MAXSYS) &
+                   txtSystolicInitial3.ValidateInt(MINSYS, MAXSYS) &
+                   txtDiastolicInitial1.ValidateInt(MINDIAS, MAXDIAS) &
+                   txtDiastolicInitial2.ValidateInt(MINDIAS, MAXDIAS) &
+                   txtDiastolicInitial3.ValidateInt(MINDIAS, MAXDIAS) &
+                   txtHeartRateInitial1.ValidateInt(MINHR, MAXHR) &
+                   txtHeartRateInitial2.ValidateInt(MINHR, MAXHR) &
+                   txtHeartRateInitial3.ValidateInt(MINHR, MAXHR) &
+                   txtSystolicEnd1.ValidateInt(MINSYS, MAXSYS) &
+                   txtSystolicEnd2.ValidateInt(MINSYS, MAXSYS) &
+                   txtSystolicEnd3.ValidateInt(MINSYS, MAXSYS) &
+                   txtDiastolicEnd1.ValidateInt(MINDIAS, MAXDIAS) &
+                   txtDiastolicEnd2.ValidateInt(MINDIAS, MAXDIAS) &
+                   txtDiastolicEnd3.ValidateInt(MINDIAS, MAXDIAS) &
+                   txtHeartRateEnd1.ValidateInt(MINHR, MAXHR) &
+                   txtHeartRateEnd2.ValidateInt(MINHR, MAXHR) &
+                   txtHeartRateEnd3.ValidateInt(MINHR, MAXHR);
         }
     }
 }
