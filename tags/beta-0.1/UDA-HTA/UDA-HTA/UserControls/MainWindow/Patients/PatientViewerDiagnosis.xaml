@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Patients.PatientViewerDiagnosis"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="700">
+    
+    <UserControl.Resources>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Información</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <TextBlock Style="{StaticResource label}">Médico:</TextBlock>
+                    <TextBlock Name="lblDoctor" Margin="15,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Style="{StaticResource label}">Fecha:</TextBlock>
+                    <TextBlock Name="lblDate" Margin="15,0" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Informe</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBox Name="txtDiagnosis" Grid.Row="0" Margin="5" AcceptsTab="True" IsReadOnly="True"
+                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

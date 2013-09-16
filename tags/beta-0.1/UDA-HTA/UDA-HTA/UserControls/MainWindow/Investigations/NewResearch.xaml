@@ -1,0 +1,39 @@
+﻿<Window x:Class="UDA_HTA.UserControls.MainWindow.Investigations.NewResearch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Crear Investigacion" Height="350" Width="500">
+    <Grid>
+        <StackPanel Margin="5,15,5,15">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" >
+                <TextBlock Height="23" Name="txtBlockInfo" Text="Por favor, complete los campos a continuacion para luego agregar reportes." HorizontalAlignment="Center" />
+                <TextBlock Height="15" Name="txtBlockBlank" Text="" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                <Label Content="Fecha de Creacion:" Height="28" Name="lblDate" />
+                <DatePicker Height="25" Name="dpDate" Width="115" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                <Label Content="Nombre de Investigacion:" Height="28" Name="lblName" />
+                <TextBox Height="23" Name="txtName" Width="120" />
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2">
+                <Label Content="Descripcion:" Height="28" Name="lblComment" />
+                <TextBox Height="104" Name="txtComment" Width="290" />
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Height="23" Name="txtBlockBlank2" Text="" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Padding="10,0" Name="btnAddReport" Click="btnAddReports_Click">Agregar Reportes</Button>
+                <TextBlock Height="23" Name="txtBlockBlank3" Text="    " />
+                <Button Padding="10,0" Name="btnCreate" Click="btnCreate_Click">Crear</Button>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</Window>

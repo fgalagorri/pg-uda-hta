@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Patients.PatientFinder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="313" d:DesignWidth="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,15,0,15" Grid.Row="0" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">CI:</TextBlock>
+                    <TextBox Name="txtDocument" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Nro. Registro:</TextBlock>
+                    <TextBox Name="txtRegistry" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Nombres:</TextBlock>
+                    <TextBox Name="txtName" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Apellidos:</TextBlock>
+                    <TextBox Name="txtSurname" Width="150" Margin="15,0,40,0" KeyDown="enterSubmit" />
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Fecha Nacimiento:</TextBlock>
+                    <DatePicker Name="dtBirthDate" Margin="15,0,40,0" />
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button Padding="10,0" Click="btnSearch_Click">Buscar</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid Name="grPatients" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
+                  AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
+                  SelectionChanged="grPatients_SelectionChanged" SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CI" Width="Auto" 
+                                    Binding="{Binding Path=DocumentId}" />
+                <DataGridTextColumn Header="Nro. Registro" Width="1*" 
+                                    Binding="{Binding Path=RegisterNumber}" />
+                <DataGridTextColumn Header="Nombres" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=Names}" />
+                <DataGridTextColumn Header="Apellidos" Width="1*" IsReadOnly="True" 
+                                    Binding="{Binding Path=Surnames}" />
+                <DataGridTextColumn x:Name="colBirth" Header="Fecha de Nacimiento" 
+                                    Width="1*" Binding="{Binding Path=BirthDate}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
