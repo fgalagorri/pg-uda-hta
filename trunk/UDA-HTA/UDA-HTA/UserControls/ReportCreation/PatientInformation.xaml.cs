@@ -44,6 +44,7 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtTelAlt.Text = p.Phone2;
                 txtCel.Text = p.CellPhone;
                 txtMail.Text = p.Email;
+                txtNroReg.Text = p.RegisterNumber;
 
                 _emContacts = p.EmergencyContactList ?? new List<EmergencyContact>();
             }

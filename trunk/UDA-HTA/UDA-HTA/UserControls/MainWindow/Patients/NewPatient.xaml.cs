@@ -21,14 +21,20 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
     /// </summary>
     public partial class NewPatient : Window
     {
+        private const string ErrorMessage = "Algunos datos obligatorios no fueron" +
+                                    " ingresados o el valor ingresado es incorrecto.";
+
         private PatientInformation patientInfo;
+        private PatientCondition patientCondition;
+
+        private Patient _patient;
 
         private bool _crear;
 
         public NewPatient(Patient patient)
         {
-            //editar
             patientInfo = new PatientInformation(patient);
+            patientCondition = new PatientCondition(patient);
             _crear = patient == null;
             
             InitializeComponent();
@@ -36,6 +42,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             if (!_crear)
             {
                 //editar
+                _patient = patient;
                 btnAdd.Content = "Editar Paciente";
                 this.Title = "Editar Paciente";
             }
@@ -50,6 +57,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 try
                 {
                     var patient = patientInfo.GetPatient();
+                    patient = patientCondition.GetPatient(patient);
                     if (_crear)
                     {
                         //Crear paciente
@@ -58,6 +66,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                     else
                     {
                         //Editar paciente
+                        patient.UdaId = _patient.UdaId;
+                        patient.ModifiedDate = DateTime.Today;
                         GatewayController.GetInstance().EditPatient(patient);
                     }
                     Close();                
@@ -70,7 +80,21 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             }
             else
             {
-                MessageBox.Show("Alguno de los datos no es correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Error); //TODO indicar que datos no son correctos
+                MessageBox.Show("Alguno de los datos no es correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Error); 
+            }
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (patientInfo.IsValid())
+            {
+                CurrentControl.Content = patientCondition;
+                btnAdd.IsEnabled = true;
+                btnNext.IsEnabled = false;                
+            }
+            else
+            {
+                MessageBox.Show(ErrorMessage, "Datos faltantes", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

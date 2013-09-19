@@ -91,6 +91,54 @@ namespace UDA_HTA.UserControls.ReportCreation
             grBackground.DataContext = _lstBackground;
         }
 
+        public PatientCondition(Patient p)
+        {
+            InitializeComponent();
+            colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
+            var controller = GatewayController.GetInstance();
+            try
+            {
+                _drugs = controller.GetDrugs(null, null, null);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            autoMedication.DataContext = _drugs;
+
+            var tempData = controller.GetPatientLastTempData(p.UdaId.Value);
+            if (tempData != null)
+            {
+                _lstMedication = tempData.Medication ?? new List<Medication>();
+                grMedication.DataContext = _lstMedication;
+
+                txtWeight.Text = tempData.Weight.ToString();
+                txtHeight.Text = tempData.Height.HasValue ? tempData.Height.Value.ToString("F") : "";
+                _imc = tempData.BodyMassIndex.HasValue ? tempData.BodyMassIndex.Value : -1;
+                lblImc.Text = tempData.BodyMassIndex.ToString();
+                txtFat.Text = tempData.FatPercentage.ToString();
+                txtMuscle.Text = tempData.MusclePercentage.ToString();
+                txtKcal.Text = tempData.Kcal.ToString();
+                chkSmoker.IsChecked = tempData.Smoker ?? false;
+                chkDiabetic.IsChecked = tempData.Diabetic ?? false;
+                chkDyslipidemia.IsChecked = tempData.Dyslipidemia ?? false;
+                chkHypertense.IsChecked = tempData.Hypertensive ?? false;
+            }
+            else
+            {
+                chkSmoker.IsChecked = false;
+                chkDiabetic.IsChecked = false;
+                chkDyslipidemia.IsChecked = false;
+                chkHypertense.IsChecked = false;
+            }
+            CalculateImc(null, null);
+
+
+            _lstBackground = p.Background ?? new List<MedicalRecord>();
+            grBackground.DataContext = _lstBackground;
+        }
+
         public Report GetReport(Report r)
         {
             var t = r.TemporaryData ?? new TemporaryData();
@@ -115,6 +163,41 @@ namespace UDA_HTA.UserControls.ReportCreation
             r.TemporaryData = t;
             r.Patient.Background = _lstBackground;
             return r;
+        }
+
+        public Patient GetPatient(Patient p)
+        {
+            try
+            {
+                var t = p.LastTempData ?? new TemporaryData();
+
+                foreach (var m in _lstMedication)
+                    m.Time = m.Time;
+                t.Medication = _lstMedication;
+
+                t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float,
+                                         CultureInfo.InvariantCulture); //TODO usar tryParse en en todos estos
+                t.Height = decimal.Parse(txtHeight.Text.Replace(",", "."), NumberStyles.Float,
+                                         CultureInfo.InvariantCulture);
+                t.BodyMassIndex = _imc;
+                t.FatPercentage = decimal.Parse(txtFat.Text.Replace(",", "."), NumberStyles.Float,
+                                                CultureInfo.InvariantCulture);
+                t.MusclePercentage = decimal.Parse(txtMuscle.Text.Replace(",", "."), NumberStyles.Float,
+                                                   CultureInfo.InvariantCulture);
+                t.Kcal = int.Parse(txtKcal.Text);
+                t.Smoker = chkSmoker.IsChecked.Value;
+                t.Diabetic = chkDiabetic.IsChecked.Value;
+                t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;
+                t.Hypertensive = chkHypertense.IsChecked.Value;
+
+                p.Background = _lstBackground;
+                p.LastTempData = t;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return p;
         }
 
         public bool IsValid()
