@@ -368,6 +368,8 @@ namespace Gateway
             try
             {
                 pm.EditPatient(patient);
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "Paciente modificado por " + _loggedUser.Login);
             }
             catch (Exception exception)
             {
@@ -458,7 +460,7 @@ namespace Gateway
                 _loggedUser = sm.Login(userName, encryptedPswd);
                 
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + "ha ingresado");
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + " ha ingresado");
             }
             catch (Exception)
             {

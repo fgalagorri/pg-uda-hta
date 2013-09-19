@@ -126,7 +126,8 @@ namespace DataAccess
                                                 p.department,
                                                 p.surname,
                                                 p.telephone,
-                                                p.telephone_alt
+                                                p.telephone_alt,
+                                                p.register_number
                                             }).ToList().First();
 
                 Patient patient = new Patient
@@ -144,7 +145,8 @@ namespace DataAccess
                         Phone = pat.telephone,
                         Phone2 = pat.telephone_alt,
                         Sex = pat.gender == "M" ? SexType.M : SexType.F,
-                        Surnames = pat.surname
+                        Surnames = pat.surname,
+                        RegisterNumber = pat.register_number
                     };
 
                 foreach (var ec in pat.emergency_contact)
