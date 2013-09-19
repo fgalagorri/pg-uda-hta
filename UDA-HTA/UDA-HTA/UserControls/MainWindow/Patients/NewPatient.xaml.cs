@@ -33,6 +33,13 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             
             InitializeComponent();
 
+            if (!_crear)
+            {
+                //editar
+                btnAdd.Content = "Editar Paciente";
+                this.Title = "Editar Paciente";
+            }
+
             CurrentControl.Content = patientInfo;
         }
 

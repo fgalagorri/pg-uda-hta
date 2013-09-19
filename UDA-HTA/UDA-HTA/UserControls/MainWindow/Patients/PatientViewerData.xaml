@@ -9,7 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700" >
     <UserControl.Resources>
-        <src:HighlightSystolicCells x:Key="highlightSystolic"/>
         <Style TargetType="DataGridRow">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Asleep}" Value="True">
@@ -17,12 +16,9 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="DataGridCell">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Asleep}" Value="True">
-                    <Setter Property="Background" Value="LightSteelBlue" />
-                </DataTrigger>
-            </Style.Triggers>
+        <Style TargetType="{x:Type DataGridCell}" x:Key="cellBackground" >
+            <EventSetter Event="Loaded" Handler="EventSetter_OnHandler">
+            </EventSetter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -30,7 +26,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="Auto" x:Name="colDate" Header="Fecha" IsReadOnly="True" Binding="{Binding Path=Time}" />
                 <DataGridTextColumn Width="Auto" x:Name="colTime" Header="Hora" IsReadOnly="True" Binding="{Binding Path=Time}" />
-                <DataGridTextColumn Width="Auto" x:Name="colSys" Header="P.A. Sistólica" IsReadOnly="True" Binding="{Binding Path=Systolic}" />
+                <DataGridTextColumn Width="Auto" x:Name="colSys" Header="P.A. Sistólica" IsReadOnly="True" Binding="{Binding Path=Systolic}" CellStyle="{StaticResource cellBackground}"/>
                 <DataGridTextColumn Width="Auto" x:Name="colDias" Header="P.A. Diastólica" IsReadOnly="True" Binding="{Binding Path=Diastolic}" />
                 <DataGridTextColumn Width="Auto" Header="P.A. Media" IsReadOnly="True" Binding="{Binding Path=Middle}" />
                 <DataGridTextColumn Width="Auto" Header="Frec. Cardíaca" IsReadOnly="True" Binding="{Binding Path=HeartRate}" />

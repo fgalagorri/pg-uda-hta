@@ -75,7 +75,10 @@ namespace BussinessLogic
         public Patient GetPatient(long patientId)
         {
             var pda = new PatientDataAccess();
-            return pda.GetPatient(patientId);
+            var patient = pda.GetPatient(patientId);
+            var uda = new UdaHtaDataAccess();
+            patient.Background = uda.GetMedicalHistory(patientId);
+            return patient;
         }
 
 

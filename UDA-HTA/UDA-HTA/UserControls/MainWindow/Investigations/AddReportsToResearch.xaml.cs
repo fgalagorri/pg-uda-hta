@@ -56,47 +56,52 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
                 string[] ageBetween;
 
+
                 try
                 {
-                    switch (firstChar)
+                    if (cbSign.Text.Equals("Igual a"))
                     {
-                        case '>':
-                            text.CopyTo(1, destination, 0, text.Length - 1);
-                            lowerAge = int.Parse(new string(destination));
-                            break;
-                        case '<':
-                            text.CopyTo(1, destination, 0, text.Length - 1);
-                            upperAge = int.Parse(new string(destination));
-                            break;
-                        case '=':
-                            text.CopyTo(1, destination, 0, text.Length - 1);
-                            lowerAge = int.Parse(new string(destination));
-                            upperAge = int.Parse(new string(destination));
-                            break;
-                        default:
-                            int val = int.Parse(firstChar.ToString());
-                            if (val >= 0 || val <= 9)
+                        lowerAge = int.Parse(text);
+                        upperAge = int.Parse(text);
+                    }
+                    else
+                    {
+                        if (cbSign.Text.Equals("Mayor a"))
+                        {
+                            lowerAge = int.Parse(text);
+                        }
+                        else
+                        {
+                            if (cbSign.Text.Equals("Menor a"))
                             {
-                                //El primer caracter es un numero, verificar si hay un '-'
-                                ageBetween = txtEdad.Text.Trim().Split('-');
-
-                                if (ageBetween.Length == 1)
-                                {
-                                    //No se indico signo, y hay solo un numero, se asumen edades mayores a la indicada
-                                    lowerAge = int.Parse(ageBetween[0]);
-                                }
-                                else
-                                {
-                                    lowerAge = int.Parse(ageBetween[0]);
-                                    upperAge = int.Parse(ageBetween[1]);
-                                }
+                                upperAge = int.Parse(text);
                             }
                             else
                             {
-                                // Error
-                                error = true;
+                                int val = int.Parse(firstChar.ToString());
+                                if (val >= 0 || val <= 9)
+                                {
+                                    //El primer caracter es un numero, verificar si hay un '-'
+                                    ageBetween = txtEdad.Text.Trim().Split('-');
+
+                                    if (ageBetween.Length == 1)
+                                    {
+                                        //No se indico signo, y hay solo un numero, se asumen edades mayores a la indicada
+                                        lowerAge = int.Parse(ageBetween[0]);
+                                    }
+                                    else
+                                    {
+                                        lowerAge = int.Parse(ageBetween[0]);
+                                        upperAge = int.Parse(ageBetween[1]);
+                                    }
+                                }
+                                else
+                                {
+                                    // Error
+                                    error = true;
+                                }
                             }
-                            break;
+                        }
                     }
 
                 }
@@ -141,7 +146,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
             }else
             {
-                MessageBox.Show("Formato en campo edad incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("El formato del campo edad es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

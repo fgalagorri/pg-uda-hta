@@ -456,6 +456,9 @@ namespace Gateway
             try
             {
                 _loggedUser = sm.Login(userName, encryptedPswd);
+                
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + "ha ingresado");
             }
             catch (Exception)
             {

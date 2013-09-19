@@ -462,70 +462,6 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="hour">No Metadata Documentation available.</param>
-        /// <param name="minutes">No Metadata Documentation available.</param>
-        /// <param name="specification">No Metadata Documentation available.</param>
-        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
-        /// <param name="description">No Metadata Documentation available.</param>
-        public int insertComplications_Activities(ObjectParameter id, Nullable<global::System.Int32> hour, Nullable<global::System.Int32> minutes, global::System.String specification, Nullable<global::System.Int64> idDailyCarnet, global::System.String description)
-        {
-            ObjectParameter hourParameter;
-            if (hour.HasValue)
-            {
-                hourParameter = new ObjectParameter("hour", hour);
-            }
-            else
-            {
-                hourParameter = new ObjectParameter("hour", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter minutesParameter;
-            if (minutes.HasValue)
-            {
-                minutesParameter = new ObjectParameter("minutes", minutes);
-            }
-            else
-            {
-                minutesParameter = new ObjectParameter("minutes", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter specificationParameter;
-            if (specification != null)
-            {
-                specificationParameter = new ObjectParameter("specification", specification);
-            }
-            else
-            {
-                specificationParameter = new ObjectParameter("specification", typeof(global::System.String));
-            }
-    
-            ObjectParameter idDailyCarnetParameter;
-            if (idDailyCarnet.HasValue)
-            {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
-            }
-            else
-            {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter descriptionParameter;
-            if (description != null)
-            {
-                descriptionParameter = new ObjectParameter("description", description);
-            }
-            else
-            {
-                descriptionParameter = new ObjectParameter("description", typeof(global::System.String));
-            }
-    
-            return base.ExecuteFunction("insertComplications_Activities", id, hourParameter, minutesParameter, specificationParameter, idDailyCarnetParameter, descriptionParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="technical">No Metadata Documentation available.</param>
         /// <param name="initial_dias1">No Metadata Documentation available.</param>
         /// <param name="initial_dias2">No Metadata Documentation available.</param>
@@ -1495,80 +1431,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="patient_id">No Metadata Documentation available.</param>
-        /// <param name="illness">No Metadata Documentation available.</param>
-        /// <param name="since">No Metadata Documentation available.</param>
-        /// <param name="to_">No Metadata Documentation available.</param>
-        /// <param name="comment_">No Metadata Documentation available.</param>
-        public int updateMedicalRecord(Nullable<global::System.Int64> id, Nullable<global::System.Int64> patient_id, global::System.String illness, Nullable<global::System.DateTime> since, Nullable<global::System.DateTime> to_, global::System.String comment_)
-        {
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter patient_idParameter;
-            if (patient_id.HasValue)
-            {
-                patient_idParameter = new ObjectParameter("patient_id", patient_id);
-            }
-            else
-            {
-                patient_idParameter = new ObjectParameter("patient_id", typeof(global::System.Int64));
-            }
-    
-            ObjectParameter illnessParameter;
-            if (illness != null)
-            {
-                illnessParameter = new ObjectParameter("illness", illness);
-            }
-            else
-            {
-                illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
-            }
-    
-            ObjectParameter sinceParameter;
-            if (since.HasValue)
-            {
-                sinceParameter = new ObjectParameter("since", since);
-            }
-            else
-            {
-                sinceParameter = new ObjectParameter("since", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter to_Parameter;
-            if (to_.HasValue)
-            {
-                to_Parameter = new ObjectParameter("to_", to_);
-            }
-            else
-            {
-                to_Parameter = new ObjectParameter("to_", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter comment_Parameter;
-            if (comment_ != null)
-            {
-                comment_Parameter = new ObjectParameter("comment_", comment_);
-            }
-            else
-            {
-                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
-            }
-    
-            return base.ExecuteFunction("updateMedicalRecord", idParameter, patient_idParameter, illnessParameter, sinceParameter, to_Parameter, comment_Parameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="login_var">No Metadata Documentation available.</param>
         /// <param name="pass_var">No Metadata Documentation available.</param>
         public int updatePassword(global::System.String login_var, global::System.String pass_var)
@@ -2409,6 +2271,111 @@ namespace DataAccess
     
             return base.ExecuteFunction("updateMeasure", idMeasureParameter, isEnabledParameter, comment_Parameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="patient_id">No Metadata Documentation available.</param>
+        /// <param name="illness">No Metadata Documentation available.</param>
+        /// <param name="comment_">No Metadata Documentation available.</param>
+        public int updateMedicalRecord(Nullable<global::System.Int64> id, Nullable<global::System.Int64> patient_id, global::System.String illness, global::System.String comment_)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter patient_idParameter;
+            if (patient_id.HasValue)
+            {
+                patient_idParameter = new ObjectParameter("patient_id", patient_id);
+            }
+            else
+            {
+                patient_idParameter = new ObjectParameter("patient_id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter illnessParameter;
+            if (illness != null)
+            {
+                illnessParameter = new ObjectParameter("illness", illness);
+            }
+            else
+            {
+                illnessParameter = new ObjectParameter("illness", typeof(global::System.String));
+            }
+    
+            ObjectParameter comment_Parameter;
+            if (comment_ != null)
+            {
+                comment_Parameter = new ObjectParameter("comment_", comment_);
+            }
+            else
+            {
+                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateMedicalRecord", idParameter, patient_idParameter, illnessParameter, comment_Parameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="time_">No Metadata Documentation available.</param>
+        /// <param name="specification">No Metadata Documentation available.</param>
+        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
+        /// <param name="description">No Metadata Documentation available.</param>
+        public int insertComplications_Activities(ObjectParameter id, Nullable<global::System.DateTime> time_, global::System.String specification, Nullable<global::System.Int64> idDailyCarnet, global::System.String description)
+        {
+            ObjectParameter time_Parameter;
+            if (time_.HasValue)
+            {
+                time_Parameter = new ObjectParameter("time_", time_);
+            }
+            else
+            {
+                time_Parameter = new ObjectParameter("time_", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter specificationParameter;
+            if (specification != null)
+            {
+                specificationParameter = new ObjectParameter("specification", specification);
+            }
+            else
+            {
+                specificationParameter = new ObjectParameter("specification", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDailyCarnetParameter;
+            if (idDailyCarnet.HasValue)
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
+            }
+            else
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter descriptionParameter;
+            if (description != null)
+            {
+                descriptionParameter = new ObjectParameter("description", description);
+            }
+            else
+            {
+                descriptionParameter = new ObjectParameter("description", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertComplications_Activities", id, time_Parameter, specificationParameter, idDailyCarnetParameter, descriptionParameter);
+        }
 
         #endregion
     }
@@ -2470,54 +2437,6 @@ namespace DataAccess
         private global::System.Int32 _idComplications_Activities;
         partial void OnidComplications_ActivitiesChanging(global::System.Int32 value);
         partial void OnidComplications_ActivitiesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> hour
-        {
-            get
-            {
-                return _hour;
-            }
-            set
-            {
-                OnhourChanging(value);
-                ReportPropertyChanging("hour");
-                _hour = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("hour");
-                OnhourChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _hour;
-        partial void OnhourChanging(Nullable<global::System.Int32> value);
-        partial void OnhourChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> minutes
-        {
-            get
-            {
-                return _minutes;
-            }
-            set
-            {
-                OnminutesChanging(value);
-                ReportPropertyChanging("minutes");
-                _minutes = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("minutes");
-                OnminutesChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _minutes;
-        partial void OnminutesChanging(Nullable<global::System.Int32> value);
-        partial void OnminutesChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2590,6 +2509,30 @@ namespace DataAccess
         private global::System.String _description;
         partial void OndescriptionChanging(global::System.String value);
         partial void OndescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> time
+        {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                OntimeChanging(value);
+                ReportPropertyChanging("time");
+                _time = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("time");
+                OntimeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _time;
+        partial void OntimeChanging(Nullable<global::System.DateTime> value);
+        partial void OntimeChanged();
 
         #endregion
     

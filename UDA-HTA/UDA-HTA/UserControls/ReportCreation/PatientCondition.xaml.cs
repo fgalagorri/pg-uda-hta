@@ -96,7 +96,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             var t = r.TemporaryData ?? new TemporaryData();
 
             foreach (var m in _lstMedication)
-                m.Time = DateTimeHelper.SetDateTime(r.BeginDate.Value, m.Time.Hour, m.Time.Minute);
+                m.Time = m.Time;
             t.Medication = _lstMedication;
 
             t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);

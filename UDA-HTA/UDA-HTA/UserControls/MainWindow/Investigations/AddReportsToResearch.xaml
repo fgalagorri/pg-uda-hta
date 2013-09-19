@@ -14,6 +14,11 @@
             <StackPanel Margin="10,5,0,0" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Style="{StaticResource label}">Edad</TextBlock>
+                    <ComboBox Height="21" Name="cbSign" Width="75" Margin="15,0,0,0">
+                        <ComboBoxItem Content="Igual a"></ComboBoxItem>
+                        <ComboBoxItem Content="Mayor a"></ComboBoxItem>
+                        <ComboBoxItem Content="Menor a"></ComboBoxItem>
+                    </ComboBox>
                     <TextBox Name="txtEdad" Width="50" Margin="15,0,40,0" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">

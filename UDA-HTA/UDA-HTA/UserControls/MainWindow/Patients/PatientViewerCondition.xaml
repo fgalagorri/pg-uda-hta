@@ -120,13 +120,13 @@
                     <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
                 </GroupBox.Header>
                 <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False"
-                            ItemsSource="{Binding}" IsReadOnly="True" Height="100">
+                            ItemsSource="{Binding}" Height="100">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Patología" Width="1*" IsReadOnly="True"
-                                            Binding="{Binding Path=Enfermedad}">
+                                            Binding="{Binding Path=Illness}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"
-                                            Binding="{Binding Path=Comentario}">
+                                            Binding="{Binding Path=Comment}">
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>

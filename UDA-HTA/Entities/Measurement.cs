@@ -22,7 +22,5 @@ namespace Entities
         public bool Retry { get; set; }
         public bool IsEnabled { get; set; }
 
-        // TODO: Ver el parámetro extra del spacelabs!!
-
     }
 }
