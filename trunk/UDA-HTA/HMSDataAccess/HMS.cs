@@ -161,16 +161,8 @@ namespace HMSDataAccess
                     rs.getString(19) != null)
                 {
                     MedicalRecord mr = new MedicalRecord();
-                    if (rs.getString(16) != null)
-                    {
-                        mr.Until = parseDateTime(rs.getString(16));                        
-                    }
                     mr.Comment = rs.getString(17);
                     mr.Illness = rs.getString(18);
-                    if (rs.getString(19) != null)
-                    {
-                        mr.Since = parseDateTime(rs.getString(19));
-                    }
                     report.Patient.Background.Add(mr);
                 }
 
@@ -439,25 +431,19 @@ namespace HMSDataAccess
                 i = 0;
 
                 id = rs.getInt(++i);
-                Console.Write(id.ToString() + "|");
 
                 timeStr = rs.getString(++i);
                 //Pareseo la fecha y hora para crear el DateTime
                 DateTime time = parseDateTime(timeStr);
                 m.Time = time;
-                Console.Write(time.ToString());
 
                 m.Systolic = rs.getInt(++i);
-                Console.Write(rs.getInt(i) + "|");
 
                 m.Middle = rs.getInt(++i);
-                Console.Write(rs.getInt(i) + "|");
 
                 m.Diastolic = rs.getInt(++i);
-                Console.Write(rs.getInt(i) + "|");
 
                 m.HeartRate = rs.getInt(++i);
-                Console.WriteLine(rs.getInt(i) + "|"); // TODO CONSOLE.WRITELINE
                 
                 m.Retry = false;
 

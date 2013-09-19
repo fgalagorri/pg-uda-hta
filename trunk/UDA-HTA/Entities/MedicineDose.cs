@@ -9,5 +9,6 @@ namespace Entities
     {
         public string Dose { get; set; }
         public Drug Drug { get; set; }
+        public DateTime Time { get; set; }
     }
 }

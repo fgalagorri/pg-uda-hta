@@ -17,12 +17,15 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
     public partial class PatientViewerData : UserControl
     {
         private ICollection<Measurement> _measures;
+        private Limits lim;
 
         public PatientViewerData()
         {
             InitializeComponent();
             colDate.Binding.StringFormat = ConfigurationManager.AppSettings["ShortDateString"];
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
+            var controller = GatewayController.GetInstance();
+            lim = controller.GetLimits();
         }
 
 
@@ -57,6 +60,42 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             if (e.Key == Key.Enter)
                 CheckBox_Click(sender, e);
+        }
+
+        private void EventSetter_OnHandler(object sender, RoutedEventArgs e)
+        {
+            SolidColorBrush brush = new SolidColorBrush();
+
+            var s = sender as DataGridCell;
+            var colName = s.Column.SortMemberPath;            
+
+            var cell = e.Source as DataGridCell;
+            var cellText = cell.Content as TextBlock;
+            int cellValue;
+
+            if (colName == "Systolic")
+            {
+                int.TryParse(cellText.Text,out cellValue);
+                if (cellValue > lim.MaxSysDay)
+                {
+                    brush = new SolidColorBrush(Colors.IndianRed);
+                    cell.Background = brush;
+                }                
+            }
+            else
+            {
+                if (colName == "Diastolic")
+                {
+                    int.TryParse(cellText.Text, out cellValue);
+                    if (cellValue > lim.MaxDiasDay)
+                    {
+                        brush = new SolidColorBrush(Colors.IndianRed);
+                        cell.Background = brush;
+                    }                                    
+                }
+            }
+
+            cell.Background = brush;
         }
 
     }

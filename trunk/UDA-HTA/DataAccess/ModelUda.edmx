@@ -70,11 +70,10 @@
             <PropertyRef Name="idComplications_Activities" />
           </Key>
           <Property Name="idComplications_Activities" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="hour" Type="int" />
-          <Property Name="minutes" Type="int" />
           <Property Name="specification" Type="text" />
           <Property Name="dailycarnet_idDailyCarnet" Type="bigint" Nullable="false" />
           <Property Name="description" Type="text" />
+          <Property Name="time" Type="datetime" />
         </EntityType>
         <EntityType Name="dailycarnet">
           <Key>
@@ -431,8 +430,7 @@
         </Function>
         <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="hour" Type="int" Mode="In" />
-          <Parameter Name="minutes" Type="int" Mode="In" />
+          <Parameter Name="time_" Type="datetime" Mode="In" />
           <Parameter Name="specification" Type="text" Mode="In" />
           <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
           <Parameter Name="description" Type="text" Mode="In" />
@@ -618,8 +616,6 @@
           <Parameter Name="id" Type="bigint" Mode="In" />
           <Parameter Name="patient_id" Type="bigint" Mode="In" />
           <Parameter Name="illness" Type="text" Mode="In" />
-          <Parameter Name="since" Type="datetime" Mode="In" />
-          <Parameter Name="to_" Type="datetime" Mode="In" />
           <Parameter Name="comment_" Type="text" Mode="In" />
         </Function>
         <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
@@ -692,14 +688,6 @@
           <FunctionImport Name="getPassword">
             <Parameter Name="pass_var" Mode="Out" Type="String" />
             <Parameter Name="login_var" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="insertComplications_Activities">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="hour" Mode="In" Type="Int32" />
-            <Parameter Name="minutes" Mode="In" Type="Int32" />
-            <Parameter Name="specification" Mode="In" Type="String" />
-            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
-            <Parameter Name="description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insertDailyCarnet">
             <Parameter Name="id" Mode="Out" Type="Int64" />
@@ -809,14 +797,6 @@
             <Parameter Name="diagnosis" Mode="In" Type="String" />
             <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="updateMedicalRecord">
-            <Parameter Name="id" Mode="In" Type="Int64" />
-            <Parameter Name="patient_id" Mode="In" Type="Int64" />
-            <Parameter Name="illness" Mode="In" Type="String" />
-            <Parameter Name="since" Mode="In" Type="DateTime" />
-            <Parameter Name="to_" Mode="In" Type="DateTime" />
-            <Parameter Name="comment_" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="updatePassword">
             <Parameter Name="login_var" Mode="In" Type="String" />
             <Parameter Name="pass_var" Mode="In" Type="String" />
@@ -912,18 +892,30 @@
             <End Role="report" EntitySet="report" />
             <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
+          <FunctionImport Name="updateMedicalRecord">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="patient_id" Mode="In" Type="Int64" />
+            <Parameter Name="illness" Mode="In" Type="String" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertComplications_Activities">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="time_" Mode="In" Type="DateTime" />
+            <Parameter Name="specification" Mode="In" Type="String" />
+            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="complications_activities">
           <Key>
             <PropertyRef Name="idComplications_Activities" />
           </Key>
           <Property Name="idComplications_Activities" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="hour" Type="Int32" />
-          <Property Name="minutes" Type="Int32" />
           <Property Name="specification" Type="String" />
           <Property Name="dailycarnet_idDailyCarnet" Type="Int64" Nullable="false" />
           <Property Name="description" Type="String" />
           <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
+          <Property Type="DateTime" Name="time" />
         </EntityType>
         <EntityType Name="dailycarnet">
           <Key>
@@ -1260,9 +1252,8 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="udahta_dbModelStoreContainer" CdmEntityContainer="udahta_dbEntities">
           <EntitySetMapping Name="complications_activities"><EntityTypeMapping TypeName="udahta_dbModel.complications_activities"><MappingFragment StoreEntitySet="complications_activities">
-            <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
-            <ScalarProperty Name="hour" ColumnName="hour" />
-            <ScalarProperty Name="minutes" ColumnName="minutes" />
+            <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
             <ScalarProperty Name="specification" ColumnName="specification" />
             <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
             <ScalarProperty Name="description" ColumnName="description" />
@@ -1426,7 +1417,6 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
-          <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
           <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
           <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
           <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
@@ -1439,7 +1429,6 @@
           <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
           <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
           <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
-          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
           <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
           <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
@@ -1466,6 +1455,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
+          <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1487,7 +1478,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1" ZoomLevel="81">
-        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3" Height="6.2109179687499978" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.25" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.625" PointY="16.25" Height="1.5956835937499978" IsExpanded="true" />
@@ -1498,8 +1489,8 @@
         <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="11.125" Height="3.7109993489583317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="1.9802864583333331" IsExpanded="true" />
         <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.9324446614583337" />
-          <ConnectorPoint PointX="3" PointY="5.9324446614583337" />
+          <ConnectorPoint PointX="2.25" PointY="5.8362939453125" />
+          <ConnectorPoint PointX="3" PointY="5.8362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" ManuallyRouted="false">
           <ConnectorPoint PointX="3.125" PointY="16.740143229166666" />

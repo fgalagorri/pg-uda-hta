@@ -47,11 +47,11 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             var carnet = report.Carnet ?? new DailyCarnet();
             foreach (var c in _lstComplication)
-                c.Time = DateTimeHelper.SetDateTime(report.BeginDate.Value, c.Time.Hour, c.Time.Minute);
+                c.Time = c.Time;
             carnet.Complications = _lstComplication;
 
             foreach (var e in _lstEffort)
-                e.Time = DateTimeHelper.SetDateTime(report.BeginDate.Value, e.Time.Hour, e.Time.Minute);
+                e.Time = e.Time;
             carnet.Efforts = _lstEffort;
 
             report.Carnet = carnet;
@@ -73,8 +73,10 @@ namespace UDA_HTA.UserControls.ReportCreation
                 var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
                 _lstEffort.Add(new Effort(date, cmbTypeEffort.Text));
             }
-
-            //TODO show error message when the time is not correct
+            else
+            {
+                MessageBox.Show("El formato de la hora no es correcta", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             // Clears the textboxes after insertion
             txtHourEffort.Clear();
@@ -130,7 +132,10 @@ namespace UDA_HTA.UserControls.ReportCreation
                 var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
                 _lstComplication.Add(new Complication(date, type));
             }
-            //TODO show error message when the time is not correct
+            else
+            {
+                MessageBox.Show("El formato de la hora no es correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             // Clears the textboxes after insertion
             txtHourComp.Clear();

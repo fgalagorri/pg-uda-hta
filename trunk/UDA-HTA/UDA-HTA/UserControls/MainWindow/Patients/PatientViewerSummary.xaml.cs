@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Linq;
 using System.Windows.Controls;
 using Entities;
+using Gateway;
 
 namespace UDA_HTA.UserControls.MainWindow.Patients
 {
@@ -11,15 +12,12 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
     /// </summary>
     public partial class PatientViewerSummary : UserControl
     {
-        // TODO: Ver estos valores
-        int sysMaxDay = 120;
-        int sysMaxNight = 120;
-        int diasMaxDay = 80;
-        int diasMaxNight = 80;
-
+        private Limits _limits;
 
         public PatientViewerSummary()
         {
+            var controller = GatewayController.GetInstance();
+            _limits = controller.GetLimits();
             InitializeComponent();
         }
 
@@ -103,17 +101,17 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
 
                 // Valores sobre el límite
-                aux = valid.Where(m => !m.Asleep.Value).Count(m => m.Systolic > sysMaxDay);
+                aux = valid.Where(m => !m.Asleep.Value).Count(m => m.Systolic > _limits.MaxSysDay);
                 lblSystolicOverLimD.Text = aux.ToString();
                 lblSystolicOverLimDP.Text = PercentageUI(aux, validDay);
-                aux = valid.Where(m => m.Asleep.Value).Count(m => m.Systolic > sysMaxNight);
+                aux = valid.Where(m => m.Asleep.Value).Count(m => m.Systolic > _limits.MaxSysNight);
                 lblSystolicOverLimN.Text = aux.ToString();
                 lblSystolicOverLimNP.Text = PercentageUI(aux, validNight);
 
-                aux = valid.Where(m => !m.Asleep.Value).Count(m => m.Diastolic > diasMaxDay);
+                aux = valid.Where(m => !m.Asleep.Value).Count(m => m.Diastolic > _limits.MaxDiasDay);
                 lblDiastolicOverLimD.Text = aux.ToString();
                 lblDiastolicOverLimDP.Text = PercentageUI(aux, validDay);
-                aux = valid.Where(m => m.Asleep.Value).Count(m => m.Diastolic > diasMaxNight);
+                aux = valid.Where(m => m.Asleep.Value).Count(m => m.Diastolic > _limits.MaxDiasNight);
                 lblDiastolicOverLimN.Text = aux.ToString();
                 lblDiastolicOverLimNP.Text = PercentageUI(aux, validNight);
 

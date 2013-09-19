@@ -207,6 +207,21 @@ namespace DataAccess
             }
         }
 
+        public ICollection<MedicalRecord> GetMedicalHistory(long idPatient)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                return udaContext.medicalhistory
+                                 .Where(m => m.patientuda_idPatientUda == idPatient)
+                                 .Select(m => new MedicalRecord
+                                     {
+                                         Comment = m.comment,
+                                         Id = m.idMedicalHistory,
+                                         Illness = m.illness
+                                     }).ToList();
+            }
+        }
+
         public ICollection<Measurement> GetMeasures(long idReport)
         {
             using (udaContext = new udahta_dbEntities())
@@ -704,6 +719,26 @@ namespace DataAccess
 
                     report.Carnet.Technician.Name = rep.dailycarnet.technical;
 
+                    foreach (var activity in rep.dailycarnet.complications_activities)
+                    {
+                        if (!activity.time.HasValue)
+                        {
+                            activity.time = report.BeginDate;
+                        }
+
+                        if (activity.specification == "COMPLICACION")
+                        {
+                            Complication complication = new Complication(activity.time.Value, activity.description);
+                            report.Carnet.Complications.Add(complication);
+                        }
+                        else
+                        {
+                            //ACTIVIDAD/ESFUERZO
+                            Effort effort = new Effort(activity.time.Value,activity.description);
+                            report.Carnet.Efforts.Add(effort);
+                        }
+                    }
+
                     //TemporaryData
                     report.TemporaryData.IdTemporaryData = rep.temporarydata.idTemporaryData;
                     report.TemporaryData.Age = rep.temporarydata.age;
@@ -963,7 +998,7 @@ namespace DataAccess
                 ObjectParameter lastIdCA = new ObjectParameter("id", typeof (int));
                 foreach (var compl in dCarnet.Complications)
                 {
-                    udaContext.insertComplications_Activities(lastIdCA, compl.Time.Hour, compl.Time.Minute,
+                    udaContext.insertComplications_Activities(lastIdCA, compl.Time,
                                                               "COMPLICACION",
                                                               (long) lastIdDailyReport.Value, compl.Description);
                 }
@@ -971,7 +1006,7 @@ namespace DataAccess
                 ObjectParameter lastIdEff = new ObjectParameter("id", typeof (int));
                 foreach (var effort in dCarnet.Efforts)
                 {
-                    udaContext.insertComplications_Activities(lastIdEff, effort.Time.Hour, effort.Time.Minute,
+                    udaContext.insertComplications_Activities(lastIdEff, effort.Time,
                                                               "ACTIVIDAD",
                                                               (long) lastIdDailyReport.Value, effort.Description);
                 }
@@ -1025,11 +1060,14 @@ namespace DataAccess
                                                temporaryData.Diabetic, temporaryData.Hypertensive,
                                                temporaryData.FatPercentage,
                                                temporaryData.MusclePercentage, temporaryData.Kcal);
-                // TODO MEDICINE 
-                /*foreach (var med in temporaryData.Medication)
+                foreach (var med in temporaryData.Medication)
                 {
-                    insertMedicineDose(med, temporaryData.IdTemporaryData);
-                }*/
+                    var medicineDose = new MedicineDose();
+                    medicineDose.Dose = med.Dose;
+                    medicineDose.Drug = med.Drug;
+                    medicineDose.Time = med.Time;
+                    InsertMedicineDose(medicineDose, temporaryData.IdTemporaryData);
+                }
 
                 return (int?) lastIdTempData.Value;
             }
@@ -1037,7 +1075,7 @@ namespace DataAccess
 
         public void InsertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
         {
-            //udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Drug.Id, idTemporaryData);
+            udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Time, medicineDose.Drug.Id, idTemporaryData);
         }
 
 
@@ -1286,9 +1324,7 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness,
-                                                   medicalRecord.Since,
-                                                   medicalRecord.Until, medicalRecord.Comment);
+                    udaContext.updateMedicalRecord(medicalRecord.Id, patient_id, medicalRecord.Illness, medicalRecord.Comment);
                 }
 
                 scope.Complete();
