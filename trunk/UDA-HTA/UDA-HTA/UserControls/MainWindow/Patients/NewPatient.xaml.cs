@@ -69,6 +69,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                         patient.UdaId = _patient.UdaId;
                         patient.ModifiedDate = DateTime.Today;
                         GatewayController.GetInstance().EditPatient(patient);
+                        MessageBox.Show("El paciente se ha actualizado correctamente", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     Close();                
 
