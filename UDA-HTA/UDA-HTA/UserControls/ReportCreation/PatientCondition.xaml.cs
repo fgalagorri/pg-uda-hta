@@ -175,16 +175,33 @@ namespace UDA_HTA.UserControls.ReportCreation
                     m.Time = m.Time;
                 t.Medication = _lstMedication;
 
-                t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float,
-                                         CultureInfo.InvariantCulture); //TODO usar tryParse en en todos estos
-                t.Height = decimal.Parse(txtHeight.Text.Replace(",", "."), NumberStyles.Float,
-                                         CultureInfo.InvariantCulture);
+                decimal number;
+
+                if (!decimal.TryParse(txtWeight.Text.Replace(",", "."),out number))
+                {
+                    t.Weight = number;                    
+                }
+
+                if (!decimal.TryParse(txtHeight.Text.Replace(",", "."), out number))
+                {
+                    t.Height = number;
+                }
                 t.BodyMassIndex = _imc;
-                t.FatPercentage = decimal.Parse(txtFat.Text.Replace(",", "."), NumberStyles.Float,
-                                                CultureInfo.InvariantCulture);
-                t.MusclePercentage = decimal.Parse(txtMuscle.Text.Replace(",", "."), NumberStyles.Float,
-                                                   CultureInfo.InvariantCulture);
-                t.Kcal = int.Parse(txtKcal.Text);
+                
+                if (!decimal.TryParse(txtFat.Text.Replace(",", "."), out number))
+                {
+                    t.FatPercentage = number;
+                }
+                
+                if (!decimal.TryParse(txtMuscle.Text.Replace(",", "."), out number))
+                {
+                    t.MusclePercentage = number;
+                }
+                int num;
+                if (!int.TryParse(txtKcal.Text, out num))
+                {
+                    t.Kcal = num;
+                }
                 t.Smoker = chkSmoker.IsChecked.Value;
                 t.Diabetic = chkDiabetic.IsChecked.Value;
                 t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;

@@ -369,7 +369,7 @@ namespace Gateway
             {
                 pm.EditPatient(patient);
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "Paciente modificado por " + _loggedUser.Login);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "El paciente "+ patient.Names + "(" + patient.RegisterNumber + ")" + " fue modificado por " + _loggedUser.Login);
             }
             catch (Exception exception)
             {
