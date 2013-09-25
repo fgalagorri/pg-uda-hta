@@ -14,7 +14,6 @@ using UDA_HTA.UserControls.MainWindow;
 using UDA_HTA.UserControls.MainWindow.Administration.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Administration.Drugs;
 using UDA_HTA.UserControls.MainWindow.Patients;
-using UDA_HTA.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Investigations;
 using UDA_HTA.UserControls.MainWindow.Administration;
 

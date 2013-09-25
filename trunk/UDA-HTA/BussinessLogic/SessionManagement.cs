@@ -32,7 +32,7 @@ namespace BussinessLogic
                 return true;
             }
 
-            var exception = new Exception("changePassword failed");
+            var exception = new Exception("El cambio de contraseña falló");
             throw exception;
         }
 
