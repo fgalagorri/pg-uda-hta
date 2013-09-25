@@ -2,7 +2,7 @@
 using System.Windows;
 using Gateway;
 
-namespace UDA_HTA.UserManagement
+namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
@@ -19,14 +19,14 @@ namespace UDA_HTA.UserManagement
             var controller = GatewayController.GetInstance();
             try
             {
-                controller.ChangePassword(txtLogin.Text, txtOldPassword.Password, txtNewPassword.Password);
+                controller.ChangePassword(txtOldPassword.Password, txtNewPassword.Password, txtNewPswdRepeat.Password);
                 this.Close();
             }
             catch (Exception exception)
             {
-                txtLogin.Text = "";
                 txtNewPassword.Password = "";
                 txtOldPassword.Password = "";
+                txtNewPswdRepeat.Password = "";
                 lblError.Content = exception.Message;
             }
         }

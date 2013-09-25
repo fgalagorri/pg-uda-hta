@@ -501,7 +501,7 @@ namespace Gateway
             }
         }
 
-        public void ChangePassword(string login, string oldPswd, string newPswd)
+        public void ChangePassword(string oldPswd, string newPswd, string newPswdRepeat)
         {
             var sm = new SessionManagement();
             var cm = new CriptographyManagement();
@@ -509,7 +509,15 @@ namespace Gateway
             {
                 oldPswd = cm.Sha256Encryipt(oldPswd);
                 newPswd = cm.Sha256Encryipt(newPswd);
-                sm.ChangePassword(login, oldPswd, newPswd);
+                newPswdRepeat = cm.Sha256Encryipt(newPswdRepeat);
+                if (newPswd == newPswdRepeat)
+                {
+                    sm.ChangePassword(_loggedUser.Login, oldPswd, newPswd);                    
+                }
+                else
+                {
+                    throw new Exception();
+                }
             }
             catch (Exception exception)
             {
