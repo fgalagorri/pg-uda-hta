@@ -104,6 +104,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         private void treePatient_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            container.btnEditDiagnosis.IsEnabled = true;
             container.btnExportReport.IsEnabled = true;
 
             Mouse.OverrideCursor = Cursors.Wait;

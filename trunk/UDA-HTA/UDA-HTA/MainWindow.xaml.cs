@@ -28,14 +28,44 @@ namespace UDA_HTA
         {
             InitializeComponent();
 
-            ContainerPatient.Content = new PatientFinder(this);
-            ContainerPatient.Visibility = Visibility.Visible;
-            ContainerInvestigation.Content = new ResearchFinder(this);
-            ContainerInvestigation.Visibility = Visibility.Hidden;
-            ContainerAdministration.Content = null;
-            ContainerAdministration.Visibility = Visibility.Hidden;
+            if (usr.Role.Equals("Administrador"))
+            {
+                ContainerPatient.Content = new PatientFinder(this);
+                ContainerPatient.Visibility = Visibility.Visible;
+                ContainerInvestigation.Content = new ResearchFinder(this);
+                ContainerInvestigation.Visibility = Visibility.Hidden;
+                ContainerAdministration.Content = null;
+                ContainerAdministration.Visibility = Visibility.Hidden;                
+            }
+            else
+            {
+                if (usr.Role.Equals("Clinico"))
+                {
+                    this.tabAdministration.Visibility = Visibility.Hidden;
+                    this.itemNewUsr.Visibility = Visibility.Collapsed;
+                    this.itemFindUsr.Visibility = Visibility.Collapsed;
+                    ContainerPatient.Content = new PatientFinder(this);
+                    ContainerPatient.Visibility = Visibility.Visible;
+                    ContainerInvestigation.Content = new ResearchFinder(this);
+                    ContainerInvestigation.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    if (usr.Role.Equals("Tecnico"))
+                    {
+                        this.tabInvestigacion.Visibility = Visibility.Hidden;
+                        this.tabAdministration.Visibility = Visibility.Hidden;
+                        this.itemNewUsr.Visibility = Visibility.Collapsed;
+                        this.itemFindUsr.Visibility = Visibility.Collapsed;
+                        ContainerPatient.Content = new PatientFinder(this);
+                        ContainerPatient.Visibility = Visibility.Visible;
+                    }
+                }
+            }
 
             btnEditPatient.IsEnabled = false;
+            btnEditDiagnosis.IsEnabled = false;
+            btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
 
             btnAddStudyResearch.IsEnabled = false;
@@ -82,6 +112,7 @@ namespace UDA_HTA
             try
             {
                 btnEditPatient.IsEnabled = false;
+                btnEditDiagnosis.IsEnabled = false;
                 btnExportReport.IsEnabled = false;
 
                 var newReportPopup = new NewReportFinder {Owner = this};
@@ -158,6 +189,7 @@ namespace UDA_HTA
         private void FindPatient(object sender, RoutedEventArgs e)
         {
             btnEditPatient.IsEnabled = false;
+            btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
 
             ContainerPatient.Content = new PatientFinder(this); ;

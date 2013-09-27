@@ -17,9 +17,9 @@
             </r:Ribbon.HelpPaneContentTemplate>
             
             <r:Ribbon.ApplicationMenu>
-                <r:RibbonApplicationMenu SmallImageSource="/Images/ribbon_menu.png">
-                    <r:RibbonApplicationMenuItem Header="Nuevo Usuario" Click="NewUser"/>
-                    <r:RibbonApplicationMenuItem Header="Buscar Usuario" Click="FindUser"/>
+                <r:RibbonApplicationMenu Name="AppMenu" SmallImageSource="/Images/ribbon_menu.png">
+                    <r:RibbonApplicationMenuItem Name="itemNewUsr" Header="Nuevo Usuario" Click="NewUser"/>
+                    <r:RibbonApplicationMenuItem Name="itemFindUsr" Header="Buscar Usuario" Click="FindUser"/>
                     <r:RibbonApplicationMenuItem Header="Cambio Password" Click="ChangePassword"/>
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
