@@ -2,7 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-DROP SCHEMA IF EXISTS `udahta_db` ;
 CREATE SCHEMA IF NOT EXISTS `udahta_db` ;
 USE `udahta_db` ;
 
@@ -303,11 +302,10 @@ DROP TABLE IF EXISTS `udahta_db`.`complications_activities` ;
 
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`complications_activities` (
   `idComplications_Activities` INT NOT NULL AUTO_INCREMENT ,
-  `hour` INT NULL ,
-  `minutes` INT NULL ,
   `specification` TEXT NULL ,
   `dailycarnet_idDailyCarnet` BIGINT NOT NULL ,
   `description` TEXT NULL ,
+  `time` DATETIME NULL ,
   PRIMARY KEY (`idComplications_Activities`) ,
   INDEX `fk_Complications_Activities_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
   CONSTRAINT `fk_Complications_Activities_DailyCarnet1`

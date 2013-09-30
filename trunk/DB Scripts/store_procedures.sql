@@ -189,13 +189,13 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertComplications_Activities$$
-CREATE PROCEDURE insertComplications_Activities(OUT id BIGINT, IN hour INT, IN minutes INT, 
+CREATE PROCEDURE insertComplications_Activities(OUT id BIGINT, IN time_ DATETIME, 
 												IN specification TEXT, IN idDailyCarnet BIGINT, 
 												IN description TEXT)
 BEGIN
-INSERT INTO `complications_activities` (`hour`, `minutes`, `specification`, 
+INSERT INTO `complications_activities` (`time`, `specification`, 
 										`dailycarnet_idDailyCarnet`, `description`)
-VALUES (hour, minutes, specification, idDailyCarnet, description);
+VALUES (time_, specification, idDailyCarnet, description);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -352,12 +352,10 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateMedicalRecord$$
-CREATE PROCEDURE updateMedicalRecord(IN id BIGINT, IN patient_id BIGINT, IN illness TEXT, IN since DATETIME, IN to_ DATETIME, IN comment_ TEXT)
+CREATE PROCEDURE updateMedicalRecord(IN id BIGINT, IN patient_id BIGINT, IN illness TEXT, IN comment_ TEXT)
 BEGIN
 UPDATE `medicalhistory`
 SET `illness` = illness, 
-	`from` = since, 
-	`to` = to_, 
 	`comment` = comment_
 WHERE `idMedicalHistory` = id AND `idPatientUda` = patient_id;
 END$$
