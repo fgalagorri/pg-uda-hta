@@ -342,6 +342,18 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS updateInvestigation$$
+CREATE PROCEDURE updateInvestigation(IN id INT, IN name_ VARCHAR(45), IN creationdate_ DATETIME, IN comment_ TEXT)
+BEGIN
+UPDATE `investigation`
+SET `name` = name_,
+	`creation_date` = creationdate_,
+	`comment` = comment_ 
+WHERE idInvestigation = id;
+END$$
+DELIMITER ;
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS updateDiagnosis$$
 CREATE PROCEDURE updateDiagnosis(IN reportId BIGINT, IN doctor VARCHAR(45), IN diagnosis TEXT, IN diagnosis_dt DATETIME)
 BEGIN
