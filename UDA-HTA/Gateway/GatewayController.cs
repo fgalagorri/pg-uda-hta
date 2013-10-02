@@ -140,6 +140,7 @@ namespace Gateway
             try
             {
                 report.Measures = importController.ImportMeasures(report);
+                report.Carnet.Technician = _loggedUser;
                 _importedReport = reportController.AddReport(report);
             }
             catch (Exception exception)
