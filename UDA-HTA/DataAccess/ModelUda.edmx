@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -151,6 +151,12 @@
           <Property Name="maxsysday" Type="int" />
           <Property Name="maxsysnight" Type="int" />
           <Property Name="maxsystotal" Type="int" />
+          <Property Name="highsystotal" Type="int" Nullable="false" />
+          <Property Name="highsysday" Type="int" Nullable="false" />
+          <Property Name="highsysnight" Type="int" Nullable="false" />
+          <Property Name="highdiastotal" Type="int" Nullable="false" />
+          <Property Name="highdiasday" Type="int" Nullable="false" />
+          <Property Name="highdiasnight" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="measurement">
           <Key>
@@ -607,6 +613,12 @@
           <Parameter Name="active" Type="varchar" Mode="In" />
           <Parameter Name="idType" Type="int" Mode="In" />
         </Function>
+        <Function Name="updateInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name_" Type="varchar" Mode="In" />
+          <Parameter Name="creationdate_" Type="datetime" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
+        </Function>
         <Function Name="updateMeasure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idMeasure" Type="bigint" Mode="In" />
           <Parameter Name="isEnabled" Type="bit" Mode="In" />
@@ -632,8 +644,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="udahta_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="udahta_dbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="complications_activities" EntityType="udahta_dbModel.complications_activities" />
-          <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.dailycarnet" />
           <EntitySet Name="drug" EntityType="udahta_dbModel.drug" />
           <EntitySet Name="drugtype" EntityType="udahta_dbModel.drugtype" />
           <EntitySet Name="investigation" EntityType="udahta_dbModel.investigation" />
@@ -642,10 +652,6 @@
           <EntitySet Name="patientuda" EntityType="udahta_dbModel.patientuda" />
           <EntitySet Name="temporarydata" EntityType="udahta_dbModel.temporarydata" />
           <EntitySet Name="user" EntityType="udahta_dbModel.user" />
-          <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1">
-            <End Role="dailycarnet" EntitySet="dailycarnet" />
-            <End Role="complications_activities" EntitySet="complications_activities" />
-          </AssociationSet>
           <AssociationSet Name="fk_Drug_DrugType" Association="udahta_dbModel.fk_Drug_DrugType">
             <End Role="drugtype" EntitySet="drugtype" />
             <End Role="drug" EntitySet="drug" />
@@ -663,10 +669,6 @@
             <End Role="medicinedose" EntitySet="medicinedose" />
           </AssociationSet>
           <EntitySet Name="report" EntityType="udahta_dbModel.report" />
-          <AssociationSet Name="fk_Report_DailyCarnet1" Association="udahta_dbModel.fk_Report_DailyCarnet1">
-            <End Role="dailycarnet" EntitySet="dailycarnet" />
-            <End Role="report" EntitySet="report" />
-          </AssociationSet>
           <AssociationSet Name="fk_Report_Patient1" Association="udahta_dbModel.fk_Report_Patient1">
             <End Role="patientuda" EntitySet="patientuda" />
             <End Role="report" EntitySet="report" />
@@ -679,7 +681,6 @@
             <End Role="investigation" EntitySet="investigation" />
             <End Role="report" EntitySet="report" />
           </AssociationSet>
-          <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
           <FunctionImport Name="deleteInvestigationHasReport">
             <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
             <Parameter Name="idReport" Mode="In" Type="Int64" />
@@ -867,15 +868,6 @@
             <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="getInvestigationReports">
-          <Parameter Name="idInvestigation" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="updateInvestigation">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="name_" Mode="In" Type="String" />
-            <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
-            <Parameter Name="comment_" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="updateDrug">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="name_" Mode="In" Type="String" />
@@ -892,12 +884,17 @@
             <End Role="report" EntitySet="report" />
             <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
-          <FunctionImport Name="updateMedicalRecord">
-            <Parameter Name="id" Mode="In" Type="Int64" />
-            <Parameter Name="patient_id" Mode="In" Type="Int64" />
-            <Parameter Name="illness" Mode="In" Type="String" />
-            <Parameter Name="comment_" Mode="In" Type="String" />
-          </FunctionImport>
+          <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
+          <EntitySet Name="complications_activities" EntityType="udahta_dbModel.complications_activities" />
+          <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.dailycarnet" />
+          <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="complications_activities" EntitySet="complications_activities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_DailyCarnet1" Association="udahta_dbModel.fk_Report_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
           <FunctionImport Name="insertComplications_Activities">
             <Parameter Name="id" Mode="Out" Type="Int64" />
             <Parameter Name="time_" Mode="In" Type="DateTime" />
@@ -905,50 +902,19 @@
             <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
             <Parameter Name="description" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="updateMedicalRecord">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="patient_id" Mode="In" Type="Int64" />
+            <Parameter Name="illness" Mode="In" Type="String" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateInvestigation">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="complications_activities">
-          <Key>
-            <PropertyRef Name="idComplications_Activities" />
-          </Key>
-          <Property Name="idComplications_Activities" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="specification" Type="String" />
-          <Property Name="dailycarnet_idDailyCarnet" Type="Int64" Nullable="false" />
-          <Property Name="description" Type="String" />
-          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
-          <Property Type="DateTime" Name="time" />
-        </EntityType>
-        <EntityType Name="dailycarnet">
-          <Key>
-            <PropertyRef Name="idDailyCarnet" />
-          </Key>
-          <Property Name="idDailyCarnet" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="technical" Type="String" />
-          <Property Name="initial_dias1" Type="Int32" />
-          <Property Name="initial_dias2" Type="Int32" />
-          <Property Name="initial_dias3" Type="Int32" />
-          <Property Name="initial_hr1" Type="Int32" />
-          <Property Name="initial_hr2" Type="Int32" />
-          <Property Name="initial_hr3" Type="Int32" />
-          <Property Name="final_dias1" Type="Int32" />
-          <Property Name="final_dias2" Type="Int32" />
-          <Property Name="final_dias3" Type="Int32" />
-          <Property Name="final_hr1" Type="Int32" />
-          <Property Name="final_hr2" Type="Int32" />
-          <Property Name="final_hr3" Type="Int32" />
-          <Property Name="begin_sleep_time" Type="DateTime" />
-          <Property Name="end_sleep_time" Type="DateTime" />
-          <Property Name="how_sleep" Type="String" />
-          <Property Name="main_meal_time" Type="DateTime" />
-          <Property Name="init_sys1" Type="Int32" />
-          <Property Name="init_sys2" Type="Int32" />
-          <Property Name="init_sys3" Type="Int32" />
-          <Property Name="final_sys1" Type="Int32" />
-          <Property Name="final_sys2" Type="Int32" />
-          <Property Name="final_sys3" Type="Int32" />
-          <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="dailycarnet" ToRole="complications_activities" />
-          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="dailycarnet" ToRole="report" />
-          <Property Type="String" Name="sleep_comments" MaxLength="65535" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="drug">
           <Key>
             <PropertyRef Name="idDrug" />
@@ -1038,18 +1004,6 @@
           <Property Name="rol" Type="String" Nullable="false" />
           <Property Type="String" Name="name" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="fk_Complications_Activities_DailyCarnet1">
-          <End Role="dailycarnet" Type="udahta_dbModel.dailycarnet" Multiplicity="1" />
-          <End Role="complications_activities" Type="udahta_dbModel.complications_activities" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dailycarnet">
-              <PropertyRef Name="idDailyCarnet" />
-            </Principal>
-            <Dependent Role="complications_activities">
-              <PropertyRef Name="dailycarnet_idDailyCarnet" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Drug_DrugType">
           <End Role="drugtype" Type="udahta_dbModel.drugtype" Multiplicity="1" />
           <End Role="drug" Type="udahta_dbModel.drug" Multiplicity="*" />
@@ -1123,7 +1077,6 @@
           <Property Type="Int64" Name="dailycarnet_idDailyCarnet" Nullable="false" />
           <Property Type="Int64" Name="patientuda_idPatientUda" Nullable="false" />
           <Property Type="Int32" Name="temporarydata_idTemporaryData" Nullable="false" />
-          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="report" ToRole="dailycarnet" />
           <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_Report_Patient1" FromRole="report" ToRole="patientuda" />
           <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_Report_TemporaryData1" FromRole="report" ToRole="temporarydata" />
           <NavigationProperty Name="investigation" Relationship="udahta_dbModel.investigation_has_report" FromRole="report" ToRole="investigation" />
@@ -1157,19 +1110,8 @@
           <Property Type="String" Name="requester" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="specialty" />
           <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
+          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="report" ToRole="dailycarnet" />
         </EntityType>
-        <Association Name="fk_Report_DailyCarnet1">
-          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
-          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dailycarnet">
-              <PropertyRef Name="idDailyCarnet" />
-            </Principal>
-            <Dependent Role="report">
-              <PropertyRef Name="dailycarnet_idDailyCarnet" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Report_Patient1">
           <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
           <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
@@ -1198,18 +1140,6 @@
           <End Type="udahta_dbModel.investigation" Role="investigation" Multiplicity="*" />
           <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
         </Association>
-        <EntityType Name="limitmeasure">
-          <Key>
-            <PropertyRef Name="idlimitmeasure" />
-          </Key>
-          <Property Type="Int32" Name="idlimitmeasure" Nullable="false" />
-          <Property Type="Int32" Name="maxdiasday" />
-          <Property Type="Int32" Name="maxdiasnight" />
-          <Property Type="Int32" Name="maxdiastotal" />
-          <Property Type="Int32" Name="maxsysday" />
-          <Property Type="Int32" Name="maxsysnight" />
-          <Property Type="Int32" Name="maxsystotal" />
-        </EntityType>
         <EntityType Name="measurement">
           <Key>
             <PropertyRef Name="idMeasurement" />
@@ -1245,46 +1175,97 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="limitmeasure">
+          <Key>
+            <PropertyRef Name="idlimitmeasure" />
+          </Key>
+          <Property Type="Int32" Name="idlimitmeasure" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="maxdiasday" />
+          <Property Type="Int32" Name="maxdiasnight" />
+          <Property Type="Int32" Name="maxdiastotal" />
+          <Property Type="Int32" Name="maxsysday" />
+          <Property Type="Int32" Name="maxsysnight" />
+          <Property Type="Int32" Name="maxsystotal" />
+          <Property Type="Int32" Name="highsystotal" Nullable="false" />
+          <Property Type="Int32" Name="highsysday" Nullable="false" />
+          <Property Type="Int32" Name="highsysnight" Nullable="false" />
+          <Property Type="Int32" Name="highdiastotal" Nullable="false" />
+          <Property Type="Int32" Name="highdiasday" Nullable="false" />
+          <Property Type="Int32" Name="highdiasnight" Nullable="false" />
+        </EntityType>
+        <EntityType Name="complications_activities">
+          <Key>
+            <PropertyRef Name="idComplications_Activities" />
+          </Key>
+          <Property Type="Int32" Name="idComplications_Activities" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="specification" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="dailycarnet_idDailyCarnet" Nullable="false" />
+          <Property Type="String" Name="description" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="time" />
+          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
+        </EntityType>
+        <EntityType Name="dailycarnet">
+          <Key>
+            <PropertyRef Name="idDailyCarnet" />
+          </Key>
+          <Property Type="Int64" Name="idDailyCarnet" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="technical" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="initial_dias1" />
+          <Property Type="Int32" Name="initial_dias2" />
+          <Property Type="Int32" Name="initial_dias3" />
+          <Property Type="Int32" Name="initial_hr1" />
+          <Property Type="Int32" Name="initial_hr2" />
+          <Property Type="Int32" Name="initial_hr3" />
+          <Property Type="Int32" Name="final_dias1" />
+          <Property Type="Int32" Name="final_dias2" />
+          <Property Type="Int32" Name="final_dias3" />
+          <Property Type="Int32" Name="final_hr1" />
+          <Property Type="Int32" Name="final_hr2" />
+          <Property Type="Int32" Name="final_hr3" />
+          <Property Type="DateTime" Name="begin_sleep_time" />
+          <Property Type="DateTime" Name="end_sleep_time" />
+          <Property Type="String" Name="how_sleep" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="main_meal_time" />
+          <Property Type="Int32" Name="init_sys1" />
+          <Property Type="Int32" Name="init_sys2" />
+          <Property Type="Int32" Name="init_sys3" />
+          <Property Type="Int32" Name="final_sys1" />
+          <Property Type="Int32" Name="final_sys2" />
+          <Property Type="Int32" Name="final_sys3" />
+          <Property Type="String" Name="sleep_comments" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="dailycarnet" ToRole="complications_activities" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="dailycarnet" ToRole="report" />
+        </EntityType>
+        <Association Name="fk_Complications_Activities_DailyCarnet1">
+          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
+          <End Type="udahta_dbModel.complications_activities" Role="complications_activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="complications_activities">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_DailyCarnet1">
+          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="udahta_dbModelStoreContainer" CdmEntityContainer="udahta_dbEntities">
-          <EntitySetMapping Name="complications_activities"><EntityTypeMapping TypeName="udahta_dbModel.complications_activities"><MappingFragment StoreEntitySet="complications_activities">
-            <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
-            <ScalarProperty Name="specification" ColumnName="specification" />
-            <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
-            <ScalarProperty Name="description" ColumnName="description" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="dailycarnet"><EntityTypeMapping TypeName="udahta_dbModel.dailycarnet"><MappingFragment StoreEntitySet="dailycarnet">
-                <ScalarProperty Name="sleep_comments" ColumnName="sleep_comments" />
-                <ScalarProperty Name="idDailyCarnet" ColumnName="idDailyCarnet" />
-            <ScalarProperty Name="technical" ColumnName="technical" />
-            <ScalarProperty Name="initial_dias1" ColumnName="initial_dias1" />
-            <ScalarProperty Name="initial_dias2" ColumnName="initial_dias2" />
-            <ScalarProperty Name="initial_dias3" ColumnName="initial_dias3" />
-            <ScalarProperty Name="initial_hr1" ColumnName="initial_hr1" />
-            <ScalarProperty Name="initial_hr2" ColumnName="initial_hr2" />
-            <ScalarProperty Name="initial_hr3" ColumnName="initial_hr3" />
-            <ScalarProperty Name="final_dias1" ColumnName="final_dias1" />
-            <ScalarProperty Name="final_dias2" ColumnName="final_dias2" />
-            <ScalarProperty Name="final_dias3" ColumnName="final_dias3" />
-            <ScalarProperty Name="final_hr1" ColumnName="final_hr1" />
-            <ScalarProperty Name="final_hr2" ColumnName="final_hr2" />
-            <ScalarProperty Name="final_hr3" ColumnName="final_hr3" />
-            <ScalarProperty Name="begin_sleep_time" ColumnName="begin_sleep_time" />
-            <ScalarProperty Name="end_sleep_time" ColumnName="end_sleep_time" />
-            <ScalarProperty Name="how_sleep" ColumnName="how_sleep" />
-            <ScalarProperty Name="main_meal_time" ColumnName="main_meal_time" />
-            <ScalarProperty Name="init_sys1" ColumnName="init_sys1" />
-            <ScalarProperty Name="init_sys2" ColumnName="init_sys2" />
-            <ScalarProperty Name="init_sys3" ColumnName="init_sys3" />
-            <ScalarProperty Name="final_sys1" ColumnName="final_sys1" />
-            <ScalarProperty Name="final_sys2" ColumnName="final_sys2" />
-            <ScalarProperty Name="final_sys3" ColumnName="final_sys3" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="drug"><EntityTypeMapping TypeName="udahta_dbModel.drug"><MappingFragment StoreEntitySet="drug">
             <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="idDrug" ColumnName="idDrug" />
@@ -1402,40 +1383,6 @@
               <ScalarProperty Name="idInvestigation" ColumnName="investigation_idInvestigation" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="limitmeasure">
-            <EntityTypeMapping TypeName="udahta_dbModel.limitmeasure">
-              <MappingFragment StoreEntitySet="limitmeasure">
-                <ScalarProperty Name="maxsystotal" ColumnName="maxsystotal" />
-                <ScalarProperty Name="maxsysnight" ColumnName="maxsysnight" />
-                <ScalarProperty Name="maxsysday" ColumnName="maxsysday" />
-                <ScalarProperty Name="maxdiastotal" ColumnName="maxdiastotal" />
-                <ScalarProperty Name="maxdiasnight" ColumnName="maxdiasnight" />
-                <ScalarProperty Name="maxdiasday" ColumnName="maxdiasday" />
-                <ScalarProperty Name="idlimitmeasure" ColumnName="idlimitmeasure" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
-          <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
-          <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
-          <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
-          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
-          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
-          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
-          <FunctionImportMapping FunctionImportName="insertLimitMeasures" FunctionName="udahta_dbModel.Store.insertLimitMeasures" />
-          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
-          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
-          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
-          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
-          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
-          <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
-          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
-          <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
-          <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
-          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
-          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
-          <FunctionImportMapping FunctionImportName="updateDrug" FunctionName="udahta_dbModel.Store.updateDrug" />
-          <FunctionImportMapping FunctionImportName="updateMeasure" FunctionName="udahta_dbModel.Store.updateMeasure" />
           <EntitySetMapping Name="measurement">
             <EntityTypeMapping TypeName="udahta_dbModel.measurement">
               <MappingFragment StoreEntitySet="measurement">
@@ -1455,8 +1402,91 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
+          <EntitySetMapping Name="limitmeasure">
+            <EntityTypeMapping TypeName="udahta_dbModel.limitmeasure">
+              <MappingFragment StoreEntitySet="limitmeasure">
+                <ScalarProperty Name="highdiasnight" ColumnName="highdiasnight" />
+                <ScalarProperty Name="highdiasday" ColumnName="highdiasday" />
+                <ScalarProperty Name="highdiastotal" ColumnName="highdiastotal" />
+                <ScalarProperty Name="highsysnight" ColumnName="highsysnight" />
+                <ScalarProperty Name="highsysday" ColumnName="highsysday" />
+                <ScalarProperty Name="highsystotal" ColumnName="highsystotal" />
+                <ScalarProperty Name="maxsystotal" ColumnName="maxsystotal" />
+                <ScalarProperty Name="maxsysnight" ColumnName="maxsysnight" />
+                <ScalarProperty Name="maxsysday" ColumnName="maxsysday" />
+                <ScalarProperty Name="maxdiastotal" ColumnName="maxdiastotal" />
+                <ScalarProperty Name="maxdiasnight" ColumnName="maxdiasnight" />
+                <ScalarProperty Name="maxdiasday" ColumnName="maxdiasday" />
+                <ScalarProperty Name="idlimitmeasure" ColumnName="idlimitmeasure" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="complications_activities">
+            <EntityTypeMapping TypeName="udahta_dbModel.complications_activities">
+              <MappingFragment StoreEntitySet="complications_activities">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
+                <ScalarProperty Name="specification" ColumnName="specification" />
+                <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dailycarnet">
+            <EntityTypeMapping TypeName="udahta_dbModel.dailycarnet">
+              <MappingFragment StoreEntitySet="dailycarnet">
+                <ScalarProperty Name="sleep_comments" ColumnName="sleep_comments" />
+                <ScalarProperty Name="final_sys3" ColumnName="final_sys3" />
+                <ScalarProperty Name="final_sys2" ColumnName="final_sys2" />
+                <ScalarProperty Name="final_sys1" ColumnName="final_sys1" />
+                <ScalarProperty Name="init_sys3" ColumnName="init_sys3" />
+                <ScalarProperty Name="init_sys2" ColumnName="init_sys2" />
+                <ScalarProperty Name="init_sys1" ColumnName="init_sys1" />
+                <ScalarProperty Name="main_meal_time" ColumnName="main_meal_time" />
+                <ScalarProperty Name="how_sleep" ColumnName="how_sleep" />
+                <ScalarProperty Name="end_sleep_time" ColumnName="end_sleep_time" />
+                <ScalarProperty Name="begin_sleep_time" ColumnName="begin_sleep_time" />
+                <ScalarProperty Name="final_hr3" ColumnName="final_hr3" />
+                <ScalarProperty Name="final_hr2" ColumnName="final_hr2" />
+                <ScalarProperty Name="final_hr1" ColumnName="final_hr1" />
+                <ScalarProperty Name="final_dias3" ColumnName="final_dias3" />
+                <ScalarProperty Name="final_dias2" ColumnName="final_dias2" />
+                <ScalarProperty Name="final_dias1" ColumnName="final_dias1" />
+                <ScalarProperty Name="initial_hr3" ColumnName="initial_hr3" />
+                <ScalarProperty Name="initial_hr2" ColumnName="initial_hr2" />
+                <ScalarProperty Name="initial_hr1" ColumnName="initial_hr1" />
+                <ScalarProperty Name="initial_dias3" ColumnName="initial_dias3" />
+                <ScalarProperty Name="initial_dias2" ColumnName="initial_dias2" />
+                <ScalarProperty Name="initial_dias1" ColumnName="initial_dias1" />
+                <ScalarProperty Name="technical" ColumnName="technical" />
+                <ScalarProperty Name="idDailyCarnet" ColumnName="idDailyCarnet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
+          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
+          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
+          <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
+          <FunctionImportMapping FunctionImportName="updateMeasure" FunctionName="udahta_dbModel.Store.updateMeasure" />
+          <FunctionImportMapping FunctionImportName="updateDrug" FunctionName="udahta_dbModel.Store.updateDrug" />
+          <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
+          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
+          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
+          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
+          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
+          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
+          <FunctionImportMapping FunctionImportName="insertLimitMeasures" FunctionName="udahta_dbModel.Store.insertLimitMeasures" />
+          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
+          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
+          <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
+          <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
+          <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
+          <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
+          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1478,8 +1508,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1" ZoomLevel="81">
-        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="4.75" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="3" Height="6.2109179687499978" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="15.25" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.625" PointY="16.25" Height="1.5956835937499978" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="1.625" Height="1.7879850260416674" IsExpanded="true" />
@@ -1488,10 +1516,6 @@
         <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="8.5" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="11.125" Height="3.7109993489583317" IsExpanded="true" />
         <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="8.75" PointY="0.75" Height="1.9802864583333331" IsExpanded="true" />
-        <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.8362939453125" />
-          <ConnectorPoint PointX="3" PointY="5.8362939453125" />
-        </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" ManuallyRouted="false">
           <ConnectorPoint PointX="3.125" PointY="16.740143229166666" />
           <ConnectorPoint PointX="3.75" PointY="16.740143229166666" />
@@ -1511,10 +1535,6 @@
           <ConnectorPoint PointX="3" PointY="13.855499674479166" />
         </AssociationConnector>
         <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3.875" Height="11.403056640625" />
-        <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
-          <ConnectorPoint PointX="2.25" PointY="7.8074446614583337" />
-          <ConnectorPoint PointX="6" PointY="7.8074446614583337" />
-        </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_Patient1" >
           <ConnectorPoint PointX="5.25" PointY="9.297841796875" />
           <ConnectorPoint PointX="6" PointY="9.297841796875" />
@@ -1528,11 +1548,21 @@
           <ConnectorPoint PointX="6.75" PointY="2.6151432291666667" />
           <ConnectorPoint PointX="6.75" PointY="3.875" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="10.375" PointY="3.75" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="7.75" Height="3.7109993489583388" />
         <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" >
           <ConnectorPoint PointX="7.5" PointY="9.60549967447917" />
           <ConnectorPoint PointX="8.25" PointY="9.60549967447917" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="10.375" PointY="3.75" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3.75" PointY="4.25" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="1.5" PointY="2.25" Height="6.210917968749996" />
+        <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" >
+          <ConnectorPoint PointX="3" PointY="5.3362939453125016" />
+          <ConnectorPoint PointX="3.75" PointY="5.3362939453125016" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
+          <ConnectorPoint PointX="3" PointY="7.4730029296875" />
+          <ConnectorPoint PointX="6" PointY="7.4730029296875" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
