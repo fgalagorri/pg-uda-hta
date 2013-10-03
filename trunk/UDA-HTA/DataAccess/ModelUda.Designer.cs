@@ -18,16 +18,16 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Drug_DrugType", "drugtype", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drugtype), "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.drug), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDosis_Drug1", "drug", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.drug), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicalHistory_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "medicalhistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicalhistory), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_MedicineDose_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "medicinedose", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.medicinedose), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_Patient1", "patientuda", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.patientuda), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "investigation_has_report", "investigation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.investigation), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report))]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Measurement_Report1", "report", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.report), "measurement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.measurement), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 
 #endregion
 
@@ -78,38 +78,6 @@ namespace DataAccess
         #endregion
     
         #region ObjectSet Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<complications_activities> complications_activities
-        {
-            get
-            {
-                if ((_complications_activities == null))
-                {
-                    _complications_activities = base.CreateObjectSet<complications_activities>("complications_activities");
-                }
-                return _complications_activities;
-            }
-        }
-        private ObjectSet<complications_activities> _complications_activities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<dailycarnet> dailycarnet
-        {
-            get
-            {
-                if ((_dailycarnet == null))
-                {
-                    _dailycarnet = base.CreateObjectSet<dailycarnet>("dailycarnet");
-                }
-                return _dailycarnet;
-            }
-        }
-        private ObjectSet<dailycarnet> _dailycarnet;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -258,6 +226,22 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<measurement> measurement
+        {
+            get
+            {
+                if ((_measurement == null))
+                {
+                    _measurement = base.CreateObjectSet<measurement>("measurement");
+                }
+                return _measurement;
+            }
+        }
+        private ObjectSet<measurement> _measurement;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<limitmeasure> limitmeasure
         {
             get
@@ -274,37 +258,37 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<measurement> measurement
+        public ObjectSet<complications_activities> complications_activities
         {
             get
             {
-                if ((_measurement == null))
+                if ((_complications_activities == null))
                 {
-                    _measurement = base.CreateObjectSet<measurement>("measurement");
+                    _complications_activities = base.CreateObjectSet<complications_activities>("complications_activities");
                 }
-                return _measurement;
+                return _complications_activities;
             }
         }
-        private ObjectSet<measurement> _measurement;
+        private ObjectSet<complications_activities> _complications_activities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<dailycarnet> dailycarnet
+        {
+            get
+            {
+                if ((_dailycarnet == null))
+                {
+                    _dailycarnet = base.CreateObjectSet<dailycarnet>("dailycarnet");
+                }
+                return _dailycarnet;
+            }
+        }
+        private ObjectSet<dailycarnet> _dailycarnet;
 
         #endregion
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the complications_activities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocomplications_activities(complications_activities complications_activities)
-        {
-            base.AddObject("complications_activities", complications_activities);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the dailycarnet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTodailycarnet(dailycarnet dailycarnet)
-        {
-            base.AddObject("dailycarnet", dailycarnet);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the drug EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -379,6 +363,14 @@ namespace DataAccess
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the measurement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTomeasurement(measurement measurement)
+        {
+            base.AddObject("measurement", measurement);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the limitmeasure EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTolimitmeasure(limitmeasure limitmeasure)
@@ -387,11 +379,19 @@ namespace DataAccess
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the measurement EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the complications_activities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTomeasurement(measurement measurement)
+        public void AddTocomplications_activities(complications_activities complications_activities)
         {
-            base.AddObject("measurement", measurement);
+            base.AddObject("complications_activities", complications_activities);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the dailycarnet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTodailycarnet(dailycarnet dailycarnet)
+        {
+            base.AddObject("dailycarnet", dailycarnet);
         }
 
         #endregion
@@ -2111,77 +2111,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="idInvestigation">No Metadata Documentation available.</param>
-        public int getInvestigationReports(Nullable<global::System.Int32> idInvestigation)
-        {
-            ObjectParameter idInvestigationParameter;
-            if (idInvestigation.HasValue)
-            {
-                idInvestigationParameter = new ObjectParameter("idInvestigation", idInvestigation);
-            }
-            else
-            {
-                idInvestigationParameter = new ObjectParameter("idInvestigation", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("getInvestigationReports", idInvestigationParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="name_">No Metadata Documentation available.</param>
-        /// <param name="creationdate_">No Metadata Documentation available.</param>
-        /// <param name="comment_">No Metadata Documentation available.</param>
-        public int updateInvestigation(Nullable<global::System.Int32> id, global::System.String name_, Nullable<global::System.DateTime> creationdate_, global::System.String comment_)
-        {
-            ObjectParameter idParameter;
-            if (id.HasValue)
-            {
-                idParameter = new ObjectParameter("id", id);
-            }
-            else
-            {
-                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter name_Parameter;
-            if (name_ != null)
-            {
-                name_Parameter = new ObjectParameter("name_", name_);
-            }
-            else
-            {
-                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
-            }
-    
-            ObjectParameter creationdate_Parameter;
-            if (creationdate_.HasValue)
-            {
-                creationdate_Parameter = new ObjectParameter("creationdate_", creationdate_);
-            }
-            else
-            {
-                creationdate_Parameter = new ObjectParameter("creationdate_", typeof(global::System.DateTime));
-            }
-    
-            ObjectParameter comment_Parameter;
-            if (comment_ != null)
-            {
-                comment_Parameter = new ObjectParameter("comment_", comment_);
-            }
-            else
-            {
-                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
-            }
-    
-            return base.ExecuteFunction("updateInvestigation", idParameter, name_Parameter, creationdate_Parameter, comment_Parameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="name_">No Metadata Documentation available.</param>
         /// <param name="active">No Metadata Documentation available.</param>
@@ -2276,6 +2205,59 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="time_">No Metadata Documentation available.</param>
+        /// <param name="specification">No Metadata Documentation available.</param>
+        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
+        /// <param name="description">No Metadata Documentation available.</param>
+        public int insertComplications_Activities(ObjectParameter id, Nullable<global::System.DateTime> time_, global::System.String specification, Nullable<global::System.Int64> idDailyCarnet, global::System.String description)
+        {
+            ObjectParameter time_Parameter;
+            if (time_.HasValue)
+            {
+                time_Parameter = new ObjectParameter("time_", time_);
+            }
+            else
+            {
+                time_Parameter = new ObjectParameter("time_", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter specificationParameter;
+            if (specification != null)
+            {
+                specificationParameter = new ObjectParameter("specification", specification);
+            }
+            else
+            {
+                specificationParameter = new ObjectParameter("specification", typeof(global::System.String));
+            }
+    
+            ObjectParameter idDailyCarnetParameter;
+            if (idDailyCarnet.HasValue)
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
+            }
+            else
+            {
+                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter descriptionParameter;
+            if (description != null)
+            {
+                descriptionParameter = new ObjectParameter("description", description);
+            }
+            else
+            {
+                descriptionParameter = new ObjectParameter("description", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("insertComplications_Activities", id, time_Parameter, specificationParameter, idDailyCarnetParameter, descriptionParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="patient_id">No Metadata Documentation available.</param>
         /// <param name="illness">No Metadata Documentation available.</param>
         /// <param name="comment_">No Metadata Documentation available.</param>
@@ -2328,53 +2310,52 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="time_">No Metadata Documentation available.</param>
-        /// <param name="specification">No Metadata Documentation available.</param>
-        /// <param name="idDailyCarnet">No Metadata Documentation available.</param>
-        /// <param name="description">No Metadata Documentation available.</param>
-        public int insertComplications_Activities(ObjectParameter id, Nullable<global::System.DateTime> time_, global::System.String specification, Nullable<global::System.Int64> idDailyCarnet, global::System.String description)
+        /// <param name="name_">No Metadata Documentation available.</param>
+        /// <param name="creationdate_">No Metadata Documentation available.</param>
+        /// <param name="comment_">No Metadata Documentation available.</param>
+        public int updateInvestigation(Nullable<global::System.Int32> id, global::System.String name_, Nullable<global::System.DateTime> creationdate_, global::System.String comment_)
         {
-            ObjectParameter time_Parameter;
-            if (time_.HasValue)
+            ObjectParameter idParameter;
+            if (id.HasValue)
             {
-                time_Parameter = new ObjectParameter("time_", time_);
+                idParameter = new ObjectParameter("id", id);
             }
             else
             {
-                time_Parameter = new ObjectParameter("time_", typeof(global::System.DateTime));
+                idParameter = new ObjectParameter("id", typeof(global::System.Int32));
             }
     
-            ObjectParameter specificationParameter;
-            if (specification != null)
+            ObjectParameter name_Parameter;
+            if (name_ != null)
             {
-                specificationParameter = new ObjectParameter("specification", specification);
+                name_Parameter = new ObjectParameter("name_", name_);
             }
             else
             {
-                specificationParameter = new ObjectParameter("specification", typeof(global::System.String));
+                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
             }
     
-            ObjectParameter idDailyCarnetParameter;
-            if (idDailyCarnet.HasValue)
+            ObjectParameter creationdate_Parameter;
+            if (creationdate_.HasValue)
             {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", idDailyCarnet);
+                creationdate_Parameter = new ObjectParameter("creationdate_", creationdate_);
             }
             else
             {
-                idDailyCarnetParameter = new ObjectParameter("idDailyCarnet", typeof(global::System.Int64));
+                creationdate_Parameter = new ObjectParameter("creationdate_", typeof(global::System.DateTime));
             }
     
-            ObjectParameter descriptionParameter;
-            if (description != null)
+            ObjectParameter comment_Parameter;
+            if (comment_ != null)
             {
-                descriptionParameter = new ObjectParameter("description", description);
+                comment_Parameter = new ObjectParameter("comment_", comment_);
             }
             else
             {
-                descriptionParameter = new ObjectParameter("description", typeof(global::System.String));
+                comment_Parameter = new ObjectParameter("comment_", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("insertComplications_Activities", id, time_Parameter, specificationParameter, idDailyCarnetParameter, descriptionParameter);
+            return base.ExecuteFunction("updateInvestigation", idParameter, name_Parameter, creationdate_Parameter, comment_Parameter);
         }
 
         #endregion
@@ -3729,10 +3710,22 @@ namespace DataAccess
         /// Create a new limitmeasure object.
         /// </summary>
         /// <param name="idlimitmeasure">Initial value of the idlimitmeasure property.</param>
-        public static limitmeasure Createlimitmeasure(global::System.Int32 idlimitmeasure)
+        /// <param name="highsystotal">Initial value of the highsystotal property.</param>
+        /// <param name="highsysday">Initial value of the highsysday property.</param>
+        /// <param name="highsysnight">Initial value of the highsysnight property.</param>
+        /// <param name="highdiastotal">Initial value of the highdiastotal property.</param>
+        /// <param name="highdiasday">Initial value of the highdiasday property.</param>
+        /// <param name="highdiasnight">Initial value of the highdiasnight property.</param>
+        public static limitmeasure Createlimitmeasure(global::System.Int32 idlimitmeasure, global::System.Int32 highsystotal, global::System.Int32 highsysday, global::System.Int32 highsysnight, global::System.Int32 highdiastotal, global::System.Int32 highdiasday, global::System.Int32 highdiasnight)
         {
             limitmeasure limitmeasure = new limitmeasure();
             limitmeasure.idlimitmeasure = idlimitmeasure;
+            limitmeasure.highsystotal = highsystotal;
+            limitmeasure.highsysday = highsysday;
+            limitmeasure.highsysnight = highsysnight;
+            limitmeasure.highdiastotal = highdiastotal;
+            limitmeasure.highdiasday = highdiasday;
+            limitmeasure.highdiasnight = highdiasnight;
             return limitmeasure;
         }
 
@@ -3909,6 +3902,150 @@ namespace DataAccess
         private Nullable<global::System.Int32> _maxsystotal;
         partial void OnmaxsystotalChanging(Nullable<global::System.Int32> value);
         partial void OnmaxsystotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 highsystotal
+        {
+            get
+            {
+                return _highsystotal;
+            }
+            set
+            {
+                OnhighsystotalChanging(value);
+                ReportPropertyChanging("highsystotal");
+                _highsystotal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("highsystotal");
+                OnhighsystotalChanged();
+            }
+        }
+        private global::System.Int32 _highsystotal;
+        partial void OnhighsystotalChanging(global::System.Int32 value);
+        partial void OnhighsystotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 highsysday
+        {
+            get
+            {
+                return _highsysday;
+            }
+            set
+            {
+                OnhighsysdayChanging(value);
+                ReportPropertyChanging("highsysday");
+                _highsysday = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("highsysday");
+                OnhighsysdayChanged();
+            }
+        }
+        private global::System.Int32 _highsysday;
+        partial void OnhighsysdayChanging(global::System.Int32 value);
+        partial void OnhighsysdayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 highsysnight
+        {
+            get
+            {
+                return _highsysnight;
+            }
+            set
+            {
+                OnhighsysnightChanging(value);
+                ReportPropertyChanging("highsysnight");
+                _highsysnight = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("highsysnight");
+                OnhighsysnightChanged();
+            }
+        }
+        private global::System.Int32 _highsysnight;
+        partial void OnhighsysnightChanging(global::System.Int32 value);
+        partial void OnhighsysnightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 highdiastotal
+        {
+            get
+            {
+                return _highdiastotal;
+            }
+            set
+            {
+                OnhighdiastotalChanging(value);
+                ReportPropertyChanging("highdiastotal");
+                _highdiastotal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("highdiastotal");
+                OnhighdiastotalChanged();
+            }
+        }
+        private global::System.Int32 _highdiastotal;
+        partial void OnhighdiastotalChanging(global::System.Int32 value);
+        partial void OnhighdiastotalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 highdiasday
+        {
+            get
+            {
+                return _highdiasday;
+            }
+            set
+            {
+                OnhighdiasdayChanging(value);
+                ReportPropertyChanging("highdiasday");
+                _highdiasday = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("highdiasday");
+                OnhighdiasdayChanged();
+            }
+        }
+        private global::System.Int32 _highdiasday;
+        partial void OnhighdiasdayChanging(global::System.Int32 value);
+        partial void OnhighdiasdayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 highdiasnight
+        {
+            get
+            {
+                return _highdiasnight;
+            }
+            set
+            {
+                OnhighdiasnightChanging(value);
+                ReportPropertyChanging("highdiasnight");
+                _highdiasnight = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("highdiasnight");
+                OnhighdiasnightChanged();
+            }
+        }
+        private global::System.Int32 _highdiasnight;
+        partial void OnhighdiasnightChanging(global::System.Int32 value);
+        partial void OnhighdiasnightChanged();
 
         #endregion
     
@@ -6049,44 +6186,6 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet")]
-        public dailycarnet dailycarnet
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<dailycarnet> dailycarnetReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_Patient1", "patientuda")]
         public patientuda patientuda
         {
@@ -6197,6 +6296,44 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<measurement>("udahta_dbModel.fk_Measurement_Report1", "measurement", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet")]
+        public dailycarnet dailycarnet
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<dailycarnet> dailycarnetReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<dailycarnet>("udahta_dbModel.fk_Report_DailyCarnet1", "dailycarnet", value);
                 }
             }
         }

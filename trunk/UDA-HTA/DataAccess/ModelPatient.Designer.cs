@@ -1160,6 +1160,30 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String telephone_alt
+        {
+            get
+            {
+                return _telephone_alt;
+            }
+            set
+            {
+                Ontelephone_altChanging(value);
+                ReportPropertyChanging("telephone_alt");
+                _telephone_alt = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("telephone_alt");
+                Ontelephone_altChanged();
+            }
+        }
+        private global::System.String _telephone_alt;
+        partial void Ontelephone_altChanging(global::System.String value);
+        partial void Ontelephone_altChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public global::System.String address
         {
             get
@@ -1346,30 +1370,6 @@ namespace DataAccess
         private Nullable<global::System.DateTime> _modified_date;
         partial void Onmodified_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onmodified_dateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String telephone_alt
-        {
-            get
-            {
-                return _telephone_alt;
-            }
-            set
-            {
-                Ontelephone_altChanging(value);
-                ReportPropertyChanging("telephone_alt");
-                _telephone_alt = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("telephone_alt");
-                Ontelephone_altChanged();
-            }
-        }
-        private global::System.String _telephone_alt;
-        partial void Ontelephone_altChanging(global::System.String value);
-        partial void Ontelephone_altChanged();
 
         #endregion
     

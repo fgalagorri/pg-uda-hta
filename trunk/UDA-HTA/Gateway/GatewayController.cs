@@ -42,12 +42,12 @@ namespace Gateway
 
         private GatewayController()
         {
+            var rm = new ReportManagement();
+            _limits = rm.GetLimits();
         }
 
         public static GatewayController GetInstance()
         {
-            var rm = new ReportManagement();
-            _limits = rm.GetLimits();
             return _this ?? (_this = new GatewayController());
         }
 

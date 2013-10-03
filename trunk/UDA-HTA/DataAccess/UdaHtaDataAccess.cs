@@ -1342,7 +1342,21 @@ namespace DataAccess
                         MaxDiasTotal = l.maxdiastotal.Value,
                         MaxSysDay = l.maxsysday.Value,
                         MaxSysNight = l.maxsysnight.Value,
-                        MaxSysTotal = l.maxsystotal.Value
+                        MaxSysTotal = l.maxsystotal.Value,
+
+                        HiDiasDay = l.highdiasday,
+                        HiDiasNight = l.highdiasnight,
+                        HiDiasTotal = l.highdiastotal,
+                        HiSysDay = l.highsysday,
+                        HiSysNight = l.highsysnight,
+                        HiSysTotal = l.highsystotal
+
+                        /*LoDiasDay = l.lowdiasday,
+                        LoDiasNight = l.lowdiasnight,
+                        LoDiasTotal = l.lowdiastotal,
+                        LoSysDay = l.lowsysday,
+                        LoSysNight = l.lowsysnight,
+                        LoSysTotal = l.lowsystotal*/
                     }).FirstOrDefault();
 
                 return limits;

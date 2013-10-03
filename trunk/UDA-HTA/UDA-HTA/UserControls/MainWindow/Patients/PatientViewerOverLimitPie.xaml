@@ -13,7 +13,9 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <Style TargetType="charts:Chart">
-            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="LegendTitle" Value="Valores" />
         </Style>
         <Style TargetType="charts:PieSeries">
             <Setter Property="BorderThickness" Value="0" />
@@ -24,11 +26,11 @@
                     <Setter Property="Background" Value="Red" />
                 </Style>
             </ResourceDictionary>
-            <ResourceDictionary>
+            <!--ResourceDictionary>
                 <Style x:Key="DataPointStyle" TargetType="Control">
                     <Setter Property="Background" Value="Yellow" />
                 </Style>
-            </ResourceDictionary>
+            </ResourceDictionary-->
             <ResourceDictionary>
                 <Style x:Key="DataPointStyle" TargetType="Control">
                     <Setter Property="Background" Value="LimeGreen" />
@@ -38,7 +40,6 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -48,14 +49,16 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <charts:Chart Name="PieSysTot" VerticalContentAlignment="Stretch" Height="200" 
-                          Palette="{StaticResource Palette}" Padding="10,10,10,0" 
-                          Title="Sistólico Total" TitleStyle="{StaticResource ChartTitle}">
+
+        <DockPanel Grid.Row="0" Grid.Column="0">
+            <charts:Chart Name="PieSysTot" MaxHeight="300" Padding="10,10,10,0"
+                          Palette="{StaticResource Palette}" Title="Sistólico Total" 
+                          TitleStyle="{StaticResource ChartTitle}">
                 <charts:Chart.LegendStyle>
                     <Style TargetType="datavis:Legend">
-                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                 </charts:Chart.LegendStyle>
                 <charts:Chart.PlotAreaStyle>
@@ -66,15 +69,17 @@
                 <charts:PieSeries IndependentValuePath="Key" DependentValuePath="Value"
                                   ItemsSource="{Binding}"  VerticalContentAlignment="Stretch" />
             </charts:Chart>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <charts:Chart Name="PieSysDay" VerticalContentAlignment="Stretch" Height="200"
-                          Palette="{StaticResource Palette}" Padding="10,10,10,0" 
-                          Title="Sistólico Vigilia" TitleStyle="{StaticResource ChartTitle}">
+        <DockPanel Grid.Row="0" Grid.Column="1">
+            <charts:Chart Name="PieSysDay" MaxHeight="300" Padding="10,10,10,0"
+                          Palette="{StaticResource Palette}" Title="Sistólico Vigilia"
+                          TitleStyle="{StaticResource ChartTitle}">
                 <charts:Chart.LegendStyle>
                     <Style TargetType="datavis:Legend">
-                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                 </charts:Chart.LegendStyle>
                 <charts:Chart.PlotAreaStyle>
@@ -85,15 +90,17 @@
                 <charts:PieSeries IndependentValuePath="Key" DependentValuePath="Value" 
                                   ItemsSource="{Binding}"  VerticalContentAlignment="Stretch" />
             </charts:Chart>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <charts:Chart Name="PieSysNight" VerticalContentAlignment="Stretch" Height="200"
-                          Palette="{StaticResource Palette}" Padding="10,10,10,0" 
-                          Title="Sistólico Sueño" TitleStyle="{StaticResource ChartTitle}">
+        <DockPanel Grid.Row="0" Grid.Column="2">
+            <charts:Chart Name="PieSysNight" MaxHeight="300" Padding="10,10,10,0" 
+                          Palette="{StaticResource Palette}" Title="Sistólico Sueño" 
+                          TitleStyle="{StaticResource ChartTitle}">
                 <charts:Chart.LegendStyle>
                     <Style TargetType="datavis:Legend">
-                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                 </charts:Chart.LegendStyle>
                 <charts:Chart.PlotAreaStyle>
@@ -104,15 +111,43 @@
                 <charts:PieSeries IndependentValuePath="Key" DependentValuePath="Value" 
                                   ItemsSource="{Binding}"  VerticalContentAlignment="Stretch" />
             </charts:Chart>
+        </DockPanel>
+
+<!--
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Fill="Red" />
+            <TextBlock Name="HighSysTotal" />
+            <Border Margin="15,0" />
+            <Rectangle Fill="LimeGreen" />
+            <TextBlock Name="OkSysTotal" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <charts:Chart Name="PieDiasTot" VerticalContentAlignment="Stretch" Height="200"
-                          Palette="{StaticResource Palette}" Padding="10,10,10,0" 
-                          Title="Diastólico Total" TitleStyle="{StaticResource ChartTitle}">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Fill="Red" />
+            <TextBlock Name="HighSysDay" />
+            <Border Margin="15,0" />
+            <Rectangle Fill="LimeGreen" />
+            <TextBlock Name="OkSysDay" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Fill="Red" />
+            <TextBlock Name="HighSysNight" />
+            <Border Margin="15,0" />
+            <Rectangle Fill="LimeGreen" />
+            <TextBlock Name="OkSysNight" />
+        </StackPanel>
+-->
+
+        <DockPanel Grid.Row="3" Grid.Column="0">
+            <charts:Chart Name="PieDiasTot" MaxHeight="300" Padding="10,10,10,0"
+                          Palette="{StaticResource Palette}" Title="Diastólico Total"
+                          TitleStyle="{StaticResource ChartTitle}">
                 <charts:Chart.LegendStyle>
                     <Style TargetType="datavis:Legend">
-                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                 </charts:Chart.LegendStyle>
                 <charts:Chart.PlotAreaStyle>
@@ -123,15 +158,17 @@
                 <charts:PieSeries IndependentValuePath="Key" DependentValuePath="Value" 
                                   ItemsSource="{Binding}"  VerticalContentAlignment="Stretch" />
             </charts:Chart>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <charts:Chart Name="PieDiasDay" VerticalContentAlignment="Stretch" Height="200"
-                          Palette="{StaticResource Palette}" Padding="10,10,10,0" 
-                          Title="Diastólico Vigilia" TitleStyle="{StaticResource ChartTitle}">
+        <DockPanel Grid.Row="3" Grid.Column="1">
+            <charts:Chart Name="PieDiasDay" MaxHeight="300" Padding="10,10,10,0"
+                          Palette="{StaticResource Palette}" Title="Diastólico Vigilia"
+                          TitleStyle="{StaticResource ChartTitle}">
                 <charts:Chart.LegendStyle>
                     <Style TargetType="datavis:Legend">
-                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                 </charts:Chart.LegendStyle>
                 <charts:Chart.PlotAreaStyle>
@@ -142,15 +179,17 @@
                 <charts:PieSeries IndependentValuePath="Key" DependentValuePath="Value" 
                                   ItemsSource="{Binding}"  VerticalContentAlignment="Stretch" />
             </charts:Chart>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <charts:Chart Name="PieDiasNight" VerticalContentAlignment="Stretch" Height="200"
-                          Palette="{StaticResource Palette}" Padding="10,10,10,0" 
-                          Title="Diastólico Sueño" TitleStyle="{StaticResource ChartTitle}">
+        <DockPanel Grid.Row="3" Grid.Column="2">
+            <charts:Chart Name="PieDiasNight" MaxHeight="300" Padding="10,10,10,0" 
+                          Palette="{StaticResource Palette}" Title="Diastólico Sueño" 
+                          TitleStyle="{StaticResource ChartTitle}">
                 <charts:Chart.LegendStyle>
                     <Style TargetType="datavis:Legend">
-                        <Setter Property="Width" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>
                 </charts:Chart.LegendStyle>
                 <charts:Chart.PlotAreaStyle>
@@ -161,6 +200,32 @@
                 <charts:PieSeries IndependentValuePath="Key" DependentValuePath="Value"
                                   ItemsSource="{Binding}"  VerticalContentAlignment="Stretch" />
             </charts:Chart>
+        </DockPanel>
+
+<!--
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Fill="Red" />
+            <TextBlock Name="HighDiasTotal" />
+            <Border Margin="15,0" />
+            <Rectangle Fill="LimeGreen" />
+            <TextBlock Name="OkDiasTotal" />
         </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Fill="Red" />
+            <TextBlock Name="HighDiasDay" />
+            <Border Margin="15,0" />
+            <Rectangle Fill="LimeGreen" />
+            <TextBlock Name="OkDiasDay" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Fill="Red" />
+            <TextBlock Name="HighDiasNight" />
+            <Border Margin="15,0" />
+            <Rectangle Fill="LimeGreen" />
+            <TextBlock Name="OkDiasNight" />
+        </StackPanel>
+-->
     </Grid>
 </UserControl>

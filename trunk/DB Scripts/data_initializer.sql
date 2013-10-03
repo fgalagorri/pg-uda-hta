@@ -17,6 +17,7 @@ VALUES ('Nisirol', 'Lisinopril', 1),
 		('Medicamento1', 'Activo2', 3),
 
 
-insert into limitmeasure(`maxdiasday`,`maxdiasnight`,`maxdiastotal`,
-						 `maxsysday`,`maxsysnight`,`maxsystotal`)
-values (300, 300, 300, 300, 300, 300);
+insert into limitmeasure(`maxdiasday`,`maxdiasnight`,`maxdiastotal`, `maxsysday`,`maxsysnight`,
+						`maxsystotal`, `highsystotal`, `highsysday`, `highsysnight`, 
+						`highdiastotal`, `highdiasday`, `highdiasnight`)
+values (300, 300, 300, 300, 300, 300,  130, 135, 120,  80, 85, 75);

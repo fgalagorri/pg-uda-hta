@@ -35,7 +35,7 @@ namespace UDA_HTA
                 ContainerInvestigation.Content = new ResearchFinder(this);
                 ContainerInvestigation.Visibility = Visibility.Hidden;
                 ContainerAdministration.Content = null;
-                ContainerAdministration.Visibility = Visibility.Hidden;                
+                ContainerAdministration.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -183,16 +183,18 @@ namespace UDA_HTA
         }
 
 
-    #endregion
+        #endregion
 
-    #region Patient
+        #region Patient
+
         private void FindPatient(object sender, RoutedEventArgs e)
         {
             btnEditPatient.IsEnabled = false;
             btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
 
-            ContainerPatient.Content = new PatientFinder(this); ;
+            ContainerPatient.Content = new PatientFinder(this);
+            ;
         }
 
         public void PatientSelected(PatientSearch patient)
@@ -214,13 +216,13 @@ namespace UDA_HTA
             {
                 var patient = pv.GetSelectedPatient();
                 var editPatientWindow = new NewPatient(patient);
-                editPatientWindow.ShowDialog();                
+                editPatientWindow.ShowDialog();
             }
         }
 
-    #endregion
+        #endregion
 
-    #region Investigaciones
+        #region Investigaciones
 
         public void InvestigationSelected(InvestigationSearch investigation)
         {
@@ -234,7 +236,7 @@ namespace UDA_HTA
 
         private void BtnNewResearch_OnClick(object sender, RoutedEventArgs e)
         {
-            var newResearchWindow = new NewResearch(this,null);
+            var newResearchWindow = new NewResearch(this, null);
             newResearchWindow.ShowDialog();
         }
 
@@ -247,7 +249,7 @@ namespace UDA_HTA
                 var i = rv.GetSelectedInvestigation();
                 var addReportWindow = new AddReportsToResearch(i, this);
                 addReportWindow.Show();
-                
+
             }
         }
 
@@ -280,14 +282,14 @@ namespace UDA_HTA
                 var investigation = pv.GetSelectedInvestigation();
 
                 SaveFileDialog saveAs = new SaveFileDialog
-                {
-                    FileName = "Investigacion " + investigation.Name,
-                    DefaultExt = ".xlsm"
-//                    Filter = "*.xlsm"
-                };
+                    {
+                        FileName = "Investigacion " + investigation.Name,
+                        DefaultExt = ".xlsm"
+                        //                    Filter = "*.xlsm"
+                    };
                 saveAs.FileName += " " + investigation.CreationDate
-                                             .ToString(ConfigurationManager.AppSettings["ShortDateString"])
-                                             .Replace('/', '-');
+                                                      .ToString(ConfigurationManager.AppSettings["ShortDateString"])
+                                                      .Replace('/', '-');
 
                 var result = saveAs.ShowDialog();
                 if (result.Value)
@@ -306,9 +308,10 @@ namespace UDA_HTA
         {
             throw new System.NotImplementedException();
         }
-    #endregion
 
-    #region Usuario
+        #endregion
+
+        #region Usuario
 
         private void NewUser(object sender, RoutedEventArgs e)
         {
@@ -346,9 +349,10 @@ namespace UDA_HTA
             changePswdWindow.ShowDialog();
         }
 
-    #endregion
+        #endregion
 
-    #region Drogas
+        #region Drogas
+
         private void BtnAddDrugs_OnClick(object sender, RoutedEventArgs e)
         {
             btnEditDrugs.IsEnabled = false;
@@ -373,7 +377,7 @@ namespace UDA_HTA
 
         }
 
-    #endregion
+        #endregion
 
     }
 }
