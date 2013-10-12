@@ -121,11 +121,12 @@ namespace BussinessLogic
         public void ExportReportDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
             using (var document = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
-            {
+            {                
                 DocumentFormat.OpenXml.Packaging.MainDocumentPart mainDocumentPart1 = document.AddMainDocumentPart();
                 DocumentFormat.OpenXml.Wordprocessing.Document document1 =
                     new DocumentFormat.OpenXml.Wordprocessing.Document();
                 Body body1 = new Body();
+                
                 //Create a Table
                 Table table1 = new Table();
 
@@ -159,7 +160,7 @@ namespace BussinessLogic
                     };
 
                 TableRowProperties tableRowProperties1 = new TableRowProperties();
-                TableRowHeight tableRowHeight1 = new TableRowHeight() {Val = (UInt32Value) 547U};
+                TableRowHeight tableRowHeight1 = new TableRowHeight() {Val = (UInt32Value) 300U}; 
 
                 tableRowProperties1.AppendChild(tableRowHeight1);
 
@@ -199,6 +200,7 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphProperties1 = new ParagraphProperties();
                 Justification justification1 = new Justification() {Val = JustificationValues.Center};
+                SpacingBetweenLines spacing1 = new SpacingBetweenLines(){Before = "100", After = "0", Line = "200", LineRule = LineSpacingRuleValues.Exact};
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties1 = new ParagraphMarkRunProperties();
                 /*
@@ -207,6 +209,7 @@ namespace BussinessLogic
                 paragraphMarkRunProperties1.AppendChild(new FontSizeComplexScript() {Val = "32"});
                 */
                 paragraphProperties1.AppendChild(justification1);
+                paragraphProperties1.AppendChild(spacing1);
                 paragraphProperties1.AppendChild(paragraphMarkRunProperties1);
 
                 Run run1 = new Run() {RsidRunProperties = "004D2B75"};
@@ -1178,7 +1181,7 @@ namespace BussinessLogic
                     };
 
                     TableRowProperties tableRowProperties2 = new TableRowProperties();
-                    TableRowHeight tableRowHeight2 = new TableRowHeight() { Val = (UInt32Value)242U };
+                    TableRowHeight tableRowHeight2 = new TableRowHeight() { Val = (UInt32Value)150U };
 
                     tableRowProperties2.AppendChild(tableRowHeight2);
 
@@ -1701,7 +1704,7 @@ namespace BussinessLogic
                     };
 
                     TableRowProperties tableRowProperties30 = new TableRowProperties();
-                    TableRowHeight tableRowHeight30 = new TableRowHeight() { Val = (UInt32Value)242U };
+                    TableRowHeight tableRowHeight30 = new TableRowHeight() { Val = (UInt32Value)150U };
 
                     tableRowProperties30.AppendChild(tableRowHeight30);
 
@@ -1868,7 +1871,7 @@ namespace BussinessLogic
             TableRow tableRow12 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "004D2B75", RsidTableRowProperties = "00EC01A4" };
 
             TableRowProperties tableRowProperties3 = new TableRowProperties();
-            TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)1383U };
+            TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)150U };
 
             tableRowProperties3.AppendChild(tableRowHeight3);
 
@@ -2427,7 +2430,7 @@ namespace BussinessLogic
             TableRow tableRow12 = new TableRow() { RsidTableRowMarkRevision = "00653833", RsidTableRowAddition = "004D2B75", RsidTableRowProperties = "00EC01A4" };
 
             TableRowProperties tableRowProperties3 = new TableRowProperties();
-            TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)1383U };
+            TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)150U };
 
             tableRowProperties3.AppendChild(tableRowHeight3);
 
