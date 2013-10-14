@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows;
+using System.IO;
 using Entities;
 using Gateway;
 
@@ -16,12 +18,22 @@ namespace UDA_HTA
         public DiagnosisEditor()
         {
             InitializeComponent();
+
         }
 
         public void SetReport(Report r)
         {
             _reportId = r.UdaId.Value;
-            txtDiagnosis.Text = r.Diagnosis;
+            if (!string.IsNullOrEmpty(r.Diagnosis))
+            {
+                txtDiagnosis.Text = r.Diagnosis;
+            }
+            else
+            {
+                StreamReader sr = new StreamReader(ConfigurationManager.AppSettings["DiagnosisTemplate"], System.Text.Encoding.GetEncoding("iso-8859-1"));
+                var s = sr.ReadToEnd();
+                txtDiagnosis.Text = s;                
+            }
         }
 
         public bool ChangesCommited(out long reportId, out string diagnosis)
