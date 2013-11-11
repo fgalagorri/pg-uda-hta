@@ -93,50 +93,54 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public PatientCondition(Patient p)
         {
-            InitializeComponent();
-            colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
-            var controller = GatewayController.GetInstance();
-            try
+            if (p != null)
             {
-                _drugs = controller.GetDrugs(null, null, null);
+                InitializeComponent();
+                colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
+                var controller = GatewayController.GetInstance();
+                try
+                {
+                    _drugs = controller.GetDrugs(null, null, null);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                autoMedication.DataContext = _drugs;
+
+                var tempData = controller.GetPatientLastTempData(p.UdaId.Value);
+                if (tempData != null)
+                {
+                    _lstMedication = tempData.Medication ?? new List<Medication>();
+                    grMedication.DataContext = _lstMedication;
+
+                    txtWeight.Text = tempData.Weight.ToString();
+                    txtHeight.Text = tempData.Height.HasValue ? tempData.Height.Value.ToString("F") : "";
+                    _imc = tempData.BodyMassIndex.HasValue ? tempData.BodyMassIndex.Value : -1;
+                    lblImc.Text = tempData.BodyMassIndex.ToString();
+                    txtFat.Text = tempData.FatPercentage.ToString();
+                    txtMuscle.Text = tempData.MusclePercentage.ToString();
+                    txtKcal.Text = tempData.Kcal.ToString();
+                    chkSmoker.IsChecked = tempData.Smoker ?? false;
+                    chkDiabetic.IsChecked = tempData.Diabetic ?? false;
+                    chkDyslipidemia.IsChecked = tempData.Dyslipidemia ?? false;
+                    chkHypertense.IsChecked = tempData.Hypertensive ?? false;
+                }
+                else
+                {
+                    chkSmoker.IsChecked = false;
+                    chkDiabetic.IsChecked = false;
+                    chkDyslipidemia.IsChecked = false;
+                    chkHypertense.IsChecked = false;
+                }
+                CalculateImc(null, null);
+
+
+                _lstBackground = p.Background ?? new List<MedicalRecord>();
+                grBackground.DataContext = _lstBackground;
+                
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            autoMedication.DataContext = _drugs;
-
-            var tempData = controller.GetPatientLastTempData(p.UdaId.Value);
-            if (tempData != null)
-            {
-                _lstMedication = tempData.Medication ?? new List<Medication>();
-                grMedication.DataContext = _lstMedication;
-
-                txtWeight.Text = tempData.Weight.ToString();
-                txtHeight.Text = tempData.Height.HasValue ? tempData.Height.Value.ToString("F") : "";
-                _imc = tempData.BodyMassIndex.HasValue ? tempData.BodyMassIndex.Value : -1;
-                lblImc.Text = tempData.BodyMassIndex.ToString();
-                txtFat.Text = tempData.FatPercentage.ToString();
-                txtMuscle.Text = tempData.MusclePercentage.ToString();
-                txtKcal.Text = tempData.Kcal.ToString();
-                chkSmoker.IsChecked = tempData.Smoker ?? false;
-                chkDiabetic.IsChecked = tempData.Diabetic ?? false;
-                chkDyslipidemia.IsChecked = tempData.Dyslipidemia ?? false;
-                chkHypertense.IsChecked = tempData.Hypertensive ?? false;
-            }
-            else
-            {
-                chkSmoker.IsChecked = false;
-                chkDiabetic.IsChecked = false;
-                chkDyslipidemia.IsChecked = false;
-                chkHypertense.IsChecked = false;
-            }
-            CalculateImc(null, null);
-
-
-            _lstBackground = p.Background ?? new List<MedicalRecord>();
-            grBackground.DataContext = _lstBackground;
         }
 
         public Report GetReport(Report r)

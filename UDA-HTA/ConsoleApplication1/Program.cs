@@ -183,7 +183,7 @@ namespace ConsoleApplication1
             usr.Login = "SysAdmin";
             var uc = new CriptographyManagement();
             usr.Password = uc.Sha256Encryipt("password");
-            usr.Role = "Admin";
+            usr.Role = "Administrador";
             um.CreateUser(usr);
             //*/
         }
