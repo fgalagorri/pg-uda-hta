@@ -160,7 +160,8 @@ namespace BussinessLogic
                     };
 
                 TableRowProperties tableRowProperties1 = new TableRowProperties();
-                TableRowHeight tableRowHeight1 = new TableRowHeight() {Val = (UInt32Value) 300U}; 
+                TableRowHeight tableRowHeight1 = new TableRowHeight() {Val = (UInt32Value) 300U};
+//                TableRowHeight tableRowHeight1 = new TableRowHeight() { HeightType = HeightRuleValues.Auto}; 
 
                 tableRowProperties1.AppendChild(tableRowHeight1);
 
@@ -200,7 +201,7 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphProperties1 = new ParagraphProperties();
                 Justification justification1 = new Justification() {Val = JustificationValues.Center};
-                SpacingBetweenLines spacing1 = new SpacingBetweenLines(){Before = "100", After = "0", Line = "200", LineRule = LineSpacingRuleValues.Exact};
+                SpacingBetweenLines spacing1 = new SpacingBetweenLines(){Before = "0", After = "0", Line = "200", LineRule = LineSpacingRuleValues.Exact};
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties1 = new ParagraphMarkRunProperties();
                 /*
@@ -345,6 +346,9 @@ namespace BussinessLogic
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "00AA46B2"
                     };
+                    ParagraphProperties paragraphPropertiesRegNum = new ParagraphProperties();
+                    SpacingBetweenLines spacing4 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesRegNum.AppendChild(spacing4);
 
                     Run run5 = new Run();
                     Text text5 = new Text();
@@ -358,6 +362,7 @@ namespace BussinessLogic
                     }
 
                     run5.AppendChild(text5);
+                    paragraph4.AppendChild(paragraphPropertiesRegNum);
                     paragraph4.AppendChild(run5);
                     tableCell4.AppendChild(tableCellProperties4);
                     tableCell4.AppendChild(paragraph4);
@@ -388,6 +393,12 @@ namespace BussinessLogic
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "00AA46B2"
                     };
+
+                    ParagraphProperties paragraphPropertiesRegNumAux = new ParagraphProperties();
+                    SpacingBetweenLines spacingAux = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesRegNumAux.AppendChild(spacingAux);
+
+                    paragraph5.AppendChild(paragraphPropertiesRegNumAux);
 
                     tableCell5.AppendChild(tableCellProperties5);
                     tableCell5.AppendChild(paragraph5);
@@ -424,6 +435,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "00AA46B2"
                     };
 
+                    ParagraphProperties paragraphPropertiesDoc = new ParagraphProperties();
+                    SpacingBetweenLines spacingDoc = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesDoc.AppendChild(spacingDoc);
+
                     Run run9 = new Run();
                     Text text9 = new Text();
                     if (report.Patient.DocumentId != null)
@@ -436,6 +451,7 @@ namespace BussinessLogic
                     }
 
                     run9.AppendChild(text9);
+                    paragraph6.AppendChild(paragraphPropertiesDoc);
                     paragraph6.AppendChild(run9);
                     tableCell6.AppendChild(tableCellProperties6);
                     tableCell6.AppendChild(paragraph6);
@@ -461,6 +477,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesBirthDate = new ParagraphProperties();
+                    SpacingBetweenLines spacingBirthDate = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesBirthDate.AppendChild(spacingBirthDate);
+
                     Run run11 = new Run();
                     Text text11 = new Text();
                     if (report.Patient.BirthDate != null)
@@ -476,6 +496,7 @@ namespace BussinessLogic
 
                     run11.AppendChild(text11);
 
+                    paragraph7.AppendChild(paragraphPropertiesBirthDate);
                     paragraph7.AppendChild(run11);
                     tableCell7.AppendChild(tableCellProperties7);
                     tableCell7.AppendChild(paragraph7);
@@ -510,6 +531,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesSurname = new ParagraphProperties();
+                    SpacingBetweenLines spacingSurname = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesSurname.AppendChild(spacingSurname);
+
                     Run run15 = new Run();
                     Text text15 = new Text();
                     if (report.Patient.Surnames != null)
@@ -523,6 +548,7 @@ namespace BussinessLogic
 
 
                     run15.AppendChild(text15);
+                    paragraph8.AppendChild(paragraphPropertiesSurname);
                     paragraph8.AppendChild(run15);
 
                     tableCell8.AppendChild(tableCellProperties8);
@@ -549,6 +575,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesWeight = new ParagraphProperties();
+                    SpacingBetweenLines spacingWeight = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesWeight.AppendChild(spacingWeight);
+
                     Run run17 = new Run();
                     Text text17 = new Text();
                     if (report.TemporaryData.Weight != null)
@@ -562,6 +592,7 @@ namespace BussinessLogic
 
                     run17.AppendChild(text17);
 
+                    paragraph9.AppendChild(paragraphPropertiesWeight);
                     paragraph9.AppendChild(run17);
 
                     tableCell9.AppendChild(tableCellProperties9);
@@ -597,6 +628,11 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+
+                    ParagraphProperties paragraphPropertiesName = new ParagraphProperties();
+                    SpacingBetweenLines spacingName = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesName.AppendChild(spacingName);
+
                     Run run18 = new Run();
                     Text text18 = new Text();
                     if (report.Patient.Names != null)
@@ -610,6 +646,7 @@ namespace BussinessLogic
 
                     run18.AppendChild(text18);
 
+                    paragraph10.AppendChild(paragraphPropertiesName);
                     paragraph10.AppendChild(run18);
 
                     tableCell10.AppendChild(tableCellProperties10);
@@ -645,6 +682,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesHeight = new ParagraphProperties();
+                    SpacingBetweenLines spacingHeight = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesHeight.AppendChild(spacingHeight);
+
                     Run run20 = new Run();
                     Text text20 = new Text();
                     if (report.TemporaryData.Height != null)
@@ -657,6 +698,7 @@ namespace BussinessLogic
                     }
 
                     run20.AppendChild(text20);
+                    paragraph11.AppendChild(paragraphPropertiesHeight);
                     paragraph11.AppendChild(run20);
 
                     tableCell11.AppendChild(tableCellProperties11);
@@ -701,6 +743,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesAddr = new ParagraphProperties();
+                    SpacingBetweenLines spacingAddr = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesAddr.AppendChild(spacingAddr);
+
                     Run run22 = new Run();
                     Text text22 = new Text();
                     if (report.Patient.Address != null)
@@ -713,6 +759,7 @@ namespace BussinessLogic
                     }
 
                     run22.AppendChild(text22);
+                    paragraph12.AppendChild(paragraphPropertiesAddr);
                     paragraph12.AppendChild(run22);
 
                     tableCell12.AppendChild(tableCellProperties12);
@@ -748,6 +795,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesSex = new ParagraphProperties();
+                    SpacingBetweenLines spacingSex = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesSex.AppendChild(spacingSex);
+
                     Run run24 = new Run();
                     Text text24 = new Text();
                     if (report.Patient.Sex != null)
@@ -760,6 +811,7 @@ namespace BussinessLogic
                     }
 
                     run24.AppendChild(text24);
+                    paragraph13.AppendChild(paragraphPropertiesSex);
                     paragraph13.AppendChild(run24);
 
                     tableCell13.AppendChild(tableCellProperties13);
@@ -804,6 +856,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesPhone = new ParagraphProperties();
+                    SpacingBetweenLines spacingPhone = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesPhone.AppendChild(spacingPhone);
+
                     Run run26 = new Run();
                     Text text26 = new Text();
                     if (report.Patient.Phone != null)
@@ -816,6 +872,7 @@ namespace BussinessLogic
                     }
 
                     run26.AppendChild(text26);
+                    paragraph14.AppendChild(paragraphPropertiesPhone);
                     paragraph14.AppendChild(run26);
 
                     tableCell14.AppendChild(tableCellProperties14);
@@ -851,6 +908,10 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesEmail = new ParagraphProperties();
+                    SpacingBetweenLines spacingEmail = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesEmail.AppendChild(spacingEmail);
+
                     Run run28 = new Run();
                     Text text28 = new Text();
                     if (report.Patient.Email != null)
@@ -864,7 +925,7 @@ namespace BussinessLogic
                     }
 
                     run28.AppendChild(text28);
-
+                    paragraph15.AppendChild(paragraphPropertiesEmail);
                     paragraph15.AppendChild(run28);
 
                     tableCell15.AppendChild(tableCellProperties15);
@@ -917,9 +978,15 @@ namespace BussinessLogic
                         RsidParagraphProperties = "00DF0ACA",
                         RsidRunAdditionDefault = "004D2B75"
                     };
+
                 BookmarkStart bookmarkStart1 = new BookmarkStart() {Name = "_GoBack", Id = "0"};
                 BookmarkEnd bookmarkEnd1 = new BookmarkEnd() {Id = "0"};
 
+                ParagraphProperties paragraphProperties16 = new ParagraphProperties();
+                SpacingBetweenLines spacing16 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties16.AppendChild(spacing16);
+
+                paragraph16.AppendChild(paragraphProperties16);
                 paragraph16.AppendChild(bookmarkStart1);
                 paragraph16.AppendChild(bookmarkEnd1);
 
@@ -976,6 +1043,12 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                ParagraphProperties paragraphProperties17 = new ParagraphProperties();
+                SpacingBetweenLines spacing17 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties17.AppendChild(spacing17);
+
+                paragraph17.AppendChild(paragraphProperties17);
+
                 tableCell17.AppendChild(tableCellProperties17);
                 tableCell17.AppendChild(paragraph17);
 
@@ -1022,6 +1095,9 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphProperties2 = new ParagraphProperties();
 
+                SpacingBetweenLines spacing18 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties2.AppendChild(spacing18);
+
                 ParagraphMarkRunProperties paragraphMarkRunProperties2 = new ParagraphMarkRunProperties();
                 Bold bold6 = new Bold();
 
@@ -1054,6 +1130,8 @@ namespace BussinessLogic
                     };
 
                 ParagraphProperties paragraphProperties3 = new ParagraphProperties();
+                SpacingBetweenLines spacing19 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties3.AppendChild(spacing19);
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties3 = new ParagraphMarkRunProperties();
 
@@ -1082,6 +1160,8 @@ namespace BussinessLogic
                     };
 
                 ParagraphProperties paragraphProperties4 = new ParagraphProperties();
+                SpacingBetweenLines spacing20 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties4.AppendChild(spacing20);
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties4 = new ParagraphMarkRunProperties();
 
@@ -1110,6 +1190,10 @@ namespace BussinessLogic
                     };
 
                 ParagraphProperties paragraphProperties3_1 = new ParagraphProperties();
+                
+                SpacingBetweenLines spacing3_1 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties3_1.AppendChild(spacing3_1);
+                
                 ParagraphMarkRunProperties paragraphMarkRunProperties3_1 = new ParagraphMarkRunProperties();
 
                 paragraphProperties3_1.AppendChild(paragraphMarkRunProperties3_1);
@@ -1137,6 +1221,10 @@ namespace BussinessLogic
                     };
 
                 ParagraphProperties paragraphProperties3_2 = new ParagraphProperties();
+
+                SpacingBetweenLines spacing3_2 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties3_2.AppendChild(spacing3_2);
+                
                 ParagraphMarkRunProperties paragraphMarkRunProperties3_2 = new ParagraphMarkRunProperties();
 
                 paragraphProperties3_2.AppendChild(paragraphMarkRunProperties3_2);
@@ -1182,6 +1270,7 @@ namespace BussinessLogic
 
                     TableRowProperties tableRowProperties2 = new TableRowProperties();
                     TableRowHeight tableRowHeight2 = new TableRowHeight() { Val = (UInt32Value)150U };
+//                    TableRowHeight tableRowHeight2 = new TableRowHeight() { HeightType = HeightRuleValues.Auto};
 
                     tableRowProperties2.AppendChild(tableRowHeight2);
 
@@ -1222,6 +1311,9 @@ namespace BussinessLogic
                         };
 
                     ParagraphProperties paragraphProperties5 = new ParagraphProperties();
+
+                    SpacingBetweenLines spacing21 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties5.AppendChild(spacing21);
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties5 = new ParagraphMarkRunProperties();
                     Bold bold8 = new Bold();
@@ -1306,6 +1398,9 @@ namespace BussinessLogic
 
                     ParagraphProperties paragraphProperties7 = new ParagraphProperties();
 
+                    SpacingBetweenLines spacing23 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties7.AppendChild(spacing23);
+
                     ParagraphMarkRunProperties paragraphMarkRunProperties7 = new ParagraphMarkRunProperties();
 
                     paragraphProperties7.AppendChild(paragraphMarkRunProperties7);
@@ -1372,6 +1467,9 @@ namespace BussinessLogic
                     };
 
                     ParagraphProperties paragraphProperties8 = new ParagraphProperties();
+
+                    SpacingBetweenLines spacing24 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties8.AppendChild(spacing24);
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties8 = new ParagraphMarkRunProperties();
 
@@ -1456,6 +1554,9 @@ namespace BussinessLogic
 
                     ParagraphProperties paragraphProperties9 = new ParagraphProperties();
 
+                    SpacingBetweenLines spacing25 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties9.AppendChild(spacing25);
+
                     ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
                     Bold bold11 = new Bold();
 
@@ -1532,6 +1633,9 @@ namespace BussinessLogic
 
                     ParagraphProperties paragraphProperties10 = new ParagraphProperties();
 
+                    SpacingBetweenLines spacing26 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties10.AppendChild(spacing26);
+
                     ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
 
                     paragraphProperties10.AppendChild(paragraphMarkRunProperties10);
@@ -1592,6 +1696,9 @@ namespace BussinessLogic
                     };
 
                     ParagraphProperties paragraphProperties11 = new ParagraphProperties();
+
+                    SpacingBetweenLines spacing27 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties11.AppendChild(spacing27);
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
                     Bold bold13 = new Bold();
@@ -1663,6 +1770,9 @@ namespace BussinessLogic
 
                     ParagraphProperties paragraphProperties12 = new ParagraphProperties();
 
+                    SpacingBetweenLines spacing28 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties12.AppendChild(spacing28);
+
                     ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
 
                     paragraphProperties12.AppendChild(paragraphMarkRunProperties12);
@@ -1705,6 +1815,7 @@ namespace BussinessLogic
 
                     TableRowProperties tableRowProperties30 = new TableRowProperties();
                     TableRowHeight tableRowHeight30 = new TableRowHeight() { Val = (UInt32Value)150U };
+//                    TableRowHeight tableRowHeight30 = new TableRowHeight() { HeightType = HeightRuleValues.Auto };
 
                     tableRowProperties30.AppendChild(tableRowHeight30);
 
@@ -1747,6 +1858,9 @@ namespace BussinessLogic
                     };
 
                     ParagraphProperties paragraphProperties30 = new ParagraphProperties();
+
+                    SpacingBetweenLines spacing30 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphProperties30.AppendChild(spacing30);
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties30 = new ParagraphMarkRunProperties();
                     Bold bold8 = new Bold();
@@ -1795,6 +1909,9 @@ namespace BussinessLogic
                     };
 
                 ParagraphProperties paragraphProperties13 = new ParagraphProperties();
+
+                SpacingBetweenLines spacing29 = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties13.AppendChild(spacing29);
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties13 = new ParagraphMarkRunProperties();
 
@@ -1872,6 +1989,7 @@ namespace BussinessLogic
 
             TableRowProperties tableRowProperties3 = new TableRowProperties();
             TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)150U };
+//            TableRowHeight tableRowHeight3 = new TableRowHeight() { HeightType = HeightRuleValues.Auto };
 
             tableRowProperties3.AppendChild(tableRowHeight3);
 
@@ -1902,9 +2020,12 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties9 = new ParagraphProperties();
             Justification justification2 = new Justification() { Val = JustificationValues.Center };
-            
+
+            SpacingBetweenLines spacing25 = new SpacingBetweenLines() { Before = "0", After = "0" };
+
             ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
 
+            paragraphProperties9.AppendChild(spacing25);
             paragraphProperties9.AppendChild(justification2);
             paragraphProperties9.AppendChild(paragraphMarkRunProperties9);
 
@@ -1951,7 +2072,10 @@ namespace BussinessLogic
             Paragraph paragraph26 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
             ParagraphProperties paragraphProperties10 = new ParagraphProperties();
-            
+
+            SpacingBetweenLines spacing26 = new SpacingBetweenLines() { Before = "0", After = "0" };
+
+            paragraphProperties10.AppendChild(spacing26);
             ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
 
             paragraphMarkRunProperties10.AppendChild(new Bold());
@@ -1990,6 +2114,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties11 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing27 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties11.AppendChild(spacing27);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
 
             paragraphMarkRunProperties11.AppendChild(new Bold());
@@ -2027,6 +2154,9 @@ namespace BussinessLogic
             Paragraph paragraph28 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
             ParagraphProperties paragraphProperties12 = new ParagraphProperties();
+
+            SpacingBetweenLines spacing28 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties12.AppendChild(spacing28);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
 
@@ -2067,6 +2197,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties13 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing29 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties13.AppendChild(spacing29);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties13 = new ParagraphMarkRunProperties();
 
             paragraphMarkRunProperties13.AppendChild(new Bold());
@@ -2106,6 +2239,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties14 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing30 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties14.AppendChild(spacing30);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
 
             paragraphMarkRunProperties14.AppendChild(new Bold());
@@ -2144,6 +2280,9 @@ namespace BussinessLogic
             Paragraph paragraph31 = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
             ParagraphProperties paragraphProperties15 = new ParagraphProperties();
+
+            SpacingBetweenLines spacing31 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties15.AppendChild(spacing31);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties15 = new ParagraphMarkRunProperties();
 
@@ -2198,6 +2337,9 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphProperties = new ParagraphProperties();
 
+                SpacingBetweenLines spacing = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphProperties.AppendChild(spacing);
+
                 ParagraphMarkRunProperties paragraphMarkRunProperties = new ParagraphMarkRunProperties();
 
                 paragraphProperties.AppendChild(new Justification() { Val = JustificationValues.Center });
@@ -2232,6 +2374,9 @@ namespace BussinessLogic
                 Paragraph paragraphTime = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
                 ParagraphProperties paragraphPropertiesTime = new ParagraphProperties();
+
+                SpacingBetweenLines spacingTime = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphPropertiesTime.AppendChild(spacingTime);
 
                 ParagraphMarkRunProperties paragraphMarkRunPropertiesTime = new ParagraphMarkRunProperties();
 
@@ -2268,6 +2413,9 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphPropertiesSys = new ParagraphProperties();
 
+                SpacingBetweenLines spacingSys = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphPropertiesSys.AppendChild(spacingSys);
+
                 ParagraphMarkRunProperties paragraphMarkRunPropertiesSys = new ParagraphMarkRunProperties();
 
                 paragraphPropertiesSys.AppendChild(new Justification() { Val = JustificationValues.Center });
@@ -2302,6 +2450,9 @@ namespace BussinessLogic
                 Paragraph paragraphDias = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
                 ParagraphProperties paragraphPropertiesDias = new ParagraphProperties();
+
+                SpacingBetweenLines spacingDias = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphPropertiesDias.AppendChild(spacingDias);
 
                 ParagraphMarkRunProperties paragraphMarkRunPropertiesDias = new ParagraphMarkRunProperties();
 
@@ -2338,6 +2489,9 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphPropertiesMid = new ParagraphProperties();
 
+                SpacingBetweenLines spacingMid = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphPropertiesMid.AppendChild(spacingMid);
+
                 ParagraphMarkRunProperties paragraphMarkRunPropertiesMid = new ParagraphMarkRunProperties();
 
                 paragraphPropertiesMid.AppendChild(new Justification() { Val = JustificationValues.Center });
@@ -2372,6 +2526,9 @@ namespace BussinessLogic
                 Paragraph paragraphFc = new Paragraph() { RsidParagraphMarkRevision = "00A6498A", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "004D2B75", RsidRunAdditionDefault = "00A6498A" };
 
                 ParagraphProperties paragraphPropertiesFc = new ParagraphProperties();
+
+                SpacingBetweenLines spacingFc = new SpacingBetweenLines() { Before = "0", After = "0" };
+                paragraphPropertiesFc.AppendChild(spacingFc);
 
                 ParagraphMarkRunProperties paragraphMarkRunPropertiesFc = new ParagraphMarkRunProperties();
 
@@ -2409,9 +2566,15 @@ namespace BussinessLogic
 
             Paragraph paragraph115 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "009C2A39", RsidRunAdditionDefault = "00653833" };
 
+            ParagraphProperties paragraphProperties115 = new ParagraphProperties();
+            SpacingBetweenLines spacing115 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties115.AppendChild(spacing115);
+
             Run run361 = new Run() { RsidRunProperties = "00653833" };
             Text text361 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             run361.AppendChild(text361);
+
+            paragraph115.AppendChild(paragraphProperties115);
             paragraph115.AppendChild(run361);
 
             tableCell20.AppendChild(tableCellProperties20);
@@ -2431,6 +2594,7 @@ namespace BussinessLogic
 
             TableRowProperties tableRowProperties3 = new TableRowProperties();
             TableRowHeight tableRowHeight3 = new TableRowHeight() { Val = (UInt32Value)150U };
+//            TableRowHeight tableRowHeight3 = new TableRowHeight() { HeightType = HeightRuleValues.Auto };
 
             tableRowProperties3.AppendChild(tableRowHeight3);
 
@@ -2461,6 +2625,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties9 = new ParagraphProperties();
             Justification justification2 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing25 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties9.AppendChild(spacing25);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties9 = new ParagraphMarkRunProperties();
 
@@ -2513,6 +2680,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties10 = new ParagraphProperties();
             Justification justification3 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing26 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties10.AppendChild(spacing26);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties10 = new ParagraphMarkRunProperties();
 
             paragraphProperties10.AppendChild(justification3);
@@ -2536,6 +2706,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties11 = new ParagraphProperties();
             Justification justification4 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing27 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties11.AppendChild(spacing27);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties11 = new ParagraphMarkRunProperties();
             Bold bold10 = new Bold();
@@ -2576,6 +2749,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties12 = new ParagraphProperties();
             Justification justification5 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing28 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties12.AppendChild(spacing28);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties12 = new ParagraphMarkRunProperties();
             Bold bold12 = new Bold();
 
@@ -2615,6 +2791,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties13 = new ParagraphProperties();
             Justification justification6 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing29 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties13.AppendChild(spacing29);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties13 = new ParagraphMarkRunProperties();
             Bold bold14 = new Bold();
@@ -2664,6 +2843,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties14 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing30 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties14.AppendChild(spacing30);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties14 = new ParagraphMarkRunProperties();
 
             paragraphProperties14.AppendChild(paragraphMarkRunProperties14);
@@ -2702,6 +2884,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties15 = new ParagraphProperties();
             Justification justification7 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing31 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties15.AppendChild(spacing31);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties15 = new ParagraphMarkRunProperties();
 
             paragraphProperties15.AppendChild(justification7);
@@ -2734,6 +2919,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties16 = new ParagraphProperties();
             Justification justification8 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing32 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties16.AppendChild(spacing32);
+
             paragraphProperties16.AppendChild(justification8);
 
             Run run40 = new Run();
@@ -2764,6 +2952,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties17 = new ParagraphProperties();
             Justification justification9 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing33 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties17.AppendChild(spacing33);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties16 = new ParagraphMarkRunProperties();
 
@@ -2798,6 +2989,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties18 = new ParagraphProperties();
             Justification justification10 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing34 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties18.AppendChild(spacing34);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties17 = new ParagraphMarkRunProperties();
 
@@ -2840,6 +3034,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties19 = new ParagraphProperties();
             Justification justification11 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing35 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties19.AppendChild(spacing35);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties18 = new ParagraphMarkRunProperties();
 
             paragraphProperties19.AppendChild(justification11);
@@ -2871,6 +3068,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties20 = new ParagraphProperties();
             Justification justification12 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing36 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties20.AppendChild(spacing36);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties19 = new ParagraphMarkRunProperties();
 
@@ -2906,6 +3106,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties21 = new ParagraphProperties();
             Justification justification13 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing37 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties21.AppendChild(spacing37);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties20 = new ParagraphMarkRunProperties();
 
             paragraphProperties21.AppendChild(justification13);
@@ -2939,6 +3142,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties22 = new ParagraphProperties();
             Justification justification14 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing38 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties22.AppendChild(spacing38);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties21 = new ParagraphMarkRunProperties();
 
@@ -2981,6 +3187,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties23 = new ParagraphProperties();
             Justification justification15 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing39 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties23.AppendChild(spacing39);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties22 = new ParagraphMarkRunProperties();
 
             paragraphProperties23.AppendChild(justification15);
@@ -3012,6 +3221,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties24 = new ParagraphProperties();
             Justification justification16 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing40 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties24.AppendChild(spacing40);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties23 = new ParagraphMarkRunProperties();
 
@@ -3047,6 +3259,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties25 = new ParagraphProperties();
             Justification justification17 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing41 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties25.AppendChild(spacing41);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties24 = new ParagraphMarkRunProperties();
 
             paragraphProperties25.AppendChild(justification17);
@@ -3080,6 +3295,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties26 = new ParagraphProperties();
             Justification justification18 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing42 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties26.AppendChild(spacing42);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties25 = new ParagraphMarkRunProperties();
 
@@ -3125,6 +3343,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties27 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing43 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties27.AppendChild(spacing43);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties26 = new ParagraphMarkRunProperties();
             Bold bold17 = new Bold();
             paragraphMarkRunProperties26.AppendChild(bold17);
@@ -3164,6 +3385,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties28 = new ParagraphProperties();
             Justification justification19 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing44 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties28.AppendChild(spacing44);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties27 = new ParagraphMarkRunProperties();
 
             paragraphProperties28.AppendChild(justification19);
@@ -3195,6 +3419,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties29 = new ParagraphProperties();
             Justification justification20 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing45 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties29.AppendChild(spacing45);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties28 = new ParagraphMarkRunProperties();
 
@@ -3229,6 +3456,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties30 = new ParagraphProperties();
             Justification justification21 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing46 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties30.AppendChild(spacing46);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties29 = new ParagraphMarkRunProperties();
 
             paragraphProperties30.AppendChild(justification21);
@@ -3261,6 +3491,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties31 = new ParagraphProperties();
             Justification justification22 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing47 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties31.AppendChild(spacing47);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties30 = new ParagraphMarkRunProperties();
 
@@ -3302,6 +3535,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties32 = new ParagraphProperties();
             Justification justification23 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing48 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties32.AppendChild(spacing48);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties31 = new ParagraphMarkRunProperties();
 
             paragraphProperties32.AppendChild(justification23);
@@ -3333,6 +3569,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties33 = new ParagraphProperties();
             Justification justification24 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing49 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties33.AppendChild(spacing49);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties32 = new ParagraphMarkRunProperties();
 
@@ -3367,6 +3606,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties34 = new ParagraphProperties();
             Justification justification25 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing50 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties34.AppendChild(spacing50);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties33 = new ParagraphMarkRunProperties();
 
             paragraphProperties34.AppendChild(justification25);
@@ -3399,6 +3641,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties35 = new ParagraphProperties();
             Justification justification26 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing51 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties35.AppendChild(spacing51);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties34 = new ParagraphMarkRunProperties();
 
@@ -3440,6 +3685,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties36 = new ParagraphProperties();
             Justification justification27 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing52 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties36.AppendChild(spacing52);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties35 = new ParagraphMarkRunProperties();
 
             paragraphProperties36.AppendChild(justification27);
@@ -3471,6 +3719,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties37 = new ParagraphProperties();
             Justification justification28 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing53 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties37.AppendChild(spacing53);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties36 = new ParagraphMarkRunProperties();
 
@@ -3505,6 +3756,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties38 = new ParagraphProperties();
             Justification justification29 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing54 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties38.AppendChild(spacing54);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties37 = new ParagraphMarkRunProperties();
 
             paragraphProperties38.AppendChild(justification29);
@@ -3537,6 +3791,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties39 = new ParagraphProperties();
             Justification justification30 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing55 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties39.AppendChild(spacing55);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties38 = new ParagraphMarkRunProperties();
 
@@ -3578,6 +3835,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties40 = new ParagraphProperties();
             Justification justification31 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing56 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties40.AppendChild(spacing56);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties39 = new ParagraphMarkRunProperties();
 
             paragraphProperties40.AppendChild(justification31);
@@ -3609,6 +3869,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties41 = new ParagraphProperties();
             Justification justification32 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing57 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties41.AppendChild(spacing57);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties40 = new ParagraphMarkRunProperties();
 
@@ -3643,6 +3906,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties42 = new ParagraphProperties();
             Justification justification33 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing58 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties42.AppendChild(spacing58);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties41 = new ParagraphMarkRunProperties();
             paragraphProperties42.AppendChild(justification33);
             paragraphProperties42.AppendChild(paragraphMarkRunProperties41);
@@ -3674,6 +3940,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties43 = new ParagraphProperties();
             Justification justification34 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing59 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties43.AppendChild(spacing59);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
@@ -3718,6 +3987,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties44 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing60 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties44.AppendChild(spacing60);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties43 = new ParagraphMarkRunProperties();
             Bold bold19 = new Bold();
             paragraphMarkRunProperties43.AppendChild(bold19);
@@ -3757,6 +4029,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties45 = new ParagraphProperties();
             Justification justification35 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing61 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties45.AppendChild(spacing61);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties44 = new ParagraphMarkRunProperties();
 
             paragraphProperties45.AppendChild(justification35);
@@ -3788,6 +4063,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties46 = new ParagraphProperties();
             Justification justification36 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing62 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties46.AppendChild(spacing62);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties45 = new ParagraphMarkRunProperties();
 
@@ -3822,6 +4100,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties47 = new ParagraphProperties();
             Justification justification37 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing63 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties47.AppendChild(spacing63);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties46 = new ParagraphMarkRunProperties();
 
             paragraphProperties47.AppendChild(justification37);
@@ -3854,6 +4135,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties48 = new ParagraphProperties();
             Justification justification38 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing64 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties48.AppendChild(spacing64);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties47 = new ParagraphMarkRunProperties();
 
@@ -3895,6 +4179,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties49 = new ParagraphProperties();
             Justification justification39 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing65 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties49.AppendChild(spacing65);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties48 = new ParagraphMarkRunProperties();
 
             paragraphProperties49.AppendChild(justification39);
@@ -3926,6 +4213,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties50 = new ParagraphProperties();
             Justification justification40 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing66 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties50.AppendChild(spacing66);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties49 = new ParagraphMarkRunProperties();
 
@@ -3960,6 +4250,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties51 = new ParagraphProperties();
             Justification justification41 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing67 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties51.AppendChild(spacing67);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties50 = new ParagraphMarkRunProperties();
 
             paragraphProperties51.AppendChild(justification41);
@@ -3992,6 +4285,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties52 = new ParagraphProperties();
             Justification justification42 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing68 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties52.AppendChild(spacing68);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties51 = new ParagraphMarkRunProperties();
 
@@ -4033,6 +4329,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties53 = new ParagraphProperties();
             Justification justification43 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing69 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties53.AppendChild(spacing69);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties52 = new ParagraphMarkRunProperties();
 
             paragraphProperties53.AppendChild(justification43);
@@ -4064,6 +4363,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties54 = new ParagraphProperties();
             Justification justification44 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing70 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties54.AppendChild(spacing70);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties53 = new ParagraphMarkRunProperties();
 
@@ -4098,6 +4400,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties55 = new ParagraphProperties();
             Justification justification45 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing71 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties55.AppendChild(spacing71);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties54 = new ParagraphMarkRunProperties();
 
             paragraphProperties55.AppendChild(justification45);
@@ -4130,6 +4435,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties56 = new ParagraphProperties();
             Justification justification46 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing72 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties56.AppendChild(spacing72);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties55 = new ParagraphMarkRunProperties();
 
@@ -4171,6 +4479,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties57 = new ParagraphProperties();
             Justification justification47 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing73 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties57.AppendChild(spacing73);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties56 = new ParagraphMarkRunProperties();
 
             paragraphProperties57.AppendChild(justification47);
@@ -4202,6 +4513,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties58 = new ParagraphProperties();
             Justification justification48 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing74 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties58.AppendChild(spacing74);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties57 = new ParagraphMarkRunProperties();
 
@@ -4236,6 +4550,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties59 = new ParagraphProperties();
             Justification justification49 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing75 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties59.AppendChild(spacing75);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties58 = new ParagraphMarkRunProperties();
 
             paragraphProperties59.AppendChild(justification49);
@@ -4268,6 +4585,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties60 = new ParagraphProperties();
             Justification justification50 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing76 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties60.AppendChild(spacing76);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties59 = new ParagraphMarkRunProperties();
 
@@ -4312,6 +4632,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties61 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing77 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties61.AppendChild(spacing77);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties60 = new ParagraphMarkRunProperties();
             Bold bold24 = new Bold();
 
@@ -4355,6 +4678,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties62 = new ParagraphProperties();
             Justification justification51 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing78 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties62.AppendChild(spacing78);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties61 = new ParagraphMarkRunProperties();
 
             paragraphProperties62.AppendChild(justification51);
@@ -4386,6 +4712,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties63 = new ParagraphProperties();
             Justification justification52 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing79 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties63.AppendChild(spacing79);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties62 = new ParagraphMarkRunProperties();
 
@@ -4420,6 +4749,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties64 = new ParagraphProperties();
             Justification justification53 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing80 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties64.AppendChild(spacing80);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties63 = new ParagraphMarkRunProperties();
 
             paragraphProperties64.AppendChild(justification53);
@@ -4453,6 +4785,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties65 = new ParagraphProperties();
             Justification justification54 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing81 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties65.AppendChild(spacing81);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties64 = new ParagraphMarkRunProperties();
 
@@ -4495,6 +4830,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties66 = new ParagraphProperties();
             Justification justification55 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing82 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties66.AppendChild(spacing82);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties65 = new ParagraphMarkRunProperties();
 
             paragraphProperties66.AppendChild(justification55);
@@ -4526,6 +4864,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties67 = new ParagraphProperties();
             Justification justification56 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing83 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties67.AppendChild(spacing83);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties66 = new ParagraphMarkRunProperties();
 
@@ -4560,6 +4901,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties68 = new ParagraphProperties();
             Justification justification57 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing84 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties68.AppendChild(spacing84);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties67 = new ParagraphMarkRunProperties();
 
             paragraphProperties68.AppendChild(justification57);
@@ -4593,6 +4937,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties69 = new ParagraphProperties();
             Justification justification58 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing85 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties69.AppendChild(spacing85);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties68 = new ParagraphMarkRunProperties();
 
@@ -4638,6 +4985,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties70 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing86 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties70.AppendChild(spacing86);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties69 = new ParagraphMarkRunProperties();
             Bold bold26 = new Bold();
             paragraphMarkRunProperties69.AppendChild(bold26);
@@ -4677,6 +5027,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties71 = new ParagraphProperties();
             Justification justification59 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing87 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties71.AppendChild(spacing87);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties70 = new ParagraphMarkRunProperties();
 
             paragraphProperties71.AppendChild(justification59);
@@ -4708,6 +5061,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties72 = new ParagraphProperties();
             Justification justification60 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing88 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties72.AppendChild(spacing88);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties71 = new ParagraphMarkRunProperties();
 
@@ -4742,6 +5098,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties73 = new ParagraphProperties();
             Justification justification61 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing89 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties73.AppendChild(spacing89);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties72 = new ParagraphMarkRunProperties();
 
             paragraphProperties73.AppendChild(justification61);
@@ -4774,6 +5133,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties74 = new ParagraphProperties();
             Justification justification62 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing90 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties74.AppendChild(spacing90);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties73 = new ParagraphMarkRunProperties();
 
@@ -4815,6 +5177,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties75 = new ParagraphProperties();
             Justification justification63 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing91 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties75.AppendChild(spacing91);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties74 = new ParagraphMarkRunProperties();
 
             paragraphProperties75.AppendChild(justification63);
@@ -4846,6 +5211,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties76 = new ParagraphProperties();
             Justification justification64 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing92 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties76.AppendChild(spacing92);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties75 = new ParagraphMarkRunProperties();
 
@@ -4880,6 +5248,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties77 = new ParagraphProperties();
             Justification justification65 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing93 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties77.AppendChild(spacing93);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties76 = new ParagraphMarkRunProperties();
 
             paragraphProperties77.AppendChild(justification65);
@@ -4912,6 +5283,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties78 = new ParagraphProperties();
             Justification justification66 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing94 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties78.AppendChild(spacing94);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties77 = new ParagraphMarkRunProperties();
 
@@ -4956,6 +5330,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties79 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing95 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties79.AppendChild(spacing95);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties78 = new ParagraphMarkRunProperties();
             Bold bold28 = new Bold();
             paragraphMarkRunProperties78.AppendChild(bold28);
@@ -4996,6 +5373,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties80 = new ParagraphProperties();
             Justification justification67 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing96 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties80.AppendChild(spacing96);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties79 = new ParagraphMarkRunProperties();
 
             paragraphProperties80.AppendChild(justification67);
@@ -5027,6 +5407,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties81 = new ParagraphProperties();
             Justification justification68 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing97 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties81.AppendChild(spacing97);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties80 = new ParagraphMarkRunProperties();
 
@@ -5061,6 +5444,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties82 = new ParagraphProperties();
             Justification justification69 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing98 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties82.AppendChild(spacing98);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties81 = new ParagraphMarkRunProperties();
 
             paragraphProperties82.AppendChild(justification69);
@@ -5093,6 +5479,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties83 = new ParagraphProperties();
             Justification justification70 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing99 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties83.AppendChild(spacing99);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties82 = new ParagraphMarkRunProperties();
 
@@ -5140,6 +5529,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties84 = new ParagraphProperties();
             Justification justification71 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing100 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties84.AppendChild(spacing100);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties83 = new ParagraphMarkRunProperties();
 
             paragraphProperties84.AppendChild(justification71);
@@ -5177,6 +5569,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties85 = new ParagraphProperties();
             Justification justification72 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing101 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties85.AppendChild(spacing101);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties84 = new ParagraphMarkRunProperties();
 
@@ -5217,6 +5612,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties86 = new ParagraphProperties();
             Justification justification73 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing102 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties86.AppendChild(spacing102);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties85 = new ParagraphMarkRunProperties();
 
             paragraphProperties86.AppendChild(justification73);
@@ -5255,6 +5653,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties87 = new ParagraphProperties();
             Justification justification74 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing103 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties87.AppendChild(spacing103);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties86 = new ParagraphMarkRunProperties();
 
@@ -5307,6 +5708,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties88 = new ParagraphProperties();
 
+            SpacingBetweenLines spacing104 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties88.AppendChild(spacing104);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties87 = new ParagraphMarkRunProperties();
 
             paragraphProperties88.AppendChild(paragraphMarkRunProperties87);
@@ -5354,6 +5758,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties89 = new ParagraphProperties();
             Justification justification75 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing105 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties89.AppendChild(spacing105);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties88 = new ParagraphMarkRunProperties();
 
             paragraphProperties89.AppendChild(justification75);
@@ -5382,6 +5789,9 @@ namespace BussinessLogic
             Paragraph paragraph106 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "001B715B", RsidParagraphProperties = "00653833", RsidRunAdditionDefault = "001B715B" };
 
             ParagraphProperties paragraphProperties90 = new ParagraphProperties();
+
+            SpacingBetweenLines spacing106 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties90.AppendChild(spacing106);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties89 = new ParagraphMarkRunProperties();
             Bold bold30 = new Bold();
@@ -5424,6 +5834,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties91 = new ParagraphProperties();
             Justification justification76 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing107 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties91.AppendChild(spacing107);
+
             paragraphProperties91.AppendChild(justification76);
             Run run339 = new Run() { RsidRunProperties = "00653833" };
             Text text339 = new Text();
@@ -5448,6 +5861,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties92 = new ParagraphProperties();
             Justification justification77 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing108 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties92.AppendChild(spacing108);
 
             paragraphProperties92.AppendChild(justification77);
 
@@ -5477,6 +5893,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties93 = new ParagraphProperties();
             Justification justification78 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing109 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties93.AppendChild(spacing109);
+
             paragraphProperties93.AppendChild(justification78);
 
             Run run341 = new Run();
@@ -5502,6 +5921,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties94 = new ParagraphProperties();
             Justification justification79 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing110 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties94.AppendChild(spacing110);
 
             paragraphProperties94.AppendChild(justification79);
 
@@ -5536,6 +5958,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties95 = new ParagraphProperties();
             Justification justification80 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing111 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties95.AppendChild(spacing111);
+
             paragraphProperties95.AppendChild(justification80);
 
             Run run347 = new Run() { RsidRunProperties = "00653833" };
@@ -5563,6 +5988,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties96 = new ParagraphProperties();
             Justification justification81 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing112 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties96.AppendChild(spacing112);
 
             paragraphProperties96.AppendChild(justification81);
 
@@ -5592,6 +6020,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties97 = new ParagraphProperties();
             Justification justification82 = new Justification() { Val = JustificationValues.Center };
 
+            SpacingBetweenLines spacing113 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties97.AppendChild(spacing113);
+
             paragraphProperties97.AppendChild(justification82);
 
             Run run351 = new Run();
@@ -5617,6 +6048,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties98 = new ParagraphProperties();
             Justification justification83 = new Justification() { Val = JustificationValues.Center };
+
+            SpacingBetweenLines spacing114 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties98.AppendChild(spacing114);
 
             paragraphProperties98.AppendChild(justification83);
 
@@ -5671,12 +6105,17 @@ namespace BussinessLogic
 
             Paragraph paragraph115 = new Paragraph() { RsidParagraphMarkRevision = "00653833", RsidParagraphAddition = "00A6498A", RsidParagraphProperties = "009C2A39", RsidRunAdditionDefault = "00653833" };
 
+            ParagraphProperties paragraphProperties99 = new ParagraphProperties();
+            SpacingBetweenLines spacing115 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties99.AppendChild(spacing115);
+
             Run run361 = new Run() { RsidRunProperties = "00653833" };
             Text text361 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             text361.Text = "Dipping <0% Invertido; <10% Non-Dipper; <20% Normal; >=20% Extremos";
 
             run361.AppendChild(text361);
 
+            paragraph115.AppendChild(paragraphProperties99);
             paragraph115.AppendChild(run361);
 
             tableCell20.AppendChild(tableCellProperties20);
@@ -5698,6 +6137,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties43 = new ParagraphProperties();
             ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
+
+            SpacingBetweenLines spacing59 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties43.AppendChild(spacing59);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
@@ -5756,6 +6198,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties43 = new ParagraphProperties();
             ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
 
+            SpacingBetweenLines spacing59 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties43.AppendChild(spacing59);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
 
@@ -5805,6 +6250,9 @@ namespace BussinessLogic
             ParagraphProperties paragraphProperties44 = new ParagraphProperties();
             ParagraphStyleId paragraphStyleId4 = new ParagraphStyleId() { Val = "Encabezado" };
 
+            SpacingBetweenLines spacing60 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties44.AppendChild(spacing60);
+
             ParagraphMarkRunProperties paragraphMarkRunProperties43 = new ParagraphMarkRunProperties();
 
             paragraphProperties44.AppendChild(paragraphStyleId4);
@@ -5816,6 +6264,9 @@ namespace BussinessLogic
 
             ParagraphProperties paragraphProperties45 = new ParagraphProperties();
             ParagraphStyleId paragraphStyleId5 = new ParagraphStyleId() { Val = "Encabezado" };
+
+            SpacingBetweenLines spacing61 = new SpacingBetweenLines() { Before = "0", After = "0" };
+            paragraphProperties45.AppendChild(spacing61);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties44 = new ParagraphMarkRunProperties();
 
