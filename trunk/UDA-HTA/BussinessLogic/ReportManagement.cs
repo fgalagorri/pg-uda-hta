@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Packaging;
 using V = DocumentFormat.OpenXml.Vml;
 using Ovml = DocumentFormat.OpenXml.Vml.Office;
@@ -21,6 +22,16 @@ using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using Shading = DocumentFormat.OpenXml.Wordprocessing.Shading;
 using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
 using TableStyle = DocumentFormat.OpenXml.Wordprocessing.TableStyle;
+using A = DocumentFormat.OpenXml.Drawing;
+using Justification = DocumentFormat.OpenXml.Wordprocessing.Justification;
+using JustificationValues = DocumentFormat.OpenXml.Wordprocessing.JustificationValues;
+using ParagraphProperties = DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties;
+using Wp = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using Pic = DocumentFormat.OpenXml.Drawing.Pictures;
+using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
+using RunProperties = DocumentFormat.OpenXml.Wordprocessing.RunProperties;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+
 
 namespace BussinessLogic
 {
@@ -114,10 +125,6 @@ namespace BussinessLogic
 
         #region Export Region
 
-        public void PrintReport(int idReport)
-        {
-        }
-
         public void ExportReportDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
         {
             using (var document = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
@@ -201,16 +208,11 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphProperties1 = new ParagraphProperties();
                 Justification justification1 = new Justification() {Val = JustificationValues.Center};
-                SpacingBetweenLines spacing1 = new SpacingBetweenLines(){Before = "0", After = "0", Line = "200", LineRule = LineSpacingRuleValues.Exact};
+//                SpacingBetweenLines spacing1 = new SpacingBetweenLines(){Before = "0", After = "0"};
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties1 = new ParagraphMarkRunProperties();
-                /*
-                paragraphMarkRunProperties1.AppendChild(new Bold());
-                paragraphMarkRunProperties1.AppendChild(new FontSize() {Val = "32"});
-                paragraphMarkRunProperties1.AppendChild(new FontSizeComplexScript() {Val = "32"});
-                */
                 paragraphProperties1.AppendChild(justification1);
-                paragraphProperties1.AppendChild(spacing1);
+//                paragraphProperties1.AppendChild(spacing1);
                 paragraphProperties1.AppendChild(paragraphMarkRunProperties1);
 
                 Run run1 = new Run() {RsidRunProperties = "004D2B75"};
@@ -221,7 +223,7 @@ namespace BussinessLogic
                 runProperties1.AppendChild(new FontSize() {Val = "32"});
                 runProperties1.AppendChild(new FontSizeComplexScript() {Val = "32"});
                 Text text1 = new Text();
-                text1.Text = "Informe de Hipertension Arterial";
+                text1.Text = "Informe de Monitoreo Ambulatorio de Presión Arterial";
 
                 run1.AppendChild(runProperties1);
                 run1.AppendChild(text1);
@@ -1971,8 +1973,14 @@ namespace BussinessLogic
 
                 mainDocumentPart1.Document = document1;
                 HeaderPart coverHeader = mainDocumentPart1.AddNewPart<HeaderPart>("rId8");
-                HeaderPart headerPart1 = mainDocumentPart1.AddNewPart<HeaderPart>("rId7");
+                ImagePart imagePart = coverHeader.AddImagePart(ImagePartType.Jpeg,"rId9");
 
+                using (FileStream stream = new FileStream(ConfigurationManager.AppSettings["HCLogo"], FileMode.Open))
+                {
+                    imagePart.FeedData(stream);
+                }
+
+                HeaderPart headerPart1 = mainDocumentPart1.AddNewPart<HeaderPart>("rId7");
 
                 GenerateCoverHeader(coverHeader);
                 GenerateHeader(headerPart1, report.Patient);
@@ -6133,10 +6141,62 @@ namespace BussinessLogic
         {
             Header coverHeader = new Header();
 
+            // Define the reference of the image.
+            var element =
+                 new Drawing(
+                     new Wp.Inline(
+                         new Wp.Extent() { Cx = 1171575L, Cy = 485775L },
+                         new Wp.EffectExtent()
+                         {
+                             LeftEdge = 0L,
+                             TopEdge = 0L,
+                             RightEdge = 0L,
+                             BottomEdge = 0L
+                         },
+                         new Wp.DocProperties()
+                         {
+                             Id = (UInt32Value)1U,
+                             Name = "Figura 1"
+                         },
+                         new Wp.NonVisualGraphicFrameDrawingProperties(
+                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                         new A.Graphic(
+                             new A.GraphicData(
+                                 new Pic.Picture(
+                                     new Pic.NonVisualPictureProperties(
+                                         new Pic.NonVisualDrawingProperties()
+                                         {
+                                             Id = (UInt32Value)0U,
+                                             Name = "HCLogo.jpg"
+                                         },
+                                         new Pic.NonVisualPictureDrawingProperties()),
+                                     new Pic.BlipFill(
+                                         new A.Blip()
+                                         {
+                                             Embed = "rId9",
+                                         },
+                                         new A.Stretch(
+                                             new A.FillRectangle())),
+                                     new Pic.ShapeProperties(
+                                         new A.Transform2D(
+                                             new A.Offset() { X = 0L, Y = 0L },
+                                             new A.Extents() { Cx = 1171575L, Cy = 485775L }),
+                                         new A.PresetGeometry(
+                                             new A.AdjustValueList()
+                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
+                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                     )
+                     {
+                         DistanceFromTop = (UInt32Value)0U,
+                         DistanceFromBottom = (UInt32Value)0U,
+                         DistanceFromLeft = (UInt32Value)0U,
+                         DistanceFromRight = (UInt32Value)0U
+                     });
+            
             Paragraph paragraph59 = new Paragraph() { RsidParagraphAddition = "00AA46B2", RsidRunAdditionDefault = "00F4078F" };
 
             ParagraphProperties paragraphProperties43 = new ParagraphProperties();
-            ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
+//            ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
 
             SpacingBetweenLines spacing59 = new SpacingBetweenLines() { Before = "0", After = "0" };
             paragraphProperties43.AppendChild(spacing59);
@@ -6144,14 +6204,14 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
 
-            paragraphProperties43.AppendChild(paragraphStyleId3);
+//            paragraphProperties43.AppendChild(paragraphStyleId3);
             paragraphProperties43.AppendChild(paragraphMarkRunProperties42);
 
             Run run47 = new Run();
 
             RunProperties runProperties24 = new RunProperties();
             Text text43 = new Text();
-            text43.Text = "Hospital de Clínicas";
+            text43.Text = "Hospital de Clínicas - Unidad de Hipertensión Arterial";
 
             run47.AppendChild(runProperties24);
             run47.AppendChild(text43);
@@ -6161,23 +6221,26 @@ namespace BussinessLogic
             RunProperties runProperties25 = new RunProperties();
 
             TabChar tabChar1 = new TabChar();
-            Text text44 = new Text();
-            text44.Text = "Informe de Hipertensión Arterial";
+//            Text text44 = new Text();
+//            text44.Text = "Informe de Monitoreo Ambulatorio de Presión Arterial";
 
             run48.AppendChild(runProperties25);
+
             run48.AppendChild(tabChar1);
-            run48.AppendChild(text44);
+//            run48.AppendChild(text44);
 
             Run run49 = new Run();
 
             RunProperties runProperties26 = new RunProperties();
 
             TabChar tabChar2 = new TabChar();
+            TabChar tabChar3 = new TabChar();
             Text text45 = new Text();
-            text45.Text = "     " + DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
+            text45.Text = DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
 
             run49.AppendChild(runProperties26);
             run49.AppendChild(tabChar2);
+            run49.AppendChild(tabChar3);
             run49.AppendChild(text45);
 
             paragraph59.AppendChild(paragraphProperties43);
@@ -6185,6 +6248,7 @@ namespace BussinessLogic
             paragraph59.AppendChild(run48);
             paragraph59.AppendChild(run49);
 
+            coverHeader.AppendChild(new Paragraph(new Run(element)));
             coverHeader.AppendChild(paragraph59);
 
             coverHeaderPart.Header = coverHeader;
@@ -6196,7 +6260,7 @@ namespace BussinessLogic
             Paragraph paragraph59 = new Paragraph() { RsidParagraphAddition = "00AA46B2", RsidRunAdditionDefault = "00F4078F" };
 
             ParagraphProperties paragraphProperties43 = new ParagraphProperties();
-            ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
+//            ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
 
             SpacingBetweenLines spacing59 = new SpacingBetweenLines() { Before = "0", After = "0" };
             paragraphProperties43.AppendChild(spacing59);
@@ -6204,7 +6268,7 @@ namespace BussinessLogic
             ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
 
 
-            paragraphProperties43.AppendChild(paragraphStyleId3);
+//            paragraphProperties43.AppendChild(paragraphStyleId3);
             paragraphProperties43.AppendChild(paragraphMarkRunProperties42);
 
             Run run47 = new Run();
@@ -6222,7 +6286,7 @@ namespace BussinessLogic
 
             TabChar tabChar1 = new TabChar();
             Text text44 = new Text();
-            text44.Text = "Informe de Hipertensión Arterial";
+            text44.Text = "Informe de Monitoreo de Presión Arterial";
 
             run48.AppendChild(runProperties25);
             run48.AppendChild(tabChar1);
@@ -6233,11 +6297,13 @@ namespace BussinessLogic
             RunProperties runProperties26 = new RunProperties();
 
             TabChar tabChar2 = new TabChar();
+            TabChar tabChar20 = new TabChar();
             Text text45 = new Text();
-            text45.Text = "     " + DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
+            text45.Text = DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
 
             run49.AppendChild(runProperties26);
             run49.AppendChild(tabChar2);
+            run49.AppendChild(tabChar20);
             run49.AppendChild(text45);
 
             paragraph59.AppendChild(paragraphProperties43);
@@ -6248,14 +6314,14 @@ namespace BussinessLogic
             Paragraph paragraph60 = new Paragraph() { RsidParagraphAddition = "00F4078F", RsidRunAdditionDefault = "00F4078F" };
 
             ParagraphProperties paragraphProperties44 = new ParagraphProperties();
-            ParagraphStyleId paragraphStyleId4 = new ParagraphStyleId() { Val = "Encabezado" };
+//            ParagraphStyleId paragraphStyleId4 = new ParagraphStyleId() { Val = "Encabezado" };
 
             SpacingBetweenLines spacing60 = new SpacingBetweenLines() { Before = "0", After = "0" };
             paragraphProperties44.AppendChild(spacing60);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties43 = new ParagraphMarkRunProperties();
 
-            paragraphProperties44.AppendChild(paragraphStyleId4);
+//            paragraphProperties44.AppendChild(paragraphStyleId4);
             paragraphProperties44.AppendChild(paragraphMarkRunProperties43);
 
             paragraph60.AppendChild(paragraphProperties44);
@@ -6263,14 +6329,14 @@ namespace BussinessLogic
             Paragraph paragraph61 = new Paragraph() { RsidParagraphMarkRevision = "00CC4E8A", RsidParagraphAddition = "00CC4E8A", RsidRunAdditionDefault = "00CC4E8A" };
 
             ParagraphProperties paragraphProperties45 = new ParagraphProperties();
-            ParagraphStyleId paragraphStyleId5 = new ParagraphStyleId() { Val = "Encabezado" };
+//            ParagraphStyleId paragraphStyleId5 = new ParagraphStyleId() { Val = "Encabezado" };
 
             SpacingBetweenLines spacing61 = new SpacingBetweenLines() { Before = "0", After = "0" };
             paragraphProperties45.AppendChild(spacing61);
 
             ParagraphMarkRunProperties paragraphMarkRunProperties44 = new ParagraphMarkRunProperties();
 
-            paragraphProperties45.AppendChild(paragraphStyleId5);
+//            paragraphProperties45.AppendChild(paragraphStyleId5);
             paragraphProperties45.AppendChild(paragraphMarkRunProperties44);
 
             Run run50 = new Run();
