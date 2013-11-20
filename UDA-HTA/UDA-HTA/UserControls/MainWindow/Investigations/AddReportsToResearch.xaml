@@ -10,7 +10,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="878">
             <StackPanel Margin="10,5,0,0" Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Style="{StaticResource label}">Edad</TextBlock>
@@ -63,7 +63,12 @@
                 <Button Padding="10,0" Click="btnSearch_Click">Buscar</Button>
             </StackPanel>
 
-            <StackPanel Margin="310,40,0,0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel Margin="50,0,0,0"  Orientation="Horizontal" >
+                <TextBlock Style="{StaticResource label}" Visibility="Hidden" Name="tbTotal">Total de estudios:</TextBlock>
+                <TextBox Name="quantTotal"/>
+            </StackPanel>
+
+            <StackPanel Margin="50,40,0,0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Name="buttonAdd" Padding="10,0" Click="btnAdd_Click">Agregar</Button>
             </StackPanel>
 

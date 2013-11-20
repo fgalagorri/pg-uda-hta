@@ -42,6 +42,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            tbTotal.Visibility = Visibility.Visible;
             int? lowerAge = null;
             int? upperAge = null;
 
@@ -137,6 +138,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                     _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker,
                                                                 isDiabetic, isHypertense,
                                                                 isDyslipidemic);
+                    quantTotal.Text = " " + _lstReport.Count.ToString();
                     grReports.DataContext = _lstReport;
                 }
                 catch (Exception exception)
