@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using Gateway;
 
 namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
@@ -19,11 +20,13 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             var controller = GatewayController.GetInstance();
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 controller.ChangePassword(txtOldPassword.Password, txtNewPassword.Password, txtNewPswdRepeat.Password);
                 this.Close();
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 txtNewPassword.Password = "";
                 txtOldPassword.Password = "";
                 txtNewPswdRepeat.Password = "";

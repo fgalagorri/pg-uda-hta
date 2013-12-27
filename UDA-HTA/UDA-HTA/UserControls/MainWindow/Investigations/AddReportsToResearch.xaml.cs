@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -42,6 +42,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             tbTotal.Visibility = Visibility.Visible;
             int? lowerAge = null;
             int? upperAge = null;
@@ -143,14 +144,15 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 }
                 catch (Exception exception)
                 {
+                    Mouse.OverrideCursor = null;
                     MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
             }else
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show("El formato del campo edad es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private void grReports_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,6 +165,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             var controller = GatewayController.GetInstance();
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 foreach (Report selectedItem in grReports.SelectedItems)
                 {
                     controller.AddReportToInvestigation(selectedItem.UdaId.Value, selectedItem.Patient.UdaId.Value,
@@ -195,6 +198,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 

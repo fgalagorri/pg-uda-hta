@@ -130,6 +130,7 @@ namespace UDA_HTA
 
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -158,6 +159,8 @@ namespace UDA_HTA
 
                 if (saveChanges)
                 {
+
+                    Mouse.OverrideCursor = Cursors.Wait;
                     var d = GatewayController.GetInstance().UpdateDiagnosis(reportId, diagnosis);
                     var pv = ContainerPatient.Content as PatientViewer;
                     if (pv != null && pv.GetSelectedReport() != null)
@@ -168,6 +171,7 @@ namespace UDA_HTA
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

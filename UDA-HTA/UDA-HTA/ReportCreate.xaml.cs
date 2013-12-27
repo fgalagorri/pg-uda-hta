@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using Entities;
 using Gateway;
 using UDA_HTA.UserControls.ReportCreation;
@@ -85,10 +86,12 @@ namespace UDA_HTA
                     DialogResult = true;
                     try
                     {
+                        Mouse.OverrideCursor = Cursors.Wait;
                         GatewayController.GetInstance().AddImportedData(_report, true); 
                     }
                     catch (Exception exception)
                     {
+                        Mouse.OverrideCursor = null;
                         MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 

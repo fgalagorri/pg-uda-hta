@@ -45,6 +45,8 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
             var controller = GatewayController.GetInstance();
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
+
                 if (_drug == null)
                 {
                     //Crear
@@ -57,9 +59,12 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
                     controller.EditDrug(_drug.Id.Value, comboBoxDrugType.Text, txtName.Text, txtActive.Text);
                     MessageBox.Show("La droga se ha actualizado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+
+                Mouse.OverrideCursor = null;
             }
             catch(Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

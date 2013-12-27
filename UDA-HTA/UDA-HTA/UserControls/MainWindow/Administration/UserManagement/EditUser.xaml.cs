@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Entities;
 using Gateway;
 
@@ -28,10 +29,12 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             var controller = GatewayController.GetInstance();
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 controller.EditUser(_user.Id, txtName.Text, comboRole.Text, txtLogin.Text);
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

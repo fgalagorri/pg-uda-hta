@@ -163,6 +163,9 @@
     <Compile Include="UserControls\MainWindow\Patients\PatientViewerOverLimitPie.xaml.cs">
       <DependentUpon>PatientViewerOverLimitPie.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MainWindow\Patients\PatientViewerPressureProfile.xaml.cs">
+      <DependentUpon>PatientViewerPressureProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainWindow\Patients\PatientViewerReportInfo.xaml.cs">
       <DependentUpon>PatientViewerReportInfo.xaml</DependentUpon>
     </Compile>
@@ -291,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MainWindow\Patients\PatientViewerOverLimitPie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MainWindow\Patients\PatientViewerPressureProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

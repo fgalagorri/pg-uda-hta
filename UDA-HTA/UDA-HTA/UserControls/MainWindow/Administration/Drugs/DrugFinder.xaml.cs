@@ -45,6 +45,7 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
