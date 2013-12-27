@@ -29,7 +29,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             var controller = GatewayController.GetInstance();
             try
             {
-                var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(), txtSurname.Text.Trim(),
+                var patients = controller.ListPatients(txtDocument.Text.Trim(), txtName.Text.Trim(),
+                                                       txtSurname.Text.Trim(),
                                                        dtBirthDate.SelectedDate, txtRegistry.Text);
 
                 grPatients.DataContext = patients;
@@ -38,7 +39,10 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             {
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            Mouse.OverrideCursor = null;
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
         }
 
 

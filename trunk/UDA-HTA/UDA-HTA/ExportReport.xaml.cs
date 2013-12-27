@@ -80,6 +80,7 @@ namespace UDA_HTA
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
@@ -130,6 +131,7 @@ namespace UDA_HTA
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

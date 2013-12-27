@@ -46,6 +46,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
             try
             {
@@ -72,16 +73,19 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 }
 
                 container.ContainerInvestigation.Content = new ResearchViewer(_investigation.IdInvestigation);
+                Mouse.OverrideCursor = null;    
+                this.Close();
             }
             catch(Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            this.Close();
         }
 
         private void btnAddReports_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             var controller = GatewayController.GetInstance();
             try
             {
@@ -91,6 +95,8 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                                                    dpDate.SelectedDate.Value);
                 else
                     investigation = controller.CreateInvestigation(txtName.Text.Trim(), txtComment.Text.Trim(), DateTime.Today);
+                
+                Mouse.OverrideCursor = null;
                 this.Close();
 
                 var addReportsWindow = new AddReportsToResearch(investigation, container);
@@ -99,6 +105,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }

@@ -34,8 +34,10 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             {
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            Mouse.OverrideCursor = null;
-
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
         }
 
         private void grUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)

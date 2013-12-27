@@ -25,20 +25,21 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             try
             {
                 _patient = GatewayController.GetInstance().GetPatientFullView(patient.UdaId.Value);
+            
+                InitializeComponent();
+
+                TabPatient.SetPatientInfo(_patient);
+                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
+            
+                PopulateTree();
+
+                Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-            InitializeComponent();
-
-            TabPatient.SetPatientInfo(_patient);
-            TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
-            
-            PopulateTree();
-
-            Mouse.OverrideCursor = null;
         }
         public PatientViewer(long patientId, long reportId, UDA_HTA.MainWindow w)
         {
@@ -47,32 +48,36 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             try
             {
                 _patient = GatewayController.GetInstance().GetPatientFullView(patientId);
+
+                InitializeComponent();
+
+                PopulateTree(reportId);
+                _report = _patient.ReportList.First(r => r.UdaId.Value.Equals(reportId));
+
+                TabPatient.SetPatientInfo(_patient);
+                TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
+                TabReportInfo.SetReport(_report);
+                ReportInfo.Visibility = Visibility.Visible;
+                TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
+                ReportEvents.Visibility = Visibility.Visible;
+                TabReportSummary.SetReport(_report);
+                ReportSummary.Visibility = Visibility.Visible;
+                TabReportDiagnosis.SetReport(_report);
+                ReportDiagnosis.Visibility = Visibility.Visible;
+                TabReportData.SetReport(_report);
+                ReportData.Visibility = Visibility.Visible;
+                TabOverLimit.SetReport(_report);
+                ReportOverLimit.Visibility = Visibility.Visible;
+                TabPressureProfile.SetReport(_report);
+                ReportPressureProfile.Visibility = Visibility.Visible;
+
+                Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            InitializeComponent();
-
-            PopulateTree(reportId);
-            _report = _patient.ReportList.First(r => r.UdaId.Value.Equals(reportId));
-
-            TabPatient.SetPatientInfo(_patient);
-            TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
-            TabReportInfo.SetReport(_report);
-            ReportInfo.Visibility = Visibility.Visible;
-            TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
-            ReportEvents.Visibility = Visibility.Visible;
-            TabReportSummary.SetReport(_report);
-            ReportSummary.Visibility = Visibility.Visible;
-            TabReportDiagnosis.SetReport(_report);
-            ReportDiagnosis.Visibility = Visibility.Visible;
-            TabReportData.SetReport(_report);
-            ReportData.Visibility = Visibility.Visible;
-            ReportCharts.Visibility = Visibility.Visible;
-
-            Mouse.OverrideCursor = null;
         }
         private void PopulateTree(long? reportId = null)
         {
@@ -128,17 +133,23 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 TabReportData.SetReport(_report);
                 ReportData.Visibility = Visibility.Visible;
                 TabOverLimit.SetReport(_report);
-                ReportCharts.Visibility = Visibility.Visible;
+                ReportOverLimit.Visibility = Visibility.Visible;
+                TabPressureProfile.SetReport(_report);
+                ReportPressureProfile.Visibility = Visibility.Visible;
             }
             else
             {
+                if(!ReportPatient.IsSelected && !ReportCondition.IsSelected)
+                    ReportPatient.IsSelected = true;
+
                 _report = null;
                 ReportInfo.Visibility = Visibility.Collapsed;
                 ReportEvents.Visibility = Visibility.Collapsed;
                 ReportSummary.Visibility = Visibility.Collapsed;
                 ReportDiagnosis.Visibility = Visibility.Collapsed;
                 ReportData.Visibility = Visibility.Collapsed;
-                ReportCharts.Visibility = Visibility.Collapsed;
+                ReportOverLimit.Visibility = Visibility.Collapsed;
+                ReportPressureProfile.Visibility = Visibility.Collapsed;
             }
             Mouse.OverrideCursor = null;
         }

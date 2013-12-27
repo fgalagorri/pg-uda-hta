@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using Gateway;
 
 namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
@@ -19,11 +20,13 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             var controller = GatewayController.GetInstance();
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
                 this.Close();
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

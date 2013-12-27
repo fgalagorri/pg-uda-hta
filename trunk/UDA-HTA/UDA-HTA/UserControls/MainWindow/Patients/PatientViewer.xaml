@@ -28,13 +28,13 @@
         <Border Grid.Column="1" Width="5" />
 
         <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Paciente">
+            <TabItem Name="ReportPatient" Header="Paciente">
                 <ContentControl>
                     <patients:PatientViewerInformation x:Name="TabPatient" />
                 </ContentControl>
             </TabItem>
 
-            <TabItem Header="Condición">
+            <TabItem Name="ReportCondition" Header="Condición">
                 <ContentControl>
                     <patients:PatientViewerCondition x:Name="TabCondition" />
                 </ContentControl>
@@ -70,8 +70,12 @@
                 </ContentControl>
             </TabItem>
 
-            <TabItem Name="ReportCharts"  Header="Gráficos" Visibility="Collapsed">
+            <TabItem Name="ReportOverLimit"  Header="Valores sobre el límite" Visibility="Collapsed">
                 <patients:PatientViewerOverLimitPie x:Name="TabOverLimit" />
+            </TabItem>
+
+            <TabItem Name="ReportPressureProfile"  Header="Perfil de Presión Arterial" Visibility="Collapsed">
+                <patients:PatientViewerPressureProfile x:Name="TabPressureProfile" />
             </TabItem>
 
         </TabControl>

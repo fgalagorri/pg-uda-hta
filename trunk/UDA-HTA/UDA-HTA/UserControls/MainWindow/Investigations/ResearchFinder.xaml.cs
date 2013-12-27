@@ -39,7 +39,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             int? id = null;
             if (txtId.Text.Length > 0)
             {
-                id = int.Parse(txtId.Text);                
+                id = int.Parse(txtId.Text);
             }
             try
             {
@@ -50,8 +50,10 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             {
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            Mouse.OverrideCursor = null;
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
         }
 
         private void researchId_KeyDown(object sender, KeyEventArgs e)

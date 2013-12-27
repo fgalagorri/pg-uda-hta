@@ -56,6 +56,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             {
                 try
                 {
+                    Mouse.OverrideCursor = Cursors.Wait;
                     var patient = patientInfo.GetPatient();
                     patient = patientCondition.GetPatient(patient);
                     if (_crear)
@@ -71,11 +72,12 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                         GatewayController.GetInstance().EditPatient(patient);
                         MessageBox.Show("El paciente se ha actualizado correctamente", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    Close();                
-
+                    Close();
+                    Mouse.OverrideCursor = null;
                 }
                 catch (Exception exception)
                 {
+                    Mouse.OverrideCursor = null;
                     MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

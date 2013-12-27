@@ -48,10 +48,13 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             var controller = GatewayController.GetInstance();
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 controller.UpdateMeasure(m.Id, m.IsEnabled, m.Comment);
+                Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

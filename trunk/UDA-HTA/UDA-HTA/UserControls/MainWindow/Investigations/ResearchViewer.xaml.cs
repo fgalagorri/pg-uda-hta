@@ -34,20 +34,21 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             try
             {
                 _investigation = GatewayController.GetInstance().GetInvestigation(idInvestigation);
+
+                InitializeComponent();
+            
+                TabInvestigation.SetInformationInfo(_investigation);
+                TabReports.SetReportList(_investigation.LReports);
+
+                PopulateTree();
+
+                Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            InitializeComponent();
-            
-            TabInvestigation.SetInformationInfo(_investigation);
-            TabReports.SetReportList(_investigation.LReports);
-
-            PopulateTree();
-
-            Mouse.OverrideCursor = null;
         }
 
         public Investigation GetSelectedInvestigation()
@@ -122,18 +123,22 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             _report = lstReports.ElementAt(index);
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 GatewayController.GetInstance().DeleteReportFromResearch(_report, _investigation);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
 
             lstReports.Remove(_report);
             _investigation.LReports = lstReports;
             treeInvestigation.Items.Remove(selected);
             TabInvestigation.SetInformationInfo(_investigation);
             TabReports.SetReportList(_investigation.LReports);
+
+                Mouse.OverrideCursor = null;
+            }
+            catch (Exception exception)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 
