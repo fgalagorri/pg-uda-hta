@@ -375,13 +375,13 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateUser$$
-CREATE PROCEDURE updateUser(IN login_ VARCHAR(45), IN name_ TEXT, IN rol VARCHAR(45))
+CREATE PROCEDURE updateUser(IN idUsr INT, IN login_ VARCHAR(45), IN name_ TEXT, IN rol VARCHAR(45))
 BEGIN
 UPDATE `user`
 SET `login` = login_,
 	`name` = name_,
 	`rol` = rol 
-WHERE login = login_;
+WHERE idUser = idUsr;
 END$$
 DELIMITER ;
 
