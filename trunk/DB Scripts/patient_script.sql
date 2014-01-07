@@ -26,7 +26,7 @@ CREATE  TABLE IF NOT EXISTS `patient_info_db`.`patient` (
   `department` VARCHAR(45) NULL ,
   `birthday` DATETIME NULL ,
   `e_mail` TEXT NULL ,
-  `register_number` VARCHAR(20) NULL ,
+  `register_number` VARCHAR(45) NULL ,
   `modified_date` DATETIME NULL ,
   PRIMARY KEY (`idPatient`) ,
   UNIQUE INDEX `document_UNIQUE` (`document` ASC) )
