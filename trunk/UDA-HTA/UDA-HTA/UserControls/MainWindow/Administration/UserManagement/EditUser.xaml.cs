@@ -31,6 +31,7 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             {
                 Mouse.OverrideCursor = Cursors.Wait;
                 controller.EditUser(_user.Id, txtName.Text, comboRole.Text, txtLogin.Text);
+                MessageBox.Show("Usuario actualizado con éxito");
             }
             catch (Exception exception)
             {
