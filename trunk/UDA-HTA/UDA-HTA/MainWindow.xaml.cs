@@ -288,7 +288,7 @@ namespace UDA_HTA
                 SaveFileDialog saveAs = new SaveFileDialog
                     {
                         FileName = "Investigacion " + investigation.Name,
-                        DefaultExt = ".xlsm"
+                        DefaultExt = ".xlsx"
                         //                    Filter = "*.xlsm"
                     };
                 saveAs.FileName += " " + investigation.CreationDate
