@@ -227,18 +227,13 @@ namespace HMSDataAccess
 
                 list.Add(measure);
 
-                report.EndDate = measure.Time;
+                if (!report.EndDate.HasValue || report.EndDate.Value < measure.Time.Value)
+                    report.EndDate = measure.Time;
             }
 
             report.MiddleDayAvg = 0;
-            report.MiddleDayMax = 0;
-            report.MiddleDayMin = 0;
             report.MiddleNightAvg = 0;
-            report.MiddleNightMax = 0;
-            report.MiddleNightMin = 0;
             report.MiddleTotalAvg = 0;
-            report.MiddleTotalMax = 0;
-            report.MiddleTotalMin = 0;
 
             report.SystolicDayAvg = 0;
             report.SystolicDayMax = 0;
@@ -247,8 +242,6 @@ namespace HMSDataAccess
             report.SystolicNightMax = 0;
             report.SystolicNightMin = 0;
             report.SystolicTotalAvg = 0;
-            report.SystolicTotalMax = 0;
-            report.SystolicTotalMin = 0;
 
             report.DiastolicDayAvg = 0;
             report.DiastolicDayMax = 0;
@@ -257,8 +250,6 @@ namespace HMSDataAccess
             report.DiastolicNightMax = 0;
             report.DiastolicNightMin = 0;
             report.DiastolicTotalAvg = 0;
-            report.DiastolicTotalMax = 0;
-            report.DiastolicTotalMin = 0;
 /*
             report.DiastolicDayMax = list.Where(m => m.Valid && (bool) !m.Asleep).Max(m => m.Diastolic);
             report.DiastolicNightMax = list.Where(m => m.Valid && (bool) m.Asleep).Max(m => m.Diastolic);

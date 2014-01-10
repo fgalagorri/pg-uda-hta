@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Entities;
 using Gateway;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.MainWindow.Patients
 {
@@ -130,6 +131,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 ReportSummary.Visibility = Visibility.Visible;
                 TabReportDiagnosis.SetReport(_report);
                 ReportDiagnosis.Visibility = Visibility.Visible;
+                TabReportData.SetParent(this);
                 TabReportData.SetReport(_report);
                 ReportData.Visibility = Visibility.Visible;
                 TabOverLimit.SetReport(_report);
@@ -177,6 +179,19 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             _report.Doctor = d.Doctor;
 
             TabReportDiagnosis.UpdateDiagnosis(d);
+        }
+
+        public void UpdateMeasure(Measurement m)
+        {
+            // Actualizar valores del reporte
+            _report = UpdateReportHelper.UpdateMeasure(_report, m);
+            GatewayController.GetInstance().UpdateReport(_report);
+
+            // Actualizar las vistas actuales
+            TabReportSummary.SetReport(_report);
+            TabReportData.SetReport(_report);
+            TabOverLimit.SetReport(_report);
+            TabPressureProfile.SetReport(_report);
         }
     }
 }

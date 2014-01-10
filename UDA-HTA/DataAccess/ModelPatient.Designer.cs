@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -120,6 +121,7 @@ namespace DataAccess
         private ObjectSet<patient> _patient;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -147,6 +149,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Function Imports
     
         /// <summary>
@@ -581,11 +584,11 @@ namespace DataAccess
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -612,6 +615,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -714,6 +718,7 @@ namespace DataAccess
         partial void Onpatient_idPatientChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -756,6 +761,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -782,6 +788,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -908,6 +915,7 @@ namespace DataAccess
         partial void Onpatient_idPatientChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -950,6 +958,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -982,6 +991,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1372,6 +1382,7 @@ namespace DataAccess
         partial void Onmodified_dateChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1420,8 +1431,10 @@ namespace DataAccess
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

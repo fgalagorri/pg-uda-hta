@@ -51,6 +51,99 @@ DELIMITER ;
 -- UPDATES --
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS updateReport$$
+CREATE PROCEDURE updateReport(IN id BIGINT, IN n_sys_total_avg INT, IN n_sys_day_avg INT, IN n_sys_night_avg INT, 
+							  IN n_dias_total_avg INT, IN n_dias_day_avg INT, IN n_dias_night_avg INT,
+							  IN n_tam_total_avg INT, IN n_tam_day_avg INT, IN n_tam_night_avg INT,
+							  IN n_hr_total_avg INT, IN n_hr_day_avg INT, IN n_hr_night_avg INT,
+							  
+							  IN n_sys_total_sd DECIMAL(5,2), IN n_sys_day_sd DECIMAL(5,2), IN n_sys_night_sd DECIMAL(5,2), 
+							  IN n_dias_total_sd DECIMAL(5,2), IN n_dias_day_sd DECIMAL(5,2), IN n_dias_night_sd DECIMAL(5,2), 
+							  IN n_tam_total_sd DECIMAL(5,2), IN n_tam_day_sd DECIMAL(5,2), IN n_tam_night_sd DECIMAL(5,2),
+							  IN n_hr_total_sd DECIMAL(5,2), IN n_hr_day_sd DECIMAL(5,2), IN n_hr_night_sd DECIMAL(5,2),
+
+							  IN n_sys_day_max INT, IN n_sys_night_max INT,
+							  IN n_dias_day_max INT, IN n_dias_night_max INT,
+							  IN n_hr_day_max INT, IN n_hr_night_max INT,
+							  
+							  IN n_sys_day_min INT, IN n_sys_night_min INT,
+							  IN n_dias_day_min INT, IN n_dias_night_min INT,
+							  IN n_hr_day_min INT, IN n_hr_night_min INT,
+							  
+							  /*IN n_sys_day_max_dt DATETIME, IN n_sys_night_max_dt DATETIME,
+							  IN n_dias_day_max_dt DATETIME, IN n_dias_night_max_dt DATETIME,
+							  IN n_hr_day_max_dt DATETIME, IN n_hr_night_max_dt DATETIME,
+							  
+							  IN n_sys_day_min_dt DATETIME, IN n_sys_night_min_dt DATETIME,
+							  IN n_dias_day_min_dt DATETIME, IN n_dias_night_min_dt DATETIME,
+							  IN n_hr_day_min_dt DATETIME, IN n_hr_night_min_dt DATETIME,*/
+							  
+							  IN n_sys_dipping DECIMAL(5,2), IN n_dias_dipping DECIMAL(5,2))
+BEGIN
+UPDATE `report`
+SET `total_avg_sys` = n_sys_total_avg,
+	`day_avg_sys`  = n_sys_day_avg,
+    `night_avg_sys` = n_sys_night_avg,
+	`total_avg_dias` = n_dias_total_avg,
+    `day_avg_dias` = n_dias_day_avg,
+    `night_avg_dias` = n_dias_night_avg,
+    `tot_tam_avg` = n_tam_total_avg,
+	`day_tam_avg` = n_tam_day_avg,
+	`night_tam_avg` = n_tam_night_avg,
+	`tot_avg_hr` = n_hr_total_avg,
+	`day_avg_hr` = n_hr_day_avg,
+	`night_avg_hr` = n_hr_night_avg,
+	
+	`tot_sd_sis` = n_sys_total_sd,
+    `day_sd_sis` = n_sys_day_sd,
+    `night_sd_sis` = n_sys_night_sd,
+	`tot_sd_dias` = n_dias_total_sd,
+    `day_sd_dias` = n_dias_day_sd,
+    `night_sd_dias` = n_dias_night_sd,
+    `tot_sd_tam` = n_tam_total_sd,
+    `day_sd_tam` = n_tam_day_sd,
+    `night_sd_tam` = n_tam_night_sd,
+    `tot_sd_hr` = n_hr_total_sd,
+    `day_sd_hr` = n_hr_day_sd,
+    `night_sd_hr` = n_hr_night_sd,
+	
+    `day_max_sys` = n_sys_day_max,
+    `night_max_sys` = n_sys_night_max,
+    `day_max_dias` = n_dias_day_max,
+    `night_max_dias` = n_dias_night_max,
+	`max_day_hr` = n_hr_day_max,
+	`max_night_hr` = n_hr_night_max,
+	
+	`day_min_sis` = n_sys_day_min,
+	`night_min_sis` = n_sys_night_min,
+    `day_min_dias` = n_dias_day_min,
+	`night_min_dias` = n_dias_night_min,
+	`min_day_hr` = n_hr_day_min,
+	`min_night_hr` = n_hr_night_min,
+	
+    /*`day_max_sys_dt` = n_sys_day_max_dt,
+    `night_max_sys_dt` = n_sys_night_max_dt,
+    `day_max_dias_dt` = n_dias_day_max_dt,
+    `night_max_dias_dt` = n_dias_night_max_dt,
+	`max_day_hr_dt` = n_hr_day_max_dt,
+	`max_night_hr_dt` = n_hr_night_max_dt,
+	
+	`day_min_sis_dt` = n_sys_day_min_dt,
+	`night_min_sis_dt` = n_sys_night_min_dt,
+    `day_min_dias_dt` = n_dias_day_min_dt,
+	`night_min_dias_dt` = n_dias_night_min_dt,
+	`min_day_hr_dt` = n_hr_day_min_dt,
+	`min_night_hr_dt` = n_hr_night_min_dt,*/
+	
+	`sys_dipping` = n_sys_dipping,
+	`dias_dipping` = n_dias_dipping
+WHERE `idReport` = id;
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS editPatient$$
 CREATE PROCEDURE editPatient(IN id BIGINT, IN name_ VARCHAR(45), IN surname VARCHAR(45), 
 							 IN addr TEXT, IN dni VARCHAR(45), IN birth DATETIME, 

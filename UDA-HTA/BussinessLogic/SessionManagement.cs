@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using DataAccess;
 using Entities;
@@ -49,8 +50,7 @@ namespace BussinessLogic
             if (!u.Password.Equals("") && u.Password.Equals(pswdHashed))
                 return u;
 
-            var exception = new Exception("verifyPassword failed");
-            throw exception;
+            throw new VerificationException("verifyPassword failed");
         }
 
     }

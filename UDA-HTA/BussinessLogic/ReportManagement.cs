@@ -61,6 +61,12 @@ namespace BussinessLogic
             uda.UpdateMeasureInformation(measureId,enabled,comment);
         }
 
+        public void UpdateReportValues(Report report)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateReport(report);
+        }
+
         public ICollection<Report> ListPatientReports(long idPatient)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
@@ -5233,7 +5239,7 @@ namespace BussinessLogic
             RunProperties runProperties252 = new RunProperties();
             Text text276 = new Text();
             //Diastolica maxima total
-            text276.Text = report.DiastolicTotalMax.ToString();
+            text276.Text = "";
 
             run276.AppendChild(runProperties252);
             run276.AppendChild(text276);
