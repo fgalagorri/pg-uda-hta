@@ -40,7 +40,7 @@
                 <DataGridTemplateColumn Width="Auto" Header="Deshabilitar">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="entities:Measurement">
-                            <CheckBox IsChecked="{Binding Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}" Click="CheckBox_Click"/>
+                            <CheckBox IsChecked="{Binding Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}" Click="CheckBox_Click" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -18,6 +18,9 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
     {
         private ICollection<Measurement> _measures;
         private Limits lim;
+        private PatientViewer _pv;
+        // Para identificar cuando la edición es en el commentario
+        private bool _editIsComment = false;
 
         public PatientViewerData()
         {
@@ -28,7 +31,10 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             lim = controller.GetLimits();
         }
 
-
+        public void SetParent(PatientViewer pv)
+        {
+            _pv = pv;
+        }
         
         public void SetReport(Report r)
         {
@@ -43,24 +49,43 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
+            bool updateMeasure = false;
+
             //actualizar base
             Measurement m = (Measurement) grid.SelectedItem;
             var controller = GatewayController.GetInstance();
             try
             {
                 Mouse.OverrideCursor = Cursors.Wait;
+
                 controller.UpdateMeasure(m.Id, m.IsEnabled, m.Comment);
+                updateMeasure = true;
+
+                if(!_editIsComment)
+                    _pv.UpdateMeasure(m);
+
+                _editIsComment = false;
                 Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {
                 Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                if (updateMeasure && !_editIsComment)
+                {
+                    controller.UpdateMeasure(m.Id, !m.IsEnabled, m.Comment);
+                    m.IsEnabled = !m.IsEnabled;
+                    grid.DataContext = _measures.OrderBy(nm => nm.Time.Value).ToList();
+                }
+
+                _editIsComment = false;
             }
         }
 
         private void Comment_OnKeyDown(object sender, KeyEventArgs e)
         {
+            _editIsComment = true;
             if (e.Key == Key.Enter)
                 CheckBox_Click(sender, e);
         }

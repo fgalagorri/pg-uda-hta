@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -288,6 +289,7 @@ namespace DataAccess
         private ObjectSet<dailycarnet> _dailycarnet;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -395,6 +397,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Function Imports
     
         /// <summary>
@@ -1480,11 +1483,22 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="idUsr">No Metadata Documentation available.</param>
         /// <param name="login_">No Metadata Documentation available.</param>
         /// <param name="name_">No Metadata Documentation available.</param>
         /// <param name="rol">No Metadata Documentation available.</param>
-        public int updateUser(global::System.String login_, global::System.String name_, global::System.String rol)
+        public int updateUser(Nullable<global::System.Int32> idUsr, global::System.String login_, global::System.String name_, global::System.String rol)
         {
+            ObjectParameter idUsrParameter;
+            if (idUsr.HasValue)
+            {
+                idUsrParameter = new ObjectParameter("idUsr", idUsr);
+            }
+            else
+            {
+                idUsrParameter = new ObjectParameter("idUsr", typeof(global::System.Int32));
+            }
+    
             ObjectParameter login_Parameter;
             if (login_ != null)
             {
@@ -1515,7 +1529,7 @@ namespace DataAccess
                 rolParameter = new ObjectParameter("rol", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("updateUser", login_Parameter, name_Parameter, rolParameter);
+            return base.ExecuteFunction("updateUser", idUsrParameter, login_Parameter, name_Parameter, rolParameter);
         }
     
         /// <summary>
@@ -2357,13 +2371,481 @@ namespace DataAccess
     
             return base.ExecuteFunction("updateInvestigation", idParameter, name_Parameter, creationdate_Parameter, comment_Parameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="n_sys_total_avg">No Metadata Documentation available.</param>
+        /// <param name="n_sys_day_avg">No Metadata Documentation available.</param>
+        /// <param name="n_sys_night_avg">No Metadata Documentation available.</param>
+        /// <param name="n_dias_total_avg">No Metadata Documentation available.</param>
+        /// <param name="n_dias_day_avg">No Metadata Documentation available.</param>
+        /// <param name="n_dias_night_avg">No Metadata Documentation available.</param>
+        /// <param name="n_tam_total_avg">No Metadata Documentation available.</param>
+        /// <param name="n_tam_day_avg">No Metadata Documentation available.</param>
+        /// <param name="n_tam_night_avg">No Metadata Documentation available.</param>
+        /// <param name="n_hr_total_avg">No Metadata Documentation available.</param>
+        /// <param name="n_hr_day_avg">No Metadata Documentation available.</param>
+        /// <param name="n_hr_night_avg">No Metadata Documentation available.</param>
+        /// <param name="n_sys_total_sd">No Metadata Documentation available.</param>
+        /// <param name="n_sys_day_sd">No Metadata Documentation available.</param>
+        /// <param name="n_sys_night_sd">No Metadata Documentation available.</param>
+        /// <param name="n_dias_total_sd">No Metadata Documentation available.</param>
+        /// <param name="n_dias_day_sd">No Metadata Documentation available.</param>
+        /// <param name="n_dias_night_sd">No Metadata Documentation available.</param>
+        /// <param name="n_tam_total_sd">No Metadata Documentation available.</param>
+        /// <param name="n_tam_day_sd">No Metadata Documentation available.</param>
+        /// <param name="n_tam_night_sd">No Metadata Documentation available.</param>
+        /// <param name="n_hr_total_sd">No Metadata Documentation available.</param>
+        /// <param name="n_hr_day_sd">No Metadata Documentation available.</param>
+        /// <param name="n_hr_night_sd">No Metadata Documentation available.</param>
+        /// <param name="n_sys_day_max">No Metadata Documentation available.</param>
+        /// <param name="n_sys_night_max">No Metadata Documentation available.</param>
+        /// <param name="n_dias_day_max">No Metadata Documentation available.</param>
+        /// <param name="n_dias_night_max">No Metadata Documentation available.</param>
+        /// <param name="n_hr_day_max">No Metadata Documentation available.</param>
+        /// <param name="n_hr_night_max">No Metadata Documentation available.</param>
+        /// <param name="n_sys_day_min">No Metadata Documentation available.</param>
+        /// <param name="n_sys_night_min">No Metadata Documentation available.</param>
+        /// <param name="n_dias_day_min">No Metadata Documentation available.</param>
+        /// <param name="n_dias_night_min">No Metadata Documentation available.</param>
+        /// <param name="n_hr_day_min">No Metadata Documentation available.</param>
+        /// <param name="n_hr_night_min">No Metadata Documentation available.</param>
+        public int updateReport(Nullable<global::System.Int64> id, Nullable<global::System.Int32> n_sys_total_avg, Nullable<global::System.Int32> n_sys_day_avg, Nullable<global::System.Int32> n_sys_night_avg, Nullable<global::System.Int32> n_dias_total_avg, Nullable<global::System.Int32> n_dias_day_avg, Nullable<global::System.Int32> n_dias_night_avg, Nullable<global::System.Int32> n_tam_total_avg, Nullable<global::System.Int32> n_tam_day_avg, Nullable<global::System.Int32> n_tam_night_avg, Nullable<global::System.Int32> n_hr_total_avg, Nullable<global::System.Int32> n_hr_day_avg, Nullable<global::System.Int32> n_hr_night_avg, Nullable<global::System.Decimal> n_sys_total_sd, Nullable<global::System.Decimal> n_sys_day_sd, Nullable<global::System.Decimal> n_sys_night_sd, Nullable<global::System.Decimal> n_dias_total_sd, Nullable<global::System.Decimal> n_dias_day_sd, Nullable<global::System.Decimal> n_dias_night_sd, Nullable<global::System.Decimal> n_tam_total_sd, Nullable<global::System.Decimal> n_tam_day_sd, Nullable<global::System.Decimal> n_tam_night_sd, Nullable<global::System.Decimal> n_hr_total_sd, Nullable<global::System.Decimal> n_hr_day_sd, Nullable<global::System.Decimal> n_hr_night_sd, Nullable<global::System.Int32> n_sys_day_max, Nullable<global::System.Int32> n_sys_night_max, Nullable<global::System.Int32> n_dias_day_max, Nullable<global::System.Int32> n_dias_night_max, Nullable<global::System.Int32> n_hr_day_max, Nullable<global::System.Int32> n_hr_night_max, Nullable<global::System.Int32> n_sys_day_min, Nullable<global::System.Int32> n_sys_night_min, Nullable<global::System.Int32> n_dias_day_min, Nullable<global::System.Int32> n_dias_night_min, Nullable<global::System.Int32> n_hr_day_min, Nullable<global::System.Int32> n_hr_night_min)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter n_sys_total_avgParameter;
+            if (n_sys_total_avg.HasValue)
+            {
+                n_sys_total_avgParameter = new ObjectParameter("n_sys_total_avg", n_sys_total_avg);
+            }
+            else
+            {
+                n_sys_total_avgParameter = new ObjectParameter("n_sys_total_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_sys_day_avgParameter;
+            if (n_sys_day_avg.HasValue)
+            {
+                n_sys_day_avgParameter = new ObjectParameter("n_sys_day_avg", n_sys_day_avg);
+            }
+            else
+            {
+                n_sys_day_avgParameter = new ObjectParameter("n_sys_day_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_sys_night_avgParameter;
+            if (n_sys_night_avg.HasValue)
+            {
+                n_sys_night_avgParameter = new ObjectParameter("n_sys_night_avg", n_sys_night_avg);
+            }
+            else
+            {
+                n_sys_night_avgParameter = new ObjectParameter("n_sys_night_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_total_avgParameter;
+            if (n_dias_total_avg.HasValue)
+            {
+                n_dias_total_avgParameter = new ObjectParameter("n_dias_total_avg", n_dias_total_avg);
+            }
+            else
+            {
+                n_dias_total_avgParameter = new ObjectParameter("n_dias_total_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_day_avgParameter;
+            if (n_dias_day_avg.HasValue)
+            {
+                n_dias_day_avgParameter = new ObjectParameter("n_dias_day_avg", n_dias_day_avg);
+            }
+            else
+            {
+                n_dias_day_avgParameter = new ObjectParameter("n_dias_day_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_night_avgParameter;
+            if (n_dias_night_avg.HasValue)
+            {
+                n_dias_night_avgParameter = new ObjectParameter("n_dias_night_avg", n_dias_night_avg);
+            }
+            else
+            {
+                n_dias_night_avgParameter = new ObjectParameter("n_dias_night_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_tam_total_avgParameter;
+            if (n_tam_total_avg.HasValue)
+            {
+                n_tam_total_avgParameter = new ObjectParameter("n_tam_total_avg", n_tam_total_avg);
+            }
+            else
+            {
+                n_tam_total_avgParameter = new ObjectParameter("n_tam_total_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_tam_day_avgParameter;
+            if (n_tam_day_avg.HasValue)
+            {
+                n_tam_day_avgParameter = new ObjectParameter("n_tam_day_avg", n_tam_day_avg);
+            }
+            else
+            {
+                n_tam_day_avgParameter = new ObjectParameter("n_tam_day_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_tam_night_avgParameter;
+            if (n_tam_night_avg.HasValue)
+            {
+                n_tam_night_avgParameter = new ObjectParameter("n_tam_night_avg", n_tam_night_avg);
+            }
+            else
+            {
+                n_tam_night_avgParameter = new ObjectParameter("n_tam_night_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_total_avgParameter;
+            if (n_hr_total_avg.HasValue)
+            {
+                n_hr_total_avgParameter = new ObjectParameter("n_hr_total_avg", n_hr_total_avg);
+            }
+            else
+            {
+                n_hr_total_avgParameter = new ObjectParameter("n_hr_total_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_day_avgParameter;
+            if (n_hr_day_avg.HasValue)
+            {
+                n_hr_day_avgParameter = new ObjectParameter("n_hr_day_avg", n_hr_day_avg);
+            }
+            else
+            {
+                n_hr_day_avgParameter = new ObjectParameter("n_hr_day_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_night_avgParameter;
+            if (n_hr_night_avg.HasValue)
+            {
+                n_hr_night_avgParameter = new ObjectParameter("n_hr_night_avg", n_hr_night_avg);
+            }
+            else
+            {
+                n_hr_night_avgParameter = new ObjectParameter("n_hr_night_avg", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_sys_total_sdParameter;
+            if (n_sys_total_sd.HasValue)
+            {
+                n_sys_total_sdParameter = new ObjectParameter("n_sys_total_sd", n_sys_total_sd);
+            }
+            else
+            {
+                n_sys_total_sdParameter = new ObjectParameter("n_sys_total_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_sys_day_sdParameter;
+            if (n_sys_day_sd.HasValue)
+            {
+                n_sys_day_sdParameter = new ObjectParameter("n_sys_day_sd", n_sys_day_sd);
+            }
+            else
+            {
+                n_sys_day_sdParameter = new ObjectParameter("n_sys_day_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_sys_night_sdParameter;
+            if (n_sys_night_sd.HasValue)
+            {
+                n_sys_night_sdParameter = new ObjectParameter("n_sys_night_sd", n_sys_night_sd);
+            }
+            else
+            {
+                n_sys_night_sdParameter = new ObjectParameter("n_sys_night_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_dias_total_sdParameter;
+            if (n_dias_total_sd.HasValue)
+            {
+                n_dias_total_sdParameter = new ObjectParameter("n_dias_total_sd", n_dias_total_sd);
+            }
+            else
+            {
+                n_dias_total_sdParameter = new ObjectParameter("n_dias_total_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_dias_day_sdParameter;
+            if (n_dias_day_sd.HasValue)
+            {
+                n_dias_day_sdParameter = new ObjectParameter("n_dias_day_sd", n_dias_day_sd);
+            }
+            else
+            {
+                n_dias_day_sdParameter = new ObjectParameter("n_dias_day_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_dias_night_sdParameter;
+            if (n_dias_night_sd.HasValue)
+            {
+                n_dias_night_sdParameter = new ObjectParameter("n_dias_night_sd", n_dias_night_sd);
+            }
+            else
+            {
+                n_dias_night_sdParameter = new ObjectParameter("n_dias_night_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_tam_total_sdParameter;
+            if (n_tam_total_sd.HasValue)
+            {
+                n_tam_total_sdParameter = new ObjectParameter("n_tam_total_sd", n_tam_total_sd);
+            }
+            else
+            {
+                n_tam_total_sdParameter = new ObjectParameter("n_tam_total_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_tam_day_sdParameter;
+            if (n_tam_day_sd.HasValue)
+            {
+                n_tam_day_sdParameter = new ObjectParameter("n_tam_day_sd", n_tam_day_sd);
+            }
+            else
+            {
+                n_tam_day_sdParameter = new ObjectParameter("n_tam_day_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_tam_night_sdParameter;
+            if (n_tam_night_sd.HasValue)
+            {
+                n_tam_night_sdParameter = new ObjectParameter("n_tam_night_sd", n_tam_night_sd);
+            }
+            else
+            {
+                n_tam_night_sdParameter = new ObjectParameter("n_tam_night_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_hr_total_sdParameter;
+            if (n_hr_total_sd.HasValue)
+            {
+                n_hr_total_sdParameter = new ObjectParameter("n_hr_total_sd", n_hr_total_sd);
+            }
+            else
+            {
+                n_hr_total_sdParameter = new ObjectParameter("n_hr_total_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_hr_day_sdParameter;
+            if (n_hr_day_sd.HasValue)
+            {
+                n_hr_day_sdParameter = new ObjectParameter("n_hr_day_sd", n_hr_day_sd);
+            }
+            else
+            {
+                n_hr_day_sdParameter = new ObjectParameter("n_hr_day_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_hr_night_sdParameter;
+            if (n_hr_night_sd.HasValue)
+            {
+                n_hr_night_sdParameter = new ObjectParameter("n_hr_night_sd", n_hr_night_sd);
+            }
+            else
+            {
+                n_hr_night_sdParameter = new ObjectParameter("n_hr_night_sd", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_sys_day_maxParameter;
+            if (n_sys_day_max.HasValue)
+            {
+                n_sys_day_maxParameter = new ObjectParameter("n_sys_day_max", n_sys_day_max);
+            }
+            else
+            {
+                n_sys_day_maxParameter = new ObjectParameter("n_sys_day_max", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_sys_night_maxParameter;
+            if (n_sys_night_max.HasValue)
+            {
+                n_sys_night_maxParameter = new ObjectParameter("n_sys_night_max", n_sys_night_max);
+            }
+            else
+            {
+                n_sys_night_maxParameter = new ObjectParameter("n_sys_night_max", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_day_maxParameter;
+            if (n_dias_day_max.HasValue)
+            {
+                n_dias_day_maxParameter = new ObjectParameter("n_dias_day_max", n_dias_day_max);
+            }
+            else
+            {
+                n_dias_day_maxParameter = new ObjectParameter("n_dias_day_max", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_night_maxParameter;
+            if (n_dias_night_max.HasValue)
+            {
+                n_dias_night_maxParameter = new ObjectParameter("n_dias_night_max", n_dias_night_max);
+            }
+            else
+            {
+                n_dias_night_maxParameter = new ObjectParameter("n_dias_night_max", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_day_maxParameter;
+            if (n_hr_day_max.HasValue)
+            {
+                n_hr_day_maxParameter = new ObjectParameter("n_hr_day_max", n_hr_day_max);
+            }
+            else
+            {
+                n_hr_day_maxParameter = new ObjectParameter("n_hr_day_max", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_night_maxParameter;
+            if (n_hr_night_max.HasValue)
+            {
+                n_hr_night_maxParameter = new ObjectParameter("n_hr_night_max", n_hr_night_max);
+            }
+            else
+            {
+                n_hr_night_maxParameter = new ObjectParameter("n_hr_night_max", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_sys_day_minParameter;
+            if (n_sys_day_min.HasValue)
+            {
+                n_sys_day_minParameter = new ObjectParameter("n_sys_day_min", n_sys_day_min);
+            }
+            else
+            {
+                n_sys_day_minParameter = new ObjectParameter("n_sys_day_min", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_sys_night_minParameter;
+            if (n_sys_night_min.HasValue)
+            {
+                n_sys_night_minParameter = new ObjectParameter("n_sys_night_min", n_sys_night_min);
+            }
+            else
+            {
+                n_sys_night_minParameter = new ObjectParameter("n_sys_night_min", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_day_minParameter;
+            if (n_dias_day_min.HasValue)
+            {
+                n_dias_day_minParameter = new ObjectParameter("n_dias_day_min", n_dias_day_min);
+            }
+            else
+            {
+                n_dias_day_minParameter = new ObjectParameter("n_dias_day_min", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_dias_night_minParameter;
+            if (n_dias_night_min.HasValue)
+            {
+                n_dias_night_minParameter = new ObjectParameter("n_dias_night_min", n_dias_night_min);
+            }
+            else
+            {
+                n_dias_night_minParameter = new ObjectParameter("n_dias_night_min", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_day_minParameter;
+            if (n_hr_day_min.HasValue)
+            {
+                n_hr_day_minParameter = new ObjectParameter("n_hr_day_min", n_hr_day_min);
+            }
+            else
+            {
+                n_hr_day_minParameter = new ObjectParameter("n_hr_day_min", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter n_hr_night_minParameter;
+            if (n_hr_night_min.HasValue)
+            {
+                n_hr_night_minParameter = new ObjectParameter("n_hr_night_min", n_hr_night_min);
+            }
+            else
+            {
+                n_hr_night_minParameter = new ObjectParameter("n_hr_night_min", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("updateReport", idParameter, n_sys_total_avgParameter, n_sys_day_avgParameter, n_sys_night_avgParameter, n_dias_total_avgParameter, n_dias_day_avgParameter, n_dias_night_avgParameter, n_tam_total_avgParameter, n_tam_day_avgParameter, n_tam_night_avgParameter, n_hr_total_avgParameter, n_hr_day_avgParameter, n_hr_night_avgParameter, n_sys_total_sdParameter, n_sys_day_sdParameter, n_sys_night_sdParameter, n_dias_total_sdParameter, n_dias_day_sdParameter, n_dias_night_sdParameter, n_tam_total_sdParameter, n_tam_day_sdParameter, n_tam_night_sdParameter, n_hr_total_sdParameter, n_hr_day_sdParameter, n_hr_night_sdParameter, n_sys_day_maxParameter, n_sys_night_maxParameter, n_dias_day_maxParameter, n_dias_night_maxParameter, n_hr_day_maxParameter, n_hr_night_maxParameter, n_sys_day_minParameter, n_sys_night_minParameter, n_dias_day_minParameter, n_dias_night_minParameter, n_hr_day_minParameter, n_hr_night_minParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
+        }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -2390,6 +2872,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2516,6 +2999,7 @@ namespace DataAccess
         partial void OntimeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2558,6 +3042,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2582,6 +3067,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3188,6 +3674,7 @@ namespace DataAccess
         partial void Onsleep_commentsChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3236,6 +3723,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3266,6 +3754,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3368,6 +3857,7 @@ namespace DataAccess
         partial void OnactiveChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3432,6 +3922,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3458,6 +3949,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3512,6 +4004,7 @@ namespace DataAccess
         partial void OntypeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3538,6 +4031,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3566,6 +4060,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3668,6 +4163,7 @@ namespace DataAccess
         partial void OncommentChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3694,6 +4190,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3730,6 +4227,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4048,6 +4546,7 @@ namespace DataAccess
         partial void OnhighdiasnightChanged();
 
         #endregion
+
     
     }
     
@@ -4081,6 +4580,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4405,6 +4905,7 @@ namespace DataAccess
         partial void Onis_enabledChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4447,6 +4948,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4473,6 +4975,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4578,6 +5081,7 @@ namespace DataAccess
         partial void Onpatientuda_idPatientUdaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4620,6 +5124,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4650,6 +5155,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4776,6 +5282,7 @@ namespace DataAccess
         partial void OntimeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4856,6 +5363,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4880,6 +5388,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4910,6 +5419,7 @@ namespace DataAccess
         partial void OnidPatientUdaChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4958,6 +5468,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4992,6 +5503,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5749,7 +6261,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> tot_sd_sis
+        public Nullable<global::System.Decimal> tot_sd_sis
         {
             get
             {
@@ -5764,8 +6276,8 @@ namespace DataAccess
                 Ontot_sd_sisChanged();
             }
         }
-        private Nullable<global::System.Int32> _tot_sd_sis;
-        partial void Ontot_sd_sisChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _tot_sd_sis;
+        partial void Ontot_sd_sisChanging(Nullable<global::System.Decimal> value);
         partial void Ontot_sd_sisChanged();
     
         /// <summary>
@@ -5773,7 +6285,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> tot_sd_dias
+        public Nullable<global::System.Decimal> tot_sd_dias
         {
             get
             {
@@ -5788,8 +6300,8 @@ namespace DataAccess
                 Ontot_sd_diasChanged();
             }
         }
-        private Nullable<global::System.Int32> _tot_sd_dias;
-        partial void Ontot_sd_diasChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _tot_sd_dias;
+        partial void Ontot_sd_diasChanging(Nullable<global::System.Decimal> value);
         partial void Ontot_sd_diasChanged();
     
         /// <summary>
@@ -5797,7 +6309,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> day_sd_sis
+        public Nullable<global::System.Decimal> day_sd_sis
         {
             get
             {
@@ -5812,8 +6324,8 @@ namespace DataAccess
                 Onday_sd_sisChanged();
             }
         }
-        private Nullable<global::System.Int32> _day_sd_sis;
-        partial void Onday_sd_sisChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _day_sd_sis;
+        partial void Onday_sd_sisChanging(Nullable<global::System.Decimal> value);
         partial void Onday_sd_sisChanged();
     
         /// <summary>
@@ -5821,7 +6333,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> day_sd_dias
+        public Nullable<global::System.Decimal> day_sd_dias
         {
             get
             {
@@ -5836,8 +6348,8 @@ namespace DataAccess
                 Onday_sd_diasChanged();
             }
         }
-        private Nullable<global::System.Int32> _day_sd_dias;
-        partial void Onday_sd_diasChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _day_sd_dias;
+        partial void Onday_sd_diasChanging(Nullable<global::System.Decimal> value);
         partial void Onday_sd_diasChanged();
     
         /// <summary>
@@ -5845,7 +6357,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> night_sd_sis
+        public Nullable<global::System.Decimal> night_sd_sis
         {
             get
             {
@@ -5860,8 +6372,8 @@ namespace DataAccess
                 Onnight_sd_sisChanged();
             }
         }
-        private Nullable<global::System.Int32> _night_sd_sis;
-        partial void Onnight_sd_sisChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _night_sd_sis;
+        partial void Onnight_sd_sisChanging(Nullable<global::System.Decimal> value);
         partial void Onnight_sd_sisChanged();
     
         /// <summary>
@@ -5869,7 +6381,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> night_sd_dias
+        public Nullable<global::System.Decimal> night_sd_dias
         {
             get
             {
@@ -5884,8 +6396,8 @@ namespace DataAccess
                 Onnight_sd_diasChanged();
             }
         }
-        private Nullable<global::System.Int32> _night_sd_dias;
-        partial void Onnight_sd_diasChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Decimal> _night_sd_dias;
+        partial void Onnight_sd_diasChanging(Nullable<global::System.Decimal> value);
         partial void Onnight_sd_diasChanged();
     
         /// <summary>
@@ -6177,6 +6689,7 @@ namespace DataAccess
         partial void OnspecialtyChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6339,6 +6852,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6363,6 +6877,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6657,6 +7172,7 @@ namespace DataAccess
         partial void OnkcalChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6705,6 +7221,7 @@ namespace DataAccess
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6737,6 +7254,7 @@ namespace DataAccess
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6863,9 +7381,11 @@ namespace DataAccess
         partial void OnnameChanged();
 
         #endregion
+
     
     }
 
     #endregion
+
     
 }

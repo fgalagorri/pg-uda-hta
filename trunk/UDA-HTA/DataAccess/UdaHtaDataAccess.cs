@@ -207,6 +207,27 @@ namespace DataAccess
             }
         }
 
+        public void UpdateReport(Report r)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateReport(r.UdaId, r.SystolicTotalAvg, r.SystolicDayAvg, r.SystolicNightAvg,
+                                        r.DiastolicTotalAvg, r.DiastolicDayAvg, r.DiastolicNightAvg,
+                                        r.MiddleTotalAvg, r.MiddleDayAvg, r.MiddleNightAvg,
+                                        r.HeartRateTotalAvg, r.HeartRateDayAvg, r.HeartRateNightAvg,
+                                        r.StandardDeviationSysTotal, r.StandardDeviationSysDay, r.StandardDeviationSysNight,
+                                        r.StandardDeviationDiasTotal, r.StandardDeviationDiasDay, r.StandardDeviationDiasNight,
+                                        r.StandardDeviationTamTotal, r.StandardDeviationTamDay, r.StandardDeviationTamNight,
+                                        r.StandardDeviationHeartRateTotal, r.StandardDeviationHeartRateDay, r.StandardDeviationHeartRateNight,
+                                        r.SystolicDayMax, r.SystolicNightMax, 
+                                        r.DiastolicDayMax, r.DiastolicNightMax,
+                                        r.HeartRateDayMax, r.HeartRateNightMax,
+                                        r.SystolicDayMin, r.SystolicNightMin,
+                                        r.DiastolicDayMin, r.DiastolicNightMin,
+                                        r.HeartRateDayMin, r.HeartRateNightMin);
+            }
+        }
+
         public ICollection<MedicalRecord> GetMedicalHistory(long idPatient)
         {
             using (udaContext = new udahta_dbEntities())
@@ -407,6 +428,10 @@ namespace DataAccess
                         r.night_min_dias,
                         r.day_min_sis,
                         r.night_min_sis,
+                        r.max_day_hr,
+                        r.max_night_hr,
+                        r.min_day_hr,
+                        r.min_night_hr
                     }).ToList();
 
                 foreach (var qry in l)
@@ -452,6 +477,10 @@ namespace DataAccess
                         DiastolicNightMin = qry.night_min_dias,
                         SystolicDayMin = qry.day_min_sis,
                         SystolicNightMin = qry.night_min_sis,
+                        HeartRateDayMax = qry.max_day_hr,
+                        HeartRateNightMax = qry.max_night_hr,
+                        HeartRateDayMin = qry.min_day_hr,
+                        HeartRateNightMin = qry.min_night_hr,
 
                         UdaId = qry.idReport
 
@@ -1193,7 +1222,7 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    udaContext.updateUser(usr.Login, usr.Name, usr.Role);
+                    udaContext.updateUser(usr.Id, usr.Login, usr.Name, usr.Role);
                 }
                 scope.Complete();
             }

@@ -61,10 +61,6 @@ namespace Entities
         public DateTime? SystolicNightMinTime { get; set; }
         
         public int? SystolicTotalAvg { get; set; }
-        public int? SystolicTotalMax { get; set; }
-        public int? SystolicTotalMin { get; set; }
-        public DateTime? SystolicTotalMaxTime { get; set; }
-        public DateTime? SystolicTotalMinTime { get; set; }
         
         
         // Diastolic measurements 
@@ -81,30 +77,12 @@ namespace Entities
         public DateTime? DiastolicNightMinTime { get; set; }
 
         public int? DiastolicTotalAvg { get; set; }
-        public int? DiastolicTotalMax { get; set; }
-        public int? DiastolicTotalMin { get; set; }
-        public DateTime? DiastolicTotalMaxTime { get; set; }  
-        public DateTime? DiastolicTotalMinTime { get; set; }
 
 
         // Middle Measurements
         public int? MiddleDayAvg { get; set; }
-        public int? MiddleDayMax { get; set; }
-        public int? MiddleDayMin { get; set; }
-        public DateTime? MiddleDayMaxTime { get; set; }
-        public DateTime? MiddleDayMinTime { get; set; }
-
         public int? MiddleNightAvg { get; set; }
-        public int? MiddleNightMax { get; set; }
-        public int? MiddleNightMin { get; set; }
-        public DateTime? MiddleNightMaxTime { get; set; }
-        public DateTime? MiddleNightMinTime { get; set; }
-
         public int? MiddleTotalAvg { get; set; }
-        public int? MiddleTotalMax { get; set; }
-        public int? MiddleTotalMin { get; set; }
-        public DateTime? MiddleTotalMaxTime { get; set; }
-        public DateTime? MiddleTotalMinTime { get; set; }
 
 
         // Heart rate measurements
@@ -121,10 +99,6 @@ namespace Entities
         public DateTime? HeartRateNightMinTime { get; set; }
 
         public int? HeartRateTotalAvg { get; set; }
-        public int? HeartRateTotalMax { get; set; }
-        public int? HeartRateTotalMin { get; set; }
-        public DateTime? HeartRateTotalMaxTime { get; set; }
-        public DateTime? HeartRateTotalMinTime { get; set; }
 
 
         // Deviations
@@ -146,7 +120,6 @@ namespace Entities
         // Dipping
         public decimal? SystolicDipping { get; set; }
         public decimal? DiastolicDipping { get; set; }
-        public decimal? MiddleDipping { get; set; }
 
         #endregion
     }

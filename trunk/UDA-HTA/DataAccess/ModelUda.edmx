@@ -476,6 +476,13 @@
         <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="typ" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="nam" Type="varchar" Mode="In" />
@@ -634,7 +641,47 @@
           <Parameter Name="login_var" Type="varchar" Mode="In" />
           <Parameter Name="pass_var" Type="text" Mode="In" />
         </Function>
+        <Function Name="updateReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="n_sys_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_dias_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_dias_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_dias_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_tam_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_tam_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_tam_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_hr_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_hr_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_hr_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_sys_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_sys_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_tam_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_tam_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_tam_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_hr_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_hr_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_hr_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_sys_day_max" Type="int" Mode="In" />
+          <Parameter Name="n_sys_night_max" Type="int" Mode="In" />
+          <Parameter Name="n_dias_day_max" Type="int" Mode="In" />
+          <Parameter Name="n_dias_night_max" Type="int" Mode="In" />
+          <Parameter Name="n_hr_day_max" Type="int" Mode="In" />
+          <Parameter Name="n_hr_night_max" Type="int" Mode="In" />
+          <Parameter Name="n_sys_day_min" Type="int" Mode="In" />
+          <Parameter Name="n_sys_night_min" Type="int" Mode="In" />
+          <Parameter Name="n_dias_day_min" Type="int" Mode="In" />
+          <Parameter Name="n_dias_night_min" Type="int" Mode="In" />
+          <Parameter Name="n_hr_day_min" Type="int" Mode="In" />
+          <Parameter Name="n_hr_night_min" Type="int" Mode="In" />
+        </Function>
         <Function Name="updateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idUsr" Type="int" Mode="In" />
           <Parameter Name="login_" Type="varchar" Mode="In" />
           <Parameter Name="name_" Type="text" Mode="In" />
           <Parameter Name="rol" Type="varchar" Mode="In" />
@@ -806,6 +853,7 @@
           <Parameter Name="login" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="updateUser">
+            <Parameter Name="idUsr" Mode="In" Type="Int32" />
             <Parameter Name="login_" Mode="In" Type="String" />
             <Parameter Name="name_" Mode="In" Type="String" />
             <Parameter Name="rol" Mode="In" Type="String" />
@@ -913,6 +961,52 @@
             <Parameter Name="name_" Mode="In" Type="String" />
             <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
             <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateReport">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="n_sys_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_tam_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_tam_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_tam_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_sys_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_sys_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_tam_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_tam_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_tam_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_hr_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_hr_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_hr_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_sys_day_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_night_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_day_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_night_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_day_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_night_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_day_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_night_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_day_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_night_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_day_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_night_min" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertEmergencyContact">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="drug">
@@ -1091,12 +1185,12 @@
           <Property Type="Int32" Name="max_night_hr" />
           <Property Type="Int32" Name="min_day_hr" />
           <Property Type="Int32" Name="min_night_hr" />
-          <Property Type="Int32" Name="tot_sd_sis" />
-          <Property Type="Int32" Name="tot_sd_dias" />
-          <Property Type="Int32" Name="day_sd_sis" />
-          <Property Type="Int32" Name="day_sd_dias" />
-          <Property Type="Int32" Name="night_sd_sis" />
-          <Property Type="Int32" Name="night_sd_dias" />
+          <Property Type="Decimal" Name="tot_sd_sis" />
+          <Property Type="Decimal" Name="tot_sd_dias" />
+          <Property Type="Decimal" Name="day_sd_sis" />
+          <Property Type="Decimal" Name="day_sd_dias" />
+          <Property Type="Decimal" Name="night_sd_sis" />
+          <Property Type="Decimal" Name="night_sd_dias" />
           <Property Type="Decimal" Name="tot_sd_tam" />
           <Property Type="Decimal" Name="day_sd_tam" />
           <Property Type="Decimal" Name="night_sd_tam" />
@@ -1487,6 +1581,8 @@
           <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
+          <FunctionImportMapping FunctionImportName="updateReport" FunctionName="udahta_dbModel.Store.updateReport" />
+          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="udahta_dbModel.Store.insertEmergencyContact" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Security;
 using BussinessLogic;
 using Entities;
 using EventLogger;
@@ -64,7 +65,7 @@ namespace Gateway
             catch(Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No ha sido posible obtener la lista de estudios sin importar.");
             }
         }
@@ -97,7 +98,7 @@ namespace Gateway
             catch(Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No ha sido posible importar los datos solicitados");
             }
 
@@ -132,7 +133,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("El paciente no pudo ser creado, por favor, intentelo nuevamente");
             }
 
@@ -146,7 +147,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 var e = new Exception("El reporte no pudo ser creado, por favor, intentelo nuevamente");
                 throw e;
             }
@@ -176,7 +177,7 @@ namespace Gateway
             catch(Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido actualizar el diagnóstico, por favor, inténtelo nuevamente");
             }
 
@@ -192,8 +193,22 @@ namespace Gateway
             catch(Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No ha sido posible actualizar la información");
+            }
+        }
+
+        public void UpdateReport(Report report)
+        {
+            try
+            {
+                new ReportManagement().UpdateReportValues(report);
+            }
+            catch (Exception ex)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], ex.Message, ex.InnerException);
+                throw new Exception("No ha sido posible actualizar la información del reporte");
             }
         }
 
@@ -220,7 +235,7 @@ namespace Gateway
             catch(Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido exportar el informe, por favor, inténtelo nuevamente");
             }
         }
@@ -236,7 +251,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido exportar el informe, por favor, inténtelo nuevamente");
             }
         }
@@ -257,7 +272,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         } 
@@ -277,7 +292,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -292,7 +307,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -313,7 +328,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -328,7 +343,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -343,7 +358,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -358,7 +373,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No fue posible crear el paciente, por favor, inténtelo nuevamente");
             }
         }
@@ -370,12 +385,12 @@ namespace Gateway
             {
                 pm.EditPatient(patient);
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "El paciente "+ patient.Names + "(" + patient.RegisterNumber + ")" + " fue modificado por " + _loggedUser.Login);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "El paciente "+ patient.Names + "(" + patient.RegisterNumber + ")" + " fue modificado por " + _loggedUser.Login, null);
             }
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No fue posible actualizar la información del paciente");
             }
         }
@@ -395,7 +410,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("Error al intentar insertar la droga");
             }
         }
@@ -410,7 +425,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No ha sido posible actualizar la información");
             }
         }
@@ -425,7 +440,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se pudieron obtener los tipos de drogas");
             }
         } 
@@ -441,7 +456,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la informaciòn solicitada");
             }
         } 
@@ -461,13 +476,19 @@ namespace Gateway
                 _loggedUser = sm.Login(userName, encryptedPswd);
                 
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + " ha ingresado");
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + " ha ingresado", null);
             }
-            catch (Exception)
+            catch (VerificationException e)
             {
                 // El usuario y/o password no son correctos
                 var exception = new Exception("Nombre de usuario y/o contraseña no son correctos");
                 throw exception;                
+            }
+            catch (Exception ex)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], ex.Message, ex.InnerException);
+                throw new Exception("No ha sido posible crear el usuario");
             }
 
             return _loggedUser;
@@ -497,7 +518,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No ha sido posible crear el usuario");
             }
         }
@@ -523,7 +544,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("Alguno de los campos ingresados no es correcto");
                 
             }
@@ -539,7 +560,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -559,7 +580,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido actualizar la información");
             }
         }
@@ -579,7 +600,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -594,7 +615,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No ha sido posible crear la investigación");
             }
         }
@@ -609,7 +630,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }
@@ -624,7 +645,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido actualizar la información");
             }
         }
@@ -639,7 +660,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se pudo agregar el estudio a la investigación");
             }
         }
@@ -654,7 +675,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido eliminar el reporte de la investigación");
             }
         }
@@ -669,7 +690,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No se ha podido exportar la información");
             }
         }

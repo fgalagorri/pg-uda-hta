@@ -145,8 +145,57 @@
                 </Grid>
             </GroupBox>
 
-            <!-- Valores sobre límite -->
+            <!-- Desviación estándar -->
             <GroupBox Grid.Row="2">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">Desviación estándar</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.7*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.7*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.7*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">24 Hs</TextBlock>
+                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
+                    <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Sueño</TextBlock>
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
+                    <TextBlock Name="lblSDSysT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDSysD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDSysN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}" />
+
+                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
+                    <TextBlock Name="lblSDDiasT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDDiasD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDDiasN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}" />
+
+                    <TextBlock Grid.Row="3" Style="{StaticResource label}">TAM:</TextBlock>
+                    <TextBlock Name="lblSDTAMT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDTAMD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDTAMN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}" />
+
+                    <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
+                    <TextBlock Name="lblSDFCT" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDFCD" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
+                    <TextBlock Name="lblSDFCN" Grid.Row="4" Grid.Column="5" Style="{StaticResource value}" />
+                </Grid>
+            </GroupBox>
+
+            <!-- Valores sobre límite -->
+            <GroupBox Grid.Row="3">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Valores sobre el límite</TextBlock>
                 </GroupBox.Header>
@@ -183,7 +232,7 @@
             </GroupBox>
 
             <!-- Máximos -->
-            <GroupBox Grid.Row="3">
+            <GroupBox Grid.Row="4">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Máximos</TextBlock>
                 </GroupBox.Header>
@@ -244,7 +293,7 @@
             </GroupBox>
 
             <!-- Mínimos -->
-            <GroupBox Grid.Row="4">
+            <GroupBox Grid.Row="5">
                 <GroupBox.Header>
                     <TextBlock Style="{StaticResource groupTitle}">Mínimos</TextBlock>
                 </GroupBox.Header>
@@ -301,55 +350,6 @@
                         <TextBlock>Hora:</TextBlock>
                         <TextBlock Name="lblHRMinNT" />
                     </StackPanel>
-                </Grid>
-            </GroupBox>
-
-            <!-- Desviación estándar -->
-            <GroupBox Grid.Row="5">
-                <GroupBox.Header>
-                    <TextBlock Style="{StaticResource groupTitle}">Desviación estándar</TextBlock>
-                </GroupBox.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.7*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.7*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="0.7*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">24 Hs</TextBlock>
-                    <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Vigilia</TextBlock>
-                    <TextBlock Grid.Column="5" Style="{StaticResource columnTitle}">Sueño</TextBlock>
-
-                    <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
-                    <TextBlock Name="lblSDSysT" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDSysD" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDSysN" Grid.Row="1" Grid.Column="5" Style="{StaticResource value}" />
-
-                    <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
-                    <TextBlock Name="lblSDDiasT" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDDiasD" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDDiasN" Grid.Row="2" Grid.Column="5" Style="{StaticResource value}" />
-
-                    <TextBlock Grid.Row="3" Style="{StaticResource label}">TAM:</TextBlock>
-                    <TextBlock Name="lblSDTAMT" Grid.Row="3" Grid.Column="1" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDTAMD" Grid.Row="3" Grid.Column="3" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDTAMN" Grid.Row="3" Grid.Column="5" Style="{StaticResource value}" />
-
-                    <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
-                    <TextBlock Name="lblSDFCT" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDFCD" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
-                    <TextBlock Name="lblSDFCN" Grid.Row="4" Grid.Column="5" Style="{StaticResource value}" />
                 </Grid>
             </GroupBox>
 

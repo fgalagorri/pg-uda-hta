@@ -32,7 +32,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             _limits = GatewayController.GetInstance().GetLimits();
 
-            var valid = r.Measures.Where(m => m.Valid && m.Asleep.HasValue
+            var valid = r.Measures.Where(m => m.Valid && m.IsEnabled
+                                              && m.Asleep.HasValue
                                               && m.Systolic.HasValue
                                               && m.Diastolic.HasValue).ToList();
 

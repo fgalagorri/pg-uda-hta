@@ -162,6 +162,8 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `tot_tam_avg` INT NULL ,
   `day_tam_avg` INT NULL ,
   `night_tam_avg` INT NULL ,
+  `sys_dipping` DECIMAL(5,2) NULL ,
+  `dias_dipping` DECIMAL(5,2) NULL ,
   `diagnosis_date` DATETIME NULL ,
   PRIMARY KEY (`idReport`, `patientuda_idPatientUda`) ,
   INDEX `fk_Report_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
