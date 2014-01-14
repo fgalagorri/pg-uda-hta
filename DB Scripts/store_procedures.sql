@@ -76,9 +76,9 @@ CREATE PROCEDURE updateReport(IN id BIGINT, IN n_sys_total_avg INT, IN n_sys_day
 							  
 							  IN n_sys_day_min_dt DATETIME, IN n_sys_night_min_dt DATETIME,
 							  IN n_dias_day_min_dt DATETIME, IN n_dias_night_min_dt DATETIME,
-							  IN n_hr_day_min_dt DATETIME, IN n_hr_night_min_dt DATETIME,*/
+							  IN n_hr_day_min_dt DATETIME, IN n_hr_night_min_dt DATETIME,
 							  
-							  IN n_sys_dipping DECIMAL(5,2), IN n_dias_dipping DECIMAL(5,2))
+							  IN n_sys_dipping DECIMAL(5,2), IN n_dias_dipping DECIMAL(5,2)*/)
 BEGIN
 UPDATE `report`
 SET `total_avg_sys` = n_sys_total_avg,
