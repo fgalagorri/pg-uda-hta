@@ -1637,7 +1637,9 @@ namespace DataAccess
         /// <param name="tot_tam_avg">No Metadata Documentation available.</param>
         /// <param name="day_tam_avg">No Metadata Documentation available.</param>
         /// <param name="night_tam_avg">No Metadata Documentation available.</param>
-        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, Nullable<global::System.DateTime> diagnosis_dt, global::System.String requester, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr, Nullable<global::System.Decimal> tot_sd_sis, Nullable<global::System.Decimal> tot_sd_dias, Nullable<global::System.Decimal> day_sd_sis, Nullable<global::System.Decimal> day_sd_dias, Nullable<global::System.Decimal> night_sd_sis, Nullable<global::System.Decimal> night_sd_dias, Nullable<global::System.Decimal> tot_sd_tam, Nullable<global::System.Decimal> day_sd_tam, Nullable<global::System.Decimal> night_sd_tam, Nullable<global::System.Decimal> tot_sd_hr, Nullable<global::System.Decimal> day_sd_hr, Nullable<global::System.Decimal> night_sd_hr, Nullable<global::System.Int32> tot_tam_avg, Nullable<global::System.Int32> day_tam_avg, Nullable<global::System.Int32> night_tam_avg)
+        /// <param name="n_sys_dipping">No Metadata Documentation available.</param>
+        /// <param name="n_dias_dipping">No Metadata Documentation available.</param>
+        public int insertReport(ObjectParameter id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String doctor, global::System.String diagnosis, Nullable<global::System.DateTime> diagnosis_dt, global::System.String requester, global::System.String specialty, Nullable<global::System.Int32> day_avg_sys, Nullable<global::System.Int32> night_avg_sys, Nullable<global::System.Int32> total_avg_sys, Nullable<global::System.Int32> day_max_sys, Nullable<global::System.Int32> night_max_sys, Nullable<global::System.Int32> day_avg_dias, Nullable<global::System.Int32> night_avg_dias, Nullable<global::System.Int32> total_avg_dias, Nullable<global::System.Int32> day_max_dias, Nullable<global::System.Int32> night_max_dias, Nullable<global::System.Int32> idDev, global::System.String devReportId, Nullable<global::System.Int32> idTemporaryData, Nullable<global::System.Int64> idDailyCarnet, Nullable<global::System.Int64> idPatient, Nullable<global::System.Int32> day_min_sis, Nullable<global::System.Int32> day_min_dias, Nullable<global::System.Int32> night_min_sis, Nullable<global::System.Int32> night_min_dias, Nullable<global::System.Int32> tot_avg_hr, Nullable<global::System.Int32> day_avg_hr, Nullable<global::System.Int32> night_avg_hr, Nullable<global::System.Int32> max_day_hr, Nullable<global::System.Int32> max_night_hr, Nullable<global::System.Int32> min_day_hr, Nullable<global::System.Int32> min_night_hr, Nullable<global::System.Decimal> tot_sd_sis, Nullable<global::System.Decimal> tot_sd_dias, Nullable<global::System.Decimal> day_sd_sis, Nullable<global::System.Decimal> day_sd_dias, Nullable<global::System.Decimal> night_sd_sis, Nullable<global::System.Decimal> night_sd_dias, Nullable<global::System.Decimal> tot_sd_tam, Nullable<global::System.Decimal> day_sd_tam, Nullable<global::System.Decimal> night_sd_tam, Nullable<global::System.Decimal> tot_sd_hr, Nullable<global::System.Decimal> day_sd_hr, Nullable<global::System.Decimal> night_sd_hr, Nullable<global::System.Int32> tot_tam_avg, Nullable<global::System.Int32> day_tam_avg, Nullable<global::System.Int32> night_tam_avg, Nullable<global::System.Decimal> n_sys_dipping, Nullable<global::System.Decimal> n_dias_dipping)
         {
             ObjectParameter begin_dateParameter;
             if (begin_date.HasValue)
@@ -2119,7 +2121,27 @@ namespace DataAccess
                 night_tam_avgParameter = new ObjectParameter("night_tam_avg", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter, requesterParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter);
+            ObjectParameter n_sys_dippingParameter;
+            if (n_sys_dipping.HasValue)
+            {
+                n_sys_dippingParameter = new ObjectParameter("n_sys_dipping", n_sys_dipping);
+            }
+            else
+            {
+                n_sys_dippingParameter = new ObjectParameter("n_sys_dipping", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter n_dias_dippingParameter;
+            if (n_dias_dipping.HasValue)
+            {
+                n_dias_dippingParameter = new ObjectParameter("n_dias_dipping", n_dias_dipping);
+            }
+            else
+            {
+                n_dias_dippingParameter = new ObjectParameter("n_dias_dipping", typeof(global::System.Decimal));
+            }
+    
+            return base.ExecuteFunction("insertReport", id, begin_dateParameter, end_dateParameter, doctorParameter, diagnosisParameter, diagnosis_dtParameter, requesterParameter, specialtyParameter, day_avg_sysParameter, night_avg_sysParameter, total_avg_sysParameter, day_max_sysParameter, night_max_sysParameter, day_avg_diasParameter, night_avg_diasParameter, total_avg_diasParameter, day_max_diasParameter, night_max_diasParameter, idDevParameter, devReportIdParameter, idTemporaryDataParameter, idDailyCarnetParameter, idPatientParameter, day_min_sisParameter, day_min_diasParameter, night_min_sisParameter, night_min_diasParameter, tot_avg_hrParameter, day_avg_hrParameter, night_avg_hrParameter, max_day_hrParameter, max_night_hrParameter, min_day_hrParameter, min_night_hrParameter, tot_sd_sisParameter, tot_sd_diasParameter, day_sd_sisParameter, day_sd_diasParameter, night_sd_sisParameter, night_sd_diasParameter, tot_sd_tamParameter, day_sd_tamParameter, night_sd_tamParameter, tot_sd_hrParameter, day_sd_hrParameter, night_sd_hrParameter, tot_tam_avgParameter, day_tam_avgParameter, night_tam_avgParameter, n_sys_dippingParameter, n_dias_dippingParameter);
         }
     
         /// <summary>
@@ -2376,6 +2398,59 @@ namespace DataAccess
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="n_sys_total_avg">No Metadata Documentation available.</param>
         /// <param name="n_sys_day_avg">No Metadata Documentation available.</param>
         /// <param name="n_sys_night_avg">No Metadata Documentation available.</param>
@@ -2412,7 +2487,9 @@ namespace DataAccess
         /// <param name="n_dias_night_min">No Metadata Documentation available.</param>
         /// <param name="n_hr_day_min">No Metadata Documentation available.</param>
         /// <param name="n_hr_night_min">No Metadata Documentation available.</param>
-        public int updateReport(Nullable<global::System.Int64> id, Nullable<global::System.Int32> n_sys_total_avg, Nullable<global::System.Int32> n_sys_day_avg, Nullable<global::System.Int32> n_sys_night_avg, Nullable<global::System.Int32> n_dias_total_avg, Nullable<global::System.Int32> n_dias_day_avg, Nullable<global::System.Int32> n_dias_night_avg, Nullable<global::System.Int32> n_tam_total_avg, Nullable<global::System.Int32> n_tam_day_avg, Nullable<global::System.Int32> n_tam_night_avg, Nullable<global::System.Int32> n_hr_total_avg, Nullable<global::System.Int32> n_hr_day_avg, Nullable<global::System.Int32> n_hr_night_avg, Nullable<global::System.Decimal> n_sys_total_sd, Nullable<global::System.Decimal> n_sys_day_sd, Nullable<global::System.Decimal> n_sys_night_sd, Nullable<global::System.Decimal> n_dias_total_sd, Nullable<global::System.Decimal> n_dias_day_sd, Nullable<global::System.Decimal> n_dias_night_sd, Nullable<global::System.Decimal> n_tam_total_sd, Nullable<global::System.Decimal> n_tam_day_sd, Nullable<global::System.Decimal> n_tam_night_sd, Nullable<global::System.Decimal> n_hr_total_sd, Nullable<global::System.Decimal> n_hr_day_sd, Nullable<global::System.Decimal> n_hr_night_sd, Nullable<global::System.Int32> n_sys_day_max, Nullable<global::System.Int32> n_sys_night_max, Nullable<global::System.Int32> n_dias_day_max, Nullable<global::System.Int32> n_dias_night_max, Nullable<global::System.Int32> n_hr_day_max, Nullable<global::System.Int32> n_hr_night_max, Nullable<global::System.Int32> n_sys_day_min, Nullable<global::System.Int32> n_sys_night_min, Nullable<global::System.Int32> n_dias_day_min, Nullable<global::System.Int32> n_dias_night_min, Nullable<global::System.Int32> n_hr_day_min, Nullable<global::System.Int32> n_hr_night_min)
+        /// <param name="n_sys_dipping">No Metadata Documentation available.</param>
+        /// <param name="n_dias_dipping">No Metadata Documentation available.</param>
+        public int updateReport(Nullable<global::System.Int64> id, Nullable<global::System.Int32> n_sys_total_avg, Nullable<global::System.Int32> n_sys_day_avg, Nullable<global::System.Int32> n_sys_night_avg, Nullable<global::System.Int32> n_dias_total_avg, Nullable<global::System.Int32> n_dias_day_avg, Nullable<global::System.Int32> n_dias_night_avg, Nullable<global::System.Int32> n_tam_total_avg, Nullable<global::System.Int32> n_tam_day_avg, Nullable<global::System.Int32> n_tam_night_avg, Nullable<global::System.Int32> n_hr_total_avg, Nullable<global::System.Int32> n_hr_day_avg, Nullable<global::System.Int32> n_hr_night_avg, Nullable<global::System.Decimal> n_sys_total_sd, Nullable<global::System.Decimal> n_sys_day_sd, Nullable<global::System.Decimal> n_sys_night_sd, Nullable<global::System.Decimal> n_dias_total_sd, Nullable<global::System.Decimal> n_dias_day_sd, Nullable<global::System.Decimal> n_dias_night_sd, Nullable<global::System.Decimal> n_tam_total_sd, Nullable<global::System.Decimal> n_tam_day_sd, Nullable<global::System.Decimal> n_tam_night_sd, Nullable<global::System.Decimal> n_hr_total_sd, Nullable<global::System.Decimal> n_hr_day_sd, Nullable<global::System.Decimal> n_hr_night_sd, Nullable<global::System.Int32> n_sys_day_max, Nullable<global::System.Int32> n_sys_night_max, Nullable<global::System.Int32> n_dias_day_max, Nullable<global::System.Int32> n_dias_night_max, Nullable<global::System.Int32> n_hr_day_max, Nullable<global::System.Int32> n_hr_night_max, Nullable<global::System.Int32> n_sys_day_min, Nullable<global::System.Int32> n_sys_night_min, Nullable<global::System.Int32> n_dias_day_min, Nullable<global::System.Int32> n_dias_night_min, Nullable<global::System.Int32> n_hr_day_min, Nullable<global::System.Int32> n_hr_night_min, Nullable<global::System.Decimal> n_sys_dipping, Nullable<global::System.Decimal> n_dias_dipping)
         {
             ObjectParameter idParameter;
             if (id.HasValue)
@@ -2784,60 +2861,27 @@ namespace DataAccess
                 n_hr_night_minParameter = new ObjectParameter("n_hr_night_min", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("updateReport", idParameter, n_sys_total_avgParameter, n_sys_day_avgParameter, n_sys_night_avgParameter, n_dias_total_avgParameter, n_dias_day_avgParameter, n_dias_night_avgParameter, n_tam_total_avgParameter, n_tam_day_avgParameter, n_tam_night_avgParameter, n_hr_total_avgParameter, n_hr_day_avgParameter, n_hr_night_avgParameter, n_sys_total_sdParameter, n_sys_day_sdParameter, n_sys_night_sdParameter, n_dias_total_sdParameter, n_dias_day_sdParameter, n_dias_night_sdParameter, n_tam_total_sdParameter, n_tam_day_sdParameter, n_tam_night_sdParameter, n_hr_total_sdParameter, n_hr_day_sdParameter, n_hr_night_sdParameter, n_sys_day_maxParameter, n_sys_night_maxParameter, n_dias_day_maxParameter, n_dias_night_maxParameter, n_hr_day_maxParameter, n_hr_night_maxParameter, n_sys_day_minParameter, n_sys_night_minParameter, n_dias_day_minParameter, n_dias_night_minParameter, n_hr_day_minParameter, n_hr_night_minParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="name">No Metadata Documentation available.</param>
-        /// <param name="surname">No Metadata Documentation available.</param>
-        /// <param name="phone">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
-        {
-            ObjectParameter nameParameter;
-            if (name != null)
+            ObjectParameter n_sys_dippingParameter;
+            if (n_sys_dipping.HasValue)
             {
-                nameParameter = new ObjectParameter("name", name);
+                n_sys_dippingParameter = new ObjectParameter("n_sys_dipping", n_sys_dipping);
             }
             else
             {
-                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+                n_sys_dippingParameter = new ObjectParameter("n_sys_dipping", typeof(global::System.Decimal));
             }
     
-            ObjectParameter surnameParameter;
-            if (surname != null)
+            ObjectParameter n_dias_dippingParameter;
+            if (n_dias_dipping.HasValue)
             {
-                surnameParameter = new ObjectParameter("surname", surname);
+                n_dias_dippingParameter = new ObjectParameter("n_dias_dipping", n_dias_dipping);
             }
             else
             {
-                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+                n_dias_dippingParameter = new ObjectParameter("n_dias_dipping", typeof(global::System.Decimal));
             }
     
-            ObjectParameter phoneParameter;
-            if (phone != null)
-            {
-                phoneParameter = new ObjectParameter("phone", phone);
-            }
-            else
-            {
-                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
-            }
-    
-            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
+            return base.ExecuteFunction("updateReport", idParameter, n_sys_total_avgParameter, n_sys_day_avgParameter, n_sys_night_avgParameter, n_dias_total_avgParameter, n_dias_day_avgParameter, n_dias_night_avgParameter, n_tam_total_avgParameter, n_tam_day_avgParameter, n_tam_night_avgParameter, n_hr_total_avgParameter, n_hr_day_avgParameter, n_hr_night_avgParameter, n_sys_total_sdParameter, n_sys_day_sdParameter, n_sys_night_sdParameter, n_dias_total_sdParameter, n_dias_day_sdParameter, n_dias_night_sdParameter, n_tam_total_sdParameter, n_tam_day_sdParameter, n_tam_night_sdParameter, n_hr_total_sdParameter, n_hr_day_sdParameter, n_hr_night_sdParameter, n_sys_day_maxParameter, n_sys_night_maxParameter, n_dias_day_maxParameter, n_dias_night_maxParameter, n_hr_day_maxParameter, n_hr_night_maxParameter, n_sys_day_minParameter, n_sys_night_minParameter, n_dias_day_minParameter, n_dias_night_minParameter, n_hr_day_minParameter, n_hr_night_minParameter, n_sys_dippingParameter, n_dias_dippingParameter);
         }
 
         #endregion
@@ -6687,6 +6731,54 @@ namespace DataAccess
         private global::System.String _specialty;
         partial void OnspecialtyChanging(global::System.String value);
         partial void OnspecialtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> sys_dipping
+        {
+            get
+            {
+                return _sys_dipping;
+            }
+            set
+            {
+                Onsys_dippingChanging(value);
+                ReportPropertyChanging("sys_dipping");
+                _sys_dipping = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sys_dipping");
+                Onsys_dippingChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _sys_dipping;
+        partial void Onsys_dippingChanging(Nullable<global::System.Decimal> value);
+        partial void Onsys_dippingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> dias_dipping
+        {
+            get
+            {
+                return _dias_dipping;
+            }
+            set
+            {
+                Ondias_dippingChanging(value);
+                ReportPropertyChanging("dias_dipping");
+                _dias_dipping = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dias_dipping");
+                Ondias_dippingChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _dias_dipping;
+        partial void Ondias_dippingChanging(Nullable<global::System.Decimal> value);
+        partial void Ondias_dippingChanged();
 
         #endregion
 

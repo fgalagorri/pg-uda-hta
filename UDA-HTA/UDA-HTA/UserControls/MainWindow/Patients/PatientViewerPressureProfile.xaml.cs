@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using Entities;
 using Gateway;
 
@@ -88,7 +89,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 IntervalType = DateTimeIntervalType.Hours,
                 Interval = 2,
                 Orientation = AxisOrientation.X,
-                Location = AxisLocation.Bottom
+                Location = AxisLocation.Bottom,
+                ShowGridLines = true,
             };
 
             ((LineSeries) PressureProfile.Series[0]).IndependentAxis = xAxis;
