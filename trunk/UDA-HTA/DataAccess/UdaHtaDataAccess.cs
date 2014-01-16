@@ -76,6 +76,8 @@ namespace DataAccess
                                             r.tot_sd_hr,
                                             r.day_sd_hr,
                                             r.night_sd_hr,
+                                            r.sys_dipping,
+                                            r.dias_dipping
                                         }).FirstOrDefault();
 
                 Report rep = null;
@@ -123,6 +125,8 @@ namespace DataAccess
                             DiastolicNightMin = qry.night_min_dias,
                             SystolicDayMin = qry.day_min_sis,
                             SystolicNightMin = qry.night_min_sis,
+                            SystolicDipping = qry.sys_dipping,
+                            DiastolicDipping = qry.dias_dipping,
 
                             UdaId = qry.idReport
 
@@ -224,7 +228,8 @@ namespace DataAccess
                                         r.HeartRateDayMax, r.HeartRateNightMax,
                                         r.SystolicDayMin, r.SystolicNightMin,
                                         r.DiastolicDayMin, r.DiastolicNightMin,
-                                        r.HeartRateDayMin, r.HeartRateNightMin);
+                                        r.HeartRateDayMin, r.HeartRateNightMin,
+                                        r.SystolicDipping, r.DiastolicDipping);
             }
         }
 
@@ -431,7 +436,9 @@ namespace DataAccess
                         r.max_day_hr,
                         r.max_night_hr,
                         r.min_day_hr,
-                        r.min_night_hr
+                        r.min_night_hr,
+                        r.sys_dipping,
+                        r.dias_dipping
                     }).ToList();
 
                 foreach (var qry in l)
@@ -481,6 +488,8 @@ namespace DataAccess
                         HeartRateNightMax = qry.max_night_hr,
                         HeartRateDayMin = qry.min_day_hr,
                         HeartRateNightMin = qry.min_night_hr,
+                        SystolicDipping = qry.sys_dipping,
+                        DiastolicDipping = qry.dias_dipping,
 
                         UdaId = qry.idReport
 
@@ -625,7 +634,9 @@ namespace DataAccess
                                               r.tot_sd_sis,
                                               r.tot_sd_hr,
                                               r.day_sd_hr,
-                                              r.night_sd_hr
+                                              r.night_sd_hr,
+                                              r.sys_dipping,
+                                              r.dias_dipping
                                           }).ToList();
 
                 var measurements = udaContext.measurement
@@ -689,6 +700,8 @@ namespace DataAccess
                             DiastolicNightMin = rep.night_min_dias,
                             SystolicDayMin = rep.day_min_sis,
                             SystolicNightMin = rep.night_min_sis,
+                            SystolicDipping = rep.sys_dipping,
+                            DiastolicDipping = rep.dias_dipping,
 
                             UdaId = rep.idReport
                         };
@@ -975,6 +988,15 @@ namespace DataAccess
                                                                (double) validNightCount));
                 }
 
+                decimal? sysDipping = null;
+                decimal? diasDipping = null;
+
+                if (listMeasuresDay.Count() > 0 && listMeasuresNight.Count() > 0)
+                {
+                    sysDipping = (sysDayAvg - sysNightAvg) / (decimal)sysDayAvg;
+                    diasDipping = (diasDayAvg - diasNightAvg) / (decimal)diasDayAvg;
+                }
+
                 using (udaContext = new udahta_dbEntities())
                 {
                     lastIdReport = new ObjectParameter("id", typeof (long));
@@ -989,7 +1011,7 @@ namespace DataAccess
                                             hrDayMax, hrNightMax, hrDayMin, hrNightMin,
                                             sdSysTotal, sdDiasTotal, sdSysDay, sdDiasDay, sdSysNight, sdDiasNight,
                                             sdMiddleTot, sdTamDay, sdTamNight, sdHrTotal, sdHrDay, sdHrNight,
-                                            middleTotalAvg, middleDayAvg, middleNightAvg);
+                                            middleTotalAvg, middleDayAvg, middleNightAvg, sysDipping, diasDipping);
 
                     //Obtener lista de medidas para insertar en tabla Measurement
                     foreach (Measurement m in rep.Measures)
@@ -1461,6 +1483,8 @@ namespace DataAccess
                             DiastolicNightMin = qry.night_min_dias,
                             SystolicDayMin = qry.day_min_sis,
                             SystolicNightMin = qry.night_min_sis,
+                            SystolicDipping = qry.sys_dipping,
+                            DiastolicDipping = qry.dias_dipping,
 
                             UdaId = qry.idReport
 

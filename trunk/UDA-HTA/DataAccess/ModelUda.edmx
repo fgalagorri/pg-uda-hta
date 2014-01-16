@@ -257,6 +257,8 @@
           <Property Name="tot_tam_avg" Type="int" />
           <Property Name="day_tam_avg" Type="int" />
           <Property Name="night_tam_avg" Type="int" />
+          <Property Name="sys_dipping" Type="decimal" Precision="7" Scale="4" />
+          <Property Name="dias_dipping" Type="decimal" Precision="7" Scale="4" />
           <Property Name="diagnosis_date" Type="datetime" />
         </EntityType>
         <EntityType Name="temporarydata">
@@ -476,13 +478,6 @@
         <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="typ" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="Out" />
-          <Parameter Name="name" Type="varchar" Mode="In" />
-          <Parameter Name="surname" Type="varchar" Mode="In" />
-          <Parameter Name="phone" Type="varchar" Mode="In" />
-          <Parameter Name="idPatient" Type="bigint" Mode="In" />
-        </Function>
         <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
           <Parameter Name="nam" Type="varchar" Mode="In" />
@@ -586,6 +581,8 @@
           <Parameter Name="tot_tam_avg" Type="int" Mode="In" />
           <Parameter Name="day_tam_avg" Type="int" Mode="In" />
           <Parameter Name="night_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_dipping" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_dipping" Type="decimal" Mode="In" />
         </Function>
         <Function Name="insertTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="int" Mode="Out" />
@@ -679,6 +676,8 @@
           <Parameter Name="n_dias_night_min" Type="int" Mode="In" />
           <Parameter Name="n_hr_day_min" Type="int" Mode="In" />
           <Parameter Name="n_hr_night_min" Type="int" Mode="In" />
+          <Parameter Name="n_sys_dipping" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_dipping" Type="decimal" Mode="In" />
         </Function>
         <Function Name="updateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idUsr" Type="int" Mode="In" />
@@ -915,6 +914,8 @@
             <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
             <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_dipping" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_dipping" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="updateDrug">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -962,6 +963,13 @@
             <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
             <Parameter Name="comment_" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="insertEmergencyContact">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="updateReport">
             <Parameter Name="id" Mode="In" Type="Int64" />
             <Parameter Name="n_sys_total_avg" Mode="In" Type="Int32" />
@@ -1000,13 +1008,8 @@
             <Parameter Name="n_dias_night_min" Mode="In" Type="Int32" />
             <Parameter Name="n_hr_day_min" Mode="In" Type="Int32" />
             <Parameter Name="n_hr_night_min" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="insertEmergencyContact">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="surname" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+            <Parameter Name="n_sys_dipping" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_dipping" Mode="In" Type="Decimal" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="drug">
@@ -1205,6 +1208,8 @@
           <Property Type="String" Name="specialty" />
           <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
           <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="report" ToRole="dailycarnet" />
+          <Property Type="Decimal" Name="sys_dipping" />
+          <Property Type="Decimal" Name="dias_dipping" />
         </EntityType>
         <Association Name="fk_Report_Patient1">
           <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
@@ -1416,6 +1421,8 @@
           <EntitySetMapping Name="report">
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="dias_dipping" ColumnName="dias_dipping" />
+                <ScalarProperty Name="sys_dipping" ColumnName="sys_dipping" />
                 <ScalarProperty Name="requester" ColumnName="requester" />
                 <ScalarProperty Name="specialty" ColumnName="specialty" />
                 <ScalarProperty Name="diagnosis_date" ColumnName="diagnosis_date" />
@@ -1582,7 +1589,6 @@
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
           <FunctionImportMapping FunctionImportName="updateReport" FunctionName="udahta_dbModel.Store.updateReport" />
-          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="udahta_dbModel.Store.insertEmergencyContact" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

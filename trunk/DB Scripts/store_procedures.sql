@@ -114,7 +114,8 @@ CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date
 							  IN day_sd_tam DECIMAL(5,2), IN night_sd_tam DECIMAL(5,2), 
 							  IN tot_sd_hr DECIMAL(5,2), IN day_sd_hr DECIMAL(5,2), 
 							  IN night_sd_hr DECIMAL(5,2), IN tot_tam_avg INT, 
-							  IN day_tam_avg INT, IN night_tam_avg INT)
+							  IN day_tam_avg INT, IN night_tam_avg INT,
+							  IN n_sys_dipping DECIMAL(7,4), IN n_dias_dipping DECIMAL(7,4))
 BEGIN
 INSERT INTO `report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `diagnosis_date`, 
 					  `requester`, `specialty`, `day_avg_sys`, `night_avg_sys`, 
@@ -126,7 +127,8 @@ INSERT INTO `report` (`begin_date`, `end_date`, `doctor`, `diagnosis`, `diagnosi
 					  `night_avg_hr`, `max_day_hr`, `max_night_hr`, `min_day_hr`, `min_night_hr`, 
 					  `tot_sd_sis`, `tot_sd_dias`, `day_sd_sis`, `day_sd_dias`, `night_sd_sis`, 
 					  `night_sd_dias`, `tot_sd_tam`,`day_sd_tam`, `night_sd_tam`, `tot_sd_hr`, 
-					  `day_sd_hr`, `night_sd_hr`, `tot_tam_avg`, `day_tam_avg`, `night_tam_avg`) 
+					  `day_sd_hr`, `night_sd_hr`, `tot_tam_avg`, `day_tam_avg`, `night_tam_avg`,
+					  `sys_dipping`, `dias_dipping`) 
 VALUES (begin_date, end_date, doctor, diagnosis, diagnosis_dt, requester, specialty, 
 		day_avg_sys, night_avg_sys, total_avg_sys, day_max_sys, night_max_sys, day_avg_dias, 
 		night_avg_dias, total_avg_dias, day_max_dias, night_max_dias, idDev, devReportId, 
@@ -134,7 +136,7 @@ VALUES (begin_date, end_date, doctor, diagnosis, diagnosis_dt, requester, specia
 		night_min_dias, tot_avg_hr, day_avg_hr, night_avg_hr, max_day_hr, max_night_hr, min_day_hr, 
 		min_night_hr, tot_sd_sis, tot_sd_dias, day_sd_sis, day_sd_dias, night_sd_sis, night_sd_dias,
 		tot_sd_tam, day_sd_tam, night_sd_tam, tot_sd_hr, day_sd_hr, night_sd_hr, tot_tam_avg, 
-		day_tam_avg, night_tam_avg);
+		day_tam_avg, night_tam_avg, n_sys_dipping, n_dias_dipping);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -294,11 +296,17 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertLimitMeasures$$
-CREATE PROCEDURE insertLimitMeasures(IN maxdiasday INT, IN maxdiasdayavg INT, IN maxdiasnight INT, IN maxdiasnightavg INT, IN maxdiastotal INT, IN maxsysday INT, IN maxsysdayavg INT, IN maxsysnight INT, IN maxsysnightavg INT, IN maxsystotal INT)
+CREATE PROCEDURE insertLimitMeasures(IN maxdiasday INT, IN maxdiasdayavg INT, IN maxdiasnight INT, 
+									 IN maxdiasnightavg INT, IN maxdiastotal INT, IN maxsysday INT,
+									 IN maxsysdayavg INT, IN maxsysnight INT, 
+									 IN maxsysnightavg INT, IN maxsystotal INT)
 BEGIN
 INSERT 
-INTO `udahta_db`.`limitmeasure` (`idlimitmeasure`, `maxdiasday`, `maxdiasdayavg`, `maxdiasnight`, `maxdiasnightavg`, `maxdiastotal`, `maxsysday`, `maxsysdayavg`, `maxsysnight`, `maxsysnightavg`, `maxsystotal`) 
-VALUES (maxdiasday, maxdiasdayavg, maxdiasnight, maxdiasnightavg, maxdiastotal, maxsysday, maxsysdayavg, maxsysnight, maxsysnightavg, maxsystotal);
+INTO `udahta_db`.`limitmeasure` (`idlimitmeasure`, `maxdiasday`, `maxdiasdayavg`, `maxdiasnight`,
+								 `maxdiasnightavg`, `maxdiastotal`, `maxsysday`, `maxsysdayavg`, 
+								 `maxsysnight`, `maxsysnightavg`, `maxsystotal`) 
+VALUES (maxdiasday, maxdiasdayavg, maxdiasnight, maxdiasnightavg, maxdiastotal, maxsysday, 
+		maxsysdayavg, maxsysnight, maxsysnightavg, maxsystotal);
 END$$
 DELIMITER ;
 
@@ -347,7 +355,7 @@ CREATE PROCEDURE updateReport(IN id BIGINT, IN n_sys_total_avg INT, IN n_sys_day
 							  
 							  IN n_sys_day_min INT, IN n_sys_night_min INT,
 							  IN n_dias_day_min INT, IN n_dias_night_min INT,
-							  IN n_hr_day_min INT, IN n_hr_night_min INT
+							  IN n_hr_day_min INT, IN n_hr_night_min INT,
 							  
 							  /*IN n_sys_day_max_dt DATETIME, IN n_sys_night_max_dt DATETIME,
 							  IN n_dias_day_max_dt DATETIME, IN n_dias_night_max_dt DATETIME,
@@ -355,9 +363,9 @@ CREATE PROCEDURE updateReport(IN id BIGINT, IN n_sys_total_avg INT, IN n_sys_day
 							  
 							  IN n_sys_day_min_dt DATETIME, IN n_sys_night_min_dt DATETIME,
 							  IN n_dias_day_min_dt DATETIME, IN n_dias_night_min_dt DATETIME,
-							  IN n_hr_day_min_dt DATETIME, IN n_hr_night_min_dt DATETIME,
+							  IN n_hr_day_min_dt DATETIME, IN n_hr_night_min_dt DATETIME,*/
 							  
-							  IN n_sys_dipping DECIMAL(5,2), IN n_dias_dipping DECIMAL(5,2)*/)
+							  IN n_sys_dipping DECIMAL(7,4), IN n_dias_dipping DECIMAL(7,4))
 BEGIN
 UPDATE `report`
 SET `total_avg_sys` = n_sys_total_avg,
@@ -504,7 +512,7 @@ SET pass_var = (SELECT `pass` FROM `user` WHERE `login` = login_var LIMIT 1);
 END$$
 DELIMITER ;
 
-
+/*
 
 SELECT * FROM User;
 
@@ -532,3 +540,4 @@ TRUNCATE Measurement;
 TRUNCATE PatientUda;
 SET foreign_key_checks = 1;
 
+*/
