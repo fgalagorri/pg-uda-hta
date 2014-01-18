@@ -963,13 +963,6 @@
             <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
             <Parameter Name="comment_" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="insertEmergencyContact">
-            <Parameter Name="id" Mode="Out" Type="Int64" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="surname" Mode="In" Type="String" />
-            <Parameter Name="phone" Mode="In" Type="String" />
-            <Parameter Name="idPatient" Mode="In" Type="Int64" />
-          </FunctionImport>
           <FunctionImport Name="updateReport">
             <Parameter Name="id" Mode="In" Type="Int64" />
             <Parameter Name="n_sys_total_avg" Mode="In" Type="Int32" />
