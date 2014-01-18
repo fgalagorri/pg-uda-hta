@@ -50,13 +50,13 @@
       <Project>{AAC040B2-6F53-4BB2-9BF5-020DFF6ED3CD}</Project>
       <Name>BussinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary1\EventLogger.csproj">
-      <Project>{2E51890C-B3F1-424A-98F5-1680DCC20FAD}</Project>
-      <Name>EventLogger</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventLogger\EventLogger.csproj">
+      <Project>{2E51890C-B3F1-424A-98F5-1680DCC20FAD}</Project>
+      <Name>EventLogger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

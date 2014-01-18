@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLogic", "Bussiness
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{99BA066D-A192-4101-843D-D9E6DA95C4C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLogger", "ClassLibrary1\EventLogger.csproj", "{2E51890C-B3F1-424A-98F5-1680DCC20FAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLogger", "EventLogger\EventLogger.csproj", "{2E51890C-B3F1-424A-98F5-1680DCC20FAD}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
