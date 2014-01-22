@@ -48,6 +48,18 @@ SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
+-- DELETES --
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteEmergencyContact$$
+CREATE PROCEDURE deleteEmergencyContact(IN idEc BIGINT, IN idPatient BIGINT)
+BEGIN
+DELETE
+FROM `emergency_contact`
+WHERE (`idemergency_contact` = idEc AND
+       `patient_idPatient` = idPatient);
+END$$
+DELIMITER ;
+
 -- UPDATES --
 DELIMITER $$
 DROP PROCEDURE IF EXISTS editPatient$$
