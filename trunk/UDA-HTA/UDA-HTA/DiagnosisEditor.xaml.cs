@@ -50,5 +50,10 @@ namespace UDA_HTA
             _saveChanges = !String.IsNullOrWhiteSpace(txtDiagnosis.Text);
             this.Close();
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

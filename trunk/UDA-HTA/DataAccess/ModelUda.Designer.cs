@@ -1483,58 +1483,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="idUsr">No Metadata Documentation available.</param>
-        /// <param name="login_">No Metadata Documentation available.</param>
-        /// <param name="name_">No Metadata Documentation available.</param>
-        /// <param name="rol">No Metadata Documentation available.</param>
-        public int updateUser(Nullable<global::System.Int32> idUsr, global::System.String login_, global::System.String name_, global::System.String rol)
-        {
-            ObjectParameter idUsrParameter;
-            if (idUsr.HasValue)
-            {
-                idUsrParameter = new ObjectParameter("idUsr", idUsr);
-            }
-            else
-            {
-                idUsrParameter = new ObjectParameter("idUsr", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter login_Parameter;
-            if (login_ != null)
-            {
-                login_Parameter = new ObjectParameter("login_", login_);
-            }
-            else
-            {
-                login_Parameter = new ObjectParameter("login_", typeof(global::System.String));
-            }
-    
-            ObjectParameter name_Parameter;
-            if (name_ != null)
-            {
-                name_Parameter = new ObjectParameter("name_", name_);
-            }
-            else
-            {
-                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
-            }
-    
-            ObjectParameter rolParameter;
-            if (rol != null)
-            {
-                rolParameter = new ObjectParameter("rol", rol);
-            }
-            else
-            {
-                rolParameter = new ObjectParameter("rol", typeof(global::System.String));
-            }
-    
-            return base.ExecuteFunction("updateUser", idUsrParameter, login_Parameter, name_Parameter, rolParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="log">No Metadata Documentation available.</param>
         /// <param name="p">No Metadata Documentation available.</param>
@@ -2392,6 +2340,58 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("updateInvestigation", idParameter, name_Parameter, creationdate_Parameter, comment_Parameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idUsr">No Metadata Documentation available.</param>
+        /// <param name="login_">No Metadata Documentation available.</param>
+        /// <param name="name_">No Metadata Documentation available.</param>
+        /// <param name="rol">No Metadata Documentation available.</param>
+        public int updateUser(Nullable<global::System.Int32> idUsr, global::System.String login_, global::System.String name_, global::System.String rol)
+        {
+            ObjectParameter idUsrParameter;
+            if (idUsr.HasValue)
+            {
+                idUsrParameter = new ObjectParameter("idUsr", idUsr);
+            }
+            else
+            {
+                idUsrParameter = new ObjectParameter("idUsr", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter login_Parameter;
+            if (login_ != null)
+            {
+                login_Parameter = new ObjectParameter("login_", login_);
+            }
+            else
+            {
+                login_Parameter = new ObjectParameter("login_", typeof(global::System.String));
+            }
+    
+            ObjectParameter name_Parameter;
+            if (name_ != null)
+            {
+                name_Parameter = new ObjectParameter("name_", name_);
+            }
+            else
+            {
+                name_Parameter = new ObjectParameter("name_", typeof(global::System.String));
+            }
+    
+            ObjectParameter rolParameter;
+            if (rol != null)
+            {
+                rolParameter = new ObjectParameter("rol", rol);
+            }
+            else
+            {
+                rolParameter = new ObjectParameter("rol", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateUser", idUsrParameter, login_Parameter, name_Parameter, rolParameter);
         }
     
         /// <summary>
@@ -6252,7 +6252,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> tot_sd_sis
+        public Nullable<global::System.Int32> tot_sd_sis
         {
             get
             {
@@ -6267,8 +6267,8 @@ namespace DataAccess
                 Ontot_sd_sisChanged();
             }
         }
-        private Nullable<global::System.Decimal> _tot_sd_sis;
-        partial void Ontot_sd_sisChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int32> _tot_sd_sis;
+        partial void Ontot_sd_sisChanging(Nullable<global::System.Int32> value);
         partial void Ontot_sd_sisChanged();
     
         /// <summary>
@@ -6276,7 +6276,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> tot_sd_dias
+        public Nullable<global::System.Int32> tot_sd_dias
         {
             get
             {
@@ -6291,8 +6291,8 @@ namespace DataAccess
                 Ontot_sd_diasChanged();
             }
         }
-        private Nullable<global::System.Decimal> _tot_sd_dias;
-        partial void Ontot_sd_diasChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int32> _tot_sd_dias;
+        partial void Ontot_sd_diasChanging(Nullable<global::System.Int32> value);
         partial void Ontot_sd_diasChanged();
     
         /// <summary>
@@ -6300,7 +6300,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> day_sd_sis
+        public Nullable<global::System.Int32> day_sd_sis
         {
             get
             {
@@ -6315,8 +6315,8 @@ namespace DataAccess
                 Onday_sd_sisChanged();
             }
         }
-        private Nullable<global::System.Decimal> _day_sd_sis;
-        partial void Onday_sd_sisChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int32> _day_sd_sis;
+        partial void Onday_sd_sisChanging(Nullable<global::System.Int32> value);
         partial void Onday_sd_sisChanged();
     
         /// <summary>
@@ -6324,7 +6324,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> day_sd_dias
+        public Nullable<global::System.Int32> day_sd_dias
         {
             get
             {
@@ -6339,8 +6339,8 @@ namespace DataAccess
                 Onday_sd_diasChanged();
             }
         }
-        private Nullable<global::System.Decimal> _day_sd_dias;
-        partial void Onday_sd_diasChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int32> _day_sd_dias;
+        partial void Onday_sd_diasChanging(Nullable<global::System.Int32> value);
         partial void Onday_sd_diasChanged();
     
         /// <summary>
@@ -6348,7 +6348,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> night_sd_sis
+        public Nullable<global::System.Int32> night_sd_sis
         {
             get
             {
@@ -6363,8 +6363,8 @@ namespace DataAccess
                 Onnight_sd_sisChanged();
             }
         }
-        private Nullable<global::System.Decimal> _night_sd_sis;
-        partial void Onnight_sd_sisChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int32> _night_sd_sis;
+        partial void Onnight_sd_sisChanging(Nullable<global::System.Int32> value);
         partial void Onnight_sd_sisChanged();
     
         /// <summary>
@@ -6372,7 +6372,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> night_sd_dias
+        public Nullable<global::System.Int32> night_sd_dias
         {
             get
             {
@@ -6387,8 +6387,8 @@ namespace DataAccess
                 Onnight_sd_diasChanged();
             }
         }
-        private Nullable<global::System.Decimal> _night_sd_dias;
-        partial void Onnight_sd_diasChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int32> _night_sd_dias;
+        partial void Onnight_sd_diasChanging(Nullable<global::System.Int32> value);
         partial void Onnight_sd_diasChanged();
     
         /// <summary>

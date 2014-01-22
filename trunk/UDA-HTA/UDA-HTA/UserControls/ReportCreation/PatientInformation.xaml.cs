@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using Entities;
 using UDA_HTA.Helpers;
@@ -15,7 +16,6 @@ namespace UDA_HTA.UserControls.ReportCreation
     public partial class PatientInformation : UserControl
     {
         private ICollection<EmergencyContact> _emContacts;
-
 
         public PatientInformation()
         {
@@ -46,11 +46,14 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtMail.Text = p.Email;
                 txtNroReg.Text = p.RegisterNumber;
 
-                _emContacts = p.EmergencyContactList ?? new List<EmergencyContact>();
+                grContacts.DataContext = p.EmergencyContactList;
+
+                _emContacts = new List<EmergencyContact>();
+                _emContacts = p.EmergencyContactList;
             }
             else
             {
-                _emContacts = new List<EmergencyContact>();                
+                _emContacts = new List<EmergencyContact>();
             }
         }
 
@@ -148,7 +151,8 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtEmCName.Clear();
                 txtEmCSurname.Clear();
                 txtEmCPhone.Clear();
-                grContacts.DataContext = _emContacts;
+                
+                grContacts.DataContext = _emContacts.Where(ec => !ec.DeleteContact);
                 txtEmCName.Focus();
             }
         }
@@ -163,11 +167,21 @@ namespace UDA_HTA.UserControls.ReportCreation
             if (grContacts.SelectedIndex >= 0)
             {
                 var selItems = grContacts.SelectedItems;
-                foreach (EmergencyContact c in selItems)
+/*                foreach (EmergencyContact c in selItems)
                     _emContacts.Remove(c);
+ */
+                foreach (EmergencyContact c in selItems)
+                {
+                    if (_emContacts.Contains(c))
+                    {
+                        _emContacts.Remove(c);
+                        c.DeleteContact = true;
+                        _emContacts.Add(c);
+                    }                    
+                }
 
                 grContacts.DataContext = null;
-                grContacts.DataContext = _emContacts;
+                grContacts.DataContext = _emContacts.Where(ec => !ec.DeleteContact);
             }
         }
 

@@ -52,7 +52,7 @@ namespace DataAccess
         }
 
 
-        public void InsertEmergencyContact(long patientId, ICollection<EmergencyContact> contacts)
+        public void InsertEmergencyContact(long patientId, ICollection<EmergencyContact> contacts )
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -60,9 +60,27 @@ namespace DataAccess
                 {
                     ObjectParameter lastId = new ObjectParameter("id", typeof(long));
 
-                    // TODO: ver si usando AddToemergency_contact(ec) no mejora
-                    foreach (var ec in contacts)
-                        patientContext.insertEmergencyContact(lastId, ec.Name, ec.Surname, ec.Phone, patientId);
+                    foreach (var c in contacts)
+                    {
+                        // Si el contacto de la lista existe en la base de datos
+                        if (ExistEmergencyContact(patientId, c.EmergencyContactId))
+                        {
+                            //eliminar contacto
+                            if (c.DeleteContact)
+                            {
+                                patientContext.deleteEmergencyContact(c.EmergencyContactId, patientId);
+                            }
+                            
+                        }
+                        else
+                        { // No existe el contacto en la base
+                            //no hay que eliminar el contacto, entonces inserto
+                            if (!c.DeleteContact)
+                            {
+                                patientContext.insertEmergencyContact(lastId, c.Name, c.Surname, c.Phone, patientId);    
+                            }
+                        }
+                    }
                 }
                 
                 scope.Complete();
@@ -173,6 +191,13 @@ namespace DataAccess
             }
         }
 
+        public bool ExistEmergencyContact(long patientUdaId, long idEmergencyContact)
+        {
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                return patientContext.emergency_contact.Any(ec => ec.idemergency_contact == idEmergencyContact && ec.patient_idPatient == patientUdaId);
+            }
+        }
 
         public long? GetPatientId(string patientRef, int dev)
         {

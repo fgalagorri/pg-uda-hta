@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -257,9 +257,9 @@
           <Property Name="tot_tam_avg" Type="int" />
           <Property Name="day_tam_avg" Type="int" />
           <Property Name="night_tam_avg" Type="int" />
+          <Property Name="diagnosis_date" Type="datetime" />
           <Property Name="sys_dipping" Type="decimal" Precision="7" Scale="4" />
           <Property Name="dias_dipping" Type="decimal" Precision="7" Scale="4" />
-          <Property Name="diagnosis_date" Type="datetime" />
         </EntityType>
         <EntityType Name="temporarydata">
           <Key>
@@ -851,12 +851,6 @@
           <FunctionImport Name="deleteUser">
           <Parameter Name="login" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="updateUser">
-            <Parameter Name="idUsr" Mode="In" Type="Int32" />
-            <Parameter Name="login_" Mode="In" Type="String" />
-            <Parameter Name="name_" Mode="In" Type="String" />
-            <Parameter Name="rol" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="insertUser">
             <Parameter Name="id" Mode="Out" Type="Int32" />
             <Parameter Name="log" Mode="In" Type="String" />
@@ -962,6 +956,12 @@
             <Parameter Name="name_" Mode="In" Type="String" />
             <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
             <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateUser">
+            <Parameter Name="idUsr" Mode="In" Type="Int32" />
+            <Parameter Name="login_" Mode="In" Type="String" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="rol" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="updateReport">
             <Parameter Name="id" Mode="In" Type="Int64" />
@@ -1181,12 +1181,12 @@
           <Property Type="Int32" Name="max_night_hr" />
           <Property Type="Int32" Name="min_day_hr" />
           <Property Type="Int32" Name="min_night_hr" />
-          <Property Type="Decimal" Name="tot_sd_sis" />
-          <Property Type="Decimal" Name="tot_sd_dias" />
-          <Property Type="Decimal" Name="day_sd_sis" />
-          <Property Type="Decimal" Name="day_sd_dias" />
-          <Property Type="Decimal" Name="night_sd_sis" />
-          <Property Type="Decimal" Name="night_sd_dias" />
+          <Property Type="Int32" Name="tot_sd_sis" />
+          <Property Type="Int32" Name="tot_sd_dias" />
+          <Property Type="Int32" Name="day_sd_sis" />
+          <Property Type="Int32" Name="day_sd_dias" />
+          <Property Type="Int32" Name="night_sd_sis" />
+          <Property Type="Int32" Name="night_sd_dias" />
           <Property Type="Decimal" Name="tot_sd_tam" />
           <Property Type="Decimal" Name="day_sd_tam" />
           <Property Type="Decimal" Name="night_sd_tam" />
@@ -1560,7 +1560,6 @@
           <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
           <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
           <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
-          <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
           <FunctionImportMapping FunctionImportName="updateMeasure" FunctionName="udahta_dbModel.Store.updateMeasure" />
           <FunctionImportMapping FunctionImportName="updateDrug" FunctionName="udahta_dbModel.Store.updateDrug" />
           <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
@@ -1581,6 +1580,7 @@
           <FunctionImportMapping FunctionImportName="deleteUser" FunctionName="udahta_dbModel.Store.deleteUser" />
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
+          <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
           <FunctionImportMapping FunctionImportName="updateReport" FunctionName="udahta_dbModel.Store.updateReport" />
           </EntityContainerMapping>
       </Mapping>
