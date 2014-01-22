@@ -582,6 +582,36 @@ namespace DataAccess
     
             return base.ExecuteFunction("editPatient", idParameter, name_Parameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, phone2Parameter, emailParameter, register_numberParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idEc">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int deleteEmergencyContact(Nullable<global::System.Int64> idEc, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter idEcParameter;
+            if (idEc.HasValue)
+            {
+                idEcParameter = new ObjectParameter("idEc", idEc);
+            }
+            else
+            {
+                idEcParameter = new ObjectParameter("idEc", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("deleteEmergencyContact", idEcParameter, idPatientParameter);
+        }
 
         #endregion
 

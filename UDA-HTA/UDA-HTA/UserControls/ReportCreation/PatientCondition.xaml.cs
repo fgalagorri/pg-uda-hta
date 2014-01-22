@@ -308,15 +308,19 @@ namespace UDA_HTA.UserControls.ReportCreation
             if (int.TryParse(txtHourMedication.Text, out hour)
                 && int.TryParse(txtMinMedication.Text, out min)
                 && 0 <= hour && hour < 24 && 0 <= min && min < 60
-                && drug != null)
+                && drug != null
+                && txtDose != null)
             {
                 grMedication.DataContext = null;
                 var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
-                _lstMedication.Add(new Medication(date, drug));
+                Medication m = new Medication(date, drug);
+                m.Dose = txtDose.Text;
+                _lstMedication.Add(m);
 
                 // Clears the textboxes after insertion
                 txtHourMedication.Clear();
                 txtMinMedication.Clear();
+                txtDose.Clear();
                 autoMedication.Text = String.Empty;
                 txtHourMedication.Focus();
             }

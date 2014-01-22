@@ -1111,6 +1111,8 @@ namespace DataAccess
                                                temporaryData.Diabetic, temporaryData.Hypertensive,
                                                temporaryData.FatPercentage,
                                                temporaryData.MusclePercentage, temporaryData.Kcal);
+
+                temporaryData.IdTemporaryData = (int) lastIdTempData.Value;
                 foreach (var med in temporaryData.Medication)
                 {
                     var medicineDose = new MedicineDose();
@@ -1120,7 +1122,7 @@ namespace DataAccess
                     InsertMedicineDose(medicineDose, temporaryData.IdTemporaryData);
                 }
 
-                return (int?) lastIdTempData.Value;
+                return (int) lastIdTempData.Value;
             }
         }
 

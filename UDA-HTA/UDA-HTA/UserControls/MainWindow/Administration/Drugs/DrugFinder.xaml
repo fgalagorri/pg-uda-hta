@@ -18,14 +18,14 @@
         <StackPanel Orientation="Horizontal" Margin="-281,15" HorizontalAlignment="Center" Grid.ColumnSpan="2">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                    <TextBlock Style="{StaticResource label}">Tipo:</TextBlock>
+                    <TextBlock Style="{StaticResource label}">Categoría:</TextBlock>
                     <TextBox Name="txtType" Width="150" Margin="15,0,40,0" />
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                    <TextBlock Style="{StaticResource label}">Nombre:</TextBlock>
+                    <TextBlock Style="{StaticResource label}">Nombre Comercial:</TextBlock>
                     <TextBox Name="txtName" Width="150" Margin="15,0,40,0" />
                 </StackPanel>
             </StackPanel>
@@ -51,11 +51,11 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Tipo" Width="Auto" 
+                <DataGridTextColumn Header="Categoría" Width="Auto" 
                                     Binding="{Binding Path=Category}" />
-                <DataGridTextColumn Header="Nombre" Width="1*" IsReadOnly="True" 
+                <DataGridTextColumn Header="Nombre Comercial" Width="1*" IsReadOnly="True" 
                                     Binding="{Binding Path=Name}" />
-                <DataGridTextColumn Header="Activo" 
+                <DataGridTextColumn Header="Principio Activo" 
                                     Width="1*" Binding="{Binding Path=Active}" />
                 <DataGridTextColumn x:Name="idDrug" Header="Id" Visibility="Hidden"
                                     Width="1*" Binding="{Binding Path=Id}" />

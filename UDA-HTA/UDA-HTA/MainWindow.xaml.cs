@@ -299,10 +299,18 @@ namespace UDA_HTA
                 if (result.Value)
                 {
                     Mouse.OverrideCursor = Cursors.Wait;
-                    GatewayController.GetInstance().ExportInvestigationXLS(investigation, saveAs.FileName);
-                    // Abro el archivo exportado
-                    Process.Start(saveAs.FileName);
-                    Mouse.OverrideCursor = null;
+                    try
+                    {
+                        GatewayController.GetInstance().ExportInvestigationXLS(investigation, saveAs.FileName);
+                        // Abro el archivo exportado
+                        Process.Start(saveAs.FileName);
+                        Mouse.OverrideCursor = null;
+                    }
+                    catch (Exception exception)
+                    {
+                        Mouse.OverrideCursor = null;
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);                        
+                    }
                 }
             }
 
@@ -371,7 +379,7 @@ namespace UDA_HTA
 
         private void BtnEditDrugs_OnClick(object sender, RoutedEventArgs e)
         {
-            var df = ContainerInvestigation.Content as DrugFinder;
+            var df = ContainerAdministration.Content as DrugFinder;
             if (df != null && df.GetSelectedDrug() != null)
             {
                 var d = df.GetSelectedDrug();

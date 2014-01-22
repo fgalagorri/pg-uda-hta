@@ -14,19 +14,19 @@
         <StackPanel Orientation="Horizontal" Margin="15,15,0,15" Grid.Row="0" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
-                    <TextBlock Style="{StaticResource label}">Tipo:</TextBlock>
-                    <ComboBox ItemsSource="{Binding}" Margin="36,0,40,0" Height="23" Name="comboBoxDrugType" Width="120">
+                    <TextBlock Style="{StaticResource label}">Categoría:</TextBlock>
+                    <ComboBox ItemsSource="{Binding}" Margin="70,0,40,0" Height="23" Name="comboBoxDrugType" Width="120">
                     </ComboBox> 
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
-                    <TextBlock Style="{StaticResource label}">Nombre:</TextBlock>
-                    <TextBox Name="txtName" Width="150" Margin="15,0,40,0" />
+                    <TextBlock Style="{StaticResource label}">Nombre Comercial:</TextBlock>
+                    <TextBox Name="txtName" Width="150" Margin="20,0,40,0" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
-                    <TextBlock Style="{StaticResource label}">Activo:</TextBlock>
-                    <TextBox Name="txtActive" Width="150" Margin="25,0,40,0" />
+                    <TextBlock Style="{StaticResource label}">Principio Activo:</TextBlock>
+                    <TextBox Name="txtActive" Width="150" Margin="35,0,40,0" />
                 </StackPanel>
             </StackPanel>
 
