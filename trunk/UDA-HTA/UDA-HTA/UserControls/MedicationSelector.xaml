@@ -1,7 +1,8 @@
 ﻿<Window x:Class="UDA_HTA.UserControls.MedicationSelector"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Seleccione medicación" Width="450" Height="180" ResizeMode="NoResize">
+        Title="Seleccione medicación" Width="450" Height="180"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     
     <Window.Resources>
         <Style TargetType="RowDefinition">

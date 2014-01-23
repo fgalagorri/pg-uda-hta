@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Transactions;
 using Entities;
 using DataAccess;
@@ -48,19 +49,21 @@ namespace BussinessLogic
             if (patient.UdaId != null) pda.InsertEmergencyContact((long) patient.UdaId,patient.EmergencyContactList);
 
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            foreach (var medicalRecord in patient.Background)
+            var currentBack = uda.GetMedicalHistory(patient.UdaId.Value);
+
+            //insertar medicalRecord nuevos
+            foreach (var medicalRecord in patient.Background.Where(b=>b.Id == null))
             {
-                if (medicalRecord.Id != null)
-                {
-                    //actualizar medicalRecord
-                    uda.EditMedicalHistory(medicalRecord, patient.UdaId.Value);
-                }
-                else
-                {
-                    //insertar medicalRecord
-                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
-                }
-            }                
+                uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+            }
+
+            var editedIds = patient.Background.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
+
+            //borrar los que no están más 
+            foreach (var mr  in currentBack.Where(b => b.Id.HasValue && !editedIds.Contains(b.Id.Value)))
+            {
+                uda.DeleteMedicalHistory(patient.UdaId.Value, mr.Id.Value);
+            }
         }
 
 

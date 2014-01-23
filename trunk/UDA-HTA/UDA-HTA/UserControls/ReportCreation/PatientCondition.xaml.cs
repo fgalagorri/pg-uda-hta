@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
@@ -36,28 +37,31 @@ namespace UDA_HTA.UserControls.ReportCreation
             try
             {
                 _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+                autoMedication.DataContext = _drugs;
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            autoMedication.DataContext = _drugs;
+            _lstMedication = new List<Medication>();
+            _lstBackground = new List<MedicalRecord>();
         }
+
         public PatientCondition(Report r)
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
             try
             {
-                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);    
+                autoMedication.DataContext = _drugs;
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            autoMedication.DataContext = _drugs;
 
             // Datos posiblemente modificados
             if (r.TemporaryData != null)
@@ -84,6 +88,8 @@ namespace UDA_HTA.UserControls.ReportCreation
                 chkDiabetic.IsChecked = false;
                 chkDyslipidemia.IsChecked = false;
                 chkHypertense.IsChecked = false;
+                _lstMedication = new List<Medication>();
+                _lstBackground = new List<MedicalRecord>();
             }
             CalculateImc(null, null);
             
@@ -93,22 +99,22 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public PatientCondition(Patient p)
         {
-            if (p != null)
-            {
-                InitializeComponent();
+            InitializeComponent();
+            
                 colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
                 var controller = GatewayController.GetInstance();
                 try
                 {
-                    _drugs = controller.GetDrugs(null, null, null);
+                    _drugs = controller.GetDrugs(null, null, null); 
+                    autoMedication.DataContext = _drugs;
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                autoMedication.DataContext = _drugs;
-
+            if (p != null)
+            {
                 var tempData = controller.GetPatientLastTempData(p.UdaId.Value);
                 if (tempData != null)
                 {
@@ -139,7 +145,12 @@ namespace UDA_HTA.UserControls.ReportCreation
 
                 _lstBackground = p.Background ?? new List<MedicalRecord>();
                 grBackground.DataContext = _lstBackground;
-                
+
+            }
+            else
+            {
+                _lstMedication = new List<Medication>();
+                _lstBackground = new List<MedicalRecord>();
             }
         }
 
@@ -227,8 +238,8 @@ namespace UDA_HTA.UserControls.ReportCreation
 
             return txtWeight.ValidateDecimal(0, 400) &
                    txtHeight.ValidateDecimal(0, 3) &
-                   txtFat.ValidateInt(0, 100) &
-                   txtMuscle.ValidateInt(0, 100) &
+                   txtFat.ValidateDecimal(0, 100) &
+                   txtMuscle.ValidateDecimal(0, 100) &
                    txtKcal.ValidateInt(0, int.MaxValue) &
                    _imc > 0;
         }
@@ -294,10 +305,10 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         private void btnMedication_Click(object sender, RoutedEventArgs e)
         {
-            /*_ms = new MedicationSelector();
-            _ms.ShowDialog();
-            if (!String.IsNullOrWhiteSpace(_ms.name))
-                txtMedication.Text = _ms.name;*/
+            var ms = new MedicationSelector();
+            ms.ShowDialog();
+            if (!String.IsNullOrWhiteSpace(ms.name))
+                autoMedication.Text = ms.name;
         }
 
         private void btnAddMedication_Click(object sender, RoutedEventArgs e)

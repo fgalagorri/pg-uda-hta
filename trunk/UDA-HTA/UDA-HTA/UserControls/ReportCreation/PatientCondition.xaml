@@ -182,6 +182,8 @@
                 <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}"
                           IsReadOnly="True" SelectionChanged="grBackground_SelectionChanged" Height="90">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Visibility="Hidden" />
+                        
                         <DataGridTextColumn Header="Patología" Width="1*" IsReadOnly="True"
                                                 Binding="{Binding Path=Illness}">
                         </DataGridTextColumn>
