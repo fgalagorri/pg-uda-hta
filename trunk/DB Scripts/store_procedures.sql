@@ -348,8 +348,8 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS deleteMedicalHistort$$
-CREATE PROCEDURE deleteMedicalHistort(IN idPatientUda BIGINT, IN idMedicalRecord BIGINT)
+DROP PROCEDURE IF EXISTS deleteMedicalHistory$$
+CREATE PROCEDURE deleteMedicalHistory(IN idPatientUda BIGINT, IN idMedicalRecord BIGINT)
 BEGIN
 DELETE 
 FROM `medicalhistory` 
