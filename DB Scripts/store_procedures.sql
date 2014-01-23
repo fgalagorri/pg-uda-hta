@@ -347,6 +347,16 @@ WHERE (`investigation_idInvestigation` = idInvestigation AND
 END$$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteMedicalHistort$$
+CREATE PROCEDURE deleteMedicalHistort(IN idPatientUda BIGINT, IN idMedicalRecord BIGINT)
+BEGIN
+DELETE 
+FROM `medicalhistory` 
+WHERE `idMedicalHistory` = idMedicalRecord AND `patientuda_idPatientUda` = idPatientUda;
+END$$
+DELIMITER ;
+
 -- UPDATES --
 
 DELIMITER $$

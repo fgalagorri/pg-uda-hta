@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Entities;
+using Gateway;
 
 namespace UDA_HTA.UserControls
 {
@@ -22,68 +24,78 @@ namespace UDA_HTA.UserControls
         public string active { get; set; }
         public string name { get; set; }
 
+        private GatewayController _controller;
+        private ICollection<string> _types; 
+        private ICollection<Drug> _drugs;
+        private bool _nameSelected = false;
+
         public MedicationSelector()
         {
             InitializeComponent();
 
-            cmbCategory.Items.Add("Acción Central");
-            cmbCategory.Items.Add("ARA2");
-            cmbCategory.Items.Add("Betabloqueante");
-            cmbCategory.Items.Add("Calcioantagonistas");
-            cmbCategory.Items.Add("Diuréticos");
-            cmbCategory.Items.Add("IECA");
+            _controller = GatewayController.GetInstance();
+            _types = _controller.GetDrugTypes();
+            _drugs = _controller.GetDrugs(null, null, null);
+
+            cmbCategory.ItemsSource = _types;
         }
 
         private void cmbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbCategory.SelectedIndex >= 0)
             {
-                cmbActive.Items.Clear();
-                cmbActive.Items.Add(cmbCategory.SelectedValue + " item 1");
-                cmbActive.Items.Add(cmbCategory.SelectedValue + " item 2");
-                cmbActive.Items.Add(cmbCategory.SelectedValue + " item 3");
-                cmbActive.Items.Add(cmbCategory.SelectedValue + " item 4");
-                cmbActive.SelectedIndex = -1;
-                cmbActive.IsEnabled = true;
-            }
-            else
-            {
-                cmbActive.SelectedIndex = -1;
-                cmbActive.Items.Clear();
-                cmbActive.IsEnabled = false;
-            }
+                var filtered = _drugs.Where(d => d.Category == (string)cmbCategory.SelectedItem).ToList();
+                cmbActive.ItemsSource = filtered.GroupBy(d => d.Active).Select(a => a.First().Active).ToList();
+                cmbName.ItemsSource = filtered.Select(d => d.Name).ToList();
 
-            cmbName.IsEnabled = false;
-            cmbName.Items.Clear();
-            cmbName.SelectedIndex = -1;
-        }
-
-        private void cmbActive_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmbActive.SelectedIndex >= 0)
-            {
-                cmbName.Items.Clear();
-                cmbName.Items.Add(cmbActive.SelectedValue + " item 1");
-                cmbName.Items.Add(cmbActive.SelectedValue + " item 2");
-                cmbName.Items.Add(cmbActive.SelectedValue + " item 3");
-                cmbName.Items.Add(cmbActive.SelectedValue + " item 4");
+                cmbActive.SelectedIndex = -1;
                 cmbName.SelectedIndex = -1;
+                cmbActive.IsEnabled = true;
                 cmbName.IsEnabled = true;
             }
             else
             {
+                cmbActive.SelectedIndex = -1;
                 cmbName.SelectedIndex = -1;
-                cmbName.Items.Clear();
+                cmbActive.IsEnabled = false;
                 cmbName.IsEnabled = false;
             }
+        }
+
+        private void cmbActive_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!_nameSelected)
+            {
+                if (cmbActive.SelectedIndex >= 0)
+                {
+                    cmbName.ItemsSource = _drugs.Where(d => d.Active == (string)cmbActive.SelectedItem
+                                                    && d.Category == (string)cmbCategory.SelectedItem)
+                        .Select(d => d.Name).ToList();
+                    cmbName.SelectedIndex = -1;
+                    cmbName.IsEnabled = true;
+                }
+                else
+                {
+                    cmbName.SelectedIndex = -1;
+                    cmbName.IsEnabled = false;
+                }
+            }
+            _nameSelected = false;
         }
 
         private void cmbName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbName.SelectedIndex >= 0)
+            {
+                _nameSelected = true;
+                cmbActive.SelectedValue = _drugs.First(d => d.Name == (string) cmbName.SelectedItem 
+                                                    && d.Category == (string) cmbCategory.SelectedItem).Active;
                 btnAccept.IsEnabled = true;
+            }
             else
+            {
                 btnAccept.IsEnabled = false;
+            }
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)

@@ -43,8 +43,6 @@ namespace Gateway
 
         private GatewayController()
         {
-            var rm = new ReportManagement();
-            _limits = rm.GetLimits();
         }
 
         public static GatewayController GetInstance()
@@ -476,19 +474,20 @@ namespace Gateway
                 _loggedUser = sm.Login(userName, encryptedPswd);
                 
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + " ha ingresado", null);
+                //el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + " ha ingresado", null);
+                _limits = new ReportManagement().GetLimits();
             }
-            catch (VerificationException e)
+            catch (VerificationException)
             {
                 // El usuario y/o password no son correctos
-                var exception = new Exception("Nombre de usuario y/o contraseña no son correctos");
+                var exception = new Exception("Nombre de usuario y/o contraseña incorrectos");
                 throw exception;                
             }
             catch (Exception ex)
             {
                 LogFileManagement el = new LogFileManagement();
                 el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], ex.Message, ex.InnerException);
-                throw new Exception("No ha sido posible crear el usuario");
+                throw new Exception("Ha ocurrido un error. Inténtelo nuevamente.");
             }
 
             return _loggedUser;

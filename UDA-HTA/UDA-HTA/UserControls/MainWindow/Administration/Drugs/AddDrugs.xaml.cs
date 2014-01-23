@@ -52,6 +52,10 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
                     //Crear
                     controller.AddDrug(comboBoxDrugType.Text, txtName.Text, txtActive.Text);
                     MessageBox.Show("La droga se ha insertado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    comboBoxDrugType.SelectedIndex = -1;
+                    txtName.Text = String.Empty;
+                    txtActive.Text = String.Empty;
                 }
                 else
                 {

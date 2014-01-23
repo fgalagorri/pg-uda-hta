@@ -2830,6 +2830,36 @@ namespace DataAccess
     
             return base.ExecuteFunction("updateReport", idParameter, n_sys_total_avgParameter, n_sys_day_avgParameter, n_sys_night_avgParameter, n_dias_total_avgParameter, n_dias_day_avgParameter, n_dias_night_avgParameter, n_tam_total_avgParameter, n_tam_day_avgParameter, n_tam_night_avgParameter, n_hr_total_avgParameter, n_hr_day_avgParameter, n_hr_night_avgParameter, n_sys_total_sdParameter, n_sys_day_sdParameter, n_sys_night_sdParameter, n_dias_total_sdParameter, n_dias_day_sdParameter, n_dias_night_sdParameter, n_tam_total_sdParameter, n_tam_day_sdParameter, n_tam_night_sdParameter, n_hr_total_sdParameter, n_hr_day_sdParameter, n_hr_night_sdParameter, n_sys_day_maxParameter, n_sys_night_maxParameter, n_dias_day_maxParameter, n_dias_night_maxParameter, n_hr_day_maxParameter, n_hr_night_maxParameter, n_sys_day_minParameter, n_sys_night_minParameter, n_dias_day_minParameter, n_dias_night_minParameter, n_hr_day_minParameter, n_hr_night_minParameter, n_sys_dippingParameter, n_dias_dippingParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idPatientUda">No Metadata Documentation available.</param>
+        /// <param name="idMedicalRecord">No Metadata Documentation available.</param>
+        public int deleteMedicalHistory(Nullable<global::System.Int64> idPatientUda, Nullable<global::System.Int64> idMedicalRecord)
+        {
+            ObjectParameter idPatientUdaParameter;
+            if (idPatientUda.HasValue)
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", idPatientUda);
+            }
+            else
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idMedicalRecordParameter;
+            if (idMedicalRecord.HasValue)
+            {
+                idMedicalRecordParameter = new ObjectParameter("idMedicalRecord", idMedicalRecord);
+            }
+            else
+            {
+                idMedicalRecordParameter = new ObjectParameter("idMedicalRecord", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("deleteMedicalHistory", idPatientUdaParameter, idMedicalRecordParameter);
+        }
 
         #endregion
 

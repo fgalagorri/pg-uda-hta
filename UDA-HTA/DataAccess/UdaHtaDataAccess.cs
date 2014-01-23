@@ -1206,7 +1206,17 @@ namespace DataAccess
             }
         }
 
-    #region Users
+        //Borra una instancia de la historia clinca del paciente
+        public void DeleteMedicalHistory(long patientId, long medicalRecordId)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.deleteMedicalHistory(patientId, medicalRecordId);
+            }
+        }
+
+
+        #region Users
         //Inserta un nuevo usuario en la base de datos
         public int InsertUser(string login, string pass, string rol, string name)
         {
