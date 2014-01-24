@@ -103,13 +103,13 @@
                           ItemsSource="{Binding}" IsReadOnly="True" Height="100">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Categoría" Width="1*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Categoria}"></DataGridTextColumn>
+                                            Binding="{Binding Path=Drug.Category}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Nombre}"></DataGridTextColumn>
+                                            Binding="{Binding Path=Drug.Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Principio}"></DataGridTextColumn>
+                                            Binding="{Binding Path=Drug.Active}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Dosificación" Width="2*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Dosis}"></DataGridTextColumn>
+                                            Binding="{Binding Path=Dose}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
