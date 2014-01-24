@@ -52,6 +52,9 @@ namespace UDA_HTA.UserControls.ReportCreation
         public PatientCondition(Report r)
         {
             InitializeComponent();
+            _lstMedication = new List<Medication>();
+            _lstBackground = new List<MedicalRecord>();
+
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
             try
             {
@@ -68,7 +71,6 @@ namespace UDA_HTA.UserControls.ReportCreation
             if (r.TemporaryData != null)
             {
                 _lstMedication = r.TemporaryData.Medication ?? new List<Medication>();
-                grMedication.DataContext = _lstMedication;
 
                 var t = r.TemporaryData;
                 txtWeight.Text = t.Weight.ToString();
@@ -90,20 +92,21 @@ namespace UDA_HTA.UserControls.ReportCreation
                 chkDyslipidemia.IsChecked = false;
                 chkHypertense.IsChecked = false;
                 _lstMedication = new List<Medication>();
-                _lstBackground = new List<MedicalRecord>();
             }
             CalculateImc(null, null);
             
             _lstBackground = r.Patient.Background ?? new List<MedicalRecord>();
             grBackground.DataContext = _lstBackground;
+            grMedication.DataContext = _lstMedication;
         }
 
         public PatientCondition(Patient p)
         {
+            InitializeComponent();
+
             if (p != null)
             {
                 _patient = p;
-                InitializeComponent();
                 colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
                 var controller = GatewayController.GetInstance();
                 try
@@ -120,7 +123,6 @@ namespace UDA_HTA.UserControls.ReportCreation
                 if (tempData != null)
                 {
                     _lstMedication = tempData.Medication ?? new List<Medication>();
-                    grMedication.DataContext = _lstMedication;
 
                     txtWeight.Text = tempData.Weight.ToString();
                     txtHeight.Text = tempData.Height.HasValue ? tempData.Height.Value.ToString("F") : "";
@@ -140,19 +142,14 @@ namespace UDA_HTA.UserControls.ReportCreation
                     chkDiabetic.IsChecked = false;
                     chkDyslipidemia.IsChecked = false;
                     chkHypertense.IsChecked = false;
+                    _lstMedication = new List<Medication>();
                 }
                 CalculateImc(null, null);
 
-                _lstMedication = p.LastTempData.Medication ?? new List<Medication>();
                 _lstBackground = p.Background ?? new List<MedicalRecord>();
                 grBackground.DataContext = _lstBackground;
                 grMedication.DataContext = _lstMedication;
 
-            }
-            else
-            {
-                _lstMedication = new List<Medication>();
-                _lstBackground = new List<MedicalRecord>();
             }
         }
 
