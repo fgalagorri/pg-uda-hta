@@ -233,6 +233,30 @@ namespace DataAccess
             }
         }
 
+        public ICollection<MedicineDose> GetMedicineDose(int idTemporaryData)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                var lstMedicineDose = udaContext.medicinedose
+                                 .Where(m => m.temporarydata_idTemporaryData == idTemporaryData).ToList();
+                ICollection<MedicineDose> lstOut = new List<MedicineDose>();
+                foreach (var medicinedose in lstMedicineDose)
+                {
+                    MedicineDose md = new MedicineDose();
+                    md.Dose = medicinedose.dose;
+                    md.Drug = new Drug(medicinedose.drug.drugtype.type,medicinedose.drug.active,medicinedose.drug.name);
+                    md.Drug.Id = medicinedose.drug.idDrug;
+                    md.Id = medicinedose.idMedicineDosis;
+                    if (medicinedose.time != null) md.Time = medicinedose.time.Value;
+
+                    lstOut.Add(md);
+                }
+
+                return lstOut;
+            }
+            
+        } 
+
         public ICollection<MedicalRecord> GetMedicalHistory(long idPatient)
         {
             using (udaContext = new udahta_dbEntities())
@@ -1140,11 +1164,7 @@ namespace DataAccess
                 temporaryData.IdTemporaryData = (int) lastIdTempData.Value;
                 foreach (var med in temporaryData.Medication)
                 {
-                    var medicineDose = new MedicineDose();
-                    medicineDose.Dose = med.Dose;
-                    medicineDose.Drug = med.Drug;
-                    medicineDose.Time = med.Time;
-                    InsertMedicineDose(medicineDose, temporaryData.IdTemporaryData);
+                    InsertMedicineDose(med, temporaryData.IdTemporaryData);
                 }
 
                 return (int) lastIdTempData.Value;
@@ -1159,34 +1179,24 @@ namespace DataAccess
             }
         }
 
-        public void InsertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
+        public void InsertMedicineDose(Medication medicineDose, int idTemporaryData)
         {
             using (udaContext = new udahta_dbEntities())
             {
                 ObjectParameter lastIdMedicineDose = new ObjectParameter("id", typeof (int));
-                if (ExistMedicineDose(medicineDose.Id))
-                {
-                    //eliminar medicamente
-                    if (medicineDose.DeleteMedicineDose)
-                    {
-                        udaContext.deleteMedicineDose(medicineDose.Id);
-                    }
-
-                }
-                else
-                { // No existe el medicamento en la base
-                    //no hay que eliminar el medicamente, entonces inserto
-                    if (!medicineDose.DeleteMedicineDose)
-                    {
-                        udaContext.insertMedicineDose(lastIdMedicineDose, medicineDose.Dose, medicineDose.Time,
+                udaContext.insertMedicineDose(lastIdMedicineDose, medicineDose.Dose, medicineDose.Time,
                                                       medicineDose.Drug.Id, idTemporaryData);
-                    }
-
-                    
-                }
             }
         }
 
+        public void DeleteMedicineDose(int idMedicineDose)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.deleteMedicineDose(idMedicineDose);
+            }
+            
+        }
 
 
         public User GetUser(string userName)

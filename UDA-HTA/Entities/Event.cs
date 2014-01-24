@@ -44,7 +44,7 @@ namespace Entities
 
         public string Dose { get; set; }
         public Drug Drug { get; set; }
-        public int Id { get; set; }
+        public int? Id { get; set; }
     }
 
 

@@ -170,9 +170,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             if (grContacts.SelectedIndex >= 0)
             {
                 var selItems = grContacts.SelectedItems;
-/*                foreach (EmergencyContact c in selItems)
-                    _emContacts.Remove(c);
- */
+
                 foreach (EmergencyContact c in selItems)
                 {
                     if (_emContacts.Contains(c))
