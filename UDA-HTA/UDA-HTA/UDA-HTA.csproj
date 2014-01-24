@@ -131,6 +131,9 @@
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DrugCreate.xaml.cs">
+      <DependentUpon>DrugCreate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainWindow\Administration\Drugs\AddDrugs.xaml.cs">
       <DependentUpon>AddDrugs.xaml</DependentUpon>
     </Compile>
@@ -249,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReportCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DrugCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

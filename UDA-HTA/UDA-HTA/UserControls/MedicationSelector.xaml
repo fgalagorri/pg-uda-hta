@@ -25,13 +25,13 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Categoría:</TextBlock>
         <ComboBox Name="cmbCategory" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbCategory_SelectionChanged" />
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Pricipio Activo:</TextBlock>
-        <ComboBox Name="cmbActive" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" SelectionChanged="cmbActive_SelectionChanged" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Nombre:</TextBlock>
+        <ComboBox Name="cmbName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" SelectionChanged="cmbName_SelectionChanged" />
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Nombre:</TextBlock>
-        <ComboBox Name="cmbName" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" SelectionChanged="cmbName_SelectionChanged" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Pricipio Activo:</TextBlock>
+        <ComboBox Name="cmbActive" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" SelectionChanged="cmbActive_SelectionChanged" />
 
-        
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
                     Margin="0,10,0,5" VerticalAlignment="Bottom" Grid.Row="3" Grid.ColumnSpan="2">
             <Button Name="btnNew" Width="100" Margin="10,0,60,0" Click="btnNew_Click">Nuevo</Button>

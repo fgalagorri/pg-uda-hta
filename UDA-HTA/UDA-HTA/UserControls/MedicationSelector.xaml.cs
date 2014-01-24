@@ -23,6 +23,7 @@ namespace UDA_HTA.UserControls
         public string category { get; set; }
         public string active { get; set; }
         public string name { get; set; }
+        public bool hasNewDrug { get; set; }
 
         private GatewayController _controller;
         private ICollection<string> _types; 
@@ -38,6 +39,7 @@ namespace UDA_HTA.UserControls
             _drugs = _controller.GetDrugs(null, null, null);
 
             cmbCategory.ItemsSource = _types;
+            hasNewDrug = false;
         }
 
         private void cmbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -109,7 +111,17 @@ namespace UDA_HTA.UserControls
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
+            var dc = new DrugCreate();
+            var returnValue = dc.ShowDialog();
 
+            if (returnValue.HasValue && returnValue.Value)
+            {
+                _drugs = _controller.GetDrugs(null, null, null);
+                cmbCategory.SelectedIndex = -1;
+                cmbActive.SelectedIndex = -1;
+                cmbName.SelectedIndex = -1;
+                hasNewDrug = true;
+            }
         }
     }
 }

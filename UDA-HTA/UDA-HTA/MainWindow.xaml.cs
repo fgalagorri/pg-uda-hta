@@ -220,7 +220,10 @@ namespace UDA_HTA
             {
                 var patient = pv.GetSelectedPatient();
                 var editPatientWindow = new NewPatient(patient);
-                editPatientWindow.ShowDialog();
+                var edition = editPatientWindow.ShowDialog();
+
+                if(edition.HasValue && edition.Value)
+                    pv.UpdatePatient(editPatientWindow.Patient);
             }
         }
 
