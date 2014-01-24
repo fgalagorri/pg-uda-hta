@@ -274,10 +274,11 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicineDose$$
-CREATE PROCEDURE insertMedicineDose(IN dose TEXT, IN time_ DATETIME, IN idDrug INT, IN idTemporaryData INT)
+CREATE PROCEDURE insertMedicineDose(OUT id INT, IN dose TEXT, IN time_ DATETIME, IN idDrug INT, IN idTemporaryData INT)
 BEGIN
 INSERT INTO `medicinedose` (`dose`, `time`, `drug_idDrug`, `temporarydata_idTemporaryData`)
 VALUES(dose, time_, idDrug, idTemporaryData);
+SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
 
@@ -348,12 +349,12 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS deleteMedicalHistory$$
-CREATE PROCEDURE deleteMedicalHistory(IN idPatientUda BIGINT, IN idMedicalRecord BIGINT)
+DROP PROCEDURE IF EXISTS deleteMedicineDose$$
+CREATE PROCEDURE deleteMedicineDose(IN idMedicine INT)
 BEGIN
 DELETE 
-FROM `medicalhistory` 
-WHERE `idMedicalHistory` = idMedicalRecord AND `patientuda_idPatientUda` = idPatientUda;
+FROM `medicinedose`
+WHERE (`idMedicineDosis` = idMedicine);
 END$$
 DELIMITER ;
 
