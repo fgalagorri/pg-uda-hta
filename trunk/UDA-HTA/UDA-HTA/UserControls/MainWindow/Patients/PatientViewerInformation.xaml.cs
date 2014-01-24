@@ -36,6 +36,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             lblTelAlt.Text = patient.Phone2;
             lblMail.Text = patient.Email;
 
+            grContacts.DataContext = null;
             grContacts.DataContext = patient.EmergencyContactList;
         }
     }

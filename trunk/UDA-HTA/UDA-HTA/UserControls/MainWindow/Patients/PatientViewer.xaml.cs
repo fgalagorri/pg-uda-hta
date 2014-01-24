@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using DocumentFormat.OpenXml.Drawing.ChartDrawing;
 using Entities;
 using Gateway;
 using UDA_HTA.Helpers;
@@ -26,12 +31,12 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             try
             {
                 _patient = GatewayController.GetInstance().GetPatientFullView(patient.UdaId.Value);
-            
+
                 InitializeComponent();
 
                 TabPatient.SetPatientInfo(_patient);
                 TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
-            
+
                 PopulateTree();
 
                 Mouse.OverrideCursor = null;
@@ -42,6 +47,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         public PatientViewer(long patientId, long reportId, UDA_HTA.MainWindow w)
         {
             Mouse.OverrideCursor = Cursors.Wait;
@@ -80,6 +86,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void PopulateTree(long? reportId = null)
         {
             treePatient.Items.Clear();
@@ -88,16 +95,16 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             foreach (var r in _patient.ReportList.OrderByDescending(r => r.BeginDate))
             {
                 TreeViewItem child = new TreeViewItem();
-                StackPanel sp = new StackPanel { Orientation = Orientation.Horizontal };
+                StackPanel sp = new StackPanel {Orientation = Orientation.Horizontal};
 
                 BitmapImage src = new BitmapImage();
                 src.BeginInit();
                 src.UriSource = new Uri("/Images/tree_study24.png", UriKind.Relative);
                 src.EndInit();
-                Image img = new Image { Source = src };
+                Image img = new Image {Source = src};
                 sp.Children.Add(img);
 
-                Label lbl = new Label { Content = r.BeginDate.Value.ToShortDateString() };
+                Label lbl = new Label {Content = r.BeginDate.Value.ToShortDateString()};
                 sp.Children.Add(lbl);
 
                 child.Header = sp;
@@ -118,8 +125,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             if (index >= 0)
             {
                 _report = _patient.ReportList
-                                  .OrderByDescending(r => r.BeginDate)
-                                  .ElementAt(index);
+                    .OrderByDescending(r => r.BeginDate)
+                    .ElementAt(index);
                 _report.Patient = _patient;
 
                 TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
@@ -141,7 +148,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             }
             else
             {
-                if(!ReportPatient.IsSelected && !ReportCondition.IsSelected)
+                if (!ReportPatient.IsSelected && !ReportCondition.IsSelected)
                     ReportPatient.IsSelected = true;
 
                 _report = null;
@@ -159,6 +166,13 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         public Report GetSelectedReport()
         {
+            //ExportAsImage(new Uri("C:\\prueba1.png"), TabPressureProfile);
+            ReportPressureProfile.IsSelected = true;
+            //Thread.Sleep(1000);
+
+            //TabPressureProfile.GetChartImage();
+            //TabOverLimit.GetChartImage();
+
             return _report;
         }
 
@@ -192,6 +206,41 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             TabReportData.SetReport(_report);
             TabOverLimit.SetReport(_report);
             TabPressureProfile.SetReport(_report);
+        }
+
+        public void UpdatePatient(Patient p)
+        {
+            TabPatient.SetPatientInfo(p);
+            if(p.LastTempData != null)
+                TabCondition.SetInfo(p.LastTempData, p.Background);
+        }
+
+        private void ExportAsImage(Uri path, UserControl ctrl)
+        {
+            var transform = ctrl.LayoutTransform;
+            ctrl.LayoutTransform = null;
+
+            var size = new Size(ctrl.Width, ctrl.Height);
+            ctrl.Measure(size);
+            ctrl.Arrange(new Rect(size));
+
+            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int) size.Width, (int) size.Height, 96d, 96d,
+                PixelFormats.Pbgra32);
+            renderBitmap.Render(ctrl);
+
+
+            using (FileStream outStream = new FileStream(path.LocalPath, FileMode.Create))
+            {
+                // Use png encoder for our data
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                // push the rendered bitmap to it
+                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                // save the data to the stream
+                encoder.Save(outStream);
+            }
+
+            // Restore previously saved layout
+            ctrl.LayoutTransform = transform;
         }
     }
 }

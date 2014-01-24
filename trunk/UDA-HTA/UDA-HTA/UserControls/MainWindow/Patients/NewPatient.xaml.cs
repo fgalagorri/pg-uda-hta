@@ -21,59 +21,83 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
     /// </summary>
     public partial class NewPatient : Window
     {
+        public Patient Patient { get { return _patient; } }
+
         private const string ErrorMessage = "Algunos datos obligatorios no fueron" +
-                                    " ingresados o el valor ingresado es incorrecto.";
+                                            " ingresados o el valor ingresado es incorrecto.";
+        private const string Siguiente = "Siguiente >";
+        private const string Finalizar = "Finalizar >>";
+        private int _state = 0;
 
         private PatientInformation patientInfo;
         private PatientCondition patientCondition;
-
+        
         private Patient _patient;
-
         private bool _crear;
 
         public NewPatient(Patient patient)
         {
+            InitializeComponent();
+
             patientInfo = new PatientInformation(patient);
             patientCondition = new PatientCondition(patient);
             _crear = patient == null;
+            _state = 0;
             
-            InitializeComponent();
-
             if (!_crear)
-            {
-                //editar
                 _patient = patient;
-                btnAdd.Content = "Editar Paciente";
-                this.Title = "Editar Paciente";
-            }
 
             CurrentControl.Content = patientInfo;
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            if (patientInfo.IsValid())
+            if (_state == 0)
+            {
+                if (patientInfo.IsValid())
+                {
+                    CurrentControl.Content = patientCondition;
+                    btnBack.IsEnabled = true;
+                    btnNext.Content = Finalizar;
+                    _state++;
+                }
+                else
+                {
+                    MessageBox.Show(ErrorMessage, "Datos faltantes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else
             {
                 try
                 {
-                    Mouse.OverrideCursor = Cursors.Wait;
-                    var patient = patientInfo.GetPatient();
-                    patient = patientCondition.GetPatient(patient);
-                    if (_crear)
+                    if (patientCondition.IsValid())
                     {
-                        //Crear paciente
-                        GatewayController.GetInstance().CreatePatient(patient);
+                        Mouse.OverrideCursor = Cursors.Wait;
+                        _patient = patientInfo.GetPatient();
+                        _patient = patientCondition.GetPatient(_patient);
+                        if (_crear)
+                        {
+                            //Crear paciente
+                            GatewayController.GetInstance().CreatePatient(_patient);
+                        }
+                        else
+                        {
+                            //Editar paciente
+                            _patient.ModifiedDate = DateTime.Today;
+                            GatewayController.GetInstance().EditPatient(_patient);
+                            MessageBox.Show("El paciente se ha actualizado correctamente", "Aviso", MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                            DialogResult = true;
+                        }
+                        Close();
+                        Mouse.OverrideCursor = null;
                     }
                     else
                     {
-                        //Editar paciente
-                        patient.UdaId = _patient.UdaId;
-                        patient.ModifiedDate = DateTime.Today;
-                        GatewayController.GetInstance().EditPatient(patient);
-                        MessageBox.Show("El paciente se ha actualizado correctamente", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(ErrorMessage, "Datos faltantes", MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
                     }
-                    Close();
-                    Mouse.OverrideCursor = null;
                 }
                 catch (Exception exception)
                 {
@@ -81,23 +105,17 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                     MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            else
-            {
-                MessageBox.Show("Alguno de los datos no es correcto", "Error", MessageBoxButton.OK, MessageBoxImage.Error); 
-            }
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            if (patientInfo.IsValid())
+            if (_state == 1)
             {
-                CurrentControl.Content = patientCondition;
-                btnAdd.IsEnabled = true;
-                btnNext.IsEnabled = false;                
-            }
-            else
-            {
-                MessageBox.Show(ErrorMessage, "Datos faltantes", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CurrentControl.Content = patientInfo;
+                btnBack.IsEnabled = false;
+                btnNext.Content = Siguiente;
+                _state--;
             }
         }
     }

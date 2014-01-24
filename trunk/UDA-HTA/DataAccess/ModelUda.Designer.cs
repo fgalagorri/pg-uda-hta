@@ -2835,6 +2835,25 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="idMedicine">No Metadata Documentation available.</param>
+        public int deleteMedicineDose(Nullable<global::System.Int32> idMedicine)
+        {
+            ObjectParameter idMedicineParameter;
+            if (idMedicine.HasValue)
+            {
+                idMedicineParameter = new ObjectParameter("idMedicine", idMedicine);
+            }
+            else
+            {
+                idMedicineParameter = new ObjectParameter("idMedicine", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("deleteMedicineDose", idMedicineParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         /// <param name="idPatientUda">No Metadata Documentation available.</param>
         /// <param name="idMedicalRecord">No Metadata Documentation available.</param>
         public int deleteMedicalHistory(Nullable<global::System.Int64> idPatientUda, Nullable<global::System.Int64> idMedicalRecord)
@@ -2860,25 +2879,6 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("deleteMedicalHistory", idPatientUdaParameter, idMedicalRecordParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="idMedicine">No Metadata Documentation available.</param>
-        public int deleteMedicineDose(Nullable<global::System.Int32> idMedicine)
-        {
-            ObjectParameter idMedicineParameter;
-            if (idMedicine.HasValue)
-            {
-                idMedicineParameter = new ObjectParameter("idMedicine", idMedicine);
-            }
-            else
-            {
-                idMedicineParameter = new ObjectParameter("idMedicine", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("deleteMedicineDose", idMedicineParameter);
         }
 
         #endregion

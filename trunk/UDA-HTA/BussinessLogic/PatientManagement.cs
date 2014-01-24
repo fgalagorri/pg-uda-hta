@@ -52,19 +52,14 @@ namespace BussinessLogic
             var currentBack = uda.GetMedicalHistory(patient.UdaId.Value);
 
             //insertar medicalRecord nuevos
-            foreach (var medicalRecord in patient.Background.Where(b=>b.Id == null))
-            {
-                if (medicalRecord.Id != null)
-                {
-                    //actualizar medicalRecord
-                    uda.EditMedicalHistory(medicalRecord, patient.UdaId.Value);
-                }
-                else
-                {
-                    //insertar medicalRecord
-                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
-                }
-            }
+            foreach (var medicalRecord in patient.Background.Where(b => b.Id == null))
+                uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+
+            var editedIds = patient.Background.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
+
+            //borrar los que no están más 
+            foreach (var mr in currentBack.Where(b => b.Id.HasValue && !editedIds.Contains(b.Id.Value)))
+                uda.DeleteMedicalHistory(patient.UdaId.Value, mr.Id.Value);
 
             
             foreach (var medication in patient.LastTempData.Medication)

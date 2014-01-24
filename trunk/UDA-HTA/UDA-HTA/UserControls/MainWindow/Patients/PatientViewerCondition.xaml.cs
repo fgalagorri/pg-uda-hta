@@ -30,9 +30,11 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 lblColesterol.Text = tempData.Dyslipidemia != null && tempData.Dyslipidemia.Value ? "Si" : "No";
                 lblHypertense.Text = tempData.Hypertensive != null && tempData.Hypertensive.Value ? "Si" : "No";
 
+                grMedication.DataContext = null;
                 grMedication.DataContext = tempData.Medication;
             }
 
+            grBackground.DataContext = null;
             grBackground.DataContext = bak;
         }
     }

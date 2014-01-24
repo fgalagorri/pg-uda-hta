@@ -315,6 +315,13 @@ namespace UDA_HTA.UserControls.ReportCreation
         {
             var ms = new MedicationSelector();
             ms.ShowDialog();
+
+            if (ms.hasNewDrug)
+            {
+                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+                autoMedication.DataContext = _drugs;
+            }
+
             if (!String.IsNullOrWhiteSpace(ms.name))
                 autoMedication.Text = ms.name;
         }
