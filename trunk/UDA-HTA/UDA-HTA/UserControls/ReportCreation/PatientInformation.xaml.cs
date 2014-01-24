@@ -16,6 +16,7 @@ namespace UDA_HTA.UserControls.ReportCreation
     public partial class PatientInformation : UserControl
     {
         private ICollection<EmergencyContact> _emContacts;
+        private Patient _patient;
 
         public PatientInformation()
         {
@@ -24,6 +25,7 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public PatientInformation(Patient p)
         {
+            _patient = p;
             InitializeComponent();
 
             if (p != null)
@@ -63,6 +65,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             int mon = int.Parse(txtBirthMon.Text);
             int day = int.Parse(txtBirthDay.Text);
             Patient p = new Patient();
+            p = _patient;
 
             p.Names = txtNames.Text;
             p.Surnames = txtSurnames.Text;

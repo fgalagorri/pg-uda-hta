@@ -154,6 +154,12 @@
                         <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True"
                                             Binding="{Binding Path=Drug.Name}">
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="Id Droga" Visibility="Hidden"
+                                            Binding="{Binding Path=Drug.Id}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Id MedicineDose" Visibility="Hidden"
+                                            Binding="{Binding Path=Id}">
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

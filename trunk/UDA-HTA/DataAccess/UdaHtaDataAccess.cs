@@ -1092,8 +1092,33 @@ namespace DataAccess
                                         Weight = td.weight
                                     }).FirstOrDefault();
 
-                //if(tempData != null)
                 // AGREGAR LA LISTA DE MEDICAMENTOS
+                if (tempData != null)
+                {
+                    var medicineDose = udaContext.medicinedose
+                                                 .Where(md => md.temporarydata_idTemporaryData == tempData.IdTemporaryData)
+                                                 .Select(med => new MedicineDose
+                                                     {
+                                                         Id = med.idMedicineDosis,
+                                                         Time = med.time.Value,
+                                                         Dose = med.dose,
+                                                         Drug = new Drug
+                                                             {
+                                                                 Category = med.drug.drugtype.type,
+                                                                 Active = med.drug.active,
+                                                                 Name = med.drug.name,
+                                                                 Id = med.drug.idDrug
+                                                             }
+                                                     });
+                    foreach (var m in medicineDose)
+                    {
+                        Medication medication = new Medication(m.Time,m.Drug);
+                        medication.Dose = m.Dose;
+                        medication.Id = m.Id;
+
+                        tempData.Medication.Add(medication);
+                    }
+                }
 
                 return tempData;
             }
@@ -1126,9 +1151,40 @@ namespace DataAccess
             }
         }
 
+        public bool ExistMedicineDose(int idMedicineDose)
+        {
+            using (var udaContext = new udahta_dbEntities())
+            {
+                return udaContext.medicinedose.Any(md => md.idMedicineDosis == idMedicineDose);
+            }
+        }
+
         public void InsertMedicineDose(MedicineDose medicineDose, int idTemporaryData)
         {
-            udaContext.insertMedicineDose(medicineDose.Dose, medicineDose.Time, medicineDose.Drug.Id, idTemporaryData);
+            using (udaContext = new udahta_dbEntities())
+            {
+                ObjectParameter lastIdMedicineDose = new ObjectParameter("id", typeof (int));
+                if (ExistMedicineDose(medicineDose.Id))
+                {
+                    //eliminar medicamente
+                    if (medicineDose.DeleteMedicineDose)
+                    {
+                        udaContext.deleteMedicineDose(medicineDose.Id);
+                    }
+
+                }
+                else
+                { // No existe el medicamento en la base
+                    //no hay que eliminar el medicamente, entonces inserto
+                    if (!medicineDose.DeleteMedicineDose)
+                    {
+                        udaContext.insertMedicineDose(lastIdMedicineDose, medicineDose.Dose, medicineDose.Time,
+                                                      medicineDose.Drug.Id, idTemporaryData);
+                    }
+
+                    
+                }
+            }
         }
 
 

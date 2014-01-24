@@ -25,6 +25,6 @@ namespace Entities
         public decimal? MusclePercentage { get; set; }
         public int? Kcal { get; set; }
 
-        public ICollection<Medication> Medication { get; set; }
+        public List<Medication> Medication { get; set; }
     }
 }

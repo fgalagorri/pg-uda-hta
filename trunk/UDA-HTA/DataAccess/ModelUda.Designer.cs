@@ -1181,11 +1181,12 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="dose">No Metadata Documentation available.</param>
         /// <param name="time_">No Metadata Documentation available.</param>
         /// <param name="idDrug">No Metadata Documentation available.</param>
         /// <param name="idTemporaryData">No Metadata Documentation available.</param>
-        public int insertMedicineDose(global::System.String dose, Nullable<global::System.DateTime> time_, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
+        public int insertMedicineDose(ObjectParameter id, global::System.String dose, Nullable<global::System.DateTime> time_, Nullable<global::System.Int32> idDrug, Nullable<global::System.Int32> idTemporaryData)
         {
             ObjectParameter doseParameter;
             if (dose != null)
@@ -1227,7 +1228,7 @@ namespace DataAccess
                 idTemporaryDataParameter = new ObjectParameter("idTemporaryData", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("insertMedicineDose", doseParameter, time_Parameter, idDrugParameter, idTemporaryDataParameter);
+            return base.ExecuteFunction("insertMedicineDose", id, doseParameter, time_Parameter, idDrugParameter, idTemporaryDataParameter);
         }
     
         /// <summary>
@@ -2859,6 +2860,25 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("deleteMedicalHistory", idPatientUdaParameter, idMedicalRecordParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idMedicine">No Metadata Documentation available.</param>
+        public int deleteMedicineDose(Nullable<global::System.Int32> idMedicine)
+        {
+            ObjectParameter idMedicineParameter;
+            if (idMedicine.HasValue)
+            {
+                idMedicineParameter = new ObjectParameter("idMedicine", idMedicine);
+            }
+            else
+            {
+                idMedicineParameter = new ObjectParameter("idMedicine", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("deleteMedicineDose", idMedicineParameter);
         }
 
         #endregion

@@ -29,6 +29,7 @@ namespace UDA_HTA.UserControls.ReportCreation
         private ICollection<Medication> _lstMedication;
         private ICollection<MedicalRecord> _lstBackground;
         private ICollection<Drug> _drugs;
+        private Patient _patient;
 
         public PatientCondition()
         {
@@ -99,8 +100,10 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         public PatientCondition(Patient p)
         {
-            InitializeComponent();
-            
+            if (p != null)
+            {
+                _patient = p;
+                InitializeComponent();
                 colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
                 var controller = GatewayController.GetInstance();
                 try
@@ -113,8 +116,6 @@ namespace UDA_HTA.UserControls.ReportCreation
                     MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-            if (p != null)
-            {
                 var tempData = controller.GetPatientLastTempData(p.UdaId.Value);
                 if (tempData != null)
                 {
@@ -142,9 +143,10 @@ namespace UDA_HTA.UserControls.ReportCreation
                 }
                 CalculateImc(null, null);
 
-
+                _lstMedication = p.LastTempData.Medication ?? new List<Medication>();
                 _lstBackground = p.Background ?? new List<MedicalRecord>();
                 grBackground.DataContext = _lstBackground;
+                grMedication.DataContext = _lstMedication;
 
             }
             else
@@ -160,7 +162,7 @@ namespace UDA_HTA.UserControls.ReportCreation
 
             foreach (var m in _lstMedication)
                 m.Time = m.Time;
-            t.Medication = _lstMedication;
+            t.Medication = _lstMedication.ToList();
 
             t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
             t.Height = decimal.Parse(txtHeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
@@ -188,7 +190,7 @@ namespace UDA_HTA.UserControls.ReportCreation
 
                 foreach (var m in _lstMedication)
                     m.Time = m.Time;
-                t.Medication = _lstMedication;
+                t.Medication = _lstMedication.ToList();
 
                 decimal number;
 
@@ -222,6 +224,12 @@ namespace UDA_HTA.UserControls.ReportCreation
                 t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;
                 t.Hypertensive = chkHypertense.IsChecked.Value;
 
+                if (p.LastTempData == null)
+                {
+                    p.LastTempData = new TemporaryData();
+                }
+
+                p.LastTempData.Medication = _lstMedication.ToList(); 
                 p.Background = _lstBackground;
                 p.LastTempData = t;
             }

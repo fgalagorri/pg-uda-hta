@@ -54,15 +54,37 @@ namespace BussinessLogic
             //insertar medicalRecord nuevos
             foreach (var medicalRecord in patient.Background.Where(b=>b.Id == null))
             {
-                uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+                if (medicalRecord.Id != null)
+                {
+                    //actualizar medicalRecord
+                    uda.EditMedicalHistory(medicalRecord, patient.UdaId.Value);
+                }
+                else
+                {
+                    //insertar medicalRecord
+                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+                }
             }
 
-            var editedIds = patient.Background.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
-
-            //borrar los que no están más 
-            foreach (var mr  in currentBack.Where(b => b.Id.HasValue && !editedIds.Contains(b.Id.Value)))
+            
+            foreach (var medication in patient.LastTempData.Medication)
             {
-                uda.DeleteMedicalHistory(patient.UdaId.Value, mr.Id.Value);
+                MedicineDose md = new MedicineDose
+                    {
+                        Dose = medication.Dose,
+                        Drug = new Drug
+                            {
+                                Category = medication.Drug.Category,
+                                Active = medication.Drug.Active,
+                                Name = medication.Drug.Name,
+                                Id = medication.Drug.Id
+                            },
+                        Time = medication.Time,
+                        Id = medication.Id
+                        
+                    };
+
+                uda.InsertMedicineDose(md, patient.LastTempData.IdTemporaryData);                    
             }
         }
 
