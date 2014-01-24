@@ -374,6 +374,16 @@ namespace UDA_HTA.UserControls.ReportCreation
                 foreach (Medication c in selItems)
                     _lstMedication.Remove(c);
 
+                foreach (Medication c in selItems)
+                {
+                    if (_lstMedication.Contains(c))
+                    {
+                        _lstMedication.Remove(c);
+                        c.Id = 0;
+                        _lstMedication.Add(c);
+                    }
+                }
+
                 grMedication.DataContext = null;
                 grMedication.DataContext = _lstMedication;
             }
