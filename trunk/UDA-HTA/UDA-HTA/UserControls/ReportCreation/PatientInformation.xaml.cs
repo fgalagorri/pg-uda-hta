@@ -72,7 +72,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             p.DocumentId = txtCI.Text;
             p.RegisterNumber = txtNroReg.Text;
             p.BirthDate = new DateTime(year, mon, day);
-            p.Sex = cmbSex.SelectedIndex != -1 ? (SexType?)(cmbSex.SelectedIndex + 1) : null;
+            p.Sex = cmbSex.SelectedIndex != -1 ? (SexType?)cmbSex.SelectedIndex : null;
             p.Address = txtAddress.Text;
             p.Neighbour = txtNeighbour.Text;
             p.City = txtCity.Text;

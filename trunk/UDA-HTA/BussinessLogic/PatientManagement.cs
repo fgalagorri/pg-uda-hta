@@ -46,7 +46,8 @@ namespace BussinessLogic
             PatientDataAccess pda = new PatientDataAccess();
             pda.EditPatient(patient);
 
-            if (patient.UdaId != null) pda.InsertEmergencyContact((long) patient.UdaId,patient.EmergencyContactList);
+            if (patient.UdaId != null) 
+                pda.InsertEmergencyContact((long) patient.UdaId,patient.EmergencyContactList);
 
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             var currentBack = uda.GetMedicalHistory(patient.UdaId.Value);
