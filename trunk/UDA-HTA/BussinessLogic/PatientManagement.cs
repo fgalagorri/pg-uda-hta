@@ -63,17 +63,6 @@ namespace BussinessLogic
                 uda.DeleteMedicalHistory(patient.UdaId.Value, mr.Id.Value);
 
 
-            var currentMedicineBack = uda.GetMedicineDose(patient.LastTempData.IdTemporaryData);
-
-            //insertar medicamentos nuevos
-            foreach (var medication in patient.LastTempData.Medication.Where(b => b.Id == null))
-                uda.InsertMedicineDose(medication,patient.LastTempData.IdTemporaryData);;
-
-            var editedMedIds = patient.LastTempData.Medication.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
-
-            //borrar los que no están más 
-            foreach (var md in currentMedicineBack.Where(b => b.Id.HasValue && !editedMedIds.Contains(b.Id.Value)))
-                uda.DeleteMedicineDose(md.Id.Value);
         }
 
 

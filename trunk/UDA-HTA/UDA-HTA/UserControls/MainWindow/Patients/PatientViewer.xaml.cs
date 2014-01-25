@@ -62,7 +62,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 _report = _patient.ReportList.First(r => r.UdaId.Value.Equals(reportId));
 
                 TabPatient.SetPatientInfo(_patient);
-                TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
+                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
                 TabReportInfo.SetReport(_report);
                 ReportInfo.Visibility = Visibility.Visible;
                 TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
@@ -129,7 +129,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                     .ElementAt(index);
                 _report.Patient = _patient;
 
-                TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
+                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
                 TabReportInfo.SetReport(_report);
                 ReportInfo.Visibility = Visibility.Visible;
                 TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
