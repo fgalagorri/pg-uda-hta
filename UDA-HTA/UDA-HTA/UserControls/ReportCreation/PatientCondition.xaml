@@ -40,7 +40,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                     <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
-                    <TextBox Name="txtWeight" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
+                    <TextBox Name="txtWeight" Width="45" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                     <Border />
@@ -142,7 +142,7 @@
                         <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
                                             Binding="{Binding Path=Time}" x:Name="colTime">
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Dosis" Width="*" IsReadOnly="True" 
+                        <DataGridTextColumn Header="Dosis (mg)" Width="*" IsReadOnly="True" 
                                             Binding="{Binding Path=Dose}" x:Name="colDose">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Categoría" Width="*" IsReadOnly="True"
@@ -167,7 +167,7 @@
 
 
         <!-- Antecedentes médicos-->
-        <GroupBox Grid.Row="3">
+        <GroupBox Grid.Row="3" Name="GroupBackground">
             <GroupBox.Header>
                 <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
             </GroupBox.Header>

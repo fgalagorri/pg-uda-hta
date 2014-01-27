@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="udahta_dbModelStoreContainer">
           <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
@@ -69,11 +69,11 @@
           <Key>
             <PropertyRef Name="idComplications_Activities" />
           </Key>
-          <Property Name="idComplications_Activities" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idComplications_Activities" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="specification" Type="text" />
           <Property Name="dailycarnet_idDailyCarnet" Type="bigint" Nullable="false" />
           <Property Name="description" Type="text" />
-          <Property Name="time" Type="datetime" />
+          <Property Name="time" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="dailycarnet">
           <Key>
@@ -257,9 +257,9 @@
           <Property Name="tot_tam_avg" Type="int" />
           <Property Name="day_tam_avg" Type="int" />
           <Property Name="night_tam_avg" Type="int" />
-          <Property Name="diagnosis_date" Type="datetime" />
           <Property Name="sys_dipping" Type="decimal" Precision="7" Scale="4" />
           <Property Name="dias_dipping" Type="decimal" Precision="7" Scale="4" />
+          <Property Name="diagnosis_date" Type="datetime" />
         </EntityType>
         <EntityType Name="temporarydata">
           <Key>
@@ -424,10 +424,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="deleteComplicationActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="carnetId" Type="bigint" Mode="In" />
+          <Parameter Name="caId" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="deleteInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idInvestigation" Type="int" Mode="In" />
           <Parameter Name="idReport" Type="bigint" Mode="In" />
           <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="deleteMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+          <Parameter Name="idMedicalRecord" Type="bigint" Mode="In" />
         </Function>
         <Function Name="deleteMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idMedicine" Type="int" Mode="In" />
@@ -609,6 +617,33 @@
           <Parameter Name="r" Type="varchar" Mode="In" />
           <Parameter Name="nam" Type="text" Mode="In" />
         </Function>
+        <Function Name="updateDailyCarnet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="carnet_id" Type="bigint" Mode="In" />
+          <Parameter Name="technical" Type="varchar" Mode="In" />
+          <Parameter Name="initial_dias1" Type="int" Mode="In" />
+          <Parameter Name="initial_dias2" Type="int" Mode="In" />
+          <Parameter Name="initial_dias3" Type="int" Mode="In" />
+          <Parameter Name="initial_hr1" Type="int" Mode="In" />
+          <Parameter Name="initial_hr2" Type="int" Mode="In" />
+          <Parameter Name="initial_hr3" Type="int" Mode="In" />
+          <Parameter Name="final_dias1" Type="int" Mode="In" />
+          <Parameter Name="final_dias2" Type="int" Mode="In" />
+          <Parameter Name="final_dias3" Type="int" Mode="In" />
+          <Parameter Name="final_hr1" Type="int" Mode="In" />
+          <Parameter Name="final_hr2" Type="int" Mode="In" />
+          <Parameter Name="final_hr3" Type="int" Mode="In" />
+          <Parameter Name="begin_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="end_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="how_sleep" Type="varchar" Mode="In" />
+          <Parameter Name="sleep_comments" Type="text" Mode="In" />
+          <Parameter Name="main_meal_time" Type="datetime" Mode="In" />
+          <Parameter Name="init_sys1" Type="int" Mode="In" />
+          <Parameter Name="init_sys2" Type="int" Mode="In" />
+          <Parameter Name="init_sys3" Type="int" Mode="In" />
+          <Parameter Name="final_sys1" Type="int" Mode="In" />
+          <Parameter Name="final_sys2" Type="int" Mode="In" />
+          <Parameter Name="final_sys3" Type="int" Mode="In" />
+        </Function>
         <Function Name="updateDiagnosis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="reportId" Type="bigint" Mode="In" />
           <Parameter Name="doctor" Type="varchar" Mode="In" />
@@ -632,17 +667,7 @@
           <Parameter Name="isEnabled" Type="bit" Mode="In" />
           <Parameter Name="comment_" Type="text" Mode="In" />
         </Function>
-        <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="id" Type="bigint" Mode="In" />
-          <Parameter Name="patient_id" Type="bigint" Mode="In" />
-          <Parameter Name="illness" Type="text" Mode="In" />
-          <Parameter Name="comment_" Type="text" Mode="In" />
-        </Function>
-        <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
-          <Parameter Name="login_var" Type="varchar" Mode="In" />
-          <Parameter Name="pass_var" Type="text" Mode="In" />
-        </Function>
-        <Function Name="updateReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+        <Function Name="UpdateMeasureSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
           <Parameter Name="n_sys_total_avg" Type="int" Mode="In" />
           <Parameter Name="n_sys_day_avg" Type="int" Mode="In" />
@@ -682,6 +707,37 @@
           <Parameter Name="n_hr_night_min" Type="int" Mode="In" />
           <Parameter Name="n_sys_dipping" Type="decimal" Mode="In" />
           <Parameter Name="n_dias_dipping" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="patient_id" Type="bigint" Mode="In" />
+          <Parameter Name="illness" Type="text" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="login_var" Type="varchar" Mode="In" />
+          <Parameter Name="pass_var" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updateReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="begin_date" Type="datetime" Mode="In" />
+          <Parameter Name="end_date" Type="datetime" Mode="In" />
+          <Parameter Name="requester" Type="varchar" Mode="In" />
+          <Parameter Name="specialty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updateTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="weight" Type="decimal" Mode="In" />
+          <Parameter Name="height" Type="decimal" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="body_mass_index" Type="decimal" Mode="In" />
+          <Parameter Name="smoker" Type="bit" Mode="In" />
+          <Parameter Name="dyslipidemia" Type="bit" Mode="In" />
+          <Parameter Name="diabetic" Type="bit" Mode="In" />
+          <Parameter Name="known_hypertensive" Type="bit" Mode="In" />
+          <Parameter Name="fat_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="muscle_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="kcal" Type="int" Mode="In" />
         </Function>
         <Function Name="updateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="idUsr" Type="int" Mode="In" />
@@ -933,12 +989,7 @@
             <End Role="measurement" EntitySet="measurement" />
           </AssociationSet>
           <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
-          <EntitySet Name="complications_activities" EntityType="udahta_dbModel.complications_activities" />
           <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.dailycarnet" />
-          <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1">
-            <End Role="dailycarnet" EntitySet="dailycarnet" />
-            <End Role="complications_activities" EntitySet="complications_activities" />
-          </AssociationSet>
           <AssociationSet Name="fk_Report_DailyCarnet1" Association="udahta_dbModel.fk_Report_DailyCarnet1">
             <End Role="dailycarnet" EntitySet="dailycarnet" />
             <End Role="report" EntitySet="report" />
@@ -968,7 +1019,14 @@
             <Parameter Name="name_" Mode="In" Type="String" />
             <Parameter Name="rol" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="updateReport">
+          <FunctionImport Name="deleteMedicineDose">
+          <Parameter Name="idMedicine" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleteMedicalHistory">
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+            <Parameter Name="idMedicalRecord" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateMeasureSummary">
             <Parameter Name="id" Mode="In" Type="Int64" />
             <Parameter Name="n_sys_total_avg" Mode="In" Type="Int32" />
             <Parameter Name="n_sys_day_avg" Mode="In" Type="Int32" />
@@ -1009,13 +1067,63 @@
             <Parameter Name="n_sys_dipping" Mode="In" Type="Decimal" />
             <Parameter Name="n_dias_dipping" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="deleteMedicineDose">
-          <Parameter Name="idMedicine" Mode="In" Type="Int32" />
+          <FunctionImport Name="updateReport">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+            <Parameter Name="requester" Mode="In" Type="String" />
+            <Parameter Name="specialty" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="deleteMedicalHistory">
-            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
-            <Parameter Name="idMedicalRecord" Mode="In" Type="Int64" />
+          <FunctionImport Name="updateDailyCarnet">
+            <Parameter Name="carnet_id" Mode="In" Type="Int64" />
+            <Parameter Name="technical" Mode="In" Type="String" />
+            <Parameter Name="initial_dias1" Mode="In" Type="Int32" />
+            <Parameter Name="initial_dias2" Mode="In" Type="Int32" />
+            <Parameter Name="initial_dias3" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr1" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr2" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr3" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias1" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias2" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias3" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr1" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr2" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr3" Mode="In" Type="Int32" />
+            <Parameter Name="begin_sleep_time" Mode="In" Type="DateTime" />
+            <Parameter Name="end_sleep_time" Mode="In" Type="DateTime" />
+            <Parameter Name="how_sleep" Mode="In" Type="String" />
+            <Parameter Name="sleep_comments" Mode="In" Type="String" />
+            <Parameter Name="main_meal_time" Mode="In" Type="DateTime" />
+            <Parameter Name="init_sys1" Mode="In" Type="Int32" />
+            <Parameter Name="init_sys2" Mode="In" Type="Int32" />
+            <Parameter Name="init_sys3" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys1" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys2" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys3" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="updateTemporaryData">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="weight" Mode="In" Type="Decimal" />
+            <Parameter Name="height" Mode="In" Type="Decimal" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="body_mass_index" Mode="In" Type="Decimal" />
+            <Parameter Name="smoker" Mode="In" Type="Boolean" />
+            <Parameter Name="dyslipidemia" Mode="In" Type="Boolean" />
+            <Parameter Name="diabetic" Mode="In" Type="Boolean" />
+            <Parameter Name="known_hypertensive" Mode="In" Type="Boolean" />
+            <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="kcal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleteComplicationActivity">
+            <Parameter Name="carnetId" Mode="In" Type="Int64" />
+            <Parameter Name="caId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <EntitySet Name="complications_activities" EntityType="udahta_dbModel.complications_activities" />
+          <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="complications_activities" EntitySet="complications_activities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="drug">
           <Key>
@@ -1297,17 +1405,6 @@
           <Property Type="Int32" Name="highdiasday" Nullable="false" />
           <Property Type="Int32" Name="highdiasnight" Nullable="false" />
         </EntityType>
-        <EntityType Name="complications_activities">
-          <Key>
-            <PropertyRef Name="idComplications_Activities" />
-          </Key>
-          <Property Type="Int32" Name="idComplications_Activities" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="specification" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="dailycarnet_idDailyCarnet" Nullable="false" />
-          <Property Type="String" Name="description" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="time" />
-          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
-        </EntityType>
         <EntityType Name="dailycarnet">
           <Key>
             <PropertyRef Name="idDailyCarnet" />
@@ -1337,8 +1434,31 @@
           <Property Type="Int32" Name="final_sys2" />
           <Property Type="Int32" Name="final_sys3" />
           <Property Type="String" Name="sleep_comments" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="dailycarnet" ToRole="complications_activities" />
           <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="dailycarnet" ToRole="report" />
+          <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="dailycarnet" ToRole="complications_activities" />
+        </EntityType>
+        <Association Name="fk_Report_DailyCarnet1">
+          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="complications_activities">
+          <Key>
+            <PropertyRef Name="idComplications_Activities" />
+          </Key>
+          <Property Type="Int64" Name="idComplications_Activities" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="specification" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="dailycarnet_idDailyCarnet" Nullable="false" />
+          <Property Type="String" Name="description" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="time" Nullable="false" />
+          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
         </EntityType>
         <Association Name="fk_Complications_Activities_DailyCarnet1">
           <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
@@ -1348,18 +1468,6 @@
               <PropertyRef Name="idDailyCarnet" />
             </Principal>
             <Dependent Role="complications_activities">
-              <PropertyRef Name="dailycarnet_idDailyCarnet" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Report_DailyCarnet1">
-          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
-          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dailycarnet">
-              <PropertyRef Name="idDailyCarnet" />
-            </Principal>
-            <Dependent Role="report">
               <PropertyRef Name="dailycarnet_idDailyCarnet" />
             </Dependent>
           </ReferentialConstraint>
@@ -1527,17 +1635,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="complications_activities">
-            <EntityTypeMapping TypeName="udahta_dbModel.complications_activities">
-              <MappingFragment StoreEntitySet="complications_activities">
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
-                <ScalarProperty Name="specification" ColumnName="specification" />
-                <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="dailycarnet">
             <EntityTypeMapping TypeName="udahta_dbModel.dailycarnet">
               <MappingFragment StoreEntitySet="dailycarnet">
@@ -1593,8 +1690,24 @@
           <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
           <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
           <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
-          <FunctionImportMapping FunctionImportName="updateReport" FunctionName="udahta_dbModel.Store.updateReport" />
           <FunctionImportMapping FunctionImportName="deleteMedicineDose" FunctionName="udahta_dbModel.Store.deleteMedicineDose" />
+          <FunctionImportMapping FunctionImportName="deleteMedicalHistory" FunctionName="udahta_dbModel.Store.deleteMedicalHistory" />
+          <FunctionImportMapping FunctionImportName="UpdateMeasureSummary" FunctionName="udahta_dbModel.Store.UpdateMeasureSummary" />
+          <FunctionImportMapping FunctionImportName="updateReport" FunctionName="udahta_dbModel.Store.updateReport" />
+          <FunctionImportMapping FunctionImportName="updateDailyCarnet" FunctionName="udahta_dbModel.Store.updateDailyCarnet" />
+          <FunctionImportMapping FunctionImportName="updateTemporaryData" FunctionName="udahta_dbModel.Store.updateTemporaryData" />
+          <FunctionImportMapping FunctionImportName="deleteComplicationActivity" FunctionName="udahta_dbModel.Store.deleteComplicationActivity" />
+          <EntitySetMapping Name="complications_activities">
+            <EntityTypeMapping TypeName="udahta_dbModel.complications_activities">
+              <MappingFragment StoreEntitySet="complications_activities">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
+                <ScalarProperty Name="specification" ColumnName="specification" />
+                <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1662,15 +1775,15 @@
           <ConnectorPoint PointX="8.25" PointY="9.60549967447917" />
         </AssociationConnector>
         <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="10.375" PointY="3.75" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3.75" PointY="4.25" Height="2.1725878906250031" />
         <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="1.5" PointY="2.25" Height="6.210917968749996" />
-        <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" >
-          <ConnectorPoint PointX="3" PointY="5.3362939453125016" />
-          <ConnectorPoint PointX="3.75" PointY="5.3362939453125016" />
-        </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
-          <ConnectorPoint PointX="3" PointY="7.4730029296875" />
-          <ConnectorPoint PointX="6" PointY="7.4730029296875" />
+          <ConnectorPoint PointX="3" PointY="4.5312499999999991" />
+          <ConnectorPoint PointX="6" PointY="4.5312499999999991" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3.75" PointY="5.25" Height="2.1725878906250031" />
+        <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" >
+          <ConnectorPoint PointX="3" PointY="6.3362939453125016" />
+          <ConnectorPoint PointX="3.75" PointY="6.3362939453125016" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -102,14 +102,16 @@
                 <DataGrid Name="grMedication" Background="White" AutoGenerateColumns="False" 
                           ItemsSource="{Binding}" IsReadOnly="True" Height="100">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Categoría" Width="1*" IsReadOnly="True" 
+                        <DataGridTextColumn Header="Hora" Width="1*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Time}" x:Name="ColHora" />
+                        <DataGridTextColumn Header="Dosis (mg)" Width="1*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Dose}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Categoría" Width="2*" IsReadOnly="True" 
                                             Binding="{Binding Path=Drug.Category}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True" 
                                             Binding="{Binding Path=Drug.Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True" 
                                             Binding="{Binding Path=Drug.Active}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Dosificación" Width="2*" IsReadOnly="True" 
-                                            Binding="{Binding Path=Dose}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>

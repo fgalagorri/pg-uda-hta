@@ -40,29 +40,28 @@ namespace BussinessLogic
 
         public void EditPatient(Patient patient)
         {
-            // Para el medical history 
-            // hacer update de los que tienen id e 
-            // insertar los que no tienen id
             PatientDataAccess pda = new PatientDataAccess();
             pda.EditPatient(patient);
 
-            if (patient.UdaId != null) 
-                pda.InsertEmergencyContact((long) patient.UdaId,patient.EmergencyContactList);
+            if (patient.UdaId != null)
+            {
+                // CONTACTOS DE EMERGENCIA
+                pda.InsertEmergencyContact((long) patient.UdaId, patient.EmergencyContactList);
 
-            UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            var currentBack = uda.GetMedicalHistory(patient.UdaId.Value);
+                // ANTECEDENTES MÉDICOS
+                UdaHtaDataAccess uda = new UdaHtaDataAccess();
+                var currentBack = uda.GetMedicalHistory(patient.UdaId.Value);
 
-            //insertar medicalRecord nuevos
-            foreach (var medicalRecord in patient.Background.Where(b => b.Id == null))
-                uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
+                //insertar medicalRecord nuevos
+                foreach (var medicalRecord in patient.Background.Where(b => !b.Id.HasValue))
+                    uda.InsertMedicalHistory(patient.UdaId.Value, medicalRecord);
 
-            var editedIds = patient.Background.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
+                var editedIds = patient.Background.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
 
-            //borrar los que no están más 
-            foreach (var mr in currentBack.Where(b => b.Id.HasValue && !editedIds.Contains(b.Id.Value)))
-                uda.DeleteMedicalHistory(patient.UdaId.Value, mr.Id.Value);
-
-
+                //borrar los que no están más 
+                foreach (var mr in currentBack.Where(b => b.Id.HasValue && !editedIds.Contains(b.Id.Value)))
+                    uda.DeleteMedicalHistory(patient.UdaId.Value, mr.Id.Value);
+            }
         }
 
 

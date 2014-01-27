@@ -183,7 +183,7 @@
     <Compile Include="UserControls\MainWindow\Patients\PatientViewerReportInfo.xaml.cs">
       <DependentUpon>PatientViewerReportInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\Patients\NewPatient.xaml.cs">
+    <Compile Include="NewPatient.xaml.cs">
       <DependentUpon>NewPatient.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MedicationSelector.xaml.cs">
@@ -212,6 +212,9 @@
     </Compile>
     <Compile Include="UserControls\ReportCreation\PatientCondition.xaml.cs">
       <DependentUpon>PatientCondition.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportCreation\BackgroundEdit.xaml.cs">
+      <DependentUpon>BackgroundEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ReportCreation\PatientInformation.xaml.cs">
       <DependentUpon>PatientInformation.xaml</DependentUpon>
@@ -323,7 +326,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MainWindow\Patients\NewPatient.xaml">
+    <Page Include="NewPatient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -364,6 +367,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ReportCreation\PatientCondition.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReportCreation\BackgroundEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -465,6 +472,10 @@
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventLogger\EventLogger.csproj">
+      <Project>{2E51890C-B3F1-424A-98F5-1680DCC20FAD}</Project>
+      <Name>EventLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gateway\Gateway.csproj">
       <Project>{99BA066D-A192-4101-843D-D9E6DA95C4C4}</Project>
       <Name>Gateway</Name>
@@ -498,6 +509,25 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_editReport.png" />
+    <Resource Include="Images\ribbon_exportReport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_newDrug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_findDrugs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_findResearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_addReportResearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\export_xls.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
