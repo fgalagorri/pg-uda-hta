@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Entities;
+using EventLogger;
 using Gateway;
 using UDA_HTA.Helpers;
 
@@ -30,42 +22,30 @@ namespace UDA_HTA.UserControls.ReportCreation
         private ICollection<MedicalRecord> _lstBackground;
         private ICollection<Drug> _drugs;
         private Patient _patient;
+        private bool _isEdit;
 
         public PatientCondition()
         {
             InitializeComponent();
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
-            try
-            {
-                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
-                autoMedication.DataContext = _drugs;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            GetDrugs();
+            autoMedication.DataContext = _drugs;
 
             _lstMedication = new List<Medication>();
             _lstBackground = new List<MedicalRecord>();
         }
 
-        public PatientCondition(Report r)
+        public PatientCondition(Report r, bool isEdit)
         {
             InitializeComponent();
+            _isEdit = isEdit;
+            if (_isEdit)
+                GroupBackground.Visibility = Visibility.Collapsed;
+
             _lstMedication = new List<Medication>();
-            _lstBackground = new List<MedicalRecord>();
-
             colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
-            try
-            {
-                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);    
-                autoMedication.DataContext = _drugs;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
+            GetDrugs();
+            autoMedication.DataContext = _drugs;
 
             // Datos posiblemente modificados
             if (r.TemporaryData != null)
@@ -94,176 +74,13 @@ namespace UDA_HTA.UserControls.ReportCreation
                 _lstMedication = new List<Medication>();
             }
             CalculateImc(null, null);
-            
-            _lstBackground = r.Patient.Background ?? new List<MedicalRecord>();
-            grBackground.DataContext = _lstBackground;
-            grMedication.DataContext = _lstMedication;
-        }
 
-        public PatientCondition(Patient p)
-        {
-            InitializeComponent();
-
-            if (p != null)
+            if (!_isEdit)
             {
-                _patient = p;
-                colTime.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
-                var controller = GatewayController.GetInstance();
-                try
-                {
-                    _drugs = controller.GetDrugs(null, null, null); 
-                    autoMedication.DataContext = _drugs;
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                var tempData = controller.GetPatientLastTempData(p.UdaId.Value);
-                if (tempData != null)
-                {
-                    _lstMedication = tempData.Medication ?? new List<Medication>();
-
-                    txtWeight.Text = tempData.Weight.ToString();
-                    txtHeight.Text = tempData.Height.HasValue ? tempData.Height.Value.ToString("F") : "";
-                    _imc = tempData.BodyMassIndex.HasValue ? tempData.BodyMassIndex.Value : -1;
-                    lblImc.Text = tempData.BodyMassIndex.ToString();
-                    txtFat.Text = tempData.FatPercentage.ToString();
-                    txtMuscle.Text = tempData.MusclePercentage.ToString();
-                    txtKcal.Text = tempData.Kcal.ToString();
-                    chkSmoker.IsChecked = tempData.Smoker ?? false;
-                    chkDiabetic.IsChecked = tempData.Diabetic ?? false;
-                    chkDyslipidemia.IsChecked = tempData.Dyslipidemia ?? false;
-                    chkHypertense.IsChecked = tempData.Hypertensive ?? false;
-                }
-                else
-                {
-                    chkSmoker.IsChecked = false;
-                    chkDiabetic.IsChecked = false;
-                    chkDyslipidemia.IsChecked = false;
-                    chkHypertense.IsChecked = false;
-                    _lstMedication = new List<Medication>();
-                }
-                CalculateImc(null, null);
-
-                _lstBackground = p.Background ?? new List<MedicalRecord>();
+                _lstBackground = r.Patient.Background ?? new List<MedicalRecord>();
                 grBackground.DataContext = _lstBackground;
-                grMedication.DataContext = _lstMedication;
-
             }
-        }
-
-        public Report GetReport(Report r)
-        {
-            var t = r.TemporaryData ?? new TemporaryData();
-
-            foreach (var m in _lstMedication)
-                m.Time = m.Time;
-            t.Medication = _lstMedication.ToList();
-
-            t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
-            t.Height = decimal.Parse(txtHeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
-            t.BodyMassIndex = _imc;
-            t.FatPercentage = decimal.Parse(txtFat.Text.Replace(",", "."), NumberStyles.Float,
-                                            CultureInfo.InvariantCulture);
-            t.MusclePercentage = decimal.Parse(txtMuscle.Text.Replace(",", "."), NumberStyles.Float,
-                                               CultureInfo.InvariantCulture);
-            t.Kcal = int.Parse(txtKcal.Text);
-            t.Smoker = chkSmoker.IsChecked.Value;
-            t.Diabetic = chkDiabetic.IsChecked.Value;
-            t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;
-            t.Hypertensive = chkHypertense.IsChecked.Value;
-
-            r.TemporaryData = t;
-            r.Patient.Background = _lstBackground;
-            return r;
-        }
-
-        public Patient GetPatient(Patient p)
-        {
-            try
-            {
-                var t = p.LastTempData ?? new TemporaryData();
-
-                foreach (var m in _lstMedication)
-                    m.Time = m.Time;
-                t.Medication = _lstMedication.ToList();
-
-                decimal number;
-
-                if (!decimal.TryParse(txtWeight.Text.Replace(",", "."),out number))
-                {
-                    t.Weight = number;                    
-                }
-
-                if (!decimal.TryParse(txtHeight.Text.Replace(",", "."), out number))
-                {
-                    t.Height = number;
-                }
-                t.BodyMassIndex = _imc;
-                
-                if (!decimal.TryParse(txtFat.Text.Replace(",", "."), out number))
-                {
-                    t.FatPercentage = number;
-                }
-                
-                if (!decimal.TryParse(txtMuscle.Text.Replace(",", "."), out number))
-                {
-                    t.MusclePercentage = number;
-                }
-                int num;
-                if (!int.TryParse(txtKcal.Text, out num))
-                {
-                    t.Kcal = num;
-                }
-                t.Smoker = chkSmoker.IsChecked.Value;
-                t.Diabetic = chkDiabetic.IsChecked.Value;
-                t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;
-                t.Hypertensive = chkHypertense.IsChecked.Value;
-
-                if (p.LastTempData == null)
-                {
-                    p.LastTempData = new TemporaryData();
-                }
-
-                p.LastTempData.Medication = _lstMedication.ToList(); 
-                p.Background = _lstBackground;
-                p.LastTempData = t;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            return p;
-        }
-
-        public bool IsValid()
-        {
-            CalculateImc(null, null);
-
-            return txtWeight.ValidateDecimal(0, 400) &
-                   txtHeight.ValidateDecimal(0, 3) &
-                   txtFat.ValidateDecimal(0, 100) &
-                   txtMuscle.ValidateDecimal(0, 100) &
-                   txtKcal.ValidateInt(0, int.MaxValue) &
-                   _imc > 0;
-        }
-
-
-        private void CalculateImc(object sender, TextChangedEventArgs e)
-        {
-            decimal height, weight;
-            string h = txtHeight.Text.Replace(",", ".");
-            string w = txtWeight.Text.Replace(",", ".");
-
-            if (decimal.TryParse(h, NumberStyles.Float, CultureInfo.InvariantCulture, out height)
-                && decimal.TryParse(w, NumberStyles.Float, CultureInfo.InvariantCulture, out weight))
-            {
-                _imc = weight / (height * height);
-                lblImc.Text = _imc.ToString("0.##", CultureInfo.InvariantCulture);
-            }
-            else
-                lblImc.Text = "";
+            grMedication.DataContext = _lstMedication;
         }
 
 
@@ -371,16 +188,6 @@ namespace UDA_HTA.UserControls.ReportCreation
                 foreach (Medication c in selItems)
                     _lstMedication.Remove(c);
 
-                foreach (Medication c in selItems)
-                {
-                    if (_lstMedication.Contains(c))
-                    {
-                        _lstMedication.Remove(c);
-                        c.Id = 0;
-                        _lstMedication.Add(c);
-                    }
-                }
-
                 grMedication.DataContext = null;
                 grMedication.DataContext = _lstMedication;
             }
@@ -392,5 +199,77 @@ namespace UDA_HTA.UserControls.ReportCreation
         }
 
         #endregion
+
+
+        private void GetDrugs()
+        {
+            try
+            {
+                _drugs = GatewayController.GetInstance().GetDrugs(null, null, null);
+                autoMedication.DataContext = _drugs;
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"],
+                    exception.Message, exception.InnerException);
+                MessageBox.Show("Ha ocurrido un error al intentar obtener las drogas.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CalculateImc(object sender, TextChangedEventArgs e)
+        {
+            decimal height, weight;
+            string h = txtHeight.Text.Replace(",", ".");
+            string w = txtWeight.Text.Replace(",", ".");
+
+            if (decimal.TryParse(h, NumberStyles.Float, CultureInfo.InvariantCulture, out height)
+                && decimal.TryParse(w, NumberStyles.Float, CultureInfo.InvariantCulture, out weight))
+            {
+                _imc = weight / (height * height);
+                lblImc.Text = _imc.ToString("0.##", CultureInfo.InvariantCulture);
+            }
+            else
+                lblImc.Text = "";
+        }
+
+
+        public Report GetReport(Report r)
+        {
+            var t = r.TemporaryData ?? new TemporaryData();
+            t.Medication = _lstMedication.ToList();
+
+            t.Weight = decimal.Parse(txtWeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
+            t.Height = decimal.Parse(txtHeight.Text.Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture);
+            t.BodyMassIndex = _imc;
+            t.FatPercentage = decimal.Parse(txtFat.Text.Replace(",", "."), NumberStyles.Float,
+                                            CultureInfo.InvariantCulture);
+            t.MusclePercentage = decimal.Parse(txtMuscle.Text.Replace(",", "."), NumberStyles.Float,
+                                               CultureInfo.InvariantCulture);
+            t.Kcal = int.Parse(txtKcal.Text);
+            t.Smoker = chkSmoker.IsChecked.Value;
+            t.Diabetic = chkDiabetic.IsChecked.Value;
+            t.Dyslipidemia = chkDyslipidemia.IsChecked.Value;
+            t.Hypertensive = chkHypertense.IsChecked.Value;
+
+            r.TemporaryData = t;
+
+            if (!_isEdit)
+                r.Patient.Background = _lstBackground;
+            return r;
+        }
+
+        public bool IsValid()
+        {
+            CalculateImc(null, null);
+
+            return txtWeight.ValidateDecimal(0, 400) &
+                   txtHeight.ValidateDecimal(0, 3) &
+                   txtFat.ValidateDecimal(0, 100) &
+                   txtMuscle.ValidateDecimal(0, 100) &
+                   txtKcal.ValidateInt(0, int.MaxValue) &
+                   _imc > 0;
+        }
     }
 }

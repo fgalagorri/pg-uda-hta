@@ -16,6 +16,7 @@ namespace UDA_HTA
                                             " ingresados o el valor ingresado es incorrecto.";
         private const string Siguiente = "Siguiente >";
         private const string Finalizar = "Finalizar >>";
+        private bool _isEdition;
         private int _state;
         private Report _report;
         private PatientInformation patientInfo;
@@ -23,17 +24,27 @@ namespace UDA_HTA
         private AdmissionForm admissionForm;
         private OtherInformation otherInfo;
 
-        public ReportCreate(Report report)
+        public ReportCreate(Report report, bool isEdition = false)
         {
             InitializeComponent();
             _report = report;
-            _state = 0;
-            patientInfo = new PatientInformation(report.Patient);
-            patientCondition = new PatientCondition(report);
+            _isEdition = isEdition;
+
+            patientCondition = new PatientCondition(report, _isEdition);
             admissionForm = new AdmissionForm(report);
             otherInfo = new OtherInformation(report);
 
-            CurrentControl.Content = patientInfo;
+            if (!_isEdition)
+            {
+                _state = 0;
+                patientInfo = new PatientInformation(report.Patient);
+                CurrentControl.Content = patientInfo;
+            }
+            else
+            {
+                _state = 1;
+                CurrentControl.Content = patientCondition;
+            }
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
@@ -57,6 +68,7 @@ namespace UDA_HTA
                     if (patientCondition.IsValid())
                     {
                         CurrentControl.Content = admissionForm;
+                        btnBack.IsEnabled = true;
                         _state++;
                     }
                     else
@@ -79,7 +91,8 @@ namespace UDA_HTA
                     }
                     break;
                 case 3:
-                    _report = patientInfo.GetReport(_report);
+                    if (!_isEdition)
+                        _report = patientInfo.GetReport(_report);
                     _report = patientCondition.GetReport(_report);
                     _report = admissionForm.GetReport(_report);
                     _report = otherInfo.GetReport(_report);
@@ -87,7 +100,11 @@ namespace UDA_HTA
                     try
                     {
                         Mouse.OverrideCursor = Cursors.Wait;
-                        GatewayController.GetInstance().AddImportedData(_report, true); 
+                        if(!_isEdition)
+                            GatewayController.GetInstance().AddImportedData(_report, true);
+                        else
+                            GatewayController.GetInstance().UpdateReport(_report);
+                        Mouse.OverrideCursor = null;
                     }
                     catch (Exception exception)
                     {
@@ -111,6 +128,8 @@ namespace UDA_HTA
                     break;
                 case 2:
                     CurrentControl.Content = patientCondition;
+                    if (_isEdition)
+                        btnBack.IsEnabled = false;
                     _state--;
                     break;
                 case 3:

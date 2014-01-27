@@ -27,8 +27,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_TemporaryData1", "temporarydata", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.temporarydata), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "investigation_has_report", "investigation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.investigation), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report))]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Measurement_Report1", "report", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.report), "measurement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.measurement), true)]
-[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
 [assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.report), true)]
+[assembly: EdmRelationshipAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "dailycarnet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DataAccess.dailycarnet), "complications_activities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DataAccess.complications_activities), true)]
 
 #endregion
 
@@ -259,22 +259,6 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<complications_activities> complications_activities
-        {
-            get
-            {
-                if ((_complications_activities == null))
-                {
-                    _complications_activities = base.CreateObjectSet<complications_activities>("complications_activities");
-                }
-                return _complications_activities;
-            }
-        }
-        private ObjectSet<complications_activities> _complications_activities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<dailycarnet> dailycarnet
         {
             get
@@ -287,6 +271,22 @@ namespace DataAccess
             }
         }
         private ObjectSet<dailycarnet> _dailycarnet;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<complications_activities> complications_activities
+        {
+            get
+            {
+                if ((_complications_activities == null))
+                {
+                    _complications_activities = base.CreateObjectSet<complications_activities>("complications_activities");
+                }
+                return _complications_activities;
+            }
+        }
+        private ObjectSet<complications_activities> _complications_activities;
 
         #endregion
 
@@ -381,19 +381,19 @@ namespace DataAccess
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the complications_activities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocomplications_activities(complications_activities complications_activities)
-        {
-            base.AddObject("complications_activities", complications_activities);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the dailycarnet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTodailycarnet(dailycarnet dailycarnet)
         {
             base.AddObject("dailycarnet", dailycarnet);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the complications_activities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocomplications_activities(complications_activities complications_activities)
+        {
+            base.AddObject("complications_activities", complications_activities);
         }
 
         #endregion
@@ -2398,6 +2398,55 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        /// <param name="idMedicine">No Metadata Documentation available.</param>
+        public int deleteMedicineDose(Nullable<global::System.Int32> idMedicine)
+        {
+            ObjectParameter idMedicineParameter;
+            if (idMedicine.HasValue)
+            {
+                idMedicineParameter = new ObjectParameter("idMedicine", idMedicine);
+            }
+            else
+            {
+                idMedicineParameter = new ObjectParameter("idMedicine", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("deleteMedicineDose", idMedicineParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="idPatientUda">No Metadata Documentation available.</param>
+        /// <param name="idMedicalRecord">No Metadata Documentation available.</param>
+        public int deleteMedicalHistory(Nullable<global::System.Int64> idPatientUda, Nullable<global::System.Int64> idMedicalRecord)
+        {
+            ObjectParameter idPatientUdaParameter;
+            if (idPatientUda.HasValue)
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", idPatientUda);
+            }
+            else
+            {
+                idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter idMedicalRecordParameter;
+            if (idMedicalRecord.HasValue)
+            {
+                idMedicalRecordParameter = new ObjectParameter("idMedicalRecord", idMedicalRecord);
+            }
+            else
+            {
+                idMedicalRecordParameter = new ObjectParameter("idMedicalRecord", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("deleteMedicalHistory", idPatientUdaParameter, idMedicalRecordParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         /// <param name="id">No Metadata Documentation available.</param>
         /// <param name="n_sys_total_avg">No Metadata Documentation available.</param>
         /// <param name="n_sys_day_avg">No Metadata Documentation available.</param>
@@ -2437,7 +2486,7 @@ namespace DataAccess
         /// <param name="n_hr_night_min">No Metadata Documentation available.</param>
         /// <param name="n_sys_dipping">No Metadata Documentation available.</param>
         /// <param name="n_dias_dipping">No Metadata Documentation available.</param>
-        public int updateReport(Nullable<global::System.Int64> id, Nullable<global::System.Int32> n_sys_total_avg, Nullable<global::System.Int32> n_sys_day_avg, Nullable<global::System.Int32> n_sys_night_avg, Nullable<global::System.Int32> n_dias_total_avg, Nullable<global::System.Int32> n_dias_day_avg, Nullable<global::System.Int32> n_dias_night_avg, Nullable<global::System.Int32> n_tam_total_avg, Nullable<global::System.Int32> n_tam_day_avg, Nullable<global::System.Int32> n_tam_night_avg, Nullable<global::System.Int32> n_hr_total_avg, Nullable<global::System.Int32> n_hr_day_avg, Nullable<global::System.Int32> n_hr_night_avg, Nullable<global::System.Decimal> n_sys_total_sd, Nullable<global::System.Decimal> n_sys_day_sd, Nullable<global::System.Decimal> n_sys_night_sd, Nullable<global::System.Decimal> n_dias_total_sd, Nullable<global::System.Decimal> n_dias_day_sd, Nullable<global::System.Decimal> n_dias_night_sd, Nullable<global::System.Decimal> n_tam_total_sd, Nullable<global::System.Decimal> n_tam_day_sd, Nullable<global::System.Decimal> n_tam_night_sd, Nullable<global::System.Decimal> n_hr_total_sd, Nullable<global::System.Decimal> n_hr_day_sd, Nullable<global::System.Decimal> n_hr_night_sd, Nullable<global::System.Int32> n_sys_day_max, Nullable<global::System.Int32> n_sys_night_max, Nullable<global::System.Int32> n_dias_day_max, Nullable<global::System.Int32> n_dias_night_max, Nullable<global::System.Int32> n_hr_day_max, Nullable<global::System.Int32> n_hr_night_max, Nullable<global::System.Int32> n_sys_day_min, Nullable<global::System.Int32> n_sys_night_min, Nullable<global::System.Int32> n_dias_day_min, Nullable<global::System.Int32> n_dias_night_min, Nullable<global::System.Int32> n_hr_day_min, Nullable<global::System.Int32> n_hr_night_min, Nullable<global::System.Decimal> n_sys_dipping, Nullable<global::System.Decimal> n_dias_dipping)
+        public int UpdateMeasureSummary(Nullable<global::System.Int64> id, Nullable<global::System.Int32> n_sys_total_avg, Nullable<global::System.Int32> n_sys_day_avg, Nullable<global::System.Int32> n_sys_night_avg, Nullable<global::System.Int32> n_dias_total_avg, Nullable<global::System.Int32> n_dias_day_avg, Nullable<global::System.Int32> n_dias_night_avg, Nullable<global::System.Int32> n_tam_total_avg, Nullable<global::System.Int32> n_tam_day_avg, Nullable<global::System.Int32> n_tam_night_avg, Nullable<global::System.Int32> n_hr_total_avg, Nullable<global::System.Int32> n_hr_day_avg, Nullable<global::System.Int32> n_hr_night_avg, Nullable<global::System.Decimal> n_sys_total_sd, Nullable<global::System.Decimal> n_sys_day_sd, Nullable<global::System.Decimal> n_sys_night_sd, Nullable<global::System.Decimal> n_dias_total_sd, Nullable<global::System.Decimal> n_dias_day_sd, Nullable<global::System.Decimal> n_dias_night_sd, Nullable<global::System.Decimal> n_tam_total_sd, Nullable<global::System.Decimal> n_tam_day_sd, Nullable<global::System.Decimal> n_tam_night_sd, Nullable<global::System.Decimal> n_hr_total_sd, Nullable<global::System.Decimal> n_hr_day_sd, Nullable<global::System.Decimal> n_hr_night_sd, Nullable<global::System.Int32> n_sys_day_max, Nullable<global::System.Int32> n_sys_night_max, Nullable<global::System.Int32> n_dias_day_max, Nullable<global::System.Int32> n_dias_night_max, Nullable<global::System.Int32> n_hr_day_max, Nullable<global::System.Int32> n_hr_night_max, Nullable<global::System.Int32> n_sys_day_min, Nullable<global::System.Int32> n_sys_night_min, Nullable<global::System.Int32> n_dias_day_min, Nullable<global::System.Int32> n_dias_night_min, Nullable<global::System.Int32> n_hr_day_min, Nullable<global::System.Int32> n_hr_night_min, Nullable<global::System.Decimal> n_sys_dipping, Nullable<global::System.Decimal> n_dias_dipping)
         {
             ObjectParameter idParameter;
             if (id.HasValue)
@@ -2829,56 +2878,523 @@ namespace DataAccess
                 n_dias_dippingParameter = new ObjectParameter("n_dias_dipping", typeof(global::System.Decimal));
             }
     
-            return base.ExecuteFunction("updateReport", idParameter, n_sys_total_avgParameter, n_sys_day_avgParameter, n_sys_night_avgParameter, n_dias_total_avgParameter, n_dias_day_avgParameter, n_dias_night_avgParameter, n_tam_total_avgParameter, n_tam_day_avgParameter, n_tam_night_avgParameter, n_hr_total_avgParameter, n_hr_day_avgParameter, n_hr_night_avgParameter, n_sys_total_sdParameter, n_sys_day_sdParameter, n_sys_night_sdParameter, n_dias_total_sdParameter, n_dias_day_sdParameter, n_dias_night_sdParameter, n_tam_total_sdParameter, n_tam_day_sdParameter, n_tam_night_sdParameter, n_hr_total_sdParameter, n_hr_day_sdParameter, n_hr_night_sdParameter, n_sys_day_maxParameter, n_sys_night_maxParameter, n_dias_day_maxParameter, n_dias_night_maxParameter, n_hr_day_maxParameter, n_hr_night_maxParameter, n_sys_day_minParameter, n_sys_night_minParameter, n_dias_day_minParameter, n_dias_night_minParameter, n_hr_day_minParameter, n_hr_night_minParameter, n_sys_dippingParameter, n_dias_dippingParameter);
+            return base.ExecuteFunction("UpdateMeasureSummary", idParameter, n_sys_total_avgParameter, n_sys_day_avgParameter, n_sys_night_avgParameter, n_dias_total_avgParameter, n_dias_day_avgParameter, n_dias_night_avgParameter, n_tam_total_avgParameter, n_tam_day_avgParameter, n_tam_night_avgParameter, n_hr_total_avgParameter, n_hr_day_avgParameter, n_hr_night_avgParameter, n_sys_total_sdParameter, n_sys_day_sdParameter, n_sys_night_sdParameter, n_dias_total_sdParameter, n_dias_day_sdParameter, n_dias_night_sdParameter, n_tam_total_sdParameter, n_tam_day_sdParameter, n_tam_night_sdParameter, n_hr_total_sdParameter, n_hr_day_sdParameter, n_hr_night_sdParameter, n_sys_day_maxParameter, n_sys_night_maxParameter, n_dias_day_maxParameter, n_dias_night_maxParameter, n_hr_day_maxParameter, n_hr_night_maxParameter, n_sys_day_minParameter, n_sys_night_minParameter, n_dias_day_minParameter, n_dias_night_minParameter, n_hr_day_minParameter, n_hr_night_minParameter, n_sys_dippingParameter, n_dias_dippingParameter);
         }
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="idMedicine">No Metadata Documentation available.</param>
-        public int deleteMedicineDose(Nullable<global::System.Int32> idMedicine)
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="begin_date">No Metadata Documentation available.</param>
+        /// <param name="end_date">No Metadata Documentation available.</param>
+        /// <param name="requester">No Metadata Documentation available.</param>
+        /// <param name="specialty">No Metadata Documentation available.</param>
+        public int updateReport(Nullable<global::System.Int64> id, Nullable<global::System.DateTime> begin_date, Nullable<global::System.DateTime> end_date, global::System.String requester, global::System.String specialty)
         {
-            ObjectParameter idMedicineParameter;
-            if (idMedicine.HasValue)
+            ObjectParameter idParameter;
+            if (id.HasValue)
             {
-                idMedicineParameter = new ObjectParameter("idMedicine", idMedicine);
+                idParameter = new ObjectParameter("id", id);
             }
             else
             {
-                idMedicineParameter = new ObjectParameter("idMedicine", typeof(global::System.Int32));
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("deleteMedicineDose", idMedicineParameter);
+            ObjectParameter begin_dateParameter;
+            if (begin_date.HasValue)
+            {
+                begin_dateParameter = new ObjectParameter("begin_date", begin_date);
+            }
+            else
+            {
+                begin_dateParameter = new ObjectParameter("begin_date", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter end_dateParameter;
+            if (end_date.HasValue)
+            {
+                end_dateParameter = new ObjectParameter("end_date", end_date);
+            }
+            else
+            {
+                end_dateParameter = new ObjectParameter("end_date", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter requesterParameter;
+            if (requester != null)
+            {
+                requesterParameter = new ObjectParameter("requester", requester);
+            }
+            else
+            {
+                requesterParameter = new ObjectParameter("requester", typeof(global::System.String));
+            }
+    
+            ObjectParameter specialtyParameter;
+            if (specialty != null)
+            {
+                specialtyParameter = new ObjectParameter("specialty", specialty);
+            }
+            else
+            {
+                specialtyParameter = new ObjectParameter("specialty", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateReport", idParameter, begin_dateParameter, end_dateParameter, requesterParameter, specialtyParameter);
         }
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="idPatientUda">No Metadata Documentation available.</param>
-        /// <param name="idMedicalRecord">No Metadata Documentation available.</param>
-        public int deleteMedicalHistory(Nullable<global::System.Int64> idPatientUda, Nullable<global::System.Int64> idMedicalRecord)
+        /// <param name="carnet_id">No Metadata Documentation available.</param>
+        /// <param name="technical">No Metadata Documentation available.</param>
+        /// <param name="initial_dias1">No Metadata Documentation available.</param>
+        /// <param name="initial_dias2">No Metadata Documentation available.</param>
+        /// <param name="initial_dias3">No Metadata Documentation available.</param>
+        /// <param name="initial_hr1">No Metadata Documentation available.</param>
+        /// <param name="initial_hr2">No Metadata Documentation available.</param>
+        /// <param name="initial_hr3">No Metadata Documentation available.</param>
+        /// <param name="final_dias1">No Metadata Documentation available.</param>
+        /// <param name="final_dias2">No Metadata Documentation available.</param>
+        /// <param name="final_dias3">No Metadata Documentation available.</param>
+        /// <param name="final_hr1">No Metadata Documentation available.</param>
+        /// <param name="final_hr2">No Metadata Documentation available.</param>
+        /// <param name="final_hr3">No Metadata Documentation available.</param>
+        /// <param name="begin_sleep_time">No Metadata Documentation available.</param>
+        /// <param name="end_sleep_time">No Metadata Documentation available.</param>
+        /// <param name="how_sleep">No Metadata Documentation available.</param>
+        /// <param name="sleep_comments">No Metadata Documentation available.</param>
+        /// <param name="main_meal_time">No Metadata Documentation available.</param>
+        /// <param name="init_sys1">No Metadata Documentation available.</param>
+        /// <param name="init_sys2">No Metadata Documentation available.</param>
+        /// <param name="init_sys3">No Metadata Documentation available.</param>
+        /// <param name="final_sys1">No Metadata Documentation available.</param>
+        /// <param name="final_sys2">No Metadata Documentation available.</param>
+        /// <param name="final_sys3">No Metadata Documentation available.</param>
+        public int updateDailyCarnet(Nullable<global::System.Int64> carnet_id, global::System.String technical, Nullable<global::System.Int32> initial_dias1, Nullable<global::System.Int32> initial_dias2, Nullable<global::System.Int32> initial_dias3, Nullable<global::System.Int32> initial_hr1, Nullable<global::System.Int32> initial_hr2, Nullable<global::System.Int32> initial_hr3, Nullable<global::System.Int32> final_dias1, Nullable<global::System.Int32> final_dias2, Nullable<global::System.Int32> final_dias3, Nullable<global::System.Int32> final_hr1, Nullable<global::System.Int32> final_hr2, Nullable<global::System.Int32> final_hr3, Nullable<global::System.DateTime> begin_sleep_time, Nullable<global::System.DateTime> end_sleep_time, global::System.String how_sleep, global::System.String sleep_comments, Nullable<global::System.DateTime> main_meal_time, Nullable<global::System.Int32> init_sys1, Nullable<global::System.Int32> init_sys2, Nullable<global::System.Int32> init_sys3, Nullable<global::System.Int32> final_sys1, Nullable<global::System.Int32> final_sys2, Nullable<global::System.Int32> final_sys3)
         {
-            ObjectParameter idPatientUdaParameter;
-            if (idPatientUda.HasValue)
+            ObjectParameter carnet_idParameter;
+            if (carnet_id.HasValue)
             {
-                idPatientUdaParameter = new ObjectParameter("idPatientUda", idPatientUda);
+                carnet_idParameter = new ObjectParameter("carnet_id", carnet_id);
             }
             else
             {
-                idPatientUdaParameter = new ObjectParameter("idPatientUda", typeof(global::System.Int64));
+                carnet_idParameter = new ObjectParameter("carnet_id", typeof(global::System.Int64));
             }
     
-            ObjectParameter idMedicalRecordParameter;
-            if (idMedicalRecord.HasValue)
+            ObjectParameter technicalParameter;
+            if (technical != null)
             {
-                idMedicalRecordParameter = new ObjectParameter("idMedicalRecord", idMedicalRecord);
+                technicalParameter = new ObjectParameter("technical", technical);
             }
             else
             {
-                idMedicalRecordParameter = new ObjectParameter("idMedicalRecord", typeof(global::System.Int64));
+                technicalParameter = new ObjectParameter("technical", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("deleteMedicalHistory", idPatientUdaParameter, idMedicalRecordParameter);
+            ObjectParameter initial_dias1Parameter;
+            if (initial_dias1.HasValue)
+            {
+                initial_dias1Parameter = new ObjectParameter("initial_dias1", initial_dias1);
+            }
+            else
+            {
+                initial_dias1Parameter = new ObjectParameter("initial_dias1", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter initial_dias2Parameter;
+            if (initial_dias2.HasValue)
+            {
+                initial_dias2Parameter = new ObjectParameter("initial_dias2", initial_dias2);
+            }
+            else
+            {
+                initial_dias2Parameter = new ObjectParameter("initial_dias2", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter initial_dias3Parameter;
+            if (initial_dias3.HasValue)
+            {
+                initial_dias3Parameter = new ObjectParameter("initial_dias3", initial_dias3);
+            }
+            else
+            {
+                initial_dias3Parameter = new ObjectParameter("initial_dias3", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter initial_hr1Parameter;
+            if (initial_hr1.HasValue)
+            {
+                initial_hr1Parameter = new ObjectParameter("initial_hr1", initial_hr1);
+            }
+            else
+            {
+                initial_hr1Parameter = new ObjectParameter("initial_hr1", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter initial_hr2Parameter;
+            if (initial_hr2.HasValue)
+            {
+                initial_hr2Parameter = new ObjectParameter("initial_hr2", initial_hr2);
+            }
+            else
+            {
+                initial_hr2Parameter = new ObjectParameter("initial_hr2", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter initial_hr3Parameter;
+            if (initial_hr3.HasValue)
+            {
+                initial_hr3Parameter = new ObjectParameter("initial_hr3", initial_hr3);
+            }
+            else
+            {
+                initial_hr3Parameter = new ObjectParameter("initial_hr3", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_dias1Parameter;
+            if (final_dias1.HasValue)
+            {
+                final_dias1Parameter = new ObjectParameter("final_dias1", final_dias1);
+            }
+            else
+            {
+                final_dias1Parameter = new ObjectParameter("final_dias1", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_dias2Parameter;
+            if (final_dias2.HasValue)
+            {
+                final_dias2Parameter = new ObjectParameter("final_dias2", final_dias2);
+            }
+            else
+            {
+                final_dias2Parameter = new ObjectParameter("final_dias2", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_dias3Parameter;
+            if (final_dias3.HasValue)
+            {
+                final_dias3Parameter = new ObjectParameter("final_dias3", final_dias3);
+            }
+            else
+            {
+                final_dias3Parameter = new ObjectParameter("final_dias3", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_hr1Parameter;
+            if (final_hr1.HasValue)
+            {
+                final_hr1Parameter = new ObjectParameter("final_hr1", final_hr1);
+            }
+            else
+            {
+                final_hr1Parameter = new ObjectParameter("final_hr1", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_hr2Parameter;
+            if (final_hr2.HasValue)
+            {
+                final_hr2Parameter = new ObjectParameter("final_hr2", final_hr2);
+            }
+            else
+            {
+                final_hr2Parameter = new ObjectParameter("final_hr2", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_hr3Parameter;
+            if (final_hr3.HasValue)
+            {
+                final_hr3Parameter = new ObjectParameter("final_hr3", final_hr3);
+            }
+            else
+            {
+                final_hr3Parameter = new ObjectParameter("final_hr3", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter begin_sleep_timeParameter;
+            if (begin_sleep_time.HasValue)
+            {
+                begin_sleep_timeParameter = new ObjectParameter("begin_sleep_time", begin_sleep_time);
+            }
+            else
+            {
+                begin_sleep_timeParameter = new ObjectParameter("begin_sleep_time", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter end_sleep_timeParameter;
+            if (end_sleep_time.HasValue)
+            {
+                end_sleep_timeParameter = new ObjectParameter("end_sleep_time", end_sleep_time);
+            }
+            else
+            {
+                end_sleep_timeParameter = new ObjectParameter("end_sleep_time", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter how_sleepParameter;
+            if (how_sleep != null)
+            {
+                how_sleepParameter = new ObjectParameter("how_sleep", how_sleep);
+            }
+            else
+            {
+                how_sleepParameter = new ObjectParameter("how_sleep", typeof(global::System.String));
+            }
+    
+            ObjectParameter sleep_commentsParameter;
+            if (sleep_comments != null)
+            {
+                sleep_commentsParameter = new ObjectParameter("sleep_comments", sleep_comments);
+            }
+            else
+            {
+                sleep_commentsParameter = new ObjectParameter("sleep_comments", typeof(global::System.String));
+            }
+    
+            ObjectParameter main_meal_timeParameter;
+            if (main_meal_time.HasValue)
+            {
+                main_meal_timeParameter = new ObjectParameter("main_meal_time", main_meal_time);
+            }
+            else
+            {
+                main_meal_timeParameter = new ObjectParameter("main_meal_time", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter init_sys1Parameter;
+            if (init_sys1.HasValue)
+            {
+                init_sys1Parameter = new ObjectParameter("init_sys1", init_sys1);
+            }
+            else
+            {
+                init_sys1Parameter = new ObjectParameter("init_sys1", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter init_sys2Parameter;
+            if (init_sys2.HasValue)
+            {
+                init_sys2Parameter = new ObjectParameter("init_sys2", init_sys2);
+            }
+            else
+            {
+                init_sys2Parameter = new ObjectParameter("init_sys2", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter init_sys3Parameter;
+            if (init_sys3.HasValue)
+            {
+                init_sys3Parameter = new ObjectParameter("init_sys3", init_sys3);
+            }
+            else
+            {
+                init_sys3Parameter = new ObjectParameter("init_sys3", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_sys1Parameter;
+            if (final_sys1.HasValue)
+            {
+                final_sys1Parameter = new ObjectParameter("final_sys1", final_sys1);
+            }
+            else
+            {
+                final_sys1Parameter = new ObjectParameter("final_sys1", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_sys2Parameter;
+            if (final_sys2.HasValue)
+            {
+                final_sys2Parameter = new ObjectParameter("final_sys2", final_sys2);
+            }
+            else
+            {
+                final_sys2Parameter = new ObjectParameter("final_sys2", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter final_sys3Parameter;
+            if (final_sys3.HasValue)
+            {
+                final_sys3Parameter = new ObjectParameter("final_sys3", final_sys3);
+            }
+            else
+            {
+                final_sys3Parameter = new ObjectParameter("final_sys3", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("updateDailyCarnet", carnet_idParameter, technicalParameter, initial_dias1Parameter, initial_dias2Parameter, initial_dias3Parameter, initial_hr1Parameter, initial_hr2Parameter, initial_hr3Parameter, final_dias1Parameter, final_dias2Parameter, final_dias3Parameter, final_hr1Parameter, final_hr2Parameter, final_hr3Parameter, begin_sleep_timeParameter, end_sleep_timeParameter, how_sleepParameter, sleep_commentsParameter, main_meal_timeParameter, init_sys1Parameter, init_sys2Parameter, init_sys3Parameter, final_sys1Parameter, final_sys2Parameter, final_sys3Parameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="weight">No Metadata Documentation available.</param>
+        /// <param name="height">No Metadata Documentation available.</param>
+        /// <param name="age">No Metadata Documentation available.</param>
+        /// <param name="body_mass_index">No Metadata Documentation available.</param>
+        /// <param name="smoker">No Metadata Documentation available.</param>
+        /// <param name="dyslipidemia">No Metadata Documentation available.</param>
+        /// <param name="diabetic">No Metadata Documentation available.</param>
+        /// <param name="known_hypertensive">No Metadata Documentation available.</param>
+        /// <param name="fat_percentage">No Metadata Documentation available.</param>
+        /// <param name="muscle_percentage">No Metadata Documentation available.</param>
+        /// <param name="kcal">No Metadata Documentation available.</param>
+        public int updateTemporaryData(Nullable<global::System.Int64> id, Nullable<global::System.Decimal> weight, Nullable<global::System.Decimal> height, Nullable<global::System.Int32> age, Nullable<global::System.Decimal> body_mass_index, Nullable<global::System.Boolean> smoker, Nullable<global::System.Boolean> dyslipidemia, Nullable<global::System.Boolean> diabetic, Nullable<global::System.Boolean> known_hypertensive, Nullable<global::System.Decimal> fat_percentage, Nullable<global::System.Decimal> muscle_percentage, Nullable<global::System.Int32> kcal)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter weightParameter;
+            if (weight.HasValue)
+            {
+                weightParameter = new ObjectParameter("weight", weight);
+            }
+            else
+            {
+                weightParameter = new ObjectParameter("weight", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter heightParameter;
+            if (height.HasValue)
+            {
+                heightParameter = new ObjectParameter("height", height);
+            }
+            else
+            {
+                heightParameter = new ObjectParameter("height", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter ageParameter;
+            if (age.HasValue)
+            {
+                ageParameter = new ObjectParameter("age", age);
+            }
+            else
+            {
+                ageParameter = new ObjectParameter("age", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter body_mass_indexParameter;
+            if (body_mass_index.HasValue)
+            {
+                body_mass_indexParameter = new ObjectParameter("body_mass_index", body_mass_index);
+            }
+            else
+            {
+                body_mass_indexParameter = new ObjectParameter("body_mass_index", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter smokerParameter;
+            if (smoker.HasValue)
+            {
+                smokerParameter = new ObjectParameter("smoker", smoker);
+            }
+            else
+            {
+                smokerParameter = new ObjectParameter("smoker", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter dyslipidemiaParameter;
+            if (dyslipidemia.HasValue)
+            {
+                dyslipidemiaParameter = new ObjectParameter("dyslipidemia", dyslipidemia);
+            }
+            else
+            {
+                dyslipidemiaParameter = new ObjectParameter("dyslipidemia", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter diabeticParameter;
+            if (diabetic.HasValue)
+            {
+                diabeticParameter = new ObjectParameter("diabetic", diabetic);
+            }
+            else
+            {
+                diabeticParameter = new ObjectParameter("diabetic", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter known_hypertensiveParameter;
+            if (known_hypertensive.HasValue)
+            {
+                known_hypertensiveParameter = new ObjectParameter("known_hypertensive", known_hypertensive);
+            }
+            else
+            {
+                known_hypertensiveParameter = new ObjectParameter("known_hypertensive", typeof(global::System.Boolean));
+            }
+    
+            ObjectParameter fat_percentageParameter;
+            if (fat_percentage.HasValue)
+            {
+                fat_percentageParameter = new ObjectParameter("fat_percentage", fat_percentage);
+            }
+            else
+            {
+                fat_percentageParameter = new ObjectParameter("fat_percentage", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter muscle_percentageParameter;
+            if (muscle_percentage.HasValue)
+            {
+                muscle_percentageParameter = new ObjectParameter("muscle_percentage", muscle_percentage);
+            }
+            else
+            {
+                muscle_percentageParameter = new ObjectParameter("muscle_percentage", typeof(global::System.Decimal));
+            }
+    
+            ObjectParameter kcalParameter;
+            if (kcal.HasValue)
+            {
+                kcalParameter = new ObjectParameter("kcal", kcal);
+            }
+            else
+            {
+                kcalParameter = new ObjectParameter("kcal", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("updateTemporaryData", idParameter, weightParameter, heightParameter, ageParameter, body_mass_indexParameter, smokerParameter, dyslipidemiaParameter, diabeticParameter, known_hypertensiveParameter, fat_percentageParameter, muscle_percentageParameter, kcalParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="carnetId">No Metadata Documentation available.</param>
+        /// <param name="caId">No Metadata Documentation available.</param>
+        public int deleteComplicationActivity(Nullable<global::System.Int64> carnetId, Nullable<global::System.Int64> caId)
+        {
+            ObjectParameter carnetIdParameter;
+            if (carnetId.HasValue)
+            {
+                carnetIdParameter = new ObjectParameter("carnetId", carnetId);
+            }
+            else
+            {
+                carnetIdParameter = new ObjectParameter("carnetId", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter caIdParameter;
+            if (caId.HasValue)
+            {
+                caIdParameter = new ObjectParameter("caId", caId);
+            }
+            else
+            {
+                caIdParameter = new ObjectParameter("caId", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("deleteComplicationActivity", carnetIdParameter, caIdParameter);
         }
 
         #endregion
@@ -2904,11 +3420,13 @@ namespace DataAccess
         /// </summary>
         /// <param name="idComplications_Activities">Initial value of the idComplications_Activities property.</param>
         /// <param name="dailycarnet_idDailyCarnet">Initial value of the dailycarnet_idDailyCarnet property.</param>
-        public static complications_activities Createcomplications_activities(global::System.Int32 idComplications_Activities, global::System.Int64 dailycarnet_idDailyCarnet)
+        /// <param name="time">Initial value of the time property.</param>
+        public static complications_activities Createcomplications_activities(global::System.Int64 idComplications_Activities, global::System.Int64 dailycarnet_idDailyCarnet, global::System.DateTime time)
         {
             complications_activities complications_activities = new complications_activities();
             complications_activities.idComplications_Activities = idComplications_Activities;
             complications_activities.dailycarnet_idDailyCarnet = dailycarnet_idDailyCarnet;
+            complications_activities.time = time;
             return complications_activities;
         }
 
@@ -2921,7 +3439,7 @@ namespace DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 idComplications_Activities
+        public global::System.Int64 idComplications_Activities
         {
             get
             {
@@ -2939,8 +3457,8 @@ namespace DataAccess
                 }
             }
         }
-        private global::System.Int32 _idComplications_Activities;
-        partial void OnidComplications_ActivitiesChanging(global::System.Int32 value);
+        private global::System.Int64 _idComplications_Activities;
+        partial void OnidComplications_ActivitiesChanging(global::System.Int64 value);
         partial void OnidComplications_ActivitiesChanged();
     
         /// <summary>
@@ -3018,9 +3536,9 @@ namespace DataAccess
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> time
+        public global::System.DateTime time
         {
             get
             {
@@ -3035,8 +3553,8 @@ namespace DataAccess
                 OntimeChanged();
             }
         }
-        private Nullable<global::System.DateTime> _time;
-        partial void OntimeChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _time;
+        partial void OntimeChanging(global::System.DateTime value);
         partial void OntimeChanged();
 
         #endregion
@@ -3725,28 +4243,6 @@ namespace DataAccess
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "complications_activities")]
-        public EntityCollection<complications_activities> complications_activities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<complications_activities>("udahta_dbModel.fk_Complications_Activities_DailyCarnet1", "complications_activities");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<complications_activities>("udahta_dbModel.fk_Complications_Activities_DailyCarnet1", "complications_activities", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Report_DailyCarnet1", "report")]
         public EntityCollection<report> report
         {
@@ -3759,6 +4255,28 @@ namespace DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<report>("udahta_dbModel.fk_Report_DailyCarnet1", "report", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("udahta_dbModel", "fk_Complications_Activities_DailyCarnet1", "complications_activities")]
+        public EntityCollection<complications_activities> complications_activities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<complications_activities>("udahta_dbModel.fk_Complications_Activities_DailyCarnet1", "complications_activities");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<complications_activities>("udahta_dbModel.fk_Complications_Activities_DailyCarnet1", "complications_activities", value);
                 }
             }
         }

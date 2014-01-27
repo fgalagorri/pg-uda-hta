@@ -157,6 +157,28 @@ namespace Gateway
 
     #region Report Updating
 
+        public void UpdateReport(Report report)
+        {
+            try
+            {
+                var controller = new ReportManagement();
+                // Actualizo Report
+                controller.UpdateReport(report);
+
+                // Actualizo DailyCarnet
+                controller.UpdateDailyCarnet(report.DailyCarnetId.Value, report.Carnet);
+
+                // Actualizo Temporary Data
+                controller.UpdateTemporaryData(report.TemporaryData);
+            }
+            catch (Exception ex)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], ex.Message, ex.InnerException);
+                throw new Exception("No ha sido posible actualizar completamente la información del reporte");
+            }
+        }
+
         public DiagnosisEdited UpdateDiagnosis(long reportId, string diagnosis)
         {
             var de = new DiagnosisEdited
@@ -196,17 +218,17 @@ namespace Gateway
             }
         }
 
-        public void UpdateReport(Report report)
+        public void UpdateMeasureSummary(Report report)
         {
             try
             {
-                new ReportManagement().UpdateReportValues(report);
+                new ReportManagement().UpdateMeasureSummary(report);
             }
             catch (Exception ex)
             {
                 LogFileManagement el = new LogFileManagement();
                 el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], ex.Message, ex.InnerException);
-                throw new Exception("No ha sido posible actualizar la información del reporte");
+                throw new Exception("No ha sido posible actualizar completamente la información del reporte");
             }
         }
 
@@ -258,6 +280,7 @@ namespace Gateway
 
 
     #region Report Listing
+
         public ICollection<Report> ListFilteredReports(int? patientLowerAge, int? patientUpperAge, DateTime? reportSinceDate,
             DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHypertense, bool? isDysplidemic)
         {
@@ -274,6 +297,7 @@ namespace Gateway
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         } 
+    
     #endregion
 
 
@@ -382,8 +406,8 @@ namespace Gateway
             try
             {
                 pm.EditPatient(patient);
-                LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "El paciente "+ patient.Names + "(" + patient.RegisterNumber + ")" + " fue modificado por " + _loggedUser.Login, null);
+                /*LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], "El paciente "+ patient.Names + "(" + patient.RegisterNumber + ")" + " fue modificado por " + _loggedUser.Login, null);*/
             }
             catch (Exception exception)
             {
@@ -442,7 +466,6 @@ namespace Gateway
                 throw new Exception("No se pudieron obtener los tipos de drogas");
             }
         } 
-
 
         public ICollection<Drug> GetDrugs(string type, string active, string name)
         {

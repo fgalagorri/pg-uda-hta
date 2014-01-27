@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Metadata.Edm;
 using System.Data.Objects;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Data;
 using System.Transactions;
@@ -77,7 +79,9 @@ namespace DataAccess
                                             r.day_sd_hr,
                                             r.night_sd_hr,
                                             r.sys_dipping,
-                                            r.dias_dipping
+                                            r.dias_dipping,
+                                            r.dailycarnet_idDailyCarnet,
+                                            r.temporarydata_idTemporaryData
                                         }).FirstOrDefault();
 
                 Report rep = null;
@@ -109,6 +113,10 @@ namespace DataAccess
                             HeartRateDayAvg = qry.day_avg_hr,
                             HeartRateNightAvg = qry.night_avg_hr,
                             HeartRateTotalAvg = qry.tot_avg_hr,
+                            HeartRateDayMax = qry.max_day_hr,
+                            HeartRateNightMax = qry.max_night_hr,
+                            HeartRateDayMin = qry.min_day_hr,
+                            HeartRateNightMin = qry.min_night_hr,
                             StandardDeviationTamNight = qry.night_sd_tam,
                             StandardDeviationTamDay = qry.day_sd_tam,
                             StandardDeviationTamTotal = qry.tot_sd_tam,
@@ -127,9 +135,10 @@ namespace DataAccess
                             SystolicNightMin = qry.night_min_sis,
                             SystolicDipping = qry.sys_dipping,
                             DiastolicDipping = qry.dias_dipping,
+                            DailyCarnetId = qry.dailycarnet_idDailyCarnet,
+                            TemporaryDataId = qry.temporarydata_idTemporaryData,
 
-                            UdaId = qry.idReport
-
+                            UdaId = qry.idReport,
                         };
 
                     //DailyCarnet
@@ -215,21 +224,30 @@ namespace DataAccess
         {
             using (udaContext = new udahta_dbEntities())
             {
-                udaContext.updateReport(r.UdaId, r.SystolicTotalAvg, r.SystolicDayAvg, r.SystolicNightAvg,
-                                        r.DiastolicTotalAvg, r.DiastolicDayAvg, r.DiastolicNightAvg,
-                                        r.MiddleTotalAvg, r.MiddleDayAvg, r.MiddleNightAvg,
-                                        r.HeartRateTotalAvg, r.HeartRateDayAvg, r.HeartRateNightAvg,
-                                        r.StandardDeviationSysTotal, r.StandardDeviationSysDay, r.StandardDeviationSysNight,
-                                        r.StandardDeviationDiasTotal, r.StandardDeviationDiasDay, r.StandardDeviationDiasNight,
-                                        r.StandardDeviationTamTotal, r.StandardDeviationTamDay, r.StandardDeviationTamNight,
-                                        r.StandardDeviationHeartRateTotal, r.StandardDeviationHeartRateDay, r.StandardDeviationHeartRateNight,
-                                        r.SystolicDayMax, r.SystolicNightMax, 
-                                        r.DiastolicDayMax, r.DiastolicNightMax,
-                                        r.HeartRateDayMax, r.HeartRateNightMax,
-                                        r.SystolicDayMin, r.SystolicNightMin,
-                                        r.DiastolicDayMin, r.DiastolicNightMin,
-                                        r.HeartRateDayMin, r.HeartRateNightMin,
-                                        r.SystolicDipping, r.DiastolicDipping);
+                udaContext.updateReport(r.UdaId, r.BeginDate, r.EndDate, r.Requester, r.Specialty);
+            }
+        }
+
+        public void UpdateMeasureSummary(Report r)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.UpdateMeasureSummary(r.UdaId, r.SystolicTotalAvg, r.SystolicDayAvg, r.SystolicNightAvg,
+                    r.DiastolicTotalAvg, r.DiastolicDayAvg, r.DiastolicNightAvg,
+                    r.MiddleTotalAvg, r.MiddleDayAvg, r.MiddleNightAvg,
+                    r.HeartRateTotalAvg, r.HeartRateDayAvg, r.HeartRateNightAvg,
+                    r.StandardDeviationSysTotal, r.StandardDeviationSysDay, r.StandardDeviationSysNight,
+                    r.StandardDeviationDiasTotal, r.StandardDeviationDiasDay, r.StandardDeviationDiasNight,
+                    r.StandardDeviationTamTotal, r.StandardDeviationTamDay, r.StandardDeviationTamNight,
+                    r.StandardDeviationHeartRateTotal, r.StandardDeviationHeartRateDay,
+                    r.StandardDeviationHeartRateNight,
+                    r.SystolicDayMax, r.SystolicNightMax,
+                    r.DiastolicDayMax, r.DiastolicNightMax,
+                    r.HeartRateDayMax, r.HeartRateNightMax,
+                    r.SystolicDayMin, r.SystolicNightMin,
+                    r.DiastolicDayMin, r.DiastolicNightMin,
+                    r.HeartRateDayMin, r.HeartRateNightMin,
+                    r.SystolicDipping, r.DiastolicDipping);
             }
         }
 
@@ -339,9 +357,7 @@ namespace DataAccess
             }
         }
 
-        /*
-         * Lista todos los reportes que cumplen con los filtros.
-         */
+        // Lista todos los reportes que cumplen con los filtros.
         public ICollection<Report> ListFilteredReport(int? patientLowerAge, int? patientUpperAge, DateTime? reportSinceDate, 
             DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHipertense, bool? isDysplidemic)
         {
@@ -514,6 +530,8 @@ namespace DataAccess
                         HeartRateNightMin = qry.min_night_hr,
                         SystolicDipping = qry.sys_dipping,
                         DiastolicDipping = qry.dias_dipping,
+                        DailyCarnetId = qry.dailycarnet_idDailyCarnet,
+                        TemporaryDataId = qry.temporarydata_idTemporaryData,
 
                         UdaId = qry.idReport
 
@@ -660,7 +678,9 @@ namespace DataAccess
                                               r.day_sd_hr,
                                               r.night_sd_hr,
                                               r.sys_dipping,
-                                              r.dias_dipping
+                                              r.dias_dipping,
+                                              r.dailycarnet_idDailyCarnet,
+                                              r.temporarydata_idTemporaryData
                                           }).ToList();
 
                 var measurements = udaContext.measurement
@@ -708,6 +728,10 @@ namespace DataAccess
                             HeartRateDayAvg = rep.day_avg_hr,
                             HeartRateNightAvg = rep.night_avg_hr,
                             HeartRateTotalAvg = rep.tot_avg_hr,
+                            HeartRateDayMax = rep.max_day_hr,
+                            HeartRateNightMax = rep.max_night_hr,
+                            HeartRateDayMin = rep.min_day_hr,
+                            HeartRateNightMin = rep.min_night_hr,
                             StandardDeviationTamNight = rep.night_sd_tam,
                             StandardDeviationTamDay = rep.day_sd_tam,
                             StandardDeviationTamTotal = rep.tot_sd_tam,
@@ -726,6 +750,8 @@ namespace DataAccess
                             SystolicNightMin = rep.night_min_sis,
                             SystolicDipping = rep.sys_dipping,
                             DiastolicDipping = rep.dias_dipping,
+                            DailyCarnetId = rep.dailycarnet_idDailyCarnet,
+                            TemporaryDataId = rep.temporarydata_idTemporaryData,
 
                             UdaId = rep.idReport
                         };
@@ -787,20 +813,17 @@ namespace DataAccess
 
                     foreach (var activity in rep.dailycarnet.complications_activities)
                     {
-                        if (!activity.time.HasValue)
-                        {
-                            activity.time = report.BeginDate;
-                        }
-
                         if (activity.specification == "COMPLICACION")
                         {
-                            Complication complication = new Complication(activity.time.Value, activity.description);
+                            var complication = new Complication(activity.idComplications_Activities,
+                                activity.time, activity.description);
                             report.Carnet.Complications.Add(complication);
                         }
                         else
                         {
                             //ACTIVIDAD/ESFUERZO
-                            Effort effort = new Effort(activity.time.Value,activity.description);
+                            Effort effort = new Effort(activity.idComplications_Activities, 
+                                activity.time, activity.description);
                             report.Carnet.Efforts.Add(effort);
                         }
                     }
@@ -1070,7 +1093,7 @@ namespace DataAccess
                                              dCarnet.InitSystolic1, dCarnet.InitSystolic2, dCarnet.InitSystolic3,
                                              dCarnet.FinalSystolic1, dCarnet.FinalSystolic2, dCarnet.FinalSystolic3);
 
-                ObjectParameter lastIdCA = new ObjectParameter("id", typeof (int));
+                ObjectParameter lastIdCA = new ObjectParameter("id", typeof (long));
                 foreach (var compl in dCarnet.Complications)
                 {
                     udaContext.insertComplications_Activities(lastIdCA, compl.Time,
@@ -1078,7 +1101,7 @@ namespace DataAccess
                                                               (long) lastIdDailyReport.Value, compl.Description);
                 }
 
-                ObjectParameter lastIdEff = new ObjectParameter("id", typeof (int));
+                ObjectParameter lastIdEff = new ObjectParameter("id", typeof (long));
                 foreach (var effort in dCarnet.Efforts)
                 {
                     udaContext.insertComplications_Activities(lastIdEff, effort.Time,
@@ -1088,6 +1111,85 @@ namespace DataAccess
 
                 return (long) lastIdDailyReport.Value;
 
+            }
+        }
+
+        public ICollection<Event> GetAllEvents(long carnetId)
+        {
+            var events = new List<Event>();
+            using (udaContext = new udahta_dbEntities())
+            {
+                var complications = udaContext.complications_activities
+                    .Where(ca => ca.dailycarnet_idDailyCarnet == carnetId
+                                 && ca.specification == "COMPLICACION")
+                    .Select(ca => new Complication
+                                        {
+                                            Id = ca.idComplications_Activities, 
+                                            Time = ca.time,
+                                            Description = ca.description
+                                        }).ToList();    
+                events.AddRange(complications);
+
+                var activity = udaContext.complications_activities
+                    .Where(ca => ca.dailycarnet_idDailyCarnet == carnetId
+                                 && ca.specification == "ACTIVIDAD")
+                    .Select(ca => new Effort
+                                        {
+                                            Id = ca.idComplications_Activities,
+                                            Time = ca.time, 
+                                            Description = ca.description
+                                        }).ToList();
+                events.AddRange(activity);
+            }
+            return events;
+        }
+
+        public void DeleteEvent(long carnetId, long eventId)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.deleteComplicationActivity(carnetId, eventId);
+            }
+        }
+
+
+        public long InsertEffort(Effort effort, long carnetId)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                ObjectParameter effortId = new ObjectParameter("id", typeof(long));
+                udaContext.insertComplications_Activities(effortId, effort.Time, 
+                                                          "ACTIVIDAD", carnetId, 
+                                                          effort.Description);
+
+                return (long)effortId.Value;
+            }
+        }
+
+        public long InsertComplication(Complication complication, long carnetId)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                ObjectParameter complicationId = new ObjectParameter("id", typeof(long));
+                udaContext.insertComplications_Activities(complicationId, complication.Time,
+                                                          "COMPLICACION", carnetId, 
+                                                          complication.Description);
+
+                return (long)complicationId.Value;
+            }
+        }
+
+        public void UpdateDailyCarnet(long idCarnet, DailyCarnet d)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateDailyCarnet(idCarnet, d.Technician.Name, d.InitDiastolic1, d.InitDiastolic2,
+                    d.InitDiastolic3, d.InitHeartRate1, d.InitHeartRate2, d.InitHeartRate3,
+                    d.FinalDiastolic1, d.FinalDiastolic2, d.FinalDiastolic3,
+                    d.FinalHeartRate1, d.FinalHeartRate2, d.FinalHeartRate3,
+                    d.SleepTimeStart, d.SleepTimeEnd, d.SleepQuality,
+                    d.SleepQualityDescription, d.MealTime, d.InitSystolic1, d.InitSystolic2,
+                    d.InitSystolic3, d.FinalSystolic1, d.FinalSystolic2, d.FinalSystolic3);
             }
         }
 
@@ -1136,9 +1238,11 @@ namespace DataAccess
                                                      });
                     foreach (var m in medicineDose)
                     {
-                        Medication medication = new Medication(m.Time,m.Drug);
-                        medication.Dose = m.Dose;
-                        medication.Id = m.Id;
+                        Medication medication = new Medication(m.Id.Value, m.Time, m.Drug)
+                                                    {
+                                                        Dose = m.Dose,
+                                                        MedicineId = m.Id
+                                                    };
 
                         tempData.Medication.Add(medication);
                     }
@@ -1168,6 +1272,16 @@ namespace DataAccess
                 }
 
                 return (int) lastIdTempData.Value;
+            }
+        }
+
+        public void UpdateTemporaryData(TemporaryData td)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateTemporaryData(td.IdTemporaryData, td.Weight, td.Height, td.Age, 
+                    td.BodyMassIndex, td.Smoker, td.Dyslipidemia, td.Diabetic, td.Hypertensive, 
+                    td.FatPercentage, td.MusclePercentage, td.Kcal);
             }
         }
 
@@ -1282,7 +1396,8 @@ namespace DataAccess
         }
 
 
-        #region Users
+    #region Users
+
         //Inserta un nuevo usuario en la base de datos
         public int InsertUser(string login, string pass, string rol, string name)
         {
@@ -1359,6 +1474,7 @@ namespace DataAccess
         } 
 
     #endregion
+
 
     #region Drugs
         //Inserta un nuevo tipo de droga en la base de datos
@@ -1447,6 +1563,7 @@ namespace DataAccess
 
     #endregion
 
+
         public void EditMedicalHistory(MedicalRecord medicalRecord, long patient_id)
         {
             using (TransactionScope scope = new TransactionScope())
@@ -1493,11 +1610,7 @@ namespace DataAccess
         }
 
 
-        /*
-         * INVESTIGACIONES
-         */
-
-        #region Investigaciones
+    #region Investigaciones
 
         //Obtener investigacion
         public Investigation GetInvestigation(int id)
@@ -1742,5 +1855,6 @@ namespace DataAccess
         }
 
         #endregion
+
     }
 }

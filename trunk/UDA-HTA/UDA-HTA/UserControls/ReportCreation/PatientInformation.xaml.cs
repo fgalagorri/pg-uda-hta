@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using System.Linq;
 using System.Windows.Controls;
@@ -55,6 +54,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             }
             else
             {
+                _patient = new Patient();
                 _emContacts = new List<EmergencyContact>();
             }
         }
@@ -64,27 +64,25 @@ namespace UDA_HTA.UserControls.ReportCreation
             int year = int.Parse(txtBirthYear.Text);
             int mon = int.Parse(txtBirthMon.Text);
             int day = int.Parse(txtBirthDay.Text);
-            Patient p = new Patient();
-            p = _patient;
 
-            p.Names = txtNames.Text;
-            p.Surnames = txtSurnames.Text;
-            p.DocumentId = txtCI.Text;
-            p.RegisterNumber = txtNroReg.Text;
-            p.BirthDate = new DateTime(year, mon, day);
-            p.Sex = cmbSex.SelectedIndex != -1 ? (SexType?)cmbSex.SelectedIndex : null;
-            p.Address = txtAddress.Text;
-            p.Neighbour = txtNeighbour.Text;
-            p.City = txtCity.Text;
-            p.Department = cmbDepartment.Text;
-            p.Phone = txtTel.Text;
-            p.CellPhone = txtCel.Text;
-            p.Phone2 = txtTelAlt.Text;
-            p.Email = txtMail.Text;
+            _patient.Names = txtNames.Text;
+            _patient.Surnames = txtSurnames.Text;
+            _patient.DocumentId = txtCI.Text;
+            _patient.RegisterNumber = txtNroReg.Text;
+            _patient.BirthDate = new DateTime(year, mon, day);
+            _patient.Sex = cmbSex.SelectedIndex != -1 ? (SexType?)cmbSex.SelectedIndex : null;
+            _patient.Address = txtAddress.Text;
+            _patient.Neighbour = txtNeighbour.Text;
+            _patient.City = txtCity.Text;
+            _patient.Department = cmbDepartment.Text;
+            _patient.Phone = txtTel.Text;
+            _patient.CellPhone = txtCel.Text;
+            _patient.Phone2 = txtTelAlt.Text;
+            _patient.Email = txtMail.Text;
 
-            p.EmergencyContactList = _emContacts;
+            _patient.EmergencyContactList = _emContacts;
 
-            return p;
+            return _patient;
         }
 
         public Report GetReport(Report r)
@@ -138,8 +136,8 @@ namespace UDA_HTA.UserControls.ReportCreation
 
         private void btnAddEmContact_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(txtEmCName.Text) &&
-                !String.IsNullOrWhiteSpace(txtEmCSurname.Text) &&
+            if ((!String.IsNullOrWhiteSpace(txtEmCName.Text) ||
+                !String.IsNullOrWhiteSpace(txtEmCSurname.Text)) &&
                 !String.IsNullOrWhiteSpace(txtEmCPhone.Text))
             {
                 grContacts.DataContext = null;

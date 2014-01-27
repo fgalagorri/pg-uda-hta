@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using DocumentFormat.OpenXml.Drawing.ChartDrawing;
 using Entities;
 using Gateway;
 using UDA_HTA.Helpers;
@@ -87,6 +85,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             }
         }
 
+
         private void PopulateTree(long? reportId = null)
         {
             treePatient.Items.Clear();
@@ -117,13 +116,14 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         private void treePatient_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            container.btnEditDiagnosis.IsEnabled = true;
-            container.btnExportReport.IsEnabled = true;
-
             Mouse.OverrideCursor = Cursors.Wait;
             int index = treePatient.Items.IndexOf(e.NewValue);
             if (index >= 0)
             {
+                container.btnEditDiagnosis.IsEnabled = true;
+                container.btnExportReport.IsEnabled = true;
+                container.btnEditReport.IsEnabled = true;
+
                 _report = _patient.ReportList
                     .OrderByDescending(r => r.BeginDate)
                     .ElementAt(index);
@@ -148,6 +148,10 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             }
             else
             {
+                container.btnEditDiagnosis.IsEnabled = false;
+                container.btnExportReport.IsEnabled = false;
+                container.btnEditReport.IsEnabled = false;
+
                 if (!ReportPatient.IsSelected && !ReportCondition.IsSelected)
                     ReportPatient.IsSelected = true;
 
@@ -167,7 +171,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public Report GetSelectedReport()
         {
             //ExportAsImage(new Uri("C:\\prueba1.png"), TabPressureProfile);
-            ReportPressureProfile.IsSelected = true;
+            //ReportPressureProfile.IsSelected = true;
             //Thread.Sleep(1000);
 
             //TabPressureProfile.GetChartImage();
@@ -199,7 +203,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         {
             // Actualizar valores del reporte
             _report = UpdateReportHelper.UpdateMeasure(_report, m);
-            GatewayController.GetInstance().UpdateReport(_report);
+            GatewayController.GetInstance().UpdateMeasureSummary(_report);
 
             // Actualizar las vistas actuales
             TabReportSummary.SetReport(_report);
@@ -213,6 +217,20 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             TabPatient.SetPatientInfo(p);
             if(p.LastTempData != null)
                 TabCondition.SetInfo(p.LastTempData, p.Background);
+        }
+
+        public void ReportUpdated(Report report)
+        {
+            _report = report;
+            _patient.ReportList.Remove(_patient.ReportList.First(r => r.UdaId == report.UdaId));
+            _patient.ReportList.Add(report);
+
+            // Update tabs
+            TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
+            TabReportInfo.SetReport(_report);
+            TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
+            TabReportSummary.SetReport(_report);
+            TabPressureProfile.SetReport(_report);
         }
 
         private void ExportAsImage(Uri path, UserControl ctrl)

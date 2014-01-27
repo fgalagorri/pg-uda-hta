@@ -43,6 +43,12 @@ namespace BussinessLogic
             return uhda.GetReport(idReport);
         }
 
+        public void UpdateReport(Report report)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateReport(report);
+        }
+
         public long AddReport(Report report)
         {
             var uhda = new UdaHtaDataAccess();
@@ -61,10 +67,63 @@ namespace BussinessLogic
             uda.UpdateMeasureInformation(measureId,enabled,comment);
         }
 
-        public void UpdateReportValues(Report report)
+        public void UpdateMeasureSummary(Report report)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.UpdateReport(report);
+            uda.UpdateMeasureSummary(report);
+        }
+
+        public void UpdateDailyCarnet(long idCarnet, DailyCarnet d)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateDailyCarnet(idCarnet, d);
+
+
+            // ACTUALIZAR ESFUERZO
+            var events = uda.GetAllEvents(idCarnet);
+            var currentEffort = events.Where(e => e.GetType() == typeof(Effort));
+
+            // inserto nuevos effort
+            foreach (var e in d.Efforts.Where(e => !e.Id.HasValue))
+                e.Id = uda.InsertEffort(e, idCarnet);
+
+            var editEffort = d.Efforts.Where(e => e.Id.HasValue).Select(e => e.Id.Value).ToList();
+
+            // borrar los que no están más
+            foreach (var e in currentEffort.Where(e => e.Id.HasValue && !editEffort.Contains(e.Id.Value)))
+                uda.DeleteEvent(idCarnet, e.Id.Value);
+
+
+            // ACTUALIZAR SÍNTOMAS
+            var currentComp = events.Where(e => e.GetType() == typeof(Complication));
+
+            // inserto nuevos complications
+            foreach (var comp in d.Complications.Where(c => !c.Id.HasValue))
+                comp.Id = uda.InsertComplication(comp, idCarnet);
+
+            var editComp = d.Complications.Where(c => c.Id.HasValue).Select(c => c.Id.Value).ToList();
+
+            foreach (var c in currentComp.Where(c => c.Id.HasValue && !editComp.Contains(c.Id.Value)))
+                uda.DeleteEvent(idCarnet, c.Id.Value);
+        }
+
+        public void UpdateTemporaryData(TemporaryData td)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateTemporaryData(td);
+
+            // ACTUALIZO MEDICACIÓN
+            var currentMedicineBack = uda.GetMedicineDose(td.IdTemporaryData);
+
+            //insertar medicamentos nuevos
+            foreach (var medication in td.Medication.Where(b => b.Id == null))
+                uda.InsertMedicineDose(medication, td.IdTemporaryData);
+
+            var editedMedIds = td.Medication.Where(b => b.Id.HasValue).Select(b => b.Id.Value).ToList();
+
+            //borrar los que no están más 
+            foreach (var md in currentMedicineBack.Where(b => b.Id.HasValue && !editedMedIds.Contains(b.Id.Value)))
+                uda.DeleteMedicineDose(md.Id.Value);
         }
 
         public ICollection<Report> ListPatientReports(long idPatient)

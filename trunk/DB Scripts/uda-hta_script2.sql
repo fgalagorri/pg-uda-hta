@@ -9,7 +9,7 @@ USE `udahta_db` ;
 -- Table `udahta_db`.`user`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`user` (
-  `idUser` INT NOT NULL AUTO_INCREMENT ,
+  `idUser` BIGINT NOT NULL AUTO_INCREMENT ,
   `login` VARCHAR(45) NOT NULL ,
   `password` TEXT NOT NULL ,
   `rol` VARCHAR(45) NOT NULL ,
@@ -23,7 +23,7 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`drugtype`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`drugtype` (
-  `idDrugType` INT NOT NULL AUTO_INCREMENT ,
+  `idDrugType` BIGINT NOT NULL AUTO_INCREMENT ,
   `type` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`idDrugType`) ,
   UNIQUE INDEX `type_UNIQUE` (`type` ASC) )
@@ -34,10 +34,10 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`drug`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`drug` (
-  `idDrug` INT NOT NULL AUTO_INCREMENT ,
+  `idDrug` BIGINT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `active` VARCHAR(45) NULL ,
-  `drugtype_idDrugType` INT NOT NULL ,
+  `drugtype_idDrugType` BIGINT NOT NULL ,
   PRIMARY KEY (`idDrug`) ,
   INDEX `fk_Drug_DrugType_idx` (`drugtype_idDrugType` ASC) ,
   CONSTRAINT `fk_Drug_DrugType`
@@ -94,7 +94,7 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`temporarydata`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`temporarydata` (
-  `idTemporaryData` INT NOT NULL AUTO_INCREMENT ,
+  `idTemporaryData` BIGINT NOT NULL AUTO_INCREMENT ,
   `weight` DECIMAL(5,2) NULL ,
   `height` DECIMAL(5,2) NULL ,
   `age` INT NULL ,
@@ -131,11 +131,11 @@ CREATE  TABLE IF NOT EXISTS `udahta_db`.`report` (
   `total_avg_dias` INT NULL ,
   `day_max_dias` INT NULL ,
   `night_max_dias` INT NULL ,
-  `idDevice` INT NOT NULL ,
+  `idDevice` BIGINT NOT NULL ,
   `deviceReportId` TEXT NOT NULL ,
   `dailycarnet_idDailyCarnet` BIGINT NOT NULL ,
   `patientuda_idPatientUda` BIGINT NOT NULL ,
-  `temporarydata_idTemporaryData` INT NOT NULL ,
+  `temporarydata_idTemporaryData` BIGINT NOT NULL ,
   `day_min_sis` INT NULL ,
   `day_min_dias` INT NULL ,
   `night_min_sis` INT NULL ,
@@ -218,9 +218,9 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`investigation`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation` (
-  `idInvestigation` INT NOT NULL AUTO_INCREMENT ,
+  `idInvestigation` BIGINT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
-  `creation_date` DATETIME NOT NULL ,
+  `creation_date` DATETIME NOT NULL,
   `comment` TEXT NULL ,
   PRIMARY KEY (`idInvestigation`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
@@ -231,11 +231,11 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`medicinedose`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`medicinedose` (
-  `idMedicineDosis` INT NOT NULL AUTO_INCREMENT ,
+  `idMedicineDosis` BIGINT NOT NULL AUTO_INCREMENT ,
   `dose` TEXT NULL ,
   `time` DATETIME NULL ,
-  `drug_idDrug` INT NOT NULL ,
-  `temporarydata_idTemporaryData` INT NOT NULL ,
+  `drug_idDrug` BIGINT NOT NULL ,
+  `temporarydata_idTemporaryData` BIGINT NOT NULL ,
   PRIMARY KEY (`idMedicineDosis`) ,
   INDEX `fk_MedicineDosis_Drug1_idx` (`drug_idDrug` ASC) ,
   INDEX `fk_MedicineDose_TemporaryData1_idx` (`temporarydata_idTemporaryData` ASC) ,
@@ -256,7 +256,7 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`investigation_has_report`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`investigation_has_report` (
-  `investigation_idInvestigation` INT NOT NULL ,
+  `investigation_idInvestigation` BIGINT NOT NULL ,
   `report_idReport` BIGINT NOT NULL ,
   `report_patientuda_idPatientUda` BIGINT NOT NULL ,
   PRIMARY KEY (`investigation_idInvestigation`, `report_idReport`, `report_patientuda_idPatientUda`) ,
@@ -279,11 +279,11 @@ ENGINE = InnoDB;
 -- Table `udahta_db`.`complications_activities`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `udahta_db`.`complications_activities` (
-  `idComplications_Activities` INT NOT NULL AUTO_INCREMENT ,
+  `idComplications_Activities` BIGINT NOT NULL AUTO_INCREMENT ,
   `specification` TEXT NULL ,
   `dailycarnet_idDailyCarnet` BIGINT NOT NULL ,
   `description` TEXT NULL ,
-  `time` DATETIME NULL ,
+  `time` DATETIME NOT NULL ,
   PRIMARY KEY (`idComplications_Activities`) ,
   INDEX `fk_Complications_Activities_DailyCarnet1_idx` (`dailycarnet_idDailyCarnet` ASC) ,
   CONSTRAINT `fk_Complications_Activities_DailyCarnet1`

@@ -5,17 +5,13 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using Entities;
 using Gateway;
 using Microsoft.Win32;
-using UDA_HTA.UserControls;
-using UDA_HTA.UserControls.MainWindow;
 using UDA_HTA.UserControls.MainWindow.Administration.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Administration.Drugs;
 using UDA_HTA.UserControls.MainWindow.Patients;
 using UDA_HTA.UserControls.MainWindow.Investigations;
-using UDA_HTA.UserControls.MainWindow.Administration;
 
 namespace UDA_HTA
 {
@@ -67,6 +63,7 @@ namespace UDA_HTA
             btnEditDiagnosis.IsEnabled = false;
             btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
+            btnEditReport.IsEnabled = false;
 
             btnAddStudyResearch.IsEnabled = false;
             btnEditResearch.IsEnabled = false;
@@ -114,6 +111,7 @@ namespace UDA_HTA
                 btnEditPatient.IsEnabled = false;
                 btnEditDiagnosis.IsEnabled = false;
                 btnExportReport.IsEnabled = false;
+                btnEditReport.IsEnabled = false;
 
                 var newReportPopup = new NewReportFinder {Owner = this};
                 var imported = newReportPopup.ShowDialog();
@@ -176,13 +174,40 @@ namespace UDA_HTA
             }
         }
 
+        private void EditReport(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var pv = ContainerPatient.Content as PatientViewer;
+                if (pv != null)
+                {
+                    var report = pv.GetSelectedReport();
+                    if (report != null)
+                    {
+                        var er = new ReportCreate(report, true);
+                        er.ShowDialog();
+                        pv.ReportUpdated(report);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void ExportReport(object sender, RoutedEventArgs e)
         {
             var pv = ContainerPatient.Content as PatientViewer;
-            if (pv != null && pv.GetSelectedReport() != null)
+            if (pv != null)
             {
-                var er = new ExportReport(this, pv.GetSelectedReport());
-                er.ShowDialog();
+                var report = pv.GetSelectedReport();
+                if (report != null)
+                {
+                    var er = new ExportReport(this, report);
+                    er.ShowDialog();
+                }
             }
         }
 
@@ -196,9 +221,9 @@ namespace UDA_HTA
             btnEditPatient.IsEnabled = false;
             btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
+            btnEditReport.IsEnabled = false;
 
             ContainerPatient.Content = new PatientFinder(this);
-            ;
         }
 
         public void PatientSelected(PatientSearch patient)

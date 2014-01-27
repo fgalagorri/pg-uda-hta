@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Windows.Controls;
 using Entities;
 
@@ -12,6 +13,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public PatientViewerCondition()
         {
             InitializeComponent();
+            ColHora.Binding.StringFormat = ConfigurationManager.AppSettings["ShortTimeString"];
         }
 
 

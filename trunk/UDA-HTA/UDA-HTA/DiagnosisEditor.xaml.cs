@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Windows;
 using System.IO;
 using Entities;
-using Gateway;
 
 namespace UDA_HTA
 {

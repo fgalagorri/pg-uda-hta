@@ -27,7 +27,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertDeviceReference$$
-CREATE PROCEDURE insertDeviceReference(OUT id BIGINT, IN device_type INT, IN device_ref VARCHAR(45),
+CREATE PROCEDURE insertDeviceReference(OUT id BIGINT, IN device_type BIGINT, IN device_ref VARCHAR(45),
 									   IN idPatient BIGINT)
 BEGIN
 INSERT INTO `device_reference`(`device_type`, `device_ref`, `patient_idPatient`)
@@ -214,7 +214,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertTemporaryData$$
-CREATE PROCEDURE insertTemporaryData(OUT id INT, IN weight DECIMAL(5,2), IN height DECIMAL(5,2), 
+CREATE PROCEDURE insertTemporaryData(OUT id BIGINT, IN weight DECIMAL(5,2), IN height DECIMAL(5,2), 
 									 IN age INT, IN body_mass_index DECIMAL(5,2), IN smoker BIT, 
 									 IN dyslipidemia BIT, IN diabetic BIT, 
 									 IN known_hypertensive BIT, IN fat_percentage DECIMAL(5,2), 
@@ -243,7 +243,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertUser$$
-CREATE PROCEDURE insertUser(OUT id INT, IN log VARCHAR(45), IN p TEXT, IN r VARCHAR(45), IN nam TEXT)
+CREATE PROCEDURE insertUser(OUT id BIGINT, IN log VARCHAR(45), IN p TEXT, IN r VARCHAR(45), IN nam TEXT)
 BEGIN
 INSERT INTO `user`( `login`, `password`, `rol`,`name`)
 VALUES(log, p, r, nam);
@@ -264,7 +264,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertDrug$$
-CREATE PROCEDURE insertDrug(IN nam VARCHAR(45), IN active VARCHAR(45), IN idDrugType INT)
+CREATE PROCEDURE insertDrug(IN nam VARCHAR(45), IN active VARCHAR(45), IN idDrugType BIGINT)
 BEGIN
 INSERT INTO `drug`(`name`, `active`, `drugtype_idDrugType`)
 VALUES(nam, active, idDrugType);
@@ -274,7 +274,8 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertMedicineDose$$
-CREATE PROCEDURE insertMedicineDose(OUT id INT, IN dose TEXT, IN time_ DATETIME, IN idDrug INT, IN idTemporaryData INT)
+CREATE PROCEDURE insertMedicineDose(OUT id BIGINT, IN dose TEXT, IN time_ DATETIME, 
+									IN idDrug BIGINT, IN idTemporaryData BIGINT)
 BEGIN
 INSERT INTO `medicinedose` (`dose`, `time`, `drug_idDrug`, `temporarydata_idTemporaryData`)
 VALUES(dose, time_, idDrug, idTemporaryData);
@@ -285,7 +286,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertInvestigation$$
-CREATE PROCEDURE insertInvestigation(OUT id INT, IN nam VARCHAR(45), IN createDat DATETIME, IN comm TEXT)
+CREATE PROCEDURE insertInvestigation(OUT id BIGINT, IN nam VARCHAR(45), IN createDat DATETIME, IN comm TEXT)
 BEGIN
 INSERT 
 INTO `investigation`(`name`, `creation_date`, `comment`)
@@ -297,7 +298,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertInvestigationHasReport$$
-CREATE PROCEDURE insertInvestigationHasReport(IN idInvestigation INT, IN idReport BIGINT, 
+CREATE PROCEDURE insertInvestigationHasReport(IN idInvestigation BIGINT, IN idReport BIGINT, 
 											  IN idPatientUda BIGINT)
 BEGIN
 INSERT 
@@ -337,7 +338,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteInvestigationHasReport$$
-CREATE PROCEDURE deleteInvestigationHasReport(IN idInvestigation INT, IN idReport BIGINT, 
+CREATE PROCEDURE deleteInvestigationHasReport(IN idInvestigation BIGINT, IN idReport BIGINT, 
 											  IN idPatientUda BIGINT)
 BEGIN
 DELETE 
@@ -350,7 +351,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteMedicineDose$$
-CREATE PROCEDURE deleteMedicineDose(IN idMedicine INT)
+CREATE PROCEDURE deleteMedicineDose(IN idMedicine BIGINT)
 BEGIN
 DELETE 
 FROM `medicinedose`
@@ -358,11 +359,39 @@ WHERE (`idMedicineDosis` = idMedicine);
 END$$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteComplicationActivity$$
+CREATE PROCEDURE deleteComplicationActivity(IN carnetId BIGINT, IN caId BIGINT)
+BEGIN
+DELETE 
+FROM `complications_activities`
+WHERE `dailycarnet_idDailyCarnet` = carnetId AND 
+		`idComplications_Activities` = caId;
+END$$
+DELIMITER ;
+
+
 -- UPDATES --
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateReport$$
-CREATE PROCEDURE updateReport(IN id BIGINT, IN n_sys_total_avg INT, IN n_sys_day_avg INT, IN n_sys_night_avg INT, 
+CREATE PROCEDURE updateReport(IN id BIGINT, IN begin_date DATETIME, IN end_date DATETIME, 
+							  IN requester VARCHAR (45), IN specialty VARCHAR(45))
+BEGIN
+UPDATE `report`
+SET `begin_date` = begin_date, 
+	`end_date` = end_date, 
+	`requester` = requester, 
+	`specialty` = specialty
+WHERE `idReport` = id;
+
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS UpdateMeasureSummary$$
+CREATE PROCEDURE UpdateMeasureSummary(IN id BIGINT, IN n_sys_total_avg INT, IN n_sys_day_avg INT, IN n_sys_night_avg INT, 
 							  IN n_dias_total_avg INT, IN n_dias_day_avg INT, IN n_dias_night_avg INT,
 							  IN n_tam_total_avg INT, IN n_tam_day_avg INT, IN n_tam_night_avg INT,
 							  IN n_hr_total_avg INT, IN n_hr_day_avg INT, IN n_hr_night_avg INT,
@@ -451,6 +480,7 @@ WHERE `idReport` = id;
 END$$
 DELIMITER ;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateMeasure$$
 CREATE PROCEDURE updateMeasure(IN idMeasure BIGINT, IN isEnabled BIT, IN comment_ TEXT)
@@ -460,9 +490,10 @@ WHERE `idMeasurement` = idMeasure;
 END$$
 DELIMITER ;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateInvestigation$$
-CREATE PROCEDURE updateInvestigation(IN id INT, IN name_ VARCHAR(45), IN creationdate_ DATETIME, IN comment_ TEXT)
+CREATE PROCEDURE updateInvestigation(IN id BIGINT, IN name_ VARCHAR(45), IN creationdate_ DATETIME, IN comment_ TEXT)
 BEGIN
 UPDATE `investigation`
 SET `name` = name_,
@@ -472,6 +503,7 @@ WHERE idInvestigation = id;
 END$$
 DELIMITER ;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateDiagnosis$$
 CREATE PROCEDURE updateDiagnosis(IN reportId BIGINT, IN doctor VARCHAR(45), IN diagnosis TEXT, IN diagnosis_dt DATETIME)
@@ -480,6 +512,7 @@ UPDATE `report` SET `doctor` = doctor, `diagnosis` = diagnosis, `diagnosis_date`
 WHERE `idReport` = reportId;
 END$$
 DELIMITER ;
+
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateMedicalRecord$$
@@ -492,9 +525,10 @@ WHERE `idMedicalHistory` = id AND `idPatientUda` = patient_id;
 END$$
 DELIMITER ;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateUser$$
-CREATE PROCEDURE updateUser(IN idUsr INT, IN login_ VARCHAR(45), IN name_ TEXT, IN rol VARCHAR(45))
+CREATE PROCEDURE updateUser(IN idUsr BIGINT, IN login_ VARCHAR(45), IN name_ TEXT, IN rol VARCHAR(45))
 BEGIN
 UPDATE `user`
 SET `login` = login_,
@@ -503,6 +537,7 @@ SET `login` = login_,
 WHERE idUser = idUsr;
 END$$
 DELIMITER ;
+
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updatePassword$$
@@ -514,15 +549,88 @@ WHERE `login` = login_var;
 END$$
 DELIMITER ;
 
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS updateDrug$$
-CREATE PROCEDURE updateDrug(IN id INT, IN name_ VARCHAR(45), IN active VARCHAR(45), IN idType INT)
+CREATE PROCEDURE updateDrug(IN id BIGINT, IN name_ VARCHAR(45), IN active VARCHAR(45), IN idType BIGINT)
 BEGIN
 UPDATE `drug` 
 SET `name` = name_, `active` = active, `drugtype_idDrugType` = idType
 WHERE `idDrug` = id;
 END$$
 DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateDailyCarnet$$
+CREATE PROCEDURE updateDailyCarnet(IN carnet_id BIGINT, IN technical VARCHAR(45), 
+								   IN initial_dias1 INT, IN initial_dias2 INT, IN initial_dias3 INT, 
+								   IN initial_hr1 INT, IN initial_hr2 INT, IN initial_hr3 INT, 
+								   IN final_dias1 INT, IN final_dias2 INT, IN final_dias3 INT, 
+								   IN final_hr1 INT, IN final_hr2 INT, IN final_hr3 INT, 
+								   IN begin_sleep_time DATETIME, IN end_sleep_time DATETIME, 
+								   IN how_sleep VARCHAR(45), IN sleep_comments TEXT, 
+								   IN main_meal_time DATETIME, 
+								   IN init_sys1 INT, IN init_sys2 INT, IN init_sys3 INT, 
+								   IN final_sys1 INT, IN final_sys2 INT, IN final_sys3 INT)
+BEGIN
+UPDATE `dailycarnet`
+SET `technical` = technical, 
+	`initial_dias1` = initial_dias1, 
+	`initial_dias2` = initial_dias2, 
+	`initial_dias3` = initial_dias3, 
+	`initial_hr1` = initial_hr1, 
+	`initial_hr2` = initial_hr2, 
+	`initial_hr3` = initial_hr3, 
+	`final_dias1` = final_dias1, 
+	`final_dias2` = final_dias2, 
+	`final_dias3` = final_dias3, 
+	`final_hr1` = final_hr1, 
+	`final_hr2` = final_hr2, 
+	`final_hr3` = final_hr3, 
+	`begin_sleep_time` = begin_sleep_time, 
+	`end_sleep_time` = end_sleep_time, 
+	`how_sleep` = how_sleep, 
+	`sleep_comments` = sleep_comments, 
+	`main_meal_time` = main_meal_time, 
+	`init_sys1` = init_sys1, 
+	`init_sys2` = init_sys2, 
+	`init_sys3` = init_sys3, 
+	`final_sys1` = final_sys1, 
+	`final_sys2` = final_sys2, 
+	`final_sys3` = final_sys3
+WHERE `idDailyCarnet` = carnet_id;
+
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateTemporaryData$$
+CREATE PROCEDURE updateTemporaryData(IN id BIGINT, IN weight DECIMAL(5,2), IN height DECIMAL(5,2), 
+									 IN age INT, IN body_mass_index DECIMAL(5,2), IN smoker BIT, 
+									 IN dyslipidemia BIT, IN diabetic BIT, 
+									 IN known_hypertensive BIT, IN fat_percentage DECIMAL(5,2), 
+									 IN muscle_percentage DECIMAL(5,2), IN kcal INT)
+BEGIN
+UPDATE `temporarydata`
+SET `weight` = weight, 
+	`height` = height, 
+	`age` = age, 
+	`body_mass_index` = body_mass_index, 
+	`smoker` = smoker, 
+	`dyslipidemia` = dyslipidemia, 
+	`diabetic` = diabetic, 
+	`known_hypertensive` = known_hypertensive, 
+	`fat_percentage` = fat_percentage, 
+	`muscle_percentage` = muscle_percentage, 
+	`kcal` = kcal
+WHERE `idTemporaryData` = id;
+
+END$$
+DELIMITER ;
+
+
 
 
 -- GETS -- 
