@@ -67,17 +67,15 @@ namespace DataAccess
                         {
                             //eliminar contacto
                             if (c.DeleteContact)
-                            {
                                 patientContext.deleteEmergencyContact(c.EmergencyContactId, patientId);
-                            }
-                            
                         }
                         else
                         { // No existe el contacto en la base
                             //no hay que eliminar el contacto, entonces inserto
-                            if (!c.DeleteContact)
+                            //if (!c.DeleteContact)
                             {
-                                patientContext.insertEmergencyContact(lastId, c.Name, c.Surname, c.Phone, patientId);    
+                                patientContext.insertEmergencyContact(lastId, c.Name, c.Surname, c.Phone, patientId);
+                                c.EmergencyContactId = (long)lastId.Value;
                             }
                         }
                     }

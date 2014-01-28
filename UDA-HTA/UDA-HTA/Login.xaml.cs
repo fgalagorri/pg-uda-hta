@@ -29,7 +29,6 @@ namespace UDA_HTA
             }
             catch (Exception exception)
             {
-                userLogin.Text = " ";
                 userPassword.Password = "";
                 lblError.Content = exception.Message;
             }
