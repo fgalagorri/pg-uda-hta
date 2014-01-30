@@ -68,27 +68,36 @@ namespace Gateway
             }
         }
 
-        public Report ImportReport(string idReport, int device)
+        public Report ImportReport(string idReport, int device, out Patient patient)
         {
+            patient = null;
             var importDataController = new ImportDataManagement();
             try
             {
+                var patientController = new PatientManagement();
                 var report = importDataController.ImportReport(idReport, device);
 
-                string idRef = report.Patient.DeviceReferences
-                                     .Where(r => r.deviceType == device)
-                                     .Select(r => r.deviceReferenceId)
-                                     .FirstOrDefault();
-                if (!String.IsNullOrWhiteSpace(idRef))
+                var dref = report.Patient.DeviceReferences.FirstOrDefault();
+                
+                if (dref != null)
                 {
-                    var patientController = new PatientManagement();
+                    string idRef = dref.deviceReferenceId;
+
                     var idPatient = patientController.GetPatientIdIfExist(idRef, device);
-                    report.Patient.UdaId = idPatient;
                     if (idPatient != null)
                     {
+                        report.Patient.UdaId = idPatient;
                         // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo
                         report.Patient = patientController.GetPatient((long)idPatient);
                     }
+                    else
+                    {
+                        patient = patientController.FindSimilarPatient(report.Patient.DocumentId, null);
+                    }
+                }
+                else
+                {
+                    patient = patientController.FindSimilarPatient(report.Patient.DocumentId, null);
                 }
 
                 return report;
@@ -415,6 +424,12 @@ namespace Gateway
                 el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
                 throw new Exception("No fue posible actualizar la información del paciente");
             }
+        }
+
+        public Patient FindSimilarPatient(string document, string register)
+        {
+            var patientController = new PatientManagement();
+            return patientController.FindSimilarPatient(document, register);
         }
 
     #endregion

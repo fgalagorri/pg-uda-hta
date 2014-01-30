@@ -97,5 +97,27 @@ namespace BussinessLogic
             var uda = new UdaHtaDataAccess();
             return uda.GetLastTempData(patientId);
         }
+
+        public Patient FindSimilarPatient(string document, string register)
+        {
+            Patient p = null;
+            if (!String.IsNullOrWhiteSpace(document))
+            {
+                var dataAccess = new PatientDataAccess();
+                p = dataAccess.FindSimilarPatient(document);
+
+                if (p!= null && !String.IsNullOrWhiteSpace(register) 
+                    && !String.IsNullOrWhiteSpace(p.RegisterNumber) 
+                    && !p.RegisterNumber.Equals(register))
+                    p = null;
+                
+                if(p != null)
+                {
+                    var uda = new UdaHtaDataAccess();
+                    p.Background = uda.GetMedicalHistory(p.UdaId.Value);
+                }
+            }
+            return p;
+        }
     }
 }

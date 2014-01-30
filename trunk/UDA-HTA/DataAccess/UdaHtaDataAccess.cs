@@ -335,6 +335,7 @@ namespace DataAccess
             }
         }
 
+
         public void UpdateDiagnosis(long reportId, string diagnosis, DateTime diagnosisDate, string doctor)
         {
             using (udaContext = new udahta_dbEntities())
