@@ -60,17 +60,26 @@ namespace UDA_HTA
                 var pr = (PatientReport) e.AddedItems[0];
                 try
                 {
-                    var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice);
-                    var rc = new ReportCreate(report) { Owner = this };
+                    Patient similarPatient;
+
+                    var report = GatewayController.GetInstance().ImportReport(pr.ReportId, pr.ReportDevice, out similarPatient);
                     Mouse.OverrideCursor = null;
+
+                    if (similarPatient != null)
+                    {
+                        var pmf = new PatientMatchFound(similarPatient);
+                        bool? usePatient = pmf.ShowDialog();
+                        if (usePatient.HasValue && usePatient.Value)
+                            report.Patient = similarPatient;
+                    }
+
+                    var rc = new ReportCreate(report) { Owner = this };
                     var imported = rc.ShowDialog();
 
                     if (imported.HasValue && !imported.Value)
                     {
-                        //grReports.UnselectAll();
                         // Hack to disable selected row style
-                        grReports.IsEnabled = false;
-                        grReports.IsEnabled = true;
+                        grReports.SelectedItem = null;
                     }
                     else
                     {

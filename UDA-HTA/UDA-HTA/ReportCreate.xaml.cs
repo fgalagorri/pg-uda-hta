@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using Entities;
@@ -45,6 +46,8 @@ namespace UDA_HTA
                 _state = 1;
                 CurrentControl.Content = patientCondition;
             }
+
+            ContentRendered += new EventHandler(ReportCreate_ContentRendered);
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
@@ -99,9 +102,28 @@ namespace UDA_HTA
                     DialogResult = true;
                     try
                     {
+                        var controller = GatewayController.GetInstance();
                         Mouse.OverrideCursor = Cursors.Wait;
-                        if(!_isEdition)
+                        if (!_isEdition)
+                        {
+                            // Ver si existe un paciente similar
+                            if (!_report.Patient.UdaId.HasValue)
+                            {
+                                // Chequeo que no exista un paciente en la BD
+                                var p = controller.FindSimilarPatient(_report.Patient.DocumentId, _report.Patient.RegisterNumber);
+                                if (p != null)
+                                {
+                                    var pmf = new PatientMatchFound(p);
+                                    bool? usePatient = pmf.ShowDialog();
+                                    if (usePatient.HasValue && usePatient.Value)
+                                        _report.Patient.UdaId = p.UdaId;
+                                }
+
+                                // Chequeo que no exista un paciente en los WS del hospital
+                                /*LLAMADA AL WS*/
+                            }
                             GatewayController.GetInstance().AddImportedData(_report, true);
+                        }
                         else
                             GatewayController.GetInstance().UpdateReport(_report);
                         Mouse.OverrideCursor = null;
@@ -138,6 +160,12 @@ namespace UDA_HTA
                     _state--;
                     break;
             }
+        }
+
+
+        void ReportCreate_ContentRendered(object sender, EventArgs e)
+        {
+            Thread.Sleep(10000);
         }
     }
 }

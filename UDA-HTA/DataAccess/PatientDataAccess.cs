@@ -180,6 +180,66 @@ namespace DataAccess
             }
         }
 
+        public Patient FindSimilarPatient(string document)
+        {
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                Patient patient = null;
+                var pat = patientContext.patient.Where(p => p.document.Equals(document))
+                                        .Select(p => new
+                                        {
+                                            p.idPatient,
+                                            p.address,
+                                            p.birthday,
+                                            p.cell_phone,
+                                            p.city,
+                                            p.document,
+                                            p.e_mail,
+                                            p.emergency_contact,
+                                            p.gender,
+                                            p.name,
+                                            p.neighborhood,
+                                            p.department,
+                                            p.surname,
+                                            p.telephone,
+                                            p.telephone_alt,
+                                            p.register_number
+                                        }).ToList().FirstOrDefault();
+                if (pat != null)
+                {
+                    patient = new Patient
+                    {
+                        UdaId = pat.idPatient,
+                        Address = pat.address,
+                        BirthDate = pat.birthday,
+                        CellPhone = pat.cell_phone,
+                        City = pat.city,
+                        DocumentId = pat.document,
+                        Email = pat.e_mail,
+                        Names = pat.name,
+                        Neighbour = pat.neighborhood,
+                        Department = pat.department,
+                        Phone = pat.telephone,
+                        Phone2 = pat.telephone_alt,
+                        Sex = pat.gender == "M" ? SexType.M : SexType.F,
+                        Surnames = pat.surname,
+                        RegisterNumber = pat.register_number
+                    };
+
+                    foreach (var ec in pat.emergency_contact)
+                    {
+                        patient.EmergencyContactList.Add(new EmergencyContact
+                        {
+                            EmergencyContactId = ec.idemergency_contact,
+                            Name = ec.name,
+                            Phone = ec.phone,
+                            Surname = ec.surname
+                        });
+                    }
+                }
+                return patient;
+            }
+        }
 
         public bool ExistPatientReference(string patientRef, int devType)
         {

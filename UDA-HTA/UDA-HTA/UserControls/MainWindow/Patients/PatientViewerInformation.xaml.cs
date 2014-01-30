@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using Entities;
 using UDA_HTA.Helpers;
 
@@ -38,6 +39,11 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
             grContacts.DataContext = null;
             grContacts.DataContext = patient.EmergencyContactList;
+        }
+
+        public void CollapseEmergencyContacts()
+        {
+            EmContact.Visibility = Visibility.Collapsed;
         }
     }
 }

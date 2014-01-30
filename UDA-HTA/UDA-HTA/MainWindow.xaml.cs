@@ -112,6 +112,7 @@ namespace UDA_HTA
                 btnEditDiagnosis.IsEnabled = false;
                 btnExportReport.IsEnabled = false;
                 btnEditReport.IsEnabled = false;
+                btnEditPatient.IsEnabled = false;
 
                 var newReportPopup = new NewReportFinder {Owner = this};
                 var imported = newReportPopup.ShowDialog();
@@ -119,6 +120,8 @@ namespace UDA_HTA
                 if (imported.HasValue && imported.Value)
                 {
                     long patientId, reportId;
+                    btnEditPatient.IsEnabled = true;
+ 
                     // Despliego el nuevo informe
 
                     GatewayController.GetInstance().GetLastInsertedReport(out patientId, out reportId);

@@ -67,6 +67,10 @@
       <Project>{EC3E828B-0F5F-4F3C-8568-01F96C833040}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IntegrationHC\IntegrationHC.csproj">
+      <Project>{921DFD77-79D8-4B12-8D11-6A60C95BE8B3}</Project>
+      <Name>IntegrationHC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
