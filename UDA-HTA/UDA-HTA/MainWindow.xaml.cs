@@ -68,7 +68,6 @@ namespace UDA_HTA
             btnAddStudyResearch.IsEnabled = false;
             btnEditResearch.IsEnabled = false;
             btnExportXLS.IsEnabled = false;
-            //btnExportCSV.IsEnabled = false;
 
             btnEditDrugs.IsEnabled = false;
 
@@ -205,12 +204,10 @@ namespace UDA_HTA
             var pv = ContainerPatient.Content as PatientViewer;
             if (pv != null)
             {
-                var report = pv.GetSelectedReport();
-                if (report != null)
-                {
-                    var er = new ExportReport(this, report);
-                    er.ShowDialog();
-                }
+                pv.SelectTab(7);
+                pv.SelectTab(8);
+                var er = new ExportReport(this);
+                er.ShowDialog();
             }
         }
 

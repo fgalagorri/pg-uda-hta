@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using Entities;
@@ -18,14 +21,15 @@ namespace UDA_HTA
         private UDA_HTA.MainWindow container;
         private Report _report;
 
-        public ExportReport(UDA_HTA.MainWindow w, Report report)
+        public ExportReport(UDA_HTA.MainWindow w)
         {
             container = w;
-            _report = report;
+//            _report = report;
 
             InitializeComponent();
         }
 
+        
         private void ExportDoc(object sender, RoutedEventArgs e)
         {
             try
@@ -57,11 +61,21 @@ namespace UDA_HTA
                         var includeGraphic = cbGraphic.IsChecked != null && cbGraphic.IsChecked.Value;
                         var includeMeasures = cbRegisterValues.IsChecked != null && cbRegisterValues.IsChecked.Value;
 
+                        string pathOverLimit = ConfigurationManager.AppSettings["GraphicOverLimit"];
+                        string pathPressPrfl = ConfigurationManager.AppSettings["GraphicPressurePrfl"];
+
+                        if (includeGraphic)
+                        {
+                            pv.GetChartImage(7);
+                            pv.GetChartImage(8);
+                        }
+
                         Mouse.OverrideCursor = Cursors.Wait;
 
                         GatewayController.GetInstance().ExportToDocx(report, includePatientData,
                                                                      includeDiagnostic, includeProfile,
-                                                                     includeGraphic, includeMeasures, saveAs.FileName);
+                                                                     includeGraphic, pathOverLimit, pathPressPrfl, 
+                                                                     includeMeasures, saveAs.FileName);
 
                         // Abro el archivo exportado
                         Process.Start(saveAs.FileName);
@@ -111,9 +125,18 @@ namespace UDA_HTA
 
                         Mouse.OverrideCursor = Cursors.Wait;
 
+                        string pathOverLimit = ConfigurationManager.AppSettings["GraphicOverLimit"];
+                        string pathPressPrfl = ConfigurationManager.AppSettings["GraphicPressurePrfl"];
+
+                        if (includeGraphic)
+                        {
+                            pv.GetChartImage(7);
+                            pv.GetChartImage(8);
+                        }
+
                         GatewayController.GetInstance()
                                          .ExportToPdf(report, includePatientData, includeDiagnostic, includeProfile,
-                                                      includeGraphic, includeMeasures, saveAs.FileName);
+                                                      includeGraphic, pathOverLimit, pathPressPrfl, includeMeasures, saveAs.FileName);
                         // Abro el archivo exportado
                         Process.Start(saveAs.FileName);
                         Mouse.OverrideCursor = null;

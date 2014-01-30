@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -110,23 +111,20 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             ((LineSeries) PressureProfile.Series[5]).IndependentAxis = xAxis;
         }
 
+        /* Retorna el path donde guardo la imagen */
         public void GetChartImage()
         {
-            var size = new System.Windows.Size(PressureProfile.ActualWidth, PressureProfile.ActualHeight);
-            PressureProfile.Measure(size);
-            PressureProfile.Arrange(new Rect(size));
-            PressureProfile.UpdateLayout();
-
             RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-                (int) PressureProfile.ActualWidth,
-                (int) PressureProfile.ActualHeight,
+                (int) GraphicGrid.ActualWidth,
+                (int) GraphicGrid.ActualHeight,
                 96d,
                 96d,
                 PixelFormats.Pbgra32);
-            renderBitmap.Render(PressureProfile);
+            renderBitmap.Render(GraphicGrid);
 
             // Create a file stream for saving image
-            using (FileStream outStream = new FileStream("C:\\pruebaPP.png", FileMode.Create))
+            string path = ConfigurationManager.AppSettings["GraphicPressurePrfl"];
+            using (FileStream outStream = new FileStream(path, FileMode.Create))
             {
                 // Use png encoder for our data
                 PngBitmapEncoder encoder = new PngBitmapEncoder();

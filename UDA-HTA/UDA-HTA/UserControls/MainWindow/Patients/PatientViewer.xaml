@@ -27,7 +27,7 @@
 
         <Border Grid.Column="1" Width="5" />
 
-        <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabControl Name="PatientTabControl" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem Name="ReportPatient" Header="Paciente">
                 <ContentControl>
                     <patients:PatientViewerInformation x:Name="TabPatient" />

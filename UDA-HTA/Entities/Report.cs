@@ -34,6 +34,9 @@ namespace Entities
         public DailyCarnet Carnet { get; set; }
         public ICollection<Measurement> Measures { get; set; } 
 
+        //Lista de path de graficas
+        public ICollection<string> GraphicPaths { get; set; }
+
         #endregion
 
 

@@ -41,7 +41,7 @@
         </Style>
     </UserControl.Resources>
     
-    <Grid>
+    <Grid Name="GraphicGrid">
         <DockPanel>
             <DVC:Chart Name="PressureProfile" Title="Perfil de Presión Arterial" 
                        Style="{StaticResource ChartStyle}" TitleStyle="{StaticResource ChartTitle}" >

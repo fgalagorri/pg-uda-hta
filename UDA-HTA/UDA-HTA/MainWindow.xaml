@@ -59,8 +59,6 @@
                 <r:RibbonGroup Header="Exportar">
                     <r:RibbonButton Name="btnExportXLS" Label="Exportar XLS" Click="ExportXLS"
                                     LargeImageSource="/Images/export_XLS.png" />
-                    <!--r:RibbonButton Name="btnExportCSV" Label="Exportar CSV" Click="ExportCSV"
-                                    LargeImageSource="/Images/ribbon_SaveDoc.png" /> -->
                 </r:RibbonGroup>
 
             </r:RibbonTab>

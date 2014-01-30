@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using Entities;
 using Gateway;
@@ -36,8 +40,6 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             var hiCount = valid.Count(m => m.Systolic.Value >= _limits.HiSysTotal);
             var okCount = valid.Count(m => m.Systolic.Value < _limits.HiSysTotal);
 
-            //HighSysTotal.Text = GetLegendText(hiCount, totalCount);
-            //OkSysTotal.Text = GetLegendText(okCount, totalCount);
             PieSysTot.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, totalCount), hiCount),
@@ -48,8 +50,6 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             hiCount = valid.Count(m => !m.Asleep.Value && m.Systolic.Value >= _limits.HiSysDay);
             okCount = valid.Count(m => !m.Asleep.Value && m.Systolic.Value < _limits.HiSysDay);
             
-            //HighSysDay.Text = GetLegendText(hiCount, dayCount);
-            //OkSysDay.Text = GetLegendText(okCount, dayCount);
             PieSysDay.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, dayCount), hiCount),
@@ -60,8 +60,6 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             hiCount = valid.Count(m => m.Asleep.Value && m.Systolic.Value >= _limits.HiSysNight);
             okCount = valid.Count(m => m.Asleep.Value && m.Systolic.Value < _limits.HiSysNight);
             
-            //HighSysNight.Text = GetLegendText(hiCount, nightCount);
-            //OkSysNight.Text = GetLegendText(okCount, nightCount); 
             PieSysNight.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, nightCount), hiCount),
@@ -73,8 +71,6 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             hiCount = valid.Count(m => m.Diastolic.Value >= _limits.HiDiasTotal);
             okCount = valid.Count(m => m.Diastolic.Value < _limits.HiDiasTotal);
             
-            //HighDiasTotal.Text = GetLegendText(hiCount, totalCount);
-            //OkDiasTotal.Text = GetLegendText(okCount, totalCount); 
             PieDiasTot.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, totalCount), hiCount),
@@ -85,8 +81,6 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             hiCount = valid.Count(m => !m.Asleep.Value && m.Diastolic.Value >= _limits.HiDiasDay);
             okCount = valid.Count(m => !m.Asleep.Value && m.Diastolic.Value < _limits.HiDiasDay);
             
-            //HighDiasDay.Text = GetLegendText(hiCount, dayCount);
-            //OkDiasDay.Text = GetLegendText(okCount, dayCount); 
             PieDiasDay.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, dayCount), hiCount),
@@ -97,13 +91,12 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             hiCount = valid.Count(m => m.Asleep.Value && m.Diastolic.Value >= _limits.HiDiasDay);
             okCount = valid.Count(m => m.Asleep.Value && m.Diastolic.Value < _limits.HiDiasDay);
 
-            //HighDiasNight.Text = GetLegendText(hiCount, nightCount);
-            //OkDiasNight.Text = GetLegendText(okCount, nightCount); 
             PieDiasNight.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, nightCount), hiCount),
                     new KeyValuePair<string, int>(GetLegendText(okCount, nightCount), okCount),
                 };
+           
         }
 
 
@@ -115,22 +108,21 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         }
 
 
+        /* Retorna el path donde guardo la imagen */
         public void GetChartImage()
         {
             RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-                (int)ChartsPanel.ActualWidth,
-                (int)ChartsPanel.ActualHeight,
+                (int) GraphicGrid.ActualWidth,
+                (int) GraphicGrid.ActualHeight,
                 96d,
                 96d,
                 PixelFormats.Pbgra32);
-            /*var size = new System.Windows.Size(PressureProfile.ActualWidth, PressureProfile.ActualHeight);
-            PressureProfile.Measure(size);
-            PressureProfile.Arrange(new Rect(size));
-            PressureProfile.UpdateLayout();*/
-            renderBitmap.Render(ChartsPanel);
+            
+            renderBitmap.Render(GraphicGrid);
 
             // Create a file stream for saving image
-            using (FileStream outStream = new FileStream("C:\\pruebaPP.png", FileMode.Create))
+            string path = ConfigurationManager.AppSettings["GraphicOverLimit"];
+            using (FileStream outStream = new FileStream(path, FileMode.Create))
             {
                 // Use png encoder for our data
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
