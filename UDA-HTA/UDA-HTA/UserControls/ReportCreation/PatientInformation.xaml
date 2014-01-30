@@ -60,8 +60,16 @@
                         <ComboBoxItem Content="Femenino" />
                     </ComboBox>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
+                    <Button Name="btnFindDocumentHC" Padding="5,2" VerticalAlignment="Center" 
+                            Margin="0" Width="120" Click="btnFindDocumentHC_Click">Búsqueda Cédula</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center">
+                    <Button Name="btnFindRegNoHC" Padding="5,2" VerticalAlignment="Center" 
+                            Margin="0" Width="120" Click="btnFindRegNoHC_Click">Búsqueda Registro</Button>
+                </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                     <TextBlock Style="{StaticResource label}">Fecha de Nacimiento (d/m/a):</TextBlock>
                     <StackPanel Margin="15,0" Orientation="Horizontal">
                         <TextBox Name="txtBirthDay" Margin="2,0" Style="{StaticResource TBlockSmall}" />

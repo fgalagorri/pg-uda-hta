@@ -44,6 +44,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public void CollapseEmergencyContacts()
         {
             EmContact.Visibility = Visibility.Collapsed;
+            EmergencyContactRow.Height = new GridLength(0);
         }
     }
 }

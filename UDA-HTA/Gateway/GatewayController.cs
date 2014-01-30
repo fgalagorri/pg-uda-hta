@@ -7,6 +7,7 @@ using System.Security;
 using BussinessLogic;
 using Entities;
 using EventLogger;
+using IntegrationHC;
 
 namespace Gateway
 {
@@ -427,11 +428,48 @@ namespace Gateway
 
         public Patient FindSimilarPatient(string document, string register)
         {
-            var patientController = new PatientManagement();
-            return patientController.FindSimilarPatient(document, register);
+            try
+            {
+                var patientController = new PatientManagement();
+                return patientController.FindSimilarPatient(document, register);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("No fue posible actualizar la información del paciente");
+            }
         }
 
-    #endregion
+        public Patient FindPatientByDocumentHC(string document)
+        {
+            try
+            {
+                return PatientIntegration.GetPatientByDocument(document);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("Ha ocurrido un error al intentar obtener la información del sistema del hospital");
+            }
+        }
+
+        public Patient FindPatientByRegNoHC(string register)
+        {
+            try
+            {
+                return PatientIntegration.GetPatientByRegister(register);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("Ha ocurrido un error al intentar obtener la información del sistema del hospital");
+            }
+        }
+
+        #endregion
 
 
     #region Drug Management
