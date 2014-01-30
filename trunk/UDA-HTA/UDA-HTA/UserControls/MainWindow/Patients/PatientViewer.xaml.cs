@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -21,6 +23,11 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         private Patient _patient;
         private Report _report;
         private UDA_HTA.MainWindow container;
+
+        public PatientViewer()
+        {
+            InitializeComponent();
+        }
 
         public PatientViewer(PatientSearch patient, UDA_HTA.MainWindow w)
         {
@@ -167,16 +174,27 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             Mouse.OverrideCursor = null;
         }
 
+        public void SelectTab(int tab)
+        {
+            PatientTabControl.SelectedIndex = tab;  
+            PatientTabControl.UpdateLayout();
+        }
+
+        public void GetChartImage(int tab)
+        {
+            switch (tab)
+            {
+                case 7:
+                    TabOverLimit.GetChartImage();
+                    break;
+                case 8:
+                    TabPressureProfile.GetChartImage();
+                    break;
+            }
+        }
 
         public Report GetSelectedReport()
         {
-            //ExportAsImage(new Uri("C:\\prueba1.png"), TabPressureProfile);
-            //ReportPressureProfile.IsSelected = true;
-            //Thread.Sleep(1000);
-
-            //TabPressureProfile.GetChartImage();
-            //TabOverLimit.GetChartImage();
-
             return _report;
         }
 

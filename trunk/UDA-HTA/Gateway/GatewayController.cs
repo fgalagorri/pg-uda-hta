@@ -246,7 +246,7 @@ namespace Gateway
 
     #region Report Exportation
 
-        public void ExportToPdf(Report report,bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
+        public void ExportToPdf(Report report,bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, string pathOverLimit, string pathPressPrfl, bool includeMeasures, string filePath)
         {
             try
             {
@@ -255,8 +255,7 @@ namespace Gateway
 
                 string tempFile = "Temp\\tempfile" + report.UdaId + ".uda";
                 ReportManagement rm = new ReportManagement();
-                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic,
-                                    includeMeasures, tempFile);
+                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl, includeMeasures, tempFile);
 
                 rm.ExportReportPDF(tempFile, filePath);
                 File.Delete(tempFile);
@@ -269,12 +268,12 @@ namespace Gateway
             }
         }
 
-        public void ExportToDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
+        public void ExportToDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, string pathOverLimit, string pathPressPrfl, bool includeMeasures, string filePath)
         {
             ReportManagement rm = new ReportManagement();
             try
             {
-                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic,
+                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl, 
                                     includeMeasures, filePath);
             }
             catch (Exception exception)

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Packaging;
 using V = DocumentFormat.OpenXml.Vml;
 using Ovml = DocumentFormat.OpenXml.Vml.Office;
@@ -190,7 +187,7 @@ namespace BussinessLogic
 
         #region Export Region
 
-        public void ExportReportDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, bool includeMeasures, string filePath)
+        public void ExportReportDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, string pathOverLimit, string pathPressPrfl, bool includeMeasures, string filePath)
         {
             using (var document = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {                
@@ -233,7 +230,6 @@ namespace BussinessLogic
 
                 TableRowProperties tableRowProperties1 = new TableRowProperties();
                 TableRowHeight tableRowHeight1 = new TableRowHeight() {Val = (UInt32Value) 300U};
-//                TableRowHeight tableRowHeight1 = new TableRowHeight() { HeightType = HeightRuleValues.Auto}; 
 
                 tableRowProperties1.AppendChild(tableRowHeight1);
 
@@ -273,11 +269,9 @@ namespace BussinessLogic
 
                 ParagraphProperties paragraphProperties1 = new ParagraphProperties();
                 Justification justification1 = new Justification() {Val = JustificationValues.Center};
-//                SpacingBetweenLines spacing1 = new SpacingBetweenLines(){Before = "0", After = "0"};
 
                 ParagraphMarkRunProperties paragraphMarkRunProperties1 = new ParagraphMarkRunProperties();
                 paragraphProperties1.AppendChild(justification1);
-//                paragraphProperties1.AppendChild(spacing1);
                 paragraphProperties1.AppendChild(paragraphMarkRunProperties1);
 
                 Run run1 = new Run() {RsidRunProperties = "004D2B75"};
@@ -1711,17 +1705,83 @@ namespace BussinessLogic
 
                     RunProperties runProperties13 = new RunProperties();
 
-                    Text text37 = new Text();
-                    text37.Text = "<Gráfica tensión arterial/tiempo>";
 
                     run37.AppendChild(runProperties13);
-                    run37.AppendChild(text37);
 
                     paragraph26.AppendChild(paragraphProperties10);
                     paragraph26.AppendChild(run37);
 
                     tableCell24.AppendChild(tableCellProperties24);
                     tableCell24.AppendChild(paragraph26);
+
+                    /* Imagen grafica - PressureProfile */
+
+                    
+                    
+                    ImagePart imageChartPrflPart = mainDocumentPart1.AddImagePart(ImagePartType.Png, "rId11");
+                    using (FileStream stream = new FileStream(pathPressPrfl, FileMode.Open))
+                    {
+                        imageChartPrflPart.FeedData(stream);
+                    }
+
+                    int emusperinch = 914400;
+                    long CY = emusperinch * (long)6.3;
+                    long CX = emusperinch * (long)11.03;
+                    
+                    // Define the reference of the image.
+                    var element1 =
+                         new Drawing(
+                             new Wp.Inline(
+                                 new Wp.Extent() { Cx = CX/2L, Cy = CY/2L },
+                                 new Wp.EffectExtent()
+                                 {
+                                     LeftEdge = 0L,
+                                     TopEdge = 0L,
+                                     RightEdge = 0L,
+                                     BottomEdge = 0L
+                                 },
+                                 new Wp.DocProperties()
+                                 {
+                                     Id = (UInt32Value)1U,
+                                     Name = "Figura 2"
+                                 },
+                                 new Wp.NonVisualGraphicFrameDrawingProperties(
+                                     new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                                 new A.Graphic(
+                                     new A.GraphicData(
+                                         new Pic.Picture(
+                                             new Pic.NonVisualPictureProperties(
+                                                 new Pic.NonVisualDrawingProperties()
+                                                 {
+                                                     Id = (UInt32Value)0U,
+                                                     Name = "pressureProfile.png"
+                                                 },
+                                                 new Pic.NonVisualPictureDrawingProperties()),
+                                             new Pic.BlipFill(
+                                                 new A.Blip()
+                                                 {
+                                                     Embed = "rId11",
+                                                 },
+                                                 new A.Stretch(
+                                                     new A.FillRectangle())),
+                                             new Pic.ShapeProperties(
+                                                 new A.Transform2D(
+                                                     new A.Offset() { X = 0L, Y = 0L },
+                                                     new A.Extents() { Cx = CX, Cy = CY }),
+                                                 new A.PresetGeometry(
+                                                     new A.AdjustValueList()
+                                                 ) { Preset = A.ShapeTypeValues.Rectangle }))
+                                     ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                             )
+                             {
+                                 DistanceFromTop = (UInt32Value)0U,
+                                 DistanceFromBottom = (UInt32Value)0U,
+                                 DistanceFromLeft = (UInt32Value)0U,
+                                 DistanceFromRight = (UInt32Value)0U
+                             });
+
+                    tableCell24.AppendChild(new Paragraph(new Run(element1)));
+
 
                     tableRow16.AppendChild(tableCell24);
 
@@ -1848,11 +1908,7 @@ namespace BussinessLogic
 
                     RunProperties runProperties15 = new RunProperties();
 
-                    Text text39 = new Text();
-                    text39.Text = "<Gráfico de torta>";
-
                     run39.AppendChild(runProperties15);
-                    run39.AppendChild(text39);
 
                     paragraph28.AppendChild(paragraphProperties12);
                     paragraph28.AppendChild(run39);
@@ -1860,6 +1916,67 @@ namespace BussinessLogic
                     tableCell26.AppendChild(tableCellProperties26);
                     tableCell26.AppendChild(paragraph28);
 
+                    /* Imagen grafica - OverLimit */
+                    ImagePart imageChartLimitPart = mainDocumentPart1.AddImagePart(ImagePartType.Png, "rId12");
+                    using (FileStream stream = new FileStream(pathOverLimit, FileMode.Open))
+                    {
+                        imageChartLimitPart.FeedData(stream);
+                    }
+
+                    // Define the reference of the image.
+                    var element2 =
+                         new Drawing(
+                             new Wp.Inline(
+                                 new Wp.Extent() { Cx = CX /2L, Cy = CY/2L },
+                                 new Wp.EffectExtent()
+                                 {
+                                     LeftEdge = 0L,
+                                     TopEdge = 0L,
+                                     RightEdge = 0L,
+                                     BottomEdge = 0L
+                                 },
+                                 new Wp.DocProperties()
+                                 {
+                                     Id = (UInt32Value)1U,
+                                     Name = "Figura 3"
+                                 },
+                                 new Wp.NonVisualGraphicFrameDrawingProperties(
+                                     new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                                 new A.Graphic(
+                                     new A.GraphicData(
+                                         new Pic.Picture(
+                                             new Pic.NonVisualPictureProperties(
+                                                 new Pic.NonVisualDrawingProperties()
+                                                 {
+                                                     Id = (UInt32Value)0U,
+                                                     Name = "overLimitPie.png"
+                                                 },
+                                                 new Pic.NonVisualPictureDrawingProperties()),
+                                             new Pic.BlipFill(
+                                                 new A.Blip()
+                                                 {
+                                                     Embed = "rId12",
+                                                 },
+                                                 new A.Stretch(
+                                                     new A.FillRectangle())),
+                                             new Pic.ShapeProperties(
+                                                 new A.Transform2D(
+                                                     new A.Offset() { X = 0L, Y = 0L },
+                                                     new A.Extents() { Cx = CX, Cy = CY }),
+                                                 new A.PresetGeometry(
+                                                     new A.AdjustValueList()
+                                                 ) { Preset = A.ShapeTypeValues.Rectangle }))
+                                     ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                             )
+                             {
+                                 DistanceFromTop = (UInt32Value)0U,
+                                 DistanceFromBottom = (UInt32Value)0U,
+                                 DistanceFromLeft = (UInt32Value)0U,
+                                 DistanceFromRight = (UInt32Value)0U
+                             });
+
+                    tableCell26.AppendChild(new Paragraph(new Run(element2)));
+                    
                     tableRow18.AppendChild(tableCell26);
 
                     table1.AppendChild(tableRow15);
@@ -1882,7 +1999,6 @@ namespace BussinessLogic
 
                     TableRowProperties tableRowProperties30 = new TableRowProperties();
                     TableRowHeight tableRowHeight30 = new TableRowHeight() { Val = (UInt32Value)150U };
-//                    TableRowHeight tableRowHeight30 = new TableRowHeight() { HeightType = HeightRuleValues.Auto };
 
                     tableRowProperties30.AppendChild(tableRowHeight30);
 
@@ -2048,8 +2164,7 @@ namespace BussinessLogic
                 HeaderPart headerPart1 = mainDocumentPart1.AddNewPart<HeaderPart>("rId7");
 
                 GenerateCoverHeader(coverHeader);
-                GenerateHeader(headerPart1, report.Patient);
-
+                GenerateHeader(headerPart1, report.Patient);                
 
                 mainDocumentPart1.Document.Save();
             }

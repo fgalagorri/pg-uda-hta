@@ -38,7 +38,7 @@
             </ResourceDictionary>
         </datavis:ResourceDictionaryCollection>
     </UserControl.Resources>
-    <Grid>
+    <Grid Name="GraphicGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
