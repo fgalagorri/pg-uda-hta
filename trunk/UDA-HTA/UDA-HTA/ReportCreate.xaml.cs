@@ -46,8 +46,6 @@ namespace UDA_HTA
                 _state = 1;
                 CurrentControl.Content = patientCondition;
             }
-
-            ContentRendered += new EventHandler(ReportCreate_ContentRendered);
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
@@ -160,12 +158,6 @@ namespace UDA_HTA
                     _state--;
                     break;
             }
-        }
-
-
-        void ReportCreate_ContentRendered(object sender, EventArgs e)
-        {
-            Thread.Sleep(10000);
         }
     }
 }

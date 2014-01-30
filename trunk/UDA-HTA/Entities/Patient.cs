@@ -17,6 +17,48 @@ namespace Entities
             ReportList = new List<Report>();
             DeviceReferences = new List<DeviceReference>();
         }
+
+        public void Merge(Patient patient)
+        {
+            if (!String.IsNullOrWhiteSpace(patient.DocumentId))
+                DocumentId = patient.DocumentId;
+            if (!String.IsNullOrWhiteSpace(patient.Names))
+                Names = patient.Names;
+            if (!String.IsNullOrWhiteSpace(patient.Surnames))
+                Surnames = patient.Surnames;
+            if (patient.BirthDate.HasValue)
+                BirthDate = patient.BirthDate;
+            if (patient.Sex.HasValue)
+                Sex = patient.Sex;
+            if (!String.IsNullOrWhiteSpace(patient.Address))
+                Address = patient.Address;
+            if (!String.IsNullOrWhiteSpace(patient.Neighbour))
+                Neighbour = patient.Neighbour;
+            if (!String.IsNullOrWhiteSpace(patient.City))
+                City = patient.City;
+            if (!String.IsNullOrWhiteSpace(patient.Department))
+                Department = patient.Department;
+            if (!String.IsNullOrWhiteSpace(patient.Phone))
+                Phone = patient.Phone;
+            if (!String.IsNullOrWhiteSpace(patient.Phone2))
+                Phone2 = patient.Phone2;
+            if (!String.IsNullOrWhiteSpace(patient.CellPhone))
+                CellPhone = patient.CellPhone;
+            if (!String.IsNullOrWhiteSpace(patient.Email))
+                Email = patient.Email;
+            if (patient.UdaId.HasValue)
+                UdaId = patient.UdaId;
+            if (!String.IsNullOrWhiteSpace(patient.RegisterNumber))
+                RegisterNumber = patient.RegisterNumber;
+
+            foreach (var dr in patient.DeviceReferences)
+            {
+                if(!DeviceReferences.Any(r => r.deviceReferenceId == dr.deviceReferenceId && r.deviceType == dr.deviceType))
+                    DeviceReferences.Add(dr);
+            }
+
+            patient.ModifiedDate = DateTime.Now;
+        }
         
         public string DocumentId { get; set; }
         public string Names { get; set; }

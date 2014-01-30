@@ -1,8 +1,0 @@
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\bin\Debug\IntegrationHC.dll.config
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\bin\Debug\IntegrationHC.dll
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\bin\Debug\IntegrationHC.pdb
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\obj\Debug\IntegrationHC.dll
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\obj\Debug\IntegrationHC.pdb
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\bin\Debug\Interfaces.dll
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\bin\Debug\Interfaces.pdb
-D:\UDA HTA\PY hTA\UDA-HTA\IntegrationHC\obj\Debug\IntegrationHC.csprojResolveAssemblyReference.cache

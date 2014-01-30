@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Entities;
+using Gateway;
 using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.ReportCreation
@@ -28,35 +30,47 @@ namespace UDA_HTA.UserControls.ReportCreation
             InitializeComponent();
 
             if (p != null)
-            {
-                // Datos importados
-                txtNames.Text = p.Names;
-                txtSurnames.Text = p.Surnames;
-                txtCI.Text = p.DocumentId;
-                txtBirthDay.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Day.ToString() : "";
-                txtBirthMon.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Month.ToString() : "";
-                txtBirthYear.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Year.ToString() : "";
-                cmbSex.SelectedIndex = p.Sex.HasValue ? (int)p.Sex.Value : -1;
-                txtAddress.Text = p.Address;
-                txtNeighbour.Text = p.Neighbour;
-                txtCity.Text = p.City;
-                cmbDepartment.SelectedValue = p.Department;
-                txtTel.Text = p.Phone;
-                txtTelAlt.Text = p.Phone2;
-                txtCel.Text = p.CellPhone;
-                txtMail.Text = p.Email;
-                txtNroReg.Text = p.RegisterNumber;
-
-                grContacts.DataContext = p.EmergencyContactList;
-
-                _emContacts = new List<EmergencyContact>();
-                _emContacts = p.EmergencyContactList;
-            }
+                SetPatient(p);
             else
             {
                 _patient = new Patient();
                 _emContacts = new List<EmergencyContact>();
             }
+        }
+
+        private void SetPatient(Patient p)
+        {
+            // Datos importados
+            txtNames.Text = p.Names;
+            txtSurnames.Text = p.Surnames;
+            txtCI.Text = p.DocumentId;
+            txtBirthDay.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Day.ToString() : "";
+            txtBirthMon.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Month.ToString() : "";
+            txtBirthYear.Text = p.BirthDate.HasValue ? p.BirthDate.Value.Year.ToString() : "";
+            cmbSex.SelectedIndex = p.Sex.HasValue ? (int)p.Sex.Value : -1;
+            txtAddress.Text = p.Address;
+            txtNeighbour.Text = p.Neighbour;
+            txtCity.Text = p.City;
+            txtTel.Text = p.Phone;
+            txtTelAlt.Text = p.Phone2;
+            txtCel.Text = p.CellPhone;
+            txtMail.Text = p.Email;
+            txtNroReg.Text = p.RegisterNumber;
+
+            if (!string.IsNullOrWhiteSpace(p.Department))
+            {
+                var selected = cmbDepartment.Items.Cast<ComboBoxItem>()
+                                                  .FirstOrDefault(
+                                                      item =>
+                                                          String.Equals(item.Content.ToString(), p.Department,
+                                                              StringComparison.CurrentCultureIgnoreCase));
+                cmbDepartment.SelectedItem = selected;
+            }
+
+            grContacts.DataContext = p.EmergencyContactList;
+
+            _emContacts = new List<EmergencyContact>();
+            _emContacts = p.EmergencyContactList;
         }
 
         public Patient GetPatient()
@@ -185,5 +199,100 @@ namespace UDA_HTA.UserControls.ReportCreation
         }
 
         #endregion
+
+        private void btnFindDocumentHC_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(txtCI.Text.Trim()))
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    var p = GatewayController.GetInstance().FindPatientByDocumentHC(txtCI.Text);
+                    if (p == null)
+                    {
+                        Mouse.OverrideCursor = null;
+                        MessageBox.Show("No se han encontrado coincidencias en la base del HC",
+                            "No hay coincidencias", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        var pfHc = new PatientFoundHC(p);
+                        Mouse.OverrideCursor = null;
+                        bool? usePatient = pfHc.ShowDialog();
+                        if (usePatient.HasValue && usePatient.Value)
+                        {
+                            if (pfHc.UseAllData)
+                            {
+                                _patient.Merge(p);
+                                SetPatient(_patient);
+                            }
+                            else
+                            {
+                                _patient.RegisterNumber = p.RegisterNumber;
+                                SetPatient(_patient);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El Documento de identidad no ha sido ingresado.",
+                            "Verifique el Documento", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnFindRegNoHC_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(txtNroReg.Text.Trim()))
+                {   
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    var p = GatewayController.GetInstance().FindPatientByRegNoHC(txtNroReg.Text);
+                    if (p == null)
+                    {
+                        Mouse.OverrideCursor = null;
+                        MessageBox.Show("No se han encontrado coincidencias en la base del HC",
+                            "No hay coincidencias", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        var pfHc = new PatientFoundHC(p);
+                        pfHc.HideRegisterButton();
+                        Mouse.OverrideCursor = null;
+                        bool? usePatient = pfHc.ShowDialog();
+                        if (usePatient.HasValue && usePatient.Value)
+                        {
+                            if (pfHc.UseAllData)
+                            {
+                                _patient.Merge(p);
+                                SetPatient(_patient);
+                            }
+                            else
+                            {
+                                _patient.RegisterNumber = p.RegisterNumber;
+                                SetPatient(_patient);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El Nro. de Registro no ha sido ingresado.",
+                            "Verifique el Nro. de Registro", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
