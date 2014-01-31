@@ -1,0 +1,29 @@
+Paciente enviado por  médico tratante. 
+
+Estudio realizado bajo tratamiento antihipertensivo con …
+En el momento del estudio:  peso  kg, IMC  Kg/m2.
+
+La  presión arterial en consultorio fue de XX mmHg  (promedio de 3 registros) el primer día y  de  xx/xx mmHg (promedio de 3 registros) el segundo día. (Cifras objetivo <140/90 mmHg). [1,2] 
+
+El Monitoreo de PA de 24 horas realizó un total de X mediciones válidas para su interpretación 
+(X % del total de mediciones).
+
+El promedio de PA en las 24hs fue de XX/XX mmHg (N <130/80 mmHg).[1,2]    
+
+Los promedios de PA durante los períodos de vigilia y sueño fueron de 
+VIGILIA: XX/XX mmHg (normal <135/<85 mmHg)
+SUEÑO: XX/XX mmHg (normal <120/<75 mmHg)
+Registra buena/regular/mala calidad del sueño.  En estas condiciones presenta / no presenta hipertensión durante el sueño, y tiene descenso/ascenso nocturno de la presión de xx% respecto a la PA en vigilia (normal 10-20%).
+
+No registra episodios de hipertensión ni hipotensión arterial sintomática en ningún momento del registro. La Frecuencia Cardiaca promedio fue de XX cpm y la Presión de Pulso promedio de 
+XX mmHg.
+
+Interpretación: Paciente  con cifras de PA en consultorio………
+Durante el monitoreo ambulatorio presentó cifras de presión arterial………..  
+Presión arterial normal/elevada durante el sueño, con patrón de descenso nocturno conservado/alterado (con buena/regular/mala calidad de sueño).
+En suma:
+.
+Dra.
+1)2007 ESH-ESC Practice Guidelines for the Management of Arterial Hypertension: ESH-ESC Task  Force on the Management of Arterial Hypertension. J Hypertens. 2007 Sep;25(9):1751-62.
+2)Seventh report of the Joint National Committee on Prevention, Detection, Evaluation, and 
+Treatment of High Blood Pressure.  Hypertension. 2003 Dec;42(6):1206-52.
