@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Entities;
 using DataAccess;
+using EventLogger;
 using HMSDataAccess;
 using SpacelabsDataAccess;
 using DeviceDataAccess;
@@ -22,17 +25,36 @@ namespace BussinessLogic
             return list;
         }
 
-        public ICollection<PatientReport> ListNewPatientReports()
+        public ICollection<PatientReport> ListNewPatientReports(out bool error)
         {
             var list = new List<PatientReport>();
-
+            error = false;
             // Lista de reportes pendientes de HMS
-            var dda = new DeviceController(new HMS());
-            list.AddRange(GetListNewPatientReports(dda));
+            try
+            {
+                var dda = new DeviceController(new HMS());
+                list.AddRange(GetListNewPatientReports(dda));
+
+            }
+            catch (Exception e)
+            {
+                error = true;
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], e.Message, e.InnerException);
+            }
 
             // Lista de reportes pendientes de spacelabs
-            dda = new DeviceController(new Spacelabs());
-            list.AddRange(GetListNewPatientReports(dda));
+            try
+            {
+                var dda = new DeviceController(new Spacelabs());
+                list.AddRange(GetListNewPatientReports(dda));
+            }
+            catch (Exception e)
+            {
+                error = true;
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], e.Message, e.InnerException);                
+            }
 
             var uda = new UdaHtaDataAccess();
             ICollection<PatientReport> listUda = uda.ListAllReports();

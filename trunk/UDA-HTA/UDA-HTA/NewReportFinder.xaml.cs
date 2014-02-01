@@ -22,7 +22,12 @@ namespace UDA_HTA
             InitializeComponent();
 
             var controller = GatewayController.GetInstance();
-            _list = controller.GetNewReports();
+            bool error;
+            _list = controller.GetNewReports(out error);
+            if (error)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar obtener alguno de los datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             grReports.DataContext = _list.OrderBy(r => r.ReportDate);
 
             Mouse.OverrideCursor = null;

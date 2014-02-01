@@ -54,12 +54,13 @@ namespace Gateway
 
     #region Report Importation
 
-        public ICollection<PatientReport> GetNewReports()
+        public ICollection<PatientReport> GetNewReports(out bool error)
         {
             var controller = new ImportDataManagement();
             try
             {
-                return controller.ListNewPatientReports();
+                error = false;
+                return controller.ListNewPatientReports(out error);
             }
             catch(Exception exception)
             {
