@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Gateway;
 using Entities;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
 {
@@ -32,35 +33,45 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var controller = GatewayController.GetInstance();
-            try
+            if (!IsValid())
             {
-                Mouse.OverrideCursor = Cursors.Wait;
-
-                if (_drug == null)
-                {
-                    //Crear
-                    controller.AddDrug(comboBoxDrugType.Text, txtName.Text, txtActive.Text);
-                    MessageBox.Show("La droga se ha insertado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    comboBoxDrugType.SelectedIndex = -1;
-                    txtName.Text = String.Empty;
-                    txtActive.Text = String.Empty;
-                }
-                else
-                {
-                    //Editar
-                    controller.EditDrug(_drug.Id.Value, comboBoxDrugType.Text, txtName.Text, txtActive.Text);
-                    MessageBox.Show("La droga se ha actualizado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-                Mouse.OverrideCursor = null;
+                MessageBox.Show("Por favor, complete todos los campos", "Datos faltantes",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            catch(Exception exception)
+            else
             {
-                Mouse.OverrideCursor = null;
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var controller = GatewayController.GetInstance();
+                try
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+
+                    if (_drug == null)
+                    {
+                        //Crear
+                        controller.AddDrug(comboBoxDrugType.Text, txtName.Text, txtActive.Text);
+                        MessageBox.Show("La droga se ha insertado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        comboBoxDrugType.SelectedIndex = -1;
+                        txtName.Text = String.Empty;
+                        txtActive.Text = String.Empty;
+                    }
+                    else
+                    {
+                        //Editar
+                        controller.EditDrug(_drug.Id.Value, comboBoxDrugType.Text, txtName.Text, txtActive.Text);
+                        MessageBox.Show("La droga se ha actualizado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
+                    Mouse.OverrideCursor = null;
+                }
+                catch (Exception exception)
+                {
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
             }
+
         }
 
         public void BindComboBox(ComboBox comboBoxName)
@@ -69,5 +80,12 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
             var types = controller.GetDrugTypes();
             comboBoxName.ItemsSource = types;
         }
+
+        public bool IsValid()
+        {
+            return txtName.ValidateString() &
+                   txtActive.ValidateString();
+        }
+
     }
 }
