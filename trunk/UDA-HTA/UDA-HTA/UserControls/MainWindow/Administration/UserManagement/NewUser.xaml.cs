@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using Gateway;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
 {
@@ -21,8 +22,18 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             try
             {
                 Mouse.OverrideCursor = Cursors.Wait;
-                controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
-                this.Close();
+                if (IsValid())
+                {
+                    controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show("El usuario ha sido creado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();                    
+                }
+                else
+                {
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show("Por favor, complete todos los campos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);                    
+                }
                 Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
@@ -31,5 +42,14 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        public bool IsValid()
+        {
+            return txtUserName.ValidateString() &
+                   comboRole.ValidateSelected() &
+                   txtLogin.ValidateString() &
+                   passwordBox.Password != null;
+        }
+
     }
 }
