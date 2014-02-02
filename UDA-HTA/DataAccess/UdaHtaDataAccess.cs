@@ -1408,7 +1408,7 @@ namespace DataAccess
                 ObjectParameter lastIdUser;
                 using (udaContext = new udahta_dbEntities())
                 {
-                    lastIdUser = new ObjectParameter("id", typeof (long));
+                    lastIdUser = new ObjectParameter("id", typeof (int));
                     udaContext.insertUser(lastIdUser, login, pass, rol, name);
                 }
 
@@ -1420,13 +1420,13 @@ namespace DataAccess
         }
 
         //Eliminar usuario
-        public void DeleteUSer(User usr)
+        public void DeleteUSer(int idUser)
         {
             using (TransactionScope scope = new TransactionScope())
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    udaContext.deleteUser(usr.Login);
+                    udaContext.deleteUser(idUser);
                 }
                 scope.Complete();
             }

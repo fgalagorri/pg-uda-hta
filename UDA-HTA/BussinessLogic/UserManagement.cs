@@ -13,10 +13,10 @@ namespace BussinessLogic
             uda.InsertUser(usr.Login, usr.Password, usr.Role, usr.Name);
         }
 
-        public void DeleteUser(User usr)
+        public void DeleteUser(int idUser)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.DeleteUSer(usr);
+            uda.DeleteUSer(idUser);
         }
 
         public void EditUser(User usr)

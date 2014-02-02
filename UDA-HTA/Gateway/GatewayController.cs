@@ -699,6 +699,21 @@ namespace Gateway
             }
         }
 
+        public void DeleteUser(int idUser)
+        {
+            try
+            {
+                var um = new UserManagement();
+                um.DeleteUser(idUser);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("No se ha podido eliminar el usuario");                
+            }
+        }
+
     #endregion
 
 

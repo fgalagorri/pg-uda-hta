@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Entities;
 using Gateway;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
 {
@@ -30,14 +31,46 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             try
             {
                 Mouse.OverrideCursor = Cursors.Wait;
-                controller.EditUser(_user.Id, txtName.Text, comboRole.Text, txtLogin.Text);
-                MessageBox.Show("Usuario actualizado con éxito");
+                if (IsValid())
+                {
+                    controller.EditUser(_user.Id, txtName.Text, comboRole.Text, txtLogin.Text);
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show("Usuario actualizado con éxito");                    
+                }
+                else
+                {
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show("Por favor, complete todos los campos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);                    
+                }
             }
             catch (Exception exception)
             {
                 Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public bool IsValid()
+        {
+            return txtName.ValidateString() &
+                   comboRole.ValidateSelected() &
+                   txtLogin.ValidateString();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var controller = GatewayController.GetInstance();
+                controller.DeleteUser(_user.Id);
+                MessageBox.Show("El usuario se ha eliminado", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception exception)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
 }
