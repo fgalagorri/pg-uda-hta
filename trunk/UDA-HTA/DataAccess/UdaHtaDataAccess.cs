@@ -228,6 +228,14 @@ namespace DataAccess
             }
         }
 
+        public void SetPathReportHC(long reportId, string path)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateReportPath(reportId, path);
+            }
+        }
+
         public void UpdateMeasureSummary(Report r)
         {
             using (udaContext = new udahta_dbEntities())

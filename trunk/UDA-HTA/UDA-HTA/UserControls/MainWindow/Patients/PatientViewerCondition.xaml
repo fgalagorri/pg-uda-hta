@@ -100,7 +100,7 @@
                     <TextBlock Style="{StaticResource groupTitle}">Medicación</TextBlock>
                 </GroupBox.Header>
                 <DataGrid Name="grMedication" Background="White" AutoGenerateColumns="False" 
-                          ItemsSource="{Binding}" IsReadOnly="True" Height="100">
+                          ItemsSource="{Binding}" IsReadOnly="True" Height="100" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Hora" Width="1*" IsReadOnly="True" 
                                             Binding="{Binding Path=Time}" x:Name="ColHora" />
@@ -122,7 +122,7 @@
                     <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
                 </GroupBox.Header>
                 <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False"
-                            ItemsSource="{Binding}" Height="100">
+                            ItemsSource="{Binding}" Height="100" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Patología" Width="1*" IsReadOnly="True"
                                             Binding="{Binding Path=Illness}">

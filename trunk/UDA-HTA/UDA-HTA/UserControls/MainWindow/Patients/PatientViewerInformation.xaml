@@ -138,7 +138,7 @@
                     <TextBlock Style="{StaticResource groupTitle}">Contactos de Emergencia</TextBlock>
                 </GroupBox.Header>
                 <DataGrid Name="grContacts" Background="White" AutoGenerateColumns="False" 
-                          ItemsSource="{Binding}" IsReadOnly="True" Height="90">
+                          ItemsSource="{Binding}" IsReadOnly="True" Height="90" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nombre" Width="*" IsReadOnly="True"
                                             Binding="{Binding Path=Name}">

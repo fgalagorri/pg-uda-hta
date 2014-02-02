@@ -259,6 +259,7 @@
           <Property Name="night_tam_avg" Type="int" />
           <Property Name="sys_dipping" Type="decimal" Precision="7" Scale="4" />
           <Property Name="dias_dipping" Type="decimal" Precision="7" Scale="4" />
+          <Property Name="report_path" Type="text" />
           <Property Name="diagnosis_date" Type="datetime" />
         </EntityType>
         <EntityType Name="temporarydata">
@@ -725,6 +726,10 @@
           <Parameter Name="requester" Type="varchar" Mode="In" />
           <Parameter Name="specialty" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="updateReportPath" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="reportPath" Type="text" Mode="In" />
+        </Function>
         <Function Name="updateTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
           <Parameter Name="id" Type="bigint" Mode="In" />
           <Parameter Name="weight" Type="decimal" Mode="In" />
@@ -1124,6 +1129,10 @@
             <End Role="dailycarnet" EntitySet="dailycarnet" />
             <End Role="complications_activities" EntitySet="complications_activities" />
           </AssociationSet>
+          <FunctionImport Name="updateReportPath">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="reportPath" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="drug">
           <Key>
@@ -1323,6 +1332,7 @@
           <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="report" ToRole="dailycarnet" />
           <Property Type="Decimal" Name="sys_dipping" />
           <Property Type="Decimal" Name="dias_dipping" />
+          <Property Type="String" Name="report_path" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_Report_Patient1">
           <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
@@ -1534,6 +1544,7 @@
           <EntitySetMapping Name="report">
             <EntityTypeMapping TypeName="udahta_dbModel.report">
               <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="report_path" ColumnName="report_path" />
                 <ScalarProperty Name="dias_dipping" ColumnName="dias_dipping" />
                 <ScalarProperty Name="sys_dipping" ColumnName="sys_dipping" />
                 <ScalarProperty Name="requester" ColumnName="requester" />
@@ -1708,6 +1719,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="updateReportPath" FunctionName="udahta_dbModel.Store.updateReportPath" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

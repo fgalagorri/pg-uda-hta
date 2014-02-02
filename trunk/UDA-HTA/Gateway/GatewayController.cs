@@ -4,6 +4,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using BussinessLogic;
 using Entities;
 using EventLogger;
@@ -277,6 +279,21 @@ namespace Gateway
             {
                 rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl, 
                                     includeMeasures, filePath);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("No se ha podido exportar el informe, por favor, inténtelo nuevamente");
+            }
+        }
+
+        public void SetPathReportHC(long reportId, string path)
+        {
+            ReportManagement rm = new ReportManagement();
+            try
+            {
+                rm.SetPathReportHC(reportId, path);
             }
             catch (Exception exception)
             {
@@ -772,5 +789,19 @@ namespace Gateway
 
     #endregion
 
+
+
+        public void CreateFolderIfNotExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                var security = Directory.GetAccessControl(path);
+                var everyone = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+                security.AddAccessRule(new FileSystemAccessRule(everyone, FileSystemRights.FullControl,
+                    InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
+                    PropagationFlags.InheritOnly, AccessControlType.Allow));
+            }
+        }
     }
 }

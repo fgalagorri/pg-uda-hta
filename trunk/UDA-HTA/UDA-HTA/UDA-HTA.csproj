@@ -122,6 +122,7 @@
       <DependentUpon>DiagnosisEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\RichTextboxAssistant.cs" />
     <Compile Include="Helpers\UpdateReportHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
@@ -548,6 +549,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\patient_import_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon_publish.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HcLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

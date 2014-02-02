@@ -152,6 +152,7 @@ namespace BussinessLogic
         }
 
         #region Drugs Region
+
         public void AddDrug(string type, string active, string name)
         {
             UdaHtaDataAccess uhda = new UdaHtaDataAccess();
@@ -181,13 +182,14 @@ namespace BussinessLogic
             return udaHta.GetDrugs(type, active, name);
         }
 
-
         #endregion
 
 
         #region Export Region
 
-        public void ExportReportDocx(Report report, bool includePatientData, bool includeDiagnostic, bool includeProfile, bool includeGraphic, string pathOverLimit, string pathPressPrfl, bool includeMeasures, string filePath)
+        public void ExportReportDocx(Report report, bool includePatientData, 
+            bool includeDiagnostic, bool includeProfile, bool includeGraphic, 
+            string pathOverLimit, string pathPressPrfl, bool includeMeasures, string filePath)
         {
             using (var document = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {                
@@ -197,7 +199,7 @@ namespace BussinessLogic
                 Body body1 = new Body();
                 
                 //Create a Table
-                Table table1 = new Table();
+                Table tableDP = new Table();
 
 
                 /********************************************************/
@@ -211,7 +213,7 @@ namespace BussinessLogic
                 tableProperties1.AppendChild(tableWidth1);
                 tableProperties1.AppendChild(tableLook1);
 
-                table1.AppendChild(tableProperties1);
+                tableDP.AppendChild(tableProperties1);
 
                 TableGrid tableGrid1 = new TableGrid();
                 GridColumn gridColumn1 = new GridColumn() {Width = "4788"};
@@ -220,7 +222,7 @@ namespace BussinessLogic
                 tableGrid1.AppendChild(gridColumn1);
                 tableGrid1.AppendChild(gridColumn2);
 
-                table1.AppendChild(tableGrid1);
+                tableDP.AppendChild(tableGrid1);
 
                 TableRow tableRow1 = new TableRow()
                     {
@@ -296,7 +298,7 @@ namespace BussinessLogic
                 tableRow1.AppendChild(tableRowProperties1);
                 tableRow1.AppendChild(tableCell1);
 
-                table1.AppendChild(tableRow1);
+                tableDP.AppendChild(tableRow1);
 
                 TableRow tableRow2 = new TableRow()
                     {
@@ -367,7 +369,7 @@ namespace BussinessLogic
                 tableRow2.AppendChild(tableCell2);
                 tableRow2.AppendChild(tableCell3);
 
-                table1.AppendChild(tableRow2);
+                tableDP.AppendChild(tableRow2);
 
                 TableRow tableRow3 = new TableRow()
                     {
@@ -467,7 +469,7 @@ namespace BussinessLogic
                     tableRow3.AppendChild(tableCell4);
                     tableRow3.AppendChild(tableCell5);
 
-                    table1.AppendChild(tableRow3);
+                    tableDP.AppendChild(tableRow3);
 
                     TableRow tableRow4 = new TableRow()
                     {
@@ -995,11 +997,11 @@ namespace BussinessLogic
                     tableRow8.AppendChild(tableCell14);
                     tableRow8.AppendChild(tableCell15);
 
-                    table1.AppendChild(tableRow4);
-                    table1.AppendChild(tableRow5);
-                    table1.AppendChild(tableRow6);
-                    table1.AppendChild(tableRow7);
-                    table1.AppendChild(tableRow8);
+                    tableDP.AppendChild(tableRow4);
+                    tableDP.AppendChild(tableRow5);
+                    tableDP.AppendChild(tableRow6);
+                    tableDP.AppendChild(tableRow7);
+                    tableDP.AppendChild(tableRow8);
 
                 }
 
@@ -1056,7 +1058,7 @@ namespace BussinessLogic
 
                 tableRow9.AppendChild(tableCell16);
 
-                table1.AppendChild(tableRow9);
+                tableDP.AppendChild(tableRow9);
 
                 TableRow tableRow10 = new TableRow()
                     {
@@ -1314,7 +1316,8 @@ namespace BussinessLogic
                 tableRow10.AppendChild(tableCell17);
                 tableRow10.AppendChild(tableCell18);
 
-                table1.AppendChild(tableRow10);
+                tableDP.AppendChild(tableRow10);
+                body1.Append(tableDP);
 
 
                 /*
@@ -1322,6 +1325,35 @@ namespace BussinessLogic
                  */
                 if (includeProfile)
                 {
+                    Paragraph paragraphMS = new Paragraph() { RsidParagraphAddition = "006A4487", RsidRunAdditionDefault = "006A4487" };
+                    Run run19 = new Run();
+                    Break break1 = new Break() { Type = BreakValues.Page };
+
+                    run19.Append(break1);
+                    paragraphMS.Append(run19);
+
+                    Table tableMS = new Table();
+
+                    TableProperties tableProperties2 = new TableProperties();
+                    TableWidth tableWidth2 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
+
+                    TableCellMarginDefault tableCellMarginDefault12 = new TableCellMarginDefault();
+                    TableCellLeftMargin tableCellLeftMargin2 = new TableCellLeftMargin() { Width = 10, Type = TableWidthValues.Dxa };
+                    TableCellRightMargin tableCellRightMargin2 = new TableCellRightMargin() { Width = 10, Type = TableWidthValues.Dxa };
+
+                    tableCellMarginDefault12.Append(tableCellLeftMargin2);
+                    tableCellMarginDefault12.Append(tableCellRightMargin2);
+                    TableLook tableLook2 = new TableLook() { Val = "04A0" };
+
+                    tableProperties2.Append(tableWidth2);
+                    tableProperties2.Append(tableCellMarginDefault12);
+                    tableProperties2.Append(tableLook2);
+
+                    TableGrid tableGrid2 = new TableGrid();
+                    GridColumn gridColumn3 = new GridColumn() { Width = "9380" };
+
+                    tableGrid2.Append(gridColumn3);
+
                     TableRow tableRow11 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
@@ -1372,7 +1404,6 @@ namespace BussinessLogic
                         };
 
                     ParagraphProperties paragraphProperties5 = new ParagraphProperties();
-
                     SpacingBetweenLines spacing21 = new SpacingBetweenLines() { Before = "0", After = "0" };
                     paragraphProperties5.AppendChild(spacing21);
 
@@ -1390,11 +1421,13 @@ namespace BussinessLogic
 
                     runProperties8.AppendChild(bold9);
                     runProperties8.AppendChild(new FontSize() { Val = "28" });
-                    runProperties8.AppendChild(new FontSizeComplexScript() { Val = "28" });
+                    runProperties8.AppendChild(new FontSizeComplexScript() { Val = "28" }); 
+                    LastRenderedPageBreak lastRenderedPageBreak1 = new LastRenderedPageBreak();
                     Text text32 = new Text();
                     text32.Text = "Resumen de Medidas";
 
                     run32.AppendChild(runProperties8);
+                    run32.Append(lastRenderedPageBreak1);
                     run32.AppendChild(text32);
 
                     paragraph21.AppendChild(paragraphProperties5);
@@ -1406,11 +1439,16 @@ namespace BussinessLogic
                     tableRow11.AppendChild(tableRowProperties2);
                     tableRow11.AppendChild(tableCell19);
 
-                    table1.AppendChild(tableRow11);
+                    tableMS.AppendChild(tableProperties2);
+                    tableMS.AppendChild(tableGrid2);
+                    tableMS.AppendChild(tableRow11);
 
                     //Resumen de medidas
                     var tableRow12 = MeasuresSummary(report);
-                    table1.AppendChild(tableRow12);
+                    tableMS.AppendChild(tableRow12);
+
+                    body1.Append(paragraphMS);
+                    body1.Append(tableMS);
                 }
 
                 /*
@@ -1418,12 +1456,50 @@ namespace BussinessLogic
                  */
                 if (includeDiagnostic)
                 {
+                    Paragraph paragraphDB = new Paragraph() { RsidParagraphAddition = "006A4487", RsidRunAdditionDefault = "006A4487" };
+                    Run run103 = new Run();
+                    Break break2 = new Break() { Type = BreakValues.Page };
+                    run103.Append(break2);
+                    paragraphDB.Append(run103);
+
+                    Table tableDIAG = new Table();
+                    TableProperties tableProperties4 = new TableProperties();
+                    TableWidth tableWidth4 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
+
+                    TableCellMarginDefault tableCellMarginDefault45 = new TableCellMarginDefault();
+                    TableCellLeftMargin tableCellLeftMargin4 = new TableCellLeftMargin() { Width = 10, Type = TableWidthValues.Dxa };
+                    TableCellRightMargin tableCellRightMargin4 = new TableCellRightMargin() { Width = 10, Type = TableWidthValues.Dxa };
+
+                    tableCellMarginDefault45.Append(tableCellLeftMargin4);
+                    tableCellMarginDefault45.Append(tableCellRightMargin4);
+                    TableLook tableLook4 = new TableLook() { Val = "04A0" };
+
+                    tableProperties4.Append(tableWidth4);
+                    tableProperties4.Append(tableCellMarginDefault45);
+                    tableProperties4.Append(tableLook4);
+
+                    TableGrid tableGrid4 = new TableGrid();
+                    GridColumn gridColumn8 = new GridColumn() { Width = "9380" };
+
+                    tableGrid4.Append(gridColumn8);
+
                     TableRow tableRow13 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
+
+                    TablePropertyExceptions tablePropertyExceptions42 = new TablePropertyExceptions();
+
+                    TableCellMarginDefault tableCellMarginDefault46 = new TableCellMarginDefault();
+                    TopMargin topMargin42 = new TopMargin() { Width = "0", Type = TableWidthUnitValues.Dxa };
+                    BottomMargin bottomMargin42 = new BottomMargin() { Width = "0", Type = TableWidthUnitValues.Dxa };
+
+                    tableCellMarginDefault46.Append(topMargin42);
+                    tableCellMarginDefault46.Append(bottomMargin42);
+
+                    tablePropertyExceptions42.Append(tableCellMarginDefault46);
 
                     TableCell tableCell21 = new TableCell();
 
@@ -1458,7 +1534,6 @@ namespace BussinessLogic
                     };
 
                     ParagraphProperties paragraphProperties7 = new ParagraphProperties();
-
                     SpacingBetweenLines spacing23 = new SpacingBetweenLines() { Before = "0", After = "0" };
                     paragraphProperties7.AppendChild(spacing23);
 
@@ -1474,10 +1549,12 @@ namespace BussinessLogic
                     runProperties10.AppendChild(bold10);
                     runProperties10.AppendChild(new FontSize() { Val = "28" });
                     runProperties10.AppendChild(new FontSizeComplexScript() { Val = "28" });
+                    LastRenderedPageBreak lastRenderedPageBreak2 = new LastRenderedPageBreak();
                     Text text34 = new Text();
                     text34.Text = "Diagnóstico";
 
                     run34.AppendChild(runProperties10);
+                    run34.Append(lastRenderedPageBreak2);
                     run34.AppendChild(text34);
 
                     paragraph23.AppendChild(paragraphProperties7);
@@ -1486,6 +1563,7 @@ namespace BussinessLogic
                     tableCell21.AppendChild(tableCellProperties21);
                     tableCell21.AppendChild(paragraph23);
 
+                    tableRow13.Append(tablePropertyExceptions42);
                     tableRow13.AppendChild(tableCell21);
 
                     TableRow tableRow14 = new TableRow()
@@ -1533,11 +1611,9 @@ namespace BussinessLogic
                     paragraphProperties8.AppendChild(spacing24);
 
                     ParagraphMarkRunProperties paragraphMarkRunProperties8 = new ParagraphMarkRunProperties();
-
                     paragraphProperties8.AppendChild(paragraphMarkRunProperties8);
 
                     Run run35 = new Run();
-
 
                     if (report.Diagnosis != null)
                     {
@@ -1566,8 +1642,13 @@ namespace BussinessLogic
 
                     tableRow14.AppendChild(tableCell22);
 
-                    table1.AppendChild(tableRow13);
-                    table1.AppendChild(tableRow14);
+                    tableDIAG.AppendChild(tableProperties4);
+                    tableDIAG.AppendChild(tableGrid4);
+                    tableDIAG.AppendChild(tableRow13);
+                    tableDIAG.AppendChild(tableRow14);
+                    
+                    body1.Append(paragraphDB);
+                    body1.Append(tableDIAG);
                 }
 
 
@@ -1576,12 +1657,48 @@ namespace BussinessLogic
                  */
                 if (includeGraphic)
                 {
-                    TableRow tableRow15 = new TableRow()
-                    {
-                        RsidTableRowMarkRevision = "004D2B75",
-                        RsidTableRowAddition = "00EC01A4",
-                        RsidTableRowProperties = "00EC01A4"
-                    };
+                    Paragraph paragraphPTA = new Paragraph() { RsidParagraphAddition = "009F4605", RsidRunAdditionDefault = "009F4605" };
+
+                    Run run24 = new Run();
+                    Break break1 = new Break() { Type = BreakValues.Page };
+
+                    run24.Append(break1);
+                    paragraphPTA.Append(run24);
+
+                    Table tablePTA = new Table();
+
+                    TableProperties tableProperties2 = new TableProperties();
+                    TableWidth tableWidth2 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
+
+                    TableCellMarginDefault tableCellMarginDefault14 = new TableCellMarginDefault();
+                    TableCellLeftMargin tableCellLeftMargin2 = new TableCellLeftMargin() { Width = 10, Type = TableWidthValues.Dxa };
+                    TableCellRightMargin tableCellRightMargin2 = new TableCellRightMargin() { Width = 10, Type = TableWidthValues.Dxa };
+
+                    tableCellMarginDefault14.Append(tableCellLeftMargin2);
+                    tableCellMarginDefault14.Append(tableCellRightMargin2);
+                    TableLook tableLook2 = new TableLook() { Val = "04A0" };
+
+                    tableProperties2.Append(tableWidth2);
+                    tableProperties2.Append(tableCellMarginDefault14);
+                    tableProperties2.Append(tableLook2);
+
+                    TableGrid tableGrid2 = new TableGrid();
+                    GridColumn gridColumn3 = new GridColumn() { Width = "9380" };
+
+                    tableGrid2.Append(gridColumn3);
+
+                    TableRow tableRow13 = new TableRow() { RsidTableRowMarkRevision = "004D2B75", RsidTableRowAddition = "00EC01A4", RsidTableRowProperties = "009F4605" };
+
+                    TablePropertyExceptions tablePropertyExceptions13 = new TablePropertyExceptions();
+
+                    TableCellMarginDefault tableCellMarginDefault15 = new TableCellMarginDefault();
+                    TopMargin topMargin13 = new TopMargin() { Width = "0", Type = TableWidthUnitValues.Dxa };
+                    BottomMargin bottomMargin13 = new BottomMargin() { Width = "0", Type = TableWidthUnitValues.Dxa };
+
+                    tableCellMarginDefault15.Append(topMargin13);
+                    tableCellMarginDefault15.Append(bottomMargin13);
+
+                    tablePropertyExceptions13.Append(tableCellMarginDefault15);
 
                     TableCell tableCell23 = new TableCell();
 
@@ -1591,7 +1708,7 @@ namespace BussinessLogic
                         Width = "9576",
                         Type = TableWidthUnitValues.Dxa
                     };
-                    GridSpan gridSpan7 = new GridSpan() { Val = 2 };
+                    GridSpan gridSpan7 = new GridSpan() { Val = 2 }; // VER
 
                     TableCellBorders tableCellBorders23 = new TableCellBorders();
                     LeftBorder leftBorder22 = new LeftBorder() { Val = BorderValues.Nil };
@@ -1623,6 +1740,7 @@ namespace BussinessLogic
 
                     paragraphMarkRunProperties9.AppendChild(bold11);
 
+                    paragraphProperties9.Append(new SpacingBetweenLines(){ After = "0" });
                     paragraphProperties9.AppendChild(paragraphMarkRunProperties9);
 
                     Run run36 = new Run() { RsidRunProperties = "00EC01A4" };
@@ -1633,10 +1751,12 @@ namespace BussinessLogic
                     runProperties12.AppendChild(bold12);
                     runProperties12.AppendChild(new FontSize() { Val = "28" });
                     runProperties12.AppendChild(new FontSizeComplexScript() { Val = "28" });
+                    LastRenderedPageBreak lastRenderedPageBreakPTA = new LastRenderedPageBreak();
                     Text text36 = new Text();
                     text36.Text = "Perfil de la Tensión Arterial";
 
                     run36.AppendChild(runProperties12);
+                    run36.Append(lastRenderedPageBreakPTA);
                     run36.AppendChild(text36);
 
                     paragraph25.AppendChild(paragraphProperties9);
@@ -1645,7 +1765,8 @@ namespace BussinessLogic
                     tableCell23.AppendChild(tableCellProperties23);
                     tableCell23.AppendChild(paragraph25);
 
-                    tableRow15.AppendChild(tableCell23);
+                    tableRow13.Append(tablePropertyExceptions13);
+                    tableRow13.AppendChild(tableCell23);
 
                     TableRow tableRow16 = new TableRow()
                     {
@@ -1715,24 +1836,17 @@ namespace BussinessLogic
                     tableCell24.AppendChild(paragraph26);
 
                     /* Imagen grafica - PressureProfile */
-
-                    
-                    
                     ImagePart imageChartPrflPart = mainDocumentPart1.AddImagePart(ImagePartType.Png, "rId11");
                     using (FileStream stream = new FileStream(pathPressPrfl, FileMode.Open))
                     {
                         imageChartPrflPart.FeedData(stream);
                     }
 
-                    int emusperinch = 914400;
-                    long CY = emusperinch * (long)6.3;
-                    long CX = emusperinch * (long)11.03;
-                    
                     // Define the reference of the image.
                     var element1 =
                          new Drawing(
                              new Wp.Inline(
-                                 new Wp.Extent() { Cx = CX/2L, Cy = CY/2L },
+                                 new Wp.Extent { Cx = 5753903L, Cy = 3277058L },
                                  new Wp.EffectExtent()
                                  {
                                      LeftEdge = 0L,
@@ -1767,7 +1881,7 @@ namespace BussinessLogic
                                              new Pic.ShapeProperties(
                                                  new A.Transform2D(
                                                      new A.Offset() { X = 0L, Y = 0L },
-                                                     new A.Extents() { Cx = CX, Cy = CY }),
+                                                     new A.Extents() { Cx = 5753903L, Cy = 3277058L }),
                                                  new A.PresetGeometry(
                                                      new A.AdjustValueList()
                                                  ) { Preset = A.ShapeTypeValues.Rectangle }))
@@ -1927,7 +2041,7 @@ namespace BussinessLogic
                     var element2 =
                          new Drawing(
                              new Wp.Inline(
-                                 new Wp.Extent() { Cx = CX /2L, Cy = CY/2L },
+                                 new Wp.Extent() { Cx = 5753903L, Cy = 3277058L },
                                  new Wp.EffectExtent()
                                  {
                                      LeftEdge = 0L,
@@ -1962,7 +2076,7 @@ namespace BussinessLogic
                                              new Pic.ShapeProperties(
                                                  new A.Transform2D(
                                                      new A.Offset() { X = 0L, Y = 0L },
-                                                     new A.Extents() { Cx = CX, Cy = CY }),
+                                                     new A.Extents() { Cx = 5753903L, Cy = 3277058L }),
                                                  new A.PresetGeometry(
                                                      new A.AdjustValueList()
                                                  ) { Preset = A.ShapeTypeValues.Rectangle }))
@@ -1979,10 +2093,13 @@ namespace BussinessLogic
                     
                     tableRow18.AppendChild(tableCell26);
 
-                    table1.AppendChild(tableRow15);
-                    table1.AppendChild(tableRow16);
-                    table1.AppendChild(tableRow17);
-                    table1.AppendChild(tableRow18);
+                    tablePTA.AppendChild(tableRow13);
+                    tablePTA.AppendChild(tableRow16);
+                    tablePTA.AppendChild(tableRow17);
+                    tablePTA.AppendChild(tableRow18);
+
+                    body1.Append(paragraphPTA);
+                    body1.Append(tablePTA);
                 }
 
                 /*
@@ -1990,12 +2107,53 @@ namespace BussinessLogic
                  */
                 if (includeMeasures)
                 {
+                    Paragraph paragraphM = new Paragraph() { RsidParagraphAddition = "009F4605", RsidRunAdditionDefault = "009F4605" };
+
+                    Run run24 = new Run();
+                    Break break1 = new Break() { Type = BreakValues.Page };
+
+                    run24.Append(break1);
+                    paragraphM.Append(run24);
+
+                    Table tableM = new Table();
+
+                    TableProperties tableProperties6 = new TableProperties();
+                    TableWidth tableWidth6 = new TableWidth() { Width = "0", Type = TableWidthUnitValues.Auto };
+
+                    TableCellMarginDefault tableCellMarginDefault53 = new TableCellMarginDefault();
+                    TableCellLeftMargin tableCellLeftMargin6 = new TableCellLeftMargin() { Width = 10, Type = TableWidthValues.Dxa };
+                    TableCellRightMargin tableCellRightMargin6 = new TableCellRightMargin() { Width = 10, Type = TableWidthValues.Dxa };
+
+                    tableCellMarginDefault53.Append(tableCellLeftMargin6);
+                    tableCellMarginDefault53.Append(tableCellRightMargin6);
+                    TableLook tableLook6 = new TableLook() { Val = "04A0" };
+
+                    tableProperties6.Append(tableWidth6);
+                    tableProperties6.Append(tableCellMarginDefault53);
+                    tableProperties6.Append(tableLook6);
+
+                    TableGrid tableGrid6 = new TableGrid();
+                    GridColumn gridColumn10 = new GridColumn() { Width = "9380" };
+
+                    tableGrid6.Append(gridColumn10);
+
                     TableRow tableRow30 = new TableRow()
                     {
                         RsidTableRowMarkRevision = "004D2B75",
                         RsidTableRowAddition = "00EC01A4",
                         RsidTableRowProperties = "00EC01A4"
                     };
+
+                    TablePropertyExceptions tablePropertyExceptions48 = new TablePropertyExceptions();
+
+                    TableCellMarginDefault tableCellMarginDefault54 = new TableCellMarginDefault();
+                    TopMargin topMargin48 = new TopMargin() { Width = "0", Type = TableWidthUnitValues.Dxa };
+                    BottomMargin bottomMargin48 = new BottomMargin() { Width = "0", Type = TableWidthUnitValues.Dxa };
+
+                    tableCellMarginDefault54.Append(topMargin48);
+                    tableCellMarginDefault54.Append(bottomMargin48);
+
+                    tablePropertyExceptions48.Append(tableCellMarginDefault54);
 
                     TableRowProperties tableRowProperties30 = new TableRowProperties();
                     TableRowHeight tableRowHeight30 = new TableRowHeight() { Val = (UInt32Value)150U };
@@ -2041,7 +2199,6 @@ namespace BussinessLogic
                     };
 
                     ParagraphProperties paragraphProperties30 = new ParagraphProperties();
-
                     SpacingBetweenLines spacing30 = new SpacingBetweenLines() { Before = "0", After = "0" };
                     paragraphProperties30.AppendChild(spacing30);
 
@@ -2060,10 +2217,12 @@ namespace BussinessLogic
                     runPropertiesTabla.AppendChild(bold);
                     runPropertiesTabla.AppendChild(new FontSize() { Val = "28" });
                     runPropertiesTabla.AppendChild(new FontSizeComplexScript() { Val = "28" });
+                    LastRenderedPageBreak lastRenderedPageBreak4 = new LastRenderedPageBreak();
                     Text textTabla = new Text();
                     textTabla.Text = "Tabla Completa de Medidas";
 
                     runTabla.AppendChild(runPropertiesTabla);
+                    runTabla.Append(lastRenderedPageBreak4);
                     runTabla.AppendChild(textTabla);
 
                     paragraph30.AppendChild(paragraphProperties30);
@@ -2072,15 +2231,19 @@ namespace BussinessLogic
                     tableCell30.AppendChild(tableCellProperties30);
                     tableCell30.AppendChild(paragraph30);
 
+                    tableRow30.AppendChild(tablePropertyExceptions48);
                     tableRow30.AppendChild(tableRowProperties30);
                     tableRow30.AppendChild(tableCell30);
 
-                    table1.AppendChild(tableRow30);
+                    tableM.AppendChild(tableRow30);
 
                     //tabla de medidas
                     var tableRow31 = CompleteMeasuresTable(report);
-                    table1.AppendChild(tableRow31);
+                    tableM.Append(tableProperties6);
+                    tableM.AppendChild(tableRow31);
 
+                    body1.Append(paragraphM);
+                    body1.Append(tableM);
                 }
 
 
@@ -2145,7 +2308,7 @@ namespace BussinessLogic
                 sectionProperties1.AppendChild(titlepage1);
                 sectionProperties1.AppendChild(docGrid1);
 
-                body1.AppendChild(table1);
+                //body1.AppendChild(tableDP);
                 body1.AppendChild(paragraph29);
                 body1.AppendChild(sectionProperties1);
 
@@ -2154,7 +2317,7 @@ namespace BussinessLogic
 
                 mainDocumentPart1.Document = document1;
                 HeaderPart coverHeader = mainDocumentPart1.AddNewPart<HeaderPart>("rId8");
-                ImagePart imagePart = coverHeader.AddImagePart(ImagePartType.Jpeg,"rId9");
+                ImagePart imagePart = coverHeader.AddImagePart(ImagePartType.Png,"rId9");
 
                 using (FileStream stream = new FileStream(ConfigurationManager.AppSettings["HCLogo"], FileMode.Open))
                 {
@@ -6319,7 +6482,8 @@ namespace BussinessLogic
 
         private void GenerateCoverHeader(HeaderPart coverHeaderPart)
         {
-            Header coverHeader = new Header();
+            /*
+             * Header coverHeader = new Header();
 
             // Define the reference of the image.
             var element =
@@ -6409,7 +6573,7 @@ namespace BussinessLogic
             run48.AppendChild(tabChar1);
 //            run48.AppendChild(text44);
 
-            Run run49 = new Run();
+            Run run49 = new Run() { RsidRunAddition = "00AD0E63" };
 
             RunProperties runProperties26 = new RunProperties();
 
@@ -6432,11 +6596,215 @@ namespace BussinessLogic
             coverHeader.AppendChild(paragraph59);
 
             coverHeaderPart.Header = coverHeader;
+             */
+
+            Header header1 = new Header();
+            header1.AddNamespaceDeclaration("ve", "http://schemas.openxmlformats.org/markup-compatibility/2006");
+            header1.AddNamespaceDeclaration("o", "urn:schemas-microsoft-com:office:office");
+            header1.AddNamespaceDeclaration("r", "http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+            header1.AddNamespaceDeclaration("m", "http://schemas.openxmlformats.org/officeDocument/2006/math");
+            header1.AddNamespaceDeclaration("v", "urn:schemas-microsoft-com:vml");
+            header1.AddNamespaceDeclaration("wp", "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing");
+            header1.AddNamespaceDeclaration("w10", "urn:schemas-microsoft-com:office:word");
+            header1.AddNamespaceDeclaration("w", "http://schemas.openxmlformats.org/wordprocessingml/2006/main");
+            header1.AddNamespaceDeclaration("wne", "http://schemas.microsoft.com/office/word/2006/wordml");
+
+            Table table1 = new Table();
+
+            TableProperties tableProperties1 = new TableProperties();
+            TableStyle tableStyle1 = new TableStyle() { Val = "Tablaconcuadrcula" };
+            TableWidth tableWidth1 = new TableWidth() { Width = "5000", Type = TableWidthUnitValues.Pct };
+
+            TableBorders tableBorders1 = new TableBorders();
+            TopBorder topBorder1 = new TopBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            LeftBorder leftBorder1 = new LeftBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            BottomBorder bottomBorder1 = new BottomBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            RightBorder rightBorder1 = new RightBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            InsideHorizontalBorder insideHorizontalBorder1 = new InsideHorizontalBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            InsideVerticalBorder insideVerticalBorder1 = new InsideVerticalBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+
+            tableBorders1.Append(topBorder1);
+            tableBorders1.Append(leftBorder1);
+            tableBorders1.Append(bottomBorder1);
+            tableBorders1.Append(rightBorder1);
+            tableBorders1.Append(insideHorizontalBorder1);
+            tableBorders1.Append(insideVerticalBorder1);
+            TableLook tableLook1 = new TableLook() { Val = "04A0" };
+
+            tableProperties1.Append(tableStyle1);
+            tableProperties1.Append(tableWidth1);
+            tableProperties1.Append(tableBorders1);
+            tableProperties1.Append(tableLook1);
+
+            TableGrid tableGrid1 = new TableGrid();
+            GridColumn gridColumn1 = new GridColumn() { Width = "2378" };
+            GridColumn gridColumn2 = new GridColumn() { Width = "5723" };
+            GridColumn gridColumn3 = new GridColumn() { Width = "1475" };
+
+            tableGrid1.Append(gridColumn1);
+            tableGrid1.Append(gridColumn2);
+            tableGrid1.Append(gridColumn3);
+
+            TableRow tableRow1 = new TableRow() { RsidTableRowAddition = "009E6B67", RsidTableRowProperties = "009E6B67" };
+
+            TableCell tableCell1 = new TableCell();
+
+            TableCellProperties tableCellProperties1 = new TableCellProperties();
+            TableCellWidth tableCellWidth1 = new TableCellWidth() { Width = "1242", Type = TableWidthUnitValues.Pct };
+            TableCellVerticalAlignment tableCellVerticalAlignment1 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
+
+            tableCellProperties1.Append(tableCellWidth1);
+            tableCellProperties1.Append(tableCellVerticalAlignment1);
+
+            Paragraph paragraph1 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "009E6B67", RsidRunAdditionDefault = "009E6B67" };
+
+            Run run1 = new Run() { RsidRunProperties = "009E6B67" };
+
+            // Define the reference of the image.
+            var element =
+                 new Drawing(
+                     new Wp.Inline(
+                         new Wp.Extent() { Cx = 1171575L, Cy = 485775L },
+                         new Wp.EffectExtent()
+                         {
+                             LeftEdge = 0L,
+                             TopEdge = 0L,
+                             RightEdge = 0L,
+                             BottomEdge = 0L
+                         },
+                         new Wp.DocProperties()
+                         {
+                             Id = (UInt32Value)1U,
+                             Name = "Figura 1"
+                         },
+                         new Wp.NonVisualGraphicFrameDrawingProperties(
+                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                         new A.Graphic(
+                             new A.GraphicData(
+                                 new Pic.Picture(
+                                     new Pic.NonVisualPictureProperties(
+                                         new Pic.NonVisualDrawingProperties()
+                                         {
+                                             Id = (UInt32Value)0U,
+                                             Name = "HCLogo.jpg"
+                                         },
+                                         new Pic.NonVisualPictureDrawingProperties()),
+                                     new Pic.BlipFill(
+                                         new A.Blip()
+                                         {
+                                             Embed = "rId9",
+                                         },
+                                         new A.Stretch(
+                                             new A.FillRectangle())),
+                                     new Pic.ShapeProperties(
+                                         new A.Transform2D(
+                                             new A.Offset() { X = 0L, Y = 0L },
+                                             new A.Extents() { Cx = 1171575L, Cy = 485775L }),
+                                         new A.PresetGeometry(
+                                             new A.AdjustValueList()
+                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
+                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                     )
+                     {
+                         DistanceFromTop = (UInt32Value)0U,
+                         DistanceFromBottom = (UInt32Value)0U,
+                         DistanceFromLeft = (UInt32Value)0U,
+                         DistanceFromRight = (UInt32Value)0U
+                     });
+
+            run1.Append(element);
+
+            paragraph1.Append(run1);
+
+            tableCell1.Append(tableCellProperties1);
+            tableCell1.Append(paragraph1);
+
+            TableCell tableCell2 = new TableCell();
+
+            TableCellProperties tableCellProperties2 = new TableCellProperties();
+            TableCellWidth tableCellWidth2 = new TableCellWidth() { Width = "2987", Type = TableWidthUnitValues.Pct };
+            TableCellVerticalAlignment tableCellVerticalAlignment2 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
+
+            tableCellProperties2.Append(tableCellWidth2);
+            tableCellProperties2.Append(tableCellVerticalAlignment2);
+
+            Paragraph paragraph2 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "009E6B67", RsidRunAdditionDefault = "009E6B67" };
+
+            ParagraphProperties paragraphProperties1 = new ParagraphProperties();
+            Justification justification1 = new Justification() { Val = JustificationValues.Center };
+
+            paragraphProperties1.Append(justification1);
+
+            Run run2 = new Run();
+            Text text1 = new Text();
+            text1.Text = "Hospital de Clínicas - Unidad de Hipertensión Arterial";
+
+            run2.Append(text1);
+
+            paragraph2.Append(paragraphProperties1);
+            paragraph2.Append(run2);
+
+            tableCell2.Append(tableCellProperties2);
+            tableCell2.Append(paragraph2);
+
+            TableCell tableCell3 = new TableCell();
+
+            TableCellProperties tableCellProperties3 = new TableCellProperties();
+            TableCellWidth tableCellWidth3 = new TableCellWidth() { Width = "770", Type = TableWidthUnitValues.Pct };
+            TableCellVerticalAlignment tableCellVerticalAlignment3 = new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center };
+
+            tableCellProperties3.Append(tableCellWidth3);
+            tableCellProperties3.Append(tableCellVerticalAlignment3);
+
+            Paragraph paragraph3 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "009E6B67", RsidRunAdditionDefault = "00B62B51" };
+
+            ParagraphProperties paragraphProperties2 = new ParagraphProperties();
+            Justification justification2 = new Justification() { Val = JustificationValues.Right };
+
+            paragraphProperties2.Append(justification2);
+            ProofError proofError1 = new ProofError() { Type = ProofingErrorValues.SpellStart };
+
+            Run run3 = new Run();
+            Text text2 = new Text();
+            text2.Text = DateTime.Today.ToShortDateString();
+
+            run3.Append(text2);
+            ProofError proofError2 = new ProofError() { Type = ProofingErrorValues.SpellEnd };
+
+            paragraph3.Append(paragraphProperties2);
+            paragraph3.Append(proofError1);
+            paragraph3.Append(run3);
+            paragraph3.Append(proofError2);
+
+            tableCell3.Append(tableCellProperties3);
+            tableCell3.Append(paragraph3);
+
+            tableRow1.Append(tableCell1);
+            tableRow1.Append(tableCell2);
+            tableRow1.Append(tableCell3);
+
+            table1.Append(tableProperties1);
+            table1.Append(tableGrid1);
+            table1.Append(tableRow1);
+
+            Paragraph paragraph4 = new Paragraph() { RsidParagraphAddition = "00AA46B2", RsidRunAdditionDefault = "00DE2077" };
+
+            ParagraphProperties paragraphProperties3 = new ParagraphProperties();
+            SpacingBetweenLines spacingBetweenLines1 = new SpacingBetweenLines() { After = "0" };
+
+            paragraphProperties3.Append(spacingBetweenLines1);
+
+            paragraph4.Append(paragraphProperties3);
+
+            header1.Append(table1);
+            header1.Append(paragraph4);
+
+            coverHeaderPart.Header = header1;
         }
 
         private void GenerateHeader(HeaderPart headerPart1, Patient patient)
         {
-            Header header1 = new Header();
+            /*Header header1 = new Header();
             Paragraph paragraph59 = new Paragraph() { RsidParagraphAddition = "00AA46B2", RsidRunAdditionDefault = "00F4078F" };
 
             ParagraphProperties paragraphProperties43 = new ParagraphProperties();
@@ -6588,10 +6956,305 @@ namespace BussinessLogic
 
             header1.AppendChild(paragraph59);
             header1.AppendChild(paragraph60);
-            header1.AppendChild(paragraph61);
+            header1.AppendChild(paragraph61);*/
+
+            Header header1 = new Header();
+            header1.AddNamespaceDeclaration("ve", "http://schemas.openxmlformats.org/markup-compatibility/2006");
+            header1.AddNamespaceDeclaration("o", "urn:schemas-microsoft-com:office:office");
+            header1.AddNamespaceDeclaration("r", "http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+            header1.AddNamespaceDeclaration("m", "http://schemas.openxmlformats.org/officeDocument/2006/math");
+            header1.AddNamespaceDeclaration("v", "urn:schemas-microsoft-com:vml");
+            header1.AddNamespaceDeclaration("wp", "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing");
+            header1.AddNamespaceDeclaration("w10", "urn:schemas-microsoft-com:office:word");
+            header1.AddNamespaceDeclaration("w", "http://schemas.openxmlformats.org/wordprocessingml/2006/main");
+            header1.AddNamespaceDeclaration("wne", "http://schemas.microsoft.com/office/word/2006/wordml");
+
+            Table table1 = new Table();
+
+            TableProperties tableProperties1 = new TableProperties();
+            TableStyle tableStyle1 = new TableStyle() { Val = "Tablaconcuadrcula" };
+            TableWidth tableWidth1 = new TableWidth() { Width = "5000", Type = TableWidthUnitValues.Pct };
+
+            TableBorders tableBorders1 = new TableBorders();
+            TopBorder topBorder1 = new TopBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            LeftBorder leftBorder1 = new LeftBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            BottomBorder bottomBorder1 = new BottomBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            RightBorder rightBorder1 = new RightBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            InsideHorizontalBorder insideHorizontalBorder1 = new InsideHorizontalBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+            InsideVerticalBorder insideVerticalBorder1 = new InsideVerticalBorder() { Val = BorderValues.None, Color = "auto", Size = (UInt32Value)0U, Space = (UInt32Value)0U };
+
+            tableBorders1.Append(topBorder1);
+            tableBorders1.Append(leftBorder1);
+            tableBorders1.Append(bottomBorder1);
+            tableBorders1.Append(rightBorder1);
+            tableBorders1.Append(insideHorizontalBorder1);
+            tableBorders1.Append(insideVerticalBorder1);
+            TableLook tableLook1 = new TableLook() { Val = "04A0" };
+
+            tableProperties1.Append(tableStyle1);
+            tableProperties1.Append(tableWidth1);
+            tableProperties1.Append(tableBorders1);
+            tableProperties1.Append(tableLook1);
+
+            TableGrid tableGrid1 = new TableGrid();
+            GridColumn gridColumn1 = new GridColumn() { Width = "2562" };
+            GridColumn gridColumn2 = new GridColumn() { Width = "5183" };
+            GridColumn gridColumn3 = new GridColumn() { Width = "1831" };
+
+            tableGrid1.Append(gridColumn1);
+            tableGrid1.Append(gridColumn2);
+            tableGrid1.Append(gridColumn3);
+
+            TableRow tableRow1 = new TableRow() { RsidTableRowAddition = "009E6B67", RsidTableRowProperties = "009E6B67" };
+
+            TableRowProperties tableRowProperties1 = new TableRowProperties();
+            TableRowHeight tableRowHeight1 = new TableRowHeight() { Val = (UInt32Value)269U };
+
+            tableRowProperties1.Append(tableRowHeight1);
+
+            TableCell tableCell1 = new TableCell();
+
+            TableCellProperties tableCellProperties1 = new TableCellProperties();
+            TableCellWidth tableCellWidth1 = new TableCellWidth() { Width = "1338", Type = TableWidthUnitValues.Pct };
+
+            tableCellProperties1.Append(tableCellWidth1);
+
+            Paragraph paragraph1 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "00505615", RsidRunAdditionDefault = "006E7F43" };
+
+            ParagraphProperties paragraphProperties0 = new ParagraphProperties();
+            SpacingBetweenLines spacingBetweenLines0 = new SpacingBetweenLines() { After = "0" };
+
+            paragraphProperties0.Append(spacingBetweenLines0);
+
+            Run run1 = new Run();
+            Text text1 = new Text();
+            text1.Text = "Hospital de Clínicas";
+
+            run1.Append(text1);
+
+            paragraph1.Append(paragraphProperties0);
+            paragraph1.Append(run1);
+
+            tableCell1.Append(tableCellProperties1);
+            tableCell1.Append(paragraph1);
+
+            TableCell tableCell2 = new TableCell();
+
+            TableCellProperties tableCellProperties2 = new TableCellProperties();
+            TableCellWidth tableCellWidth2 = new TableCellWidth() { Width = "2705", Type = TableWidthUnitValues.Pct };
+
+            tableCellProperties2.Append(tableCellWidth2);
+
+            Paragraph paragraph2 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "00505615", RsidRunAdditionDefault = "006E7F43" };
+
+            ParagraphProperties paragraphProperties1 = new ParagraphProperties();
+            Justification justification1 = new Justification() { Val = JustificationValues.Center };
+            SpacingBetweenLines spacingBetweenLines1 = new SpacingBetweenLines() { After = "0" };
+
+            paragraphProperties1.Append(spacingBetweenLines1);
+            paragraphProperties1.Append(justification1);
+
+            Run run2 = new Run();
+            Text text2 = new Text();
+            text2.Text = "Informe de Monitoreo de Presión Arterial";
+
+            run2.Append(text2);
+
+            paragraph2.Append(paragraphProperties1);
+            paragraph2.Append(run2);
+
+            tableCell2.Append(tableCellProperties2);
+            tableCell2.Append(paragraph2);
+
+            TableCell tableCell3 = new TableCell();
+
+            TableCellProperties tableCellProperties3 = new TableCellProperties();
+            TableCellWidth tableCellWidth3 = new TableCellWidth() { Width = "956", Type = TableWidthUnitValues.Pct };
+
+            tableCellProperties3.Append(tableCellWidth3);
+
+            Paragraph paragraph3 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "00505615", RsidRunAdditionDefault = "006E7F43" };
+
+            ParagraphProperties paragraphProperties2 = new ParagraphProperties();
+            Justification justification2 = new Justification() { Val = JustificationValues.Right };
+            SpacingBetweenLines spacingBetweenLines2 = new SpacingBetweenLines() { After = "0" };
+
+            paragraphProperties2.Append(spacingBetweenLines2);
+            paragraphProperties2.Append(justification2);
+            ProofError proofError1 = new ProofError() { Type = ProofingErrorValues.SpellStart };
+
+            Run run3 = new Run();
+            Text text3 = new Text();
+            text3.Text = DateTime.Today.ToShortDateString();
+
+            run3.Append(text3);
+            ProofError proofError2 = new ProofError() { Type = ProofingErrorValues.SpellEnd };
+
+            paragraph3.Append(paragraphProperties2);
+            paragraph3.Append(proofError1);
+            paragraph3.Append(run3);
+            paragraph3.Append(proofError2);
+
+            tableCell3.Append(tableCellProperties3);
+            tableCell3.Append(paragraph3);
+
+            tableRow1.Append(tableRowProperties1);
+            tableRow1.Append(tableCell1);
+            tableRow1.Append(tableCell2);
+            tableRow1.Append(tableCell3);
+
+            TableRow tableRow2 = new TableRow() { RsidTableRowAddition = "009E6B67", RsidTableRowProperties = "009E6B67" };
+
+            TableRowProperties tableRowProperties2 = new TableRowProperties();
+            TableRowHeight tableRowHeight2 = new TableRowHeight() { Val = (UInt32Value)269U };
+
+            tableRowProperties2.Append(tableRowHeight2);
+
+            TableCell tableCell4 = new TableCell();
+
+            TableCellProperties tableCellProperties4 = new TableCellProperties();
+            TableCellWidth tableCellWidth4 = new TableCellWidth() { Width = "1338", Type = TableWidthUnitValues.Pct };
+
+            tableCellProperties4.Append(tableCellWidth4);
+
+            Paragraph paragraph4 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "00B62B51", RsidRunAdditionDefault = "009E6B67" };
+
+            Run run4 = new Run();
+            Text text4 = new Text() { Space = SpaceProcessingModeValues.Preserve };
+            text4.Text = "Paciente: ";
+
+            run4.Append(text4);
+            ProofError proofError3 = new ProofError() { Type = ProofingErrorValues.SpellStart };
+
+            Run run5 = new Run() { RsidRunAddition = "00B62B51" };
+            Text text5 = new Text();
+            text5.Text = patient.RegisterNumber;
+
+            run5.Append(text5);
+            ProofError proofError4 = new ProofError() { Type = ProofingErrorValues.SpellEnd };
+
+            paragraph4.Append(run4);
+            paragraph4.Append(proofError3);
+            paragraph4.Append(run5);
+            paragraph4.Append(proofError4);
+
+            tableCell4.Append(tableCellProperties4);
+            tableCell4.Append(paragraph4);
+
+            TableCell tableCell5 = new TableCell();
+
+            TableCellProperties tableCellProperties5 = new TableCellProperties();
+            TableCellWidth tableCellWidth5 = new TableCellWidth() { Width = "2705", Type = TableWidthUnitValues.Pct };
+
+            tableCellProperties5.Append(tableCellWidth5);
+
+            Paragraph paragraph5 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "009E6B67", RsidRunAdditionDefault = "00B62B51" };
+
+            ParagraphProperties paragraphProperties3 = new ParagraphProperties();
+            Justification justification3 = new Justification() { Val = JustificationValues.Center };
+
+            paragraphProperties3.Append(justification3);
+            ProofError proofError5 = new ProofError() { Type = ProofingErrorValues.SpellStart };
+
+            Run run6 = new Run();
+            Text text6 = new Text();
+            text6.Text = patient.Names + " " + patient.Surnames;
+
+            run6.Append(text6);
+            ProofError proofError6 = new ProofError() { Type = ProofingErrorValues.SpellEnd };
+
+            paragraph5.Append(paragraphProperties3);
+            paragraph5.Append(proofError5);
+            paragraph5.Append(run6);
+            paragraph5.Append(proofError6);
+
+            tableCell5.Append(tableCellProperties5);
+            tableCell5.Append(paragraph5);
+
+            TableCell tableCell6 = new TableCell();
+
+            TableCellProperties tableCellProperties6 = new TableCellProperties();
+            TableCellWidth tableCellWidth6 = new TableCellWidth() { Width = "956", Type = TableWidthUnitValues.Pct };
+
+            tableCellProperties6.Append(tableCellWidth6);
+
+            Paragraph paragraph6 = new Paragraph() { RsidParagraphAddition = "009E6B67", RsidParagraphProperties = "00B62B51", RsidRunAdditionDefault = "009E6B67" };
+
+            ParagraphProperties paragraphProperties4 = new ParagraphProperties();
+            Justification justification4 = new Justification() { Val = JustificationValues.Right };
+
+            paragraphProperties4.Append(justification4);
+
+            Run run7 = new Run();
+
+            RunProperties runProperties1 = new RunProperties();
+            NoProof noProof1 = new NoProof();
+
+            runProperties1.Append(noProof1);
+
+            Picture picture1 = new Picture();
+
+            V.Shapetype shapetype1 = new V.Shapetype() { Id = "_x0000_t32", CoordinateSize = "21600,21600", Oned = true, Filled = false, OptionalNumber = 32, EdgePath = "m,l21600,21600e" };
+            V.Path path1 = new V.Path() { AllowFill = false, ShowArrowhead = true, ConnectionPointType = Ovml.ConnectValues.None };
+            Ovml.Lock lock1 = new Ovml.Lock() { Extension = V.ExtensionHandlingBehaviorValues.Edit, ShapeType = true };
+
+            shapetype1.Append(path1);
+            shapetype1.Append(lock1);
+            V.Shape shape1 = new V.Shape() { Id = "_x0000_s3074", Style = "position:absolute;left:0;text-align:left;margin-left:-377.95pt;margin-top:15.25pt;width:557.65pt;height:.05pt;z-index:251658240;mso-position-horizontal-relative:text;mso-position-vertical-relative:text", ConnectorType = Ovml.ConnectorValues.Straight, Type = "#_x0000_t32" };
+
+            picture1.Append(shapetype1);
+            picture1.Append(shape1);
+
+            run7.Append(runProperties1);
+            run7.Append(picture1);
+
+            Run run8 = new Run();
+            Text text7 = new Text() { Space = SpaceProcessingModeValues.Preserve };
+            text7.Text = "CI: ";
+
+            run8.Append(text7);
+            ProofError proofError7 = new ProofError() { Type = ProofingErrorValues.SpellStart };
+
+            Run run9 = new Run() { RsidRunAddition = "00B62B51" };
+            Text text8 = new Text();
+            text8.Text = patient.DocumentId;
+
+            run9.Append(text8);
+            ProofError proofError8 = new ProofError() { Type = ProofingErrorValues.SpellEnd };
+
+            paragraph6.Append(paragraphProperties4);
+            paragraph6.Append(run7);
+            paragraph6.Append(run8);
+            paragraph6.Append(proofError7);
+            paragraph6.Append(run9);
+            paragraph6.Append(proofError8);
+
+            tableCell6.Append(tableCellProperties6);
+            tableCell6.Append(paragraph6);
+
+            tableRow2.Append(tableRowProperties2);
+            tableRow2.Append(tableCell4);
+            tableRow2.Append(tableCell5);
+            tableRow2.Append(tableCell6);
+
+            table1.Append(tableProperties1);
+            table1.Append(tableGrid1);
+            table1.Append(tableRow1);
+            table1.Append(tableRow2);
+
+            Paragraph paragraph7 = new Paragraph() { RsidParagraphMarkRevision = "00CC4E8A", RsidParagraphAddition = "00CC4E8A", RsidParagraphProperties = "009E6B67", RsidRunAdditionDefault = "00DE2077" };
+
+            ParagraphProperties paragraphProperties5 = new ParagraphProperties();
+            SpacingBetweenLines spacingBetweenLines3 = new SpacingBetweenLines() { After = "0" };
+
+            paragraphProperties5.Append(spacingBetweenLines3);
+
+            paragraph7.Append(paragraphProperties5);
+
+            header1.Append(table1);
+            header1.Append(paragraph7);
 
             headerPart1.Header = header1;
-
         }
 
         public void ExportReportPDF(string docxPath, string pdfDestination)
@@ -6642,6 +7305,12 @@ namespace BussinessLogic
             // the correct Quit method.
             ((_Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
             word = null;
+        }
+
+        public void SetPathReportHC(long reportId, string path)
+        {
+            var udahta = new UdaHtaDataAccess();
+            udahta.SetPathReportHC(reportId, path);
         }
 
         #endregion
