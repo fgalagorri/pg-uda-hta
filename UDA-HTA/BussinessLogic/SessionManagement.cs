@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
 using DataAccess;
 using Entities;
 
@@ -47,10 +43,10 @@ namespace BussinessLogic
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,
             //entonces login exitoso, sino falla login 
-            if (!u.Password.Equals("") && u.Password.Equals(pswdHashed))
+            if (u != null && !u.Password.Equals("") && u.Password.Equals(pswdHashed))
                 return u;
-
-            throw new VerificationException("verifyPassword failed");
+            else
+                return null;
         }
 
     }

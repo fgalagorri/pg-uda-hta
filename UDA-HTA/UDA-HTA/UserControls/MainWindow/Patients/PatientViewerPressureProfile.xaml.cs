@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Entities;
 using Gateway;
 using UDA_HTA.Helpers;
@@ -68,32 +63,100 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             ((LineSeries) PressureProfile.Series[3]).ItemsSource = hr;
 
             // Limits
-            var max = new List<KeyValuePair<DateTime, int>>();
-            var min = new List<KeyValuePair<DateTime, int>>();
+            var sys = new List<KeyValuePair<DateTime, int>>();
+            var dias = new List<KeyValuePair<DateTime, int>>();
 
-            // Day period
-            max.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysDay));
-            max.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeStart.Value, _limits.HiSysDay));
-            min.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasDay));
-            min.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeStart.Value, _limits.HiDiasDay));
+            // Agrego la primer marca
+            if (r.BeginDate.Value.TimeOfDay >= r.Carnet.SleepTimeStart.Value.TimeOfDay 
+                && r.BeginDate.Value.TimeOfDay <= r.Carnet.SleepTimeEnd.Value.TimeOfDay)
+            {
+                // Finaliza en sueño
+                sys.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysNight));
+                dias.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasNight));
+            }
+            else
+            {
+                // Finaliza en vigilia
+                sys.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysDay));
+                dias.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasDay));
+            }
 
-            // Night period
-            max.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeStart.Value.AddMilliseconds(1),
-                _limits.HiSysNight));
-            max.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeEnd.Value, _limits.HiSysNight));
-            min.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeStart.Value.AddMilliseconds(1),
-                _limits.HiDiasNight));
-            min.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeEnd.Value, _limits.HiDiasNight));
+            var date = r.BeginDate.Value;
 
-            // Day period 2
-            max.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeEnd.Value.AddMilliseconds(1), _limits.HiSysDay));
-            max.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysDay));
-            min.Add(new KeyValuePair<DateTime, int>(r.Carnet.SleepTimeEnd.Value.AddMilliseconds(1),
-                _limits.HiDiasDay));
-            min.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasDay));
+            int sys1 = _limits.HiSysNight;
+            int dias1 = _limits.HiDiasNight;
+            var time1 = new DateTime(date.Year, date.Month, date.Day, r.Carnet.SleepTimeStart.Value.Hour,
+                r.Carnet.SleepTimeStart.Value.Minute, r.Carnet.SleepTimeStart.Value.Second);
 
-            ((LineSeries) PressureProfile.Series[4]).ItemsSource = max;
-            ((LineSeries) PressureProfile.Series[5]).ItemsSource = min;
+            int sys2 = _limits.HiSysDay;
+            int dias2 = _limits.HiDiasDay;
+            var time2 = new DateTime(date.Year, date.Month, date.Day, r.Carnet.SleepTimeEnd.Value.Hour,
+                    r.Carnet.SleepTimeEnd.Value.Minute, r.Carnet.SleepTimeEnd.Value.Second);
+
+            // Me aseguro que time1 sea menor que time2
+            if (time2 < time1)
+            {
+                var auxTime = time1;
+                var auxSys = sys1;
+                var auxDias = dias1;
+
+                time1 = time2;
+                sys1 = sys2;
+                dias1 = dias2;
+
+                time2 = auxTime;
+                sys2 = auxSys;
+                dias2 = auxDias;
+            }
+
+            // Agrego períodos de sueño
+            while (time1 <= r.EndDate.Value || time2 <= r.EndDate.Value)
+            {
+                if (r.BeginDate.Value <= time1 && time1 <= r.EndDate.Value)
+                {
+                    // Agrego el final del período anterior
+                    sys.Add(new KeyValuePair<DateTime, int>(time1, sys2));
+                    dias.Add(new KeyValuePair<DateTime, int>(time1, dias2));
+
+                    // Agrego el inicio del período actual
+                    sys.Add(new KeyValuePair<DateTime, int>(time1.AddMilliseconds(1), sys1));
+                    dias.Add(new KeyValuePair<DateTime, int>(time1.AddMilliseconds(1), dias1));
+                }
+                time1 = time1.AddDays(1);
+
+                if (r.BeginDate.Value <= time2 && time2 <= r.EndDate.Value)
+                {
+                    // Agrego el final del período anterior
+                    sys.Add(new KeyValuePair<DateTime, int>(time2, sys1));
+                    dias.Add(new KeyValuePair<DateTime, int>(time2, dias1));
+
+                    // Agrego el inicio del período actual
+                    sys.Add(new KeyValuePair<DateTime, int>(time2.AddMilliseconds(1), sys2));
+                    dias.Add(new KeyValuePair<DateTime, int>(time2.AddMilliseconds(1), dias2));
+                }
+                time2 = time2.AddDays(1);
+            }
+
+            // Agrego la última marca
+            if (r.EndDate.Value.TimeOfDay >= r.Carnet.SleepTimeStart.Value.TimeOfDay
+                && r.EndDate.Value.TimeOfDay <= r.Carnet.SleepTimeEnd.Value.TimeOfDay)
+            {
+                // Finaliza en sueño
+                sys.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysNight));
+                dias.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasNight));
+            }
+            else
+            {
+                // Finaliza en vigilia
+                sys.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysDay));
+                dias.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasDay));
+            }
+
+
+            ((LineSeries) PressureProfile.Series[4]).ItemsSource = sys;
+            ((LineSeries) PressureProfile.Series[5]).ItemsSource = dias;
+
+            bloodAxis.Minimum = Math.Floor(valid.Min(m => m.HeartRate.Value)/(double) 10)*10;
 
             var xAxis = new DateTimeAxis
             {

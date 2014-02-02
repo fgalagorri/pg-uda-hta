@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using Entities;
@@ -116,9 +115,6 @@ namespace UDA_HTA
                                     if (usePatient.HasValue && usePatient.Value)
                                         _report.Patient.UdaId = p.UdaId;
                                 }
-
-                                // Chequeo que no exista un paciente en los WS del hospital
-                                /*LLAMADA AL WS*/
                             }
                             GatewayController.GetInstance().AddImportedData(_report, true);
                         }

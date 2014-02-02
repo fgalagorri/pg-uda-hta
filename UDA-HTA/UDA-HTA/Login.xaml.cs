@@ -23,9 +23,17 @@ namespace UDA_HTA
             try
             {
                 var usr = controller.Login(userLogin.Text.Trim(), userPassword.Password);
-                var mainWindow = new MainWindow(usr);
-                mainWindow.Show();
-                this.Close();
+                if (usr != null)
+                {
+                    var mainWindow = new MainWindow(usr);
+                    mainWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    userPassword.Password = "";
+                    lblError.Content = "Nombre de usuario y/o contraseña incorrectos.";
+                }
             }
             catch (Exception exception)
             {

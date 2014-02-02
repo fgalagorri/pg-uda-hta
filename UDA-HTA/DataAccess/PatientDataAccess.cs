@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Objects;
 using System.Linq;
 using System.Transactions;
-using MySql.Data.MySqlClient;
 using Entities;
 
 namespace DataAccess

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using DeviceDataAccess;
 using Entities;
 using java.sql;
@@ -50,7 +48,6 @@ namespace HMSDataAccess
         public void ConnectToDataBase()
         {
             org.h2.Driver.load();
-            //_conn = DriverManager.getConnection("jdbc:h2:~/HMS Client-Server_DB/database","sa","");
             _conn = DriverManager.getConnection(ConfigurationManager.ConnectionStrings["Hms"].ConnectionString);
             _stat = _conn.createStatement(ResultSet.__Fields.TYPE_SCROLL_INSENSITIVE, ResultSet.__Fields.CONCUR_READ_ONLY);
         }
@@ -189,6 +186,17 @@ namespace HMSDataAccess
 
         public List<Measurement> GetMeasures(Report report)
         {
+            var sleepStart = new TimeSpan();
+            var sleepEnd = new TimeSpan();
+            bool sleepTimeValid = report.Carnet.SleepTimeStart.HasValue
+                                  && report.Carnet.SleepTimeEnd.HasValue;
+
+            if (sleepTimeValid)
+            {
+                sleepStart = report.Carnet.SleepTimeStart.Value.TimeOfDay;
+                sleepEnd = report.Carnet.SleepTimeEnd.Value.TimeOfDay;
+            }
+
             var list = new List<Measurement>();
             var columns = "ID, ALARM, DEACTIVATED, DEVICETYPE, KOMMENTAR, MESTYPE, TIMEOFMEASUREMENT, TIMESTAMP, UPDATE, CODE, HR, NIBPDIAS, NIBPMAD, NIBPSYS, AUFZEICHNUNG_ID";
             var rs = _stat.executeQuery("SELECT " + columns + " FROM MEASUREMENTSBP WHERE MEASUREMENTSBP.AUFZEICHNUNG_ID = " + report.DeviceReportId);
@@ -222,8 +230,8 @@ namespace HMSDataAccess
                 
                 measure.IsEnabled = measure.Valid;
 
-                measure.Asleep = (measure.Time >= report.Carnet.SleepTimeStart.Value &&
-                                  measure.Time <= report.Carnet.SleepTimeEnd.Value);
+                measure.Asleep = sleepTimeValid && measure.Time.HasValue
+                                 && IsAsleep(sleepStart, sleepEnd, measure.Time.Value);
 
                 list.Add(measure);
 
@@ -294,7 +302,15 @@ namespace HMSDataAccess
 
  */
             return list;
-        }  
+        }
+
+        private bool IsAsleep(TimeSpan start, TimeSpan end, DateTime time)
+        {
+            if (start < end)
+                return start <= time.TimeOfDay && time.TimeOfDay <= end;
+            else
+                return time.TimeOfDay < end || start <= time.TimeOfDay;
+        }
 
         public Patient GetPatient(string idPatient)
         {

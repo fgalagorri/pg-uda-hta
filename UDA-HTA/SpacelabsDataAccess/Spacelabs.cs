@@ -16,12 +16,10 @@ namespace SpacelabsDataAccess
         {
             _db = new ABPEntities();
         }
-
         public void ConnectToDataBase()
         {
             //_db.Connection.Open();
         }
-
         public void CloseConnectionDataBase()
         {
             //_db.Connection.Close();
@@ -239,26 +237,44 @@ namespace SpacelabsDataAccess
 
         public List<Measurement> GetMeasures(Report report)
         {
+            var sleepStart = new TimeSpan();
+            var sleepEnd = new TimeSpan();
             Guid testId = Guid.Parse(report.DeviceReportId);
+            bool sleepTimeValid = report.Carnet.SleepTimeStart.HasValue
+                                  && report.Carnet.SleepTimeEnd.HasValue;
+
+            if (sleepTimeValid)
+            {
+                sleepStart = report.Carnet.SleepTimeStart.Value.TimeOfDay;
+                sleepEnd = report.Carnet.SleepTimeEnd.Value.TimeOfDay;
+            }
 
             var measures = from d in _db.tblAbpTestRawData
                            where d.TestId == testId
                            orderby d.ReadingTime
                            select new Measurement
-                               {
-                                   Time = d.ReadingTime.Value,
-                                   Systolic = d.Systolic.Value,
-                                   Diastolic = d.Diastolic.Value,
-                                   Middle = d.MAP.Value,
-                                   HeartRate = d.HR.Value,
-                                   Asleep = (report.Carnet.SleepTimeStart <= d.ReadingTime &&
-                                             report.Carnet.SleepTimeEnd >= d.ReadingTime),
-                                   Valid = d.EventCode.HasValue && d.EventCode.Value == 0,
-                                   IsEnabled = d.EventCode.HasValue && d.EventCode.Value == 0,
-                                   Retry = d.ReadingCode == 2
-                               };
+                           {
+                               Time = d.ReadingTime.Value,
+                               Systolic = d.Systolic.Value,
+                               Diastolic = d.Diastolic.Value,
+                               Middle = d.MAP.Value,
+                               HeartRate = d.HR.Value,
+                               Asleep = sleepTimeValid && d.ReadingTime.HasValue
+                                 && IsAsleep(sleepStart, sleepEnd, d.ReadingTime.Value),
+                               Valid = d.EventCode.HasValue && d.EventCode.Value == 0,
+                               IsEnabled = d.EventCode.HasValue && d.EventCode.Value == 0,
+                               Retry = d.ReadingCode == 2
+                           };
 
             return measures.ToList();
+        }
+
+        private bool IsAsleep(TimeSpan start, TimeSpan end, DateTime time)
+        {
+            if (start < end)
+                return start <= time.TimeOfDay && time.TimeOfDay <= end;
+            else
+                return time.TimeOfDay < end || start <= time.TimeOfDay;
         }
 
         public Patient GetPatient(string idPatient)
@@ -304,16 +320,9 @@ namespace SpacelabsDataAccess
             }   
         }
 
-        public ICollection<Report> ListAllPendingReports()
-        {
-            return null;
-        }
-
         public ICollection<Report> GetReportsByPatientId(string patientId)
         {
             return null;
         }
-
-
     }
 }

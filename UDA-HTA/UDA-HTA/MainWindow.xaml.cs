@@ -6,11 +6,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using DocumentFormat.OpenXml.Drawing;
 using Entities;
 using Gateway;
 using Microsoft.Win32;
-using UDA_HTA.Helpers;
 using UDA_HTA.UserControls.MainWindow.Administration.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Administration.Drugs;
 using UDA_HTA.UserControls.MainWindow.Patients;
@@ -471,5 +469,10 @@ namespace UDA_HTA
 
         #endregion
 
+
+        private void ExitApplication(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

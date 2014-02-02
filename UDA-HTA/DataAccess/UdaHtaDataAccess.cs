@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Metadata.Edm;
 using System.Data.Objects;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Data;
 using System.Transactions;
 using Entities;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 
 namespace DataAccess
 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Security;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using BussinessLogic;
@@ -597,14 +596,7 @@ namespace Gateway
                 _loggedUser = sm.Login(userName, encryptedPswd);
                 
                 LogFileManagement el = new LogFileManagement();
-                //el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], userName + " ha ingresado", null);
                 _limits = new ReportManagement().GetLimits();
-            }
-            catch (VerificationException)
-            {
-                // El usuario y/o password no son correctos
-                var exception = new Exception("Nombre de usuario y/o contraseña incorrectos");
-                throw exception;                
             }
             catch (Exception ex)
             {

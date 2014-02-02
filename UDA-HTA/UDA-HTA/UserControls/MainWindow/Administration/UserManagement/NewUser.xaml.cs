@@ -23,6 +23,7 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                 Mouse.OverrideCursor = Cursors.Wait;
                 controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
                 this.Close();
+                Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {
