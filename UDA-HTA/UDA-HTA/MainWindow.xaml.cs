@@ -2,12 +2,15 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DocumentFormat.OpenXml.Drawing;
 using Entities;
 using Gateway;
 using Microsoft.Win32;
+using UDA_HTA.Helpers;
 using UDA_HTA.UserControls.MainWindow.Administration.UserManagement;
 using UDA_HTA.UserControls.MainWindow.Administration.Drugs;
 using UDA_HTA.UserControls.MainWindow.Patients;
@@ -64,6 +67,7 @@ namespace UDA_HTA
             btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
             btnEditReport.IsEnabled = false;
+            btnPublish.IsEnabled = false;
 
             btnAddStudyResearch.IsEnabled = false;
             btnEditResearch.IsEnabled = false;
@@ -111,7 +115,7 @@ namespace UDA_HTA
                 btnEditDiagnosis.IsEnabled = false;
                 btnExportReport.IsEnabled = false;
                 btnEditReport.IsEnabled = false;
-                btnEditPatient.IsEnabled = false;
+                btnPublish.IsEnabled = false;
 
                 var newReportPopup = new NewReportFinder {Owner = this};
                 var imported = newReportPopup.ShowDialog();
@@ -167,6 +171,10 @@ namespace UDA_HTA
                     {
                         pv.UpdateDiagnosis(d);
                     }
+                    Mouse.OverrideCursor = null;
+
+                    // Se exporta el informe al sistema del HC
+
                 }
             }
             catch (Exception exception)
@@ -211,6 +219,49 @@ namespace UDA_HTA
             }
         }
 
+        // Devuelve la ruta donde se creó el archivo
+        private void ExportReportHC(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var pv = ContainerPatient.Content as PatientViewer;
+                if (pv != null)
+                {
+                    pv.SelectTab(7);
+                    pv.SelectTab(8);
+
+                    var report = pv.GetSelectedReport();
+                    string pathOverLimit = ConfigurationManager.AppSettings["GraphicOverLimit"];
+                    string pathPressPrfl = ConfigurationManager.AppSettings["GraphicPressurePrfl"];
+                    string pathReport = ConfigurationManager.AppSettings["PathExportHC"];
+
+                    if (report != null && !String.IsNullOrWhiteSpace(pathOverLimit) &&
+                        !String.IsNullOrWhiteSpace(pathPressPrfl) && !String.IsNullOrWhiteSpace(pathReport))
+                    {
+                        var controller = GatewayController.GetInstance();
+                        var sepatator = pathReport.ElementAt(pathReport.Length - 1) == '\\' ? "" : "\\";
+                        pathReport += sepatator + report.BeginDate.Value.Year + "\\" + report.Patient.DocumentId + "\\";
+                        controller.CreateFolderIfNotExists(pathReport);
+                        pathReport += report.Patient.Surnames + "_" + report.Patient.Names + "_" +
+                                      report.BeginDate.Value.Year + report.BeginDate.Value.Month +
+                                      report.BeginDate.Value.Day + ".pdf";
+
+                        pv.GetChartImage(7);
+                        pv.GetChartImage(8);
+
+                        controller.ExportToPdf(report, true, true, true, true,
+                            pathOverLimit, pathPressPrfl, false, pathReport);
+
+                        controller.SetPathReportHC(report.UdaId.Value, pathReport);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         #endregion
 
@@ -222,6 +273,7 @@ namespace UDA_HTA
             btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
             btnEditReport.IsEnabled = false;
+            btnPublish.IsEnabled = false;
 
             ContainerPatient.Content = new PatientFinder(this);
         }

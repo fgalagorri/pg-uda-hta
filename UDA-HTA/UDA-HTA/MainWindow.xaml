@@ -37,11 +37,15 @@
                     <r:RibbonButton Label="Exportar" Click="ExportReport" Name="btnExportReport"
                                     LargeImageSource="/Images/ribbon_exportReport.png" />
                 </r:RibbonGroup>
-                
                 <r:RibbonGroup Header="Paciente">
                     <r:RibbonButton Label="Buscar" Click="FindPatient" LargeImageSource="/Images/ribbon_findPatient.png" />
                     <r:RibbonButton Label="Nuevo" Click="BtnNewPatient_OnClick" LargeImageSource="/Images/ribbon_newPatient.png" />
-                    <r:RibbonButton Label="Editar" Name="btnEditPatient" Click="BtnEditPatient_OnClick" LargeImageSource="/Images/ribbon_editPatient.png" />
+                    <r:RibbonButton Label="Editar" Name="btnEditPatient" Click="BtnEditPatient_OnClick" 
+                                    LargeImageSource="/Images/ribbon_editPatient.png" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Sistema HC" HorizontalContentAlignment="Right" HorizontalAlignment="Right">
+                    <r:RibbonButton Name="btnPublish" Label="Publicar Informe MAPA" Click="ExportReportHC" 
+                                    LargeImageSource="/Images/ribbon_publish.png" />
                 </r:RibbonGroup>
             </r:RibbonTab>
 

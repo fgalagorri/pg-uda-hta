@@ -91,13 +91,14 @@ namespace BussinessLogic
             return pda.GetPatientId(patientRefId,dev);
         }
 
-
+        
         public TemporaryData GetLastTempData(long patientId)
         {
             var uda = new UdaHtaDataAccess();
             return uda.GetLastTempData(patientId);
         }
 
+        
         public Patient FindSimilarPatient(string document, string register)
         {
             Patient p = null;

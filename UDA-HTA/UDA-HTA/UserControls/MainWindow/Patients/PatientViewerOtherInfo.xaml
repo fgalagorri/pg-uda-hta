@@ -17,7 +17,7 @@
                 <TextBlock Style="{StaticResource groupTitle}">Esfuerzo físico</TextBlock>
             </GroupBox.Header>
             <DataGrid Name="grEffort" Background="White" AutoGenerateColumns="False" 
-                          ItemsSource="{Binding}" Height="100">
+                          ItemsSource="{Binding}" Height="100" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
                                             Binding="{Binding Path=Time}" x:Name="colEffortTime" />
@@ -33,7 +33,7 @@
                 <TextBlock Style="{StaticResource groupTitle}">Síntomas</TextBlock>
             </GroupBox.Header>
             <DataGrid Name="grSintoms" Background="White" AutoGenerateColumns="False"
-                            ItemsSource="{Binding}" Height="100">
+                            ItemsSource="{Binding}" Height="100" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
                                             Binding="{Binding Path=Time}" x:Name="colCompTime" />

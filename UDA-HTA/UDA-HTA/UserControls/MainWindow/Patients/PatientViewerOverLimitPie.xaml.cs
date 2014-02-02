@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using Entities;
 using Gateway;
+using UDA_HTA.Helpers;
 
 namespace UDA_HTA.UserControls.MainWindow.Patients
 {
@@ -108,29 +111,13 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         }
 
 
-        /* Retorna el path donde guardo la imagen */
         public void GetChartImage()
         {
-            RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-                (int) GraphicGrid.ActualWidth,
-                (int) GraphicGrid.ActualHeight,
-                96d,
-                96d,
-                PixelFormats.Pbgra32);
-            
-            renderBitmap.Render(GraphicGrid);
-
-            // Create a file stream for saving image
             string path = ConfigurationManager.AppSettings["GraphicOverLimit"];
-            using (FileStream outStream = new FileStream(path, FileMode.Create))
-            {
-                // Use png encoder for our data
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                // push the rendered bitmap to it
-                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
-                // save the data to the stream
-                encoder.Save(outStream);
-            }
+            var dir = path.Substring(0, path.LastIndexOf('\\'));
+            GatewayController.GetInstance().CreateFolderIfNotExists(dir);
+
+            ImageHelper.CreateImageA4(GraphicGrid, path);
         }
     }
 }

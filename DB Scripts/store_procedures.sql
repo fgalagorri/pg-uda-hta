@@ -631,6 +631,15 @@ END$$
 DELIMITER ;
 
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS updateReportPath$$
+CREATE PROCEDURE updateReportPath(IN id BIGINT, IN reportPath TEXT)
+BEGIN
+UPDATE `report` 
+SET `report_path` = reportPath
+WHERE `idReport` = id;
+END$$
+DELIMITER ;
 
 
 -- GETS -- 

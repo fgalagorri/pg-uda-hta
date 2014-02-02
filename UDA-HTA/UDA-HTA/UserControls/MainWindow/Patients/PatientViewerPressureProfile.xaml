@@ -82,7 +82,7 @@
                     <!-- HEART RATE SERIES -->
                     <DVC:LineSeries Title="HR" IndependentValuePath="Key" DependentValuePath="Value">
                         <DVC:LineSeries.DependentRangeAxis>
-                            <DVC:LinearAxis Location="Right" Orientation="Y" Minimum="50" Maximum="250" 
+                            <DVC:LinearAxis Location="Right" Orientation="Y" Minimum="40" Maximum="240" 
                                             Interval="10" Title="Frecuencia Cardíaca (1/m)" 
                                             Foreground="Red" />
                         </DVC:LineSeries.DependentRangeAxis>

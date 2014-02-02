@@ -130,6 +130,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 container.btnEditDiagnosis.IsEnabled = true;
                 container.btnExportReport.IsEnabled = true;
                 container.btnEditReport.IsEnabled = true;
+                container.btnPublish.IsEnabled = true;
 
                 _report = _patient.ReportList
                     .OrderByDescending(r => r.BeginDate)
@@ -158,6 +159,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 container.btnEditDiagnosis.IsEnabled = false;
                 container.btnExportReport.IsEnabled = false;
                 container.btnEditReport.IsEnabled = false;
+                container.btnPublish.IsEnabled = false;
 
                 if (!ReportPatient.IsSelected && !ReportCondition.IsSelected)
                     ReportPatient.IsSelected = true;
@@ -251,6 +253,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             TabPressureProfile.SetReport(_report);
         }
 
+
+        // TODO VER SI BORRAR
         private void ExportAsImage(Uri path, UserControl ctrl)
         {
             var transform = ctrl.LayoutTransform;

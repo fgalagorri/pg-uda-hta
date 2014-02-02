@@ -3396,6 +3396,36 @@ namespace DataAccess
     
             return base.ExecuteFunction("deleteComplicationActivity", carnetIdParameter, caIdParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="reportPath">No Metadata Documentation available.</param>
+        public int updateReportPath(Nullable<global::System.Int64> id, global::System.String reportPath)
+        {
+            ObjectParameter idParameter;
+            if (id.HasValue)
+            {
+                idParameter = new ObjectParameter("id", id);
+            }
+            else
+            {
+                idParameter = new ObjectParameter("id", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter reportPathParameter;
+            if (reportPath != null)
+            {
+                reportPathParameter = new ObjectParameter("reportPath", reportPath);
+            }
+            else
+            {
+                reportPathParameter = new ObjectParameter("reportPath", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("updateReportPath", idParameter, reportPathParameter);
+        }
 
         #endregion
 
@@ -7294,6 +7324,30 @@ namespace DataAccess
         private Nullable<global::System.Decimal> _dias_dipping;
         partial void Ondias_dippingChanging(Nullable<global::System.Decimal> value);
         partial void Ondias_dippingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String report_path
+        {
+            get
+            {
+                return _report_path;
+            }
+            set
+            {
+                Onreport_pathChanging(value);
+                ReportPropertyChanging("report_path");
+                _report_path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("report_path");
+                Onreport_pathChanged();
+            }
+        }
+        private global::System.String _report_path;
+        partial void Onreport_pathChanging(global::System.String value);
+        partial void Onreport_pathChanged();
 
         #endregion
 
