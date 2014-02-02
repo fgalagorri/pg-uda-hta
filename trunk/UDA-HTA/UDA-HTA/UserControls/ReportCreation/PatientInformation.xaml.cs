@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Linq;
 using System.Windows.Controls;
@@ -81,7 +82,7 @@ namespace UDA_HTA.UserControls.ReportCreation
 
             _patient.Names = txtNames.Text;
             _patient.Surnames = txtSurnames.Text;
-            _patient.DocumentId = txtCI.Text;
+            _patient.DocumentId = Regex.Replace(txtCI.Text, "[^0-9]", "");
             _patient.RegisterNumber = txtNroReg.Text;
             _patient.BirthDate = new DateTime(year, mon, day);
             _patient.Sex = cmbSex.SelectedIndex != -1 ? (SexType?)cmbSex.SelectedIndex : null;

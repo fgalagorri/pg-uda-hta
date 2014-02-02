@@ -4,8 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:entities="clr-namespace:Entities;assembly=Interfaces"
-             xmlns:src="clr-namespace:UDA_HTA.UserControls.MainWindow.Patients"
-             xmlns:dg="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700" >
     <UserControl.Resources>
@@ -16,6 +14,11 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <!--Style TargetType="DataGridCell">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Systolic}" Value=""></DataTrigger>
+            </Style.Triggers>
+        </Style -->
     </UserControl.Resources>
     <Grid>
         <DataGrid Name="grid" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionMode="Single" >
@@ -33,7 +36,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="Auto" Header="Deshabilitar">
+                <DataGridTemplateColumn Width="Auto" Header="Habilitada">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="entities:Measurement">
                             <CheckBox IsChecked="{Binding Path=IsEnabled, UpdateSourceTrigger=PropertyChanged}" Click="CheckBox_Click" />

@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using HMSDataAccess;
-using Entities;
-using DataAccess;
-using BussinessLogic;
-using DeviceDataAccess;
-using IntegrationHC;
-
-namespace ConsoleApplication1
+﻿namespace ConsoleApplication1
 {
     class Program
     {

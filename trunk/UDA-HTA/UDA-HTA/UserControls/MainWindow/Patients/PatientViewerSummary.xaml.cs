@@ -1,8 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
 using System.Windows.Controls;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Entities;
 using Gateway;
 

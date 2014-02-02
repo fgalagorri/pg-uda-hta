@@ -73,6 +73,10 @@
       <Project>{C30E4E25-3578-4713-A2CA-B5D7FA9323EC}</Project>
       <Name>DeviceDataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventLogger\EventLogger.csproj">
+      <Project>{2E51890C-B3F1-424A-98F5-1680DCC20FAD}</Project>
+      <Name>EventLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HMSDataAccess\HMSDataAccess.csproj">
       <Project>{EDF0E5D0-E41D-4A95-8421-93882EA811FB}</Project>
       <Name>HMSDataAccess</Name>
