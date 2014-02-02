@@ -26,8 +26,12 @@ namespace UDA_HTA.UserControls.ReportCreation
             InitializeComponent();
 
             dtStart.SelectedDate = r.BeginDate;
-            txtStartHour.Text = r.BeginDate.HasValue ? r.BeginDate.Value.Hour.ToString() : "";
-            txtStartMinutes.Text = r.BeginDate.HasValue ? r.BeginDate.Value.Minute.ToString() : "";
+            if (r.BeginDate.HasValue)
+            {
+                txtStartHour.Text = FormatInt(r.BeginDate.Value.Hour);
+                txtStartMinutes.Text = FormatInt(r.BeginDate.Value.Minute);
+            }
+
             txtRequester.Text = r.Requester;
 
             if (r.Carnet != null)
@@ -36,20 +40,22 @@ namespace UDA_HTA.UserControls.ReportCreation
 
                 if (c.SleepTimeStart.HasValue)
                 {
-                    txtDreamStartHour.Text = c.SleepTimeStart.Value.Hour.ToString();
-                    txtDreamStartMinutes.Text = c.SleepTimeStart.Value.Minute.ToString();
+                    txtDreamStartHour.Text = FormatInt(c.SleepTimeStart.Value.Hour);
+                    txtDreamStartMinutes.Text = FormatInt(c.SleepTimeStart.Value.Minute);
                 }
+
                 if (c.SleepTimeEnd.HasValue)
                 {
-                    txtDreamEndHour.Text = c.SleepTimeEnd.Value.Hour.ToString();
-                    txtDreamEndMinutes.Text = c.SleepTimeEnd.Value.Minute.ToString();
+                    txtDreamEndHour.Text = FormatInt(c.SleepTimeEnd.Value.Hour);
+                    txtDreamEndMinutes.Text = FormatInt(c.SleepTimeEnd.Value.Minute);
                 }
+
                 cmbDreamQty.SelectedValue = c.SleepQuality;
                 txtDreamDesc.Text = c.SleepQualityDescription;
                 if (c.MealTime.HasValue)
                 {
-                    txtMealHour.Text = c.MealTime.Value.Hour.ToString();
-                    txtMealMinutes.Text = c.MealTime.Value.Minute.ToString();
+                    txtMealHour.Text = FormatInt(c.MealTime.Value.Hour);
+                    txtMealMinutes.Text = FormatInt(c.MealTime.Value.Minute);
                 }
 
                 // mediciones iniciales
@@ -73,6 +79,20 @@ namespace UDA_HTA.UserControls.ReportCreation
                 txtHeartRateEnd2.Text = c.FinalHeartRate2.ToString();
                 txtHeartRateEnd3.Text = c.FinalHeartRate3.ToString();
             }
+        }
+
+        // Dado un numero entero, le da formato para imprimir
+        public string FormatInt(int number)
+        {
+            string result = "";
+            
+            if (number < 10)
+            {
+                result += "0";
+            }
+            result += number.ToString();
+            
+            return result;
         }
 
 

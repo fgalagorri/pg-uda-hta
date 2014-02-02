@@ -159,9 +159,10 @@ namespace BussinessLogic
             uhda.InsertDrug(type, active, name);
         }
 
-        public void DeleteDrug(string name)
+        public void DeleteDrug(int idDrug)
         {
-            // TODO
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();            
+            uda.DeleteDrug(idDrug);
         }
 
         public void EditDrug(int id, string type, string name, string active)
@@ -180,6 +181,12 @@ namespace BussinessLogic
         {
             UdaHtaDataAccess udaHta = new UdaHtaDataAccess();
             return udaHta.GetDrugs(type, active, name);
+        }
+
+        public void AddDrugType(string drugType)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.InsertDrugType(drugType);
         }
 
         #endregion

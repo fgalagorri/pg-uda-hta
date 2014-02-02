@@ -48,5 +48,15 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
             return (Drug)grDrugs.SelectedItem;
         }
 
+        private void GrDrugs_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            container.btnEditDrugs.IsEnabled = true;
+            if (GetSelectedDrug() != null)
+            {
+                var d = GetSelectedDrug();
+                container.ContainerAdministration.Content = new AddDrugs(d);
+            }
+
+        }
     }
 }

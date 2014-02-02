@@ -522,6 +522,21 @@ namespace Gateway
             }
         }
 
+        public void DeleteDrug(int idDrug)
+        {
+            var rm = new ReportManagement();
+            try
+            {
+                rm.DeleteDrug(idDrug);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("No se ha podido eliminar la droga");
+            }
+        }
+
         public ICollection<string> GetDrugTypes()
         {
             var rm = new ReportManagement();
@@ -548,9 +563,24 @@ namespace Gateway
             {
                 LogFileManagement el = new LogFileManagement();
                 el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
-                throw new Exception("No se ha podido obtener la informaciòn solicitada");
+                throw new Exception("Error al intentar insertar la categoría");
             }
         } 
+
+        public void CreateDrugType(string drugType)
+        {
+            var rm = new ReportManagement();
+            try
+            {
+                rm.AddDrugType(drugType);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("No se ha podido agregar la nueva categoría");                
+            }
+        }
 
     #endregion
 
