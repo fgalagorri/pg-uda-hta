@@ -43,7 +43,7 @@
         </StackPanel>
 
         <DataGrid Name="grDrugs" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
-                  AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto" MouseDoubleClick="GrDrugs_OnMouseDoubleClick"
                   SelectionChanged="grDrugs_SelectionChanged" SelectionMode="Single" SelectionUnit="FullRow" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridRow}">

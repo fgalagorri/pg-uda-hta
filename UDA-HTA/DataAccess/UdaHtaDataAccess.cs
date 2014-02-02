@@ -825,14 +825,14 @@ namespace DataAccess
                         if (activity.specification == "COMPLICACION")
                         {
                             var complication = new Complication(activity.idComplications_Activities,
-                                activity.time, activity.description);
+                                activity.time.Value, activity.description);
                             report.Carnet.Complications.Add(complication);
                         }
                         else
                         {
                             //ACTIVIDAD/ESFUERZO
                             Effort effort = new Effort(activity.idComplications_Activities, 
-                                activity.time, activity.description);
+                                activity.time.Value, activity.description);
                             report.Carnet.Efforts.Add(effort);
                         }
                     }
@@ -1134,7 +1134,7 @@ namespace DataAccess
                     .Select(ca => new Complication
                                         {
                                             Id = ca.idComplications_Activities, 
-                                            Time = ca.time,
+                                            Time = ca.time.Value,
                                             Description = ca.description
                                         }).ToList();    
                 events.AddRange(complications);
@@ -1145,7 +1145,7 @@ namespace DataAccess
                     .Select(ca => new Effort
                                         {
                                             Id = ca.idComplications_Activities,
-                                            Time = ca.time, 
+                                            Time = ca.time.Value, 
                                             Description = ca.description
                                         }).ToList();
                 events.AddRange(activity);
@@ -1524,6 +1524,20 @@ namespace DataAccess
                 {
                     var type = udaContext.drugtype.FirstOrDefault(d => d.type == drugType);
                     udaContext.updateDrug(id, name, active, type.idDrugType);
+                }
+
+                scope.Complete();
+            }
+            
+        }
+
+        public void DeleteDrug(int id)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    udaContext.deleteDrug(id);
                 }
 
                 scope.Complete();

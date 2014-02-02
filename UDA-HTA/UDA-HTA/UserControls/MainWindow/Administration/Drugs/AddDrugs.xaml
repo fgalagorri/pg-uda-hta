@@ -15,8 +15,9 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
                     <TextBlock Style="{StaticResource label}">Categoría:</TextBlock>
-                    <ComboBox ItemsSource="{Binding}" Margin="70,0,40,0" Height="23" Name="comboBoxDrugType" Width="120">
-                    </ComboBox> 
+                    <ComboBox ItemsSource="{Binding}" Margin="70,0,7,0" Height="23" Name="comboBoxDrugType" Width="120">
+                    </ComboBox>
+                    <Button Name="btnAddCategory" Padding="5,0" Click="btnAddCategory_Click">+</Button>
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
@@ -32,7 +33,8 @@
 
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <Button Name="btnAdd" Padding="10,0" Click="btnAdd_Click">Agregar</Button>
+                <Button Name="btnAdd" Margin="0,30,0,0" Padding="10,0" Click="btnAdd_Click">Agregar</Button>
+                <Button Name="btnDelete" Margin="0,10,0,0" Padding="10,0" Visibility="Hidden" Click="btnDelete_Click">Eliminar</Button>
             </StackPanel>
         </StackPanel>
 

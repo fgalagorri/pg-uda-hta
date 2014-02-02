@@ -25,6 +25,7 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
             {
                 //editar droga
                 btnAdd.Content = "Editar";
+                btnDelete.Visibility = Visibility.Visible;
                 comboBoxDrugType.SelectedValue = drug.Category;
                 txtName.Text = drug.Name;
                 txtActive.Text = drug.Active;
@@ -85,6 +86,28 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.Drugs
         {
             return txtName.ValidateString() &
                    txtActive.ValidateString();
+        }
+
+        private void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            AddDrugCategory addc = new AddDrugCategory();
+            addc.Show();
+            BindComboBox(comboBoxDrugType);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var controller = GatewayController.GetInstance();
+                controller.DeleteDrug(_drug.Id.Value);
+                MessageBox.Show("La droga se ha eliminado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception exception)
+            {
+                Mouse.OverrideCursor = null;
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);                
+            }
         }
 
     }
