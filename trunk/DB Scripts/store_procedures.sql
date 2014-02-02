@@ -337,6 +337,16 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteMedicalHistory$$
+CREATE PROCEDURE deleteMedicalHistory(IN idPatientUda BIGINT, IN idMedicalRecord BIGINT)
+BEGIN
+DELETE 
+FROM `medicalhistory` 
+WHERE `idMedicalHistory` = idMedicalRecord AND `patientuda_idPatientUda` = idPatientUda;
+END$$
+DELIMITER ;
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteInvestigationHasReport$$
 CREATE PROCEDURE deleteInvestigationHasReport(IN idInvestigation BIGINT, IN idReport BIGINT, 
 											  IN idPatientUda BIGINT)
@@ -370,6 +380,15 @@ WHERE `dailycarnet_idDailyCarnet` = carnetId AND
 END$$
 DELIMITER ;
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteDrug$$
+CREATE PROCEDURE deleteDrug(IN id INT)
+BEGIN
+DELETE 
+FROM `drug` 
+WHERE `idDrug` = id;
+END$$
+DELIMITER ;
 
 -- UPDATES --
 
@@ -651,33 +670,3 @@ BEGIN
 SET pass_var = (SELECT `pass` FROM `user` WHERE `login` = login_var LIMIT 1);
 END$$
 DELIMITER ;
-
-/*
-
-SELECT * FROM User;
-
-SELECT * FROM DrugType;
-
-SELECT * FROM Drug;
-
-SELECT * FROM Investigation;
-
-SELECT * FROM Report;
-
-SELECT * FROM DailyCarnet;
-
-SELECT * FROM TemporaryData;
-
-SELECT * FROM Patientuda;
-
-SELECT * FROM Measurement;
-
-SET foreign_key_checks = 0;
-TRUNCATE DailyCarnet;
-TRUNCATE TemporaryData;
-TRUNCATE Report;
-TRUNCATE Measurement;
-TRUNCATE PatientUda;
-SET foreign_key_checks = 1;
-
-*/
