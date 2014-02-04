@@ -23,7 +23,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         private Investigation _investigation;
         private Report _report ;
 
-        public ResearchViewer(int idInvestigation)
+        public ResearchViewer(long idInvestigation)
         {
             Mouse.OverrideCursor = Cursors.Wait;
             try

@@ -14,6 +14,8 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
     public partial class EditUser : UserControl
     {
         private User _user;
+        private const string EnableTxt = "Habilitar";
+        private const string DisableTxt = "Deshabilitar";
 
         public EditUser(User user)
         {
@@ -23,6 +25,8 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             txtName.Text = _user.Name;
             txtLogin.Text = _user.Login;
             comboRole.Text = _user.Role;
+
+            btnDisable.Content = _user.Enabled ? DisableTxt : EnableTxt;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -57,13 +61,32 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                    txtLogin.ValidateString();
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void btnDisable_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var controller = GatewayController.GetInstance();
-                controller.DeleteUser(_user.Id);
-                MessageBox.Show("El usuario se ha eliminado", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (_user.Enabled)
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    var controller = GatewayController.GetInstance();
+                    controller.DisableUser(_user.Id);
+                    btnDisable.Content = EnableTxt;
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show("El usuario se ha deshabilitado correctamente.", "Informacion",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    _user.Enabled = false;
+                }
+                else
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    var controller = GatewayController.GetInstance();
+                    controller.EnableUser(_user.Id);
+                    btnDisable.Content = DisableTxt;
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show("El usuario se ha habilitado correctamente.", "Informacion",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    _user.Enabled = true;
+                }
             }
             catch (Exception exception)
             {

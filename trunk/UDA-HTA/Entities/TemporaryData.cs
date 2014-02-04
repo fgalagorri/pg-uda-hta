@@ -9,7 +9,7 @@ namespace Entities
             Medication = new List<Medication>();        
         }
 
-        public int IdTemporaryData { get; set; }
+        public long IdTemporaryData { get; set; }
         public decimal? Weight { get; set; }
         public decimal? Height { get; set; }
         public decimal? BodyMassIndex { get; set; }

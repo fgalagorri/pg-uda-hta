@@ -252,7 +252,15 @@ namespace DataAccess
             }
         }
 
-        public ICollection<MedicineDose> GetMedicineDose(int idTemporaryData)
+        public void UpdateMeasureAsleep(long measureId, bool newAsleep)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.updateMeasureAsleep(measureId, newAsleep);
+            }
+        }
+
+        public ICollection<MedicineDose> GetMedicineDose(long idTemporaryData)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -1254,11 +1262,11 @@ namespace DataAccess
             }
         }
 
-        public int? InsertTemporaryData(TemporaryData temporaryData)
+        public long? InsertTemporaryData(TemporaryData temporaryData)
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ObjectParameter lastIdTempData = new ObjectParameter("id", typeof (int));
+                ObjectParameter lastIdTempData = new ObjectParameter("id", typeof (long));
                 udaContext.insertTemporaryData(lastIdTempData, temporaryData.Weight, temporaryData.Height,
                                                temporaryData.Age,
                                                temporaryData.BodyMassIndex, temporaryData.Smoker,
@@ -1267,13 +1275,13 @@ namespace DataAccess
                                                temporaryData.FatPercentage,
                                                temporaryData.MusclePercentage, temporaryData.Kcal);
 
-                temporaryData.IdTemporaryData = (int) lastIdTempData.Value;
+                temporaryData.IdTemporaryData = (long) lastIdTempData.Value;
                 foreach (var med in temporaryData.Medication)
                 {
                     InsertMedicineDose(med, temporaryData.IdTemporaryData);
                 }
 
-                return (int) lastIdTempData.Value;
+                return (long) lastIdTempData.Value;
             }
         }
 
@@ -1287,7 +1295,7 @@ namespace DataAccess
             }
         }
 
-        public bool ExistMedicineDose(int idMedicineDose)
+        public bool ExistMedicineDose(long idMedicineDose)
         {
             using (var udaContext = new udahta_dbEntities())
             {
@@ -1295,17 +1303,17 @@ namespace DataAccess
             }
         }
 
-        public void InsertMedicineDose(Medication medicineDose, int idTemporaryData)
+        public void InsertMedicineDose(Medication medicineDose, long idTemporaryData)
         {
             using (udaContext = new udahta_dbEntities())
             {
-                ObjectParameter lastIdMedicineDose = new ObjectParameter("id", typeof (int));
+                ObjectParameter lastIdMedicineDose = new ObjectParameter("id", typeof (long));
                 udaContext.insertMedicineDose(lastIdMedicineDose, medicineDose.Dose, medicineDose.Time,
                                                       medicineDose.Drug.Id, idTemporaryData);
             }
         }
 
-        public void DeleteMedicineDose(int idMedicineDose)
+        public void DeleteMedicineDose(long idMedicineDose)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -1326,7 +1334,8 @@ namespace DataAccess
                                          Login = u.login,
                                          Name = u.name,
                                          Password = u.password,
-                                         Role = u.rol
+                                         Role = u.rol,
+                                         Enabled = u.enabled
                                      }).FirstOrDefault();
             }
         } 
@@ -1379,7 +1388,7 @@ namespace DataAccess
             {
                 using (udaContext = new udahta_dbEntities())
                 {
-                    ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof (int));
+                    ObjectParameter lastIdMedicalHistory = new ObjectParameter("id", typeof (long));
                     udaContext.insertMedicalHistory(lastIdMedicalHistory, medicalRecord.Illness,
                                                     medicalRecord.Comment, patientId);
                 }
@@ -1401,35 +1410,22 @@ namespace DataAccess
     #region Users
 
         //Inserta un nuevo usuario en la base de datos
-        public int InsertUser(string login, string pass, string rol, string name)
+        public long InsertUser(string login, string pass, string rol, string name)
         {
             using (TransactionScope scope = new TransactionScope())
             {
                 ObjectParameter lastIdUser;
                 using (udaContext = new udahta_dbEntities())
                 {
-                    lastIdUser = new ObjectParameter("id", typeof (int));
+                    lastIdUser = new ObjectParameter("id", typeof (long));
                     udaContext.insertUser(lastIdUser, login, pass, rol, name);
                 }
 
                 scope.Complete();
-                return (int) lastIdUser.Value;
+                return (long) lastIdUser.Value;
 
             }
 
-        }
-
-        //Eliminar usuario
-        public void DeleteUSer(int idUser)
-        {
-            using (TransactionScope scope = new TransactionScope())
-            {
-                using (udaContext = new udahta_dbEntities())
-                {
-                    udaContext.deleteUser(idUser);
-                }
-                scope.Complete();
-            }
         }
 
         //Editar usuario
@@ -1470,10 +1466,33 @@ namespace DataAccess
                                         Login = u.login,
                                         Name = u.name,
                                         Password = u.password,
-                                        Role = u.rol
+                                        Role = u.rol,
+                                        Enabled = u.enabled
                                     }).ToList();
             }
-        } 
+        }
+
+        //Deshabilitar usuario
+        public void DisableUser(long userId)
+        {
+            using (TransactionScope scope = new TransactionScope())
+            {
+                using (udaContext = new udahta_dbEntities())
+                {
+                    udaContext.disableUser(userId);
+                }
+                scope.Complete();
+            }
+        }
+
+        //Habilitar usuario
+        public void EnableUser(long userId)
+        {
+            using (udaContext = new udahta_dbEntities())
+            {
+                udaContext.enableUser(userId);
+            }
+        }
 
     #endregion
 
@@ -1509,7 +1528,7 @@ namespace DataAccess
         }
 
         //Actualiza los datos de una droga
-        public void EditDrug(int id, string name, string drugType, string active)
+        public void EditDrug(long id, string name, string drugType, string active)
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -1524,7 +1543,7 @@ namespace DataAccess
             
         }
 
-        public void DeleteDrug(int id)
+        public void DeleteDrug(long id)
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -1629,7 +1648,7 @@ namespace DataAccess
     #region Investigaciones
 
         //Obtener investigacion
-        public Investigation GetInvestigation(int id)
+        public Investigation GetInvestigation(long id)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -1782,7 +1801,7 @@ namespace DataAccess
         }
 
         //Listar investigaciones 
-        public ICollection<InvestigationSearch> ListInvestigations(int? id, string name, DateTime? creationDate)
+        public ICollection<InvestigationSearch> ListInvestigations(long? id, string name, DateTime? creationDate)
         {
             using (udaContext = new udahta_dbEntities())
             {
@@ -1821,7 +1840,7 @@ namespace DataAccess
 
                 using (udaContext = new udahta_dbEntities())
                 {
-                    id = new ObjectParameter("id", typeof (int));
+                    id = new ObjectParameter("id", typeof (long));
                     udaContext.insertInvestigation(id, nam, createDat, comment);
                 }
 
@@ -1830,7 +1849,7 @@ namespace DataAccess
             }
         }
 
-        public void addReportToInvestigation(long idReport, long idPatient, int idInvestigation)
+        public void addReportToInvestigation(long idReport, long idPatient, long idInvestigation)
         {
             using (TransactionScope scope = new TransactionScope())
             {
@@ -1843,7 +1862,7 @@ namespace DataAccess
             }
         }
 
-        public void deleteReportFromInvestigation(long idPatient, long idReport, int idInvestigation)
+        public void deleteReportFromInvestigation(long idPatient, long idReport, long idInvestigation)
         {
             using (TransactionScope scope = new TransactionScope())
             {

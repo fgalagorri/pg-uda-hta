@@ -13,12 +13,6 @@ namespace BussinessLogic
             uda.InsertUser(usr.Login, usr.Password, usr.Role, usr.Name);
         }
 
-        public void DeleteUser(int idUser)
-        {
-            UdaHtaDataAccess uda = new UdaHtaDataAccess();
-            uda.DeleteUSer(idUser);
-        }
-
         public void EditUser(User usr)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
@@ -37,5 +31,16 @@ namespace BussinessLogic
             return uda.GetUsers(name, role, login);
         }
 
+        public void EnableUser(long userId)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.EnableUser(userId);
+        }
+
+        public void DisableUser(long userId)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.DisableUser(userId);
+        }
     }
 }

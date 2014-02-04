@@ -7,9 +7,9 @@ namespace BussinessLogic
     public class SessionManagement
     {
 
-        public User Login(string userName, string pswdHashed)
+        public User Login(string userName, string pswdHashed, out bool enabled)
         {
-            User u = verifyPassword(userName, pswdHashed);
+            User u = verifyPassword(userName, pswdHashed, out enabled);
             return u;
         }
 
@@ -20,8 +20,9 @@ namespace BussinessLogic
         // Los parametros currentPswd, newPswd, deben estar encriptados.
         public bool ChangePassword(string userName, string currentPswd, string newPswd)
         {
+            bool enabled;
             // Verificar que el pswd actual es correcto
-            if (verifyPassword(userName, currentPswd) != null)
+            if (verifyPassword(userName, currentPswd, out  enabled) != null)
             {
                 // guardar nuevo paswd en la base
                 UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
@@ -34,11 +35,18 @@ namespace BussinessLogic
         }
 
         // Devuelve el usuario si el Pwd es correcto
-        private User verifyPassword(string userName, string pswdHashed)
+        private User verifyPassword(string userName, string pswdHashed, out bool enabled)
         {
             // Verificar que el nombre de usuario es correcto
             UdaHtaDataAccess dataAccess = new UdaHtaDataAccess();
             User u = dataAccess.GetUser(userName);
+            enabled = true;
+
+            if (u != null && !u.Enabled)
+            {
+                enabled = u.Enabled;
+                return null;
+            }
 
             //Si existe el usuario, el password sera distinto de ""
             //Si el hash del password ingresado es igual al hash del password guardado,

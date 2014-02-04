@@ -27,7 +27,7 @@ namespace Entities
         public string Diagnosis { get; set; }
 
         public long? DailyCarnetId { get; set; }
-        public int? TemporaryDataId { get; set; }
+        public long? TemporaryDataId { get; set; }
         public TemporaryData TemporaryData { get; set; }
         public DailyCarnet Carnet { get; set; }
         public ICollection<Measurement> Measures { get; set; } 

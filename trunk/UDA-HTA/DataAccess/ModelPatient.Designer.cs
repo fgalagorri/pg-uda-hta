@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -150,101 +151,6 @@ namespace DataAccess
         #endregion
 
         #region Function Imports
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="device_type">No Metadata Documentation available.</param>
-        /// <param name="device_ref">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertDeviceReference(ObjectParameter id, Nullable<global::System.Int32> device_type, global::System.String device_ref, Nullable<global::System.Int64> idPatient)
-        {
-            ObjectParameter device_typeParameter;
-            if (device_type.HasValue)
-            {
-                device_typeParameter = new ObjectParameter("device_type", device_type);
-            }
-            else
-            {
-                device_typeParameter = new ObjectParameter("device_type", typeof(global::System.Int32));
-            }
-    
-            ObjectParameter device_refParameter;
-            if (device_ref != null)
-            {
-                device_refParameter = new ObjectParameter("device_ref", device_ref);
-            }
-            else
-            {
-                device_refParameter = new ObjectParameter("device_ref", typeof(global::System.String));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
-            }
-    
-            return base.ExecuteFunction("insertDeviceReference", id, device_typeParameter, device_refParameter, idPatientParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="id">No Metadata Documentation available.</param>
-        /// <param name="name">No Metadata Documentation available.</param>
-        /// <param name="surname">No Metadata Documentation available.</param>
-        /// <param name="phone">No Metadata Documentation available.</param>
-        /// <param name="idPatient">No Metadata Documentation available.</param>
-        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
-        {
-            ObjectParameter nameParameter;
-            if (name != null)
-            {
-                nameParameter = new ObjectParameter("name", name);
-            }
-            else
-            {
-                nameParameter = new ObjectParameter("name", typeof(global::System.String));
-            }
-    
-            ObjectParameter surnameParameter;
-            if (surname != null)
-            {
-                surnameParameter = new ObjectParameter("surname", surname);
-            }
-            else
-            {
-                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
-            }
-    
-            ObjectParameter phoneParameter;
-            if (phone != null)
-            {
-                phoneParameter = new ObjectParameter("phone", phone);
-            }
-            else
-            {
-                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
-            }
-    
-            ObjectParameter idPatientParameter;
-            if (idPatient.HasValue)
-            {
-                idPatientParameter = new ObjectParameter("idPatient", idPatient);
-            }
-            else
-            {
-                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
-            }
-    
-            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -407,6 +313,101 @@ namespace DataAccess
             }
     
             return base.ExecuteFunction("insertPatient", id, nameParameter, surnameParameter, addrParameter, dniParameter, birthParameter, sexParameter, neighbourParameter, cityParameter, departmentParameter, phoneParameter, cellParameter, phone2Parameter, emailParameter, register_numberParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="name">No Metadata Documentation available.</param>
+        /// <param name="surname">No Metadata Documentation available.</param>
+        /// <param name="phone">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertEmergencyContact(ObjectParameter id, global::System.String name, global::System.String surname, global::System.String phone, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter nameParameter;
+            if (name != null)
+            {
+                nameParameter = new ObjectParameter("name", name);
+            }
+            else
+            {
+                nameParameter = new ObjectParameter("name", typeof(global::System.String));
+            }
+    
+            ObjectParameter surnameParameter;
+            if (surname != null)
+            {
+                surnameParameter = new ObjectParameter("surname", surname);
+            }
+            else
+            {
+                surnameParameter = new ObjectParameter("surname", typeof(global::System.String));
+            }
+    
+            ObjectParameter phoneParameter;
+            if (phone != null)
+            {
+                phoneParameter = new ObjectParameter("phone", phone);
+            }
+            else
+            {
+                phoneParameter = new ObjectParameter("phone", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertEmergencyContact", id, nameParameter, surnameParameter, phoneParameter, idPatientParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="id">No Metadata Documentation available.</param>
+        /// <param name="device_type">No Metadata Documentation available.</param>
+        /// <param name="device_ref">No Metadata Documentation available.</param>
+        /// <param name="idPatient">No Metadata Documentation available.</param>
+        public int insertDeviceReference(ObjectParameter id, Nullable<global::System.Int64> device_type, global::System.String device_ref, Nullable<global::System.Int64> idPatient)
+        {
+            ObjectParameter device_typeParameter;
+            if (device_type.HasValue)
+            {
+                device_typeParameter = new ObjectParameter("device_type", device_type);
+            }
+            else
+            {
+                device_typeParameter = new ObjectParameter("device_type", typeof(global::System.Int64));
+            }
+    
+            ObjectParameter device_refParameter;
+            if (device_ref != null)
+            {
+                device_refParameter = new ObjectParameter("device_ref", device_ref);
+            }
+            else
+            {
+                device_refParameter = new ObjectParameter("device_ref", typeof(global::System.String));
+            }
+    
+            ObjectParameter idPatientParameter;
+            if (idPatient.HasValue)
+            {
+                idPatientParameter = new ObjectParameter("idPatient", idPatient);
+            }
+            else
+            {
+                idPatientParameter = new ObjectParameter("idPatient", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("insertDeviceReference", id, device_typeParameter, device_refParameter, idPatientParameter);
         }
     
         /// <summary>

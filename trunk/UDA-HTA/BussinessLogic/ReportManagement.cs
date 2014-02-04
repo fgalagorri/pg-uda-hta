@@ -70,6 +70,12 @@ namespace BussinessLogic
             uda.UpdateMeasureSummary(report);
         }
 
+        public void UpdateMeasureAsleep(long measureId, bool newAsleep)
+        {
+            UdaHtaDataAccess uda = new UdaHtaDataAccess();
+            uda.UpdateMeasureAsleep(measureId, newAsleep);
+        }
+
         public void UpdateDailyCarnet(long idCarnet, DailyCarnet d)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
@@ -159,13 +165,13 @@ namespace BussinessLogic
             uhda.InsertDrug(type, active, name);
         }
 
-        public void DeleteDrug(int idDrug)
+        public void DeleteDrug(long idDrug)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();            
             uda.DeleteDrug(idDrug);
         }
 
-        public void EditDrug(int id, string type, string name, string active)
+        public void EditDrug(long id, string type, string name, string active)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             uda.EditDrug(id, name, type, active);
@@ -1760,7 +1766,7 @@ namespace BussinessLogic
                     runProperties12.AppendChild(new FontSizeComplexScript() { Val = "28" });
                     LastRenderedPageBreak lastRenderedPageBreakPTA = new LastRenderedPageBreak();
                     Text text36 = new Text();
-                    text36.Text = "Perfil de la Tensión Arterial";
+                    text36.Text = "Perfil de Presión Arterial";
 
                     run36.AppendChild(runProperties12);
                     run36.Append(lastRenderedPageBreakPTA);

@@ -1,4 +1,4 @@
-﻿<Window x:Class="UDA_HTA.UserControls.MainWindow.Administration.Drugs.AddDrugCategory"
+﻿<Window x:Class="UDA_HTA.AddDrugCategory"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Nueva Categoría de Droga" Height="138" Width="421">

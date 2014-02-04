@@ -107,7 +107,8 @@ namespace UDA_HTA
                             if (!_report.Patient.UdaId.HasValue)
                             {
                                 // Chequeo que no exista un paciente en la BD
-                                var p = controller.FindSimilarPatient(_report.Patient.DocumentId, _report.Patient.RegisterNumber);
+                                var p = controller.FindSimilarPatient(_report.Patient.DocumentId,
+                                                                      _report.Patient.RegisterNumber);
                                 if (p != null)
                                 {
                                     var pmf = new PatientMatchFound(p);
@@ -119,7 +120,9 @@ namespace UDA_HTA
                             GatewayController.GetInstance().AddImportedData(_report, true);
                         }
                         else
-                            GatewayController.GetInstance().UpdateReport(_report);
+                        {
+                            _report = GatewayController.GetInstance().UpdateReport(_report);
+                        }
                         Mouse.OverrideCursor = null;
                     }
                     catch (Exception exception)

@@ -2,7 +2,7 @@
 {
     public class Drug
     {
-        public int? Id { get; set; }
+        public long? Id { get; set; }
         public string Category { get; set; }
         public string Active { get; set; }
         public string Name { get; set; }

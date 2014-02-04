@@ -21,8 +21,8 @@ namespace DataAccess
             {
                 using (var udaContext = new patient_info_dbEntities())
                 {
-                    ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(int));
-                    ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof(int));
+                    ObjectParameter lastIdPatient = new ObjectParameter("id", typeof(long));
+                    ObjectParameter lastIdDevRef = new ObjectParameter("id", typeof(long));
 
                     var sex = SexType.M.ToString();
                     if (p.Sex != null && ((p.Sex.Value == SexType.F) || (p.Sex.Value == SexType.M)))

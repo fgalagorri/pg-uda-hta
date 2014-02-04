@@ -394,11 +394,6 @@ namespace UDA_HTA
 
         }
 
-        private void ExportCSV(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
         #endregion
 
         #region Usuario
@@ -472,7 +467,17 @@ namespace UDA_HTA
 
         private void ExitApplication(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Close();
         }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Está seguro que desea salir de la aplicación?", "Salir",
+                                         MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+
+            if(result != MessageBoxResult.Yes && result != MessageBoxResult.OK)
+                e.Cancel = true;
+        }
+
     }
 }

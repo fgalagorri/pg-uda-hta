@@ -97,7 +97,12 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         private string GetLegendText(int count, int total)
         {
-            var perc = (count/(double) total) * 100;
+            double perc;
+            if (total > 0)
+                perc = (count/(double) total)*100;
+            else
+                perc = 0;
+
             return perc.ToString("N0") + "% (" + count + ")";
                 //count + " (" + perc.ToString("N0") + "%)";
         }

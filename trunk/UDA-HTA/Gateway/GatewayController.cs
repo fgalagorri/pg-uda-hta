@@ -169,7 +169,7 @@ namespace Gateway
 
     #region Report Updating
 
-        public void UpdateReport(Report report)
+        public Report UpdateReport(Report report)
         {
             try
             {
@@ -182,6 +182,35 @@ namespace Gateway
 
                 // Actualizo Temporary Data
                 controller.UpdateTemporaryData(report.TemporaryData);
+
+                // Actualizo las medidas que sean necesarias
+                bool updateTotals = false;
+                foreach (var m in report.Measures)
+                {
+                    if (m.Time.HasValue)
+                    {
+                        bool newAsleep = GatewayHelper.IsAsleep(report.Carnet.SleepTimeStart.Value.TimeOfDay,
+                                                                report.Carnet.SleepTimeEnd.Value.TimeOfDay,
+                                                                m.Time.Value);
+                        if (newAsleep != m.Asleep)
+                        {
+                            controller.UpdateMeasureAsleep(m.Id, newAsleep);
+                            updateTotals = true;
+                        }
+
+                        m.Asleep = newAsleep;
+                    }
+                }
+
+                // Actualizo los máximos y mínimos si es necesario
+                if (updateTotals)
+                {
+                    GatewayHelper.UpdateMeasureSummary(report);
+                    controller.UpdateMeasureSummary(report);
+                }
+
+
+                return report;
             }
             catch (Exception ex)
             {
@@ -506,7 +535,7 @@ namespace Gateway
             }
         }
 
-        public void EditDrug(int id, string type, string name, string active)
+        public void EditDrug(long id, string type, string name, string active)
         {
             var rm = new ReportManagement();
             try
@@ -521,7 +550,7 @@ namespace Gateway
             }
         }
 
-        public void DeleteDrug(int idDrug)
+        public void DeleteDrug(long idDrug)
         {
             var rm = new ReportManagement();
             try
@@ -586,14 +615,14 @@ namespace Gateway
 
     #region Login Management
 
-        public User Login(string userName, string pswd)
+        public User Login(string userName, string pswd, out bool enabled)
         {
             var cm = new CriptographyManagement();
             var encryptedPswd = cm.Sha256Encryipt(pswd);
             var sm = new SessionManagement();
             try
             {
-                _loggedUser = sm.Login(userName, encryptedPswd);
+                _loggedUser = sm.Login(userName, encryptedPswd, out enabled);
                 
                 LogFileManagement el = new LogFileManagement();
                 _limits = new ReportManagement().GetLimits();
@@ -679,7 +708,7 @@ namespace Gateway
             }
         }
  
-        public void EditUser(int id, string Name, string role, string login)
+        public void EditUser(long id, string Name, string role, string login)
         {
             var um = new UserManagement();
             User u = new User();
@@ -699,18 +728,33 @@ namespace Gateway
             }
         }
 
-        public void DeleteUser(int idUser)
+        public void EnableUser(long userId)
         {
             try
             {
                 var um = new UserManagement();
-                um.DeleteUser(idUser);
+                um.EnableUser(userId);
             }
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
                 el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
-                throw new Exception("No se ha podido eliminar el usuario");                
+                throw new Exception("No se ha podido habilitar el usuario.");                
+            }
+        }
+
+        public void DisableUser(long userId)
+        {
+            try
+            {
+                var um = new UserManagement();
+                um.DisableUser(userId);
+            }
+            catch (Exception exception)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                throw new Exception("No se ha podido deshabilitar el usuario.");
             }
         }
 
@@ -749,7 +793,7 @@ namespace Gateway
             }
         }
 
-        public Investigation GetInvestigation(int idInvestigation)
+        public Investigation GetInvestigation(long idInvestigation)
         {
             var im = new InvestigationManagement();
             try
@@ -779,7 +823,7 @@ namespace Gateway
             }
         }
 
-        public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
+        public void AddReportToInvestigation(long idReport, long idPatient, long idInvestigation)
         {
             var im = new InvestigationManagement();
             try
