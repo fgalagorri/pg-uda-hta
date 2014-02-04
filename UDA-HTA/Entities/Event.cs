@@ -80,7 +80,7 @@ namespace Entities
 
         public string Dose { get; set; }
         public Drug Drug { get; set; }
-        public int? MedicineId { get; set; }
+        public long? MedicineId { get; set; }
     }
 
 

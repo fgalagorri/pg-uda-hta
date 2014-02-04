@@ -5,7 +5,7 @@ namespace Entities
 {
     public class Investigation
     {
-        public int IdInvestigation { get; set; }
+        public long IdInvestigation { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public string Comment { get; set; }
@@ -17,7 +17,7 @@ namespace Entities
             LReports = new List<Report>();
         }
 
-        public Investigation(int id, string name, DateTime date, string comment)
+        public Investigation(long id, string name, DateTime date, string comment)
         {
             IdInvestigation = id;
             Name = name;

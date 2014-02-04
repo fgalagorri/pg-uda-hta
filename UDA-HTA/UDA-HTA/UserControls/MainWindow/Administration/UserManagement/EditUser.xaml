@@ -35,8 +35,10 @@
             </StackPanel>
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" >
-                <Button Name="btnEdit" Margin="0,30,0,0" Padding="10,0" Click="btnEdit_Click">Editar</Button>
-                <Button Name="btnDelete" Margin="0,10,0,0" Padding="10,0" Click="btnDelete_Click">Eliminar</Button>
+                <Button Name="btnEdit" Margin="0,30,0,0" Padding="10,0" 
+                        Width="90" Click="btnEdit_Click">Editar</Button>
+                <Button Name="btnDisable" Margin="0,10,0,0" Padding="10,0" 
+                        Width="90"  Click="btnDisable_Click"></Button>
             </StackPanel>
 
         </StackPanel>

@@ -22,8 +22,15 @@ namespace UDA_HTA
             var controller = GatewayController.GetInstance();
             try
             {
-                var usr = controller.Login(userLogin.Text.Trim(), userPassword.Password);
-                if (usr != null)
+                bool enabled;
+                var usr = controller.Login(userLogin.Text.Trim(), userPassword.Password, out enabled);
+                
+                if (!enabled)
+                {
+                    userPassword.Password = "";
+                    lblError.Content = "El usuario ha sido deshabilitado.";
+                }
+                else if (usr != null)
                 {
                     var mainWindow = new MainWindow(usr);
                     mainWindow.Show();

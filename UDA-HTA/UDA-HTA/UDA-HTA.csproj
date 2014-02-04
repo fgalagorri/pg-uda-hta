@@ -141,6 +141,9 @@
     <Compile Include="DrugCreate.xaml.cs">
       <DependentUpon>DrugCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddDrugCategory.xaml.cs">
+      <DependentUpon>AddDrugCategory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MainWindow\Administration\Drugs\AddDrugs.xaml.cs">
       <DependentUpon>AddDrugs.xaml</DependentUpon>
     </Compile>
@@ -171,7 +174,6 @@
     <Compile Include="UserControls\MainWindow\Investigations\ResearchViewerReport.xaml.cs">
       <DependentUpon>ResearchViewerReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MainWindow\Patients\HighlightSystolicCells.cs" />
     <Compile Include="UserControls\MainWindow\Patients\PatientViewerCondition.xaml.cs">
       <DependentUpon>PatientViewerCondition.xaml</DependentUpon>
     </Compile>
@@ -276,6 +278,10 @@
     <Page Include="DrugCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddDrugCategory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\MainWindow\Administration\Drugs\AddDrugs.xaml">
       <SubType>Designer</SubType>

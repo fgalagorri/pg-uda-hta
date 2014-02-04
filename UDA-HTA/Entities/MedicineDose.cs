@@ -4,7 +4,7 @@ namespace Entities
 {
     public class MedicineDose
     {
-        public int? Id { get; set; }
+        public long? Id { get; set; }
 
         public string Dose { get; set; }
         public Drug Drug { get; set; }

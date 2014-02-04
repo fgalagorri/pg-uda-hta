@@ -115,7 +115,7 @@ CREATE PROCEDURE insertReport(OUT id BIGINT, IN begin_date DATETIME, IN end_date
 							  IN day_max_sys INT, IN night_max_sys INT, IN day_avg_dias INT, 
 							  IN night_avg_dias INT, total_avg_dias INT, IN day_max_dias INT, 
 							  IN night_max_dias INT, IN idDev INT, IN devReportId VARCHAR(45), 
-							  IN idTemporaryData INT, IN idDailyCarnet BIGINT, IN idPatient BIGINT,
+							  IN idTemporaryData BIGINT, IN idDailyCarnet BIGINT, IN idPatient BIGINT,
 							  IN day_min_sis INT, IN day_min_dias INT, IN night_min_sis INT, 
 							  IN night_min_dias INT, IN tot_avg_hr INT, IN day_avg_hr INT, 
 							  IN night_avg_hr INT, IN max_day_hr INT, IN max_night_hr INT, 
@@ -245,8 +245,8 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS insertUser$$
 CREATE PROCEDURE insertUser(OUT id BIGINT, IN log VARCHAR(45), IN p TEXT, IN r VARCHAR(45), IN nam TEXT)
 BEGIN
-INSERT INTO `user`( `login`, `password`, `rol`,`name`)
-VALUES(log, p, r, nam);
+INSERT INTO `user`( `login`, `password`, `rol`,`name`, `enabled`)
+VALUES(log, p, r, nam, 1);
 SET id = (SELECT Last_Insert_Id());
 END$$
 DELIMITER ;
@@ -327,16 +327,6 @@ DELIMITER ;
 -- DELETES --
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS deleteUser$$
-CREATE PROCEDURE deleteUser(IN login VARCHAR(45))
-BEGIN
-DELETE 
-FROM `user` 
-WHERE (`login` = login);
-END$$
-DELIMITER ;
-
-DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteMedicalHistory$$
 CREATE PROCEDURE deleteMedicalHistory(IN idPatientUda BIGINT, IN idMedicalRecord BIGINT)
 BEGIN
@@ -382,7 +372,7 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS deleteDrug$$
-CREATE PROCEDURE deleteDrug(IN id INT)
+CREATE PROCEDURE deleteDrug(IN id BIGINT)
 BEGIN
 DELETE 
 FROM `drug` 
@@ -511,6 +501,16 @@ DELIMITER ;
 
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS updateMeasureAsleep$$
+CREATE PROCEDURE updateMeasureAsleep(IN idMeasure BIGINT, IN asleep BIT)
+BEGIN
+UPDATE `measurement` SET `sleep` = asleep
+WHERE `idMeasurement` = idMeasure;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
 DROP PROCEDURE IF EXISTS updateInvestigation$$
 CREATE PROCEDURE updateInvestigation(IN id BIGINT, IN name_ VARCHAR(45), IN creationdate_ DATETIME, IN comment_ TEXT)
 BEGIN
@@ -554,6 +554,26 @@ SET `login` = login_,
 	`name` = name_,
 	`rol` = rol 
 WHERE idUser = idUsr;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS disableUser$$
+CREATE PROCEDURE disableUser(IN userid BIGINT)
+BEGIN
+UPDATE `user` 
+SET `enabled` = 0
+WHERE (`idUser` = userid);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS enableUser$$
+CREATE PROCEDURE enableUser(IN userid BIGINT)
+BEGIN
+UPDATE `user` 
+SET `enabled` = 1
+WHERE (`idUser` = userid);
 END$$
 DELIMITER ;
 

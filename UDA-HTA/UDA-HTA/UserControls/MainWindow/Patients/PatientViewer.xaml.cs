@@ -247,6 +247,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             TabReportInfo.SetReport(_report);
             TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
             TabReportSummary.SetReport(_report);
+            TabReportData.SetReport(_report);
+            TabOverLimit.SetReport(_report);
             TabPressureProfile.SetReport(_report);
         }
 

@@ -17,7 +17,7 @@ namespace BussinessLogic
     public class InvestigationManagement
     {
         //Obtiene la investigacion 'id'
-        public Investigation GetInvestigation(int id)
+        public Investigation GetInvestigation(long id)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             var investigation = uda.GetInvestigation(id);
@@ -51,13 +51,13 @@ namespace BussinessLogic
             uda.editInvestigation(investigation);
         }
 
-        public void AddReportToInvestigation(long idReport, long idPatient, int idInvestigation)
+        public void AddReportToInvestigation(long idReport, long idPatient, long idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             uda.addReportToInvestigation(idReport, idPatient, idInvestigation);
         }
 
-        public void DeleteReportFromInvestigation(Report report, int idInvestigation)
+        public void DeleteReportFromInvestigation(Report report, long idInvestigation)
         {
             UdaHtaDataAccess uda = new UdaHtaDataAccess();
             uda.deleteReportFromInvestigation(report.Patient.UdaId.Value, report.UdaId.Value, idInvestigation);

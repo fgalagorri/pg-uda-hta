@@ -14,7 +14,7 @@ values ('Antihipertensivos'),
 INSERT INTO `udahta_db`.`drug` (`name`, `active`, `drugtype_idDrugType`)
 VALUES ('Nisirol', 'Lisinopril', 1),
 		('Medicamento1', 'Activo1', 2),
-		('Medicamento1', 'Activo2', 3),
+		('Medicamento1', 'Activo2', 3);
 
 
 insert into limitmeasure(`maxdiasday`,`maxdiasnight`,`maxdiastotal`, `maxsysday`,`maxsysnight`,
