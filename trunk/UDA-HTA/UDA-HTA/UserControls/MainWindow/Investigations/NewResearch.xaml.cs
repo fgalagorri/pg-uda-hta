@@ -21,6 +21,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             if (investigation != null)
             {
                 //Editar
+                _investigation = investigation;
                 txtName.Text = investigation.Name;
                 txtComment.Text = investigation.Comment;
                 dpDate.SelectedDate = investigation.CreationDate;
