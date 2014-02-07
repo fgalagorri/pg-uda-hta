@@ -3293,7 +3293,7 @@ namespace BussinessLogic
             RunProperties runProperties16 = new RunProperties();
             Text text40 = new Text();
             // Cantidad total de medidas
-            var cantMeasureTotal = report.Measures.Count;
+            var cantMeasureTotal = report.Measures.Count(m => !m.Retry);
             text40.Text = cantMeasureTotal.ToString();
 
             run40.AppendChild(runProperties16);
@@ -3330,7 +3330,7 @@ namespace BussinessLogic
             RunProperties runProperties21 = new RunProperties();
             Text text45 = new Text();
             //Cantidad de medidas durante el dia
-            var cantMeasureDay = report.Measures.Count(m => !m.Asleep.Value);
+            var cantMeasureDay = report.Measures.Count(m => m.Asleep.HasValue && !m.Asleep.Value && !m.Retry);
             text45.Text = cantMeasureDay.ToString();
 
             run45.AppendChild(runProperties21);
@@ -3367,7 +3367,7 @@ namespace BussinessLogic
             RunProperties runProperties26 = new RunProperties();
             Text text50 = new Text();
             //Cantidad medidas durante la noche
-            var cantMeasureNight = report.Measures.Count(m => m.Asleep.Value);
+            var cantMeasureNight = report.Measures.Count(m => m.Asleep.HasValue && m.Asleep.Value && !m.Retry);
             text50.Text = cantMeasureNight.ToString();
 
             run50.AppendChild(runProperties26);
@@ -3446,7 +3446,7 @@ namespace BussinessLogic
             RunProperties runProperties30 = new RunProperties();
             Text text54 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Cantidad total de medidas validas
-            var cantValidTot = report.Measures.Count(m => m.Valid);
+            var cantValidTot = report.Measures.Count(m => m.Valid && m.IsEnabled);
             text54.Text = cantValidTot.ToString();
 
             run54.AppendChild(runProperties30);
@@ -3483,7 +3483,8 @@ namespace BussinessLogic
             RunProperties runProperties33 = new RunProperties();
             Text text57 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Cantidad de medidas validas tomadas durante el dia
-            var cantValidDay = report.Measures.Count(m => (m.Valid && (bool)(!m.Asleep)));
+            var cantValidDay = report.Measures
+                                     .Count(m => m.Valid && m.IsEnabled && m.Asleep.HasValue && !m.Asleep.Value);
             text57.Text = cantValidDay.ToString();
 
             run57.AppendChild(runProperties33);
@@ -3520,7 +3521,8 @@ namespace BussinessLogic
             RunProperties runProperties36 = new RunProperties();
             Text text60 = new Text();
             //Cantidad de medidas validas tomadas durante la noche
-            var cantValidNight = report.Measures.Count(m => m.Valid && m.Asleep.Value);
+            var cantValidNight = report.Measures
+                                       .Count(m => m.Valid && m.IsEnabled && m.Asleep.HasValue && m.Asleep.Value);
             text60.Text = cantValidNight.ToString();
 
             run60.AppendChild(runProperties36);
@@ -3599,8 +3601,7 @@ namespace BussinessLogic
             RunProperties runProperties38 = new RunProperties();
             Text text62 = new Text();
             //Porcentaje de medidas validas totales
-            var percentageTotal = (cantValidTot * 100) / cantMeasureTotal;
-            text62.Text = percentageTotal.ToString();
+            text62.Text = cantMeasureTotal != 0 ? (cantValidTot/(double)cantMeasureTotal).ToString("P1") : "-";
 
             run62.AppendChild(runProperties38);
             run62.AppendChild(text62);
@@ -3636,8 +3637,7 @@ namespace BussinessLogic
             RunProperties runProperties39 = new RunProperties();
             Text text63 = new Text();
             //Porcentage de medidas validas durante el dia
-            var percentageDay = (cantValidDay * 100) / cantMeasureDay;
-            text63.Text = percentageDay.ToString();
+            text63.Text = cantMeasureDay != 0 ? (cantValidDay / (double)cantMeasureDay).ToString("P1") : "-";
 
             run63.AppendChild(runProperties39);
             run63.AppendChild(text63);
@@ -3673,8 +3673,7 @@ namespace BussinessLogic
             RunProperties runProperties43 = new RunProperties();
             Text text67 = new Text();
             //Porcentaje de medidas validas durante la noche
-            var percentageNight = (cantValidNight * 100) / cantMeasureNight;
-            text67.Text = percentageNight.ToString();
+            text67.Text = cantMeasureNight != 0 ? (cantValidNight / (double)cantMeasureNight).ToString("P1") : "-";
 
             run67.AppendChild(runProperties43);
             run67.AppendChild(text67);
@@ -3797,7 +3796,7 @@ namespace BussinessLogic
             RunProperties runProperties47 = new RunProperties();
             Text text71 = new Text();
             //Promedio total de sistolica
-            text71.Text = report.SystolicTotalAvg.ToString();
+            text71.Text = report.SystolicTotalAvg.HasValue? report.SystolicTotalAvg.Value.ToString() : "-";
 
             run71.AppendChild(runProperties47);
             run71.AppendChild(text71);
@@ -3833,7 +3832,7 @@ namespace BussinessLogic
             RunProperties runProperties54 = new RunProperties();
             Text text78 = new Text();
             //Promedio dia sistolica
-            text78.Text = report.SystolicDayAvg.ToString();
+            text78.Text = report.SystolicDayAvg.HasValue ? report.SystolicDayAvg.ToString() : "-";
 
             run78.AppendChild(runProperties54);
             run78.AppendChild(text78);
@@ -3869,7 +3868,7 @@ namespace BussinessLogic
             RunProperties runProperties61 = new RunProperties();
             Text text85 = new Text();
             //Promedio noche sistolica
-            text85.Text = report.SystolicNightAvg.ToString();
+            text85.Text = report.SystolicNightAvg.HasValue ? report.SystolicNightAvg.ToString() : "-";
 
             run85.AppendChild(runProperties61);
             run85.AppendChild(text85);
@@ -3947,7 +3946,7 @@ namespace BussinessLogic
             RunProperties runProperties67 = new RunProperties();
             Text text91 = new Text();
             //Promedio del total de medidas diastolicas
-            text91.Text = report.DiastolicTotalAvg.ToString();
+            text91.Text = report.DiastolicTotalAvg.HasValue ? report.DiastolicTotalAvg.Value.ToString() : "-";
 
             run91.AppendChild(runProperties67);
             run91.AppendChild(text91);
@@ -3983,7 +3982,7 @@ namespace BussinessLogic
             RunProperties runProperties74 = new RunProperties();
             Text text98 = new Text();
             //Promedio dia diastolica
-            text98.Text = report.DiastolicDayAvg.ToString();
+            text98.Text = report.DiastolicDayAvg.HasValue? report.DiastolicDayAvg.Value.ToString():"-";
 
             run98.AppendChild(runProperties74);
             run98.AppendChild(text98);
@@ -4019,7 +4018,7 @@ namespace BussinessLogic
             RunProperties runProperties81 = new RunProperties();
             Text text105 = new Text();
             //Promedio noche diastolica
-            text105.Text = report.DiastolicNightAvg.ToString();
+            text105.Text = report.DiastolicNightAvg.HasValue ? report.DiastolicNightAvg.Value.ToString() : "-";
 
             run105.AppendChild(runProperties81);
             run105.AppendChild(text105);
@@ -4097,7 +4096,7 @@ namespace BussinessLogic
             RunProperties runProperties87 = new RunProperties();
             Text text111 = new Text();
             //Promedio total tam
-            text111.Text = report.MiddleTotalAvg.ToString();
+            text111.Text = report.MiddleTotalAvg.HasValue ? report.MiddleTotalAvg.Value.ToString() : "-";
 
             run111.AppendChild(runProperties87);
             run111.AppendChild(text111);
@@ -4133,7 +4132,7 @@ namespace BussinessLogic
             RunProperties runProperties94 = new RunProperties();
             Text text118 = new Text();
             //Pormedio dia TAM
-            text118.Text = report.MiddleDayAvg.ToString();
+            text118.Text = report.MiddleDayAvg.HasValue ? report.MiddleDayAvg.Value.ToString() : "-";
 
             run118.AppendChild(runProperties94);
             run118.AppendChild(text118);
@@ -4169,7 +4168,7 @@ namespace BussinessLogic
             RunProperties runProperties101 = new RunProperties();
             Text text125 = new Text();
             //Promedio noche TAM
-            text125.Text = report.MiddleNightAvg.ToString();
+            text125.Text = report.MiddleNightAvg.HasValue ? report.MiddleNightAvg.ToString() : "-";
 
             run125.AppendChild(runProperties101);
             run125.AppendChild(text125);
@@ -4247,7 +4246,7 @@ namespace BussinessLogic
             RunProperties runProperties107 = new RunProperties();
             Text text131 = new Text();
             //Pormedio total frecuencia cardiaca
-            text131.Text = report.HeartRateTotalAvg.ToString();
+            text131.Text = report.HeartRateTotalAvg.HasValue ? report.HeartRateTotalAvg.ToString() : "-";
 
             run131.AppendChild(runProperties107);
             run131.AppendChild(text131);
@@ -4282,7 +4281,7 @@ namespace BussinessLogic
             RunProperties runProperties114 = new RunProperties();
             Text text138 = new Text();
             //Promedio dia frecuencia cardiaca
-            text138.Text = report.HeartRateDayAvg.ToString();
+            text138.Text = report.HeartRateDayAvg.HasValue ? report.HeartRateDayAvg.ToString() : "-";
 
             run138.AppendChild(runProperties114);
             run138.AppendChild(text138);
@@ -4318,7 +4317,7 @@ namespace BussinessLogic
             RunProperties runProperties121 = new RunProperties();
             Text text145 = new Text();
             //Promedio noche frecuencia cardiaca
-            text145.Text = report.HeartRateNightAvg.ToString();
+            text145.Text = report.HeartRateNightAvg.HasValue ? report.HeartRateNightAvg.ToString() : "-";
 
             run145.AppendChild(runProperties121);
             run145.AppendChild(text145);
@@ -4441,7 +4440,7 @@ namespace BussinessLogic
             RunProperties runProperties132 = new RunProperties();
             Text text156 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar total sistolica 
-            text156.Text = report.StandardDeviationSysTotal.ToString();
+            text156.Text = report.StandardDeviationSysTotal.HasValue ? report.StandardDeviationSysTotal.Value.ToString("F1") : "-";
 
             run156.AppendChild(runProperties132);
             run156.AppendChild(text156);
@@ -4477,7 +4476,7 @@ namespace BussinessLogic
             RunProperties runProperties137 = new RunProperties();
             Text text161 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar sistolica del dia
-            text161.Text = report.StandardDeviationSysDay.ToString();
+            text161.Text = report.StandardDeviationSysDay.HasValue ? report.StandardDeviationSysDay.Value.ToString("F1") : "-";
 
             run161.AppendChild(runProperties137);
             run161.AppendChild(text161);
@@ -4513,7 +4512,7 @@ namespace BussinessLogic
             RunProperties runProperties142 = new RunProperties();
             Text text166 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desvacion estandar noche sistolica
-            text166.Text = report.StandardDeviationSysNight.ToString();
+            text166.Text = report.StandardDeviationSysNight.HasValue ? report.StandardDeviationSysNight.Value.ToString("F1") : "-";
 
             run166.AppendChild(runProperties142);
             run166.AppendChild(text166);
@@ -4591,7 +4590,9 @@ namespace BussinessLogic
             RunProperties runProperties146 = new RunProperties();
             Text text170 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //desviacion estandar diastolica total
-            text170.Text = report.StandardDeviationDiasTotal.ToString();
+            text170.Text = report.StandardDeviationDiasTotal.HasValue
+                               ? report.StandardDeviationDiasTotal.Value.ToString("F1")
+                               : "-";
 
             run170.AppendChild(runProperties146);
             run170.AppendChild(text170);
@@ -4627,7 +4628,9 @@ namespace BussinessLogic
             RunProperties runProperties151 = new RunProperties();
             Text text175 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar dia diastolica
-            text175.Text = report.StandardDeviationDiasDay.ToString();
+            text175.Text = report.StandardDeviationDiasDay.HasValue
+                               ? report.StandardDeviationDiasDay.Value.ToString("F1")
+                               : "-";
 
             run175.AppendChild(runProperties151);
             run175.AppendChild(text175);
@@ -4663,7 +4666,9 @@ namespace BussinessLogic
             RunProperties runProperties156 = new RunProperties();
             Text text180 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar noche diastolica
-            text180.Text = report.StandardDeviationDiasNight.ToString();
+            text180.Text = report.StandardDeviationDiasNight.HasValue
+                               ? report.StandardDeviationDiasNight.Value.ToString("F1")
+                               : "-";
 
             run180.AppendChild(runProperties156);
             run180.AppendChild(text180);
@@ -4741,7 +4746,9 @@ namespace BussinessLogic
             RunProperties runProperties160 = new RunProperties();
             Text text184 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar total TAM
-            text184.Text = report.StandardDeviationTamTotal.ToString();
+            text184.Text = report.StandardDeviationTamTotal.HasValue
+                               ? report.StandardDeviationTamTotal.Value.ToString("F1")
+                               : "-";
 
             run184.AppendChild(runProperties160);
             run184.AppendChild(text184);
@@ -4777,7 +4784,9 @@ namespace BussinessLogic
             RunProperties runProperties165 = new RunProperties();
             Text text189 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar dia TAM
-            text189.Text = report.StandardDeviationTamDay.ToString();
+            text189.Text = report.StandardDeviationTamDay.HasValue
+                               ? report.StandardDeviationTamDay.Value.ToString("F1")
+                               : "-";
 
             run189.AppendChild(runProperties165);
             run189.AppendChild(text189);
@@ -4813,7 +4822,9 @@ namespace BussinessLogic
             RunProperties runProperties170 = new RunProperties();
             Text text194 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar noche TAM
-            text194.Text = report.StandardDeviationTamNight.ToString();
+            text194.Text = report.StandardDeviationTamNight.HasValue
+                               ? report.StandardDeviationTamNight.Value.ToString("F1")
+                               : "-";
 
             run194.AppendChild(runProperties170);
             run194.AppendChild(text194);
@@ -4891,7 +4902,9 @@ namespace BussinessLogic
             RunProperties runProperties174 = new RunProperties();
             Text text198 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar total frecuencia cardiaca
-            text198.Text = report.StandardDeviationHeartRateTotal.ToString();
+            text198.Text = report.StandardDeviationHeartRateTotal.HasValue
+                               ? report.StandardDeviationHeartRateTotal.Value.ToString("F1")
+                               : "-";
 
             run198.AppendChild(runProperties174);
             run198.AppendChild(text198);
@@ -4927,7 +4940,9 @@ namespace BussinessLogic
             RunProperties runProperties179 = new RunProperties();
             Text text203 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar frecuencia cardiaca dia
-            text203.Text = report.StandardDeviationHeartRateDay.ToString();
+            text203.Text = report.StandardDeviationHeartRateDay.HasValue
+                               ? report.StandardDeviationHeartRateDay.Value.ToString("F1")
+                               : "-";
 
             run203.AppendChild(runProperties179);
             run203.AppendChild(text203);
@@ -4963,7 +4978,9 @@ namespace BussinessLogic
             RunProperties runProperties184 = new RunProperties();
             Text text208 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Desviacion estandar frecuencia cardiaca noche
-            text208.Text = report.StandardDeviationHeartRateNight.ToString();
+            text208.Text = report.StandardDeviationHeartRateNight.HasValue
+                               ? report.StandardDeviationHeartRateNight.Value.ToString("F1")
+                               : "-";
 
             run208.AppendChild(runProperties184);
             run208.AppendChild(text208);
@@ -5121,13 +5138,21 @@ namespace BussinessLogic
             paragraphProperties64.AppendChild(justification53);
             paragraphProperties64.AppendChild(paragraphMarkRunProperties63);
 
+            // Medidas válidas para los cálculos
+            var valid = report.Measures.Where(m => m.Valid && m.IsEnabled).ToList();
+
             Run run221 = new Run();
 
             RunProperties runProperties197 = new RunProperties();
             Text text221 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite sistolica
             // val lim sis
-            text221.Text = (report.Measures.Count(m => m.Asleep.Value && m.Systolic > limits.MaxSysDay)*100/cantValidDay).ToString();
+            text221.Text = cantValidDay != 0
+                               ? (valid.Count(m => m.Asleep.HasValue
+                                                   && !m.Asleep.Value
+                                                   && m.Systolic >= limits.HiSysDay)
+                                  /(double) cantValidDay).ToString("P1")
+                               : "-";
 
             run221.AppendChild(runProperties197);
             run221.AppendChild(text221);
@@ -5164,7 +5189,12 @@ namespace BussinessLogic
             Text text228 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite sistolica
             //val lim noche sis
-            text228.Text = (report.Measures.Count(m => m.Asleep.Value && m.Systolic > limits.MaxSysNight)*100/cantValidNight).ToString();
+            text228.Text = cantValidNight != 0
+                               ? (valid.Count(m => m.Asleep.HasValue
+                                                   && m.Asleep.Value
+                                                   && m.Systolic >= limits.HiSysNight)
+                                  /(double) cantValidNight).ToString("P1")
+                               : "-";
 
             run228.AppendChild(runProperties204);
             run228.AppendChild(text228);
@@ -5279,7 +5309,13 @@ namespace BussinessLogic
             Text text241 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite diastolica
             // val lim dia dias
-            text241.Text = (report.Measures.Count(m => m.Asleep.Value && m.Diastolic > limits.MaxDiasDay)*100/cantValidDay).ToString();
+            text241.Text = cantValidDay != 0
+                               ? (valid.Count(m => m.Asleep.HasValue
+                                                   && !m.Asleep.Value
+                                                   && m.Diastolic >= limits.HiDiasDay)
+                                  /(double) cantValidDay)
+                                     .ToString("P1")
+                               : "-";
 
             run241.AppendChild(runProperties217);
             run241.AppendChild(text241);
@@ -5316,7 +5352,13 @@ namespace BussinessLogic
             Text text248 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Porcentaje de valores por encima del limite sistolica
             // val lim noche dias
-            text248.Text = (report.Measures.Count(m => m.Asleep.Value && m.Diastolic > limits.MaxDiasNight)*100/cantValidNight).ToString();
+            text248.Text = cantValidNight != 0
+                               ? (valid.Count(m => m.Asleep.HasValue
+                                                   && m.Asleep.Value
+                                                   && m.Diastolic >= limits.HiDiasNight)
+                                  /(double) cantValidNight)
+                                     .ToString("P1")
+                               : "-";
 
             run248.AppendChild(runProperties224);
             run248.AppendChild(text248);
@@ -5475,7 +5517,7 @@ namespace BussinessLogic
             RunProperties runProperties239 = new RunProperties();
             Text text263 = new Text();
             //Sistolica maxima del dia
-            text263.Text = report.SystolicDayMax.ToString();
+            text263.Text = report.SystolicDayMax.HasValue ? report.SystolicDayMax.ToString() : "-";
 
             run263.AppendChild(runProperties239);
             run263.AppendChild(text263);
@@ -5511,7 +5553,7 @@ namespace BussinessLogic
             RunProperties runProperties246 = new RunProperties();
             Text text270 = new Text();
             //Sistolica maxima de la noche
-            text270.Text = report.SystolicNightMax.ToString();
+            text270.Text = report.SystolicNightMax.HasValue ? report.SystolicNightMax.ToString() : "-";
 
             run270.AppendChild(runProperties246);
             run270.AppendChild(text270);
@@ -5625,7 +5667,7 @@ namespace BussinessLogic
             RunProperties runProperties259 = new RunProperties();
             Text text283 = new Text();
             //Diastolica maxima del dia
-            text283.Text = report.DiastolicDayMax.ToString();
+            text283.Text = report.DiastolicDayMax.HasValue ? report.DiastolicDayMax.ToString() : "-";
 
             run283.AppendChild(runProperties259);
             run283.AppendChild(text283);
@@ -5661,7 +5703,7 @@ namespace BussinessLogic
             RunProperties runProperties266 = new RunProperties();
             Text text290 = new Text();
             //Diastolica maxima de la noche
-            text290.Text = report.DiastolicNightMax.ToString();
+            text290.Text = report.DiastolicNightMax.HasValue ? report.DiastolicNightMax.ToString() : "-";
 
             run290.AppendChild(runProperties266);
             run290.AppendChild(text290);
@@ -5821,7 +5863,7 @@ namespace BussinessLogic
             RunProperties runProperties281 = new RunProperties();
             Text text305 = new Text();
             //Sistole minimo dia
-            text305.Text = report.SystolicDayMin.ToString();
+            text305.Text = report.SystolicDayMin.HasValue ? report.SystolicDayMin.ToString() : "-";
 
             run305.AppendChild(runProperties281);
             run305.AppendChild(text305);
@@ -5857,7 +5899,7 @@ namespace BussinessLogic
             RunProperties runProperties288 = new RunProperties();
             Text text312 = new Text();
             //Sistole minimo noche
-            text312.Text = report.SystolicNightMin.ToString();
+            text312.Text = report.SystolicNightMin.HasValue ? report.SystolicNightMin.ToString() : "-";
 
             run312.AppendChild(runProperties288);
             run312.AppendChild(text312);
@@ -5989,7 +6031,7 @@ namespace BussinessLogic
             RunProperties runProperties301 = new RunProperties();
             Text text325 = new Text();
             //Diastolica minima dia
-            text325.Text = report.DiastolicDayMin.ToString();
+            text325.Text = report.DiastolicDayMin.HasValue ? report.DiastolicDayMin.ToString() : "-";
 
             run325.AppendChild(runProperties301);
             run325.AppendChild(text325);
@@ -6031,7 +6073,7 @@ namespace BussinessLogic
             RunProperties runProperties308 = new RunProperties();
             Text text332 = new Text();
             //Diastolica minima noche
-            text332.Text = report.DiastolicNightMin.ToString();
+            text332.Text = report.DiastolicNightMin.HasValue ? report.DiastolicNightMin.ToString() : "-";
 
             run332.AppendChild(runProperties308);
             run332.AppendChild(text332);
@@ -6083,7 +6125,7 @@ namespace BussinessLogic
 
             RunProperties runProperties313 = new RunProperties();
             Text text337 = new Text();
-            text337.Text = "Valores por encima del límite";
+            //text337.Text = "Valores por encima del límite";
 
             run337.AppendChild(runProperties313);
             run337.AppendChild(text337);
@@ -6234,8 +6276,7 @@ namespace BussinessLogic
             Run run340 = new Run();
             Text text340 = new Text();
             //Dipping sistolica
-            decimal dippingSys = Math.Round(((decimal)(report.SystolicDayAvg.Value - report.SystolicNightAvg.Value) / report.SystolicDayAvg.Value) * 100, 2);
-            text340.Text = dippingSys.ToString();
+            text340.Text = report.SystolicDipping.HasValue ? report.SystolicDipping.Value.ToString("P2") : "-";
 
             run340.AppendChild(text340);
 
@@ -6361,8 +6402,7 @@ namespace BussinessLogic
             Run run348 = new Run();
             Text text348 = new Text() { Space = SpaceProcessingModeValues.Preserve };
             //Dipping sistolica
-            decimal dippingDias = Math.Round(((decimal)(report.DiastolicDayAvg.Value - report.DiastolicNightAvg.Value) / report.DiastolicDayAvg.Value) * 100, 2);
-            text348.Text = dippingDias.ToString();
+            text348.Text = report.DiastolicDipping.HasValue ? report.DiastolicDipping.Value.ToString("P2") : "-";
 
             run348.AppendChild(text348);
 

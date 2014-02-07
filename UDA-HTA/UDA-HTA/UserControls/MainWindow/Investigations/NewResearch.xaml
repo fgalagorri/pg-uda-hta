@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Crear Investigacion" Height="350" Width="500">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <StackPanel Margin="5,15,5,15">
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" >
                 <TextBlock Height="23" Name="txtBlockInfo" Text="Por favor, complete los campos a continuacion para luego agregar reportes." HorizontalAlignment="Center" />
@@ -27,13 +31,12 @@
             <StackPanel>
                 <TextBlock Height="23" Name="txtBlockBlank2" Text="" />
             </StackPanel>
+        </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Padding="10,0" Name="btnAddReport" Click="btnAddReports_Click">Agregar Reportes</Button>
-                <TextBlock Height="23" Name="txtBlockBlank3" Text="    " />
-                <Button Padding="10,0" Name="btnCreate" Click="btnCreate_Click">Crear</Button>
-            </StackPanel>
-
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
+            <Button Padding="10,0" Name="btnAddReport" Click="btnAddReports_Click">Agregar Reportes</Button>
+            <TextBlock Height="23" Name="txtBlockBlank3" Text="    " />
+            <Button Padding="10,0" Name="btnCreate" Click="btnCreate_Click">Crear Investigación</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -222,35 +222,22 @@ namespace UDA_HTA
         {
             try
             {
+                Mouse.OverrideCursor = Cursors.AppStarting;
                 var pv = ContainerPatient.Content as PatientViewer;
                 if (pv != null)
                 {
                     pv.SelectTab(7);
                     pv.SelectTab(8);
 
-                    var report = pv.GetSelectedReport();
-                    string pathOverLimit = ConfigurationManager.AppSettings["GraphicOverLimit"];
-                    string pathPressPrfl = ConfigurationManager.AppSettings["GraphicPressurePrfl"];
-                    string pathReport = ConfigurationManager.AppSettings["PathExportHC"];
+                    var result = MessageBox.Show(
+                        "Se publicará el informe en el sistema central del Hospital. " +
+                        "Esta operación puede tardar algunos minutos. \nDesea continuar?",
+                        "Continuar con la publicación?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                    if (report != null && !String.IsNullOrWhiteSpace(pathOverLimit) &&
-                        !String.IsNullOrWhiteSpace(pathPressPrfl) && !String.IsNullOrWhiteSpace(pathReport))
+                    if (result == MessageBoxResult.Yes)
                     {
-                        var controller = GatewayController.GetInstance();
-                        var sepatator = pathReport.ElementAt(pathReport.Length - 1) == '\\' ? "" : "\\";
-                        pathReport += sepatator + report.BeginDate.Value.Year + "\\" + report.Patient.DocumentId + "\\";
-                        controller.CreateFolderIfNotExists(pathReport);
-                        pathReport += report.Patient.Surnames + "_" + report.Patient.Names + "_" +
-                                      report.BeginDate.Value.Year + report.BeginDate.Value.Month +
-                                      report.BeginDate.Value.Day + ".pdf";
-
-                        pv.GetChartImage(7);
-                        pv.GetChartImage(8);
-
-                        controller.ExportToPdf(report, true, true, true, true,
-                            pathOverLimit, pathPressPrfl, false, pathReport);
-
-                        controller.SetPathReportHC(report.UdaId.Value, pathReport);
+                        var exportWin = new ProgressExportHC(pv);
+                        exportWin.ShowDialog();
                     }
                 }
             }
