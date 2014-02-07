@@ -135,6 +135,9 @@
     <Compile Include="PatientMatchFound.xaml.cs">
       <DependentUpon>PatientMatchFound.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProgressExportHC.xaml.cs">
+      <DependentUpon>ProgressExportHC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportCreate.xaml.cs">
       <DependentUpon>ReportCreate.xaml</DependentUpon>
     </Compile>
@@ -268,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PatientMatchFound.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProgressExportHC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -565,6 +572,9 @@
   <ItemGroup>
     <Resource Include="Images\ribbonmenu_exit.png" />
     <Resource Include="Images\ribbonmenu_password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\exportHC_wait.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

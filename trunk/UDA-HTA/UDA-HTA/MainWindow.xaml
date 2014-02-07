@@ -58,19 +58,19 @@
                 </r:RibbonGroup>
             </r:RibbonTab>
 
-            <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion"> <!-- Visibility="Collapsed" -->
+            <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion">
                 <r:RibbonGroup Header="Investigaciones">
-                    <r:RibbonButton Name="btnNewResearch" Label="Nueva Investigación" LargeImageSource="/Images/ribbon_newResearch.png" Click="BtnNewResearch_OnClick"/>
-                    <r:RibbonButton Name="btnFindResearch" Label="Buscar Investigación" LargeImageSource="/Images/ribbon_findResearch.png" Click="BtnFindResearch_OnClick"/>
+                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" Click="BtnNewResearch_OnClick"/>
+                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_findResearch.png" Click="BtnFindResearch_OnClick"/>
                 </r:RibbonGroup>
 
                 <r:RibbonGroup Header="Edición">
-                    <r:RibbonButton Name="btnEditResearch" Label="Editar Investigación" LargeImageSource="/Images/ribbon_editResearch.png" Click="BtnEditResearch_OnClick"/>
-                    <r:RibbonButton Name="btnAddStudyResearch" Label="Agregar Reporte" LargeImageSource="/Images/ribbon_addReportResearch.png" Click="BtnAddReport_OnClick"/>
+                    <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_editResearch.png" Click="BtnEditResearch_OnClick"/>
+                    <r:RibbonButton Name="btnAddStudyResearch" Label="Agregar Registro" LargeImageSource="/Images/ribbon_addReportResearch.png" Click="BtnAddReport_OnClick"/>
                 </r:RibbonGroup>
 
                 <r:RibbonGroup Header="Exportar">
-                    <r:RibbonButton Name="btnExportXLS" Label="Exportar XLS" Click="ExportXLS"
+                    <r:RibbonButton Name="btnExportXLS" Label="Exportar XLSX" Click="ExportXLS"
                                     LargeImageSource="/Images/export_XLS.png" />
                 </r:RibbonGroup>
 
