@@ -22,6 +22,13 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
         public void SetReport(Report r)
         {
+            PieSysTot.DataContext = null;
+            PieSysDay.DataContext = null;
+            PieSysNight.DataContext = null;
+            PieDiasTot.DataContext = null;
+            PieDiasDay.DataContext = null;
+            PieDiasNight.DataContext = null;
+
             _limits = GatewayController.GetInstance().GetLimits();
 
             var valid = r.Measures.Where(m => m.Valid && m.IsEnabled

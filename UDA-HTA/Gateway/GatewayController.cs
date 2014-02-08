@@ -637,6 +637,12 @@ namespace Gateway
             return _loggedUser;
         }
 
+
+        public string GetUserRole()
+        {
+            return _loggedUser.Role;
+        }
+
     #endregion
 
 
@@ -691,6 +697,12 @@ namespace Gateway
                 throw new Exception("Alguno de los campos ingresados no es correcto");
                 
             }
+        }
+
+        public User GetUser(string login)
+        {
+            var um = new UserManagement();
+            return um.GetUser(login);
         }
 
         public ICollection<User> ListUsers(string name, string role, string login)

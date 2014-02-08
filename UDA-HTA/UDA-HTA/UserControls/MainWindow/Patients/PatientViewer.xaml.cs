@@ -64,7 +64,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 _report = _patient.ReportList.First(r => r.UdaId.Value.Equals(reportId));
 
                 TabPatient.SetPatientInfo(_patient);
-                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
+                TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
                 TabReportInfo.SetReport(_report);
                 ReportInfo.Visibility = Visibility.Visible;
                 TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
@@ -124,17 +124,17 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             int index = treePatient.Items.IndexOf(e.NewValue);
             if (index >= 0)
             {
-                container.btnEditDiagnosis.IsEnabled = true;
+                container.EnableDiagnosis();
                 container.btnExportReport.IsEnabled = true;
                 container.btnEditReport.IsEnabled = true;
-                container.btnPublish.IsEnabled = true;
+                container.EnablePublish();
 
                 _report = _patient.ReportList
                     .OrderByDescending(r => r.BeginDate)
                     .ElementAt(index);
                 _report.Patient = _patient;
 
-                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
+                TabCondition.SetInfo(_report.TemporaryData, _patient.Background);
                 TabReportInfo.SetReport(_report);
                 ReportInfo.Visibility = Visibility.Visible;
                 TabEvents.SetInfo(_report.Carnet.Efforts, _report.Carnet.Complications);
@@ -153,11 +153,12 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             }
             else
             {
-                container.btnEditDiagnosis.IsEnabled = false;
+                container.DisableDiagnosis();
                 container.btnExportReport.IsEnabled = false;
                 container.btnEditReport.IsEnabled = false;
-                container.btnPublish.IsEnabled = false;
+                container.DisablePublish();
 
+                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
                 if (!ReportPatient.IsSelected && !ReportCondition.IsSelected)
                     ReportPatient.IsSelected = true;
 
@@ -250,36 +251,6 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             TabReportData.SetReport(_report);
             TabOverLimit.SetReport(_report);
             TabPressureProfile.SetReport(_report);
-        }
-
-
-        // TODO VER SI BORRAR
-        private void ExportAsImage(Uri path, UserControl ctrl)
-        {
-            var transform = ctrl.LayoutTransform;
-            ctrl.LayoutTransform = null;
-
-            var size = new Size(ctrl.Width, ctrl.Height);
-            ctrl.Measure(size);
-            ctrl.Arrange(new Rect(size));
-
-            RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int) size.Width, (int) size.Height, 96d, 96d,
-                PixelFormats.Pbgra32);
-            renderBitmap.Render(ctrl);
-
-
-            using (FileStream outStream = new FileStream(path.LocalPath, FileMode.Create))
-            {
-                // Use png encoder for our data
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                // push the rendered bitmap to it
-                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
-                // save the data to the stream
-                encoder.Save(outStream);
-            }
-
-            // Restore previously saved layout
-            ctrl.LayoutTransform = transform;
         }
     }
 }

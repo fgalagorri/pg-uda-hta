@@ -14,7 +14,7 @@
 
             <TreeView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Eliminar" Click="DeleteReportFromResearch_OnClick"/>
+                    <MenuItem Header="Eliminar" Click="DeleteReportFromResearch_OnClick" />
                 </ContextMenu>
             </TreeView.ContextMenu>
 
@@ -38,7 +38,7 @@
                 </ContentControl>
             </TabItem>
 
-            <TabItem Name="Reports"  Header="Reportes Asociados" Visibility="Visible">
+            <TabItem Name="Reports"  Header="Registros Asociados" Visibility="Visible">
                 <ContentControl>
                     <investigations:ResearchViewerReportSummary x:Name="TabReports" />
                 </ContentControl>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,12 +18,14 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         private UDA_HTA.MainWindow container;
         private Investigation _investigation;
         private ICollection<Report> _lstReport;
+        private ICollection<long?> reportIds; 
 
         public AddReportsToResearch(Investigation investigation, UDA_HTA.MainWindow w)
         {
-            _investigation = investigation;
-
             InitializeComponent();
+            
+            _investigation = investigation;
+            reportIds = _investigation.LReports.Select(r => r.UdaId).ToList();
 
             buttonAdd.IsEnabled = false;
             container = w;
@@ -128,8 +131,13 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                     _lstReport = controller.ListFilteredReports(lowerAge, upperAge, sinceDate, untilDate, isSomker,
                                                                 isDiabetic, isHypertense,
                                                                 isDyslipidemic);
+
+                    // Filtro solo las que no se encuentran en la investigación
+                    _lstReport = _lstReport.Where(r => !reportIds.Contains(r.UdaId)).ToList();
+
                     quantTotal.Text = " " + _lstReport.Count.ToString();
                     grReports.DataContext = _lstReport;
+                    Mouse.OverrideCursor = null;
                 }
                 catch (Exception exception)
                 {
@@ -146,7 +154,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void grReports_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            buttonAdd.IsEnabled = true;
+            buttonAdd.IsEnabled = ((DataGrid)sender).SelectedItems.Count > 0;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -159,6 +167,8 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 {
                     controller.AddReportToInvestigation(selectedItem.UdaId.Value, selectedItem.Patient.UdaId.Value,
                                                         _investigation.IdInvestigation);
+
+                    reportIds.Add(selectedItem.UdaId.Value);
                 }
 
                 if (MessageBox.Show("Desea agregar más reportes?", "Confirmacion", MessageBoxButton.YesNo) ==
