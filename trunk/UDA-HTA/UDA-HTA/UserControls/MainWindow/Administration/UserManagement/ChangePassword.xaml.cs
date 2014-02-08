@@ -22,7 +22,7 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             {
                 Mouse.OverrideCursor = Cursors.Wait;
                 controller.ChangePassword(txtOldPassword.Password, txtNewPassword.Password, txtNewPswdRepeat.Password);
-                this.Close();
+                Close();
             }
             catch (Exception exception)
             {
@@ -32,6 +32,8 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                 txtNewPswdRepeat.Password = "";
                 lblError.Content = exception.Message;
             }
+
+            Mouse.OverrideCursor = null;
         }
     }
 }

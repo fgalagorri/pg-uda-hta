@@ -66,6 +66,9 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>UDAHTA.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework">
@@ -123,7 +126,6 @@
     </Compile>
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
-    <Compile Include="Helpers\RichTextboxAssistant.cs" />
     <Compile Include="Helpers\UpdateReportHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="NewReportFinder.xaml.cs">
@@ -575,6 +577,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\exportHC_wait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UDAHTA.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\UDAHTA.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

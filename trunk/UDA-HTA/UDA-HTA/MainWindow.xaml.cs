@@ -24,6 +24,7 @@ namespace UDA_HTA
         public MainWindow(User usr)
         {
             InitializeComponent();
+            txtUserName.Text = usr.Name;
 
             if (usr.Role.Equals("Administrador"))
             {
@@ -62,17 +63,13 @@ namespace UDA_HTA
 
             btnEditPatient.IsEnabled = false;
             btnEditDiagnosis.IsEnabled = false;
-            btnEditDiagnosis.IsEnabled = false;
             btnExportReport.IsEnabled = false;
             btnEditReport.IsEnabled = false;
             btnPublish.IsEnabled = false;
-
             btnAddStudyResearch.IsEnabled = false;
             btnEditResearch.IsEnabled = false;
             btnExportXLS.IsEnabled = false;
-
             btnEditDrugs.IsEnabled = false;
-
             btnEditDoctor.IsEnabled = false;
         }
 
@@ -450,6 +447,7 @@ namespace UDA_HTA
 
         #endregion
 
+        #region UI
 
         private void ExitApplication(object sender, RoutedEventArgs e)
         {
@@ -465,5 +463,30 @@ namespace UDA_HTA
                 e.Cancel = true;
         }
 
+
+        public void EnableDiagnosis()
+        {
+            var gc = GatewayController.GetInstance();
+            if (gc.GetUserRole() != "Tecnico")
+                btnEditDiagnosis.IsEnabled = true;
+        }
+        public void DisableDiagnosis()
+        {
+            btnEditDiagnosis.IsEnabled = false;
+        }
+
+        public void EnablePublish()
+        {
+            var gc = GatewayController.GetInstance();
+            if (gc.GetUserRole() != "Tecnico")
+                btnPublish.IsEnabled = true;
+        }
+        public void DisablePublish()
+        {
+            btnPublish.IsEnabled = false;
+        }
+
+
+        #endregion
     }
 }

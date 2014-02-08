@@ -24,10 +24,20 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                 Mouse.OverrideCursor = Cursors.Wait;
                 if (IsValid())
                 {
-                    controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
-                    Mouse.OverrideCursor = null;
-                    MessageBox.Show("El usuario ha sido creado correctamente", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();                    
+                    var user = controller.GetUser(txtLogin.Text);
+                    if (user != null)
+                    {
+                        MessageBox.Show("El usuario '" + txtLogin.Text + "' ya existe.", "Error",
+                                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        controller.CreateUser(txtUserName.Text, txtLogin.Text, comboRole.Text, passwordBox.Password);
+                        Mouse.OverrideCursor = null;
+                        MessageBox.Show("El usuario ha sido creado correctamente", "Informacion", MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+                        Close();
+                    }
                 }
                 else
                 {

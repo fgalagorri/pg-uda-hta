@@ -16,7 +16,7 @@
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/tree_user.png" />
-                        <TextBlock Name="lblTreeName" />
+                        <TextBlock Name="lblTreeName" Margin="10,0" />
                     </StackPanel>
                 </TreeViewItem.Header>
                 <TreeViewItem.Items>

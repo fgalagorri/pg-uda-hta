@@ -25,7 +25,11 @@
                     <r:RibbonApplicationMenuItem Header="Cambiar Contraseña" Click="ChangePassword" 
                                                  ImageSource="/Images/ribbonmenu_password.png"  />
                     <r:RibbonApplicationMenu.FooterPaneContent>
-                        <StackPanel HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" IsEnabled="False">
+                                <TextBlock VerticalAlignment="Center" Style="{StaticResource label}">Usuario:</TextBlock>
+                                <TextBlock Name="txtUserName" Margin="15,0" />
+                            </StackPanel>
                             <r:RibbonButton Content="Salir" Label="Salir" Click="ExitApplication"
                                             SmallImageSource="/Images/ribbonmenu_exit.png" />
                         </StackPanel>
@@ -88,7 +92,6 @@
                     <r:RibbonButton Name="btnEditDoctor" Label="Editar Usuario" LargeImageSource="/Images/ribbon_editDoctor.png" Click="EditUser"/>
                 </r:RibbonGroup>
             </r:RibbonTab>
-
         </r:Ribbon>
 
         <ContentControl Name="ContainerPatient" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />

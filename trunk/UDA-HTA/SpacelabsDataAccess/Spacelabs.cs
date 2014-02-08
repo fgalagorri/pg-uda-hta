@@ -249,22 +249,27 @@ namespace SpacelabsDataAccess
                 sleepEnd = report.Carnet.SleepTimeEnd.Value.TimeOfDay;
             }
 
-            var measures = from d in _db.tblAbpTestRawData
-                           where d.TestId == testId
-                           orderby d.ReadingTime
-                           select new Measurement
-                           {
-                               Time = d.ReadingTime.Value,
-                               Systolic = d.Systolic.Value,
-                               Diastolic = d.Diastolic.Value,
-                               Middle = d.MAP.Value,
-                               HeartRate = d.HR.Value,
-                               Asleep = sleepTimeValid && d.ReadingTime.HasValue
-                                 && IsAsleep(sleepStart, sleepEnd, d.ReadingTime.Value),
-                               Valid = d.EventCode.HasValue && d.EventCode.Value == 0,
-                               IsEnabled = d.EventCode.HasValue && d.EventCode.Value == 0,
-                               Retry = d.ReadingCode == 2
-                           };
+            var measures = (from d in _db.tblAbpTestRawData
+                            where d.TestId == testId
+                            orderby d.ReadingTime
+                            select new Measurement
+                                {
+                                    Time = d.ReadingTime.Value,
+                                    Systolic = d.Systolic.Value,
+                                    Diastolic = d.Diastolic.Value,
+                                    Middle = d.MAP.Value,
+                                    HeartRate = d.HR.Value,
+                                    Asleep = false,
+                                    Valid = d.EventCode.HasValue && d.EventCode.Value == 0,
+                                    IsEnabled = d.EventCode.HasValue && d.EventCode.Value == 0,
+                                    Retry = d.ReadingCode == 2
+                                }).ToList();
+
+            foreach (var m in measures)
+            {
+                m.Asleep = sleepTimeValid && m.Time.HasValue
+                           && IsAsleep(sleepStart, sleepEnd, m.Time.Value);
+            }
 
             return measures.ToList();
         }
