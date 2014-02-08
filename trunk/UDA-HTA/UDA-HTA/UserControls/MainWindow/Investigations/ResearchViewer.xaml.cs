@@ -86,22 +86,26 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
         {
 
             Mouse.OverrideCursor = Cursors.Wait;
-            int index = treeInvestigation.Items.IndexOf(e.NewValue);
-
-            if (index >= 0)
+            if (_investigation.LReports.Count > 0)
             {
-                _report = _investigation.LReports
-                                  .OrderByDescending(r => r.BeginDate)
-                                  .ElementAt(index);
+                int index = treeInvestigation.Items.IndexOf(e.NewValue);
 
-                TabReports.SetReportList(_investigation.LReports);
-                TabReportInfo.SetReport(_report);
-                ReportInfo.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                _report = null;
-                ReportInfo.Visibility = Visibility.Collapsed;
+                if (index >= 0)
+                {
+                    _report = _investigation.LReports
+                                      .OrderByDescending(r => r.BeginDate)
+                                      .ElementAt(index);
+
+                    TabReports.SetReportList(_investigation.LReports);
+                    TabReportInfo.SetReport(_report);
+                    ReportInfo.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    _report = null;
+                    ReportInfo.Visibility = Visibility.Collapsed;
+                }
+                
             }
             Mouse.OverrideCursor = null;
           
@@ -110,30 +114,32 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void DeleteReportFromResearch_OnClick(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem) e.OriginalSource;
-            TreeViewItem selected = (TreeViewItem) TreeReports.SelectedValue;
-            int index = treeInvestigation.Items.IndexOf(selected);
-            ICollection<Report> lstReports = _investigation.LReports.OrderByDescending(r => r.BeginDate).ToList();
-
-            _report = lstReports.ElementAt(index);
-            try
+            Mouse.OverrideCursor = Cursors.Wait; 
+            if (_investigation.LReports.Count > 0)
             {
-                Mouse.OverrideCursor = Cursors.Wait;
-                GatewayController.GetInstance().DeleteReportFromResearch(_report, _investigation);
+                TreeViewItem selected = (TreeViewItem)TreeReports.SelectedValue;
+                int index = treeInvestigation.Items.IndexOf(selected);
+                ICollection<Report> lstReports = _investigation.LReports.OrderByDescending(r => r.BeginDate).ToList();
 
-            lstReports.Remove(_report);
-            _investigation.LReports = lstReports;
-            treeInvestigation.Items.Remove(selected);
-            TabInvestigation.SetInformationInfo(_investigation);
-            TabReports.SetReportList(_investigation.LReports);
+                _report = lstReports.ElementAt(index);
+                try
+                {
+                    GatewayController.GetInstance().DeleteReportFromResearch(_report, _investigation);
 
-                Mouse.OverrideCursor = null;
+                    lstReports.Remove(_report);
+                    _investigation.LReports = lstReports;
+                    treeInvestigation.Items.Remove(selected);
+                    TabInvestigation.SetInformationInfo(_investigation);
+                    TabReports.SetReportList(_investigation.LReports);
+                }
+                catch (Exception exception)
+                {
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
             }
-            catch (Exception exception)
-            {
-                Mouse.OverrideCursor = null;
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            Mouse.OverrideCursor = null;
         }
 
 

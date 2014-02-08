@@ -21,7 +21,6 @@ namespace UDA_HTA.UserControls.ReportCreation
         private ICollection<Medication> _lstMedication;
         private ICollection<MedicalRecord> _lstBackground;
         private ICollection<Drug> _drugs;
-        private Patient _patient;
         private bool _isEdit;
 
         public PatientCondition()
@@ -48,11 +47,11 @@ namespace UDA_HTA.UserControls.ReportCreation
             autoMedication.DataContext = _drugs;
 
             // Datos posiblemente modificados
-            if (r.TemporaryData != null)
+            if (r.Patient.LastTempData != null)
             {
-                _lstMedication = r.TemporaryData.Medication ?? new List<Medication>();
+                _lstMedication = r.Patient.LastTempData.Medication ?? new List<Medication>();
 
-                var t = r.TemporaryData;
+                var t = r.Patient.LastTempData;
                 txtWeight.Text = t.Weight.ToString();
                 txtHeight.Text = t.Height.HasValue ? t.Height.Value.ToString("F") : "";
                 _imc = t.BodyMassIndex.HasValue ? t.BodyMassIndex.Value : -1;
@@ -67,11 +66,33 @@ namespace UDA_HTA.UserControls.ReportCreation
             }
             else
             {
-                chkSmoker.IsChecked = false;
-                chkDiabetic.IsChecked = false;
-                chkDyslipidemia.IsChecked = false;
-                chkHypertense.IsChecked = false;
-                _lstMedication = new List<Medication>();
+                if (r.TemporaryData != null)
+                {
+                    _lstMedication = r.TemporaryData.Medication ?? new List<Medication>();
+
+                    var rt = r.TemporaryData;
+                    txtWeight.Text = rt.Weight.ToString();
+                    txtHeight.Text = rt.Height.HasValue ? rt.Height.Value.ToString("F") : "";
+                    _imc = rt.BodyMassIndex.HasValue ? rt.BodyMassIndex.Value : -1;
+                    lblImc.Text = rt.BodyMassIndex.ToString();
+                    txtFat.Text = rt.FatPercentage.ToString();
+                    txtMuscle.Text = rt.MusclePercentage.ToString();
+                    txtKcal.Text = rt.Kcal.ToString();
+                    chkSmoker.IsChecked = rt.Smoker ?? false;
+                    chkDiabetic.IsChecked = rt.Diabetic ?? false;
+                    chkDyslipidemia.IsChecked = rt.Dyslipidemia ?? false;
+                    chkHypertense.IsChecked = rt.Hypertensive ?? false;
+
+                }
+                else
+                {
+                    chkSmoker.IsChecked = false;
+                    chkDiabetic.IsChecked = false;
+                    chkDyslipidemia.IsChecked = false;
+                    chkHypertense.IsChecked = false;
+                    _lstMedication = new List<Medication>();                    
+                }
+
             }
             CalculateImc(null, null);
 

@@ -293,13 +293,12 @@ namespace UDA_HTA
 
         #region Investigaciones
 
-        public void InvestigationSelected(InvestigationSearch investigation)
+        public void InvestigationSelected(long idInvestigation)
         {
             btnAddStudyResearch.IsEnabled = true;
             btnEditResearch.IsEnabled = true;
             btnExportXLS.IsEnabled = true;
-            //btnExportCSV.IsEnabled = true;
-            ContainerInvestigation.Content = new ResearchViewer(investigation.IdInvestigation);
+            ContainerInvestigation.Content = new ResearchViewer(idInvestigation);
 
         }
 
