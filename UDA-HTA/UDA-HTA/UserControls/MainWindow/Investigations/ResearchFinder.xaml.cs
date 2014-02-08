@@ -55,8 +55,11 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         private void grResearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (((DataGrid)sender).SelectedIndex != -1)
-                container.InvestigationSelected((InvestigationSearch)e.AddedItems[0]);
+            if (((DataGrid) sender).SelectedIndex != -1)
+            {
+                var i = (InvestigationSearch) e.AddedItems[0];
+                container.InvestigationSelected(i.IdInvestigation);
+            }
         }
     }
 }

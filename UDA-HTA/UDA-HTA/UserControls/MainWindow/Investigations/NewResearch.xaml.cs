@@ -64,7 +64,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                     }
                 }
 
-                container.ContainerInvestigation.Content = new ResearchViewer(_investigation.IdInvestigation);
+                container.InvestigationSelected(_investigation.IdInvestigation);
                 Mouse.OverrideCursor = null;    
                 this.Close();
             }
