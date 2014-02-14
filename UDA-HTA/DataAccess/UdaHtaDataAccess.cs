@@ -693,6 +693,7 @@ namespace DataAccess
                                               r.temporarydata_idTemporaryData
                                           }).ToList();
 
+                // Obtengo todas las medidas para el paciente
                 var measurements = udaContext.measurement
                                              .Where(m => m.report_patientuda_idPatientUda == patientId)
                                              .Select(m => new Measurement
@@ -710,6 +711,25 @@ namespace DataAccess
                                                      Asleep = m.sleep,
                                                      Comment = m.comment
                                                  }).ToList();
+
+                // Obtengo las medications de los reportes
+                var tdId = query.Select(q => q.temporarydata_idTemporaryData).ToList();
+                var medications = udaContext.medicinedose
+                                            .Where(m => tdId.Contains(m.temporarydata_idTemporaryData))
+                                            .Select(m => new
+                                                {
+                                                    Id = m.idMedicineDosis,
+                                                    Time = m.time.Value,
+                                                    Dose = m.dose,
+                                                    TempDataId = m.temporarydata_idTemporaryData,
+                                                    Drug = new Drug
+                                                        {
+                                                            Category = m.drug.drugtype.type,
+                                                            Active = m.drug.active,
+                                                            Name = m.drug.name,
+                                                            Id = m.drug.idDrug
+                                                        }
+                                                }).ToList();
 
                 foreach (var rep in query)
                 {
@@ -851,6 +871,18 @@ namespace DataAccess
                     report.TemporaryData.MusclePercentage = rep.temporarydata.muscle_percentage;
                     report.TemporaryData.Smoker = rep.temporarydata.smoker;
                     report.TemporaryData.Weight = rep.temporarydata.weight;
+                    // Medication al TempData
+                    foreach (var m in medications.Where(m=>m.TempDataId == report.TemporaryDataId))
+                    {
+                        Medication medication = new Medication(m.Id, m.Time, m.Drug)
+                        {
+                            Dose = m.Dose,
+                            MedicineId = m.Id
+                        };
+
+                        report.TemporaryData.Medication.Add(medication);
+                    }
+
 
                     // Measurements del Reporte
                     report.Measures = measurements.Where(m => m.ReportId == report.UdaId)

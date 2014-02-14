@@ -27,6 +27,7 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                     var user = controller.GetUser(txtLogin.Text);
                     if (user != null)
                     {
+                        Mouse.OverrideCursor = null;
                         MessageBox.Show("El usuario '" + txtLogin.Text + "' ya existe.", "Error",
                                         MessageBoxButton.OK, MessageBoxImage.Error);
                     }

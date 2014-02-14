@@ -46,11 +46,11 @@
         <DataGrid Name="grUsers" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
                   AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
                   SelectionChanged="grUsers_SelectionChanged" SelectionMode="Single" SelectionUnit="FullRow">
-            <DataGrid.Resources>
+            <!--DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Cursor" Value="Hand" />
                 </Style>
-            </DataGrid.Resources>
+            </DataGrid.Resources -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Width="1*" 
                                     Binding="{Binding Path=Name}" />
