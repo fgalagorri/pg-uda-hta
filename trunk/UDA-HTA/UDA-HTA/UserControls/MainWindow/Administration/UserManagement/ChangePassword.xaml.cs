@@ -21,8 +21,20 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
             try
             {
                 Mouse.OverrideCursor = Cursors.Wait;
-                controller.ChangePassword(txtOldPassword.Password, txtNewPassword.Password, txtNewPswdRepeat.Password);
-                Close();
+                if (txtNewPassword.Password == txtNewPswdRepeat.Password)
+                {
+                    controller.ChangePassword(txtOldPassword.Password, txtNewPassword.Password,
+                                              txtNewPswdRepeat.Password);
+                    MessageBox.Show("Su contraseña ha sido cambiada con éxito", "Éxito");
+                    Close();
+                }
+                else
+                {
+                    txtNewPassword.Password = "";
+                    txtOldPassword.Password = "";
+                    txtNewPswdRepeat.Password = "";
+                    lblError.Content = "Las contraseñas no coinciden.";
+                }
             }
             catch (Exception exception)
             {

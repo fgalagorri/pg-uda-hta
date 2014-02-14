@@ -80,7 +80,6 @@ namespace BussinessLogic
             var patient = pda.GetPatient(patientId);
             var uda = new UdaHtaDataAccess();
             patient.Background = uda.GetMedicalHistory(patientId);
-            patient.LastTempData = uda.GetLastTempData(patientId);
             return patient;
         }
 
@@ -116,7 +115,6 @@ namespace BussinessLogic
                 {
                     var uda = new UdaHtaDataAccess();
                     p.Background = uda.GetMedicalHistory(p.UdaId.Value);
-                    p.LastTempData = uda.GetLastTempData(p.UdaId.Value);
                 }
             }
             return p;

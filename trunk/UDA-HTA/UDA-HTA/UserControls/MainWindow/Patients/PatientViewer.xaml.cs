@@ -37,7 +37,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 InitializeComponent();
 
                 TabPatient.SetPatientInfo(_patient);
-                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
+                TabCondition.SetInfo(_patient.LastTempData(), _patient.Background);
 
                 PopulateTree();
 
@@ -158,7 +158,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 container.btnEditReport.IsEnabled = false;
                 container.DisablePublish();
 
-                TabCondition.SetInfo(_patient.LastTempData, _patient.Background);
+                TabCondition.SetInfo(_patient.LastTempData(), _patient.Background);
                 if (!ReportPatient.IsSelected && !ReportCondition.IsSelected)
                     ReportPatient.IsSelected = true;
 
@@ -233,8 +233,8 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public void UpdatePatient(Patient p)
         {
             TabPatient.SetPatientInfo(p);
-            if(p.LastTempData != null)
-                TabCondition.SetInfo(p.LastTempData, p.Background);
+            if(_report == null)
+                TabCondition.SetInfo(p.LastTempData(), p.Background);
         }
 
         public void ReportUpdated(Report report)

@@ -37,15 +37,24 @@ namespace UDA_HTA.UserControls.MainWindow.Administration.UserManagement
                 Mouse.OverrideCursor = Cursors.Wait;
                 if (IsValid())
                 {
-                    controller.EditUser(_user.Id, txtName.Text, comboRole.Text, txtLogin.Text);
-                    Mouse.OverrideCursor = null;
-                    MessageBox.Show("Usuario actualizado con éxito");                    
+                    if (_user.Login != txtLogin.Text && controller.GetUser(txtLogin.Text) != null)
+                    {
+                        MessageBox.Show("El usuario '" + txtLogin.Text + "' ya existe.", "Error",
+                                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        controller.EditUser(_user.Id, txtName.Text, comboRole.Text, txtLogin.Text);
+                        Mouse.OverrideCursor = null;
+                        MessageBox.Show("Usuario actualizado con éxito", "Éxito");
+                    }
                 }
                 else
                 {
                     Mouse.OverrideCursor = null;
-                    MessageBox.Show("Por favor, complete todos los campos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);                    
+                    MessageBox.Show("Por favor, complete todos los campos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                Mouse.OverrideCursor = null;
             }
             catch (Exception exception)
             {

@@ -92,10 +92,12 @@ namespace Gateway
                         report.Patient.UdaId = idPatient;
                         // El paciente ya fue creado en la base de UDA-HTA => traigo la informacion y la sustituyo
                         report.Patient = patientController.GetPatient((long)idPatient);
+                        report.TemporaryData = patientController.GetLastTempData(idPatient.Value);
                     }
                     else
                     {
                         patient = patientController.FindSimilarPatient(report.Patient.DocumentId, null);
+                        report.TemporaryData = patientController.GetLastTempData(patient.UdaId.Value);
                     }
                 }
                 else
@@ -395,7 +397,7 @@ namespace Gateway
             try
             {
                 var patient = patientController.GetPatient(patientId);
-                patient.LastTempData = patientController.GetLastTempData(patientId);
+                //patient.LastTempData = patientController.GetLastTempData(patientId);
 
                 var reportController = new ReportManagement();
                 patient.ReportList = reportController.ListPatientReports(patientId);

@@ -77,11 +77,15 @@ namespace Entities
         public long? UdaId { get; set; }
         public string RegisterNumber { get; set; }
         public ICollection<DeviceReference> DeviceReferences { get; set; } 
-
-        public TemporaryData LastTempData { get; set; }
-
+        
         public ICollection<EmergencyContact> EmergencyContactList { get; set; } 
         public ICollection<MedicalRecord> Background { get; set; } 
         public ICollection<Report> ReportList  { get; set; }
+
+        public TemporaryData LastTempData()
+        {
+            var lr = ReportList.OrderByDescending(r => r.BeginDate.Value).FirstOrDefault();
+            return lr != null ? lr.TemporaryData : null;
+        }
     }
 }

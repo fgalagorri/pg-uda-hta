@@ -46,54 +46,33 @@ namespace UDA_HTA.UserControls.ReportCreation
             GetDrugs();
             autoMedication.DataContext = _drugs;
 
-            // Datos posiblemente modificados
-            if (r.Patient.LastTempData != null)
+            if (r.TemporaryData != null)
             {
-                _lstMedication = r.Patient.LastTempData.Medication ?? new List<Medication>();
+                _lstMedication = r.TemporaryData.Medication ?? new List<Medication>();
 
-                var t = r.Patient.LastTempData;
-                txtWeight.Text = t.Weight.ToString();
-                txtHeight.Text = t.Height.HasValue ? t.Height.Value.ToString("F") : "";
-                _imc = t.BodyMassIndex.HasValue ? t.BodyMassIndex.Value : -1;
-                lblImc.Text = t.BodyMassIndex.ToString();
-                txtFat.Text = t.FatPercentage.ToString();
-                txtMuscle.Text = t.MusclePercentage.ToString();
-                txtKcal.Text = t.Kcal.ToString();
-                chkSmoker.IsChecked = t.Smoker ?? false;
-                chkDiabetic.IsChecked = t.Diabetic ?? false;
-                chkDyslipidemia.IsChecked = t.Dyslipidemia ?? false;
-                chkHypertense.IsChecked = t.Hypertensive ?? false;
+                var rt = r.TemporaryData;
+                txtWeight.Text = rt.Weight.ToString();
+                txtHeight.Text = rt.Height.HasValue ? rt.Height.Value.ToString("F") : "";
+                _imc = rt.BodyMassIndex.HasValue ? rt.BodyMassIndex.Value : -1;
+                lblImc.Text = rt.BodyMassIndex.ToString();
+                txtFat.Text = rt.FatPercentage.ToString();
+                txtMuscle.Text = rt.MusclePercentage.ToString();
+                txtKcal.Text = rt.Kcal.ToString();
+                chkSmoker.IsChecked = rt.Smoker ?? false;
+                chkDiabetic.IsChecked = rt.Diabetic ?? false;
+                chkDyslipidemia.IsChecked = rt.Dyslipidemia ?? false;
+                chkHypertense.IsChecked = rt.Hypertensive ?? false;
+
             }
             else
             {
-                if (r.TemporaryData != null)
-                {
-                    _lstMedication = r.TemporaryData.Medication ?? new List<Medication>();
-
-                    var rt = r.TemporaryData;
-                    txtWeight.Text = rt.Weight.ToString();
-                    txtHeight.Text = rt.Height.HasValue ? rt.Height.Value.ToString("F") : "";
-                    _imc = rt.BodyMassIndex.HasValue ? rt.BodyMassIndex.Value : -1;
-                    lblImc.Text = rt.BodyMassIndex.ToString();
-                    txtFat.Text = rt.FatPercentage.ToString();
-                    txtMuscle.Text = rt.MusclePercentage.ToString();
-                    txtKcal.Text = rt.Kcal.ToString();
-                    chkSmoker.IsChecked = rt.Smoker ?? false;
-                    chkDiabetic.IsChecked = rt.Diabetic ?? false;
-                    chkDyslipidemia.IsChecked = rt.Dyslipidemia ?? false;
-                    chkHypertense.IsChecked = rt.Hypertensive ?? false;
-
-                }
-                else
-                {
-                    chkSmoker.IsChecked = false;
-                    chkDiabetic.IsChecked = false;
-                    chkDyslipidemia.IsChecked = false;
-                    chkHypertense.IsChecked = false;
-                    _lstMedication = new List<Medication>();                    
-                }
-
+                chkSmoker.IsChecked = false;
+                chkDiabetic.IsChecked = false;
+                chkDyslipidemia.IsChecked = false;
+                chkHypertense.IsChecked = false;
+                _lstMedication = new List<Medication>();
             }
+
             CalculateImc(null, null);
 
             if (!_isEdit)
@@ -248,7 +227,7 @@ namespace UDA_HTA.UserControls.ReportCreation
             if (decimal.TryParse(h, NumberStyles.Float, CultureInfo.InvariantCulture, out height)
                 && decimal.TryParse(w, NumberStyles.Float, CultureInfo.InvariantCulture, out weight))
             {
-                _imc = weight / (height * height);
+                _imc = Math.Round(weight / (height * height), 2);
                 lblImc.Text = _imc.ToString("0.##", CultureInfo.InvariantCulture);
             }
             else
