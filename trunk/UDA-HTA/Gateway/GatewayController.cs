@@ -97,7 +97,10 @@ namespace Gateway
                     else
                     {
                         patient = patientController.FindSimilarPatient(report.Patient.DocumentId, null);
-                        report.TemporaryData = patientController.GetLastTempData(patient.UdaId.Value);
+                        if (patient != null)
+                        {
+                            report.TemporaryData = patientController.GetLastTempData(patient.UdaId.Value);                            
+                        }
                     }
                 }
                 else
