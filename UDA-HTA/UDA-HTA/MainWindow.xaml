@@ -59,6 +59,8 @@
                 <r:RibbonGroup Header="Sistema HC" HorizontalContentAlignment="Right" HorizontalAlignment="Right">
                     <r:RibbonButton Name="btnPublish" Label="Publicar Informe MAPA" Click="ExportReportHC" 
                                     LargeImageSource="/Images/ribbon_publish.png" />
+                    <r:RibbonButton Name="btnNotPublish" Label="Informes No Publicados" Click="SearchNotExportedReportHC" 
+                                    LargeImageSource="/Images/ribbon_notPublished.png" />
                 </r:RibbonGroup>
             </r:RibbonTab>
 

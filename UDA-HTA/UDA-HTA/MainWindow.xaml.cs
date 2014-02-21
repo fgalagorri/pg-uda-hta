@@ -168,8 +168,12 @@ namespace UDA_HTA
                     }
                     Mouse.OverrideCursor = null;
 
-                    // Se exporta el informe al sistema del HC
+                    // Preguntar si desea exportar el informe al HC
+                    var result = MessageBox.Show("Desea publicar el registro actual al sistema del Hospital de Clínicas?",
+                                    "Desea publicar?", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+                    if(result == MessageBoxResult.Yes)
+                        ExportReportHC(sender, null);
                 }
             }
             catch (Exception exception)
@@ -243,6 +247,17 @@ namespace UDA_HTA
                 Mouse.OverrideCursor = null;
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void SearchNotExportedReportHC(object sender, RoutedEventArgs e)
+        {
+            var notPublished = new NotPublishedReports();
+            var result = notPublished.ShowDialog();
+
+            if (result.HasValue && result.Value && notPublished.ReportId.HasValue && notPublished.PatientId.HasValue)
+                ContainerPatient.Content = new PatientViewer(notPublished.PatientId.Value,
+                                                             notPublished.ReportId.Value,
+                                                             this);
         }
 
         #endregion
