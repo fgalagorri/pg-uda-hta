@@ -50,7 +50,6 @@ namespace DataAccess
             return id;
         }
 
-
         public void InsertEmergencyContact(long patientId, ICollection<EmergencyContact> contacts )
         {
             using (TransactionScope scope = new TransactionScope())
@@ -84,6 +83,19 @@ namespace DataAccess
             }
         }
 
+        public ICollection<NotPublishedReport> GetPatientsNotPublished()
+        {
+            using (var patientContext = new patient_info_dbEntities())
+            {
+                return patientContext.patient.Select(p => new NotPublishedReport
+                    {
+                        PatientId = p.idPatient,
+                        PatientName = p.name,
+                        PatientLastName = p.surname,
+                        PatientDocument = p.document,
+                    }).ToList();
+            }
+        }
 
         /*
          * Lista todos los pacientes existentes en la base.
@@ -118,7 +130,6 @@ namespace DataAccess
                     }).ToList();
             }
         }
-
 
         public Patient GetPatient(long patientId)
         {

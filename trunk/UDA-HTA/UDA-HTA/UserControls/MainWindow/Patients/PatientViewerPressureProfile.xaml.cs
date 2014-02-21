@@ -33,8 +33,9 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                                               && m.HeartRate.HasValue && m.Time.HasValue)
                 .OrderBy(m => m.Time.Value).ToList();
 
-            if (valid.Any() && 
-                Math.Abs((valid.Last().Time.Value - valid.First().Time.Value).TotalDays) > 7)
+            var reportLength = (valid.Last().Time.Value - valid.First().Time.Value);
+
+            if (valid.Any() && Math.Abs(reportLength.TotalDays) > 3)
             {
                 MessageBox.Show("Se ha encontrado un error en la extensión del " +
                                 "reporte y no puede ser graficado. Verifique " +
@@ -169,15 +170,17 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
 
             bloodAxis.Minimum = Math.Floor(valid.Min(m => m.HeartRate.Value)/(double) 10)*10;
 
+            int timeInterval = reportLength.TotalHours < 36 ? 2 : 4;
+
             var xAxis = new DateTimeAxis
             {
                 Minimum = r.BeginDate, //valid.Min(v => v.Time.Value),
                 Maximum = r.EndDate, //valid.Max(v => v.Time.Value),
                 IntervalType = DateTimeIntervalType.Hours,
-                Interval = 2,
+                Interval = timeInterval,
                 Orientation = AxisOrientation.X,
                 Location = AxisLocation.Bottom,
-                ShowGridLines = true,
+                ShowGridLines = true
             };
 
             ((LineSeries) PressureProfile.Series[0]).IndependentAxis = xAxis;

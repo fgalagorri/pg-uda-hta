@@ -1801,7 +1801,7 @@
       <Diagram Name="Model1" ZoomLevel="81">
         <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="7.875" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="5.875" Height="6.21091796875" />
-        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.75" PointY="18.5" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.5" PointY="18.25" Height="2.172587890624996" />
         <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.5" PointY="18.75" Height="1.595683593749996" />
         <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="4.625" Height="1.9802864583333353" />
         <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="0.75" PointY="0.75" Height="3.5186979166666674" />
@@ -1822,15 +1822,13 @@
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" >
           <ConnectorPoint PointX="3" PointY="19.547841796874998" />
-          <ConnectorPoint PointX="3.75" PointY="19.547841796874998" />
+          <ConnectorPoint PointX="3.5" PointY="19.547841796874998" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_MedicineDosis_Drug1" >
-          <ConnectorPoint PointX="5.25" PointY="18.501152846153843" />
-          <ConnectorPoint PointX="5.625" PointY="18.126152846153843" />
-          <ConnectorPoint PointX="5.625" PointY="19.116042169070514" />
-          <ConnectorPoint PointX="5.7535744349011209" PointY="18.987467734169392" />
-          <ConnectorPoint PointX="5.8714255650988791" PointY="18.869616603971636" />
-          <ConnectorPoint PointX="6.0011528461538459" PointY="18.739889322916667" />
+          <ConnectorPoint PointX="5" PointY="18.494944661458334" />
+          <ConnectorPoint PointX="5.729166666666667" PointY="18.494944661458334" />
+          <ConnectorPoint PointX="5.895833333333333" PointY="18.494944661458334" />
+          <ConnectorPoint PointX="6" PointY="18.494944661458334" />
         </AssociationConnector>
         <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" >
           <ConnectorPoint PointX="7.5" PointY="8.98049967447917" />

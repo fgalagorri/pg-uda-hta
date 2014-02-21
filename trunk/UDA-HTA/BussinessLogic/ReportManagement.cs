@@ -157,6 +157,30 @@ namespace BussinessLogic
             return uda.GetLimits();
         }
 
+        public ICollection<NotPublishedReport> GetNotPublishedReports()
+        {
+            var uda = new UdaHtaDataAccess();
+            var patients = new PatientDataAccess();
+
+            var notPublished = uda.GetNotPublishedReports();
+            var patientList = patients.GetPatientsNotPublished().ToList();
+
+            foreach (var r in notPublished)
+            {
+                var p = patientList.FirstOrDefault(p1 => p1.PatientId == r.PatientId);
+
+                if (p != null)
+                {
+                    r.PatientName = p.PatientName;
+                    r.PatientLastName = p.PatientLastName;
+                    r.PatientDocument = p.PatientDocument;
+                }
+            }
+
+            return notPublished;
+        } 
+
+
         #region Drugs Region
 
         public void AddDrug(string type, string active, string name)

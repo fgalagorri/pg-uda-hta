@@ -358,6 +358,23 @@ namespace Gateway
             }
         } 
     
+
+        public ICollection<NotPublishedReport> GetNotPublishedReports()
+        {
+            try
+            {
+                var rm = new ReportManagement();
+                return rm.GetNotPublishedReports();
+            }
+            catch (Exception ex)
+            {
+                LogFileManagement el = new LogFileManagement();
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], ex.Message, ex.InnerException);
+                throw new Exception("No se han podido obtener los reportes sin publicar.");
+            }
+        }
+
+
     #endregion
 
 

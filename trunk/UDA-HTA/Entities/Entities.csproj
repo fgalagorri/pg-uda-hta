@@ -49,6 +49,7 @@
     <Compile Include="Drug.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="MedicalRecord.cs" />
+    <Compile Include="NotPublishedReport.cs" />
     <Compile Include="PatientSearch.cs" />
     <Compile Include="TemporaryData.cs" />
     <Compile Include="DailyCarnet.cs" />
