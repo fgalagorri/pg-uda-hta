@@ -945,20 +945,24 @@ namespace DataAccess
                     report.Carnet.SleepQuality = rep.dailycarnet.how_sleep;
                     report.Carnet.SleepQualityDescription = rep.dailycarnet.sleep_comments;
 
-                    report.Carnet.SleepTimeEnd = new DateTime(rep.dailycarnet.end_sleep_time.Value.Year,
-                                                              rep.dailycarnet.end_sleep_time.Value.Month,
-                                                              rep.dailycarnet.end_sleep_time.Value.Day,
-                                                              rep.dailycarnet.end_sleep_time.Value.Hour,
-                                                              rep.dailycarnet.end_sleep_time.Value.Minute,
-                                                              rep.dailycarnet.end_sleep_time.Value.Second);
-
-                    report.Carnet.SleepTimeStart = new DateTime(rep.dailycarnet.begin_sleep_time.Value.Year,
-                                                                rep.dailycarnet.begin_sleep_time.Value.Month,
-                                                                rep.dailycarnet.begin_sleep_time.Value.Day,
-                                                                rep.dailycarnet.begin_sleep_time.Value.Hour,
-                                                                rep.dailycarnet.begin_sleep_time.Value.Minute,
-                                                                rep.dailycarnet.begin_sleep_time.Value.Second
-                        );
+                    if (rep.dailycarnet.end_sleep_time.HasValue)
+                    {
+                        report.Carnet.SleepTimeEnd = new DateTime(rep.dailycarnet.end_sleep_time.Value.Year,
+                                                                  rep.dailycarnet.end_sleep_time.Value.Month,
+                                                                  rep.dailycarnet.end_sleep_time.Value.Day,
+                                                                  rep.dailycarnet.end_sleep_time.Value.Hour,
+                                                                  rep.dailycarnet.end_sleep_time.Value.Minute,
+                                                                  rep.dailycarnet.end_sleep_time.Value.Second);                        
+                    }
+                    if (rep.dailycarnet.begin_sleep_time.HasValue)
+                    {
+                        report.Carnet.SleepTimeStart = new DateTime(rep.dailycarnet.begin_sleep_time.Value.Year,
+                                                                    rep.dailycarnet.begin_sleep_time.Value.Month,
+                                                                    rep.dailycarnet.begin_sleep_time.Value.Day,
+                                                                    rep.dailycarnet.begin_sleep_time.Value.Hour,
+                                                                    rep.dailycarnet.begin_sleep_time.Value.Minute,
+                                                                    rep.dailycarnet.begin_sleep_time.Value.Second);                        
+                    }
 
                     report.Carnet.Technician.Name = rep.dailycarnet.technical;
 

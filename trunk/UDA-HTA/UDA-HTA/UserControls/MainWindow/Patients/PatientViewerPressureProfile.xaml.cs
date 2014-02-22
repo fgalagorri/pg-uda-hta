@@ -68,86 +68,95 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             var dias = new List<KeyValuePair<DateTime, int>>();
 
             bool isSleep = false;
-            var date = r.BeginDate.Value;
-
-            bool isSleep1 = true;
-            int sys1 = _limits.HiSysNight;
-            int dias1 = _limits.HiDiasNight;
-            var time1 = new DateTime(date.Year, date.Month, date.Day, r.Carnet.SleepTimeStart.Value.Hour,
-                r.Carnet.SleepTimeStart.Value.Minute, r.Carnet.SleepTimeStart.Value.Second);
-
-            bool isSleep2 = false;
-            int sys2 = _limits.HiSysDay;
-            int dias2 = _limits.HiDiasDay;
-            var time2 = new DateTime(date.Year, date.Month, date.Day, r.Carnet.SleepTimeEnd.Value.Hour,
-                    r.Carnet.SleepTimeEnd.Value.Minute, r.Carnet.SleepTimeEnd.Value.Second);
-
-            // Me aseguro que time1 sea menor que time2
-            if (time2 < time1)
+            if (r.BeginDate != null)
             {
-                var auxTime = time1;
-                var auxSys = sys1;
-                var auxDias = dias1;
-                var auxSleep = isSleep1;
+                var date = r.BeginDate.Value;
 
-                time1 = time2;
-                sys1 = sys2;
-                dias1 = dias2;
-                isSleep1 = isSleep2;
-
-                time2 = auxTime;
-                sys2 = auxSys;
-                dias2 = auxDias;
-                isSleep2 = auxSleep;
-            }
-
-
-            // AGREGO LA PRIMER MARCA
-            if (GatewayHelper.IsAsleep(r.Carnet.SleepTimeStart.Value.TimeOfDay, 
-                                       r.Carnet.SleepTimeEnd.Value.TimeOfDay,
-                                       r.BeginDate.Value))
-            {
-                // Inicia en Sueño
-                sys.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysNight));
-                dias.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasNight));
-            }
-            else
-            {
-                // Inicia en Vigilia
-                sys.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysDay));
-                dias.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasDay));
-            }
-
-            // Agrego períodos de sueño
-            while (time1 <= r.EndDate.Value || time2 <= r.EndDate.Value)
-            {
-                if (r.BeginDate.Value <= time1 && time1 <= r.EndDate.Value)
+                bool isSleep1 = true;
+                int sys1 = _limits.HiSysNight;
+                int dias1 = _limits.HiDiasNight;
+                if (r.Carnet.SleepTimeStart != null)
                 {
-                    // Agrego el final del período anterior
-                    sys.Add(new KeyValuePair<DateTime, int>(time1, sys2));
-                    dias.Add(new KeyValuePair<DateTime, int>(time1, dias2));
+                    var time1 = new DateTime(date.Year, date.Month, date.Day, r.Carnet.SleepTimeStart.Value.Hour,
+                                             r.Carnet.SleepTimeStart.Value.Minute, r.Carnet.SleepTimeStart.Value.Second);
 
-                    // Agrego el inicio del período actual
-                    sys.Add(new KeyValuePair<DateTime, int>(time1.AddMilliseconds(1), sys1));
-                    dias.Add(new KeyValuePair<DateTime, int>(time1.AddMilliseconds(1), dias1));
+                    bool isSleep2 = false;
+                    int sys2 = _limits.HiSysDay;
+                    int dias2 = _limits.HiDiasDay;
+                    if (r.Carnet.SleepTimeEnd != null)
+                    {
+                        var time2 = new DateTime(date.Year, date.Month, date.Day, r.Carnet.SleepTimeEnd.Value.Hour,
+                                                 r.Carnet.SleepTimeEnd.Value.Minute, r.Carnet.SleepTimeEnd.Value.Second);
 
-                    isSleep = isSleep1;
+                        // Me aseguro que time1 sea menor que time2
+                        if (time2 < time1)
+                        {
+                            var auxTime = time1;
+                            var auxSys = sys1;
+                            var auxDias = dias1;
+                            var auxSleep = isSleep1;
+
+                            time1 = time2;
+                            sys1 = sys2;
+                            dias1 = dias2;
+                            isSleep1 = isSleep2;
+
+                            time2 = auxTime;
+                            sys2 = auxSys;
+                            dias2 = auxDias;
+                            isSleep2 = auxSleep;
+                        }
+
+
+                        // AGREGO LA PRIMER MARCA
+                        if (GatewayHelper.IsAsleep(r.Carnet.SleepTimeStart.Value.TimeOfDay, 
+                                                   r.Carnet.SleepTimeEnd.Value.TimeOfDay,
+                                                   r.BeginDate.Value))
+                        {
+                            // Inicia en Sueño
+                            sys.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysNight));
+                            dias.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasNight));
+                        }
+                        else
+                        {
+                            // Inicia en Vigilia
+                            sys.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiSysDay));
+                            dias.Add(new KeyValuePair<DateTime, int>(r.BeginDate.Value, _limits.HiDiasDay));
+                        }
+
+                        // Agrego períodos de sueño
+                        while (r.EndDate != null && (time1 <= r.EndDate.Value || time2 <= r.EndDate.Value))
+                        {
+                            if (r.BeginDate.Value <= time1 && time1 <= r.EndDate.Value)
+                            {
+                                // Agrego el final del período anterior
+                                sys.Add(new KeyValuePair<DateTime, int>(time1, sys2));
+                                dias.Add(new KeyValuePair<DateTime, int>(time1, dias2));
+
+                                // Agrego el inicio del período actual
+                                sys.Add(new KeyValuePair<DateTime, int>(time1.AddMilliseconds(1), sys1));
+                                dias.Add(new KeyValuePair<DateTime, int>(time1.AddMilliseconds(1), dias1));
+
+                                isSleep = isSleep1;
+                            }
+                            time1 = time1.AddDays(1);
+
+                            if (r.BeginDate.Value <= time2 && time2 <= r.EndDate.Value)
+                            {
+                                // Agrego el final del período anterior
+                                sys.Add(new KeyValuePair<DateTime, int>(time2, sys1));
+                                dias.Add(new KeyValuePair<DateTime, int>(time2, dias1));
+
+                                // Agrego el inicio del período actual
+                                sys.Add(new KeyValuePair<DateTime, int>(time2.AddMilliseconds(1), sys2));
+                                dias.Add(new KeyValuePair<DateTime, int>(time2.AddMilliseconds(1), dias2));
+
+                                isSleep = isSleep2;
+                            }
+                            time2 = time2.AddDays(1);
+                        }
+                    }
                 }
-                time1 = time1.AddDays(1);
-
-                if (r.BeginDate.Value <= time2 && time2 <= r.EndDate.Value)
-                {
-                    // Agrego el final del período anterior
-                    sys.Add(new KeyValuePair<DateTime, int>(time2, sys1));
-                    dias.Add(new KeyValuePair<DateTime, int>(time2, dias1));
-
-                    // Agrego el inicio del período actual
-                    sys.Add(new KeyValuePair<DateTime, int>(time2.AddMilliseconds(1), sys2));
-                    dias.Add(new KeyValuePair<DateTime, int>(time2.AddMilliseconds(1), dias2));
-
-                    isSleep = isSleep2;
-                }
-                time2 = time2.AddDays(1);
             }
 
             // Agrego la última marca
@@ -160,15 +169,18 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             else
             {
                 // Finaliza en vigilia
-                sys.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysDay));
-                dias.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasDay));
+                if (r.EndDate != null)
+                {
+                    sys.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysDay));
+                    dias.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasDay));
+                }
             }
 
 
             ((LineSeries) PressureProfile.Series[4]).ItemsSource = sys;
             ((LineSeries) PressureProfile.Series[5]).ItemsSource = dias;
 
-            bloodAxis.Minimum = Math.Floor(valid.Min(m => m.HeartRate.Value)/(double) 10)*10;
+            bloodAxis.Minimum = Math.Floor(valid.Min(m => m.HeartRate != null ? m.HeartRate.Value : 0)/(double) 10)*10;
 
             int timeInterval = reportLength.TotalHours < 36 ? 2 : 4;
 
