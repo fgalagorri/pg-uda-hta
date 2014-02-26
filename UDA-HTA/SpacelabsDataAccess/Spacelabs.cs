@@ -54,7 +54,7 @@ namespace SpacelabsDataAccess
                                  DiastolicDipping = t.DiaDipping,
                                  Diagnosis = t.Interpretation,
                                  DiagnosisDate = t.ConfirmDate1,
-                                 DiagnosisDoctorName = d.FirstName, // TODO ver como implementar el usuario
+                                 DiagnosisDoctorName = d.FirstName,
                                  DiagnosisDoctorLastname = d.LastName,
 
                                  SystolicTotalAvg = st.SystolicAvg,
@@ -66,6 +66,7 @@ namespace SpacelabsDataAccess
                                  HRTotalAvg = st.HrAvg,
                                  HRTotalSD = st.HrStandardDeviation,
 
+                                 SleepTimeEnd = sd.StartTime,
                                  SystolicDayMin = sd.SystolicMin,
                                  SystolicDayMax = sd.SystolicMax,
                                  SystolicDayAvg = sd.SystolicAvg,
@@ -87,6 +88,7 @@ namespace SpacelabsDataAccess
                                  HRDayMaxTime = sd.HrMaxTime,
                                  HRDayMinTime = sd.HrMintime,
 
+                                 SleepTimeStart = sn.StartTime,
                                  SystolicNightMin = sn.SystolicMin,
                                  SystolicNightMax = sn.SystolicMax,
                                  SystolicNightAvg = sn.SystolicAvg,
@@ -123,7 +125,7 @@ namespace SpacelabsDataAccess
 
                                  p.EmergencyContact,
                                  p.EmergencyPhone,
-
+                                 
                                  Medications = m
                              }).FirstOrDefault();
 
@@ -155,6 +157,12 @@ namespace SpacelabsDataAccess
                                     Age = r.Age,
                                     Weight = r.Weight,
                                     Height = r.Height
+                                },
+
+                            Carnet = new DailyCarnet
+                                {
+                                    SleepTimeStart = r.SleepTimeStart,
+                                    SleepTimeEnd = r.SleepTimeEnd
                                 },
 
                             SystolicTotalAvg = r.SystolicTotalAvg,

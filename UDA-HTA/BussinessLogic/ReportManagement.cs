@@ -4,17 +4,17 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.ExtendedProperties;
 using DocumentFormat.OpenXml.Packaging;
 using V = DocumentFormat.OpenXml.Vml;
 using Ovml = DocumentFormat.OpenXml.Vml.Office;
 using PageSize = DocumentFormat.OpenXml.Wordprocessing.PageSize;
 using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.Office.Interop.Word;
 using Entities;
 using DataAccess;
 using Break = DocumentFormat.OpenXml.Wordprocessing.Break;
 using Columns = DocumentFormat.OpenXml.Wordprocessing.Columns;
-using Document = Microsoft.Office.Interop.Word.Document;
+using Document = DocumentFormat.OpenXml.Wordprocessing.Document;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using Shading = DocumentFormat.OpenXml.Wordprocessing.Shading;
 using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
@@ -7335,7 +7335,7 @@ namespace BussinessLogic
         }
 
         public void ExportReportPDF(string docxPath, string pdfDestination)
-        {
+        {/*
             // Create a new Microsoft Word application object
             Application word = new Application();
 
@@ -7382,7 +7382,7 @@ namespace BussinessLogic
             // the correct Quit method.
             ((_Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
             word = null;
-        }
+        */}
 
         public void SetPathReportHC(long reportId, string path)
         {
