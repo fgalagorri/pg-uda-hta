@@ -36,27 +36,22 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                                               && m.Systolic.HasValue
                                               && m.Diastolic.HasValue).ToList();
 
+            var hiTotalCount = 0;
+            var okTotalCount = 0;
             var totalCount = valid.Count;
             var dayCount = valid.Count(m => !m.Asleep.Value);
             var nightCount = valid.Count(m => m.Asleep.Value);
-            var hiCount = valid.Count(m => m.Systolic.Value >= _limits.HiSysTotal);
-            var okCount = valid.Count(m => m.Systolic.Value < _limits.HiSysTotal);
-
-            PieSysTot.DataContext = new List<KeyValuePair<string, int>>
-                {
-                    new KeyValuePair<string, int>(GetLegendText(hiCount, totalCount), hiCount),
-                    new KeyValuePair<string, int>(GetLegendText(okCount, totalCount), okCount),
-                };
-
-
-            hiCount = valid.Count(m => !m.Asleep.Value && m.Systolic.Value >= _limits.HiSysDay);
-            okCount = valid.Count(m => !m.Asleep.Value && m.Systolic.Value < _limits.HiSysDay);
+            var hiCount = valid.Count(m => !m.Asleep.Value && m.Systolic.Value >= _limits.HiSysDay);
+            var okCount = valid.Count(m => !m.Asleep.Value && m.Systolic.Value < _limits.HiSysDay);
             
             PieSysDay.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, dayCount), hiCount),
                     new KeyValuePair<string, int>(GetLegendText(okCount, dayCount), okCount),
                 };
+
+            hiTotalCount += hiCount;
+            okTotalCount += okCount;
 
 
             hiCount = valid.Count(m => m.Asleep.Value && m.Systolic.Value >= _limits.HiSysNight);
@@ -68,18 +63,21 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                     new KeyValuePair<string, int>(GetLegendText(okCount, nightCount), okCount),
                 };
 
+            hiTotalCount += hiCount;
+            okTotalCount += okCount;
 
-            // Diastolic measures
-            hiCount = valid.Count(m => m.Diastolic.Value >= _limits.HiDiasTotal);
-            okCount = valid.Count(m => m.Diastolic.Value < _limits.HiDiasTotal);
-            
-            PieDiasTot.DataContext = new List<KeyValuePair<string, int>>
+
+            PieSysTot.DataContext = new List<KeyValuePair<string, int>>
                 {
-                    new KeyValuePair<string, int>(GetLegendText(hiCount, totalCount), hiCount),
-                    new KeyValuePair<string, int>(GetLegendText(okCount, totalCount), okCount),
+                    new KeyValuePair<string, int>(GetLegendText(hiTotalCount, totalCount), hiTotalCount),
+                    new KeyValuePair<string, int>(GetLegendText(okTotalCount, totalCount), okTotalCount),
                 };
 
 
+
+            // Diastolic measures
+            hiTotalCount = 0;
+            okTotalCount = 0;
             hiCount = valid.Count(m => !m.Asleep.Value && m.Diastolic.Value >= _limits.HiDiasDay);
             okCount = valid.Count(m => !m.Asleep.Value && m.Diastolic.Value < _limits.HiDiasDay);
             
@@ -89,16 +87,28 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                     new KeyValuePair<string, int>(GetLegendText(okCount, dayCount), okCount),
                 };
 
+            hiTotalCount += hiCount;
+            okTotalCount += okCount;
 
-            hiCount = valid.Count(m => m.Asleep.Value && m.Diastolic.Value >= _limits.HiDiasDay);
-            okCount = valid.Count(m => m.Asleep.Value && m.Diastolic.Value < _limits.HiDiasDay);
+
+            hiCount = valid.Count(m => m.Asleep.Value && m.Diastolic.Value >= _limits.HiDiasNight);
+            okCount = valid.Count(m => m.Asleep.Value && m.Diastolic.Value < _limits.HiDiasNight);
 
             PieDiasNight.DataContext = new List<KeyValuePair<string, int>>
                 {
                     new KeyValuePair<string, int>(GetLegendText(hiCount, nightCount), hiCount),
                     new KeyValuePair<string, int>(GetLegendText(okCount, nightCount), okCount),
                 };
-           
+
+            hiTotalCount += hiCount;
+            okTotalCount += okCount;
+
+
+            PieDiasTot.DataContext = new List<KeyValuePair<string, int>>
+                {
+                    new KeyValuePair<string, int>(GetLegendText(hiTotalCount, totalCount), hiTotalCount),
+                    new KeyValuePair<string, int>(GetLegendText(okTotalCount, totalCount), okTotalCount),
+                };
         }
 
 
