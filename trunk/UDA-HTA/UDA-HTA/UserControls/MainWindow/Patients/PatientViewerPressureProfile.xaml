@@ -51,8 +51,8 @@
                         <DVC:LineSeries.DataPointStyle>
                             <Style TargetType="DVC:DataPoint">
                                 <Setter Property="Background" Value="DeepPink" />
-                                <Setter Property="Width" Value="6" />
-                                <Setter Property="Height" Value="6" />
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
                             </Style>
                         </DVC:LineSeries.DataPointStyle>
                     </DVC:LineSeries>
@@ -62,8 +62,8 @@
                         <DVC:LineSeries.DataPointStyle>
                             <Style TargetType="DVC:DataPoint">
                                 <Setter Property="Background" Value="DarkViolet" />
-                                <Setter Property="Width" Value="6" />
-                                <Setter Property="Height" Value="6" />
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
                             </Style>
                         </DVC:LineSeries.DataPointStyle>
                     </DVC:LineSeries>
@@ -73,8 +73,8 @@
                         <DVC:LineSeries.DataPointStyle>
                             <Style TargetType="DVC:DataPoint">
                                 <Setter Property="Background" Value="Blue" />
-                                <Setter Property="Width" Value="6" />
-                                <Setter Property="Height" Value="6" />
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
                             </Style>
                         </DVC:LineSeries.DataPointStyle>
                     </DVC:LineSeries>
@@ -89,8 +89,8 @@
                         <DVC:LineSeries.DataPointStyle>
                             <Style TargetType="DVC:DataPoint">
                                 <Setter Property="Background" Value="Red" />
-                                <Setter Property="Width" Value="6" />
-                                <Setter Property="Height" Value="6" />
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
                             </Style>
                         </DVC:LineSeries.DataPointStyle>
                     </DVC:LineSeries>
