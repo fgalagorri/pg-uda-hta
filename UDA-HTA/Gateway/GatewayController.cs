@@ -294,7 +294,8 @@ namespace Gateway
                 ReportManagement rm = new ReportManagement();
                 rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl, includeMeasures, tempFile);
 
-                rm.ExportReportPDF(tempFile, filePath);
+                rm.ExportReportPDF(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl,
+                                    includeMeasures, filePath);
                 File.Delete(tempFile);
             }
             catch(Exception exception)
