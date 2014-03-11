@@ -36,15 +36,13 @@
       <HintPath>..\..\Packages\OpenXml\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PdfSharp-WPF">
-      <HintPath>..\..\Packages\PdfSharp\PdfSharp-WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp.Charting-WPF">
-      <HintPath>..\..\Packages\PdfSharp\PdfSharp.Charting-WPF.dll</HintPath>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\Packages\iTextSharp\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CriptographyManagement.cs" />
+    <Compile Include="Helpers\iTextEvents.cs" />
     <Compile Include="ReportManagement.cs" />
     <Compile Include="ImportDataManagement.cs" />
     <Compile Include="InvestigationManagement.cs" />
@@ -89,6 +88,7 @@
       <Name>SpacelabsDataAccess</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

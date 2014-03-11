@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using sd = System.Drawing;
+using sharp = iTextSharp;
+using text = iTextSharp.text;
+using pdf = iTextSharp.text.pdf;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.ExtendedProperties;
 using DocumentFormat.OpenXml.Packaging;
@@ -20,6 +24,8 @@ using Shading = DocumentFormat.OpenXml.Wordprocessing.Shading;
 using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
 using TableStyle = DocumentFormat.OpenXml.Wordprocessing.TableStyle;
 using A = DocumentFormat.OpenXml.Drawing;
+using Ap = DocumentFormat.OpenXml.ExtendedProperties;
+using Header = DocumentFormat.OpenXml.Wordprocessing.Header;
 using Justification = DocumentFormat.OpenXml.Wordprocessing.Justification;
 using JustificationValues = DocumentFormat.OpenXml.Wordprocessing.JustificationValues;
 using ParagraphProperties = DocumentFormat.OpenXml.Wordprocessing.ParagraphProperties;
@@ -229,7 +235,10 @@ namespace BussinessLogic
             string pathOverLimit, string pathPressPrfl, bool includeMeasures, string filePath)
         {
             using (var document = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
-            {                
+            {
+                ExtendedFilePropertiesPart extendedFilePropertiesPart1 = document.AddNewPart<ExtendedFilePropertiesPart>("rId3");
+                GenerateExtendedFilePropertiesPart1Content(extendedFilePropertiesPart1);
+
                 DocumentFormat.OpenXml.Packaging.MainDocumentPart mainDocumentPart1 = document.AddMainDocumentPart();
                 DocumentFormat.OpenXml.Wordprocessing.Document document1 =
                     new DocumentFormat.OpenXml.Wordprocessing.Document();
@@ -2369,6 +2378,69 @@ namespace BussinessLogic
                 mainDocumentPart1.Document.Save();
             }
         }
+
+        // Generates content of extendedFilePropertiesPart1.
+        private void GenerateExtendedFilePropertiesPart1Content(ExtendedFilePropertiesPart extendedFilePropertiesPart1)
+        {
+            Ap.Properties properties1 = new Ap.Properties();
+            properties1.AddNamespaceDeclaration("vt", "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes");
+            Ap.Template template1 = new Ap.Template();
+            template1.Text = "Normal.dotm";
+/*            Ap.TotalTime totalTime1 = new Ap.TotalTime();
+            totalTime1.Text = "1";
+            Ap.Pages pages1 = new Ap.Pages();
+            pages1.Text = "4";
+            Ap.Words words1 = new Ap.Words();
+            words1.Text = "209";
+            Ap.Characters characters1 = new Ap.Characters();
+            characters1.Text = "1195";
+ */
+            Ap.Application application1 = new Ap.Application();
+            application1.Text = "Microsoft Office Word";
+            Ap.DocumentSecurity documentSecurity1 = new Ap.DocumentSecurity();
+            documentSecurity1.Text = "0";
+/*            Ap.Lines lines1 = new Ap.Lines();
+            lines1.Text = "9";
+            Ap.Paragraphs paragraphs1 = new Ap.Paragraphs();
+            paragraphs1.Text = "2";
+ */
+            Ap.ScaleCrop scaleCrop1 = new Ap.ScaleCrop();
+            scaleCrop1.Text = "false";
+            Ap.Company company1 = new Ap.Company();
+            company1.Text = "http://www.centor.mx.gd";
+            Ap.LinksUpToDate linksUpToDate1 = new Ap.LinksUpToDate();
+            linksUpToDate1.Text = "false";
+/*            Ap.CharactersWithSpaces charactersWithSpaces1 = new Ap.CharactersWithSpaces();
+            charactersWithSpaces1.Text = "1402";
+ */
+            Ap.SharedDocument sharedDocument1 = new Ap.SharedDocument();
+            sharedDocument1.Text = "false";
+            Ap.HyperlinksChanged hyperlinksChanged1 = new Ap.HyperlinksChanged();
+            hyperlinksChanged1.Text = "false";
+            Ap.ApplicationVersion applicationVersion1 = new Ap.ApplicationVersion();
+            applicationVersion1.Text = "12.0000";
+
+            properties1.Append(template1);
+/*            properties1.Append(totalTime1);
+            properties1.Append(pages1);
+            properties1.Append(words1);
+            properties1.Append(characters1);
+ */
+            properties1.Append(application1);
+            properties1.Append(documentSecurity1);
+//            properties1.Append(lines1);
+//            properties1.Append(paragraphs1);
+            properties1.Append(scaleCrop1);
+            properties1.Append(company1);
+            properties1.Append(linksUpToDate1);
+//            properties1.Append(charactersWithSpaces1);
+            properties1.Append(sharedDocument1);
+            properties1.Append(hyperlinksChanged1);
+            properties1.Append(applicationVersion1);
+
+            extendedFilePropertiesPart1.Properties = properties1;
+        }
+
 
         private TableRow CompleteMeasuresTable(Report report)
         {
@@ -6559,122 +6631,6 @@ namespace BussinessLogic
 
         private void GenerateCoverHeader(HeaderPart coverHeaderPart)
         {
-            /*
-             * Header coverHeader = new Header();
-
-            // Define the reference of the image.
-            var element =
-                 new Drawing(
-                     new Wp.Inline(
-                         new Wp.Extent() { Cx = 1171575L, Cy = 485775L },
-                         new Wp.EffectExtent()
-                         {
-                             LeftEdge = 0L,
-                             TopEdge = 0L,
-                             RightEdge = 0L,
-                             BottomEdge = 0L
-                         },
-                         new Wp.DocProperties()
-                         {
-                             Id = (UInt32Value)1U,
-                             Name = "Figura 1"
-                         },
-                         new Wp.NonVisualGraphicFrameDrawingProperties(
-                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
-                         new A.Graphic(
-                             new A.GraphicData(
-                                 new Pic.Picture(
-                                     new Pic.NonVisualPictureProperties(
-                                         new Pic.NonVisualDrawingProperties()
-                                         {
-                                             Id = (UInt32Value)0U,
-                                             Name = "HCLogo.jpg"
-                                         },
-                                         new Pic.NonVisualPictureDrawingProperties()),
-                                     new Pic.BlipFill(
-                                         new A.Blip()
-                                         {
-                                             Embed = "rId9",
-                                         },
-                                         new A.Stretch(
-                                             new A.FillRectangle())),
-                                     new Pic.ShapeProperties(
-                                         new A.Transform2D(
-                                             new A.Offset() { X = 0L, Y = 0L },
-                                             new A.Extents() { Cx = 1171575L, Cy = 485775L }),
-                                         new A.PresetGeometry(
-                                             new A.AdjustValueList()
-                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
-                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
-                     )
-                     {
-                         DistanceFromTop = (UInt32Value)0U,
-                         DistanceFromBottom = (UInt32Value)0U,
-                         DistanceFromLeft = (UInt32Value)0U,
-                         DistanceFromRight = (UInt32Value)0U
-                     });
-            
-            Paragraph paragraph59 = new Paragraph() { RsidParagraphAddition = "00AA46B2", RsidRunAdditionDefault = "00F4078F" };
-
-            ParagraphProperties paragraphProperties43 = new ParagraphProperties();
-//            ParagraphStyleId paragraphStyleId3 = new ParagraphStyleId() { Val = "Encabezado" };
-
-            SpacingBetweenLines spacing59 = new SpacingBetweenLines() { Before = "0", After = "0" };
-            paragraphProperties43.AppendChild(spacing59);
-
-            ParagraphMarkRunProperties paragraphMarkRunProperties42 = new ParagraphMarkRunProperties();
-
-
-//            paragraphProperties43.AppendChild(paragraphStyleId3);
-            paragraphProperties43.AppendChild(paragraphMarkRunProperties42);
-
-            Run run47 = new Run();
-
-            RunProperties runProperties24 = new RunProperties();
-            Text text43 = new Text();
-            text43.Text = "Hospital de Clínicas - Unidad de Hipertensión Arterial";
-
-            run47.AppendChild(runProperties24);
-            run47.AppendChild(text43);
-
-            Run run48 = new Run();
-
-            RunProperties runProperties25 = new RunProperties();
-
-            TabChar tabChar1 = new TabChar();
-//            Text text44 = new Text();
-//            text44.Text = "Informe de Monitoreo Ambulatorio de Presión Arterial";
-
-            run48.AppendChild(runProperties25);
-
-            run48.AppendChild(tabChar1);
-//            run48.AppendChild(text44);
-
-            Run run49 = new Run() { RsidRunAddition = "00AD0E63" };
-
-            RunProperties runProperties26 = new RunProperties();
-
-            TabChar tabChar2 = new TabChar();
-            TabChar tabChar3 = new TabChar();
-            Text text45 = new Text();
-            text45.Text = DateTime.Now.ToString(ConfigurationManager.AppSettings["ShortDateString"]);
-
-            run49.AppendChild(runProperties26);
-            run49.AppendChild(tabChar2);
-            run49.AppendChild(tabChar3);
-            run49.AppendChild(text45);
-
-            paragraph59.AppendChild(paragraphProperties43);
-            paragraph59.AppendChild(run47);
-            paragraph59.AppendChild(run48);
-            paragraph59.AppendChild(run49);
-
-            coverHeader.AppendChild(new Paragraph(new Run(element)));
-            coverHeader.AppendChild(paragraph59);
-
-            coverHeaderPart.Header = coverHeader;
-             */
-
             Header header1 = new Header();
             header1.AddNamespaceDeclaration("ve", "http://schemas.openxmlformats.org/markup-compatibility/2006");
             header1.AddNamespaceDeclaration("o", "urn:schemas-microsoft-com:office:office");
@@ -7334,7 +7290,53 @@ namespace BussinessLogic
             headerPart1.Header = header1;
         }
 
-        public void ExportReportPDF(string docxPath, string pdfDestination)
+/*        public void ExportReportPDF(Report report, string pdfDestination, string docxPath)
+        {
+            clsPDFCreator creator =  new clsPDFCreator();
+            clsPDFCreatorOptions opt = new clsPDFCreatorOptions();
+            string parameters = "/NoProcessingAtStartup";
+            if (!creator.cStart(parameters, false))
+            {
+                throw new Exception("Imposible crear PDF");
+            }
+            else
+            {
+                // Set parameters for saving the generating pdf automatically to a directory.
+                // Use auto save functionality.
+                opt.UseAutosave = 1;
+                // Use directory for saving the file.
+                opt.UseAutosaveDirectory = 1;
+                // Name of the output directory.
+                opt.AutosaveDirectory = @"c:\"; 
+                // Format in which file is to be saved. 0 if for pdf.
+                opt.AutosaveFormat = 0;
+                // Name of the output file name.
+                opt.AutosaveFilename = pdfDestination;
+                creator.cOptions = opt;
+                creator.cClearCache();
+
+                // Save currently active printer.
+                string defaultPrinter = creator.cDefaultPrinter;
+                // Create new instance of word application.
+                Application wordapp;
+                wordapp = new Application();
+                Document worddoc = null;
+                // Set pdf creator as active printer. Name should be same as you gave while installation.
+                wordapp.ActivePrinter = "PDFCreator";
+
+                Object missingValue = Type.Missing;
+
+                Object docName = docxPath;
+                worddoc = wordapp.Documents.Open(ref docName, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue, ref missingValue,ref missingValue);
+            }
+
+
+        }
+ */
+        
+        public void ExportReportPDF(Report report, bool includePatientData, 
+            bool includeDiagnostic, bool includeProfile, bool includeGraphic, 
+            string pathOverLimit, string pathPressPrfl, bool includeMeasures, string pdfDestination)
         {/*
             // Create a new Microsoft Word application object
             Application word = new Application();
@@ -7382,7 +7384,931 @@ namespace BussinessLogic
             // the correct Quit method.
             ((_Application)word).Quit(ref oMissing, ref oMissing, ref oMissing);
             word = null;
-        */}
+        */
+
+            System.IO.FileStream fs = new FileStream(pdfDestination,
+                                                     FileMode.Create);
+            // Create an instance of the document class which represents the PDF document itself.
+            text.Document document = new text.Document(text.PageSize.A4,25,25,100,30);
+            // Create an instance to the PDF file by creating an instance of the PDF 
+            // Writer class using the document and the filestrem in the constructor.
+            pdf.PdfWriter writer = pdf.PdfWriter.GetInstance(document, fs);
+            //writer.PageEvent = new iTextEvents();
+            iTextEvents evento = new iTextEvents();
+            writer.PageEvent = evento;
+            evento.SetPatient(report.Patient);
+
+            // Add meta information to the document
+            document.AddAuthor(report.Doctor.Name);
+            document.AddCreator("UDA-HTA");
+            document.AddKeywords("PDF Informe de MAPA");
+            //document.AddSubject("Document subject - Describing the steps creating a PDF document");
+            document.AddTitle("Informe de Monitoreo Ambulatorio de Presión Arterial");
+
+            // Open the document to enable you to write to the document
+            document.Open();
+
+            pdf.PdfContentByte cb = writer.DirectContent;
+            pdf.BaseFont f_cn = pdf.BaseFont.CreateFont("c:\\windows\\fonts\\calibri.ttf", pdf.BaseFont.CP1252, pdf.BaseFont.NOT_EMBEDDED);
+
+            //Agregar tabla
+            pdf.PdfPTable table = new pdf.PdfPTable(6);
+
+            pdf.PdfPCell emptyCell = new pdf.PdfPCell();
+            emptyCell.Colspan = 6;
+            emptyCell.Border = 0;
+            table.AddCell(emptyCell);
+
+            pdf.PdfPCell tituloCell = new pdf.PdfPCell(new text.Phrase("\n Informe de Monitoreo Ambulatorio de Presion Arterial \n", new text.Font(f_cn, 18f, text.Font.BOLD)));
+            tituloCell.Colspan = 6;
+            tituloCell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            tituloCell.Border = 0; //sin borde
+            tituloCell.PaddingBottom = 10f;
+            table.AddCell(tituloCell);
+
+            table.AddCell(emptyCell);
+            emptyCell.Border = text.Rectangle.BOTTOM_BORDER; //borde abajo
+            table.AddCell(emptyCell);
+
+            pdf.PdfPCell cellVacia = new pdf.PdfPCell();
+            cellVacia.Border = 0;
+
+            /* 
+             * INLCUIR DATOS PACIENTE
+             */
+            if (includePatientData)
+            {
+                pdf.PdfPCell cellNroReg = new pdf.PdfPCell(new text.Phrase("Nro. Registro: " + report.Patient.RegisterNumber,new text.Font(f_cn,11f)));
+                cellNroReg.Colspan = 3;
+                cellNroReg.Border = 0;
+                table.AddCell(cellNroReg);
+
+                cellVacia.Colspan = 3;
+                table.AddCell(cellVacia);
+
+                pdf.PdfPCell cellDocumento = new pdf.PdfPCell(new text.Phrase("Documento: " + report.Patient.DocumentId, new text.Font(f_cn, 11f)));
+                cellDocumento.Colspan = 3;
+                cellDocumento.Border = 0;
+                table.AddCell(cellDocumento);
+
+                pdf.PdfPCell cellFechaNac = new pdf.PdfPCell(new text.Phrase("Fecha de Nacimiento: " + report.Patient.BirthDate.Value.Date.ToString(), new text.Font(f_cn, 11f)));
+                cellFechaNac.Colspan = 3;
+                cellFechaNac.Border = 0;
+                table.AddCell(cellFechaNac);
+
+                pdf.PdfPCell cellApellido = new pdf.PdfPCell(new text.Phrase("Apellidos: " + report.Patient.Surnames, new text.Font(f_cn, 11f)));
+                cellApellido.Colspan = 3;
+                cellApellido.Border = 0;
+                table.AddCell(cellApellido);
+
+                pdf.PdfPCell cellPeso = new pdf.PdfPCell(new text.Phrase("Peso: " + report.TemporaryData.Weight.Value.ToString(), new text.Font(f_cn, 11f)));
+                cellPeso.Colspan = 3;
+                cellPeso.Border = 0;
+                table.AddCell(cellPeso);
+
+                pdf.PdfPCell cellNombre = new pdf.PdfPCell(new text.Phrase("Nombre: " + report.Patient.Names, new text.Font(f_cn, 11f)));
+                cellNombre.Colspan = 3;
+                cellNombre.Border = 0;
+                table.AddCell(cellNombre);
+
+                pdf.PdfPCell cellAltura = new pdf.PdfPCell(new text.Phrase("Altura: " + report.TemporaryData.Height.Value.ToString(), new text.Font(f_cn, 11f)));
+                cellAltura.Colspan = 3;
+                cellAltura.Border = 0;
+                table.AddCell(cellAltura);
+
+                pdf.PdfPCell cellDomicilio = new pdf.PdfPCell(new text.Phrase("Domicilio: " + report.Patient.Address, new text.Font(f_cn, 11f)));
+                cellDomicilio.Colspan = 3;
+                cellDomicilio.Border = 0;
+                table.AddCell(cellDomicilio);
+
+                pdf.PdfPCell cellSexo = new pdf.PdfPCell(new text.Phrase("Sexo: " + report.Patient.Sex.Value.ToString(), new text.Font(f_cn, 11f)));
+                cellSexo.Colspan = 3;
+                cellSexo.Border = 0;
+                table.AddCell(cellSexo);
+
+                pdf.PdfPCell cellTelefono = new pdf.PdfPCell(new text.Phrase("Telefono: " + report.Patient.Phone, new text.Font(f_cn, 11f)));
+                cellTelefono.Colspan = 3;
+                cellTelefono.Border = 0;
+                table.AddCell(cellTelefono);
+
+                pdf.PdfPCell cellemail = new pdf.PdfPCell(new text.Phrase("E-mail: " + report.Patient.Email, new text.Font(f_cn, 11f)));
+                cellemail.Colspan = 3;
+                cellemail.Border = 0;
+                table.AddCell(cellemail);
+
+                table.AddCell(emptyCell); //agrego una celda vacia de largo 6
+
+                //Informacion de inicio y fin del estudio
+                table.AddCell(cellVacia); // agrego celda vacia de largo 3
+
+                pdf.PdfPCell cellTit24h =
+                    new pdf.PdfPCell(new text.Phrase("24h ABDM", new text.Font(f_cn, 14f, text.Font.BOLD)));
+                cellTit24h.Colspan = 3;
+                cellTit24h.Border = 0;
+                table.AddCell(cellTit24h);
+
+                table.AddCell(cellVacia);
+
+                pdf.PdfPCell cellDateIni =
+                    new pdf.PdfPCell(new text.Phrase("Fecha y hora de inicio: " + report.BeginDate.Value.ToString(), new text.Font(f_cn, 11f)));
+                cellDateIni.Colspan = 3;
+                cellDateIni.Border = 0;
+                table.AddCell(cellDateIni);
+
+                table.AddCell(cellVacia);
+
+                pdf.PdfPCell cellDateEnd =
+                    new pdf.PdfPCell(new text.Phrase("Fecha y hora de fin: " + report.EndDate.Value.ToString(),
+                                                     new text.Font(f_cn, 11f)));
+                cellDateEnd.Colspan = 3;
+                cellDateEnd.Border = 0;
+                table.AddCell(cellDateEnd);
+
+                table.AddCell(cellVacia);
+
+                pdf.PdfPCell cellNightIni = new pdf.PdfPCell(new text.Phrase("Hora inicio noche: " + report.Carnet.SleepTimeStart.ToString(),new text.Font(f_cn, 11f)));
+                cellNightIni.Colspan = 3;
+                cellNightIni.Border = 0;
+                table.AddCell(cellNightIni);
+
+                table.AddCell(cellVacia);
+
+                pdf.PdfPCell cellNightEnd = new pdf.PdfPCell(new text.Phrase("Hora inicio noche: " + report.Carnet.SleepTimeEnd.ToString(), new text.Font(f_cn, 11f)));
+                cellNightEnd.Colspan = 3;
+                cellNightEnd.Border = 0;
+                table.AddCell(cellNightEnd);
+
+                table.AddCell(emptyCell);
+
+                document.Add(table);
+                document.NewPage();
+            }
+
+            /*
+             * INCLUIR RESUMEN DE MEDIDAS
+             */
+            if (includeProfile)
+            {
+                pdf.PdfPTable tableMeasureSumm = new pdf.PdfPTable(4);
+                
+                pdf.PdfPCell cellTitMeasSumm = new pdf.PdfPCell(new text.Phrase("Resumen de Medidas",new text.Font(f_cn,14f,text.Font.BOLD)));
+                cellTitMeasSumm.Colspan = 4;
+                cellTitMeasSumm.HorizontalAlignment = 0; //Left
+                cellTitMeasSumm.Border = 0;
+                cellTitMeasSumm.PaddingBottom = 10f;
+                tableMeasureSumm.AddCell(cellTitMeasSumm);
+
+                pdf.PdfPCell cell = new pdf.PdfPCell();
+                cell.Border = 0;
+                tableMeasureSumm.AddCell(cell);
+
+                pdf.PdfPCell cellTit24h = new pdf.PdfPCell(new text.Phrase("24 horas", new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTit24h.Border = 0;
+                cellTit24h.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTit24h.HorizontalAlignment = 1; //Centro
+                tableMeasureSumm.AddCell(cellTit24h);
+
+                pdf.PdfPCell cellTitDay =
+                    new pdf.PdfPCell(new text.Phrase("Dia", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitDay.Border = 0;
+                cellTitDay.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitDay.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitDay);
+
+                pdf.PdfPCell cellTitNight =
+                    new pdf.PdfPCell(new text.Phrase("Noche", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitNight.Border = 0;
+                cellTitNight.BackgroundColor = new text.BaseColor(200, 200, 200);
+                cellTitNight.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitNight);
+
+                pdf.PdfPCell cellTitMediciones =
+                    new pdf.PdfPCell(new text.Phrase("Mediciones", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitMediciones.Border = 0;
+                cellTitMediciones.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitMediciones.HorizontalAlignment = 0;
+                cellTitMediciones.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitMediciones);
+
+                pdf.PdfPCell cellTitTot1 = new pdf.PdfPCell(new text.Phrase("Total",new text.Font(f_cn,11f)));
+                cellTitTot1.Border = 0;
+                cellTitTot1.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitTot1);
+
+                //Cantidad total de medidas
+                var cantMeasureTotal = report.Measures.Count(m => !m.Retry);
+                pdf.PdfPCell cellTot =
+                    new pdf.PdfPCell(new text.Phrase(cantMeasureTotal.ToString(), new text.Font(f_cn,11f)));
+                cellTot.Border = 0;
+                cellTot.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTot);
+
+                //Cantidad de medidas durante el dia
+                var cantMeasureDay = report.Measures.Count(m => m.Asleep.HasValue && !m.Asleep.Value && !m.Retry);
+                pdf.PdfPCell cellMeasDay = 
+                    new pdf.PdfPCell(
+                        new text.Phrase(
+                            cantMeasureDay.ToString(), new text.Font(f_cn,11f)));
+                cellMeasDay.Border = 0;
+                cellMeasDay.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellMeasDay);
+
+                //Cantidad de medidas durante la noche
+                var cantMeasureNight = report.Measures.Count(m => m.Asleep.HasValue && m.Asleep.Value && !m.Retry);
+                pdf.PdfPCell cellMeasNight =
+                    new pdf.PdfPCell(
+                        new text.Phrase(
+                            cantMeasureNight.ToString(), new text.Font(f_cn, 11f)));
+                cellMeasNight.Border = 0;
+                cellMeasNight.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellMeasNight);
+
+                pdf.PdfPCell cellTitValid = new pdf.PdfPCell(new text.Phrase("Valido", new text.Font(f_cn,11f)));
+                cellTitValid.Border = 0;
+                cellTitValid.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitValid);
+
+                //Cantidad total de medidas validas
+                var cantValidTot = report.Measures.Count(m => m.Valid && m.IsEnabled);
+                pdf.PdfPCell cellValidTot =
+                    new pdf.PdfPCell(
+                        new text.Phrase(
+                            cantValidTot.ToString(), new text.Font(f_cn, 11f)));
+                cellValidTot.Border = 0;
+                cellValidTot.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellValidTot);
+
+                //Cantidad de medidas validas tomadas durante el dia
+                var cantValidDay =
+                    report.Measures.Count(m => m.Valid && m.IsEnabled && m.Asleep.HasValue && !m.Asleep.Value);
+                pdf.PdfPCell cellValidDay =
+                    new pdf.PdfPCell(
+                        new text.Phrase(
+                            cantValidDay.ToString(), new text.Font(f_cn, 11f)));
+                cellValidDay.Border = 0;
+                cellValidDay.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellValidDay);
+
+                //Cantidad de medidas tomadas durante la noche
+                var cantValidNight =
+                    report.Measures.Count(m => m.Valid && m.IsEnabled && m.Asleep.HasValue && m.Asleep.Value);
+                pdf.PdfPCell cellValidNight =
+                    new pdf.PdfPCell(
+                        new text.Phrase(
+                            cantValidNight.ToString(), new text.Font(f_cn, 11f)));
+                cellValidNight.Border = 0;
+                cellValidNight.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellValidNight);
+
+                pdf.PdfPCell cellTitPercValid = new pdf.PdfPCell(new text.Phrase("% Valido", new text.Font(f_cn,11f)));
+                cellTitPercValid.Border = 0;
+                cellTitPercValid.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitPercValid);
+
+                //Porcentaje de medidas validas totales
+                pdf.PdfPCell cellPercTotValid = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantMeasureTotal != 0 ? (cantValidTot / (double)cantMeasureTotal).ToString("P1") : "-",new text.Font(f_cn,11f)));
+                cellPercTotValid.Border = 0;
+                cellPercTotValid.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellPercTotValid);
+
+                //Porcentaje de medidas validas durante el dia
+                pdf.PdfPCell cellPercDayValid = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantMeasureDay != 0 ? (cantValidDay / (double)cantMeasureDay).ToString("P1") : "-",new text.Font(f_cn,11f)));
+                cellPercDayValid.Border = 0;
+                cellPercDayValid.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellPercDayValid);
+
+                //Porcentaje de medidas validas durante la noche
+                pdf.PdfPCell cellPercNightValid = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantMeasureNight != 0 ? (cantValidNight / (double)cantMeasureNight).ToString("P1") : "-",new text.Font(f_cn,11f)));
+                cellPercNightValid.Border = 0;
+                cellPercNightValid.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellPercNightValid);
+
+                pdf.PdfPCell cellTitAvg = new pdf.PdfPCell(new text.Phrase("Promedio",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitAvg.Border = 0;
+                cellTitAvg.HorizontalAlignment = 0;
+                cellTitAvg.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitAvg.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitAvg);
+
+                pdf.PdfPCell cellTitPAS = new pdf.PdfPCell(new text.Phrase("Presión arterial sistólica",new text.Font(f_cn,11f)));
+                cellTitPAS.Border = 0;
+                cellTitPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitPAS);
+
+                //Promedio total de sistolica
+                pdf.PdfPCell cellTotAvgPAS = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicTotalAvg.HasValue ? report.SystolicTotalAvg.Value.ToString() : "-",new text.Font(f_cn,11f)));
+                cellTotAvgPAS.Border = 0;
+                cellTotAvgPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotAvgPAS);
+
+                //Promedio dia sistolica
+                pdf.PdfPCell cellDayAvgPAS = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicDayAvg.HasValue ? report.SystolicDayAvg.ToString() : "-",new text.Font(f_cn,11f)));
+                cellDayAvgPAS.Border = 0;
+                cellDayAvgPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayAvgPAS);
+
+                //Promedio noche sistolica
+                pdf.PdfPCell cellNightAvgPAS = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicNightAvg.HasValue ? report.SystolicNightAvg.ToString() : "-",new text.Font(f_cn,11f)));
+                cellNightAvgPAS.Border = 0;
+                cellNightAvgPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightAvgPAS);
+
+                pdf.PdfPCell cellTitPAD = new pdf.PdfPCell(new text.Phrase("Presión arterial diastólica", new text.Font(f_cn,11f)));
+                cellTitPAD.Border = 0;
+                cellTitPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitPAD);
+
+                //Promedio del total de medidas diastolicas
+                pdf.PdfPCell cellTotAvgPAD = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicTotalAvg.HasValue ? report.DiastolicTotalAvg.Value.ToString() : "-",new text.Font(f_cn,11f)));
+                cellTotAvgPAD.Border = 0;
+                cellTotAvgPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotAvgPAD);
+
+                //Promedio dia diastolica
+                pdf.PdfPCell cellDayAvgPAD = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicDayAvg.HasValue ? report.DiastolicDayAvg.Value.ToString() : "-",new text.Font(f_cn,11f)));
+                cellDayAvgPAD.Border = 0;
+                cellDayAvgPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayAvgPAD);
+
+                //Promedio noche diastolica
+                pdf.PdfPCell cellNightAvgPAD = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicNightAvg.HasValue ? report.DiastolicNightAvg.Value.ToString() : "-",new text.Font(f_cn,11f)));
+                cellNightAvgPAD.Border = 0;
+                cellNightAvgPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightAvgPAD);
+
+                pdf.PdfPCell cellTitTAM = new pdf.PdfPCell(new text.Phrase("TAM",new text.Font(f_cn,11f)));
+                cellTitTAM.Border = 0;
+                cellTitTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitTAM);
+
+                //Promedio total TAM
+                pdf.PdfPCell cellTotAvgTAM = new pdf.PdfPCell(
+                    new text.Phrase(report.MiddleTotalAvg.HasValue ? report.MiddleTotalAvg.Value.ToString() : "-",new text.Font(f_cn,11f)));
+                cellTotAvgTAM.Border = 0;
+                cellTotAvgTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotAvgTAM);
+
+                //Promedio dia TAM
+                pdf.PdfPCell cellDayAvgTAM = new pdf.PdfPCell(
+                    new text.Phrase(report.MiddleDayAvg.HasValue ? report.MiddleDayAvg.Value.ToString() : "-", new text.Font(f_cn,11f)));
+                cellDayAvgTAM.Border = 0;
+                cellDayAvgTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayAvgTAM);
+
+                //Promedio noche TAM
+                pdf.PdfPCell cellNightAvgTAM = new pdf.PdfPCell(
+                    new text.Phrase(report.MiddleNightAvg.HasValue ? report.MiddleNightAvg.ToString() : "-",new text.Font(f_cn,11f)));
+                cellNightAvgTAM.Border = 0;
+                cellNightAvgTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightAvgTAM);
+
+                pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("FC", new text.Font(f_cn,11f)));
+                cellTitFC.Border = 0;
+                cellTitFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitFC);
+
+                //Promedio total frecuencia cardiaca
+                pdf.PdfPCell cellTotAvgFC = new pdf.PdfPCell(
+                    new text.Phrase(report.HeartRateTotalAvg.HasValue ? report.HeartRateTotalAvg.ToString() : "-",new text.Font(f_cn,11f)));
+                cellTotAvgFC.Border = 0;
+                cellTotAvgFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotAvgFC);
+
+                //Promedio dia frecuencia cardiaca
+                pdf.PdfPCell cellDayAvgFC = new pdf.PdfPCell(
+                    new text.Phrase(report.HeartRateDayAvg.HasValue ? report.HeartRateDayAvg.ToString() : "-", new text.Font(f_cn,11f)));
+                cellDayAvgFC.Border = 0;
+                cellDayAvgFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayAvgFC);
+
+                //Promedio noche frecuencia cardiaca
+                pdf.PdfPCell cellNightAvgFC = new pdf.PdfPCell(
+                    new text.Phrase(report.HeartRateNightAvg.HasValue ? report.HeartRateNightAvg.ToString() : "-",new text.Font(f_cn,11f)));
+                cellNightAvgFC.Border = 0;
+                cellNightAvgFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightAvgFC);
+
+                pdf.PdfPCell cellTitDS = new pdf.PdfPCell(new text.Phrase("Desviación Estandar",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitDS.Border = 0;
+                cellTitDS.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitDS.HorizontalAlignment = 0;
+                cellTitDS.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitDS);
+
+                tableMeasureSumm.AddCell(cellTitPAS);
+
+                //Desviacion estandar total sistolica 
+                pdf.PdfPCell cellTotDsPas = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationSysTotal.HasValue ? report.StandardDeviationSysTotal.Value.ToString("F1") : "-",
+                        new text.Font(f_cn,11f)));
+                cellTotDsPas.Border = 0;
+                cellTotDsPas.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotDsPas);
+
+                //Desviacion estandar sistolica del dia
+                pdf.PdfPCell cellDayDsPas = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationSysDay.HasValue ? report.StandardDeviationSysDay.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellDayDsPas.Border = 0;
+                cellDayDsPas.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayDsPas);
+
+                //Desvacion estandar noche sistolica
+                pdf.PdfPCell cellNightDsPas = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationSysNight.HasValue ? report.StandardDeviationSysNight.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellNightDsPas.Border = 0;
+                cellNightDsPas.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightDsPas);
+
+                tableMeasureSumm.AddCell(cellTitPAS);
+
+                //Desviacion estandar diastolica total
+                pdf.PdfPCell cellTotDsPad = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationDiasTotal.HasValue ? report.StandardDeviationDiasTotal.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellTotDsPad.Border = 0;
+                cellTotDsPad.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotDsPad);
+
+                //Desviacion estandar dia diastolica
+                pdf.PdfPCell cellDayDsPad = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationDiasDay.HasValue ? report.StandardDeviationDiasDay.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellDayDsPad.Border = 0;
+                cellDayDsPad.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayDsPad);
+
+                //Desviacion estandar noche diastolica
+                pdf.PdfPCell cellNightDsPad = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationDiasNight.HasValue ? report.StandardDeviationDiasNight.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellNightDsPad.Border = 0;
+                cellNightDsPad.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightDsPad);
+
+                tableMeasureSumm.AddCell(cellTitTAM);
+
+                //Desviacion estandar total TAM
+                pdf.PdfPCell cellTotDsTAM = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationTamTotal.HasValue ? report.StandardDeviationTamTotal.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellTotDsTAM.Border = 0;
+                cellTotDsTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotDsTAM);
+
+                //Desviacion estandar dia TAM
+                pdf.PdfPCell cellDayDsTAM = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationTamDay.HasValue ? report.StandardDeviationTamDay.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellDayDsTAM.Border = 0;
+                cellDayDsTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayDsTAM);
+
+                //Desviacion estandar noche TAM
+                pdf.PdfPCell cellNightDsTAM = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationTamNight.HasValue ? report.StandardDeviationTamNight.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellNightDsTAM.Border = 0;
+                cellNightDsTAM.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightDsTAM);
+
+                tableMeasureSumm.AddCell(cellTitFC);
+
+                //Desviacion estandar total frecuencia cardiaca
+                pdf.PdfPCell cellTotDsFC = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationHeartRateTotal.HasValue ? report.StandardDeviationHeartRateTotal.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellTotDsFC.Border = 0;
+                cellTotDsFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTotDsFC);
+
+                //Desviacion estandar frecuencia cardiaca dia
+                pdf.PdfPCell cellDayDsFC = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationHeartRateDay.HasValue ? report.StandardDeviationHeartRateDay.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellDayDsFC.Border = 0;
+                cellDayDsFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayDsFC);
+
+                //Desviacion estandar frecuencia cardiaca noche
+                pdf.PdfPCell cellNightDsFC = new pdf.PdfPCell(
+                    new text.Phrase(
+                        report.StandardDeviationHeartRateNight.HasValue ? report.StandardDeviationHeartRateNight.Value.ToString("F1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellNightDsFC.Border = 0;
+                cellNightDsFC.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightDsFC);
+
+                pdf.PdfPCell cellTitOverLimVal = new pdf.PdfPCell(
+                    new text.Phrase("Valores por encima del límite",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitOverLimVal.Border = 0;
+                cellTitOverLimVal.HorizontalAlignment = 0;
+                cellTitOverLimVal.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitOverLimVal.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitOverLimVal);
+
+                tableMeasureSumm.AddCell(cellTitPAS);
+                cellVacia.Colspan = 1;
+                tableMeasureSumm.AddCell(cellVacia); //Celda vacia
+
+                var uda = new UdaHtaDataAccess();
+                var limits = uda.GetLimits();
+
+                var valid = report.Measures.Where(m => m.Valid && m.IsEnabled).ToList();
+
+                //Porcentaje de valores por encima del limite sistolica
+                // val lim dia sis
+                pdf.PdfPCell cellDayOverLimPAS = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantValidDay != 0 ? (
+                                        valid.Count(
+                                        m => m.Asleep.HasValue && !m.Asleep.Value && m.Systolic >= limits.HiSysDay) /(double) cantValidDay
+                                        ).ToString("P1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellDayOverLimPAS.Border = 0;
+                cellDayOverLimPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayOverLimPAS);
+
+                //val lim noche sis
+                pdf.PdfPCell cellNightOverLimPAS = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantValidNight != 0 ? (
+                                        valid.Count(
+                                        m => m.Asleep.HasValue && m.Asleep.Value && m.Systolic >= limits.HiSysNight) / (double)cantValidNight
+                                        ).ToString("P1") : "-",
+                        new text.Font(f_cn, 11f)));
+                cellNightOverLimPAS.Border = 0;
+                cellNightOverLimPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightOverLimPAS);
+
+                tableMeasureSumm.AddCell(cellTitPAD);
+                tableMeasureSumm.AddCell(cellVacia);
+
+                //Porcentaje de valores por encima del limite diastolica
+                // val lim dia dias
+                pdf.PdfPCell cellDayOverLimPAD = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantValidDay != 0 ? (
+                                    valid.Count(
+                                    m => m.Asleep.HasValue && !m.Asleep.Value && m.Diastolic >= limits.HiDiasDay) /(double) cantValidDay
+                                    ).ToString("P1") : "-", 
+                        new text.Font(f_cn,11f)));
+                cellDayOverLimPAD.Border = 0;
+                cellDayOverLimPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayOverLimPAD);
+
+                //Porcentaje de valores por encima del limite sistolica
+                // val lim noche dias
+                pdf.PdfPCell cellNightOverLimPAD = new pdf.PdfPCell(
+                    new text.Phrase(
+                        cantValidNight != 0 ? (
+                                    valid.Count(
+                                    m => m.Asleep.HasValue && m.Asleep.Value && m.Diastolic >= limits.HiDiasNight) / (double)cantValidNight
+                                    ).ToString("P1") : "-", 
+                    new text.Font(f_cn,11f)));
+                cellNightOverLimPAD.Border = 0;
+                cellNightOverLimPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightOverLimPAD);
+
+                pdf.PdfPCell cellTitMax = new pdf.PdfPCell(new text.Phrase("Máximo",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitMax.Border = 0;
+                cellTitMax.HorizontalAlignment = 0;
+                cellTitMax.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitMax.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitMax);
+
+                tableMeasureSumm.AddCell(cellTitPAS);
+                tableMeasureSumm.AddCell(cellVacia);
+
+                //Sistolica maxima del dia
+                pdf.PdfPCell cellDayMaxSis = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicDayMax.HasValue ? report.SystolicDayMax.ToString() : "-", new text.Font(f_cn,11f)));
+                cellDayMaxSis.Border = 0;
+                cellDayMaxSis.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayMaxSis);
+
+                //Sistolica maxima de la noche
+                pdf.PdfPCell cellNightMaxSis = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicNightMax.HasValue ? report.SystolicNightMax.ToString() : "-", new text.Font(f_cn,11f)));
+                cellNightMaxSis.Border = 0;
+                cellNightMaxSis.HorizontalAlignment = 0;
+                tableMeasureSumm.AddCell(cellNightMaxSis);
+
+                tableMeasureSumm.AddCell(cellTitPAD);
+                tableMeasureSumm.AddCell(cellVacia);
+
+                //Diastolica maxima del dia
+                pdf.PdfPCell cellDayMaxDias = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicDayMax.HasValue ? report.DiastolicDayMax.ToString() : "-", new text.Font(f_cn,11f)));
+                cellDayMaxDias.Border = 0;
+                cellDayMaxDias.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayMaxDias);
+
+                //Diastolica maxima de la noche
+                pdf.PdfPCell cellNightMaxDias = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicNightMax.HasValue ? report.DiastolicNightMax.ToString() : "-", new text.Font(f_cn,11f)));
+                cellNightMaxDias.Border = 0;
+                cellNightMaxDias.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightMaxDias);
+
+                pdf.PdfPCell cellTitMin = new pdf.PdfPCell(new text.Phrase("Mínimo", new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitMin.Border = 0;
+                cellTitMin.HorizontalAlignment = 0;
+                cellTitMin.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitMin.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitMin);
+
+                tableMeasureSumm.AddCell(cellTitPAS);
+                tableMeasureSumm.AddCell(cellVacia);
+
+                //Sistole minimo dia
+                pdf.PdfPCell cellDayMinSis = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicDayMin.HasValue ? report.SystolicDayMin.ToString() : "-", new text.Font(f_cn,11f)));
+                cellDayMinSis.Border = 0;
+                cellDayMinSis.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayMinSis);
+
+                //Sistole minimo noche
+                pdf.PdfPCell cellNightMinSis = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicNightMin.HasValue ? report.SystolicNightMin.ToString() : "-", new text.Font(f_cn,11f)));
+                cellNightMinSis.Border = 0;
+                cellNightMinSis.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightMinSis);
+
+                tableMeasureSumm.AddCell(cellTitPAD);
+                tableMeasureSumm.AddCell(cellVacia);
+
+                //Diastolica minima dia
+                pdf.PdfPCell cellDayMinDias = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicDayMin.HasValue ? report.DiastolicDayMin.ToString() : "-", new text.Font(f_cn,11f)));
+                cellDayMinDias.Border = 0;
+                cellDayMinDias.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDayMinDias);
+
+                //Diastolica minima noche
+                pdf.PdfPCell cellNightMinDias = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicNightMin.HasValue ? report.DiastolicNightMin.ToString() : "-",new text.Font(f_cn,11f)));
+                cellNightMinDias.Border = 0;
+                cellNightMinDias.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellNightMinDias);
+
+                pdf.PdfPCell cellTitDipping = new pdf.PdfPCell(new text.Phrase("Dipping",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitDipping.Border = 0;
+                cellTitDipping.HorizontalAlignment = 0;
+                cellTitDipping.BackgroundColor = new text.BaseColor(200,200,200);
+                cellTitDipping.Colspan = 4;
+                tableMeasureSumm.AddCell(cellTitDipping);
+
+                tableMeasureSumm.AddCell(cellTitPAS);
+
+                //Dipping sistolica
+                pdf.PdfPCell cellDipSis = new pdf.PdfPCell(
+                    new text.Phrase(report.SystolicDipping.HasValue ? report.SystolicDipping.Value.ToString("P2") : "-",new text.Font(f_cn,11f)));
+                cellDipSis.Border = 0;
+                cellDipSis.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDipSis);
+
+                cellVacia.Colspan = 2;
+                tableMeasureSumm.AddCell(cellVacia);
+
+                tableMeasureSumm.AddCell(cellTitPAD);
+
+                //Dipping sistolica
+                pdf.PdfPCell cellDipDias = new pdf.PdfPCell(
+                    new text.Phrase(report.DiastolicDipping.HasValue ? report.DiastolicDipping.Value.ToString("P2") : "-", new text.Font(f_cn,11f)));
+                cellDipDias.Border = 0;
+                cellDipDias.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellDipDias);
+                tableMeasureSumm.AddCell(cellVacia);
+
+                pdf.PdfPCell cellDipRef =
+                    new pdf.PdfPCell(
+                        new text.Phrase("Dipping <0% Invertido; <10% Non-Dipper; <20% Normal; >=20% Extremos",
+                                        new text.Font(f_cn, 10f)));
+                cellDipRef.Colspan = 4;
+                cellDipRef.Border = 0;
+                tableMeasureSumm.AddCell(cellDipRef);
+
+                tableMeasureSumm.AddCell(emptyCell);
+
+                document.Add(tableMeasureSumm);
+                document.NewPage();
+
+            }
+
+            /*
+             * INCLUIR DIAGNOSTICO
+             */
+            if (includeDiagnostic)
+            {
+                pdf.PdfPTable tableDiag = new pdf.PdfPTable(1);
+                text.Phrase titDiagnostic = new text.Phrase("Diagnóstico \n",new text.Font(f_cn,14f,text.Font.BOLD));
+                pdf.PdfPCell cellTit = new pdf.PdfPCell(titDiagnostic);
+                cellTit.Border = 0;
+                cellTit.HorizontalAlignment = 0;
+                tableDiag.AddCell(cellTit);
+
+                if (report.Diagnosis != null)
+                {
+                    text.Chunk diagnostic = new text.Chunk(report.Diagnosis, new text.Font(f_cn, 11f));
+                    text.Paragraph p = new text.Paragraph();
+                    p.Add(diagnostic);
+                    pdf.PdfPCell cellText = new pdf.PdfPCell(p);
+                    cellText.Border = 0;
+                    cellText.HorizontalAlignment = 0;
+                    tableDiag.AddCell(cellText);
+                }
+                else
+                {
+                    pdf.PdfPCell cellExcep = new pdf.PdfPCell(new text.Phrase("<No se ha realizado el diagnóstico aún>", new text.Font(f_cn, 11f)));
+                    cellExcep.Border = 0;
+                    cellExcep.HorizontalAlignment = 0;
+                    tableDiag.AddCell(cellExcep);
+                }
+
+                document.Add(tableDiag);
+                document.NewPage();
+            }
+
+            /*
+             * INCLUIR GRAFICA
+             */
+            if (includeGraphic)
+            {
+                pdf.PdfPTable tableGraphic = new pdf.PdfPTable(1);
+             
+                text.Phrase titProfile = new text.Phrase("Perfil de Presión Arterial \n", new text.Font(f_cn, 14f, text.Font.BOLD));
+                pdf.PdfPCell cellTitProfile = new pdf.PdfPCell(titProfile);
+                cellTitProfile.Border = 0;
+                cellTitProfile.HorizontalAlignment = 0;
+                tableGraphic.AddCell(cellTitProfile);
+
+                //Agregar grafica
+                using (FileStream fs2 = new FileStream(ConfigurationManager.AppSettings["GraphicPressurePrfl"], FileMode.Open))
+                {
+                    text.Image png = text.Image.GetInstance(sd.Image.FromStream(fs2), sd.Imaging.ImageFormat.Png);
+                    png.ScalePercent(80);
+                    pdf.PdfPCell cellProfile = new pdf.PdfPCell(png);
+                    cellProfile.Border = 0;
+                    cellProfile.HorizontalAlignment = 0;
+                    tableGraphic.AddCell(cellProfile);
+
+                    fs2.Close();
+                }
+
+                text.Phrase titOverLim = new text.Phrase("\n Valores por encima del límite \n",new text.Font(f_cn,14f,text.Font.BOLD));
+                pdf.PdfPCell cellTitOverLim = new pdf.PdfPCell(titOverLim);
+                cellTitOverLim.Border = 0;
+                cellTitOverLim.HorizontalAlignment = 0;
+                tableGraphic.AddCell(cellTitOverLim);
+
+                //Agregar grafica
+                using (FileStream fs3 = new FileStream(ConfigurationManager.AppSettings["GraphicOverLimit"], FileMode.Open))
+                {
+                    text.Image png = text.Image.GetInstance(sd.Image.FromStream(fs3), sd.Imaging.ImageFormat.Png);
+                    png.ScalePercent(80);
+                    pdf.PdfPCell cellOverLim = new pdf.PdfPCell(png);
+                    cellOverLim.Border = 0;
+                    cellOverLim.HorizontalAlignment = 0;
+                    tableGraphic.AddCell(cellOverLim);
+                    
+                    fs3.Close();
+                }
+
+                document.Add(tableGraphic);
+                document.NewPage();
+            }
+
+            /*
+             * INLCUIR TABLA DE MEDIDAS
+             */
+            if (includeMeasures)
+            {
+                pdf.PdfPTable measureTable = new pdf.PdfPTable(6);
+
+                text.Phrase titMeasTable = new text.Phrase("Tabla Completa de Medidas \n", new text.Font(f_cn, 14f, text.Font.BOLD));
+                pdf.PdfPCell cellTitMeasTable = new pdf.PdfPCell(titMeasTable);
+                cellTitMeasTable.Border = 0;
+                cellTitMeasTable.HorizontalAlignment = 0;
+                cellTitMeasTable.Colspan = 6;
+                measureTable.AddCell(cellTitMeasTable);
+
+                pdf.PdfPCell cellTitDate = new pdf.PdfPCell(new text.Phrase("Fecha",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitDate.Border = 0;
+                cellTitDate.HorizontalAlignment = 1;
+                cellTitDate.BackgroundColor = new text.BaseColor(200,200,200);
+                measureTable.AddCell(cellTitDate);
+
+                pdf.PdfPCell cellTitTime = new pdf.PdfPCell(new text.Phrase("Hora",new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitTime.Border = 0;
+                cellTitTime.HorizontalAlignment = 1;
+                cellTitTime.BackgroundColor = new text.BaseColor(200,200,200);
+                measureTable.AddCell(cellTitTime);
+
+                pdf.PdfPCell cellTitPAS = new pdf.PdfPCell(new text.Phrase("Presion arterial sistolica", new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitPAS.Border = 0;
+                cellTitPAS.HorizontalAlignment = 1;
+                cellTitPAS.BackgroundColor = new text.BaseColor(200,200,200);
+                measureTable.AddCell(cellTitPAS);
+
+                pdf.PdfPCell cellTitPAD = new pdf.PdfPCell(new text.Phrase("Presion arterial diastolica", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitPAD.Border = 0;
+                cellTitPAD.HorizontalAlignment = 1;
+                cellTitPAD.BackgroundColor = new text.BaseColor(200, 200, 200);
+                measureTable.AddCell(cellTitPAD);
+
+                pdf.PdfPCell cellTitTAM = new pdf.PdfPCell(new text.Phrase("Presion arterial media", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitTAM.Border = 0;
+                cellTitTAM.HorizontalAlignment = 1;
+                cellTitTAM.BackgroundColor = new text.BaseColor(200, 200, 200);
+                measureTable.AddCell(cellTitTAM);
+
+                pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("Frecuencia cardiaca", new text.Font(f_cn,11f,text.Font.BOLD)));
+                cellTitFC.Border = 0;
+                cellTitFC.HorizontalAlignment = 1;
+                cellTitFC.BackgroundColor = new text.BaseColor(200,200,200);
+                measureTable.AddCell(cellTitFC);
+
+                foreach(Measurement measure in report.Measures)
+                {
+                    //Fecha
+                    pdf.PdfPCell cellDate = new pdf.PdfPCell(
+                        new text.Phrase(measure.Time.Value.ToString(ConfigurationManager.AppSettings["ShortDateString"])));
+                    cellDate.Border = 0;
+                    cellDate.HorizontalAlignment = 1;
+                    measureTable.AddCell(cellDate);
+
+                    //Hora
+                    pdf.PdfPCell cellTime = new pdf.PdfPCell(
+                        new text.Phrase(measure.Time.Value.ToString(ConfigurationManager.AppSettings["ShortTimeString"])));
+                    cellTime.Border = 0;
+                    cellTime.HorizontalAlignment = 1;
+                    measureTable.AddCell(cellTime);
+
+                    //"Presion arterial sistolica"
+                    pdf.PdfPCell cellPAS = new pdf.PdfPCell(
+                        new text.Phrase(measure.Systolic.Value.ToString()));
+                    cellPAS.Border = 0;
+                    cellPAS.HorizontalAlignment = 1;
+                    measureTable.AddCell(cellPAS);
+
+                    //"Presion arterial diastolica"
+                    pdf.PdfPCell cellPAD = new pdf.PdfPCell(
+                        new text.Phrase(measure.Diastolic.Value.ToString()));
+                    cellPAD.Border = 0;
+                    cellPAD.HorizontalAlignment = 1;
+                    measureTable.AddCell(cellPAD);
+
+                    //"Presion arterial media"
+                    pdf.PdfPCell cellTAM = new pdf.PdfPCell(
+                        new text.Phrase(measure.Middle.Value.ToString()));
+                    cellTAM.Border = 0;
+                    cellTAM.HorizontalAlignment = 1;
+                    measureTable.AddCell(cellTAM);
+
+                    //"Frecuencia cardiaca"
+                    pdf.PdfPCell cellFC = new pdf.PdfPCell(
+                        new text.Phrase(measure.HeartRate.Value.ToString()));
+                    cellFC.Border = 0;
+                    cellFC.HorizontalAlignment = 1;
+                    measureTable.AddCell(cellFC);
+                }
+                document.Add(measureTable);
+
+            }
+
+            // Close the document
+            document.Close();
+            // Close the writer instance
+            writer.Close();
+            // Always close open filehandles explicity
+            fs.Close();
+
+        }
 
         public void SetPathReportHC(long reportId, string path)
         {
