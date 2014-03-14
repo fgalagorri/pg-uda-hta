@@ -117,30 +117,55 @@ namespace UDA_HTA.UserControls.ReportCreation
                                                         int.Parse(txtDreamEndMinutes.Text));
             c.SleepQuality = cmbDreamQty.Text;
             c.SleepQualityDescription = txtDreamDesc.Text;
-            c.MealTime = DateTimeHelper.SetDateTime(report.BeginDate.Value,
-                                                    int.Parse(txtMealHour.Text),
-                                                    int.Parse(txtMealMinutes.Text));
+            if ((txtMealHour.Text != "") && (txtMealMinutes.Text != ""))
+            {
+                c.MealTime = DateTimeHelper.SetDateTime(report.BeginDate.Value,
+                                                        int.Parse(txtMealHour.Text),
+                                                        int.Parse(txtMealMinutes.Text));                
+            }
 
             // Mediciones iniciales
-            c.InitSystolic1 = int.Parse(txtSystolicInitial1.Text);
-            c.InitSystolic2 = int.Parse(txtSystolicInitial2.Text);
-            c.InitSystolic3 = int.Parse(txtSystolicInitial3.Text);
-            c.InitDiastolic1 = int.Parse(txtDiastolicInitial1.Text);
-            c.InitDiastolic2 = int.Parse(txtDiastolicInitial2.Text);
-            c.InitDiastolic3 = int.Parse(txtDiastolicInitial3.Text);
-            c.InitHeartRate1 = int.Parse(txtHeartRateInitial1.Text);
-            c.InitHeartRate2 = int.Parse(txtHeartRateInitial2.Text);
-            c.InitHeartRate3 = int.Parse(txtHeartRateInitial3.Text);
+            if (txtSystolicInitial1.Text != "")
+                c.InitSystolic1 = int.Parse(txtSystolicInitial1.Text);                
+            if (txtSystolicInitial2.Text != "")
+                c.InitSystolic2 = int.Parse(txtSystolicInitial2.Text);
+            if (txtSystolicInitial3.Text != "")
+                c.InitSystolic3 = int.Parse(txtSystolicInitial3.Text);
 
-            c.FinalSystolic1 = int.Parse(txtSystolicEnd1.Text);
-            c.FinalSystolic2 = int.Parse(txtSystolicEnd2.Text);
-            c.FinalSystolic3 = int.Parse(txtSystolicEnd3.Text);
-            c.FinalDiastolic1 = int.Parse(txtDiastolicEnd1.Text);
-            c.FinalDiastolic2 = int.Parse(txtDiastolicEnd2.Text);
-            c.FinalDiastolic3 = int.Parse(txtDiastolicEnd3.Text);
-            c.FinalHeartRate1 = int.Parse(txtHeartRateEnd1.Text);
-            c.FinalHeartRate2 = int.Parse(txtHeartRateEnd2.Text);
-            c.FinalHeartRate3 = int.Parse(txtHeartRateEnd3.Text);
+            if (txtDiastolicInitial1.Text != "")
+                c.InitDiastolic1 = int.Parse(txtDiastolicInitial1.Text);                
+            if (txtDiastolicInitial2.Text != "")
+                c.InitDiastolic2 = int.Parse(txtDiastolicInitial2.Text);
+            if (txtDiastolicInitial3.Text != "")
+                c.InitDiastolic3 = int.Parse(txtDiastolicInitial3.Text);
+            
+            if (txtHeartRateInitial1.Text != "")
+                c.InitHeartRate1 = int.Parse(txtHeartRateInitial1.Text);
+            if (txtHeartRateInitial2.Text != "")
+                c.InitHeartRate2 = int.Parse(txtHeartRateInitial2.Text);
+            if (txtHeartRateInitial2.Text != "")
+                c.InitHeartRate3 = int.Parse(txtHeartRateInitial3.Text);
+
+            if (txtSystolicEnd1.Text != "")
+                c.FinalSystolic1 = int.Parse(txtSystolicEnd1.Text);
+            if (txtSystolicEnd2.Text != "")
+                c.FinalSystolic2 = int.Parse(txtSystolicEnd2.Text);
+            if (txtSystolicEnd3.Text != "")
+                c.FinalSystolic3 = int.Parse(txtSystolicEnd3.Text);
+
+            if (txtDiastolicEnd1.Text != "")
+                c.FinalDiastolic1 = int.Parse(txtDiastolicEnd1.Text);
+            if (txtDiastolicEnd2.Text != "")
+                c.FinalDiastolic2 = int.Parse(txtDiastolicEnd2.Text);
+            if (txtDiastolicEnd3.Text != "")
+                c.FinalDiastolic3 = int.Parse(txtDiastolicEnd3.Text);
+
+            if (txtHeartRateEnd1.Text != "")
+                c.FinalHeartRate1 = int.Parse(txtHeartRateEnd1.Text);
+            if (txtHeartRateEnd2.Text != "") 
+                c.FinalHeartRate2 = int.Parse(txtHeartRateEnd2.Text);
+            if (txtHeartRateEnd3.Text != "") 
+                c.FinalHeartRate3 = int.Parse(txtHeartRateEnd3.Text);
 
             report.Carnet = c;
 
@@ -157,7 +182,8 @@ namespace UDA_HTA.UserControls.ReportCreation
                    txtDreamStartMinutes.ValidateInt(0, 59) &
                    txtDreamEndHour.ValidateInt(0, 23) &
                    txtDreamEndMinutes.ValidateInt(0, 60) &
-                   cmbDreamQty.ValidateSelected() &
+                   cmbDreamQty.ValidateSelected();
+            /*                
                    txtMealHour.ValidateInt(0, 23) &
                    txtMealMinutes.ValidateInt(0, 59) &
                    txtSystolicInitial1.ValidateInt(MINSYS, MAXSYS) &
@@ -178,6 +204,7 @@ namespace UDA_HTA.UserControls.ReportCreation
                    txtHeartRateEnd1.ValidateInt(MINHR, MAXHR) &
                    txtHeartRateEnd2.ValidateInt(MINHR, MAXHR) &
                    txtHeartRateEnd3.ValidateInt(MINHR, MAXHR);
+            */
         }
     }
 }

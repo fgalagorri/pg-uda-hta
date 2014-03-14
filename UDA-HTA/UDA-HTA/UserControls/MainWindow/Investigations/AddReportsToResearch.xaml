@@ -88,6 +88,12 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="Auto" 
                                     Binding="{Binding Path=UdaId}" />
+                <DataGridTextColumn Header="Nombre" Width="Auto" 
+                                    Binding="{Binding Path=Patient.Names}" />
+                <DataGridTextColumn Header="Apellido" Width="Auto" 
+                                    Binding="{Binding Path=Patient.Surnames}" />
+                <DataGridTextColumn Header="CI" Width="Auto" 
+                                    Binding="{Binding Path=Patient.DocumentId}" />
                 <DataGridTextColumn Header="Dispositivo" Width="Auto" 
                                     Binding="{Binding Path=DeviceId}" />
                 <DataGridTextColumn x:Name="colDate" Header="Fecha de Reporte" 

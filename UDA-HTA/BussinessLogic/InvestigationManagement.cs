@@ -25,7 +25,7 @@ namespace BussinessLogic
             foreach (var report in investigation.LReports)
             {
                 PatientDataAccess pda = new PatientDataAccess();
-                report.Patient = pda.GetPatient(report.Patient.UdaId.Value);
+                if (report.Patient.UdaId != null) report.Patient = pda.GetPatient(report.Patient.UdaId.Value);
             }
 
             return investigation;
@@ -85,11 +85,11 @@ namespace BussinessLogic
                 bookViews1.Append(workbookView1);
 
                 Sheets sheets1 = new Sheets();
-                Sheet sheet1 = new Sheet() { Name = "Perfil", SheetId = (UInt32Value)1U, Id = "rId1" };
+                //Sheet sheet1 = new Sheet() { Name = "Perfil", SheetId = (UInt32Value)1U, Id = "rId1" };
                 Sheet sheet2 = new Sheet() { Name = "Reportes", SheetId = (UInt32Value)2U, Id = "rId2" };
                 Sheet sheet3 = new Sheet() { Name = "Plantilla", SheetId = (UInt32Value)3U, Id = "rId3", State = SheetStateValues.Hidden};
 
-                sheets1.Append(sheet1);
+                //sheets1.Append(sheet1);
                 sheets1.Append(sheet2);
                 sheets1.Append(sheet3);
 
@@ -108,8 +108,8 @@ namespace BussinessLogic
                 WorksheetPart worksheetPart2 = workbookPart1.AddNewPart<WorksheetPart>("rId2");
                 GenerateWorksheetPart2Content(worksheetPart2, investigation.LReports);
 
-                WorksheetPart worksheetPart3 = workbookPart1.AddNewPart<WorksheetPart>("rId1");
-                GenerateWorksheetPart3Content(worksheetPart3, investigation);
+                //WorksheetPart worksheetPart3 = workbookPart1.AddNewPart<WorksheetPart>("rId1");
+                //GenerateWorksheetPart3Content(worksheetPart3, investigation);
                 /*
                 SpreadsheetPrinterSettingsPart spreadsheetPrinterSettingsPart1 = worksheetPart3.AddNewPart<SpreadsheetPrinterSettingsPart>("rId4");
                 GenerateSpreadsheetPrinterSettingsPart1Content(spreadsheetPrinterSettingsPart1);
@@ -313,12 +313,12 @@ namespace BussinessLogic
             Columns columns2 = new Columns();
             Column column2 = new Column() { Min = (UInt32Value)1U, Max = (UInt32Value)1U, Width = 12D, CustomWidth = true };
             Column column3 = new Column() { Min = (UInt32Value)2U, Max = (UInt32Value)2U, Width = 12D, BestFit = true, CustomWidth = true };
-
+            
             columns2.Append(column2);
             columns2.Append(column3);
 
             SheetData sheetData2 = new SheetData();
-
+            /*
             Row row3 = new Row() { RowIndex = (UInt32Value)1U, Spans = new ListValue<StringValue>() { InnerText = "1:2" }, Height = 18.75D };
 
             Cell cell8 = new Cell() { CellReference = "A1", StyleIndex = (UInt32Value)2U, DataType = CellValues.SharedString };
@@ -328,134 +328,185 @@ namespace BussinessLogic
             cell8.Append(cellValue6);
 
             row3.Append(cell8);
+            */
+            Row row4 = new Row() { RowIndex = (UInt32Value)1U, Spans = new ListValue<StringValue>() { InnerText = "1:2" } };
 
-            Row row4 = new Row() { RowIndex = (UInt32Value)3U, Spans = new ListValue<StringValue>() { InnerText = "1:2" } };
-
-            Cell cell9 = new Cell() { CellReference = "A3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cell9 = new Cell() { CellReference = "A1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue7 = new CellValue();
             cellValue7.Text = "Id Reporte";
 
             cell9.Append(cellValue7);
 
-            Cell cellCI = new Cell() { CellReference = "B3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellCI = new Cell() { CellReference = "B1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueCI = new CellValue();
             cellValueCI.Text = "CI";
 
             cellCI.Append(cellValueCI);
 
-            Cell cell10 = new Cell() { CellReference = "C3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cell10 = new Cell() { CellReference = "C1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue8 = new CellValue();
             cellValue8.Text = "Fecha";
 
             cell10.Append(cellValue8);
 
-            Cell cellTime = new Cell() { CellReference = "D3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellTime = new Cell() { CellReference = "D1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueTime = new CellValue();
             cellValueTime.Text = "Hora";
 
             cellTime.Append(cellValueTime);
 
-            Cell cellDev = new Cell() { CellReference = "E3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellDev = new Cell() { CellReference = "E1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueDev = new CellValue();
             cellValueDev.Text = "Dispositivo";
 
             cellDev.Append(cellValueDev);
 
-            Cell cellSex = new Cell() { CellReference = "F3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellSex = new Cell() { CellReference = "F1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueSex = new CellValue();
             cellValueSex.Text = "Sexo";
 
             cellSex.Append(cellValueSex);
 
-            Cell cellWeight = new Cell() { CellReference = "G3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellWeight = new Cell() { CellReference = "G1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueWeight = new CellValue();
             cellValueWeight.Text = "Peso";
 
             cellWeight.Append(cellValueWeight);
 
-            Cell cellHeight = new Cell() { CellReference = "H3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellHeight = new Cell() { CellReference = "H1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueHeight = new CellValue();
             cellValueHeight.Text = "Altura";
 
             cellHeight.Append(cellValueHeight);
 
-            Cell cellAge = new Cell() { CellReference = "I3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellAge = new Cell() { CellReference = "I1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueAge = new CellValue();
             cellValueAge.Text = "Edad";
 
             cellAge.Append(cellValueAge);
 
-            Cell cellSmoker = new Cell() { CellReference = "J3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellSmoker = new Cell() { CellReference = "J1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueSmoker = new CellValue();
             cellValueSmoker.Text = "Fumador";
 
             cellSmoker.Append(cellValueSmoker);
 
-            Cell cellDysli = new Cell() { CellReference = "K3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellDysli = new Cell() { CellReference = "K1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueDysli = new CellValue();
             cellValueDysli.Text = "Dislipidémico";
 
             cellDysli.Append(cellValueDysli);
 
-            Cell cellDiabetic = new Cell() { CellReference = "L3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellDiabetic = new Cell() { CellReference = "L1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueDiabetic = new CellValue();
             cellValueDiabetic.Text = "Diabetico";
 
             cellDiabetic.Append(cellValueDiabetic);
 
-            Cell cellHypertense = new Cell() { CellReference = "M3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellHypertense = new Cell() { CellReference = "M1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueHypertense = new CellValue();
             cellValueHypertense.Text = "Hipertenso";
 
             cellHypertense.Append(cellValueHypertense);
 
-            Cell cellMassIndex = new Cell() { CellReference = "N3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellMassIndex = new Cell() { CellReference = "N1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueMassIndex = new CellValue();
             cellValueMassIndex.Text = "Masa corporal";
 
             cellMassIndex.Append(cellValueMassIndex);
 
-            Cell cellFatper = new Cell() { CellReference = "O3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellFatper = new Cell() { CellReference = "O1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueFatper = new CellValue();
             cellValueFatper.Text = "Porcentaje de grasa";
 
             cellFatper.Append(cellValueFatper);
 
-            Cell cellMuscle = new Cell() { CellReference = "P3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellMuscle = new Cell() { CellReference = "P1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueMuscle = new CellValue();
             cellValueMuscle.Text = "Porcentaje muscular";
 
             cellMuscle.Append(cellValueMuscle);
 
-            Cell cell2 = new Cell() { CellReference = "Q3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cell2 = new Cell() { CellReference = "Q1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue2 = new CellValue();
             cellValue2.Text = "Sistolica";
 
             cell2.Append(cellValue2);
 
-            Cell cell3 = new Cell() { CellReference = "R3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cell3 = new Cell() { CellReference = "R1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue3 = new CellValue();
             cellValue3.Text = "Diastolica";
 
             cell3.Append(cellValue3);
 
-            Cell cell4 = new Cell() { CellReference = "S3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cell4 = new Cell() { CellReference = "S1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue4 = new CellValue();
             cellValue4.Text = "Media";
 
             cell4.Append(cellValue4);
 
-            Cell cell5 = new Cell() { CellReference = "T3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cell5 = new Cell() { CellReference = "T1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValue5 = new CellValue();
             cellValue5.Text = "FC";
 
             cell5.Append(cellValue5);
 
-            Cell cellSleep = new Cell() { CellReference = "U3", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            Cell cellSleep = new Cell() { CellReference = "U1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
             CellValue cellValueSleep = new CellValue();
             cellValueSleep.Text = "Durmiendo";
 
             cellSleep.Append(cellValueSleep);
+
+            //Titulos para Medicamentos
+            Cell cellCat1 = new Cell() { CellReference = "V1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueCat1 = new CellValue();
+            cellValueCat1.Text = "Droga Cat.1";
+            cellCat1.Append(cellValueCat1);
+
+            Cell cellActive1 = new Cell() { CellReference = "W1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueActive1 = new CellValue();
+            cellValueActive1.Text = "Droga Activo 1";
+            cellActive1.Append(cellValueActive1);
+
+            Cell cellCat2 = new Cell() { CellReference = "X1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueCat2 = new CellValue();
+            cellValueCat2.Text = "Droga Cat.2";
+            cellCat2.Append(cellValueCat2);
+
+            Cell cellActive2 = new Cell() { CellReference = "Y1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueActive2 = new CellValue();
+            cellValueActive2.Text = "Droga Activo 2";
+            cellActive2.Append(cellValueActive2);
+
+            Cell cellCat3 = new Cell() { CellReference = "Z1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueCat3 = new CellValue();
+            cellValueCat3.Text = "Droga Cat.3";
+            cellCat3.Append(cellValueCat3);
+
+            Cell cellActive3 = new Cell() { CellReference = "AA1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueActive3 = new CellValue();
+            cellValueActive3.Text = "Droga Activo 3";
+            cellActive3.Append(cellValueActive3);
+
+            Cell cellCat4 = new Cell() { CellReference = "AB1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueCat4 = new CellValue();
+            cellValueCat4.Text = "Droga Cat.4";
+            cellCat4.Append(cellValueCat4);
+
+            Cell cellActive4 = new Cell() { CellReference = "AC1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueActive4 = new CellValue();
+            cellValueActive4.Text = "Droga Activo 4";
+            cellActive4.Append(cellValueActive4);
+
+            Cell cellCat5 = new Cell() { CellReference = "AD1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueCat5 = new CellValue();
+            cellValueCat5.Text = "Droga Cat.5";
+            cellCat5.Append(cellValueCat5);
+
+            Cell cellActive5 = new Cell() { CellReference = "AE1", StyleIndex = (UInt32Value)1U, DataType = CellValues.SharedString };
+            CellValue cellValueActive5 = new CellValue();
+            cellValueActive5.Text = "Droga Activo 5";
+            cellActive5.Append(cellValueActive5);
 
             row4.Append(cell9);
             row4.Append(cellCI);
@@ -478,9 +529,18 @@ namespace BussinessLogic
             row4.Append(cell4);
             row4.Append(cell5);
             row4.Append(cellSleep);
+            row4.Append(cellCat1);
+            row4.Append(cellActive1);
+            row4.Append(cellCat2);
+            row4.Append(cellActive2);
+            row4.Append(cellCat3);
+            row4.Append(cellActive3);
+            row4.Append(cellCat4);
+            row4.Append(cellActive4);
+            row4.Append(cellCat5);
+            row4.Append(cellActive5);
 
-
-            sheetData2.Append(row3);
+            //sheetData2.Append(row3);
             sheetData2.Append(row4);
 
             
@@ -524,7 +584,15 @@ namespace BussinessLogic
                     Cell cell18 = new Cell() { CellReference = cellRefE };
                     CellValue cellValue18 = new CellValue();
                     //Dispositivo
-                    cellValue18.Text = r.DeviceId.ToString();
+                    switch (r.DeviceId)
+                    {
+                        case 0:
+                            cellValue18.Text = "HMS";
+                            break;
+                        case 1:
+                            cellValue18.Text = "Spacelabs";
+                            break;
+                    }
 
                     string cellRefF = "F" + i.ToString();
                     Cell cellSexo = new Cell() { CellReference = cellRefF };
@@ -670,7 +738,6 @@ namespace BussinessLogic
                     {
                         cellValueAsleep.Text = m.Asleep.Value.ToString();
                     }
-
                     
                     cell11.Append(cellValue9);
                     cellDNI.Append(cellValueDNI);
@@ -715,6 +782,45 @@ namespace BussinessLogic
                     row5.Append(cellMiddle);
                     row5.Append(cellHr);
                     row5.Append(cellAsleep);
+
+                    string[] colRef = new string[10];
+                    colRef[0] = "V"; colRef[1] = "W";
+                    colRef[2] = "X"; colRef[3] = "Y";
+                    colRef[4] = "Z"; colRef[5] = "AA";
+                    colRef[6] = "AB"; colRef[7] = "AC";
+                    colRef[8] = "AD"; colRef[9] = "AE";
+
+                    int j = 0;
+
+                    //Medicamentos
+                    foreach (var med in r.TemporaryData.Medication)
+                    {
+                        if (j < 10)
+                        {
+                            string cellRefCategory = colRef[j] + i;
+                            Cell cellCategory = new Cell() { CellReference = cellRefCategory };
+                            CellValue cellValueCategory = new CellValue();
+                            cellValueCategory.Text = med.Drug.Category;
+
+                            cellCategory.Append(cellValueCategory);
+                            row5.Append(cellCategory);
+
+                            j++;
+                            string cellRefActive = colRef[j] + i;
+                            Cell cellActive = new Cell() { CellReference = cellRefActive };
+                            CellValue cellValueActive = new CellValue();
+                            cellValueActive.Text = med.Drug.Active;
+
+                            cellActive.Append(cellValueActive);
+                            row5.Append(cellActive);
+
+                            j++;                            
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
 
                     sheetData2.Append(row5);
 

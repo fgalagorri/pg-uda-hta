@@ -354,7 +354,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message + "//n" + exception.StackTrace, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         } 
@@ -838,7 +838,7 @@ namespace Gateway
             catch (Exception exception)
             {
                 LogFileManagement el = new LogFileManagement();
-                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message, exception.InnerException);
+                el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], exception.Message + "//n" + exception.StackTrace, exception.InnerException);
                 throw new Exception("No se ha podido obtener la información solicitada");
             }
         }

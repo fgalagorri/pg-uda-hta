@@ -68,8 +68,11 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
                 Image img = new Image { Source = src };
                 sp.Children.Add(img);
 
-                Label lbl = new Label { Content = r.BeginDate.Value.ToShortDateString() };
-                sp.Children.Add(lbl);
+                if (r.BeginDate != null)
+                {
+                    Label lbl = new Label { Content = r.BeginDate.Value.ToShortDateString() };
+                    sp.Children.Add(lbl);
+                }
 
                 child.Header = sp;
                 if (reportId.HasValue && r.UdaId.Equals(reportId))

@@ -51,7 +51,7 @@ namespace BussinessLogic
             }
             catch (Exception e)
             {
-                error = true;
+                error = true;                    
                 LogFileManagement el = new LogFileManagement();
                 el.ErrorLog(ConfigurationManager.AppSettings["LogPath"], e.Message, e.InnerException);                
             }
