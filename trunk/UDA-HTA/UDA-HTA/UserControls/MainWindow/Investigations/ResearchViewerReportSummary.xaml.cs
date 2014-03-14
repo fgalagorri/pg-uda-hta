@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Controls;
@@ -19,7 +20,7 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
 
         public void SetReportList(ICollection<Report> lReports)
         {
-            grid.DataContext = lReports.OrderBy(r => r.BeginDate.Value);
+            grid.DataContext = lReports.OrderBy(r => r.BeginDate != null ? r.BeginDate.Value : new DateTime());
         }
     }
 }

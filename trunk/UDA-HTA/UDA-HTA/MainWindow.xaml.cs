@@ -365,7 +365,6 @@ namespace UDA_HTA
                     {
                         FileName = "Investigacion " + investigation.Name,
                         DefaultExt = ".xlsx"
-                        //                    Filter = "*.xlsm"
                     };
                 saveAs.FileName += " " + investigation.CreationDate
                                                       .ToString(ConfigurationManager.AppSettings["ShortDateString"])

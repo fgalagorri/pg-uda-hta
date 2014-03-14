@@ -295,14 +295,13 @@ namespace DataAccess
             DateTime? reportUntilDate, bool? isSmoker, bool? isDiabetic, bool? isHipertense, bool? isDysplidemic)
         {
             ICollection<Report> result = new List<Report>();
-
-            using (var udaContext = new udahta_dbEntities())
+            using (udaContext = new udahta_dbEntities())
             {
                 var list = udaContext.report.AsQueryable();
 
                 if (reportSinceDate != null && reportUntilDate != null)
                 {
-                    list = list.Where(r => r.begin_date >= reportSinceDate && r.begin_date <= reportUntilDate);                    
+                    list = list.Where(r => r.begin_date >= reportSinceDate && r.begin_date <= reportUntilDate);
                 }
                 else
                 {
@@ -320,7 +319,8 @@ namespace DataAccess
                 if (patientLowerAge != null && patientUpperAge != null)
                 {
                     //  edad de paciente > lowerAge y < upperAger
-                    list = list.Where(r => r.temporarydata.age >= patientLowerAge && r.temporarydata.age <= patientUpperAge);
+                    list =
+                        list.Where(r => r.temporarydata.age >= patientLowerAge && r.temporarydata.age <= patientUpperAge);
                 }
                 else
                 {
@@ -337,19 +337,19 @@ namespace DataAccess
                     }
                 }
 
-                if (isSmoker.Value)
+                if (isSmoker != null && isSmoker.Value)
                 {
                     list = list.Where(r => r.temporarydata.smoker == true);
                 }
-                if (isHipertense.Value)
+                if (isHipertense != null && isHipertense.Value)
                 {
                     list = list.Where(r => r.temporarydata.known_hypertensive == true);
                 }
-                if (isDiabetic.Value)
+                if (isDiabetic != null && isDiabetic.Value)
                 {
                     list = list.Where(r => r.temporarydata.diabetic == true);
                 }
-                if (isDysplidemic.Value)
+                if (isDysplidemic != null && isDysplidemic.Value)
                 {
                     list = list.Where(r => r.temporarydata.dyslipidemia == true);
 
@@ -417,58 +417,58 @@ namespace DataAccess
                 foreach (var qry in l)
                 {
                     var rep = new Report
-                    {
-                        BeginDate = qry.begin_date,
-                        DiastolicDayAvg = qry.day_avg_dias,
-                        SystolicDayAvg = qry.day_avg_sys,
-                        DiastolicDayMax = qry.day_max_dias,
-                        SystolicDayMax = qry.day_max_sys,
-                        DeviceReportId = qry.deviceReportId,
-                        Diagnosis = qry.diagnosis,
-                        DiagnosisDate = qry.diagnosis_date,
-                        EndDate = qry.end_date,
-                        DeviceId = qry.idDevice,
-                        DiastolicNightAvg = qry.night_avg_dias,
-                        SystolicNightAvg = qry.night_avg_sys,
-                        DiastolicNightMax = qry.night_max_dias,
-                        SystolicNightMax = qry.night_max_sys,
-                        Requester = qry.requester,
-                        DiastolicTotalAvg = qry.total_avg_dias,
-                        SystolicTotalAvg = qry.total_avg_sys,
-                        MiddleDayAvg = qry.day_tam_avg,
-                        MiddleNightAvg = qry.night_tam_avg,
-                        MiddleTotalAvg = qry.tot_tam_avg,
-                        HeartRateDayAvg = qry.day_avg_hr,
-                        HeartRateNightAvg = qry.night_avg_hr,
-                        HeartRateTotalAvg = qry.tot_avg_hr,
-                        StandardDeviationTamNight = qry.night_sd_tam,
-                        StandardDeviationTamDay = qry.day_sd_tam,
-                        StandardDeviationTamTotal = qry.tot_sd_tam,
-                        StandardDeviationDiasDay = qry.day_sd_dias,
-                        StandardDeviationDiasNight = qry.night_sd_dias,
-                        StandardDeviationDiasTotal = qry.tot_sd_dias,
-                        StandardDeviationSysDay = qry.day_sd_sis,
-                        StandardDeviationSysNight = qry.night_sd_sis,
-                        StandardDeviationSysTotal = qry.tot_sd_sis,
-                        StandardDeviationHeartRateDay = qry.day_sd_hr,
-                        StandardDeviationHeartRateNight = qry.night_sd_hr,
-                        StandardDeviationHeartRateTotal = qry.tot_sd_hr,
-                        DiastolicDayMin = qry.day_min_dias,
-                        DiastolicNightMin = qry.night_min_dias,
-                        SystolicDayMin = qry.day_min_sis,
-                        SystolicNightMin = qry.night_min_sis,
-                        HeartRateDayMax = qry.max_day_hr,
-                        HeartRateNightMax = qry.max_night_hr,
-                        HeartRateDayMin = qry.min_day_hr,
-                        HeartRateNightMin = qry.min_night_hr,
-                        SystolicDipping = qry.sys_dipping,
-                        DiastolicDipping = qry.dias_dipping,
-                        DailyCarnetId = qry.dailycarnet_idDailyCarnet,
-                        TemporaryDataId = qry.temporarydata_idTemporaryData,
+                        {
+                            BeginDate = qry.begin_date,
+                            DiastolicDayAvg = qry.day_avg_dias,
+                            SystolicDayAvg = qry.day_avg_sys,
+                            DiastolicDayMax = qry.day_max_dias,
+                            SystolicDayMax = qry.day_max_sys,
+                            DeviceReportId = qry.deviceReportId,
+                            Diagnosis = qry.diagnosis,
+                            DiagnosisDate = qry.diagnosis_date,
+                            EndDate = qry.end_date,
+                            DeviceId = qry.idDevice,
+                            DiastolicNightAvg = qry.night_avg_dias,
+                            SystolicNightAvg = qry.night_avg_sys,
+                            DiastolicNightMax = qry.night_max_dias,
+                            SystolicNightMax = qry.night_max_sys,
+                            Requester = qry.requester,
+                            DiastolicTotalAvg = qry.total_avg_dias,
+                            SystolicTotalAvg = qry.total_avg_sys,
+                            MiddleDayAvg = qry.day_tam_avg,
+                            MiddleNightAvg = qry.night_tam_avg,
+                            MiddleTotalAvg = qry.tot_tam_avg,
+                            HeartRateDayAvg = qry.day_avg_hr,
+                            HeartRateNightAvg = qry.night_avg_hr,
+                            HeartRateTotalAvg = qry.tot_avg_hr,
+                            StandardDeviationTamNight = qry.night_sd_tam,
+                            StandardDeviationTamDay = qry.day_sd_tam,
+                            StandardDeviationTamTotal = qry.tot_sd_tam,
+                            StandardDeviationDiasDay = qry.day_sd_dias,
+                            StandardDeviationDiasNight = qry.night_sd_dias,
+                            StandardDeviationDiasTotal = qry.tot_sd_dias,
+                            StandardDeviationSysDay = qry.day_sd_sis,
+                            StandardDeviationSysNight = qry.night_sd_sis,
+                            StandardDeviationSysTotal = qry.tot_sd_sis,
+                            StandardDeviationHeartRateDay = qry.day_sd_hr,
+                            StandardDeviationHeartRateNight = qry.night_sd_hr,
+                            StandardDeviationHeartRateTotal = qry.tot_sd_hr,
+                            DiastolicDayMin = qry.day_min_dias,
+                            DiastolicNightMin = qry.night_min_dias,
+                            SystolicDayMin = qry.day_min_sis,
+                            SystolicNightMin = qry.night_min_sis,
+                            HeartRateDayMax = qry.max_day_hr,
+                            HeartRateNightMax = qry.max_night_hr,
+                            HeartRateDayMin = qry.min_day_hr,
+                            HeartRateNightMin = qry.min_night_hr,
+                            SystolicDipping = qry.sys_dipping,
+                            DiastolicDipping = qry.dias_dipping,
+                            DailyCarnetId = qry.dailycarnet_idDailyCarnet,
+                            TemporaryDataId = qry.temporarydata_idTemporaryData,
 
-                        UdaId = qry.idReport
+                            UdaId = qry.idReport
 
-                    };
+                        };
 
                     //DailyCarnet
                     rep.Carnet.InitSystolic1 = qry.dailycarnet.init_sys1;
@@ -507,20 +507,25 @@ namespace DataAccess
 
                     rep.Carnet.SleepQuality = qry.dailycarnet.how_sleep;
 
-                    rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
-                                                           qry.dailycarnet.end_sleep_time.Value.Month,
-                                                           qry.dailycarnet.end_sleep_time.Value.Day,
-                                                           qry.dailycarnet.end_sleep_time.Value.Hour,
-                                                           qry.dailycarnet.end_sleep_time.Value.Minute,
-                                                           qry.dailycarnet.end_sleep_time.Value.Second);
+                    if (qry.dailycarnet.end_sleep_time.HasValue)
+                    {
+                        rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
+                                                               qry.dailycarnet.end_sleep_time.Value.Month,
+                                                               qry.dailycarnet.end_sleep_time.Value.Day,
+                                                               qry.dailycarnet.end_sleep_time.Value.Hour,
+                                                               qry.dailycarnet.end_sleep_time.Value.Minute,
+                                                               qry.dailycarnet.end_sleep_time.Value.Second);                        
+                    }
 
-                    rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
-                                                             qry.dailycarnet.begin_sleep_time.Value.Month,
-                                                             qry.dailycarnet.begin_sleep_time.Value.Day,
-                                                             qry.dailycarnet.begin_sleep_time.Value.Hour,
-                                                             qry.dailycarnet.begin_sleep_time.Value.Minute,
-                                                             qry.dailycarnet.begin_sleep_time.Value.Second
-                        );
+                    if (qry.dailycarnet.begin_sleep_time.HasValue)
+                    {
+                        rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
+                                                                 qry.dailycarnet.begin_sleep_time.Value.Month,
+                                                                 qry.dailycarnet.begin_sleep_time.Value.Day,
+                                                                 qry.dailycarnet.begin_sleep_time.Value.Hour,
+                                                                 qry.dailycarnet.begin_sleep_time.Value.Minute,
+                                                                 qry.dailycarnet.begin_sleep_time.Value.Second);
+                    }
 
                     rep.Carnet.Technician.Name = qry.dailycarnet.technical;
 
@@ -738,7 +743,7 @@ namespace DataAccess
                     rep.TemporaryData.Weight = qry.temporarydata.weight;
 
                     rep.Patient.UdaId = qry.patientuda.idPatientUda;
-
+                    
                     var lmeasures = GetMeasures(idReport);
                     rep.Measures = rep.Measures.Concat(lmeasures).ToList();
 
@@ -1829,20 +1834,26 @@ namespace DataAccess
 
                         rep.Carnet.SleepQuality = qry.dailycarnet.how_sleep;
 
-                        rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
-                                                               qry.dailycarnet.end_sleep_time.Value.Month,
-                                                               qry.dailycarnet.end_sleep_time.Value.Day,
-                                                               qry.dailycarnet.end_sleep_time.Value.Hour,
-                                                               qry.dailycarnet.end_sleep_time.Value.Minute,
-                                                               qry.dailycarnet.end_sleep_time.Value.Second);
+                        if (qry.dailycarnet.end_sleep_time.HasValue)
+                        {
+                            rep.Carnet.SleepTimeEnd = new DateTime(qry.dailycarnet.end_sleep_time.Value.Year,
+                                                                   qry.dailycarnet.end_sleep_time.Value.Month,
+                                                                   qry.dailycarnet.end_sleep_time.Value.Day,
+                                                                   qry.dailycarnet.end_sleep_time.Value.Hour,
+                                                                   qry.dailycarnet.end_sleep_time.Value.Minute,
+                                                                   qry.dailycarnet.end_sleep_time.Value.Second);
+                            
+                        }
 
-                        rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
-                                                                 qry.dailycarnet.begin_sleep_time.Value.Month,
-                                                                 qry.dailycarnet.begin_sleep_time.Value.Day,
-                                                                 qry.dailycarnet.begin_sleep_time.Value.Hour,
-                                                                 qry.dailycarnet.begin_sleep_time.Value.Minute,
-                                                                 qry.dailycarnet.begin_sleep_time.Value.Second
-                            );
+                        if (qry.dailycarnet.begin_sleep_time.HasValue)
+                        {
+                            rep.Carnet.SleepTimeStart = new DateTime(qry.dailycarnet.begin_sleep_time.Value.Year,
+                                                                     qry.dailycarnet.begin_sleep_time.Value.Month,
+                                                                     qry.dailycarnet.begin_sleep_time.Value.Day,
+                                                                     qry.dailycarnet.begin_sleep_time.Value.Hour,
+                                                                     qry.dailycarnet.begin_sleep_time.Value.Minute,
+                                                                     qry.dailycarnet.begin_sleep_time.Value.Second);                            
+                        }
 
                         rep.Carnet.Technician.Name = qry.dailycarnet.technical;
 
@@ -1859,6 +1870,13 @@ namespace DataAccess
                         rep.TemporaryData.MusclePercentage = qry.temporarydata.muscle_percentage;
                         rep.TemporaryData.Smoker = qry.temporarydata.smoker;
                         rep.TemporaryData.Weight = qry.temporarydata.weight;
+
+                        foreach (var medi in qry.temporarydata.medicinedose)
+                        {
+                            Medication medication = new Medication(medi.time.Value, new Drug(medi.drug.drugtype.type, medi.drug.active, medi.drug.name));
+                            rep.TemporaryData.Medication.Add(medication);
+                        }
+                        
 
                         rep.Patient.UdaId = qry.patientuda.idPatientUda;
 

@@ -142,8 +142,8 @@ namespace UDA_HTA.UserControls.ReportCreation
                    //txtCity.ValidateString() &
                    //cmbDepartment.ValidateSelected() &
                    (txtTel.ValidateString(false) ||
-                   txtCel.ValidateString(false)) &
-                   txtMail.ValidateString();
+                   txtCel.ValidateString(false)) /* &
+                   txtMail.ValidateString()*/;
         }
 
 

@@ -26,9 +26,20 @@ namespace UDA_HTA
             _list = controller.GetNewReports(out error);
             if (error)
             {
-                MessageBox.Show("Ha ocurrido un error al intentar obtener alguno de los datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (_list.Count == 0)
+                    MessageBox.Show("Algunos de los datos no se pudieron obtener, verifique el archivo de log", "Error", MessageBoxButton.OK,
+                                    MessageBoxImage.Error);                    
+                else
+                    grReports.DataContext = _list.OrderBy(r => r.ReportDate);
             }
-            grReports.DataContext = _list.OrderBy(r => r.ReportDate);
+            else
+            {
+                if (_list.Count == 0)
+                    MessageBox.Show("No se han encontrado nuevos datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                    grReports.DataContext = _list.OrderBy(r => r.ReportDate);
+                
+            }
 
             Mouse.OverrideCursor = null;
         }
