@@ -7,6 +7,9 @@
         public string Active { get; set; }
         public string Name { get; set; }
 
+        // Para filtrado en la aplicación
+        public string ActiveAndName { get; set; }
+
         public Drug()
         {
         }
@@ -16,6 +19,7 @@
             Category = category;
             Active = active;
             Name = name;
+            ActiveAndName = active + " " + name;
         }
     }
 }

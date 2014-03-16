@@ -37,7 +37,7 @@
                     Margin="0,10,30,5" VerticalAlignment="Bottom" Grid.Row="4" Grid.ColumnSpan="2">
             <Button Name="btnAddReport" Width="120" Click="btnAddReports_Click">Agregar Reportes</Button>
             <Button Name="btnCreate" Width="120" Margin="4,0,20,0"  Click="btnCreate_Click">Crear Investigación</Button>
-            <Button Width="120" IsCancel="True">Cancelar</Button>
+            <Button Width="120" IsCancel="True" Click="Button_Click">Cancelar</Button>
         </StackPanel>
     </Grid>
 </Window>

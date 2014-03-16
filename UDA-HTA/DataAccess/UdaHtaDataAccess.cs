@@ -1718,7 +1718,8 @@ namespace DataAccess
                                         Id = d.idDrug,
                                         Name = d.name,
                                         Active = d.active,
-                                        Category = d.drugtype.type
+                                        Category = d.drugtype.type,
+                                        ActiveAndName = d.active + " " + d.name
                                     }).ToList();
             }
         }
