@@ -45,6 +45,9 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                 return;
             }
 
+            var lastMeasure = valid.OrderBy(m => m.Time).LastOrDefault();
+            var lastDate = lastMeasure != null ? lastMeasure.Time.Value : r.BeginDate.Value.AddHours(1);
+
             var systolic = new List<KeyValuePair<DateTime, int>>();
             var diastolic = new List<KeyValuePair<DateTime, int>>();
             var middle = new List<KeyValuePair<DateTime, int>>();
@@ -125,9 +128,9 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                         }
 
                         // Agrego períodos de sueño
-                        while (r.EndDate != null && (time1 <= r.EndDate.Value || time2 <= r.EndDate.Value))
+                        while (lastDate != null && (time1 <= lastDate || time2 <= lastDate))
                         {
-                            if (r.BeginDate.Value <= time1 && time1 <= r.EndDate.Value)
+                            if (r.BeginDate.Value <= time1 && time1 <= lastDate)
                             {
                                 // Agrego el final del período anterior
                                 sys.Add(new KeyValuePair<DateTime, int>(time1, sys2));
@@ -141,7 +144,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
                             }
                             time1 = time1.AddDays(1);
 
-                            if (r.BeginDate.Value <= time2 && time2 <= r.EndDate.Value)
+                            if (r.BeginDate.Value <= time2 && time2 <= lastDate)
                             {
                                 // Agrego el final del período anterior
                                 sys.Add(new KeyValuePair<DateTime, int>(time2, sys1));
@@ -163,16 +166,16 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             if (isSleep)
             {
                 // Finaliza en sueño
-                sys.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysNight));
-                dias.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasNight));
+                sys.Add(new KeyValuePair<DateTime, int>(lastDate, _limits.HiSysNight));
+                dias.Add(new KeyValuePair<DateTime, int>(lastDate, _limits.HiDiasNight));
             }
             else
             {
                 // Finaliza en vigilia
-                if (r.EndDate != null)
+                if (lastDate != null)
                 {
-                    sys.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiSysDay));
-                    dias.Add(new KeyValuePair<DateTime, int>(r.EndDate.Value, _limits.HiDiasDay));
+                    sys.Add(new KeyValuePair<DateTime, int>(lastDate, _limits.HiSysDay));
+                    dias.Add(new KeyValuePair<DateTime, int>(lastDate, _limits.HiDiasDay));
                 }
             }
 
@@ -187,7 +190,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
             var xAxis = new DateTimeAxis
             {
                 Minimum = r.BeginDate, //valid.Min(v => v.Time.Value),
-                Maximum = r.EndDate, //valid.Max(v => v.Time.Value),
+                Maximum = lastDate, //valid.Max(v => v.Time.Value),
                 IntervalType = DateTimeIntervalType.Hours,
                 Interval = timeInterval,
                 Orientation = AxisOrientation.X,

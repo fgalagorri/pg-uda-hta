@@ -103,5 +103,10 @@ namespace UDA_HTA.UserControls.MainWindow.Investigations
             }
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

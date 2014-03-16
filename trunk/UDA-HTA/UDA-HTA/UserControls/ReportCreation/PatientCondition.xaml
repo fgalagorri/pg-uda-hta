@@ -112,7 +112,7 @@
 
                     <TextBlock Style="{StaticResource label}">Medicamento:</TextBlock>
                     <my:AutoCompleteBox Name="autoMedication" Margin="10,0,10,0" Width="110" VerticalAlignment="Center" 
-                                        ItemsSource="{Binding}" ValueMemberPath="Name" MinimumPopulateDelay="300"
+                                        ItemsSource="{Binding}" ValueMemberPath="ActiveAndName" MinimumPopulateDelay="300"
                                         MinimumPrefixLength="3" FilterMode="Contains" IsTextCompletionEnabled="True">
                         <my:AutoCompleteBox.ItemTemplate>
                             <DataTemplate>
