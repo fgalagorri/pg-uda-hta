@@ -287,16 +287,9 @@ namespace Gateway
         {
             try
             {
-                if (!Directory.Exists("Temp"))
-                    Directory.CreateDirectory("Temp");
-
-                string tempFile = "Temp\\tempfile" + report.UdaId + ".uda";
                 ReportManagement rm = new ReportManagement();
-                rm.ExportReportDocx(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl, includeMeasures, tempFile);
-
                 rm.ExportReportPDF(report, includePatientData, includeDiagnostic, includeProfile, includeGraphic, pathOverLimit, pathPressPrfl,
                                     includeMeasures, filePath);
-                File.Delete(tempFile);
             }
             catch(Exception exception)
             {

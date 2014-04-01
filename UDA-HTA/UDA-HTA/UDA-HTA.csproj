@@ -582,7 +582,9 @@
     <Resource Include="Images\ribbon_publish.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\HcLogo.png" />
+    <Resource Include="Images\HcLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ribbonmenu_exit.png" />
