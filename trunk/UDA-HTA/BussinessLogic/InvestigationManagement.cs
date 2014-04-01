@@ -952,14 +952,12 @@ namespace BussinessLogic
             font1.Append(fontScheme1);
 
             Font font2 = new Font();
-            Bold bold1 = new Bold();
             FontSize fontSize2 = new FontSize() { Val = 11D };
             Color color2 = new Color() { Theme = (UInt32Value)1U };
             FontName fontName2 = new FontName() { Val = "Calibri" };
             FontFamilyNumbering fontFamilyNumbering2 = new FontFamilyNumbering() { Val = 2 };
             FontScheme fontScheme2 = new FontScheme() { Val = FontSchemeValues.Minor };
 
-            font2.Append(bold1);
             font2.Append(fontSize2);
             font2.Append(color2);
             font2.Append(fontName2);
@@ -967,14 +965,12 @@ namespace BussinessLogic
             font2.Append(fontScheme2);
 
             Font font3 = new Font();
-            Bold bold2 = new Bold();
             FontSize fontSize3 = new FontSize() { Val = 14D };
             Color color3 = new Color() { Theme = (UInt32Value)1U };
             FontName fontName3 = new FontName() { Val = "Calibri" };
             FontFamilyNumbering fontFamilyNumbering3 = new FontFamilyNumbering() { Val = 2 };
             FontScheme fontScheme3 = new FontScheme() { Val = FontSchemeValues.Minor };
 
-            font3.Append(bold2);
             font3.Append(fontSize3);
             font3.Append(color3);
             font3.Append(fontName3);
