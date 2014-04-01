@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="kb3" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns1="kb2" xmlns:wsdlns="kb3" name="WebSrvDarColPer1" targetNamespace="kb3" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" elementFormDefault="qualified" targetNamespace="kb2">
+      <xsd:complexType name="DatPersona_2">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="DatPersona_2.DatPersona_2Item" type="tns1:DatPersona_2.DatPersona_2Item" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DatPersona_2.DatPersona_2Item">
+        <xsd:all>
+          <xsd:element name="DatPersonaCedNum2" type="xsd:int" />
+          <xsd:element name="DatPersonaVerNum2" type="xsd:byte" />
+          <xsd:element name="DatPersonaRazCod2" type="xsd:byte" />
+          <xsd:element name="DatPersonaNombres2" type="xsd:string" />
+          <xsd:element name="DatPersonaApellidos2" type="xsd:string" />
+          <xsd:element name="DatPersonaFchNac2" type="xsd:date" />
+          <xsd:element name="DatPersonaSexo2" type="xsd:string" />
+          <xsd:element name="DatPersonaRaza2" type="xsd:string" />
+          <xsd:element name="DatPersonaNacion2" type="xsd:string" />
+          <xsd:element name="DatPersonaCredNum2" type="xsd:string" />
+          <xsd:element name="DatPersonaFchFac2" type="xsd:date" />
+          <xsd:element name="DatPersonaEdad2" type="xsd:short" />
+          <xsd:element name="DatPersonaUltCarnet2" type="xsd:date" />
+          <xsd:element name="DatPersonaUltDomicilio2" type="xsd:string" />
+          <xsd:element name="DatPersonaUltTelefono2" type="xsd:string" />
+          <xsd:element name="DatPersonaApeCony2" type="xsd:string" />
+          <xsd:element name="DatPersonaRegNum2" type="xsd:int" />
+          <xsd:element name="DatPersonaPacCarNum" type="xsd:int" />
+          <xsd:element name="DatPersonaPacDon" type="xsd:string" />
+          <xsd:element name="DatPersonaCantDon" type="xsd:short" />
+          <xsd:element name="DatPersonaAutorizado" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="RegistrosBuscados">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="RegistrosBuscados.RegistrosBuscadosItem" type="tns1:RegistrosBuscados.RegistrosBuscadosItem" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RegistrosBuscados.RegistrosBuscadosItem">
+        <xsd:all>
+          <xsd:element name="NumeroRegistroBuscado" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" elementFormDefault="qualified" targetNamespace="kb3">
+      <xsd:import namespace="kb2" />
+      <xsd:element name="WebSrvDarColPer1.Execute">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Persona" type="tns1:DatPersona_2" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Listaregistros" type="tns1:RegistrosBuscados" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WebSrvDarColPer1.ExecuteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Persona" type="tns1:DatPersona_2" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Listaregistros" type="tns1:RegistrosBuscados" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="WebSrvDarColPer1.ExecuteSoapIn">
+    <part name="parameters" element="wsdlns:WebSrvDarColPer1.Execute" />
+  </message>
+  <message name="WebSrvDarColPer1.ExecuteSoapOut">
+    <part name="parameters" element="wsdlns:WebSrvDarColPer1.ExecuteResponse" />
+  </message>
+  <portType name="WebSrvDarColPer1SoapPort">
+    <operation name="Execute">
+      <input message="wsdlns:WebSrvDarColPer1.ExecuteSoapIn" />
+      <output message="wsdlns:WebSrvDarColPer1.ExecuteSoapOut" />
+    </operation>
+  </portType>
+  <binding name="WebSrvDarColPer1SoapBinding" type="wsdlns:WebSrvDarColPer1SoapPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Execute">
+      <soap:operation soapAction="kb3action/AWEBSRVDARCOLPER1.Execute" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WebSrvDarColPer1">
+    <port name="WebSrvDarColPer1SoapPort" binding="wsdlns:WebSrvDarColPer1SoapBinding">
+      <soap:address location="http://gestiondesa.hc:8080/IndicePacientes/servlet/awebsrvdarcolper1" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,206 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.ReportCreation.PatientCondition"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:helpers="clr-namespace:UDA_HTA.Helpers">
+    <UserControl.Resources>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="28" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Datos del estado del paciente -->
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header >
+                <TextBlock Style="{StaticResource groupTitle}">Condición</TextBlock>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Peso (Kg):</TextBlock>
+                    <TextBox Name="txtWeight" Width="45" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Altura (m):</TextBlock>
+                    <TextBox Name="txtHeight" Style="{StaticResource TBlockSmall}" TextChanged="CalculateImc" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">IMC:</TextBlock>
+                    <TextBlock Name="lblImc" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">%Grasa:</TextBlock>
+                    <TextBox Name="txtFat" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">%Músculo:</TextBlock>
+                    <TextBox Name="txtMuscle" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                    <Border />
+                    <TextBlock  Margin="15,0" Style="{StaticResource label}">KCal:</TextBlock>
+                    <TextBox Name="txtKcal" Style="{StaticResource TBlockSmall}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                    <TextBlock Margin="0,0,15,0" Style="{StaticResource label}">Fumador:</TextBlock>
+                    <CheckBox Name="chkSmoker" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Diabetes:</TextBlock>
+                    <CheckBox Name="chkDiabetic" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Dislipemia:</TextBlock>
+                    <CheckBox Name="chkDyslipidemia" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3">
+                    <Border />
+                    <TextBlock Margin="15,0" Style="{StaticResource label}">Hipertenso:</TextBlock>
+                    <CheckBox Name="chkHypertense" VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+
+        <!-- Medicación -->
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Medicación</TextBlock>
+            </GroupBox.Header>
+            <StackPanel>
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
+                        <TextBox Name="txtHourMedication" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtMinMedication" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <TextBlock Style="{StaticResource label}">Dosis (mg):</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
+                        <TextBox Name="txtDose" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <TextBlock Style="{StaticResource label}">Medicamento:</TextBlock>
+                    <my:AutoCompleteBox Name="autoMedication" Margin="10,0,10,0" Width="110" VerticalAlignment="Center" 
+                                        ItemsSource="{Binding}" ValueMemberPath="ActiveAndName" MinimumPopulateDelay="300"
+                                        MinimumPrefixLength="3" FilterMode="Contains" IsTextCompletionEnabled="True">
+                        <my:AutoCompleteBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Category}" />
+                                    <TextBlock Margin="2,0">/</TextBlock>
+                                    <TextBlock Text="{Binding Path=Active}" />
+                                    <TextBlock Margin="2,0" Text="/" />
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </my:AutoCompleteBox.ItemTemplate>
+                    </my:AutoCompleteBox>
+                    
+                    <Button Padding="5,0" VerticalAlignment="Center" 
+                            Click="btnMedication_Click">+</Button>
+                    <Button Padding="5,2" VerticalAlignment="Center" Margin="30,0,15,0" 
+                            Click="btnAddMedication_Click">Agregar</Button>
+                    <Button Name="btnRmvMedication" Padding="5,2" VerticalAlignment="Center" 
+                            IsEnabled="False" Click="btnRmvMedication_Click">Borrar</Button>
+                </StackPanel>
+
+                <DataGrid Grid.Row="1" Name="grMedication" Background="White"  Height="90"
+                          AutoGenerateColumns="False" ItemsSource="{Binding}" IsReadOnly="True" 
+                          SelectionChanged="grMedication_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Time}" x:Name="colTime">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Dosis (mg)" Width="*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Dose}" x:Name="colDose">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Categoría" Width="*" IsReadOnly="True"
+                                            Binding="{Binding Path=Drug.Category}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Principio activo" Width="2*" IsReadOnly="True"
+                                            Binding="{Binding Path=Drug.Active}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre comercial" Width="2*" IsReadOnly="True"
+                                            Binding="{Binding Path=Drug.Name}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Id Droga" Visibility="Hidden"
+                                            Binding="{Binding Path=Drug.Id}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Id MedicineDose" Visibility="Hidden"
+                                            Binding="{Binding Path=Id}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </GroupBox>
+
+
+        <!-- Antecedentes médicos-->
+        <GroupBox Grid.Row="3" Name="GroupBackground">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Antecedentes médicos</TextBlock>
+            </GroupBox.Header>
+
+            <StackPanel>
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource label}">Patología:</TextBlock>
+                    <TextBox Name="txtIllness" Margin="20,0" Width="150" />
+
+                    <TextBlock Style="{StaticResource label}">Comentario:</TextBlock>
+                    <TextBox Name="txtComments"  Margin="10,0,0,0" Width="150" />
+
+                    <Button Name="btnAddIllness" Padding="5,2" VerticalAlignment="Center" 
+                            Margin="30,0,15,0" Click="btnAddIllness_Click">Agregar</Button>
+                    <Button Name="btnDelIllness" Padding="5,2" VerticalAlignment="Center" 
+                            IsEnabled="False" Click="btnDelIllness_Click">Borrar</Button>
+                </StackPanel>
+                <DataGrid Name="grBackground" Background="White" AutoGenerateColumns="False" ItemsSource="{Binding}"
+                          IsReadOnly="True" SelectionChanged="grBackground_SelectionChanged" Height="90">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Visibility="Hidden" />
+                        
+                        <DataGridTextColumn Header="Patología" Width="1*" IsReadOnly="True"
+                                                Binding="{Binding Path=Illness}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Comentario" Width="2*" IsReadOnly="True"
+                                                Binding="{Binding Path=Comment}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+    
+    
+</UserControl>

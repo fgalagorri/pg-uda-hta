@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Patients.PatientViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:patients="clr-namespace:UDA_HTA.UserControls.MainWindow.Patients">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                  SelectedItemChanged="treePatient_SelectedItemChanged">
+            <TreeViewItem IsExpanded="True" Name="treePatient">
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/tree_user.png" />
+                        <TextBlock Name="lblTreeName" Margin="10,0" />
+                    </StackPanel>
+                </TreeViewItem.Header>
+                <TreeViewItem.Items>
+                    
+                </TreeViewItem.Items>
+            </TreeViewItem>
+        </TreeView>
+
+        <Border Grid.Column="1" Width="5" />
+
+        <TabControl Name="PatientTabControl" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Name="ReportPatient" Header="Paciente">
+                <ContentControl>
+                    <patients:PatientViewerInformation x:Name="TabPatient" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportCondition" Header="Condición">
+                <ContentControl>
+                    <patients:PatientViewerCondition x:Name="TabCondition" />
+                </ContentControl>
+            </TabItem>
+            
+            <TabItem Name="ReportInfo"  Header="Info. Gral." Visibility="Collapsed">
+                <ContentControl>
+                    <patients:PatientViewerReportInfo x:Name="TabReportInfo" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportEvents"  Header="Eventos" Visibility="Collapsed">
+                <ContentControl>
+                    <patients:PatientViewerOtherInfo x:Name="TabEvents" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportSummary" Header="Resumen" Visibility="Collapsed">
+                <ContentControl>
+                    <patients:PatientViewerSummary x:Name="TabReportSummary" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportDiagnosis" Header="Informe médico" Visibility="Collapsed">
+                <ContentControl>
+                    <patients:PatientViewerDiagnosis x:Name="TabReportDiagnosis" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportData" Header="Mediciones" Visibility="Collapsed">
+                <ContentControl>
+                    <patients:PatientViewerData x:Name="TabReportData" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportOverLimit"  Header="Valores sobre el límite" Visibility="Collapsed">
+                <patients:PatientViewerOverLimitPie x:Name="TabOverLimit" />
+            </TabItem>
+
+            <TabItem Name="ReportPressureProfile"  Header="Perfil de Presión Arterial" Visibility="Collapsed">
+                <patients:PatientViewerPressureProfile x:Name="TabPressureProfile" />
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="patient_info_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="patient_info_dbModelStoreContainer">
+          <EntitySet Name="device_reference" EntityType="patient_info_dbModel.Store.device_reference" store:Type="Tables" Schema="patient_info_db" />
+          <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.Store.emergency_contact" store:Type="Tables" Schema="patient_info_db" />
+          <EntitySet Name="patient" EntityType="patient_info_dbModel.Store.patient" store:Type="Tables" Schema="patient_info_db" />
+          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.Store.fk_device_reference_patient1">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="device_reference" EntitySet="device_reference" />
+          </AssociationSet>
+          <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.Store.fk_emergency_contact_Patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="emergency_contact" EntitySet="emergency_contact" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="device_reference">
+          <Key>
+            <PropertyRef Name="iddevice_reference" />
+          </Key>
+          <Property Name="iddevice_reference" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="device_type" Type="int" />
+          <Property Name="device_ref" Type="varchar" MaxLength="45" />
+          <Property Name="patient_idPatient" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="emergency_contact">
+          <Key>
+            <PropertyRef Name="idemergency_contact" />
+          </Key>
+          <Property Name="idemergency_contact" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="surname" Type="varchar" MaxLength="45" />
+          <Property Name="phone" Type="varchar" MaxLength="45" />
+          <Property Name="patient_idPatient" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="idPatient" />
+          </Key>
+          <Property Name="idPatient" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="surname" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="document" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="gender" Type="enum" Nullable="false" />
+          <Property Name="telephone" Type="varchar" MaxLength="45" />
+          <Property Name="cell_phone" Type="varchar" MaxLength="45" />
+          <Property Name="telephone_alt" Type="varchar" MaxLength="45" />
+          <Property Name="address" Type="text" />
+          <Property Name="city" Type="varchar" MaxLength="45" />
+          <Property Name="neighborhood" Type="varchar" MaxLength="45" />
+          <Property Name="department" Type="varchar" MaxLength="45" />
+          <Property Name="birthday" Type="datetime" />
+          <Property Name="e_mail" Type="text" />
+          <Property Name="register_number" Type="varchar" MaxLength="45" />
+          <Property Name="modified_date" Type="datetime" />
+        </EntityType>
+        <Association Name="fk_device_reference_patient1">
+          <End Role="patient" Type="patient_info_dbModel.Store.patient" Multiplicity="1" />
+          <End Role="device_reference" Type="patient_info_dbModel.Store.device_reference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="device_reference">
+              <PropertyRef Name="patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_emergency_contact_Patient">
+          <End Role="patient" Type="patient_info_dbModel.Store.patient" Multiplicity="1" />
+          <End Role="emergency_contact" Type="patient_info_dbModel.Store.emergency_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="emergency_contact">
+              <PropertyRef Name="patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="deleteEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="idEc" Type="bigint" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="editPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="name_" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="addr" Type="text" Mode="In" />
+          <Parameter Name="dni" Type="varchar" Mode="In" />
+          <Parameter Name="birth" Type="datetime" Mode="In" />
+          <Parameter Name="sex" Type="enum" Mode="In" />
+          <Parameter Name="neighbour" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="department" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="cell" Type="varchar" Mode="In" />
+          <Parameter Name="phone2" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="register_number" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertDeviceReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="device_type" Type="bigint" Mode="In" />
+          <Parameter Name="device_ref" Type="varchar" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertEmergencyContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertPatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="patient_info_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="surname" Type="varchar" Mode="In" />
+          <Parameter Name="addr" Type="text" Mode="In" />
+          <Parameter Name="dni" Type="varchar" Mode="In" />
+          <Parameter Name="birth" Type="datetime" Mode="In" />
+          <Parameter Name="sex" Type="enum" Mode="In" />
+          <Parameter Name="neighbour" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="department" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="cell" Type="varchar" Mode="In" />
+          <Parameter Name="phone2" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="register_number" Type="varchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="patient_info_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="patient_info_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="device_reference" EntityType="patient_info_dbModel.device_reference" />
+          <EntitySet Name="emergency_contact" EntityType="patient_info_dbModel.emergency_contact" />
+          <EntitySet Name="patient" EntityType="patient_info_dbModel.patient" />
+          <AssociationSet Name="fk_device_reference_patient1" Association="patient_info_dbModel.fk_device_reference_patient1">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="device_reference" EntitySet="device_reference" />
+          </AssociationSet>
+          <AssociationSet Name="fk_emergency_contact_Patient" Association="patient_info_dbModel.fk_emergency_contact_Patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="emergency_contact" EntitySet="emergency_contact" />
+          </AssociationSet>
+          <FunctionImport Name="insertPatient">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="birth" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="neighbour" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="cell" Mode="In" Type="String" />
+            <Parameter Name="phone2" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="register_number" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertEmergencyContact">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertDeviceReference">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="device_type" Mode="In" Type="Int64" />
+            <Parameter Name="device_ref" Mode="In" Type="String" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="editPatient">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="surname" Mode="In" Type="String" />
+            <Parameter Name="addr" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="birth" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="neighbour" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="department" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="cell" Mode="In" Type="String" />
+            <Parameter Name="phone2" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="register_number" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="deleteEmergencyContact">
+            <Parameter Name="idEc" Mode="In" Type="Int64" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="device_reference">
+          <Key>
+            <PropertyRef Name="iddevice_reference" />
+          </Key>
+          <Property Type="Int64" Name="iddevice_reference" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="device_type" />
+          <Property Type="String" Name="device_ref" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="patient_idPatient" Nullable="false" />
+          <NavigationProperty Name="patient" Relationship="patient_info_dbModel.fk_device_reference_patient1" FromRole="device_reference" ToRole="patient" />
+        </EntityType>
+        <EntityType Name="emergency_contact">
+          <Key>
+            <PropertyRef Name="idemergency_contact" />
+          </Key>
+          <Property Type="Int64" Name="idemergency_contact" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="surname" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="phone" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="patient_idPatient" Nullable="false" />
+          <NavigationProperty Name="patient" Relationship="patient_info_dbModel.fk_emergency_contact_Patient" FromRole="emergency_contact" ToRole="patient" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="idPatient" />
+          </Key>
+          <Property Type="Int64" Name="idPatient" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="surname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="document" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="gender" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="telephone" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cell_phone" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="telephone_alt" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="city" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="neighborhood" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="department" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="birthday" />
+          <Property Type="String" Name="e_mail" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="register_number" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="modified_date" />
+          <NavigationProperty Name="device_reference" Relationship="patient_info_dbModel.fk_device_reference_patient1" FromRole="patient" ToRole="device_reference" />
+          <NavigationProperty Name="emergency_contact" Relationship="patient_info_dbModel.fk_emergency_contact_Patient" FromRole="patient" ToRole="emergency_contact" />
+        </EntityType>
+        <Association Name="fk_device_reference_patient1">
+          <End Type="patient_info_dbModel.patient" Role="patient" Multiplicity="1" />
+          <End Type="patient_info_dbModel.device_reference" Role="device_reference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="device_reference">
+              <PropertyRef Name="patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_emergency_contact_Patient">
+          <End Type="patient_info_dbModel.patient" Role="patient" Multiplicity="1" />
+          <End Type="patient_info_dbModel.emergency_contact" Role="emergency_contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="emergency_contact">
+              <PropertyRef Name="patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="patient_info_dbModelStoreContainer" CdmEntityContainer="patient_info_dbEntities">
+          <EntitySetMapping Name="device_reference">
+            <EntityTypeMapping TypeName="patient_info_dbModel.device_reference">
+              <MappingFragment StoreEntitySet="device_reference">
+                <ScalarProperty Name="patient_idPatient" ColumnName="patient_idPatient" />
+                <ScalarProperty Name="device_ref" ColumnName="device_ref" />
+                <ScalarProperty Name="device_type" ColumnName="device_type" />
+                <ScalarProperty Name="iddevice_reference" ColumnName="iddevice_reference" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emergency_contact">
+            <EntityTypeMapping TypeName="patient_info_dbModel.emergency_contact">
+              <MappingFragment StoreEntitySet="emergency_contact">
+                <ScalarProperty Name="patient_idPatient" ColumnName="patient_idPatient" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idemergency_contact" ColumnName="idemergency_contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patient">
+            <EntityTypeMapping TypeName="patient_info_dbModel.patient">
+              <MappingFragment StoreEntitySet="patient">
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="register_number" ColumnName="register_number" />
+                <ScalarProperty Name="e_mail" ColumnName="e_mail" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="neighborhood" ColumnName="neighborhood" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="telephone_alt" ColumnName="telephone_alt" />
+                <ScalarProperty Name="cell_phone" ColumnName="cell_phone" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="document" ColumnName="document" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idPatient" ColumnName="idPatient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insertPatient" FunctionName="patient_info_dbModel.Store.insertPatient" />
+          <FunctionImportMapping FunctionImportName="insertEmergencyContact" FunctionName="patient_info_dbModel.Store.insertEmergencyContact" />
+          <FunctionImportMapping FunctionImportName="insertDeviceReference" FunctionName="patient_info_dbModel.Store.insertDeviceReference" />
+          <FunctionImportMapping FunctionImportName="editPatient" FunctionName="patient_info_dbModel.Store.editPatient" />
+          <FunctionImportMapping FunctionImportName="deleteEmergencyContact" FunctionName="patient_info_dbModel.Store.deleteEmergencyContact" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1" ZoomLevel="88">
+        <EntityTypeShape EntityType="patient_info_dbModel.device_reference" Width="1.5" PointX="3" PointY="1.125" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="patient_info_dbModel.emergency_contact" Width="1.5" PointX="3" PointY="3.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="patient_info_dbModel.patient" Width="1.5" PointX="0.75" PointY="1.25" Height="4.480205078125" />
+        <AssociationConnector Association="patient_info_dbModel.fk_device_reference_patient1" >
+          <ConnectorPoint PointX="2.25" PointY="2.1776432291666667" />
+          <ConnectorPoint PointX="3" PointY="2.1776432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="patient_info_dbModel.fk_emergency_contact_Patient" >
+          <ConnectorPoint PointX="2.25" PointY="4.7401025390625" />
+          <ConnectorPoint PointX="3" PointY="4.7401025390625" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

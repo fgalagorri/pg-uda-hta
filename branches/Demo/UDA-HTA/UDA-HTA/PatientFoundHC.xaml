@@ -1,0 +1,41 @@
+﻿<Window x:Class="UDA_HTA.PatientFoundHC"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:patients="clr-namespace:UDA_HTA.UserControls.MainWindow.Patients"
+        Title="Visor de paciente encontrado" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Emphasys">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Answers">
+            <Setter Property="FontStyle" Value="Italic" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"  Orientation="Horizontal" VerticalAlignment="Center" Margin="20,20">
+                <Image Source="/Images/patient_import_ok.png" Margin="10" />
+                    <TextBlock Style="{StaticResource Emphasys}" VerticalAlignment="Center">
+                    Se ha encontrado una coincidencia en el sistema del  hospital
+                    </TextBlock>
+        </StackPanel>
+
+        <ContentControl Margin="20,0" Name="CurrentControl" Grid.Row="1" >
+            <patients:PatientViewerInformation x:Name="PatientInformation" />
+        </ContentControl>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                    Margin="0,10,30,5" VerticalAlignment="Bottom" Grid.Row="2">
+            <Button Name="btnUseAll" Width="100" Click="btnUseAll_Click">Utilizar datos</Button>
+            <Button Name="btnUseRegister" Width="100" Margin="4,0,20,0" Click="btnUseRegister_Click">Solo registro</Button>
+            <Button Name="btnCancel" Width="100" IsCancel="True">Cancelar</Button>
+        </StackPanel>
+    </Grid>
+</Window>

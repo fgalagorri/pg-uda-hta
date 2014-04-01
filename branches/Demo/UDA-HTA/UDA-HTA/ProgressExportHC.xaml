@@ -1,0 +1,25 @@
+﻿<Window x:Class="UDA_HTA.ProgressExportHC"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Procesando..." Height="150" Width="500"
+        IsVisibleChanged="VisibilityChanged" 
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"  Orientation="Horizontal" VerticalAlignment="Center" Margin="20,10">
+            <Image Source="/Images/exportHC_wait.png" Margin="10" Height="32" />
+            <TextBlock VerticalAlignment="Center">
+                    Espere mientras el informe es publicado en el sistema.
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                    Margin="0,10,30,5" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button Name="btnCancel" Width="100" Click="BtnCancel_OnClick">Cancelar</Button>
+        </StackPanel>
+    </Grid>
+</Window>

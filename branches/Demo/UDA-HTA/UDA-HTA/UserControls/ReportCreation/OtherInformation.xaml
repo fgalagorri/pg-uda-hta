@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.ReportCreation.OtherInformation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Esfuerzo Físico -->
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Esfuerzo físico</TextBlock>
+            </GroupBox.Header>
+            <StackPanel>
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
+                        <TextBox Name="txtHourEffort" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtMinEffort" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    
+                    <TextBlock Style="{StaticResource label}">Tipo de esfuerzo:</TextBlock>
+                    <ComboBox Name="cmbTypeEffort" VerticalAlignment="Center" Width="130" Margin="10,0,0,0">
+                        <ComboBoxItem Content="Esfuerzo leve" />
+                        <ComboBoxItem Content="Esfuerzo moderado" />
+                        <ComboBoxItem Content="Estress, tension, nervios" />
+                    </ComboBox>
+
+                    <Button Padding="5,2" VerticalAlignment="Center" 
+                            Margin="30,0,15,0" Click="btnAddEffort_Click">Agregar</Button>
+                    <Button Name="btnRmvEffort"  Padding="5,2" VerticalAlignment="Center" 
+                            IsEnabled="False" Click="btnRmvEffort_Click">Quitar</Button>
+                </StackPanel>
+                <DataGrid Name="grEffort" Background="White" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding}" Height="90" IsReadOnly="True" 
+                          SelectionChanged="grEffort_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Time}" x:Name="colEffortTime" />
+                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Description}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </GroupBox>
+        
+        
+        <!-- Complicaciones -->
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                <TextBlock Style="{StaticResource groupTitle}">Síntomas</TextBlock>
+            </GroupBox.Header>
+            <StackPanel>
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
+                        <TextBox Name="txtHourComp" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtMinComp" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
+                    <TextBlock Style="{StaticResource label}">Tipo:</TextBlock>
+                    <ComboBox Name="cmbTypeComp" VerticalAlignment="Center" Width="130" 
+                              Margin="10,0,10,0" SelectionChanged="cmbTypeComp_SelectionChanged">
+                        <ComboBoxItem Content="Dolor de cabeza" />
+                        <ComboBoxItem Content="Fatiga, falta de aire" />
+                        <ComboBoxItem Content="Mareos" />
+                        <ComboBoxItem Content="Oleadas de calor" />
+                        <ComboBoxItem Content="Palpitaciones, pulso rápido, ritmo cardíaco irregular" />
+                        <ComboBoxItem Content="Síncope, desmayo" />
+                        <ComboBoxItem Content="Trastornos visuales" />
+                        <ComboBoxItem Content="Vómitos o nauseas" />
+                        <ComboBoxItem Content="Otros" />
+                    </ComboBox>
+                    <TextBox VerticalAlignment="Center" Width="170" Name="txtCompOther" IsEnabled="False" />
+
+                    <Button Margin="30,0,15,0" Padding="5,2" VerticalAlignment="Center" 
+                            Click="btnAddComp_Click">Agregar</Button>
+                    <Button Name="btnRmvComp" IsEnabled="False" VerticalAlignment="Center" 
+                            Padding="5,2" Click="btnRmvComp_Click">Quitar</Button>
+                </StackPanel>
+                <DataGrid Name="grComplications" Background="White" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding}" Height="90" IsReadOnly="True" 
+                          SelectionChanged="grComplications_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Hora" Width="*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Time}" x:Name="colCompTime" />
+                        <DataGridTextColumn Header="Tipo" Width="3*" IsReadOnly="True" 
+                                            Binding="{Binding Path=Description}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </GroupBox>
+        
+    </Grid>
+</UserControl>

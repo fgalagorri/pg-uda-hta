@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Administration.Drugs.AddDrugs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="900">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="15,15,0,15" Grid.Row="0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <TextBlock Style="{StaticResource label}">Categoría:</TextBlock>
+                    <ComboBox ItemsSource="{Binding}" Margin="70,0,7,0" Height="23" Name="comboBoxDrugType" Width="120">
+                    </ComboBox>
+                    <Button Name="btnAddCategory" Padding="5,0" Click="btnAddCategory_Click">+</Button>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Nombre Comercial:</TextBlock>
+                    <TextBox Name="txtName" Width="150" Margin="20,0,40,0" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Principio Activo:</TextBlock>
+                    <TextBox Name="txtActive" Width="150" Margin="35,0,40,0" />
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Button Name="btnAdd" Margin="0,30,0,0" Padding="10,0" Click="btnAdd_Click">Agregar</Button>
+                <Button Name="btnDelete" Margin="0,10,0,0" Padding="10,0" Visibility="Hidden" Click="btnDelete_Click">Eliminar</Button>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

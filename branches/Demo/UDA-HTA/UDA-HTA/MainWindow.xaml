@@ -1,0 +1,104 @@
+﻿<Window x:Class="UDA_HTA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:r="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+        WindowStartupLocation="CenterScreen" Title="UDA-HTA" MinHeight="660" MinWidth="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> 
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <r:Ribbon x:Name="MenuRibbon" SelectionChanged="MenuRibbon_SelectionChanged" Grid.RowSpan="1" >
+            <r:Ribbon.HelpPaneContentTemplate>
+                <DataTemplate>
+                    <r:RibbonButton DataContext="{Binding}" /> 
+                </DataTemplate>
+            </r:Ribbon.HelpPaneContentTemplate>
+            
+            <r:Ribbon.ApplicationMenu>
+                <r:RibbonApplicationMenu Name="AppMenu" SmallImageSource="/Images/ribbon_menu.png">
+                    <r:RibbonApplicationMenuItem Name="itemNewUsr" Header="Nuevo Usuario" 
+                                                 Click="NewUser" ImageSource="/Images/ribbon_newDoctor.png"/>
+                    <r:RibbonApplicationMenuItem Name="itemFindUsr" Header="Buscar Usuario" 
+                                                 Click="FindUser" ImageSource="/Images/ribbon_findDoctor.png" />
+                    <r:RibbonApplicationMenuItem Header="Cambiar Contraseña" Click="ChangePassword" 
+                                                 ImageSource="/Images/ribbonmenu_password.png"  />
+                    <r:RibbonApplicationMenu.FooterPaneContent>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" IsEnabled="False">
+                                <TextBlock VerticalAlignment="Center" Style="{StaticResource label}">Usuario:</TextBlock>
+                                <TextBlock Name="txtUserName" Margin="15,0" />
+                            </StackPanel>
+                            <r:RibbonButton Content="Salir" Label="Salir" Click="ExitApplication"
+                                            SmallImageSource="/Images/ribbonmenu_exit.png" />
+                        </StackPanel>
+                    </r:RibbonApplicationMenu.FooterPaneContent>
+                </r:RibbonApplicationMenu>
+            </r:Ribbon.ApplicationMenu>
+
+            <r:RibbonTab Header="Pacientes" Name="tabPaciente" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <r:RibbonGroup Header="Registro">
+                    <r:RibbonButton Name="btnNewReport" Label="Nuevo Registro" 
+                                    LargeImageSource="/Images/ribbon_newReport.png" 
+                                    Click="CreateNewReport" />
+                    <r:RibbonButton Name="btnEditDiagnosis" Label="Informar" 
+                                    LargeImageSource="/Images/ribbon_inform.png" 
+                                    Click="EditDiagnosis" />
+                    <r:RibbonButton Label="Editar" Click="EditReport" Name="btnEditReport"
+                                    LargeImageSource="/Images/ribbon_editReport.png" />
+                    <r:RibbonButton Label="Exportar" Click="ExportReport" Name="btnExportReport"
+                                    LargeImageSource="/Images/ribbon_exportReport.png" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Paciente">
+                    <r:RibbonButton Label="Buscar" Click="FindPatient" LargeImageSource="/Images/ribbon_findPatient.png" />
+                    <r:RibbonButton Label="Nuevo" Click="BtnNewPatient_OnClick" LargeImageSource="/Images/ribbon_newPatient.png" />
+                    <r:RibbonButton Label="Editar" Name="btnEditPatient" Click="BtnEditPatient_OnClick" 
+                                    LargeImageSource="/Images/ribbon_editPatient.png" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Sistema HC" HorizontalContentAlignment="Right" HorizontalAlignment="Right">
+                    <r:RibbonButton Name="btnPublish" Label="Publicar Informe MAPA" Click="ExportReportHC" 
+                                    LargeImageSource="/Images/ribbon_publish.png" />
+                    <r:RibbonButton Name="btnNotPublish" Label="Informes No Publicados" Click="SearchNotExportedReportHC" 
+                                    LargeImageSource="/Images/ribbon_notPublished.png" />
+                </r:RibbonGroup>
+            </r:RibbonTab>
+
+            <r:RibbonTab Header="Investigaciones" Name="tabInvestigacion">
+                <r:RibbonGroup Header="Investigaciones">
+                    <r:RibbonButton Name="btnNewResearch" Label="Nueva" LargeImageSource="/Images/ribbon_newResearch.png" Click="BtnNewResearch_OnClick"/>
+                    <r:RibbonButton Name="btnFindResearch" Label="Buscar" LargeImageSource="/Images/ribbon_findResearch.png" Click="BtnFindResearch_OnClick"/>
+                </r:RibbonGroup>
+
+                <r:RibbonGroup Header="Edición">
+                    <r:RibbonButton Name="btnEditResearch" Label="Editar" LargeImageSource="/Images/ribbon_editResearch.png" Click="BtnEditResearch_OnClick"/>
+                    <r:RibbonButton Name="btnAddStudyResearch" Label="Agregar Registro" LargeImageSource="/Images/ribbon_addReportResearch.png" Click="BtnAddReport_OnClick"/>
+                </r:RibbonGroup>
+
+                <r:RibbonGroup Header="Exportar">
+                    <r:RibbonButton Name="btnExportXLS" Label="Exportar XLSX" Click="ExportXLS"
+                                    LargeImageSource="/Images/export_XLS.png" />
+                </r:RibbonGroup>
+
+            </r:RibbonTab>
+
+            <r:RibbonTab Name="tabAdministration" Header="Administración">
+                <r:RibbonGroup Header="Drogas">
+                    <r:RibbonButton Name="btnAddDrugs" Label="Nueva Droga" LargeImageSource="/Images/ribbon_newDrug.png" Click="BtnAddDrugs_OnClick"/>
+                    <r:RibbonButton Name="btnSearchDrugs" Label="Buscar Droga" LargeImageSource="/Images/ribbon_findDrugs.png" Click="BtnSearchDrugs_OnClick"/>
+                    <r:RibbonButton Name="btnEditDrugs" Label="Editar Droga" LargeImageSource="/Images/ribbon_editDrugs.png" Click="BtnEditDrugs_OnClick"/>
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Usuarios">
+                    <r:RibbonButton Name="btnNewDoctor" Label="Nuevo Usuario" LargeImageSource="/Images/ribbon_newDoctor.png" Click="NewUser"/>
+                    <r:RibbonButton Name="btnFindDoctor" Label="Buscar Usuario" LargeImageSource="/Images/ribbon_findDoctor.png" Click="FindUser"/>
+                    <r:RibbonButton Name="btnEditDoctor" Label="Editar Usuario" LargeImageSource="/Images/ribbon_editDoctor.png" Click="EditUser"/>
+                </r:RibbonGroup>
+            </r:RibbonTab>
+        </r:Ribbon>
+
+        <ContentControl Name="ContainerPatient" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
+        <ContentControl Name="ContainerInvestigation" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
+        <ContentControl Name="ContainerAdministration" Grid.Row="2" Content="{Binding ControlContent}" HorizontalContentAlignment="Stretch" />
+
+    </Grid>
+</Window>

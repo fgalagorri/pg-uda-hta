@@ -1,0 +1,47 @@
+﻿<Window x:Class="UDA_HTA.NotPublishedReports"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xml:lang="es-UY"
+        Title="Estudios no publicados" WindowStartupLocation="CenterScreen" 
+        Height="400" Width="825" ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <TextBlock Style="{StaticResource label}">Desde:</TextBlock>
+                <DatePicker Name="dtStart" Margin="15,0,40,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <TextBlock Style="{StaticResource label}">Hasta:</TextBlock>
+                <DatePicker Name="dtEnd" Margin="15,0,40,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                <TextBlock Style="{StaticResource label}">Paciente:</TextBlock>
+                <TextBox Name="patientName" Width="150" Margin="15,0,40,0" KeyDown="patientName_KeyDown" />
+            </StackPanel>
+            <Button Padding="5,0" Click="btnFilter_Click">Filtrar</Button>
+        </StackPanel>
+
+        <DataGrid Name="grReports" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" 
+                  AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalScrollBarVisibility="Auto"
+                  SelectionChanged="grReports_SelectionChanged" SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha del estudio" Width="1*" Binding="{Binding Path=ReportDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CI" Width="Auto" Binding="{Binding Path=PatientDocument}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre" Width="1*" IsReadOnly="True" Binding="{Binding Path=PatientName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido" Width="1*" IsReadOnly="True" Binding="{Binding Path=PatientLastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dispositivo" Width="1*" Binding="{Binding Path=ReportDeviceName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="IdPaciente" Width="1*" Binding="{Binding Path=PatientId}" Visibility="Hidden"></DataGridTextColumn>
+                <DataGridTextColumn Header="IdReporte" Width="1*" Binding="{Binding Path=ReportId}" Visibility="Hidden"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,180 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Patients.PatientViewerReportInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="RowDefinition">
+            <Setter Property="MinHeight" Value="26" />
+        </Style>
+        <Style x:Key="columnTitle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Grid.Row" Value="0" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <!-- TextBlocks de los values -->
+        <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource label}">
+            <Setter Property="Grid.Column" Value="0" />
+        </Style>
+        <!-- Valores desplegados -->
+        <Style x:Key="value" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,5,0" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+        
+            <!-- General -->
+            <GroupBox Grid.Row="0">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">General</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource label}">Técnico:</TextBlock>
+                    <TextBlock Name="lblTechnician" Grid.Row="0" Grid.Column="1" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource label}">Solicitante:</TextBlock>
+                    <TextBlock Name="lblRequester" Grid.Row="1" Grid.Column="1" />
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource label}">Inicio del estudio:</TextBlock>
+                    <TextBlock Name="lblBeginDate" Grid.Row="2" Grid.Column="1" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource label}">Edad al inicio:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                        <TextBlock Name="lblBeginAge" />
+                        <TextBlock Margin="4,0,0,0"> años.</TextBlock>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource label}">Inicio del sueño:</TextBlock>
+                    <TextBlock Name="lblSleepStart" Grid.Row="4" Grid.Column="1" />
+                    <TextBlock Grid.Row="4" Grid.Column="3" Style="{StaticResource label}">Fin:</TextBlock>
+                    <TextBlock Name="lblSleepEnd" Grid.Row="4" Grid.Column="4" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource label}">Calidad del sueño:</TextBlock>
+                    <TextBlock Name="lblSleepQty" Grid.Row="5" Grid.Column="1" />
+                    <TextBlock Name="lblSleepDesc" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,5" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource label}">Comida principal:</TextBlock>
+                    <TextBlock Name="lblMealTime" Grid.Row="6" Grid.Column="1" />
+                </Grid>
+            </GroupBox>
+
+            <!-- Mediciones Iniciales -->
+            <GroupBox Grid.Row="1">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">Mediciones iniciales</TextBlock>
+                </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Medición 1</TextBlock>
+                <TextBlock Grid.Column="2" Style="{StaticResource columnTitle}">Medición 2</TextBlock>
+                <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Medición 3</TextBlock>
+                <TextBlock Grid.Column="4" Style="{StaticResource columnTitle}">Promedio</TextBlock>
+
+                <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
+                <TextBlock Name="lblInitSystolic1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitSystolic2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitSystolic3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitSystolicP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}" />
+
+                <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
+                <TextBlock Name="lblInitDiastolic1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitDiastolic2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitDiastolic3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitDiastolicP" Grid.Row="2" Grid.Column="4" Style="{StaticResource value}" />
+
+                <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
+                <TextBlock Name="lblInitHR1" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitHR2" Grid.Row="4" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitHR3" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblInitHRP" Grid.Row="4" Grid.Column="4" Style="{StaticResource value}" />
+            </Grid>
+            </GroupBox>
+
+            <!-- Mediciones Iniciales -->
+            <GroupBox Grid.Row="2">
+                <GroupBox.Header>
+                    <TextBlock Style="{StaticResource groupTitle}">Mediciones finales</TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="1" Style="{StaticResource columnTitle}">Medición 1</TextBlock>
+                <TextBlock Grid.Column="2" Style="{StaticResource columnTitle}">Medición 2</TextBlock>
+                <TextBlock Grid.Column="3" Style="{StaticResource columnTitle}">Medición 3</TextBlock>
+                <TextBlock Grid.Column="4" Style="{StaticResource columnTitle}">Promedio</TextBlock>
+
+                <TextBlock Grid.Row="1" Style="{StaticResource label}">Presión Arterial Sistólica:</TextBlock>
+                <TextBlock Name="lblFinalSystolic1" Grid.Row="1" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalSystolic2" Grid.Row="1" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalSystolic3" Grid.Row="1" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalSystolicP" Grid.Row="1" Grid.Column="4" Style="{StaticResource value}" />
+
+                <TextBlock Grid.Row="2" Style="{StaticResource label}">Presión Arterial Diastólica:</TextBlock>
+                <TextBlock Name="lblFinalDiastolic1" Grid.Row="2" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalDiastolic2" Grid.Row="2" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalDiastolic3" Grid.Row="2" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalDiastolicP" Grid.Row="2" Grid.Column="4" Style="{StaticResource value}" />
+
+                <TextBlock Grid.Row="4" Style="{StaticResource label}">Frec. Cardíaca:</TextBlock>
+                <TextBlock Name="lblFinalHR1" Grid.Row="4" Grid.Column="1" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalHR2" Grid.Row="4" Grid.Column="2" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalHR3" Grid.Row="4" Grid.Column="3" Style="{StaticResource value}" />
+                <TextBlock Name="lblFinalHRP" Grid.Row="4" Grid.Column="4" Style="{StaticResource value}" />
+            </Grid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

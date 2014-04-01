@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="UDA_HTA.UserControls.MainWindow.Investigations.ResearchViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:investigations="clr-namespace:UDA_HTA.UserControls.MainWindow.Investigations">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TreeView Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                  Name="TreeReports" SelectedItemChanged="treeInvestigation_SelectedItemChanged" PreviewMouseRightButtonDown="TreeReports_OnPreviewMouseRightButtonDown">
+
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Eliminar" Click="DeleteReportFromResearch_OnClick" />
+                </ContextMenu>
+            </TreeView.ContextMenu>
+
+            <TreeViewItem IsExpanded="True" Name="treeInvestigation" >
+
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/tree_user.png" />
+                        <TextBlock Name="lblTreeName" />
+                    </StackPanel>
+                </TreeViewItem.Header>
+            </TreeViewItem>
+        </TreeView>
+
+        <Border Grid.Column="1" Width="5" />
+
+        <TabControl Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Investigacion">
+                <ContentControl>
+                    <investigations:ResearchViewerInformation x:Name="TabInvestigation" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="Reports"  Header="Registros Asociados" Visibility="Visible">
+                <ContentControl>
+                    <investigations:ResearchViewerReportSummary x:Name="TabReports" />
+                </ContentControl>
+            </TabItem>
+
+            <TabItem Name="ReportInfo" Header="Medidas" Visibility="Collapsed">
+                <ContentControl>
+                    <investigations:ResearchViewerReport x:Name="TabReportInfo" />
+                </ContentControl>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</UserControl>

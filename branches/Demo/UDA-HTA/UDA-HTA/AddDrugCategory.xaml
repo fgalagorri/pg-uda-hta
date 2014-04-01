@@ -1,0 +1,27 @@
+﻿<Window x:Class="UDA_HTA.AddDrugCategory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nueva Categoría de Droga" Height="138" Width="421">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="15,15,0,15" Grid.Row="0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,5">
+                    <TextBlock Style="{StaticResource label}">Nombre de Nueva Categoría:</TextBlock>
+                    <TextBox Name="txtName" Width="150" Margin="20,0,40,0" KeyDown="TxtName_OnKeyDown" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
+                    Margin="0,10,0,5" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button Name="btnAdd" Width="100" Margin="0,0,20,0" IsEnabled="False" Click="btnAdd_Click">Agregar</Button>
+            <Button Name="btnCancel" Width="100" Margin="0,0,10,0" IsCancel="True" Click="btnCancel_Click">Cancelar</Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

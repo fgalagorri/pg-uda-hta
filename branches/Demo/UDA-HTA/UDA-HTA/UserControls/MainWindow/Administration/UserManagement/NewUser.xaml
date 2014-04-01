@@ -1,0 +1,25 @@
+﻿<Window x:Class="UDA_HTA.UserControls.MainWindow.Administration.UserManagement.NewUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Creacion de usuario" WindowStartupLocation="CenterScreen" Height="266" Width="300" >
+    
+    <Grid>
+        <Label Content="Nombre y apellido:" Height="28" HorizontalAlignment="Left" Margin="12,55,0,0" Name="lblUserName" VerticalAlignment="Top" />
+        <Label Content="Login:" Height="28" HorizontalAlignment="Left" Margin="12,89,0,0" Name="lblLogin" VerticalAlignment="Top" />
+        <Label Content="Rol:" Height="28" HorizontalAlignment="Left" Margin="12,123,0,0" Name="lblRole" VerticalAlignment="Top" />
+        <Label Content="Contraseña:" Height="28" HorizontalAlignment="Left" Margin="12,157,0,0" Name="lblPassword" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="130,55,0,0" Name="txtUserName" VerticalAlignment="Top" Width="120" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="130,89,0,0" Name="txtLogin" VerticalAlignment="Top" Width="120" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="130,123,0,0" Name="comboRole" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Administrador"></ComboBoxItem>
+            <ComboBoxItem Content="Tecnico"></ComboBoxItem>
+            <ComboBoxItem Content="Clinico"></ComboBoxItem>
+        </ComboBox>
+        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="130,157,0,0" Name="passwordBox" VerticalAlignment="Top" Width="120" />
+
+        <StackPanel Margin="0,192,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Crear" Height="23" Margin="0,0,20,0" Name="buttonCreate" Width="100" Click="buttonCreate_Click" />
+            <Button Name="btnCancel" Height="23" Width="100" Margin="0,0,10,0" IsCancel="True">Cancelar</Button>
+        </StackPanel>
+    </Grid>
+</Window>

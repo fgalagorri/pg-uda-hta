@@ -1,0 +1,1866 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="udahta_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="udahta_dbModelStoreContainer">
+          <EntitySet Name="complications_activities" EntityType="udahta_dbModel.Store.complications_activities" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.Store.dailycarnet" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="drug" EntityType="udahta_dbModel.Store.drug" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="drugtype" EntityType="udahta_dbModel.Store.drugtype" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="investigation" EntityType="udahta_dbModel.Store.investigation" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="investigation_has_report" EntityType="udahta_dbModel.Store.investigation_has_report" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.Store.limitmeasure" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="measurement" EntityType="udahta_dbModel.Store.measurement" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="medicalhistory" EntityType="udahta_dbModel.Store.medicalhistory" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="medicinedose" EntityType="udahta_dbModel.Store.medicinedose" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="patientuda" EntityType="udahta_dbModel.Store.patientuda" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="report" EntityType="udahta_dbModel.Store.report" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="temporarydata" EntityType="udahta_dbModel.Store.temporarydata" store:Type="Tables" Schema="udahta_db" />
+          <EntitySet Name="user" EntityType="udahta_dbModel.Store.user" store:Type="Tables" Schema="udahta_db" />
+          <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.Store.fk_Complications_Activities_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="complications_activities" EntitySet="complications_activities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Drug_DrugType" Association="udahta_dbModel.Store.fk_Drug_DrugType">
+            <End Role="drugtype" EntitySet="drugtype" />
+            <End Role="drug" EntitySet="drug" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Investigation_has_Report_Investigation1" Association="udahta_dbModel.Store.fk_Investigation_has_Report_Investigation1">
+            <End Role="investigation" EntitySet="investigation" />
+            <End Role="investigation_has_report" EntitySet="investigation_has_report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Investigation_has_Report_Report1" Association="udahta_dbModel.Store.fk_Investigation_has_Report_Report1">
+            <End Role="report" EntitySet="report" />
+            <End Role="investigation_has_report" EntitySet="investigation_has_report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Measurement_Report1" Association="udahta_dbModel.Store.fk_Measurement_Report1">
+            <End Role="report" EntitySet="report" />
+            <End Role="measurement" EntitySet="measurement" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicalHistory_Patient1" Association="udahta_dbModel.Store.fk_MedicalHistory_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="medicalhistory" EntitySet="medicalhistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicineDose_TemporaryData1" Association="udahta_dbModel.Store.fk_MedicineDose_TemporaryData1">
+            <End Role="temporarydata" EntitySet="temporarydata" />
+            <End Role="medicinedose" EntitySet="medicinedose" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicineDosis_Drug1" Association="udahta_dbModel.Store.fk_MedicineDosis_Drug1">
+            <End Role="drug" EntitySet="drug" />
+            <End Role="medicinedose" EntitySet="medicinedose" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_DailyCarnet1" Association="udahta_dbModel.Store.fk_Report_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_Patient1" Association="udahta_dbModel.Store.fk_Report_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_TemporaryData1" Association="udahta_dbModel.Store.fk_Report_TemporaryData1">
+            <End Role="temporarydata" EntitySet="temporarydata" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="complications_activities">
+          <Key>
+            <PropertyRef Name="idComplications_Activities" />
+          </Key>
+          <Property Name="idComplications_Activities" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="specification" Type="text" />
+          <Property Name="dailycarnet_idDailyCarnet" Type="bigint" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="dailycarnet">
+          <Key>
+            <PropertyRef Name="idDailyCarnet" />
+          </Key>
+          <Property Name="idDailyCarnet" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="technical" Type="varchar" MaxLength="45" />
+          <Property Name="initial_dias1" Type="int" />
+          <Property Name="initial_dias2" Type="int" />
+          <Property Name="initial_dias3" Type="int" />
+          <Property Name="initial_hr1" Type="int" />
+          <Property Name="initial_hr2" Type="int" />
+          <Property Name="initial_hr3" Type="int" />
+          <Property Name="final_dias1" Type="int" />
+          <Property Name="final_dias2" Type="int" />
+          <Property Name="final_dias3" Type="int" />
+          <Property Name="final_hr1" Type="int" />
+          <Property Name="final_hr2" Type="int" />
+          <Property Name="final_hr3" Type="int" />
+          <Property Name="begin_sleep_time" Type="datetime" />
+          <Property Name="end_sleep_time" Type="datetime" />
+          <Property Name="how_sleep" Type="varchar" MaxLength="45" />
+          <Property Name="main_meal_time" Type="datetime" />
+          <Property Name="init_sys1" Type="int" />
+          <Property Name="init_sys2" Type="int" />
+          <Property Name="init_sys3" Type="int" />
+          <Property Name="final_sys1" Type="int" />
+          <Property Name="final_sys2" Type="int" />
+          <Property Name="final_sys3" Type="int" />
+          <Property Name="sleep_comments" Type="text" />
+        </EntityType>
+        <EntityType Name="drug">
+          <Key>
+            <PropertyRef Name="idDrug" />
+          </Key>
+          <Property Name="idDrug" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="active" Type="varchar" MaxLength="45" />
+          <Property Name="drugtype_idDrugType" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="drugtype">
+          <Key>
+            <PropertyRef Name="idDrugType" />
+          </Key>
+          <Property Name="idDrugType" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="investigation">
+          <Key>
+            <PropertyRef Name="idInvestigation" />
+          </Key>
+          <Property Name="idInvestigation" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="creation_date" Type="datetime" Nullable="false" />
+          <Property Name="comment" Type="text" />
+        </EntityType>
+        <EntityType Name="investigation_has_report">
+          <Key>
+            <PropertyRef Name="investigation_idInvestigation" />
+            <PropertyRef Name="report_idReport" />
+            <PropertyRef Name="report_patientuda_idPatientUda" />
+          </Key>
+          <Property Name="investigation_idInvestigation" Type="bigint" Nullable="false" />
+          <Property Name="report_idReport" Type="bigint" Nullable="false" />
+          <Property Name="report_patientuda_idPatientUda" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="limitmeasure">
+          <Key>
+            <PropertyRef Name="idlimitmeasure" />
+          </Key>
+          <Property Name="idlimitmeasure" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="maxdiasday" Type="int" />
+          <Property Name="maxdiasnight" Type="int" />
+          <Property Name="maxdiastotal" Type="int" />
+          <Property Name="maxsysday" Type="int" />
+          <Property Name="maxsysnight" Type="int" />
+          <Property Name="maxsystotal" Type="int" />
+          <Property Name="highsystotal" Type="int" Nullable="false" />
+          <Property Name="highsysday" Type="int" Nullable="false" />
+          <Property Name="highsysnight" Type="int" Nullable="false" />
+          <Property Name="highdiastotal" Type="int" Nullable="false" />
+          <Property Name="highdiasday" Type="int" Nullable="false" />
+          <Property Name="highdiasnight" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="measurement">
+          <Key>
+            <PropertyRef Name="idMeasurement" />
+            <PropertyRef Name="report_idReport" />
+            <PropertyRef Name="report_patientuda_idPatientUda" />
+          </Key>
+          <Property Name="idMeasurement" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="systolic" Type="int" />
+          <Property Name="average" Type="int" />
+          <Property Name="diastolic" Type="int" />
+          <Property Name="heart_rate" Type="int" />
+          <Property Name="sleep" Type="bit" />
+          <Property Name="comment" Type="text" />
+          <Property Name="is_valid" Type="bit" Nullable="false" />
+          <Property Name="report_idReport" Type="bigint" Nullable="false" />
+          <Property Name="report_patientuda_idPatientUda" Type="bigint" Nullable="false" />
+          <Property Name="is_retry" Type="bit" />
+          <Property Name="is_enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="medicalhistory">
+          <Key>
+            <PropertyRef Name="idMedicalHistory" />
+            <PropertyRef Name="patientuda_idPatientUda" />
+          </Key>
+          <Property Name="idMedicalHistory" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="illness" Type="text" />
+          <Property Name="comment" Type="text" />
+          <Property Name="patientuda_idPatientUda" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="medicinedose">
+          <Key>
+            <PropertyRef Name="idMedicineDosis" />
+          </Key>
+          <Property Name="idMedicineDosis" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="dose" Type="text" />
+          <Property Name="time" Type="datetime" />
+          <Property Name="drug_idDrug" Type="bigint" Nullable="false" />
+          <Property Name="temporarydata_idTemporaryData" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="patientuda">
+          <Key>
+            <PropertyRef Name="idPatientUda" />
+          </Key>
+          <Property Name="idPatientUda" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="report">
+          <Key>
+            <PropertyRef Name="idReport" />
+            <PropertyRef Name="patientuda_idPatientUda" />
+          </Key>
+          <Property Name="idReport" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="begin_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="doctor" Type="varchar" MaxLength="45" />
+          <Property Name="diagnosis" Type="text" />
+          <Property Name="requester" Type="varchar" MaxLength="45" />
+          <Property Name="specialty" Type="varchar" MaxLength="45" />
+          <Property Name="day_avg_sys" Type="int" />
+          <Property Name="night_avg_sys" Type="int" />
+          <Property Name="total_avg_sys" Type="int" />
+          <Property Name="day_max_sys" Type="int" />
+          <Property Name="night_max_sys" Type="int" />
+          <Property Name="day_avg_dias" Type="int" />
+          <Property Name="night_avg_dias" Type="int" />
+          <Property Name="total_avg_dias" Type="int" />
+          <Property Name="day_max_dias" Type="int" />
+          <Property Name="night_max_dias" Type="int" />
+          <Property Name="idDevice" Type="int" Nullable="false" />
+          <Property Name="deviceReportId" Type="text" Nullable="false" />
+          <Property Name="dailycarnet_idDailyCarnet" Type="bigint" Nullable="false" />
+          <Property Name="patientuda_idPatientUda" Type="bigint" Nullable="false" />
+          <Property Name="temporarydata_idTemporaryData" Type="bigint" Nullable="false" />
+          <Property Name="day_min_sis" Type="int" />
+          <Property Name="day_min_dias" Type="int" />
+          <Property Name="night_min_sis" Type="int" />
+          <Property Name="night_min_dias" Type="int" />
+          <Property Name="tot_avg_hr" Type="int" />
+          <Property Name="day_avg_hr" Type="int" />
+          <Property Name="night_avg_hr" Type="int" />
+          <Property Name="max_day_hr" Type="int" />
+          <Property Name="max_night_hr" Type="int" />
+          <Property Name="min_day_hr" Type="int" />
+          <Property Name="min_night_hr" Type="int" />
+          <Property Name="tot_sd_sis" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_sd_dias" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_sis" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_dias" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_sis" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_dias" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_tam" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_sd_hr" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="day_sd_hr" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="night_sd_hr" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="tot_tam_avg" Type="int" />
+          <Property Name="day_tam_avg" Type="int" />
+          <Property Name="night_tam_avg" Type="int" />
+          <Property Name="diagnosis_date" Type="datetime" />
+          <Property Name="sys_dipping" Type="decimal" Precision="7" Scale="4" />
+          <Property Name="dias_dipping" Type="decimal" Precision="7" Scale="4" />
+          <Property Name="report_path" Type="text" />
+        </EntityType>
+        <EntityType Name="temporarydata">
+          <Key>
+            <PropertyRef Name="idTemporaryData" />
+          </Key>
+          <Property Name="idTemporaryData" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="weight" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="height" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="age" Type="int" />
+          <Property Name="body_mass_index" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="smoker" Type="bit" />
+          <Property Name="dyslipidemia" Type="bit" />
+          <Property Name="diabetic" Type="bit" />
+          <Property Name="known_hypertensive" Type="bit" />
+          <Property Name="fat_percentage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="muscle_percentage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="kcal" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="password" Type="text" Nullable="false" />
+          <Property Name="rol" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="name" Type="text" />
+          <Property Name="enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Complications_Activities_DailyCarnet1">
+          <End Role="dailycarnet" Type="udahta_dbModel.Store.dailycarnet" Multiplicity="1" />
+          <End Role="complications_activities" Type="udahta_dbModel.Store.complications_activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="complications_activities">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Drug_DrugType">
+          <End Role="drugtype" Type="udahta_dbModel.Store.drugtype" Multiplicity="1" />
+          <End Role="drug" Type="udahta_dbModel.Store.drug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugtype">
+              <PropertyRef Name="idDrugType" />
+            </Principal>
+            <Dependent Role="drug">
+              <PropertyRef Name="drugtype_idDrugType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Investigation_has_Report_Investigation1">
+          <End Role="investigation" Type="udahta_dbModel.Store.investigation" Multiplicity="1" />
+          <End Role="investigation_has_report" Type="udahta_dbModel.Store.investigation_has_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="investigation">
+              <PropertyRef Name="idInvestigation" />
+            </Principal>
+            <Dependent Role="investigation_has_report">
+              <PropertyRef Name="investigation_idInvestigation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Investigation_has_Report_Report1">
+          <End Role="report" Type="udahta_dbModel.Store.report" Multiplicity="1" />
+          <End Role="investigation_has_report" Type="udahta_dbModel.Store.investigation_has_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="report">
+              <PropertyRef Name="idReport" />
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Principal>
+            <Dependent Role="investigation_has_report">
+              <PropertyRef Name="report_idReport" />
+              <PropertyRef Name="report_patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Measurement_Report1">
+          <End Role="report" Type="udahta_dbModel.Store.report" Multiplicity="1" />
+          <End Role="measurement" Type="udahta_dbModel.Store.measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="report">
+              <PropertyRef Name="idReport" />
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Principal>
+            <Dependent Role="measurement">
+              <PropertyRef Name="report_idReport" />
+              <PropertyRef Name="report_patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicalHistory_Patient1">
+          <End Role="patientuda" Type="udahta_dbModel.Store.patientuda" Multiplicity="1" />
+          <End Role="medicalhistory" Type="udahta_dbModel.Store.medicalhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="medicalhistory">
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicineDose_TemporaryData1">
+          <End Role="temporarydata" Type="udahta_dbModel.Store.temporarydata" Multiplicity="1" />
+          <End Role="medicinedose" Type="udahta_dbModel.Store.medicinedose" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="temporarydata">
+              <PropertyRef Name="idTemporaryData" />
+            </Principal>
+            <Dependent Role="medicinedose">
+              <PropertyRef Name="temporarydata_idTemporaryData" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicineDosis_Drug1">
+          <End Role="drug" Type="udahta_dbModel.Store.drug" Multiplicity="1" />
+          <End Role="medicinedose" Type="udahta_dbModel.Store.medicinedose" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drug">
+              <PropertyRef Name="idDrug" />
+            </Principal>
+            <Dependent Role="medicinedose">
+              <PropertyRef Name="drug_idDrug" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_DailyCarnet1">
+          <End Role="dailycarnet" Type="udahta_dbModel.Store.dailycarnet" Multiplicity="1" />
+          <End Role="report" Type="udahta_dbModel.Store.report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_Patient1">
+          <End Role="patientuda" Type="udahta_dbModel.Store.patientuda" Multiplicity="1" />
+          <End Role="report" Type="udahta_dbModel.Store.report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_TemporaryData1">
+          <End Role="temporarydata" Type="udahta_dbModel.Store.temporarydata" Multiplicity="1" />
+          <End Role="report" Type="udahta_dbModel.Store.report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="temporarydata">
+              <PropertyRef Name="idTemporaryData" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="temporarydata_idTemporaryData" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="deleteComplicationActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="carnetId" Type="bigint" Mode="In" />
+          <Parameter Name="caId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="deleteDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="deleteInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idInvestigation" Type="bigint" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="deleteMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+          <Parameter Name="idMedicalRecord" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="deleteMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idMedicine" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="disableUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="userid" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="enableUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="userid" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="pass_var" Type="text" Mode="Out" />
+          <Parameter Name="login_var" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertComplications_Activities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="time_" Type="datetime" Mode="In" />
+          <Parameter Name="specification" Type="text" Mode="In" />
+          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
+          <Parameter Name="description" Type="text" Mode="In" />
+        </Function>
+        <Function Name="insertDailyCarnet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="technical" Type="varchar" Mode="In" />
+          <Parameter Name="initial_dias1" Type="int" Mode="In" />
+          <Parameter Name="initial_dias2" Type="int" Mode="In" />
+          <Parameter Name="initial_dias3" Type="int" Mode="In" />
+          <Parameter Name="initial_hr1" Type="int" Mode="In" />
+          <Parameter Name="initial_hr2" Type="int" Mode="In" />
+          <Parameter Name="initial_hr3" Type="int" Mode="In" />
+          <Parameter Name="final_dias1" Type="int" Mode="In" />
+          <Parameter Name="final_dias2" Type="int" Mode="In" />
+          <Parameter Name="final_dias3" Type="int" Mode="In" />
+          <Parameter Name="final_hr1" Type="int" Mode="In" />
+          <Parameter Name="final_hr2" Type="int" Mode="In" />
+          <Parameter Name="final_hr3" Type="int" Mode="In" />
+          <Parameter Name="begin_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="end_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="how_sleep" Type="varchar" Mode="In" />
+          <Parameter Name="sleep_comments" Type="text" Mode="In" />
+          <Parameter Name="main_meal_time" Type="datetime" Mode="In" />
+          <Parameter Name="init_sys1" Type="int" Mode="In" />
+          <Parameter Name="init_sys2" Type="int" Mode="In" />
+          <Parameter Name="init_sys3" Type="int" Mode="In" />
+          <Parameter Name="final_sys1" Type="int" Mode="In" />
+          <Parameter Name="final_sys2" Type="int" Mode="In" />
+          <Parameter Name="final_sys3" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="nam" Type="varchar" Mode="In" />
+          <Parameter Name="active" Type="varchar" Mode="In" />
+          <Parameter Name="idDrugType" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertDrugType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="typ" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="nam" Type="varchar" Mode="In" />
+          <Parameter Name="createDat" Type="datetime" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
+        </Function>
+        <Function Name="insertInvestigationHasReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idInvestigation" Type="bigint" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertLimitMeasures" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="maxdiasday" Type="int" Mode="In" />
+          <Parameter Name="maxdiasdayavg" Type="int" Mode="In" />
+          <Parameter Name="maxdiasnight" Type="int" Mode="In" />
+          <Parameter Name="maxdiasnightavg" Type="int" Mode="In" />
+          <Parameter Name="maxdiastotal" Type="int" Mode="In" />
+          <Parameter Name="maxsysday" Type="int" Mode="In" />
+          <Parameter Name="maxsysdayavg" Type="int" Mode="In" />
+          <Parameter Name="maxsysnight" Type="int" Mode="In" />
+          <Parameter Name="maxsysnightavg" Type="int" Mode="In" />
+          <Parameter Name="maxsystotal" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertMeasurement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="dateM" Type="datetime" Mode="In" />
+          <Parameter Name="systolic" Type="int" Mode="In" />
+          <Parameter Name="average" Type="int" Mode="In" />
+          <Parameter Name="diastolic" Type="int" Mode="In" />
+          <Parameter Name="heart_rate" Type="int" Mode="In" />
+          <Parameter Name="sleep" Type="bit" Mode="In" />
+          <Parameter Name="isValid" Type="bit" Mode="In" />
+          <Parameter Name="isRetry" Type="bit" Mode="In" />
+          <Parameter Name="isEnabled" Type="bit" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
+          <Parameter Name="idReport" Type="bigint" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMedicalHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="illness" Type="text" Mode="In" />
+          <Parameter Name="comm" Type="text" Mode="In" />
+          <Parameter Name="idPatientUda" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertMedicineDose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="dose" Type="text" Mode="In" />
+          <Parameter Name="time_" Type="datetime" Mode="In" />
+          <Parameter Name="idDrug" Type="bigint" Mode="In" />
+          <Parameter Name="idTemporaryData" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertPatientUda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="insertReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="begin_date" Type="datetime" Mode="In" />
+          <Parameter Name="end_date" Type="datetime" Mode="In" />
+          <Parameter Name="doctor" Type="varchar" Mode="In" />
+          <Parameter Name="diagnosis" Type="text" Mode="In" />
+          <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
+          <Parameter Name="requester" Type="varchar" Mode="In" />
+          <Parameter Name="specialty" Type="varchar" Mode="In" />
+          <Parameter Name="day_avg_sys" Type="int" Mode="In" />
+          <Parameter Name="night_avg_sys" Type="int" Mode="In" />
+          <Parameter Name="total_avg_sys" Type="int" Mode="In" />
+          <Parameter Name="day_max_sys" Type="int" Mode="In" />
+          <Parameter Name="night_max_sys" Type="int" Mode="In" />
+          <Parameter Name="day_avg_dias" Type="int" Mode="In" />
+          <Parameter Name="night_avg_dias" Type="int" Mode="In" />
+          <Parameter Name="total_avg_dias" Type="int" Mode="In" />
+          <Parameter Name="day_max_dias" Type="int" Mode="In" />
+          <Parameter Name="night_max_dias" Type="int" Mode="In" />
+          <Parameter Name="idDev" Type="int" Mode="In" />
+          <Parameter Name="devReportId" Type="varchar" Mode="In" />
+          <Parameter Name="idTemporaryData" Type="bigint" Mode="In" />
+          <Parameter Name="idDailyCarnet" Type="bigint" Mode="In" />
+          <Parameter Name="idPatient" Type="bigint" Mode="In" />
+          <Parameter Name="day_min_sis" Type="int" Mode="In" />
+          <Parameter Name="day_min_dias" Type="int" Mode="In" />
+          <Parameter Name="night_min_sis" Type="int" Mode="In" />
+          <Parameter Name="night_min_dias" Type="int" Mode="In" />
+          <Parameter Name="tot_avg_hr" Type="int" Mode="In" />
+          <Parameter Name="day_avg_hr" Type="int" Mode="In" />
+          <Parameter Name="night_avg_hr" Type="int" Mode="In" />
+          <Parameter Name="max_day_hr" Type="int" Mode="In" />
+          <Parameter Name="max_night_hr" Type="int" Mode="In" />
+          <Parameter Name="min_day_hr" Type="int" Mode="In" />
+          <Parameter Name="min_night_hr" Type="int" Mode="In" />
+          <Parameter Name="tot_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_sis" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_dias" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_tam" Type="decimal" Mode="In" />
+          <Parameter Name="tot_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="day_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="night_sd_hr" Type="decimal" Mode="In" />
+          <Parameter Name="tot_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="day_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="night_tam_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_dipping" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_dipping" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="insertTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="weight" Type="decimal" Mode="In" />
+          <Parameter Name="height" Type="decimal" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="body_mass_index" Type="decimal" Mode="In" />
+          <Parameter Name="smoker" Type="bit" Mode="In" />
+          <Parameter Name="dyslipidemia" Type="bit" Mode="In" />
+          <Parameter Name="diabetic" Type="bit" Mode="In" />
+          <Parameter Name="known_hypertensive" Type="bit" Mode="In" />
+          <Parameter Name="fat_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="muscle_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="kcal" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="Out" />
+          <Parameter Name="log" Type="varchar" Mode="In" />
+          <Parameter Name="p" Type="text" Mode="In" />
+          <Parameter Name="r" Type="varchar" Mode="In" />
+          <Parameter Name="nam" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updateDailyCarnet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="carnet_id" Type="bigint" Mode="In" />
+          <Parameter Name="technical" Type="varchar" Mode="In" />
+          <Parameter Name="initial_dias1" Type="int" Mode="In" />
+          <Parameter Name="initial_dias2" Type="int" Mode="In" />
+          <Parameter Name="initial_dias3" Type="int" Mode="In" />
+          <Parameter Name="initial_hr1" Type="int" Mode="In" />
+          <Parameter Name="initial_hr2" Type="int" Mode="In" />
+          <Parameter Name="initial_hr3" Type="int" Mode="In" />
+          <Parameter Name="final_dias1" Type="int" Mode="In" />
+          <Parameter Name="final_dias2" Type="int" Mode="In" />
+          <Parameter Name="final_dias3" Type="int" Mode="In" />
+          <Parameter Name="final_hr1" Type="int" Mode="In" />
+          <Parameter Name="final_hr2" Type="int" Mode="In" />
+          <Parameter Name="final_hr3" Type="int" Mode="In" />
+          <Parameter Name="begin_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="end_sleep_time" Type="datetime" Mode="In" />
+          <Parameter Name="how_sleep" Type="varchar" Mode="In" />
+          <Parameter Name="sleep_comments" Type="text" Mode="In" />
+          <Parameter Name="main_meal_time" Type="datetime" Mode="In" />
+          <Parameter Name="init_sys1" Type="int" Mode="In" />
+          <Parameter Name="init_sys2" Type="int" Mode="In" />
+          <Parameter Name="init_sys3" Type="int" Mode="In" />
+          <Parameter Name="final_sys1" Type="int" Mode="In" />
+          <Parameter Name="final_sys2" Type="int" Mode="In" />
+          <Parameter Name="final_sys3" Type="int" Mode="In" />
+        </Function>
+        <Function Name="updateDiagnosis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="reportId" Type="bigint" Mode="In" />
+          <Parameter Name="doctor" Type="varchar" Mode="In" />
+          <Parameter Name="diagnosis" Type="text" Mode="In" />
+          <Parameter Name="diagnosis_dt" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="updateDrug" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="name_" Type="varchar" Mode="In" />
+          <Parameter Name="active" Type="varchar" Mode="In" />
+          <Parameter Name="idType" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="updateInvestigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="name_" Type="varchar" Mode="In" />
+          <Parameter Name="creationdate_" Type="datetime" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updateMeasure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idMeasure" Type="bigint" Mode="In" />
+          <Parameter Name="isEnabled" Type="bit" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updateMeasureAsleep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idMeasure" Type="bigint" Mode="In" />
+          <Parameter Name="asleep" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="UpdateMeasureSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="n_sys_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_dias_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_dias_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_dias_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_tam_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_tam_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_tam_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_hr_total_avg" Type="int" Mode="In" />
+          <Parameter Name="n_hr_day_avg" Type="int" Mode="In" />
+          <Parameter Name="n_hr_night_avg" Type="int" Mode="In" />
+          <Parameter Name="n_sys_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_sys_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_sys_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_tam_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_tam_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_tam_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_hr_total_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_hr_day_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_hr_night_sd" Type="decimal" Mode="In" />
+          <Parameter Name="n_sys_day_max" Type="int" Mode="In" />
+          <Parameter Name="n_sys_night_max" Type="int" Mode="In" />
+          <Parameter Name="n_dias_day_max" Type="int" Mode="In" />
+          <Parameter Name="n_dias_night_max" Type="int" Mode="In" />
+          <Parameter Name="n_hr_day_max" Type="int" Mode="In" />
+          <Parameter Name="n_hr_night_max" Type="int" Mode="In" />
+          <Parameter Name="n_sys_day_min" Type="int" Mode="In" />
+          <Parameter Name="n_sys_night_min" Type="int" Mode="In" />
+          <Parameter Name="n_dias_day_min" Type="int" Mode="In" />
+          <Parameter Name="n_dias_night_min" Type="int" Mode="In" />
+          <Parameter Name="n_hr_day_min" Type="int" Mode="In" />
+          <Parameter Name="n_hr_night_min" Type="int" Mode="In" />
+          <Parameter Name="n_sys_dipping" Type="decimal" Mode="In" />
+          <Parameter Name="n_dias_dipping" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="updateMedicalRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="patient_id" Type="bigint" Mode="In" />
+          <Parameter Name="illness" Type="text" Mode="In" />
+          <Parameter Name="comment_" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="login_var" Type="varchar" Mode="In" />
+          <Parameter Name="pass_var" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updateReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="begin_date" Type="datetime" Mode="In" />
+          <Parameter Name="end_date" Type="datetime" Mode="In" />
+          <Parameter Name="requester" Type="varchar" Mode="In" />
+          <Parameter Name="specialty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updateReportPath" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="reportPath" Type="text" Mode="In" />
+        </Function>
+        <Function Name="updateTemporaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="weight" Type="decimal" Mode="In" />
+          <Parameter Name="height" Type="decimal" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="body_mass_index" Type="decimal" Mode="In" />
+          <Parameter Name="smoker" Type="bit" Mode="In" />
+          <Parameter Name="dyslipidemia" Type="bit" Mode="In" />
+          <Parameter Name="diabetic" Type="bit" Mode="In" />
+          <Parameter Name="known_hypertensive" Type="bit" Mode="In" />
+          <Parameter Name="fat_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="muscle_percentage" Type="decimal" Mode="In" />
+          <Parameter Name="kcal" Type="int" Mode="In" />
+        </Function>
+        <Function Name="updateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="udahta_db">
+          <Parameter Name="idUsr" Type="bigint" Mode="In" />
+          <Parameter Name="login_" Type="varchar" Mode="In" />
+          <Parameter Name="name_" Type="text" Mode="In" />
+          <Parameter Name="rol" Type="varchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="udahta_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="udahta_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="complications_activities" EntityType="udahta_dbModel.complications_activities" />
+          <EntitySet Name="dailycarnet" EntityType="udahta_dbModel.dailycarnet" />
+          <EntitySet Name="drug" EntityType="udahta_dbModel.drug" />
+          <EntitySet Name="drugtype" EntityType="udahta_dbModel.drugtype" />
+          <EntitySet Name="investigation" EntityType="udahta_dbModel.investigation" />
+          <EntitySet Name="limitmeasure" EntityType="udahta_dbModel.limitmeasure" />
+          <EntitySet Name="measurement" EntityType="udahta_dbModel.measurement" />
+          <EntitySet Name="medicalhistory" EntityType="udahta_dbModel.medicalhistory" />
+          <EntitySet Name="medicinedose" EntityType="udahta_dbModel.medicinedose" />
+          <EntitySet Name="patientuda" EntityType="udahta_dbModel.patientuda" />
+          <EntitySet Name="report" EntityType="udahta_dbModel.report" />
+          <EntitySet Name="temporarydata" EntityType="udahta_dbModel.temporarydata" />
+          <EntitySet Name="user" EntityType="udahta_dbModel.user" />
+          <AssociationSet Name="fk_Complications_Activities_DailyCarnet1" Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="complications_activities" EntitySet="complications_activities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_DailyCarnet1" Association="udahta_dbModel.fk_Report_DailyCarnet1">
+            <End Role="dailycarnet" EntitySet="dailycarnet" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Drug_DrugType" Association="udahta_dbModel.fk_Drug_DrugType">
+            <End Role="drugtype" EntitySet="drugtype" />
+            <End Role="drug" EntitySet="drug" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicineDosis_Drug1" Association="udahta_dbModel.fk_MedicineDosis_Drug1">
+            <End Role="drug" EntitySet="drug" />
+            <End Role="medicinedose" EntitySet="medicinedose" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Measurement_Report1" Association="udahta_dbModel.fk_Measurement_Report1">
+            <End Role="report" EntitySet="report" />
+            <End Role="measurement" EntitySet="measurement" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicalHistory_Patient1" Association="udahta_dbModel.fk_MedicalHistory_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="medicalhistory" EntitySet="medicalhistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MedicineDose_TemporaryData1" Association="udahta_dbModel.fk_MedicineDose_TemporaryData1">
+            <End Role="temporarydata" EntitySet="temporarydata" />
+            <End Role="medicinedose" EntitySet="medicinedose" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_Patient1" Association="udahta_dbModel.fk_Report_Patient1">
+            <End Role="patientuda" EntitySet="patientuda" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Report_TemporaryData1" Association="udahta_dbModel.fk_Report_TemporaryData1">
+            <End Role="temporarydata" EntitySet="temporarydata" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="investigation_has_report" Association="udahta_dbModel.investigation_has_report">
+            <End Role="investigation" EntitySet="investigation" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <FunctionImport Name="updateUser">
+            <Parameter Name="idUsr" Mode="In" Type="Int64" />
+            <Parameter Name="login_" Mode="In" Type="String" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="rol" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateTemporaryData">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="weight" Mode="In" Type="Decimal" />
+            <Parameter Name="height" Mode="In" Type="Decimal" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="body_mass_index" Mode="In" Type="Decimal" />
+            <Parameter Name="smoker" Mode="In" Type="Boolean" />
+            <Parameter Name="dyslipidemia" Mode="In" Type="Boolean" />
+            <Parameter Name="diabetic" Mode="In" Type="Boolean" />
+            <Parameter Name="known_hypertensive" Mode="In" Type="Boolean" />
+            <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="kcal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updateReportPath">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="reportPath" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateReport">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+            <Parameter Name="requester" Mode="In" Type="String" />
+            <Parameter Name="specialty" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updatePassword">
+            <Parameter Name="login_var" Mode="In" Type="String" />
+            <Parameter Name="pass_var" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateMedicalRecord">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="patient_id" Mode="In" Type="Int64" />
+            <Parameter Name="illness" Mode="In" Type="String" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateMeasureSummary">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="n_sys_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_tam_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_tam_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_tam_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_total_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_day_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_night_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_sys_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_sys_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_tam_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_tam_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_tam_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_hr_total_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_hr_day_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_hr_night_sd" Mode="In" Type="Decimal" />
+            <Parameter Name="n_sys_day_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_night_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_day_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_night_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_day_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_night_max" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_day_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_night_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_day_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_dias_night_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_day_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_hr_night_min" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_dipping" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_dipping" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="updateMeasure">
+            <Parameter Name="idMeasure" Mode="In" Type="Int64" />
+            <Parameter Name="isEnabled" Mode="In" Type="Boolean" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateInvestigation">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="creationdate_" Mode="In" Type="DateTime" />
+            <Parameter Name="comment_" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateDrug">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="name_" Mode="In" Type="String" />
+            <Parameter Name="active" Mode="In" Type="String" />
+            <Parameter Name="idType" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="updateDiagnosis">
+            <Parameter Name="reportId" Mode="In" Type="Int64" />
+            <Parameter Name="doctor" Mode="In" Type="String" />
+            <Parameter Name="diagnosis" Mode="In" Type="String" />
+            <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="updateDailyCarnet">
+            <Parameter Name="carnet_id" Mode="In" Type="Int64" />
+            <Parameter Name="technical" Mode="In" Type="String" />
+            <Parameter Name="initial_dias1" Mode="In" Type="Int32" />
+            <Parameter Name="initial_dias2" Mode="In" Type="Int32" />
+            <Parameter Name="initial_dias3" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr1" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr2" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr3" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias1" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias2" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias3" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr1" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr2" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr3" Mode="In" Type="Int32" />
+            <Parameter Name="begin_sleep_time" Mode="In" Type="DateTime" />
+            <Parameter Name="end_sleep_time" Mode="In" Type="DateTime" />
+            <Parameter Name="how_sleep" Mode="In" Type="String" />
+            <Parameter Name="sleep_comments" Mode="In" Type="String" />
+            <Parameter Name="main_meal_time" Mode="In" Type="DateTime" />
+            <Parameter Name="init_sys1" Mode="In" Type="Int32" />
+            <Parameter Name="init_sys2" Mode="In" Type="Int32" />
+            <Parameter Name="init_sys3" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys1" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys2" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys3" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertUser">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="log" Mode="In" Type="String" />
+            <Parameter Name="p" Mode="In" Type="String" />
+            <Parameter Name="r" Mode="In" Type="String" />
+            <Parameter Name="nam" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertTemporaryData">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="weight" Mode="In" Type="Decimal" />
+            <Parameter Name="height" Mode="In" Type="Decimal" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="body_mass_index" Mode="In" Type="Decimal" />
+            <Parameter Name="smoker" Mode="In" Type="Boolean" />
+            <Parameter Name="dyslipidemia" Mode="In" Type="Boolean" />
+            <Parameter Name="diabetic" Mode="In" Type="Boolean" />
+            <Parameter Name="known_hypertensive" Mode="In" Type="Boolean" />
+            <Parameter Name="fat_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="muscle_percentage" Mode="In" Type="Decimal" />
+            <Parameter Name="kcal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertReport">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="begin_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+            <Parameter Name="doctor" Mode="In" Type="String" />
+            <Parameter Name="diagnosis" Mode="In" Type="String" />
+            <Parameter Name="diagnosis_dt" Mode="In" Type="DateTime" />
+            <Parameter Name="requester" Mode="In" Type="String" />
+            <Parameter Name="specialty" Mode="In" Type="String" />
+            <Parameter Name="day_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="total_avg_sys" Mode="In" Type="Int32" />
+            <Parameter Name="day_max_sys" Mode="In" Type="Int32" />
+            <Parameter Name="night_max_sys" Mode="In" Type="Int32" />
+            <Parameter Name="day_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="total_avg_dias" Mode="In" Type="Int32" />
+            <Parameter Name="day_max_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_max_dias" Mode="In" Type="Int32" />
+            <Parameter Name="idDev" Mode="In" Type="Int32" />
+            <Parameter Name="devReportId" Mode="In" Type="String" />
+            <Parameter Name="idTemporaryData" Mode="In" Type="Int64" />
+            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+            <Parameter Name="day_min_sis" Mode="In" Type="Int32" />
+            <Parameter Name="day_min_dias" Mode="In" Type="Int32" />
+            <Parameter Name="night_min_sis" Mode="In" Type="Int32" />
+            <Parameter Name="night_min_dias" Mode="In" Type="Int32" />
+            <Parameter Name="tot_avg_hr" Mode="In" Type="Int32" />
+            <Parameter Name="day_avg_hr" Mode="In" Type="Int32" />
+            <Parameter Name="night_avg_hr" Mode="In" Type="Int32" />
+            <Parameter Name="max_day_hr" Mode="In" Type="Int32" />
+            <Parameter Name="max_night_hr" Mode="In" Type="Int32" />
+            <Parameter Name="min_day_hr" Mode="In" Type="Int32" />
+            <Parameter Name="min_night_hr" Mode="In" Type="Int32" />
+            <Parameter Name="tot_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_sis" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_dias" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_tam" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="day_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="night_sd_hr" Mode="In" Type="Decimal" />
+            <Parameter Name="tot_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="day_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="night_tam_avg" Mode="In" Type="Int32" />
+            <Parameter Name="n_sys_dipping" Mode="In" Type="Decimal" />
+            <Parameter Name="n_dias_dipping" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="insertPatientUda">
+          <Parameter Name="id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertMedicineDose">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="dose" Mode="In" Type="String" />
+            <Parameter Name="time_" Mode="In" Type="DateTime" />
+            <Parameter Name="idDrug" Mode="In" Type="Int64" />
+            <Parameter Name="idTemporaryData" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertMedicalHistory">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="illness" Mode="In" Type="String" />
+            <Parameter Name="comm" Mode="In" Type="String" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertMeasurement">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="dateM" Mode="In" Type="DateTime" />
+            <Parameter Name="systolic" Mode="In" Type="Int32" />
+            <Parameter Name="average" Mode="In" Type="Int32" />
+            <Parameter Name="diastolic" Mode="In" Type="Int32" />
+            <Parameter Name="heart_rate" Mode="In" Type="Int32" />
+            <Parameter Name="sleep" Mode="In" Type="Boolean" />
+            <Parameter Name="isValid" Mode="In" Type="Boolean" />
+            <Parameter Name="isRetry" Mode="In" Type="Boolean" />
+            <Parameter Name="isEnabled" Mode="In" Type="Boolean" />
+            <Parameter Name="comm" Mode="In" Type="String" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatient" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertLimitMeasures">
+            <Parameter Name="maxdiasday" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasdayavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasnight" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiasnightavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxdiastotal" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysday" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysdayavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysnight" Mode="In" Type="Int32" />
+            <Parameter Name="maxsysnightavg" Mode="In" Type="Int32" />
+            <Parameter Name="maxsystotal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int64" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvestigation">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="nam" Mode="In" Type="String" />
+            <Parameter Name="createDat" Mode="In" Type="DateTime" />
+            <Parameter Name="comm" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertDrugType">
+          <Parameter Name="typ" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertDrug">
+            <Parameter Name="nam" Mode="In" Type="String" />
+            <Parameter Name="active" Mode="In" Type="String" />
+            <Parameter Name="idDrugType" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="insertDailyCarnet">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="technical" Mode="In" Type="String" />
+            <Parameter Name="initial_dias1" Mode="In" Type="Int32" />
+            <Parameter Name="initial_dias2" Mode="In" Type="Int32" />
+            <Parameter Name="initial_dias3" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr1" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr2" Mode="In" Type="Int32" />
+            <Parameter Name="initial_hr3" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias1" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias2" Mode="In" Type="Int32" />
+            <Parameter Name="final_dias3" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr1" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr2" Mode="In" Type="Int32" />
+            <Parameter Name="final_hr3" Mode="In" Type="Int32" />
+            <Parameter Name="begin_sleep_time" Mode="In" Type="DateTime" />
+            <Parameter Name="end_sleep_time" Mode="In" Type="DateTime" />
+            <Parameter Name="how_sleep" Mode="In" Type="String" />
+            <Parameter Name="sleep_comments" Mode="In" Type="String" />
+            <Parameter Name="main_meal_time" Mode="In" Type="DateTime" />
+            <Parameter Name="init_sys1" Mode="In" Type="Int32" />
+            <Parameter Name="init_sys2" Mode="In" Type="Int32" />
+            <Parameter Name="init_sys3" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys1" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys2" Mode="In" Type="Int32" />
+            <Parameter Name="final_sys3" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertComplications_Activities">
+            <Parameter Name="id" Mode="Out" Type="Int64" />
+            <Parameter Name="time_" Mode="In" Type="DateTime" />
+            <Parameter Name="specification" Mode="In" Type="String" />
+            <Parameter Name="idDailyCarnet" Mode="In" Type="Int64" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getPassword">
+            <Parameter Name="pass_var" Mode="Out" Type="String" />
+            <Parameter Name="login_var" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="deleteMedicineDose">
+          <Parameter Name="idMedicine" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="deleteMedicalHistory">
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+            <Parameter Name="idMedicalRecord" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="deleteInvestigationHasReport">
+            <Parameter Name="idInvestigation" Mode="In" Type="Int64" />
+            <Parameter Name="idReport" Mode="In" Type="Int64" />
+            <Parameter Name="idPatientUda" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="deleteDrug">
+          <Parameter Name="id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="deleteComplicationActivity">
+            <Parameter Name="carnetId" Mode="In" Type="Int64" />
+            <Parameter Name="caId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="enableUser">
+          <Parameter Name="userid" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="disableUser">
+          <Parameter Name="userid" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="updateMeasureAsleep">
+            <Parameter Name="idMeasure" Mode="In" Type="Int64" />
+            <Parameter Name="asleep" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="complications_activities">
+          <Key>
+            <PropertyRef Name="idComplications_Activities" />
+          </Key>
+          <Property Type="Int64" Name="idComplications_Activities" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="specification" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="dailycarnet_idDailyCarnet" Nullable="false" />
+          <Property Type="String" Name="description" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="time" />
+          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="complications_activities" ToRole="dailycarnet" />
+        </EntityType>
+        <EntityType Name="dailycarnet">
+          <Key>
+            <PropertyRef Name="idDailyCarnet" />
+          </Key>
+          <Property Type="Int64" Name="idDailyCarnet" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="technical" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="initial_dias1" />
+          <Property Type="Int32" Name="initial_dias2" />
+          <Property Type="Int32" Name="initial_dias3" />
+          <Property Type="Int32" Name="initial_hr1" />
+          <Property Type="Int32" Name="initial_hr2" />
+          <Property Type="Int32" Name="initial_hr3" />
+          <Property Type="Int32" Name="final_dias1" />
+          <Property Type="Int32" Name="final_dias2" />
+          <Property Type="Int32" Name="final_dias3" />
+          <Property Type="Int32" Name="final_hr1" />
+          <Property Type="Int32" Name="final_hr2" />
+          <Property Type="Int32" Name="final_hr3" />
+          <Property Type="DateTime" Name="begin_sleep_time" />
+          <Property Type="DateTime" Name="end_sleep_time" />
+          <Property Type="String" Name="how_sleep" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="main_meal_time" />
+          <Property Type="Int32" Name="init_sys1" />
+          <Property Type="Int32" Name="init_sys2" />
+          <Property Type="Int32" Name="init_sys3" />
+          <Property Type="Int32" Name="final_sys1" />
+          <Property Type="Int32" Name="final_sys2" />
+          <Property Type="Int32" Name="final_sys3" />
+          <Property Type="String" Name="sleep_comments" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="complications_activities" Relationship="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" FromRole="dailycarnet" ToRole="complications_activities" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="dailycarnet" ToRole="report" />
+        </EntityType>
+        <EntityType Name="drug">
+          <Key>
+            <PropertyRef Name="idDrug" />
+          </Key>
+          <Property Type="Int64" Name="idDrug" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="active" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="drugtype_idDrugType" Nullable="false" />
+          <NavigationProperty Name="drugtype" Relationship="udahta_dbModel.fk_Drug_DrugType" FromRole="drug" ToRole="drugtype" />
+          <NavigationProperty Name="medicinedose" Relationship="udahta_dbModel.fk_MedicineDosis_Drug1" FromRole="drug" ToRole="medicinedose" />
+        </EntityType>
+        <EntityType Name="drugtype">
+          <Key>
+            <PropertyRef Name="idDrugType" />
+          </Key>
+          <Property Type="Int64" Name="idDrugType" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="type" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="drug" Relationship="udahta_dbModel.fk_Drug_DrugType" FromRole="drugtype" ToRole="drug" />
+        </EntityType>
+        <EntityType Name="investigation">
+          <Key>
+            <PropertyRef Name="idInvestigation" />
+          </Key>
+          <Property Type="Int64" Name="idInvestigation" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="creation_date" Nullable="false" />
+          <Property Type="String" Name="comment" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.investigation_has_report" FromRole="investigation" ToRole="report" />
+        </EntityType>
+        <EntityType Name="limitmeasure">
+          <Key>
+            <PropertyRef Name="idlimitmeasure" />
+          </Key>
+          <Property Type="Int64" Name="idlimitmeasure" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="maxdiasday" />
+          <Property Type="Int32" Name="maxdiasnight" />
+          <Property Type="Int32" Name="maxdiastotal" />
+          <Property Type="Int32" Name="maxsysday" />
+          <Property Type="Int32" Name="maxsysnight" />
+          <Property Type="Int32" Name="maxsystotal" />
+          <Property Type="Int32" Name="highsystotal" Nullable="false" />
+          <Property Type="Int32" Name="highsysday" Nullable="false" />
+          <Property Type="Int32" Name="highsysnight" Nullable="false" />
+          <Property Type="Int32" Name="highdiastotal" Nullable="false" />
+          <Property Type="Int32" Name="highdiasday" Nullable="false" />
+          <Property Type="Int32" Name="highdiasnight" Nullable="false" />
+        </EntityType>
+        <EntityType Name="measurement">
+          <Key>
+            <PropertyRef Name="idMeasurement" />
+            <PropertyRef Name="report_idReport" />
+            <PropertyRef Name="report_patientuda_idPatientUda" />
+          </Key>
+          <Property Type="Int64" Name="idMeasurement" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="date" />
+          <Property Type="Int32" Name="systolic" />
+          <Property Type="Int32" Name="average" />
+          <Property Type="Int32" Name="diastolic" />
+          <Property Type="Int32" Name="heart_rate" />
+          <Property Type="Boolean" Name="sleep" />
+          <Property Type="String" Name="comment" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="is_valid" Nullable="false" />
+          <Property Type="Int64" Name="report_idReport" Nullable="false" />
+          <Property Type="Int64" Name="report_patientuda_idPatientUda" Nullable="false" />
+          <Property Type="Boolean" Name="is_retry" />
+          <Property Type="Boolean" Name="is_enabled" Nullable="false" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="measurement" ToRole="report" />
+        </EntityType>
+        <EntityType Name="medicalhistory">
+          <Key>
+            <PropertyRef Name="idMedicalHistory" />
+            <PropertyRef Name="patientuda_idPatientUda" />
+          </Key>
+          <Property Type="Int64" Name="idMedicalHistory" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="illness" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="comment" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="patientuda_idPatientUda" Nullable="false" />
+          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_MedicalHistory_Patient1" FromRole="medicalhistory" ToRole="patientuda" />
+        </EntityType>
+        <EntityType Name="medicinedose">
+          <Key>
+            <PropertyRef Name="idMedicineDosis" />
+          </Key>
+          <Property Type="Int64" Name="idMedicineDosis" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="dose" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="time" />
+          <Property Type="Int64" Name="drug_idDrug" Nullable="false" />
+          <Property Type="Int64" Name="temporarydata_idTemporaryData" Nullable="false" />
+          <NavigationProperty Name="drug" Relationship="udahta_dbModel.fk_MedicineDosis_Drug1" FromRole="medicinedose" ToRole="drug" />
+          <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_MedicineDose_TemporaryData1" FromRole="medicinedose" ToRole="temporarydata" />
+        </EntityType>
+        <EntityType Name="patientuda">
+          <Key>
+            <PropertyRef Name="idPatientUda" />
+          </Key>
+          <Property Type="Int64" Name="idPatientUda" Nullable="false" />
+          <NavigationProperty Name="medicalhistory" Relationship="udahta_dbModel.fk_MedicalHistory_Patient1" FromRole="patientuda" ToRole="medicalhistory" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_Patient1" FromRole="patientuda" ToRole="report" />
+        </EntityType>
+        <EntityType Name="report">
+          <Key>
+            <PropertyRef Name="idReport" />
+            <PropertyRef Name="patientuda_idPatientUda" />
+          </Key>
+          <Property Type="Int64" Name="idReport" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="begin_date" />
+          <Property Type="DateTime" Name="end_date" />
+          <Property Type="String" Name="doctor" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="diagnosis" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="requester" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="specialty" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="day_avg_sys" />
+          <Property Type="Int32" Name="night_avg_sys" />
+          <Property Type="Int32" Name="total_avg_sys" />
+          <Property Type="Int32" Name="day_max_sys" />
+          <Property Type="Int32" Name="night_max_sys" />
+          <Property Type="Int32" Name="day_avg_dias" />
+          <Property Type="Int32" Name="night_avg_dias" />
+          <Property Type="Int32" Name="total_avg_dias" />
+          <Property Type="Int32" Name="day_max_dias" />
+          <Property Type="Int32" Name="night_max_dias" />
+          <Property Type="Int32" Name="idDevice" Nullable="false" />
+          <Property Type="String" Name="deviceReportId" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="dailycarnet_idDailyCarnet" Nullable="false" />
+          <Property Type="Int64" Name="patientuda_idPatientUda" Nullable="false" />
+          <Property Type="Int64" Name="temporarydata_idTemporaryData" Nullable="false" />
+          <Property Type="Int32" Name="day_min_sis" />
+          <Property Type="Int32" Name="day_min_dias" />
+          <Property Type="Int32" Name="night_min_sis" />
+          <Property Type="Int32" Name="night_min_dias" />
+          <Property Type="Int32" Name="tot_avg_hr" />
+          <Property Type="Int32" Name="day_avg_hr" />
+          <Property Type="Int32" Name="night_avg_hr" />
+          <Property Type="Int32" Name="max_day_hr" />
+          <Property Type="Int32" Name="max_night_hr" />
+          <Property Type="Int32" Name="min_day_hr" />
+          <Property Type="Int32" Name="min_night_hr" />
+          <Property Type="Decimal" Name="tot_sd_sis" />
+          <Property Type="Decimal" Name="tot_sd_dias" />
+          <Property Type="Decimal" Name="day_sd_sis" />
+          <Property Type="Decimal" Name="day_sd_dias" />
+          <Property Type="Decimal" Name="night_sd_sis" />
+          <Property Type="Decimal" Name="night_sd_dias" />
+          <Property Type="Decimal" Name="tot_sd_tam" />
+          <Property Type="Decimal" Name="day_sd_tam" />
+          <Property Type="Decimal" Name="night_sd_tam" />
+          <Property Type="Decimal" Name="tot_sd_hr" />
+          <Property Type="Decimal" Name="day_sd_hr" />
+          <Property Type="Decimal" Name="night_sd_hr" />
+          <Property Type="Int32" Name="tot_tam_avg" />
+          <Property Type="Int32" Name="day_tam_avg" />
+          <Property Type="Int32" Name="night_tam_avg" />
+          <Property Type="DateTime" Name="diagnosis_date" />
+          <Property Type="Decimal" Name="sys_dipping" />
+          <Property Type="Decimal" Name="dias_dipping" />
+          <Property Type="String" Name="report_path" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="dailycarnet" Relationship="udahta_dbModel.fk_Report_DailyCarnet1" FromRole="report" ToRole="dailycarnet" />
+          <NavigationProperty Name="measurement" Relationship="udahta_dbModel.fk_Measurement_Report1" FromRole="report" ToRole="measurement" />
+          <NavigationProperty Name="patientuda" Relationship="udahta_dbModel.fk_Report_Patient1" FromRole="report" ToRole="patientuda" />
+          <NavigationProperty Name="temporarydata" Relationship="udahta_dbModel.fk_Report_TemporaryData1" FromRole="report" ToRole="temporarydata" />
+          <NavigationProperty Name="investigation" Relationship="udahta_dbModel.investigation_has_report" FromRole="report" ToRole="investigation" />
+        </EntityType>
+        <EntityType Name="temporarydata">
+          <Key>
+            <PropertyRef Name="idTemporaryData" />
+          </Key>
+          <Property Type="Int64" Name="idTemporaryData" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="weight" />
+          <Property Type="Decimal" Name="height" />
+          <Property Type="Int32" Name="age" />
+          <Property Type="Decimal" Name="body_mass_index" />
+          <Property Type="Boolean" Name="smoker" />
+          <Property Type="Boolean" Name="dyslipidemia" />
+          <Property Type="Boolean" Name="diabetic" />
+          <Property Type="Boolean" Name="known_hypertensive" />
+          <Property Type="Decimal" Name="fat_percentage" />
+          <Property Type="Decimal" Name="muscle_percentage" />
+          <Property Type="Int32" Name="kcal" />
+          <NavigationProperty Name="medicinedose" Relationship="udahta_dbModel.fk_MedicineDose_TemporaryData1" FromRole="temporarydata" ToRole="medicinedose" />
+          <NavigationProperty Name="report" Relationship="udahta_dbModel.fk_Report_TemporaryData1" FromRole="temporarydata" ToRole="report" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Type="Int64" Name="idUser" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="login" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="rol" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="name" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="enabled" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Complications_Activities_DailyCarnet1">
+          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
+          <End Type="udahta_dbModel.complications_activities" Role="complications_activities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="complications_activities">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_DailyCarnet1">
+          <End Type="udahta_dbModel.dailycarnet" Role="dailycarnet" Multiplicity="1" />
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dailycarnet">
+              <PropertyRef Name="idDailyCarnet" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="dailycarnet_idDailyCarnet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Drug_DrugType">
+          <End Type="udahta_dbModel.drugtype" Role="drugtype" Multiplicity="1" />
+          <End Type="udahta_dbModel.drug" Role="drug" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugtype">
+              <PropertyRef Name="idDrugType" />
+            </Principal>
+            <Dependent Role="drug">
+              <PropertyRef Name="drugtype_idDrugType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicineDosis_Drug1">
+          <End Type="udahta_dbModel.drug" Role="drug" Multiplicity="1" />
+          <End Type="udahta_dbModel.medicinedose" Role="medicinedose" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drug">
+              <PropertyRef Name="idDrug" />
+            </Principal>
+            <Dependent Role="medicinedose">
+              <PropertyRef Name="drug_idDrug" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Measurement_Report1">
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="1" />
+          <End Type="udahta_dbModel.measurement" Role="measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="report">
+              <PropertyRef Name="idReport" />
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Principal>
+            <Dependent Role="measurement">
+              <PropertyRef Name="report_idReport" />
+              <PropertyRef Name="report_patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicalHistory_Patient1">
+          <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
+          <End Type="udahta_dbModel.medicalhistory" Role="medicalhistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="medicalhistory">
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MedicineDose_TemporaryData1">
+          <End Type="udahta_dbModel.temporarydata" Role="temporarydata" Multiplicity="1" />
+          <End Type="udahta_dbModel.medicinedose" Role="medicinedose" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="temporarydata">
+              <PropertyRef Name="idTemporaryData" />
+            </Principal>
+            <Dependent Role="medicinedose">
+              <PropertyRef Name="temporarydata_idTemporaryData" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_Patient1">
+          <End Type="udahta_dbModel.patientuda" Role="patientuda" Multiplicity="1" />
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patientuda">
+              <PropertyRef Name="idPatientUda" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="patientuda_idPatientUda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Report_TemporaryData1">
+          <End Type="udahta_dbModel.temporarydata" Role="temporarydata" Multiplicity="1" />
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="temporarydata">
+              <PropertyRef Name="idTemporaryData" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="temporarydata_idTemporaryData" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="investigation_has_report">
+          <End Type="udahta_dbModel.investigation" Role="investigation" Multiplicity="*" />
+          <End Type="udahta_dbModel.report" Role="report" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="udahta_dbModelStoreContainer" CdmEntityContainer="udahta_dbEntities">
+          <EntitySetMapping Name="complications_activities">
+            <EntityTypeMapping TypeName="udahta_dbModel.complications_activities">
+              <MappingFragment StoreEntitySet="complications_activities">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
+                <ScalarProperty Name="specification" ColumnName="specification" />
+                <ScalarProperty Name="idComplications_Activities" ColumnName="idComplications_Activities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dailycarnet">
+            <EntityTypeMapping TypeName="udahta_dbModel.dailycarnet">
+              <MappingFragment StoreEntitySet="dailycarnet">
+                <ScalarProperty Name="sleep_comments" ColumnName="sleep_comments" />
+                <ScalarProperty Name="final_sys3" ColumnName="final_sys3" />
+                <ScalarProperty Name="final_sys2" ColumnName="final_sys2" />
+                <ScalarProperty Name="final_sys1" ColumnName="final_sys1" />
+                <ScalarProperty Name="init_sys3" ColumnName="init_sys3" />
+                <ScalarProperty Name="init_sys2" ColumnName="init_sys2" />
+                <ScalarProperty Name="init_sys1" ColumnName="init_sys1" />
+                <ScalarProperty Name="main_meal_time" ColumnName="main_meal_time" />
+                <ScalarProperty Name="how_sleep" ColumnName="how_sleep" />
+                <ScalarProperty Name="end_sleep_time" ColumnName="end_sleep_time" />
+                <ScalarProperty Name="begin_sleep_time" ColumnName="begin_sleep_time" />
+                <ScalarProperty Name="final_hr3" ColumnName="final_hr3" />
+                <ScalarProperty Name="final_hr2" ColumnName="final_hr2" />
+                <ScalarProperty Name="final_hr1" ColumnName="final_hr1" />
+                <ScalarProperty Name="final_dias3" ColumnName="final_dias3" />
+                <ScalarProperty Name="final_dias2" ColumnName="final_dias2" />
+                <ScalarProperty Name="final_dias1" ColumnName="final_dias1" />
+                <ScalarProperty Name="initial_hr3" ColumnName="initial_hr3" />
+                <ScalarProperty Name="initial_hr2" ColumnName="initial_hr2" />
+                <ScalarProperty Name="initial_hr1" ColumnName="initial_hr1" />
+                <ScalarProperty Name="initial_dias3" ColumnName="initial_dias3" />
+                <ScalarProperty Name="initial_dias2" ColumnName="initial_dias2" />
+                <ScalarProperty Name="initial_dias1" ColumnName="initial_dias1" />
+                <ScalarProperty Name="technical" ColumnName="technical" />
+                <ScalarProperty Name="idDailyCarnet" ColumnName="idDailyCarnet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drug">
+            <EntityTypeMapping TypeName="udahta_dbModel.drug">
+              <MappingFragment StoreEntitySet="drug">
+                <ScalarProperty Name="drugtype_idDrugType" ColumnName="drugtype_idDrugType" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idDrug" ColumnName="idDrug" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drugtype">
+            <EntityTypeMapping TypeName="udahta_dbModel.drugtype">
+              <MappingFragment StoreEntitySet="drugtype">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="idDrugType" ColumnName="idDrugType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="investigation">
+            <EntityTypeMapping TypeName="udahta_dbModel.investigation">
+              <MappingFragment StoreEntitySet="investigation">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idInvestigation" ColumnName="idInvestigation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="limitmeasure">
+            <EntityTypeMapping TypeName="udahta_dbModel.limitmeasure">
+              <MappingFragment StoreEntitySet="limitmeasure">
+                <ScalarProperty Name="highdiasnight" ColumnName="highdiasnight" />
+                <ScalarProperty Name="highdiasday" ColumnName="highdiasday" />
+                <ScalarProperty Name="highdiastotal" ColumnName="highdiastotal" />
+                <ScalarProperty Name="highsysnight" ColumnName="highsysnight" />
+                <ScalarProperty Name="highsysday" ColumnName="highsysday" />
+                <ScalarProperty Name="highsystotal" ColumnName="highsystotal" />
+                <ScalarProperty Name="maxsystotal" ColumnName="maxsystotal" />
+                <ScalarProperty Name="maxsysnight" ColumnName="maxsysnight" />
+                <ScalarProperty Name="maxsysday" ColumnName="maxsysday" />
+                <ScalarProperty Name="maxdiastotal" ColumnName="maxdiastotal" />
+                <ScalarProperty Name="maxdiasnight" ColumnName="maxdiasnight" />
+                <ScalarProperty Name="maxdiasday" ColumnName="maxdiasday" />
+                <ScalarProperty Name="idlimitmeasure" ColumnName="idlimitmeasure" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="measurement">
+            <EntityTypeMapping TypeName="udahta_dbModel.measurement">
+              <MappingFragment StoreEntitySet="measurement">
+                <ScalarProperty Name="is_enabled" ColumnName="is_enabled" />
+                <ScalarProperty Name="is_retry" ColumnName="is_retry" />
+                <ScalarProperty Name="report_patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
+                <ScalarProperty Name="report_idReport" ColumnName="report_idReport" />
+                <ScalarProperty Name="is_valid" ColumnName="is_valid" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="sleep" ColumnName="sleep" />
+                <ScalarProperty Name="heart_rate" ColumnName="heart_rate" />
+                <ScalarProperty Name="diastolic" ColumnName="diastolic" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="systolic" ColumnName="systolic" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="idMeasurement" ColumnName="idMeasurement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicalhistory">
+            <EntityTypeMapping TypeName="udahta_dbModel.medicalhistory">
+              <MappingFragment StoreEntitySet="medicalhistory">
+                <ScalarProperty Name="patientuda_idPatientUda" ColumnName="patientuda_idPatientUda" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="illness" ColumnName="illness" />
+                <ScalarProperty Name="idMedicalHistory" ColumnName="idMedicalHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicinedose">
+            <EntityTypeMapping TypeName="udahta_dbModel.medicinedose">
+              <MappingFragment StoreEntitySet="medicinedose">
+                <ScalarProperty Name="temporarydata_idTemporaryData" ColumnName="temporarydata_idTemporaryData" />
+                <ScalarProperty Name="drug_idDrug" ColumnName="drug_idDrug" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="dose" ColumnName="dose" />
+                <ScalarProperty Name="idMedicineDosis" ColumnName="idMedicineDosis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patientuda">
+            <EntityTypeMapping TypeName="udahta_dbModel.patientuda">
+              <MappingFragment StoreEntitySet="patientuda">
+                <ScalarProperty Name="idPatientUda" ColumnName="idPatientUda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="report">
+            <EntityTypeMapping TypeName="udahta_dbModel.report">
+              <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="report_path" ColumnName="report_path" />
+                <ScalarProperty Name="dias_dipping" ColumnName="dias_dipping" />
+                <ScalarProperty Name="sys_dipping" ColumnName="sys_dipping" />
+                <ScalarProperty Name="diagnosis_date" ColumnName="diagnosis_date" />
+                <ScalarProperty Name="night_tam_avg" ColumnName="night_tam_avg" />
+                <ScalarProperty Name="day_tam_avg" ColumnName="day_tam_avg" />
+                <ScalarProperty Name="tot_tam_avg" ColumnName="tot_tam_avg" />
+                <ScalarProperty Name="night_sd_hr" ColumnName="night_sd_hr" />
+                <ScalarProperty Name="day_sd_hr" ColumnName="day_sd_hr" />
+                <ScalarProperty Name="tot_sd_hr" ColumnName="tot_sd_hr" />
+                <ScalarProperty Name="night_sd_tam" ColumnName="night_sd_tam" />
+                <ScalarProperty Name="day_sd_tam" ColumnName="day_sd_tam" />
+                <ScalarProperty Name="tot_sd_tam" ColumnName="tot_sd_tam" />
+                <ScalarProperty Name="night_sd_dias" ColumnName="night_sd_dias" />
+                <ScalarProperty Name="night_sd_sis" ColumnName="night_sd_sis" />
+                <ScalarProperty Name="day_sd_dias" ColumnName="day_sd_dias" />
+                <ScalarProperty Name="day_sd_sis" ColumnName="day_sd_sis" />
+                <ScalarProperty Name="tot_sd_dias" ColumnName="tot_sd_dias" />
+                <ScalarProperty Name="tot_sd_sis" ColumnName="tot_sd_sis" />
+                <ScalarProperty Name="min_night_hr" ColumnName="min_night_hr" />
+                <ScalarProperty Name="min_day_hr" ColumnName="min_day_hr" />
+                <ScalarProperty Name="max_night_hr" ColumnName="max_night_hr" />
+                <ScalarProperty Name="max_day_hr" ColumnName="max_day_hr" />
+                <ScalarProperty Name="night_avg_hr" ColumnName="night_avg_hr" />
+                <ScalarProperty Name="day_avg_hr" ColumnName="day_avg_hr" />
+                <ScalarProperty Name="tot_avg_hr" ColumnName="tot_avg_hr" />
+                <ScalarProperty Name="night_min_dias" ColumnName="night_min_dias" />
+                <ScalarProperty Name="night_min_sis" ColumnName="night_min_sis" />
+                <ScalarProperty Name="day_min_dias" ColumnName="day_min_dias" />
+                <ScalarProperty Name="day_min_sis" ColumnName="day_min_sis" />
+                <ScalarProperty Name="temporarydata_idTemporaryData" ColumnName="temporarydata_idTemporaryData" />
+                <ScalarProperty Name="patientuda_idPatientUda" ColumnName="patientuda_idPatientUda" />
+                <ScalarProperty Name="dailycarnet_idDailyCarnet" ColumnName="dailycarnet_idDailyCarnet" />
+                <ScalarProperty Name="deviceReportId" ColumnName="deviceReportId" />
+                <ScalarProperty Name="idDevice" ColumnName="idDevice" />
+                <ScalarProperty Name="night_max_dias" ColumnName="night_max_dias" />
+                <ScalarProperty Name="day_max_dias" ColumnName="day_max_dias" />
+                <ScalarProperty Name="total_avg_dias" ColumnName="total_avg_dias" />
+                <ScalarProperty Name="night_avg_dias" ColumnName="night_avg_dias" />
+                <ScalarProperty Name="day_avg_dias" ColumnName="day_avg_dias" />
+                <ScalarProperty Name="night_max_sys" ColumnName="night_max_sys" />
+                <ScalarProperty Name="day_max_sys" ColumnName="day_max_sys" />
+                <ScalarProperty Name="total_avg_sys" ColumnName="total_avg_sys" />
+                <ScalarProperty Name="night_avg_sys" ColumnName="night_avg_sys" />
+                <ScalarProperty Name="day_avg_sys" ColumnName="day_avg_sys" />
+                <ScalarProperty Name="specialty" ColumnName="specialty" />
+                <ScalarProperty Name="requester" ColumnName="requester" />
+                <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
+                <ScalarProperty Name="doctor" ColumnName="doctor" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="begin_date" ColumnName="begin_date" />
+                <ScalarProperty Name="idReport" ColumnName="idReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temporarydata">
+            <EntityTypeMapping TypeName="udahta_dbModel.temporarydata">
+              <MappingFragment StoreEntitySet="temporarydata">
+                <ScalarProperty Name="kcal" ColumnName="kcal" />
+                <ScalarProperty Name="muscle_percentage" ColumnName="muscle_percentage" />
+                <ScalarProperty Name="fat_percentage" ColumnName="fat_percentage" />
+                <ScalarProperty Name="known_hypertensive" ColumnName="known_hypertensive" />
+                <ScalarProperty Name="diabetic" ColumnName="diabetic" />
+                <ScalarProperty Name="dyslipidemia" ColumnName="dyslipidemia" />
+                <ScalarProperty Name="smoker" ColumnName="smoker" />
+                <ScalarProperty Name="body_mass_index" ColumnName="body_mass_index" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="idTemporaryData" ColumnName="idTemporaryData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="udahta_dbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="investigation_has_report" TypeName="udahta_dbModel.investigation_has_report" StoreEntitySet="investigation_has_report">
+            <EndProperty Name="report">
+              <ScalarProperty Name="patientuda_idPatientUda" ColumnName="report_patientuda_idPatientUda" />
+              <ScalarProperty Name="idReport" ColumnName="report_idReport" />
+            </EndProperty>
+            <EndProperty Name="investigation">
+              <ScalarProperty Name="idInvestigation" ColumnName="investigation_idInvestigation" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="updateUser" FunctionName="udahta_dbModel.Store.updateUser" />
+          <FunctionImportMapping FunctionImportName="updateTemporaryData" FunctionName="udahta_dbModel.Store.updateTemporaryData" />
+          <FunctionImportMapping FunctionImportName="updateReportPath" FunctionName="udahta_dbModel.Store.updateReportPath" />
+          <FunctionImportMapping FunctionImportName="updateReport" FunctionName="udahta_dbModel.Store.updateReport" />
+          <FunctionImportMapping FunctionImportName="updatePassword" FunctionName="udahta_dbModel.Store.updatePassword" />
+          <FunctionImportMapping FunctionImportName="updateMedicalRecord" FunctionName="udahta_dbModel.Store.updateMedicalRecord" />
+          <FunctionImportMapping FunctionImportName="UpdateMeasureSummary" FunctionName="udahta_dbModel.Store.UpdateMeasureSummary" />
+          <FunctionImportMapping FunctionImportName="updateMeasure" FunctionName="udahta_dbModel.Store.updateMeasure" />
+          <FunctionImportMapping FunctionImportName="updateInvestigation" FunctionName="udahta_dbModel.Store.updateInvestigation" />
+          <FunctionImportMapping FunctionImportName="updateDrug" FunctionName="udahta_dbModel.Store.updateDrug" />
+          <FunctionImportMapping FunctionImportName="updateDiagnosis" FunctionName="udahta_dbModel.Store.updateDiagnosis" />
+          <FunctionImportMapping FunctionImportName="updateDailyCarnet" FunctionName="udahta_dbModel.Store.updateDailyCarnet" />
+          <FunctionImportMapping FunctionImportName="insertUser" FunctionName="udahta_dbModel.Store.insertUser" />
+          <FunctionImportMapping FunctionImportName="insertTemporaryData" FunctionName="udahta_dbModel.Store.insertTemporaryData" />
+          <FunctionImportMapping FunctionImportName="insertReport" FunctionName="udahta_dbModel.Store.insertReport" />
+          <FunctionImportMapping FunctionImportName="insertPatientUda" FunctionName="udahta_dbModel.Store.insertPatientUda" />
+          <FunctionImportMapping FunctionImportName="insertMedicineDose" FunctionName="udahta_dbModel.Store.insertMedicineDose" />
+          <FunctionImportMapping FunctionImportName="insertMedicalHistory" FunctionName="udahta_dbModel.Store.insertMedicalHistory" />
+          <FunctionImportMapping FunctionImportName="insertMeasurement" FunctionName="udahta_dbModel.Store.insertMeasurement" />
+          <FunctionImportMapping FunctionImportName="insertLimitMeasures" FunctionName="udahta_dbModel.Store.insertLimitMeasures" />
+          <FunctionImportMapping FunctionImportName="insertInvestigationHasReport" FunctionName="udahta_dbModel.Store.insertInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="insertInvestigation" FunctionName="udahta_dbModel.Store.insertInvestigation" />
+          <FunctionImportMapping FunctionImportName="insertDrugType" FunctionName="udahta_dbModel.Store.insertDrugType" />
+          <FunctionImportMapping FunctionImportName="insertDrug" FunctionName="udahta_dbModel.Store.insertDrug" />
+          <FunctionImportMapping FunctionImportName="insertDailyCarnet" FunctionName="udahta_dbModel.Store.insertDailyCarnet" />
+          <FunctionImportMapping FunctionImportName="insertComplications_Activities" FunctionName="udahta_dbModel.Store.insertComplications_Activities" />
+          <FunctionImportMapping FunctionImportName="getPassword" FunctionName="udahta_dbModel.Store.getPassword" />
+          <FunctionImportMapping FunctionImportName="deleteMedicineDose" FunctionName="udahta_dbModel.Store.deleteMedicineDose" />
+          <FunctionImportMapping FunctionImportName="deleteMedicalHistory" FunctionName="udahta_dbModel.Store.deleteMedicalHistory" />
+          <FunctionImportMapping FunctionImportName="deleteInvestigationHasReport" FunctionName="udahta_dbModel.Store.deleteInvestigationHasReport" />
+          <FunctionImportMapping FunctionImportName="deleteDrug" FunctionName="udahta_dbModel.Store.deleteDrug" />
+          <FunctionImportMapping FunctionImportName="deleteComplicationActivity" FunctionName="udahta_dbModel.Store.deleteComplicationActivity" />
+          <FunctionImportMapping FunctionImportName="enableUser" FunctionName="udahta_dbModel.Store.enableUser" />
+          <FunctionImportMapping FunctionImportName="disableUser" FunctionName="udahta_dbModel.Store.disableUser" />
+          <FunctionImportMapping FunctionImportName="updateMeasureAsleep" FunctionName="udahta_dbModel.Store.updateMeasureAsleep" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1" ZoomLevel="81">
+        <EntityTypeShape EntityType="udahta_dbModel.complications_activities" Width="1.5" PointX="3" PointY="7.875" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="udahta_dbModel.dailycarnet" Width="1.5" PointX="0.75" PointY="5.875" Height="6.21091796875" />
+        <EntityTypeShape EntityType="udahta_dbModel.drug" Width="1.5" PointX="3.5" PointY="18.25" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="udahta_dbModel.drugtype" Width="1.5" PointX="1.5" PointY="18.75" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="udahta_dbModel.investigation" Width="1.5" PointX="3.75" PointY="4.625" Height="1.9802864583333353" />
+        <EntityTypeShape EntityType="udahta_dbModel.limitmeasure" Width="1.5" PointX="0.75" PointY="0.75" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="udahta_dbModel.measurement" Width="1.5" PointX="8.25" PointY="7.125" Height="3.7109993489583388" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicalhistory" Width="1.5" PointX="6" PointY="20.125" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="udahta_dbModel.medicinedose" Width="1.5" PointX="6" PointY="16.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="udahta_dbModel.patientuda" Width="1.5" PointX="3.75" PointY="11.375" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="udahta_dbModel.report" Width="1.5" PointX="6" PointY="3" Height="11.979960937500003" />
+        <EntityTypeShape EntityType="udahta_dbModel.temporarydata" Width="1.5" PointX="3.75" PointY="13.75" Height="3.7109993489583406" />
+        <EntityTypeShape EntityType="udahta_dbModel.user" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333388" />
+        <AssociationConnector Association="udahta_dbModel.fk_Complications_Activities_DailyCarnet1" >
+          <ConnectorPoint PointX="2.25" PointY="8.9612939453125" />
+          <ConnectorPoint PointX="3" PointY="8.9612939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Report_DailyCarnet1" >
+          <ConnectorPoint PointX="2.25" PointY="10.7112939453125" />
+          <ConnectorPoint PointX="6" PointY="10.7112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Drug_DrugType" >
+          <ConnectorPoint PointX="3" PointY="19.547841796874998" />
+          <ConnectorPoint PointX="3.5" PointY="19.547841796874998" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_MedicineDosis_Drug1" >
+          <ConnectorPoint PointX="5" PointY="18.494944661458334" />
+          <ConnectorPoint PointX="5.729166666666667" PointY="18.494944661458334" />
+          <ConnectorPoint PointX="5.895833333333333" PointY="18.494944661458334" />
+          <ConnectorPoint PointX="6" PointY="18.494944661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Measurement_Report1" >
+          <ConnectorPoint PointX="7.5" PointY="8.98049967447917" />
+          <ConnectorPoint PointX="8.25" PointY="8.98049967447917" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_MedicalHistory_Patient1" >
+          <ConnectorPoint PointX="5.25" PointY="12.908374901442304" />
+          <ConnectorPoint PointX="5.8125" PointY="13.470874901442304" />
+          <ConnectorPoint PointX="5.8125" PointY="21.115143229166669" />
+          <ConnectorPoint PointX="6" PointY="21.115143229166669" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_MedicineDose_TemporaryData1" >
+          <ConnectorPoint PointX="5.25" PointY="16.917999674479169" />
+          <ConnectorPoint PointX="5.729166666666667" PointY="16.917999674479169" />
+          <ConnectorPoint PointX="5.895833333333333" PointY="16.917999674479169" />
+          <ConnectorPoint PointX="6" PointY="16.917999674479169" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Report_Patient1" >
+          <ConnectorPoint PointX="5.25" PointY="12.110434950721151" />
+          <ConnectorPoint PointX="6" PointY="12.110434950721151" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.fk_Report_TemporaryData1" >
+          <ConnectorPoint PointX="5.25" PointY="14.364980468750002" />
+          <ConnectorPoint PointX="5.729166666666667" PointY="14.364980468750002" />
+          <ConnectorPoint PointX="5.895833333333333" PointY="14.364980468750002" />
+          <ConnectorPoint PointX="6" PointY="14.364980468750002" />
+        </AssociationConnector>
+        <AssociationConnector Association="udahta_dbModel.investigation_has_report" >
+          <ConnectorPoint PointX="5.25" PointY="5.6151432291666676" />
+          <ConnectorPoint PointX="6" PointY="5.6151432291666676" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
