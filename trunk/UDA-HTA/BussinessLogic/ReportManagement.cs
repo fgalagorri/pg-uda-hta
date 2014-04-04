@@ -7155,7 +7155,7 @@ namespace BussinessLogic
             evento.SetPatient(report.Patient);
 
             // Add meta information to the document
-            document.AddAuthor(report.Doctor.Name);
+            document.AddAuthor(report.Doctor);
             document.AddCreator("UDA-HTA");
             document.AddKeywords("PDF Informe de MAPA");
             //document.AddSubject("Document subject - Describing the steps creating a PDF document");
@@ -7175,7 +7175,7 @@ namespace BussinessLogic
             emptyCell.Border = 0;
             table.AddCell(emptyCell);
 
-            pdf.PdfPCell tituloCell = new pdf.PdfPCell(new text.Phrase("\n Informe de Monitoreo Ambulatorio de Presion Arterial \n", new text.Font(f_cn, 18f, text.Font.BOLD)));
+            pdf.PdfPCell tituloCell = new pdf.PdfPCell(new text.Phrase("\n Informe de Monitoreo Ambulatorio de Presión Arterial \n", new text.Font(f_cn, 18f, text.Font.BOLD)));
             tituloCell.Colspan = 6;
             tituloCell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
             tituloCell.Border = 0; //sin borde
@@ -7243,7 +7243,7 @@ namespace BussinessLogic
                 cellSexo.Border = 0;
                 table.AddCell(cellSexo);
 
-                pdf.PdfPCell cellTelefono = new pdf.PdfPCell(new text.Phrase("Telefono: " + report.Patient.Phone, new text.Font(f_cn, 10f)));
+                pdf.PdfPCell cellTelefono = new pdf.PdfPCell(new text.Phrase("Teléfono: " + report.Patient.Phone, new text.Font(f_cn, 10f)));
                 cellTelefono.Colspan = 3;
                 cellTelefono.Border = 0;
                 table.AddCell(cellTelefono);
@@ -7326,7 +7326,7 @@ namespace BussinessLogic
                 tableMeasureSumm.AddCell(cellTit24h);
 
                 pdf.PdfPCell cellTitDay =
-                    new pdf.PdfPCell(new text.Phrase("Dia", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                    new pdf.PdfPCell(new text.Phrase("Día", new text.Font(f_cn, 11f, text.Font.BOLD)));
                 cellTitDay.Border = 0;
                 cellTitDay.BackgroundColor = new text.BaseColor(200,200,200);
                 cellTitDay.HorizontalAlignment = 1;
@@ -7380,7 +7380,7 @@ namespace BussinessLogic
                 cellMeasNight.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellMeasNight);
 
-                pdf.PdfPCell cellTitValid = new pdf.PdfPCell(new text.Phrase("Valido", new text.Font(f_cn,10f)));
+                pdf.PdfPCell cellTitValid = new pdf.PdfPCell(new text.Phrase("Válido", new text.Font(f_cn,10f)));
                 cellTitValid.Border = 0;
                 cellTitValid.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellTitValid);
@@ -7417,7 +7417,7 @@ namespace BussinessLogic
                 cellValidNight.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellValidNight);
 
-                pdf.PdfPCell cellTitPercValid = new pdf.PdfPCell(new text.Phrase("% Valido", new text.Font(f_cn,10f)));
+                pdf.PdfPCell cellTitPercValid = new pdf.PdfPCell(new text.Phrase("% Válido", new text.Font(f_cn,10f)));
                 cellTitPercValid.Border = 0;
                 cellTitPercValid.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellTitPercValid);
@@ -7557,7 +7557,7 @@ namespace BussinessLogic
                 cellNightAvgFC.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellNightAvgFC);
 
-                pdf.PdfPCell cellTitDS = new pdf.PdfPCell(new text.Phrase("Desviación Estandar",new text.Font(f_cn,11f,text.Font.BOLD)));
+                pdf.PdfPCell cellTitDS = new pdf.PdfPCell(new text.Phrase("Desviación Estándar",new text.Font(f_cn,11f,text.Font.BOLD)));
                 cellTitDS.Border = 0;
                 cellTitDS.BackgroundColor = new text.BaseColor(200,200,200);
                 cellTitDS.HorizontalAlignment = 0;
@@ -7986,25 +7986,25 @@ namespace BussinessLogic
                 cellTitTime.BackgroundColor = new text.BaseColor(200,200,200);
                 measureTable.AddCell(cellTitTime);
 
-                pdf.PdfPCell cellTitPAS = new pdf.PdfPCell(new text.Phrase("Presion arterial sistolica", new text.Font(f_cn,11f,text.Font.BOLD)));
+                pdf.PdfPCell cellTitPAS = new pdf.PdfPCell(new text.Phrase("Presión arterial sistólica", new text.Font(f_cn,11f,text.Font.BOLD)));
                 cellTitPAS.Border = 0;
                 cellTitPAS.HorizontalAlignment = 1;
                 cellTitPAS.BackgroundColor = new text.BaseColor(200,200,200);
                 measureTable.AddCell(cellTitPAS);
 
-                pdf.PdfPCell cellTitPAD = new pdf.PdfPCell(new text.Phrase("Presion arterial diastolica", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                pdf.PdfPCell cellTitPAD = new pdf.PdfPCell(new text.Phrase("Presión arterial diastólica", new text.Font(f_cn, 11f, text.Font.BOLD)));
                 cellTitPAD.Border = 0;
                 cellTitPAD.HorizontalAlignment = 1;
                 cellTitPAD.BackgroundColor = new text.BaseColor(200, 200, 200);
                 measureTable.AddCell(cellTitPAD);
 
-                pdf.PdfPCell cellTitTAM = new pdf.PdfPCell(new text.Phrase("Presion arterial media", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                pdf.PdfPCell cellTitTAM = new pdf.PdfPCell(new text.Phrase("Presión arterial media", new text.Font(f_cn, 11f, text.Font.BOLD)));
                 cellTitTAM.Border = 0;
                 cellTitTAM.HorizontalAlignment = 1;
                 cellTitTAM.BackgroundColor = new text.BaseColor(200, 200, 200);
                 measureTable.AddCell(cellTitTAM);
 
-                pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("Frecuencia cardiaca", new text.Font(f_cn,11f,text.Font.BOLD)));
+                pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("Frecuencia cardíaca", new text.Font(f_cn,11f,text.Font.BOLD)));
                 cellTitFC.Border = 0;
                 cellTitFC.HorizontalAlignment = 1;
                 cellTitFC.BackgroundColor = new text.BaseColor(200,200,200);

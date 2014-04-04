@@ -221,10 +221,7 @@ namespace SpacelabsDataAccess
 
                             Diagnosis = r.Diagnosis,
                             DiagnosisDate = r.DiagnosisDate,
-                            Doctor = new User
-                                {
-                                    Name = r.DiagnosisDoctorName + " " + r.DiagnosisDoctorLastname,
-                                }
+                            Doctor = r.DiagnosisDoctorName + " " + r.DiagnosisDoctorLastname
                         };
 
                     report.Patient.EmergencyContactList

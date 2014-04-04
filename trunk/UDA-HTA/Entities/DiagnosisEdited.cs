@@ -7,6 +7,6 @@ namespace Entities
         public long ReportId;
         public string Diagnosis;
         public DateTime DiagnosisDate;
-        public User Doctor;
+        public string Doctor;
     }
 }

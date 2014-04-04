@@ -231,14 +231,14 @@ namespace Gateway
                 {
                     ReportId = reportId,
                     Diagnosis = diagnosis,
-                    Doctor = _loggedUser,
+                    Doctor = _loggedUser.Name,
                     DiagnosisDate = DateTime.Now
                 };
 
             var cont = new ReportManagement();
             try
             {
-                cont.UpdateDiagnosis(de.ReportId, de.Diagnosis, de.DiagnosisDate, de.Doctor.Name);
+                cont.UpdateDiagnosis(de.ReportId, de.Diagnosis, de.DiagnosisDate, de.Doctor);
             }
             catch(Exception exception)
             {
