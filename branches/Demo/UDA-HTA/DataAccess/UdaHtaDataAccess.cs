@@ -245,7 +245,7 @@ namespace DataAccess
                 using (udaContext = new udahta_dbEntities())
                 {
                     lastIdReport = new ObjectParameter("id", typeof (long));
-                    udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor.Name,
+                    udaContext.insertReport(lastIdReport, rep.BeginDate, rep.EndDate, rep.Doctor,
                                             rep.Diagnosis, rep.DiagnosisDate, rep.Requester, rep.Specialty,
                                             sysDayAvg, sysNightAvg, sysTotalAvg, sysDayMax, sysNightMax,
                                             diasDayAvg, diasNightAvg, diasTotalAvg, diasDayMax, diasNightMax,
@@ -424,6 +424,7 @@ namespace DataAccess
                             DiastolicDayMax = qry.day_max_dias,
                             SystolicDayMax = qry.day_max_sys,
                             DeviceReportId = qry.deviceReportId,
+                            Doctor = qry.doctor,
                             Diagnosis = qry.diagnosis,
                             DiagnosisDate = qry.diagnosis_date,
                             EndDate = qry.end_date,
@@ -629,6 +630,7 @@ namespace DataAccess
                             DiastolicDayMax = qry.day_max_dias,
                             SystolicDayMax = qry.day_max_sys,
                             DeviceReportId = qry.deviceReportId,
+                            Doctor = qry.doctor,
                             Diagnosis = qry.diagnosis,
                             DiagnosisDate = qry.diagnosis_date,
                             EndDate = qry.end_date,
@@ -867,6 +869,7 @@ namespace DataAccess
                             DiastolicDayMax = rep.day_max_dias,
                             SystolicDayMax = rep.day_max_sys,
                             DeviceReportId = rep.deviceReportId,
+                            Doctor = rep.doctor,
                             Diagnosis = rep.diagnosis,
                             DiagnosisDate = rep.diagnosis_date,
                             EndDate = rep.end_date,
@@ -1758,6 +1761,7 @@ namespace DataAccess
                             DiastolicDayMax = qry.day_max_dias,
                             SystolicDayMax = qry.day_max_sys,
                             DeviceReportId = qry.deviceReportId,
+                            Doctor = qry.doctor,
                             Diagnosis = qry.diagnosis,
                             DiagnosisDate = qry.diagnosis_date,
                             EndDate = qry.end_date,

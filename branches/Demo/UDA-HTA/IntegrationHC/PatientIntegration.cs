@@ -11,7 +11,7 @@ namespace IntegrationHC
     {
         public static Patient GetPatientByDocument(string document)
         {
-            int docInt = Int32.Parse(document.Substring(0, document.Length - 1));
+            /*int docInt = Int32.Parse(document.Substring(0, document.Length - 1));
             sbyte verification = (sbyte)Char.GetNumericValue(document.ElementAt(document.Length - 1));
 
             var dpList = new List<DatPersonaCdaDatPersonaCdaItem>().ToArray();
@@ -44,13 +44,32 @@ namespace IntegrationHC
                 };
             }
 
+            return null;*/
+
+            if (document == "11735347")
+            {
+                return new Patient
+                    {
+                        DocumentId = document,
+                        Names = "JOSÉ",
+                        Surnames = "LEZAMA",
+                        BirthDate = new DateTime(1952, 1, 24),
+                        Sex = SexType.M,
+                        Address = "De la Pleamar M 11A Solar 4",
+                        City = "Canelones",
+                        Department = "Canelones",
+                        Phone = "22922025",
+                        RegisterNumber = "12345678"
+                    };
+            }
+            
             return null;
         }
 
 
         public static Patient GetPatientByRegister(string register)
         {
-            int regNo = Int32.Parse(register);
+            /*int regNo = Int32.Parse(register);
             DatPersona_2DatPersona_2Item[] dpList = new List<DatPersona_2DatPersona_2Item>().ToArray();
             var registro = new RegistrosBuscadosRegistrosBuscadosItem {NumeroRegistroBuscado = regNo};
             var regList = new[] {registro};
@@ -78,6 +97,25 @@ namespace IntegrationHC
                 };
             }
                 
+            return null;*/
+
+            if (register == "12345678")
+            {
+                return new Patient
+                {
+                    DocumentId = "11735347",
+                    Names = "JOSÉ",
+                    Surnames = "LEZAMA",
+                    BirthDate = new DateTime(1952, 1, 24),
+                    Sex = SexType.M,
+                    Address = "Tomás Berreta Nº 370",
+                    City = "Canelones",
+                    Department = "Canelones",
+                    Phone = "22922025",
+                    RegisterNumber = "12345678"
+                };
+            }
+            
             return null;
         }
     }
