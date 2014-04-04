@@ -17,7 +17,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public void SetReport(Report r)
         {
             txtDiagnosis.Text = r.Diagnosis;
-            lblDoctor.Text = r.Doctor.Name;
+            lblDoctor.Text = r.Doctor;
             lblDate.Text = r.DiagnosisDate.HasValue
                                ? r.DiagnosisDate.Value.ToString(ConfigurationManager.AppSettings["LongDateTimeString"])
                                : "";
@@ -25,7 +25,7 @@ namespace UDA_HTA.UserControls.MainWindow.Patients
         public void UpdateDiagnosis(DiagnosisEdited d)
         {
             txtDiagnosis.Text = d.Diagnosis;
-            lblDoctor.Text = d.Doctor.Name;
+            lblDoctor.Text = d.Doctor;
             lblDate.Text = d.DiagnosisDate.ToString(ConfigurationManager.AppSettings["LongDateTimeString"]);
         }
     }

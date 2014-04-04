@@ -15,19 +15,19 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
-                    <CheckBox Content="Hoja de datos del paciente" Height="16" Name="cbPatientData" />
+                    <CheckBox Content="Hoja de datos del paciente" IsChecked="True" Height="16" Name="cbPatientData"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
-                    <CheckBox Content="Diagnostico" Height="16" Name="cbDiagnostic" />
+                    <CheckBox Content="Diagnostico" IsChecked="True" Height="16" Name="cbDiagnostic" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
-                    <CheckBox Content="Resumen de medidas" Height="16" Name="cbProfile" />
+                    <CheckBox Content="Resumen de medidas" IsChecked="True" Height="16" Name="cbProfile" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">
-                    <CheckBox Content="Graficos" Height="16" Name="cbGraphic" />
+                    <CheckBox Content="Graficos" IsChecked="True" Height="16" Name="cbGraphic" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" Margin="0,2">

@@ -143,7 +143,6 @@ namespace HMSDataAccess
                         date = report.BeginDate.Value.AddDays(1);
                         report.Carnet.SleepTimeEnd = new DateTime(date.Year, date.Month, date.Day, dayStartHr, dayStartMin, sec0);
                     }
-                    report.Doctor = new User();
 
                     first = false; //ya se procesaron los datos generales del paciente y reporte.
 

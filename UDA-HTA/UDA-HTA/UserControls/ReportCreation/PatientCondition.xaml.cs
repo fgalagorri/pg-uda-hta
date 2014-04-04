@@ -137,13 +137,17 @@ namespace UDA_HTA.UserControls.ReportCreation
             }
 
             if (!String.IsNullOrWhiteSpace(ms.name))
-                autoMedication.Text = ms.name;
+            {
+                var dr = _drugs.FirstOrDefault(d => d.Name == ms.name && d.Active == ms.active);
+                if(dr != null)
+                    autoMedication.Text = dr.ActiveAndName;
+            }
         }
 
         private void btnAddMedication_Click(object sender, RoutedEventArgs e)
         {
             int hour, min;
-            var drug = _drugs.FirstOrDefault(d => d.Name == autoMedication.Text);
+            var drug = _drugs.FirstOrDefault(d => d.ActiveAndName == autoMedication.Text);
 
             if (int.TryParse(txtHourMedication.Text, out hour)
                 && int.TryParse(txtMinMedication.Text, out min)

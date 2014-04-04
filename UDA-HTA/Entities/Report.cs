@@ -7,7 +7,6 @@ namespace Entities
     {
         public Report()
         {
-            Doctor = new User();
             TemporaryData = new TemporaryData();
             Carnet = new DailyCarnet();
             Measures = new List<Measurement>();
@@ -21,7 +20,7 @@ namespace Entities
         public string Requester { get; set; }
 
         // Informe médico
-        public User Doctor { get; set; }
+        public string Doctor { get; set; }
         public string Specialty { get; set; }
         public DateTime? DiagnosisDate { get; set; }
         public string Diagnosis { get; set; }
