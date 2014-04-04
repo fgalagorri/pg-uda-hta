@@ -240,6 +240,10 @@ namespace UDA_HTA
                         var exportWin = new ProgressExportHC(pv);
                         exportWin.ShowDialog();
                     }
+                    else
+                    {
+                        Mouse.OverrideCursor = null;
+                    }
                 }
             }
             catch (Exception exception)

@@ -7155,7 +7155,7 @@ namespace BussinessLogic
             evento.SetPatient(report.Patient);
 
             // Add meta information to the document
-            document.AddAuthor(report.Doctor.Name);
+            document.AddAuthor(report.Doctor);
             document.AddCreator("UDA-HTA");
             document.AddKeywords("PDF Informe de MAPA");
             //document.AddSubject("Document subject - Describing the steps creating a PDF document");
