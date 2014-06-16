@@ -7238,20 +7238,27 @@ namespace BussinessLogic
                 cellDomicilio.Border = 0;
                 table.AddCell(cellDomicilio);
 
-                pdf.PdfPCell cellSexo = new pdf.PdfPCell(new text.Phrase("Sexo: " + report.Patient.Sex.Value.ToString(), new text.Font(f_cn, 10f)));
-                cellSexo.Colspan = 3;
-                cellSexo.Border = 0;
-                table.AddCell(cellSexo);
+                pdf.PdfPCell cellIMC = new pdf.PdfPCell(new text.Phrase("IMC: " + report.TemporaryData.BodyMassIndex.Value.ToString(), new text.Font(f_cn, 10f)));
+                cellIMC.Colspan = 3;
+                cellIMC.Border = 0;
+                table.AddCell(cellIMC);
 
                 pdf.PdfPCell cellTelefono = new pdf.PdfPCell(new text.Phrase("Teléfono: " + report.Patient.Phone, new text.Font(f_cn, 10f)));
                 cellTelefono.Colspan = 3;
                 cellTelefono.Border = 0;
                 table.AddCell(cellTelefono);
 
+                pdf.PdfPCell cellSexo = new pdf.PdfPCell(new text.Phrase("Sexo: " + report.Patient.Sex.Value.ToString(), new text.Font(f_cn, 10f)));
+                cellSexo.Colspan = 3;
+                cellSexo.Border = 0;
+                table.AddCell(cellSexo);
+
                 pdf.PdfPCell cellemail = new pdf.PdfPCell(new text.Phrase("E-mail: " + report.Patient.Email, new text.Font(f_cn, 10f)));
                 cellemail.Colspan = 3;
                 cellemail.Border = 0;
                 table.AddCell(cellemail);
+
+                table.AddCell(cellVacia);
 
                 table.AddCell(emptyCell); //agrego una celda vacia de largo 6
 
@@ -7298,13 +7305,60 @@ namespace BussinessLogic
                 table.AddCell(emptyCell);
 
                 document.Add(table);
-                document.NewPage();
+
+                /*
+                 * Tratamiento antihipertensivo
+                 */
+
+                pdf.PdfPTable tableTreatment = new pdf.PdfPTable(3);
+                text.Phrase titTreatment = new text.Phrase("\nTratamiento Antihipertensivo \n", new text.Font(f_cn, 14f, text.Font.BOLD));
+                pdf.PdfPCell cellTreatment = new pdf.PdfPCell(titTreatment);
+                cellTreatment.Colspan = 3;
+                cellTreatment.Border = 0;
+                cellTreatment.HorizontalAlignment = 0;
+                tableTreatment.AddCell(cellTreatment);
+
+                pdf.PdfPCell noActiveCell = new pdf.PdfPCell();
+                noActiveCell.Border = 0;
+
+                //Ordeno medicacion por activo
+                List<Medication> sortedMedicationList =
+                    report.TemporaryData.Medication.OrderBy(med => med.Drug.Active).ToList();
+                Medication prevActive = new Medication(new DateTime(), new Drug("","",""));
+
+                foreach (Medication m in sortedMedicationList)
+                {
+                    //Si es el mismo activo entonces no vuelvo a poner el nombre del activo, y agrego una celda vacia
+                    if (m.Drug.Active.Equals(prevActive.Drug.Active))
+                    {
+                        tableTreatment.AddCell(noActiveCell);
+                    }
+                    else
+                    {
+                        //Nombre del activo
+                        pdf.PdfPCell cellActiveName = new pdf.PdfPCell(new text.Phrase(m.Drug.Active));
+                        cellActiveName.Border = 0;
+                        cellActiveName.HorizontalAlignment = 0;
+                        tableTreatment.AddCell(cellActiveName);
+                    }
+
+                    //Dosis
+                    pdf.PdfPCell cellDose = new pdf.PdfPCell(new text.Phrase(m.Dose));
+                    cellDose.Border = 0;
+                    cellDose.HorizontalAlignment = 0;
+                    tableTreatment.AddCell(cellDose);
+
+                    //Hora en la que toma la dosis
+                    pdf.PdfPCell cellDoseTime = new pdf.PdfPCell(new text.Phrase(m.Time.ToString(ConfigurationManager.AppSettings["ShortTimeString"])));
+                    cellDoseTime.Border = 0;
+                    cellDoseTime.HorizontalAlignment = 0;
+                    tableTreatment.AddCell(cellDoseTime);
+
+                }
+                
+                document.Add(tableTreatment);
             }
 
-
-            /*
-             * Tratamiento antihipertensivo
-             */
 
             /*
              * INCLUIR DIAGNOSTICO
@@ -7337,6 +7391,10 @@ namespace BussinessLogic
                 }
 
                 document.Add(tableDiag);
+            }
+
+            if (includePatientData || includeDiagnostic)
+            {
                 document.NewPage();
             }
 
@@ -7345,6 +7403,175 @@ namespace BussinessLogic
              */
             if (includeProfile)
             {
+                //Medidas tomadas en consultorio
+                pdf.PdfPTable tableMeasureInClinic = new pdf.PdfPTable(4);
+
+                pdf.PdfPCell cellTitMeasInClinic = new pdf.PdfPCell(new text.Phrase("Medidas en Consultorio", new text.Font(f_cn, 14f, text.Font.BOLD)));
+                cellTitMeasInClinic.Colspan = 4;
+                cellTitMeasInClinic.HorizontalAlignment = 0; //Left
+                cellTitMeasInClinic.Border = 0;
+                cellTitMeasInClinic.PaddingBottom = 10f;
+                tableMeasureInClinic.AddCell(cellTitMeasInClinic);
+
+                pdf.PdfPCell cell0 = new pdf.PdfPCell();
+                cell0.Border = 0;
+                tableMeasureInClinic.AddCell(cell0);
+
+                pdf.PdfPCell cellTitTake1 = new pdf.PdfPCell(new text.Phrase("Toma 1", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitTake1.Border = 0;
+                cellTitTake1.BackgroundColor = new text.BaseColor(200, 200, 200);
+                cellTitTake1.HorizontalAlignment = 1; //Centro
+                tableMeasureInClinic.AddCell(cellTitTake1);
+
+                pdf.PdfPCell cellTitTake2 = new pdf.PdfPCell(new text.Phrase("Toma 2", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitTake2.Border = 0;
+                cellTitTake2.BackgroundColor = new text.BaseColor(200, 200, 200);
+                cellTitTake2.HorizontalAlignment = 1; //Centro
+                tableMeasureInClinic.AddCell(cellTitTake2);
+
+                pdf.PdfPCell cellTitTake3 = new pdf.PdfPCell(new text.Phrase("Toma 3", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitTake3.Border = 0;
+                cellTitTake3.BackgroundColor = new text.BaseColor(200, 200, 200);
+                cellTitTake3.HorizontalAlignment = 1; //Centro
+                tableMeasureInClinic.AddCell(cellTitTake3);
+
+                //Mediciones Iniciales
+
+                pdf.PdfPCell cellTitDia1 =
+                    new pdf.PdfPCell(new text.Phrase("Dia 1", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitDia1.Border = 0;
+                cellTitDia1.BackgroundColor = new text.BaseColor(200, 200, 200);
+                cellTitDia1.HorizontalAlignment = 0;
+                cellTitDia1.Colspan = 4;
+                tableMeasureInClinic.AddCell(cellTitDia1);
+
+                pdf.PdfPCell cellTitPA = new pdf.PdfPCell(new text.Phrase("PA", new text.Font(f_cn, 10f)));
+                cellTitPA.Border = 0;
+                cellTitPA.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellTitPA);
+
+                //sistolica / diastolica toma 1
+                string cellPASInit1 = report.Carnet.InitSystolic1.HasValue ? report.Carnet.InitSystolic1.Value.ToString() : "-";
+                string cellPADInit1 = report.Carnet.InitDiastolic1.HasValue ? report.Carnet.InitDiastolic1.Value.ToString() : "-";
+                pdf.PdfPCell cellPAInit1 = new pdf.PdfPCell(
+                    new text.Phrase(cellPASInit1 + "/" + cellPADInit1, new text.Font(f_cn, 10f)));
+                cellPAInit1.Border = 0;
+                cellPAInit1.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellPAInit1);
+
+                //sistolica / diastolica toma 2
+                string cellPASInit2 = report.Carnet.InitSystolic2.HasValue ? report.Carnet.InitSystolic2.Value.ToString() : "-";
+                string cellPADInit2 = report.Carnet.InitDiastolic2.HasValue ? report.Carnet.InitDiastolic2.Value.ToString() : "-";
+                pdf.PdfPCell cellPAInit2 = new pdf.PdfPCell(
+                    new text.Phrase(cellPASInit2 + "/" + cellPADInit2, new text.Font(f_cn, 10f)));
+                cellPAInit2.Border = 0;
+                cellPAInit2.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellPAInit2);
+
+                //sistolica / diastolica toma 3
+                string cellPASInit3 = report.Carnet.InitSystolic3.HasValue ? report.Carnet.InitSystolic3.Value.ToString() : "-";
+                string cellPADInit3 = report.Carnet.InitDiastolic3.HasValue ? report.Carnet.InitDiastolic3.Value.ToString() : "-";
+                pdf.PdfPCell cellPAInit3 = new pdf.PdfPCell(
+                    new text.Phrase(cellPASInit3 + "/" + cellPADInit3, new text.Font(f_cn, 10f)));
+                cellPAInit1.Border = 0;
+                cellPAInit1.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellPAInit3);
+
+                pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("FC", new text.Font(f_cn, 10f)));
+                cellTitFC.Border = 0;
+                cellTitFC.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellTitFC);
+
+                //frecuencia cardiaca 1
+                pdf.PdfPCell cellFCInit1 = new pdf.PdfPCell(
+                    new text.Phrase(report.Carnet.InitHeartRate1.HasValue ? report.Carnet.InitHeartRate1.ToString() : "-", new text.Font(f_cn, 10f)));
+                cellFCInit1.Border = 0;
+                cellFCInit1.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellFCInit1);
+
+                //frecuencia cardiaca 2
+                pdf.PdfPCell cellFCInit2 = new pdf.PdfPCell(
+                    new text.Phrase(report.Carnet.InitHeartRate2.HasValue ? report.Carnet.InitHeartRate2.ToString() : "-", new text.Font(f_cn, 10f)));
+                cellFCInit2.Border = 0;
+                cellFCInit2.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellFCInit2);
+
+                //frecuencia cardiaca 3
+                pdf.PdfPCell cellFCInit3 = new pdf.PdfPCell(
+                    new text.Phrase(report.Carnet.InitHeartRate3.HasValue ? report.Carnet.InitHeartRate3.ToString() : "-", new text.Font(f_cn, 10f)));
+                cellFCInit3.Border = 0;
+                cellFCInit3.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellFCInit3);
+
+                //Mediciones Finales
+
+                pdf.PdfPCell cellTitDia2 =
+                    new pdf.PdfPCell(new text.Phrase("Dia 2", new text.Font(f_cn, 11f, text.Font.BOLD)));
+                cellTitDia2.Border = 0;
+                cellTitDia2.BackgroundColor = new text.BaseColor(200, 200, 200);
+                cellTitDia2.HorizontalAlignment = 0;
+                cellTitDia2.Colspan = 4;
+                tableMeasureInClinic.AddCell(cellTitDia2);
+
+                tableMeasureInClinic.AddCell(cellTitPA);
+
+                //sistolica / diastolica toma 1
+                string cellPASFinal1 = report.Carnet.FinalSystolic1.HasValue ? report.Carnet.FinalSystolic1.Value.ToString() : "-";
+                string cellPADFinal1 = report.Carnet.FinalDiastolic1.HasValue ? report.Carnet.FinalDiastolic1.Value.ToString() : "-";
+                pdf.PdfPCell cellPAFinal1 = new pdf.PdfPCell(
+                    new text.Phrase(cellPASFinal1 + "/" + cellPADFinal1, new text.Font(f_cn, 10f)));
+                cellPAFinal1.Border = 0;
+                cellPAFinal1.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellPAFinal1);
+
+                //sistolica / diastolica toma 2
+                string cellPASFinal2 = report.Carnet.FinalSystolic2.HasValue ? report.Carnet.FinalSystolic2.Value.ToString() : "-";
+                string cellPADFinal2 = report.Carnet.FinalDiastolic2.HasValue ? report.Carnet.FinalDiastolic2.Value.ToString() : "-";
+                pdf.PdfPCell cellPAFinal2 = new pdf.PdfPCell(
+                    new text.Phrase(cellPASFinal2 + "/" + cellPADFinal2, new text.Font(f_cn, 10f)));
+                cellPAFinal2.Border = 0;
+                cellPAFinal2.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellPAFinal2);
+
+                //sistolica / diastolica toma 3
+                string cellPASFinal3 = report.Carnet.FinalSystolic3.HasValue ? report.Carnet.FinalSystolic3.Value.ToString() : "-";
+                string cellPADFinal3 = report.Carnet.FinalDiastolic3.HasValue ? report.Carnet.FinalDiastolic3.Value.ToString() : "-";
+                pdf.PdfPCell cellPAFinal3 = new pdf.PdfPCell(
+                    new text.Phrase(cellPASFinal3 + "/" + cellPADFinal3, new text.Font(f_cn, 10f)));
+                cellPAFinal1.Border = 0;
+                cellPAFinal1.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellPAFinal3);
+
+                tableMeasureInClinic.AddCell(cellTitFC);
+
+                //frecuencia cardiaca 1
+                pdf.PdfPCell cellFCFinal1 = new pdf.PdfPCell(
+                    new text.Phrase(report.Carnet.FinalHeartRate1.HasValue ? report.Carnet.FinalHeartRate1.ToString() : "-", new text.Font(f_cn, 10f)));
+                cellFCFinal1.Border = 0;
+                cellFCFinal1.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellFCFinal1);
+
+                //frecuencia cardiaca 2
+                pdf.PdfPCell cellFCFinal2 = new pdf.PdfPCell(
+                    new text.Phrase(report.Carnet.FinalHeartRate2.HasValue ? report.Carnet.FinalHeartRate2.ToString() : "-", new text.Font(f_cn, 10f)));
+                cellFCFinal2.Border = 0;
+                cellFCFinal2.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellFCFinal2);
+
+                //frecuencia cardiaca 3
+                pdf.PdfPCell cellFCFinal3 = new pdf.PdfPCell(
+                    new text.Phrase(report.Carnet.FinalHeartRate3.HasValue ? report.Carnet.FinalHeartRate3.ToString() : "-", new text.Font(f_cn, 10f)));
+                cellFCFinal3.Border = 0;
+                cellFCFinal3.HorizontalAlignment = 1;
+                tableMeasureInClinic.AddCell(cellFCFinal3);
+
+                pdf.PdfPCell cellBlank = new pdf.PdfPCell();
+                cellBlank.Border = 0;
+                cellBlank.Colspan = 4;
+                tableMeasureInClinic.AddCell(cellBlank);
+                document.Add(tableMeasureInClinic);
+
+                //**Resumen de medidas**
                 pdf.PdfPTable tableMeasureSumm = new pdf.PdfPTable(4);
 
                 pdf.PdfPCell cellTitMeasSumm = new pdf.PdfPCell(new text.Phrase("Resumen de Medidas", new text.Font(f_cn, 14f, text.Font.BOLD)));
@@ -7492,9 +7719,6 @@ namespace BussinessLogic
                 cellTitAvg.Colspan = 4;
                 tableMeasureSumm.AddCell(cellTitAvg);
 
-                pdf.PdfPCell cellTitPA = new pdf.PdfPCell(new text.Phrase("PA", new text.Font(f_cn, 10f)));
-                cellTitPA.Border = 0;
-                cellTitPA.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellTitPA);
 
                 //Promedio total de sistolica / promedio total de diastolica
@@ -7524,9 +7748,6 @@ namespace BussinessLogic
                 cellNightAvgPA.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellNightAvgPA);
 
-                pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("FC", new text.Font(f_cn, 10f)));
-                cellTitFC.Border = 0;
-                cellTitFC.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellTitFC);
 
                 //Promedio total frecuencia cardiaca
