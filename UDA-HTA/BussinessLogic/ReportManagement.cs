@@ -330,7 +330,7 @@ namespace BussinessLogic
                 runProperties1.AppendChild(new FontSize() {Val = "32"});
                 runProperties1.AppendChild(new FontSizeComplexScript() {Val = "32"});
                 Text text1 = new Text();
-                text1.Text = "Informe de Monitoreo Ambulatorio de Presión Arterial";
+                text1.Text = "Monitoreo Ambulatorio de Presión Arterial";
 
                 run1.AppendChild(runProperties1);
                 run1.AppendChild(text1);
@@ -463,7 +463,7 @@ namespace BussinessLogic
                     Text text5 = new Text();
                     if (report.Patient.RegisterNumber != null)
                     {
-                        text5.Text = "Nro. Registro: " + report.Patient.RegisterNumber.ToString();
+                        text5.Text = "Nro. Registro: " + report.Patient.RegisterNumber;
                     }
                     else
                     {
@@ -692,7 +692,7 @@ namespace BussinessLogic
                     Text text17 = new Text();
                     if (report.TemporaryData.Weight != null)
                     {
-                        text17.Text = "Peso: " + report.TemporaryData.Weight.ToString();
+                        text17.Text = "Peso: " + report.TemporaryData.Weight.Value.ToString();
                     }
                     else
                     {
@@ -904,23 +904,23 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
-                    ParagraphProperties paragraphPropertiesSex = new ParagraphProperties();
-                    SpacingBetweenLines spacingSex = new SpacingBetweenLines() { Before = "0", After = "0" };
-                    paragraphPropertiesSex.AppendChild(spacingSex);
+                    ParagraphProperties paragraphPropertiesIMC = new ParagraphProperties();
+                    SpacingBetweenLines spacingIMC = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesIMC.AppendChild(spacingIMC);
 
                     Run run24 = new Run();
                     Text text24 = new Text();
-                    if (report.Patient.Sex != null)
+                    if (report.TemporaryData.BodyMassIndex.HasValue)
                     {
-                        text24.Text = "Sexo: " + report.Patient.Sex.ToString();
+                        text24.Text = "IMC: " + report.TemporaryData.BodyMassIndex.Value.ToString();
                     }
                     else
                     {
-                        text24.Text = "Sexo: N/E";
+                        text24.Text = "IMC: N/E";
                     }
 
                     run24.AppendChild(text24);
-                    paragraph13.AppendChild(paragraphPropertiesSex);
+                    paragraph13.AppendChild(paragraphPropertiesIMC);
                     paragraph13.AppendChild(run24);
 
                     tableCell13.AppendChild(tableCellProperties13);
@@ -987,6 +987,7 @@ namespace BussinessLogic
                     tableCell14.AppendChild(tableCellProperties14);
                     tableCell14.AppendChild(paragraph14);
 
+
                     TableCell tableCell15 = new TableCell();
 
                     TableCellProperties tableCellProperties15 = new TableCellProperties();
@@ -1017,6 +1018,68 @@ namespace BussinessLogic
                         RsidRunAdditionDefault = "004D2B75"
                     };
 
+                    ParagraphProperties paragraphPropertiesSex = new ParagraphProperties();
+                    SpacingBetweenLines spacingSex = new SpacingBetweenLines() { Before = "0", After = "0" };
+                    paragraphPropertiesSex.AppendChild(spacingSex);
+
+                    Run run27 = new Run();
+                    Text text27 = new Text();
+                    if (report.Patient.Sex != null)
+                    {
+                        text27.Text = "Sexo: " + report.Patient.Sex.ToString();
+                    }
+                    else
+                    {
+                        text27.Text = "Sexo: N/E";
+                    }
+
+                    run27.AppendChild(text27);
+                    paragraph15.AppendChild(paragraphPropertiesSex);
+                    paragraph15.AppendChild(run27);
+
+                    tableCell15.AppendChild(tableCellProperties15);
+                    tableCell15.AppendChild(paragraph15);
+
+                    tableRow8.AppendChild(tableCell14);
+                    tableRow8.AppendChild(tableCell15);
+
+
+                    TableRow tableRowEmail = new TableRow()
+                    {
+                        RsidTableRowAddition = "004D2B75",
+                        RsidTableRowProperties = "00EC01A4"
+                    };
+
+                    TableCell tableCellEmail = new TableCell();
+
+                    TableCellProperties tableCellPropertiesEmail = new TableCellProperties();
+                    TableCellWidth tableCellWidthEmail = new TableCellWidth()
+                    {
+                        Width = "4788",
+                        Type = TableWidthUnitValues.Dxa
+                    };
+
+                    TableCellBorders tableCellBordersEmail = new TableCellBorders();
+                    TopBorder topBorderEmail = new TopBorder() { Val = BorderValues.Nil };
+                    LeftBorder leftBorderEmail = new LeftBorder() { Val = BorderValues.Nil };
+                    BottomBorder bottomBorderEmail = new BottomBorder() { Val = BorderValues.Nil };
+                    RightBorder rightBorderEmail = new RightBorder() { Val = BorderValues.Nil };
+
+                    tableCellBordersEmail.AppendChild(topBorderEmail);
+                    tableCellBordersEmail.AppendChild(leftBorderEmail);
+                    tableCellBordersEmail.AppendChild(bottomBorderEmail);
+                    tableCellBordersEmail.AppendChild(rightBorderEmail);
+
+                    tableCellPropertiesEmail.AppendChild(tableCellWidthEmail);
+                    tableCellPropertiesEmail.AppendChild(tableCellBordersEmail);
+
+                    Paragraph paragraphEmail = new Paragraph()
+                    {
+                        RsidParagraphAddition = "004D2B75",
+                        RsidParagraphProperties = "00DF0ACA",
+                        RsidRunAdditionDefault = "004D2B75"
+                    };
+
                     ParagraphProperties paragraphPropertiesEmail = new ParagraphProperties();
                     SpacingBetweenLines spacingEmail = new SpacingBetweenLines() { Before = "0", After = "0" };
                     paragraphPropertiesEmail.AppendChild(spacingEmail);
@@ -1034,20 +1097,20 @@ namespace BussinessLogic
                     }
 
                     run28.AppendChild(text28);
-                    paragraph15.AppendChild(paragraphPropertiesEmail);
-                    paragraph15.AppendChild(run28);
+                    paragraphEmail.AppendChild(paragraphPropertiesEmail);
+                    paragraphEmail.AppendChild(run28);
 
-                    tableCell15.AppendChild(tableCellProperties15);
-                    tableCell15.AppendChild(paragraph15);
+                    tableCellEmail.AppendChild(tableCellPropertiesEmail);
+                    tableCellEmail.AppendChild(paragraphEmail);
 
-                    tableRow8.AppendChild(tableCell14);
-                    tableRow8.AppendChild(tableCell15);
+                    tableRowEmail.AppendChild(tableCellEmail);
 
                     tableDP.AppendChild(tableRow4);
                     tableDP.AppendChild(tableRow5);
                     tableDP.AppendChild(tableRow6);
                     tableDP.AppendChild(tableRow7);
                     tableDP.AppendChild(tableRow8);
+                    tableDP.AppendChild(tableRowEmail);
 
                 }
 
@@ -1252,7 +1315,7 @@ namespace BussinessLogic
                 RunProperties runProperties6 = new RunProperties();
 
                 Text text30 = new Text() {Space = SpaceProcessingModeValues.Preserve};
-                text30.Text = "Fecha y hora de inicio: " + report.BeginDate.ToString();
+                text30.Text = "Fecha y hora de inicio: " + report.BeginDate.Value.ToString();
 
                 run30.AppendChild(runProperties6);
                 run30.AppendChild(text30);
@@ -1281,7 +1344,7 @@ namespace BussinessLogic
                 RunProperties runProperties7 = new RunProperties();
 
                 Text text31 = new Text();
-                text31.Text = "Fecha y hora de fin: " + report.EndDate;
+                text31.Text = "Fecha y hora de fin: " + report.EndDate.Value.ToString();
 
                 run31.AppendChild(runProperties7);
                 run31.AppendChild(text31);
@@ -1364,7 +1427,6 @@ namespace BussinessLogic
 
                 tableDP.AppendChild(tableRow10);
                 body1.Append(tableDP);
-
 
                 /*
                  * ICLUIR RESUMEN DE MEDIDAS
@@ -7297,7 +7359,7 @@ namespace BussinessLogic
 
                 table.AddCell(cellVacia);
 
-                pdf.PdfPCell cellNightEnd = new pdf.PdfPCell(new text.Phrase("Hora inicio noche: " + report.Carnet.SleepTimeEnd.ToString(), new text.Font(f_cn, 10f)));
+                pdf.PdfPCell cellNightEnd = new pdf.PdfPCell(new text.Phrase("Hora fin noche: " + report.Carnet.SleepTimeEnd.ToString(), new text.Font(f_cn, 10f)));
                 cellNightEnd.Colspan = 3;
                 cellNightEnd.Border = 0;
                 table.AddCell(cellNightEnd);
