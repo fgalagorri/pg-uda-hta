@@ -136,14 +136,15 @@ namespace UDA_HTA.UserControls.ReportCreation
                    txtBirthDay.ValidateInt(1, 31) &
                    txtBirthMon.ValidateInt(1, 12) &
                    txtBirthYear.ValidateInt(1900, 2100) &
-                   cmbSex.ValidateSelected() &
+                   cmbSex.ValidateSelected() //&
                    //txtAddress.ValidateString() &
                    //txtNeighbour.ValidateString() &
                    //txtCity.ValidateString() &
                    //cmbDepartment.ValidateSelected() &
-                   (txtTel.ValidateString(false) ||
-                   txtCel.ValidateString(false)) /* &
-                   txtMail.ValidateString()*/;
+                   //(txtTel.ValidateString(false) ||
+                   //txtCel.ValidateString(false)) &
+                   //txtMail.ValidateString()
+                   ;
         }
 
 

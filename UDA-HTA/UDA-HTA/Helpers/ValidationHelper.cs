@@ -6,11 +6,15 @@ namespace UDA_HTA.Helpers
 {
     public static class ValidationHelper
     {
-        public static bool ValidateInt(this TextBox txt, int minVal, int maxVal)
+        // Optional = false/null -> el campo vacío es inválido
+        // Optional = true -> si no es vacío el campo valida solo valores
+        public static bool ValidateInt(this TextBox txt, int minVal, int maxVal, bool optional = false)
         {
             int intVal;
             bool canParse = int.TryParse(txt.Text, out intVal);
-
+            
+            if (optional && string.IsNullOrEmpty(txt.Text))
+                return true;
             if (!canParse || intVal > maxVal || intVal < minVal)
             {
                 txt.BorderBrush = Brushes.Red;
