@@ -7535,8 +7535,8 @@ namespace BussinessLogic
                 string cellPADInit3 = report.Carnet.InitDiastolic3.HasValue ? report.Carnet.InitDiastolic3.Value.ToString() : "-";
                 pdf.PdfPCell cellPAInit3 = new pdf.PdfPCell(
                     new text.Phrase(cellPASInit3 + "/" + cellPADInit3, new text.Font(f_cn, 10f)));
-                cellPAInit1.Border = 0;
-                cellPAInit1.HorizontalAlignment = 1;
+                cellPAInit3.Border = 0;
+                cellPAInit3.HorizontalAlignment = 1;
                 tableMeasureInClinic.AddCell(cellPAInit3);
 
                 pdf.PdfPCell cellTitFC = new pdf.PdfPCell(new text.Phrase("FC", new text.Font(f_cn, 10f)));
@@ -7600,8 +7600,8 @@ namespace BussinessLogic
                 string cellPADFinal3 = report.Carnet.FinalDiastolic3.HasValue ? report.Carnet.FinalDiastolic3.Value.ToString() : "-";
                 pdf.PdfPCell cellPAFinal3 = new pdf.PdfPCell(
                     new text.Phrase(cellPASFinal3 + "/" + cellPADFinal3, new text.Font(f_cn, 10f)));
-                cellPAFinal1.Border = 0;
-                cellPAFinal1.HorizontalAlignment = 1;
+                cellPAFinal3.Border = 0;
+                cellPAFinal3.HorizontalAlignment = 1;
                 tableMeasureInClinic.AddCell(cellPAFinal3);
 
                 tableMeasureInClinic.AddCell(cellTitFC);
@@ -7841,7 +7841,10 @@ namespace BussinessLogic
                 cellTitOverLimVal.Colspan = 4;
                 tableMeasureSumm.AddCell(cellTitOverLimVal);
 
-                tableMeasureSumm.AddCell(cellTitPA);
+                pdf.PdfPCell cellTitPAS = new pdf.PdfPCell(new text.Phrase("PA sistólica", new text.Font(f_cn, 10f)));
+                cellTitPAS.Border = 0;
+                cellTitPAS.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitPAS);
                 cellVacia.Colspan = 1;
                 tableMeasureSumm.AddCell(cellVacia); //Celda vacia
 
@@ -7875,7 +7878,13 @@ namespace BussinessLogic
                 cellNightOverLimPAS.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellNightOverLimPAS);
 
-                tableMeasureSumm.AddCell(cellVacia);
+
+                pdf.PdfPCell cellTitPAD = new pdf.PdfPCell(new text.Phrase("PA diastólica", new text.Font(f_cn, 10f)));
+                cellTitPAD.Border = 0;
+                cellTitPAD.HorizontalAlignment = 1;
+                tableMeasureSumm.AddCell(cellTitPAD);
+                cellVacia.Colspan = 1;
+                tableMeasureSumm.AddCell(cellVacia); //Celda vacia
 
                 //Porcentaje de valores por encima del limite diastolica
                 // val lim dia dias
@@ -7911,7 +7920,7 @@ namespace BussinessLogic
                 tableMeasureSumm.AddCell(cellTitMax);
 
                 tableMeasureSumm.AddCell(cellTitPA);
-                tableMeasureSumm.AddCell(cellVacia);
+                tableMeasureSumm.AddCell(cellVacia); //Celda vacia
 
                 //PA sistolica maxima del dia / diastolica maxima del dia
                 string cellDayMaxSis = report.SystolicDayMax.HasValue ? report.SystolicDayMax.ToString() : "-";
@@ -7931,7 +7940,6 @@ namespace BussinessLogic
                 cellNightMaxPA.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellNightMaxPA);
 
-                tableMeasureSumm.AddCell(cellVacia);
 
                 pdf.PdfPCell cellTitMin = new pdf.PdfPCell(new text.Phrase("Mínimos", new text.Font(f_cn, 11f, text.Font.BOLD)));
                 cellTitMin.Border = 0;
@@ -7968,9 +7976,6 @@ namespace BussinessLogic
                 cellTitDipping.Colspan = 4;
                 tableMeasureSumm.AddCell(cellTitDipping);
 
-                pdf.PdfPCell cellTitPAS = new pdf.PdfPCell(new text.Phrase("PA sistólica", new text.Font(f_cn, 10f)));
-                cellTitPAS.Border = 0;
-                cellTitPAS.HorizontalAlignment = 1;
                 tableMeasureSumm.AddCell(cellTitPAS);
 
                 //Dipping sistolica
