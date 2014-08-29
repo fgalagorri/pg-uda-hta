@@ -21,5 +21,10 @@
             Name = name;
             ActiveAndName = active + " " + name;
         }
+
+        public bool Equals(Drug d)
+        {
+            return Category == d.Category && Active == d.Active && Name == d.Name;
+        }
     }
 }

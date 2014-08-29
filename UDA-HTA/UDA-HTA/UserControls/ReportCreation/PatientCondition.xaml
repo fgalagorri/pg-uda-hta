@@ -98,18 +98,6 @@
             </GroupBox.Header>
             <StackPanel>
                 <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
-                        <TextBox Name="txtHourMedication" Style="{StaticResource TBlockSmall}" />
-                        <TextBlock Margin="2,0">:</TextBlock>
-                        <TextBox Name="txtMinMedication" Style="{StaticResource TBlockSmall}" />
-                    </StackPanel>
-
-                    <TextBlock Style="{StaticResource label}">Dosis (mg):</TextBlock>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
-                        <TextBox Name="txtDose" Style="{StaticResource TBlockSmall}" />
-                    </StackPanel>
-
                     <TextBlock Style="{StaticResource label}">Medicamento:</TextBlock>
                     <my:AutoCompleteBox Name="autoMedication" Margin="10,0,10,0" Width="110" VerticalAlignment="Center" 
                                         ItemsSource="{Binding}" ValueMemberPath="ActiveAndName" MinimumPopulateDelay="300"
@@ -127,6 +115,18 @@
                         </my:AutoCompleteBox.ItemTemplate>
                     </my:AutoCompleteBox>
                     
+                    <TextBlock Style="{StaticResource label}">Dosis (mg):</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
+                        <TextBox Name="txtDose" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+                    
+                    <TextBlock Style="{StaticResource label}">Hora:</TextBlock>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
+                        <TextBox Name="txtHourMedication" Style="{StaticResource TBlockSmall}" />
+                        <TextBlock Margin="2,0">:</TextBlock>
+                        <TextBox Name="txtMinMedication" Style="{StaticResource TBlockSmall}" />
+                    </StackPanel>
+
                     <Button Padding="5,0" VerticalAlignment="Center" 
                             Click="btnMedication_Click">+</Button>
                     <Button Padding="5,2" VerticalAlignment="Center" Margin="30,0,15,0" 
