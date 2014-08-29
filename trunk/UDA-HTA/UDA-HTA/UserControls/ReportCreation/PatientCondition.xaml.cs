@@ -155,18 +155,26 @@ namespace UDA_HTA.UserControls.ReportCreation
                 && drug != null
                 && txtDose != null)
             {
-                grMedication.DataContext = null;
-                var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
-                Medication m = new Medication(date, drug);
-                m.Dose = txtDose.Text;
-                _lstMedication.Add(m);
+                if (MedicationsContain(drug, txtDose.Text, hour, min))
+                {
+                    MessageBox.Show("Ya existe un registro para esta droga con la misma hora y la misma dosis.", 
+                                "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    grMedication.DataContext = null;
+                    var date = DateTime.MinValue.AddHours(hour).AddMinutes(min);
+                    Medication m = new Medication(date, drug);
+                    m.Dose = txtDose.Text;
+                    _lstMedication.Add(m);
 
-                // Clears the textboxes after insertion
-                txtHourMedication.Clear();
-                txtMinMedication.Clear();
-                txtDose.Clear();
-                autoMedication.Text = String.Empty;
-                txtHourMedication.Focus();
+                    // Clears the textboxes after insertion
+                    txtHourMedication.Clear();
+                    txtMinMedication.Clear();
+                    //txtDose.Clear();
+                    //autoMedication.Text = String.Empty;
+                    autoMedication.Focus();
+                }
             }
             else if (!(int.TryParse(txtHourMedication.Text, out hour)
                 && int.TryParse(txtMinMedication.Text, out min)
@@ -182,6 +190,14 @@ namespace UDA_HTA.UserControls.ReportCreation
             }
 
             grMedication.DataContext = _lstMedication;
+        }
+
+        private bool MedicationsContain(Drug medication, string dose, int hour, int minutes)
+        {
+            return _lstMedication.Any(m => m.Drug.Equals(medication) && 
+                                            m.Dose == dose && 
+                                            m.Time.Hour == hour 
+                                            && m.Time.Minute == minutes);
         }
 
         private void btnRmvMedication_Click(object sender, RoutedEventArgs e)

@@ -11,7 +11,7 @@
         </Grid.RowDefinitions>
         
         <TextBox Grid.Row="0" Name="txtDiagnosis" VerticalAlignment="Stretch" Margin="10"  AcceptsTab="True"
-                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" />
+                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" FontSize="13" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
                     Margin="0,10,30,5" VerticalAlignment="Bottom" Grid.Row="1">
