@@ -114,8 +114,11 @@
                             </DataTemplate>
                         </my:AutoCompleteBox.ItemTemplate>
                     </my:AutoCompleteBox>
-                    
-                    <TextBlock Style="{StaticResource label}">Dosis (mg):</TextBlock>
+
+                    <Button Padding="5,0" VerticalAlignment="Center" 
+                            Click="btnMedication_Click">+</Button>
+
+                    <TextBlock Margin="10,0" Style="{StaticResource label}">Dosis (mg):</TextBlock>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,20,0">
                         <TextBox Name="txtDose" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
@@ -127,9 +130,7 @@
                         <TextBox Name="txtMinMedication" Style="{StaticResource TBlockSmall}" />
                     </StackPanel>
 
-                    <Button Padding="5,0" VerticalAlignment="Center" 
-                            Click="btnMedication_Click">+</Button>
-                    <Button Padding="5,2" VerticalAlignment="Center" Margin="30,0,15,0" 
+                    <Button Padding="5,2" VerticalAlignment="Center" Margin="10,0,15,0" 
                             Click="btnAddMedication_Click">Agregar</Button>
                     <Button Name="btnRmvMedication" Padding="5,2" VerticalAlignment="Center" 
                             IsEnabled="False" Click="btnRmvMedication_Click">Borrar</Button>
