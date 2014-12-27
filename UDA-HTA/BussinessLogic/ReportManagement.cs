@@ -7391,27 +7391,27 @@ namespace BussinessLogic
                 foreach (Medication m in sortedMedicationList)
                 {
                     //Si es el mismo activo entonces no vuelvo a poner el nombre del activo, y agrego una celda vacia
-                    if (m.Drug.Active.Equals(prevActive.Drug.Active))
+                    if (m.Drug.Active == prevActive.Drug.Active)
                     {
                         tableTreatment.AddCell(noActiveCell);
                     }
                     else
                     {
                         //Nombre del activo
-                        pdf.PdfPCell cellActiveName = new pdf.PdfPCell(new text.Phrase(m.Drug.Active));
+                        pdf.PdfPCell cellActiveName = new pdf.PdfPCell(new text.Phrase(m.Drug.Active, new text.Font(f_cn, 10f)));
                         cellActiveName.Border = 0;
                         cellActiveName.HorizontalAlignment = 0;
                         tableTreatment.AddCell(cellActiveName);
                     }
 
                     //Dosis
-                    pdf.PdfPCell cellDose = new pdf.PdfPCell(new text.Phrase(m.Dose));
+                    pdf.PdfPCell cellDose = new pdf.PdfPCell(new text.Phrase(m.Dose, new text.Font(f_cn, 10f)));
                     cellDose.Border = 0;
                     cellDose.HorizontalAlignment = 0;
                     tableTreatment.AddCell(cellDose);
 
                     //Hora en la que toma la dosis
-                    pdf.PdfPCell cellDoseTime = new pdf.PdfPCell(new text.Phrase(m.Time.ToString(ConfigurationManager.AppSettings["ShortTimeString"])));
+                    pdf.PdfPCell cellDoseTime = new pdf.PdfPCell(new text.Phrase(m.Time.ToString(ConfigurationManager.AppSettings["ShortTimeString"]), new text.Font(f_cn, 10f)));
                     cellDoseTime.Border = 0;
                     cellDoseTime.HorizontalAlignment = 0;
                     tableTreatment.AddCell(cellDoseTime);
